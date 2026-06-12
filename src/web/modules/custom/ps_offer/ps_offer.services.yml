@@ -9,11 +9,28 @@ services:
   ps_offer.path_token_provider:
     class: Drupal\ps_offer\Service\OfferPathTokenProvider
     arguments:
-      - '@entity_type.manager'
       - '@address.country_repository'
-      - '@address.subdivision_repository'
       - '@transliteration'
       - '@language_manager'
+      - '@ps_search.search_path_resolver'
+      - '@ps_search.seo_locality_path_builder'
+      - '@ps_offer.location_token_resolver'
+
+  ps_offer.location_token_resolver:
+    class: Drupal\ps_offer\Service\OfferLocationTokenResolver
+
+  ps_offer.search_url_builder:
+    class: Drupal\ps_offer\Service\OfferSearchUrlBuilder
+    arguments:
+      - '@language_manager'
+      - '@ps_offer.location_token_resolver'
+
+  ps_offer.breadcrumb:
+    class: Drupal\ps_offer\Breadcrumb\OfferBreadcrumbBuilder
+    arguments:
+      - '@ps_offer.search_url_builder'
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
 
   Drupal\ps_offer\Service\OfferReferenceManager:
     class: Drupal\ps_offer\Service\OfferReferenceManager

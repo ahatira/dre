@@ -30,7 +30,11 @@ function ps_offer_token_info(): array {
         ],
         'ps-offer-city' => [
           'name' => t('Offer city path segment'),
-          'description' => t('Returns a city segment resolved from field_address locality.'),
+          'description' => t('Returns a BNPPRE-style city segment resolved from field_address (for example, paris-12-75012).'),
+        ],
+        'ps-offer-seo-prefix' => [
+          'name' => t('Offer SEO prefix path'),
+          'description' => t('Returns operation/asset/locality segments aligned with property search SEO URLs.'),
         ],
       ],
     ],
@@ -56,9 +60,13 @@ function ps_offer_tokens(string $type, array $tokens, array $data, array $option
   $bubbleable_metadata->addCacheContexts([
     'languages:language_interface',
     'languages:language_content',
+    'languages:language_url',
   ]);
+  $bubbleable_metadata->addCacheTags(['config:ps_search.seo_url_mappings']);
 
-  $langcode = isset($options['langcode']) && is_string($options['langcode']) ? $options['langcode'] : NULL;
+  $langcode = isset($options['langcode']) && is_string($options['langcode'])
+    ? $options['langcode']
+    : $node->language()->getId();
   /** @var \Drupal\ps_offer\Service\OfferPathTokenProvider $provider */
   $provider = \Drupal::service('ps_offer.path_token_provider');
 
@@ -68,7 +76,8 @@ function ps_offer_tokens(string $type, array $tokens, array $data, array $option
       'ps-offer-asset' => $provider->getAssetSegment($node, $langcode),
       'ps-offer-country' => $provider->getCountrySegment($node, $langcode),
       'ps-offer-department' => $provider->getDepartmentSegment($node, $langcode),
-      'ps-offer-city' => $provider->getCitySegment($node),
+      'ps-offer-city' => $provider->getCitySegment($node, $langcode),
+      'ps-offer-seo-prefix' => $provider->getSeoPrefixPath($node, $langcode),
       default => NULL,
     };
 

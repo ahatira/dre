@@ -27,6 +27,16 @@ final class SearchSeoCanonicalUrlBuilder {
   ) {}
 
   /**
+   * Builds a root-relative SEO search path from canonical filter query params.
+   *
+   * @param array<string, string> $query
+   *   Keys: operation_type, asset_type, locality and/or locations.
+   */
+  public function buildCanonicalPathForFilters(string $langcode, array $query): ?string {
+    return $this->buildCanonicalPathFromQuery($langcode, $query);
+  }
+
+  /**
    * Returns an absolute canonical URL for the current search request.
    */
   public function buildAbsoluteUrl(?Request $request = NULL): ?string {

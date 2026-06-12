@@ -5,23 +5,26 @@ declare(strict_types=1);
 namespace Drupal\ps_offer\Service;
 
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Drupal\Component\Transliteration\TransliterationInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_search\Service\SearchPathResolver;
+use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 
 /**
  * Builds path segments used by ps_offer custom tokens.
+ *
+ * Operation, asset and locality segments align with ps_search SEO URL mappings.
  */
 final class OfferPathTokenProvider {
 
   public function __construct(
-    private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly CountryRepositoryInterface $countryRepository,
-    private readonly SubdivisionRepositoryInterface $subdivisionRepository,
     private readonly TransliterationInterface $transliteration,
     private readonly LanguageManagerInterface $languageManager,
+    private readonly SearchPathResolver $searchPathResolver,
+    private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
+    private readonly OfferLocationTokenResolver $locationTokenResolver,
   ) {}
 
   public function getOperationSegment(NodeInterface $node, ?string $langcode = NULL): string {
@@ -30,8 +33,9 @@ final class OfferPathTokenProvider {
       return 'n-a';
     }
 
-    $label = $this->resolveDictionaryLabel('operation_type', $code, $langcode);
-    return $this->slugify($label ?: $code);
+    $langcode = $this->resolveLangcode($langcode);
+    $slug = $this->searchPathResolver->getSeoSlugMappings($langcode)['val_to_op'][$code] ?? NULL;
+    return $slug ?? 'n-a';
   }
 
   public function getAssetSegment(NodeInterface $node, ?string $langcode = NULL): string {
@@ -40,8 +44,41 @@ final class OfferPathTokenProvider {
       return 'n-a';
     }
 
-    $label = $this->resolveDictionaryLabel('asset_type', $code, $langcode);
-    return $this->slugify($label ?: $code);
+    $langcode = $this->resolveLangcode($langcode);
+    $slug = $this->searchPathResolver->getSeoSlugMappings($langcode)['val_to_asset'][$code] ?? NULL;
+    return $slug ?? 'n-a';
+  }
+
+  /**
+   * Returns the SEO prefix path shared with search listing URLs.
+   *
+   * Example: a-louer/bureaux/paris-75/paris-12-75012
+   */
+  public function getSeoPrefixPath(NodeInterface $node, ?string $langcode = NULL): string {
+    $parts = [];
+
+    $operation = $this->getOperationSegment($node, $langcode);
+    if ($operation !== 'n-a') {
+      $parts[] = $operation;
+    }
+
+    $asset = $this->getAssetSegment($node, $langcode);
+    if ($asset !== 'n-a') {
+      $parts[] = $asset;
+    }
+
+    $localityToken = $this->locationTokenResolver->resolveFromOffer($node);
+    if ($localityToken !== NULL) {
+      $segments = $this->seoLocalityPathBuilder->tokenToPathSegments($localityToken);
+      if (isset($segments['dept'])) {
+        $parts[] = $segments['dept'];
+      }
+      if (isset($segments['city'])) {
+        $parts[] = $segments['city'];
+      }
+    }
+
+    return $parts !== [] ? implode('/', $parts) : 'n-a';
   }
 
   public function getCountrySegment(NodeInterface $node, ?string $langcode = NULL): string {
@@ -57,41 +94,23 @@ final class OfferPathTokenProvider {
   }
 
   public function getDepartmentSegment(NodeInterface $node, ?string $langcode = NULL): string {
-    $address = $this->getAddressData($node);
-    $country_code = (string) ($address['country_code'] ?? '');
-    $administrative_area = (string) ($address['administrative_area'] ?? '');
-    $postal_code = (string) ($address['postal_code'] ?? '');
-
-    if ($administrative_area === '' && $country_code === 'FR' && $postal_code !== '') {
-      $administrative_area = substr($postal_code, 0, 2);
+    $localityToken = $this->locationTokenResolver->resolveFromOffer($node);
+    if ($localityToken === NULL) {
+      return 'n-a';
     }
 
-    if ($administrative_area === '') {
-      return $country_code !== '' ? $this->slugify($country_code) : 'n-a';
-    }
-
-    $subdivision_name = $this->resolveSubdivisionName($country_code, $administrative_area);
-    if ($country_code === 'FR') {
-      $department_code = $this->normalizeDepartmentCode($administrative_area);
-      if ($subdivision_name !== '') {
-        return $this->slugify($subdivision_name . '-' . $department_code);
-      }
-      return $this->slugify($department_code);
-    }
-
-    return $this->slugify($subdivision_name !== '' ? $subdivision_name : $administrative_area);
+    $segments = $this->seoLocalityPathBuilder->tokenToPathSegments($localityToken);
+    return $segments['dept'] ?? 'n-a';
   }
 
-  public function getCitySegment(NodeInterface $node): string {
-    $address = $this->getAddressData($node);
-    $city = (string) ($address['locality'] ?? '');
-    if ($city === '') {
-      $city = (string) ($address['dependent_locality'] ?? '');
+  public function getCitySegment(NodeInterface $node, ?string $langcode = NULL): string {
+    $localityToken = $this->locationTokenResolver->resolveFromOffer($node);
+    if ($localityToken === NULL) {
+      return 'n-a';
     }
-    if ($city === '') {
-      $city = (string) ($address['postal_code'] ?? '');
-    }
-    return $this->slugify($city !== '' ? $city : 'n-a');
+
+    $segments = $this->seoLocalityPathBuilder->tokenToPathSegments($localityToken);
+    return $segments['city'] ?? 'n-a';
   }
 
   private function getAddressData(NodeInterface $node): array {
@@ -114,60 +133,12 @@ final class OfferPathTokenProvider {
     return trim((string) ($item->getValue()['value'] ?? $item->value ?? ''));
   }
 
-  private function resolveDictionaryLabel(string $type, string $code, ?string $langcode = NULL): ?string {
-    $storage = $this->entityTypeManager->getStorage('ps_dictionary_entry');
-    $entities = $storage->loadByProperties([
-      'type' => $type,
-      'code' => $code,
-    ]);
-    if ($entities === []) {
-      return NULL;
+  private function resolveLangcode(?string $langcode): string {
+    if ($langcode !== NULL && $langcode !== '') {
+      return $langcode;
     }
 
-    $entity = reset($entities);
-    if ($entity === FALSE) {
-      return NULL;
-    }
-
-    if ($langcode && method_exists($this->languageManager, 'getLanguageConfigOverride')) {
-      $override = $this->languageManager->getLanguageConfigOverride($langcode, $entity->getConfigDependencyName());
-      $label_override = trim((string) $override->get('label'));
-      if ($label_override !== '') {
-        return $label_override;
-      }
-    }
-
-    return $entity->label();
-  }
-
-  private function resolveSubdivisionName(string $country_code, string $administrative_area): string {
-    if ($country_code === '' || $administrative_area === '') {
-      return '';
-    }
-
-    $candidates = [$administrative_area];
-    if (!str_contains($administrative_area, '-')) {
-      $candidates[] = $country_code . '-' . $administrative_area;
-    }
-
-    foreach ($candidates as $candidate) {
-      $subdivision = $this->subdivisionRepository->get($candidate, [$country_code]);
-      if (!$subdivision) {
-        continue;
-      }
-
-      $name = $subdivision->getName() ?: $subdivision->getLocalName();
-      if ($name !== '') {
-        return $name;
-      }
-    }
-
-    return '';
-  }
-
-  private function normalizeDepartmentCode(string $administrative_area): string {
-    $parts = explode('-', mb_strtoupper($administrative_area));
-    return end($parts) ?: mb_strtoupper($administrative_area);
+    return $this->languageManager->getDefaultLanguage()->getId();
   }
 
   private function slugify(string $value): string {

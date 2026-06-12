@@ -8,6 +8,13 @@
 declare(strict_types=1);
 
 /**
+ * Implements hook_install().
+ */
+function ps_offer_install(): void {
+  ps_offer_register_pathauto_safe_tokens();
+}
+
+/**
  * Renames offer view mode "card" to "search" for search results listing.
  */
 function ps_offer_update_9001(): void {
@@ -46,4 +53,52 @@ function ps_offer_update_9001(): void {
 
   $view->setData($data);
   $view->save();
+}
+
+/**
+ * Aligns offer Pathauto pattern with search SEO URL segments.
+ */
+function ps_offer_update_9002(): void {
+  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
+  $installer = \Drupal::service('config.installer');
+  $installer->installDefaultConfig('module', 'ps_offer');
+}
+
+/**
+ * Fixes offer Pathauto pattern: pathauto strips slashes inside tokens.
+ */
+function ps_offer_update_9003(): void {
+  $config = \Drupal::configFactory()->getEditable('pathauto.pattern.offer');
+  if ($config->isNew()) {
+    return;
+  }
+
+  $config->set('pattern', '/[node:ps-offer-operation]/[node:ps-offer-asset]/[node:ps-offer-department]/[node:ps-offer-city]/[node:title]-[node:field_reference].html');
+  $config->save();
+}
+
+/**
+ * Registers offer SEO tokens as Pathauto safe tokens (preserve a-louer, etc.).
+ */
+function ps_offer_update_9004(): void {
+  ps_offer_register_pathauto_safe_tokens();
+}
+
+/**
+ * Adds ps_offer SEO path tokens to Pathauto safe token list.
+ */
+function ps_offer_register_pathauto_safe_tokens(): void {
+  $config = \Drupal::configFactory()->getEditable('pathauto.settings');
+  $safe_tokens = $config->get('safe_tokens') ?? [];
+  $offer_tokens = [
+    'ps-offer-operation',
+    'ps-offer-asset',
+    'ps-offer-country',
+    'ps-offer-department',
+    'ps-offer-city',
+    'ps-offer-seo-prefix',
+  ];
+
+  $config->set('safe_tokens', array_values(array_unique(array_merge($safe_tokens, $offer_tokens))));
+  $config->save();
 }

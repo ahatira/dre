@@ -60,9 +60,19 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
       return $path;
     }
 
+    // Offer detail URLs share the SEO prefix but end with .html — leave to path aliases.
+    if (str_ends_with(strtolower($path), '.html')) {
+      return $path;
+    }
+
     $params = ['operation_type' => $m['op_to_val'][$firstSegment]];
     $rest = $slashPos !== FALSE ? substr($stripped, $slashPos + 1) : '';
     $segments = ($rest !== '') ? array_values(array_filter(explode('/', $rest))) : [];
+
+    // Search SEO paths have at most operation + asset + dept + city segments.
+    if (count($segments) > 3) {
+      return $path;
+    }
 
     $assetFound = FALSE;
     $possibleDeptSegment = NULL;
