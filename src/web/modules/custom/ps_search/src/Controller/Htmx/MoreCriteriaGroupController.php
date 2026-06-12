@@ -40,12 +40,16 @@ final class MoreCriteriaGroupController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
+    $idPrefix = $request->query->get('id_prefix');
+    $idPrefix = is_string($idPrefix) && $idPrefix !== '' ? $idPrefix : 'ps-more';
+
     return [
       '#theme' => 'ps_search_more_criteria_items',
       '#items' => $items,
+      '#id_prefix' => $idPrefix,
       '#cache' => [
         'max-age' => 0,
-        'contexts' => ['url.query_args:asset_type'],
+        'contexts' => ['url.query_args:asset_type', 'url.query_args:id_prefix'],
       ],
     ];
   }

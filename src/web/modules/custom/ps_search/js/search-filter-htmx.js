@@ -276,7 +276,7 @@
   };
 
   /**
-   * Lazy-loads a More criteria group fragment via HTMX.
+   * Lazy-loads a More criteria group fragment (fetch + DOM insert).
    *
    * @param {string} groupId
    *   Group key (e.g. "equipements").
@@ -286,48 +286,38 @@
    *   URL-encoded query without leading "?".
    *
    * @return {Promise<void>}
-   *   Resolves after successful swap.
+   *   Resolves after items are inserted.
    */
   api.loadMoreCriteriaGroup = function (groupId, targetEl, queryString) {
-    if (!groupId || !targetEl || !api.isAvailable()) {
-      return Promise.reject(new Error('HTMX more criteria unavailable'));
+    if (!groupId || !targetEl) {
+      return Promise.reject(new Error('More criteria unavailable'));
     }
 
     const baseUrl = (api.settings.moreCriteriaGroupUrl || '/api/ps/htmx/more-criteria')
       + '/' + encodeURIComponent(groupId);
     const url = queryString ? baseUrl + '?' + queryString : baseUrl;
 
-    return new Promise(function (resolve, reject) {
-      const onSwap = function (event) {
-        if (event.detail.target !== targetEl) {
-          return;
-        }
-        const xhr = event.detail.xhr;
-        const responseUrl = xhr && xhr.responseURL ? xhr.responseURL : '';
-        if (responseUrl.indexOf('/api/ps/htmx/more-criteria/') === -1) {
-          return;
-        }
-        document.body.removeEventListener('htmx:afterSwap', onSwap);
-        document.body.removeEventListener('htmx:responseError', onError);
-        resolve();
-      };
-
-      const onError = function (event) {
-        if (event.detail.target !== targetEl) {
-          return;
-        }
-        document.body.removeEventListener('htmx:afterSwap', onSwap);
-        document.body.removeEventListener('htmx:responseError', onError);
-        reject(new Error('HTMX more criteria load failed'));
-      };
-
-      document.body.addEventListener('htmx:afterSwap', onSwap);
-      document.body.addEventListener('htmx:responseError', onError);
-
-      htmx.ajax('GET', url, {
-        target: targetEl,
-        swap: 'beforeend',
-      });
+    return fetch(url, {
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'text/html',
+      },
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('More criteria load failed: ' + response.status);
+      }
+      return response.text();
+    }).then(function (html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const items = doc.body.querySelector('.ps-more-items');
+      if (items) {
+        targetEl.insertAdjacentHTML('beforeend', items.outerHTML);
+        return;
+      }
+      const bodyHtml = doc.body.innerHTML.trim();
+      if (bodyHtml) {
+        targetEl.insertAdjacentHTML('beforeend', bodyHtml);
+      }
     });
   };
 

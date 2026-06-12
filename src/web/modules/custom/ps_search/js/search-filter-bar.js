@@ -451,8 +451,25 @@
         scheduleCountUpdate();
       }
 
-      function loadMoreCriteriaGroup(groupId, panel) {
-        if (!groupId || !panel || panel.dataset.loaded === '1' || loadedMoreGroups[groupId]) {
+      function getMoreGroupScopeKey(groupId, panel) {
+        const scope = panel.closest('#ps-mobile-filters') ? 'mobile' : 'desktop';
+        return scope + ':' + groupId;
+      }
+
+      function buildMoreCriteriaQueryString(options) {
+        const params = new URLSearchParams();
+        if (selectedAsset) {
+          params.set('asset_type', selectedAsset);
+        }
+        if (options && options.idPrefix) {
+          params.set('id_prefix', options.idPrefix);
+        }
+        return params.toString();
+      }
+
+      function loadMoreCriteriaGroup(groupId, panel, options) {
+        const scopeKey = getMoreGroupScopeKey(groupId, panel);
+        if (!groupId || !panel || panel.dataset.loaded === '1' || loadedMoreGroups[scopeKey] === true || loadedMoreGroups[scopeKey] === 'pending') {
           syncMoreInputsFromState();
           return Promise.resolve();
         }
@@ -466,29 +483,67 @@
         if (loading) {
           loading.hidden = false;
         }
-        let queryString = '';
-        if (selectedAsset) {
-          queryString = 'asset_type=' + encodeURIComponent(selectedAsset);
-        }
+        loadedMoreGroups[scopeKey] = 'pending';
+        const queryString = buildMoreCriteriaQueryString(options);
 
-        if (htmxApi.isAvailable() && typeof htmxApi.loadMoreCriteriaGroup === 'function') {
+        if (typeof htmxApi.loadMoreCriteriaGroup === 'function') {
           return htmxApi.loadMoreCriteriaGroup(groupId, content, queryString)
             .then(function () {
               if (loading) {
                 loading.hidden = true;
               }
               panel.dataset.loaded = '1';
-              loadedMoreGroups[groupId] = true;
+              loadedMoreGroups[scopeKey] = true;
               syncMoreInputsFromState();
             })
             .catch(function () {
               if (loading) {
                 loading.hidden = true;
               }
+              delete loadedMoreGroups[scopeKey];
             });
         }
 
+        delete loadedMoreGroups[scopeKey];
         return Promise.resolve();
+      }
+
+      let mobileMoreCriteriaObserver = null;
+
+      function setupMobileMoreCriteriaLazyLoad(offcanvasEl) {
+        const scrollRoot = offcanvasEl.querySelector('.offcanvas-body') || offcanvasEl;
+
+        if (mobileMoreCriteriaObserver) {
+          mobileMoreCriteriaObserver.disconnect();
+          mobileMoreCriteriaObserver = null;
+        }
+
+        const panels = offcanvasEl.querySelectorAll('.js-ps-more-group-panel[data-loaded="0"]');
+        if (!panels.length) {
+          return;
+        }
+
+        mobileMoreCriteriaObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) {
+              return;
+            }
+            const panel = entry.target;
+            mobileMoreCriteriaObserver.unobserve(panel);
+            loadMoreCriteriaGroup(panel.dataset.groupId, panel, { idPrefix: 'ps-more-m' });
+          });
+        }, { root: scrollRoot, rootMargin: '80px 0px' });
+
+        panels.forEach(function (panel) {
+          mobileMoreCriteriaObserver.observe(panel);
+        });
+      }
+
+      function teardownMobileMoreCriteriaLazyLoad() {
+        if (mobileMoreCriteriaObserver) {
+          mobileMoreCriteriaObserver.disconnect();
+          mobileMoreCriteriaObserver = null;
+        }
       }
 
       // ── Bootstrap dropdown / offcanvas integration ───────────────────────
@@ -652,16 +707,19 @@
             htmxApi.refreshCount('more', buildCountParams().toString());
           }
           if (offcanvasEl.id === 'ps-mobile-filters') {
-            offcanvasEl.querySelectorAll('.js-ps-more-group-panel[data-loaded="0"]').forEach(function (panel) {
-              loadMoreCriteriaGroup(panel.dataset.groupId, panel);
-            });
             htmxApi.refreshCount('mobile', buildCountParams().toString());
           }
         });
         offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
+          if (offcanvasEl.id === 'ps-mobile-filters') {
+            teardownMobileMoreCriteriaLazyLoad();
+          }
           syncFilterBarBackdrop();
         });
         offcanvasEl.addEventListener('shown.bs.offcanvas', function () {
+          if (offcanvasEl.id === 'ps-mobile-filters') {
+            setupMobileMoreCriteriaLazyLoad(offcanvasEl);
+          }
           document.querySelectorAll('.js-ps-surface-min').forEach(function (el) {
             el.value = surfaceMin;
           });
