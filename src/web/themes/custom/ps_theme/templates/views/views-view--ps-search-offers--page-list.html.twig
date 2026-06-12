@@ -147,15 +147,17 @@
         </button>
         <div class="js-ps-search-map-popup-content"></div>
       </div>
-      {% if compare_widget %}
-        {{ compare_widget }}
-      {% endif %}
       <button type="button" class="btn btn-sm position-absolute shadow-sm js-ps-show-list ps-search-map-layout-btn z-1 d-none d-lg-inline-flex align-items-center" hidden>
         {{ icon('bnp_custom', 'eye', {'size': '20px', 'class': 'ps-search-map-layout-btn__icon'}) }}
         <span>{{ 'Show list'|t }}</span>
       </button>
     </div>
   </div>
+
+  {# Compare widget — outside split overflow so the panel can overlay filter bar and header. #}
+  {% if compare_widget %}
+    {{ compare_widget }}
+  {% endif %}
 
   {% if compare_modal %}
     {{ compare_modal }}
