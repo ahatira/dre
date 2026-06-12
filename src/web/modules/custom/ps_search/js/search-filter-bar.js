@@ -496,17 +496,33 @@
         return window.bootstrap;
       }
 
-      function closeAllDropdowns() {
+      function closeAllDropdowns(excludeDropdownEl) {
         const bs = getBootstrap();
         if (!bs || !bs.Dropdown) {
           return;
         }
         document.querySelectorAll('.ps-filter-bar [data-bs-toggle="dropdown"], .ps-filter-bar .js-ps-location-toggle').forEach(function (toggle) {
+          if (excludeDropdownEl && excludeDropdownEl.contains(toggle)) {
+            return;
+          }
           const instance = bs.Dropdown.getInstance(toggle);
           if (instance) {
             instance.hide();
           }
         });
+      }
+
+      function closeOtherFilterPanels(excludeDropdownEl) {
+        closeAllDropdowns(excludeDropdownEl);
+        const bs = getBootstrap();
+        const offcanvasEl = document.getElementById('ps-more-offcanvas');
+        if (bs?.Offcanvas && offcanvasEl) {
+          bs.Offcanvas.getInstance(offcanvasEl)?.hide();
+        }
+        if (!excludeDropdownEl || !excludeDropdownEl.classList.contains('ps-filter-bar__item--location')) {
+          hideAllLocationSuggestions();
+        }
+        syncFilterBarBackdrop();
       }
 
       function getFilterBarBackdrop() {
@@ -1795,6 +1811,7 @@
               return;
             }
             e.preventDefault();
+            closeOtherFilterPanels(dropdownEl);
             input.focus();
             openLocationDropdown(dropdownEl);
           });
@@ -1806,12 +1823,14 @@
 
         input.addEventListener('click', function (e) {
           e.stopPropagation();
+          closeOtherFilterPanels(dropdownEl);
           openLocationDropdown(dropdownEl);
         });
 
         input.addEventListener('input', function () {
           updateClearInputButton();
           updateLocationActiveState();
+          closeOtherFilterPanels(dropdownEl);
           openLocationDropdown(dropdownEl);
           const token = input.value.trim();
           clearTimeout(locationSuggestDebounce);
@@ -1821,6 +1840,7 @@
         });
 
         input.addEventListener('focus', function () {
+          closeOtherFilterPanels(dropdownEl);
           openLocationDropdown(dropdownEl);
           fetchLocationSuggestions(input.value.trim());
         });
