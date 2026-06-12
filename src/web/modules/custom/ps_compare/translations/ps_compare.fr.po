@@ -98,6 +98,9 @@ msgstr "Divisible"
 msgid "Summary"
 msgstr "Synthèse"
 
+msgid "Photos"
+msgstr "Photos"
+
 msgid "No"
 msgstr "Non"
 

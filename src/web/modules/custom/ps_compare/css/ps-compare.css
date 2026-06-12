@@ -374,6 +374,11 @@
   margin: 0;
 }
 
+.ps-compare-panel-item__surface .ps-surface-kpi__suffix {
+  color: #777e83;
+  font-weight: 400;
+}
+
 .ps-compare-panel-item__price-amount {
   font-weight: 600;
 }

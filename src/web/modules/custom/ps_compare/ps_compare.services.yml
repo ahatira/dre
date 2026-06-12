@@ -113,16 +113,6 @@ services:
       - '@extension.path.resolver'
       - '@http_client'
 
-  ps_compare.mini_map_builder:
-    class: Drupal\ps_compare\Service\CompareMiniMapBuilder
-    arguments:
-      - '@ps_offer.map_location_builder'
-      - '@ps_offer.map_settings'
-      - '@ps_offer.google_maps_settings'
-      - '@ps_compare.email_image_encoder'
-      - '@http_client'
-      - '@state'
-
   ps_compare.page_builder:
     class: Drupal\ps_compare\Service\ComparePageBuilder
     arguments:
@@ -139,7 +129,6 @@ services:
       - '@ps_compare.display_settings'
       - '@ps_compare.table_enhancer'
       - '@ps_favorite.lazy_builder'
-      - '@ps_compare.mini_map_builder'
 
   Drupal\ps_compare\Controller\CompareController:
     class: Drupal\ps_compare\Controller\CompareController

@@ -71,6 +71,7 @@ slots:
 libraryOverrides:
   dependencies:
     - ps_theme/offer-search-card
+    - ps_offer/surface_kpi
   css:
     component:
       styles/offer-search-card.css: {}

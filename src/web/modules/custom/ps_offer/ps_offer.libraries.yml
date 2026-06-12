@@ -3,3 +3,9 @@ reference_widget:
   css:
     component:
       css/offer-reference-widget.css: {}
+
+surface_kpi:
+  version: 1.x
+  css:
+    component:
+      css/ps-surface-kpi.css: {}

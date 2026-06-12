@@ -88,20 +88,31 @@
       return column.getBoundingClientRect().width;
     };
 
+    let layoutFrameId = 0;
+    const scheduleScrollStateUpdate = () => {
+      if (layoutFrameId) {
+        cancelAnimationFrame(layoutFrameId);
+      }
+      layoutFrameId = requestAnimationFrame(() => {
+        layoutFrameId = 0;
+        syncTableLayout();
+        const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+        const scrollLeft = scrollEl.scrollLeft;
+        const atStart = scrollLeft <= 1;
+        const atEnd = scrollLeft >= maxScroll - 1;
+        const scrollable = maxScroll > 1;
+
+        control.classList.toggle('is-scrollable', scrollable);
+        control.classList.toggle('is-scrolled-start', atStart);
+        control.classList.toggle('is-scrolled-end', atEnd);
+
+        prev.disabled = !scrollable || atStart;
+        next.disabled = !scrollable || atEnd;
+      });
+    };
+
     const updateScrollState = () => {
-      syncTableLayout();
-      const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
-      const scrollLeft = scrollEl.scrollLeft;
-      const atStart = scrollLeft <= 1;
-      const atEnd = scrollLeft >= maxScroll - 1;
-      const scrollable = maxScroll > 1;
-
-      control.classList.toggle('is-scrollable', scrollable);
-      control.classList.toggle('is-scrolled-start', atStart);
-      control.classList.toggle('is-scrolled-end', atEnd);
-
-      prev.disabled = !scrollable || atStart;
-      next.disabled = !scrollable || atEnd;
+      scheduleScrollStateUpdate();
     };
 
     const scrollByStep = (direction) => {

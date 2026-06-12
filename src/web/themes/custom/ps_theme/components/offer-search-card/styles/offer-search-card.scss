@@ -222,11 +222,19 @@
   }
 
   &__surface {
-    color: #333;
     font-size: 16px;
-    font-weight: 700;
     line-height: 24px;
     margin: 0;
+
+    .ps-surface-kpi__primary {
+      color: #333;
+      font-weight: 700;
+    }
+
+    .ps-surface-kpi__suffix {
+      color: #777e83;
+      font-weight: 400;
+    }
   }
 
   &__location {

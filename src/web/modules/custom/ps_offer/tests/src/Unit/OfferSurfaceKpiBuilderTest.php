@@ -24,7 +24,6 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
     $defaults = [
       'surface_divisible_template' => 'Divisible from @surface',
       'surface_capacity_unit' => 'seats',
-      'surface_kpi_separator' => ' · ',
     ];
     $merged = array_merge($defaults, $settings);
 
@@ -117,7 +116,7 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
     ]);
 
     $this->assertSame(
-      '1 890 m² · Divisible from 68 m²',
+      '1 890 m² (divisible from 68 m²)',
       $builder->buildKpiSummary($node),
     );
   }
@@ -149,6 +148,116 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
     ]);
 
     $this->assertSame('1 200 m²', $builder->buildKpiSummary($node));
+  }
+
+  public function testDivisibleUsesParentheses(): void {
+    $builder = $this->buildBuilder([
+      'surface_divisible_template' => 'Divisible dès @surface',
+    ]);
+    $node = $this->buildOfferNode([
+      'field_asset_type' => 'ACT',
+      'field_divisible' => TRUE,
+      'field_surfaces' => [
+        ['qualification' => 'TOTAL', 'value' => 2000.0, 'unit_code' => 'M2'],
+        ['qualification' => 'MINIM', 'value' => 300.0, 'unit_code' => 'M2'],
+      ],
+    ]);
+
+    $this->assertSame(
+      '2 000 m² (divisible dès 300 m²)',
+      $builder->buildKpiSummary($node),
+    );
+  }
+
+  public function testDivisibleUsesEtrefWhenMinimMissing(): void {
+    $builder = $this->buildBuilder([
+      'surface_divisible_template' => 'Divisible dès @surface',
+    ]);
+    $node = $this->buildOfferNode([
+      'field_asset_type' => 'BUR',
+      'field_divisible' => TRUE,
+      'field_surfaces' => [
+        ['qualification' => 'TOTAL', 'value' => 2000.0, 'unit_code' => 'M2'],
+        ['qualification' => 'ETREF', 'value' => 80.0, 'unit_code' => 'M2'],
+      ],
+    ]);
+
+    $this->assertSame(
+      '2 000 m² (divisible dès 80 m²)',
+      $builder->buildKpiSummary($node),
+    );
+  }
+
+  public function testDivisiblePrefersMinimOverEtref(): void {
+    $builder = $this->buildBuilder([
+      'surface_divisible_template' => 'Divisible dès @surface',
+    ]);
+    $node = $this->buildOfferNode([
+      'field_asset_type' => 'BUR',
+      'field_divisible' => TRUE,
+      'field_surfaces' => [
+        ['qualification' => 'TOTAL', 'value' => 2000.0, 'unit_code' => 'M2'],
+        ['qualification' => 'MINIM', 'value' => 80.0, 'unit_code' => 'M2'],
+        ['qualification' => 'ETREF', 'value' => 120.0, 'unit_code' => 'M2'],
+      ],
+    ]);
+
+    $this->assertSame(
+      '2 000 m² (divisible dès 80 m²)',
+      $builder->buildKpiSummary($node),
+    );
+  }
+
+  public function testNonDivisibleUsesDispoWhenTotalMissing(): void {
+    $builder = $this->buildBuilder();
+    $node = $this->buildOfferNode([
+      'field_asset_type' => 'BUR',
+      'field_divisible' => FALSE,
+      'field_surfaces' => [
+        ['qualification' => 'DISPO', 'value' => 800.0, 'unit_code' => 'M2'],
+      ],
+    ]);
+
+    $this->assertSame('800 m²', $builder->buildKpiSummary($node));
+  }
+
+  public function testCompareKpiSummaryMatchesKpiSummary(): void {
+    $builder = $this->buildBuilder([
+      'surface_divisible_template' => 'Divisible dès @surface',
+    ]);
+    $node = $this->buildOfferNode([
+      'field_asset_type' => 'BUR',
+      'field_divisible' => TRUE,
+      'field_surfaces' => [
+        ['qualification' => 'TOTAL', 'value' => 2000.0, 'unit_code' => 'M2'],
+        ['qualification' => 'MINIM', 'value' => 80.0, 'unit_code' => 'M2'],
+      ],
+    ]);
+
+    $this->assertSame(
+      $builder->buildKpiSummary($node),
+      $builder->buildCompareKpiSummary($node),
+    );
+  }
+
+  public function testBuildKpiPartsSplitsPrimaryAndSuffix(): void {
+    $builder = $this->buildBuilder();
+    $node = $this->buildOfferNode([
+      'field_asset_type' => 'BUR',
+      'field_divisible' => TRUE,
+      'field_surfaces' => [
+        ['qualification' => 'TOTAL', 'value' => 838.0, 'unit_code' => 'M2'],
+        ['qualification' => 'MINIM', 'value' => 38.0, 'unit_code' => 'M2'],
+      ],
+    ]);
+
+    $this->assertSame(
+      [
+        'primary' => '838 m²',
+        'suffix' => '(divisible from 38 m²)',
+      ],
+      $builder->buildKpiParts($node),
+    );
   }
 
 }

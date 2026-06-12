@@ -60,6 +60,8 @@ slots:
     title: Actions
     description: Footer actions (favorite button…)
 libraryOverrides:
+  dependencies:
+    - ps_offer/surface_kpi
   css:
     component:
       styles/offer-card.css: {}

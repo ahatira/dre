@@ -418,8 +418,25 @@
     justify-content: center;
   }
 
-  .ps-offer-budget-compare-wrap {
+  .ps-offer-budget-compare__from {
+    color: #333;
+  }
+
+  .ps-offer-budget-compare {
     color: var(--re-color-primary, #00915a);
+  }
+
+  .ps-offer-budget-compare__qualifiers {
+    color: #777e83;
+  }
+
+  .ps-surface-compare.fw-semibold .ps-surface-kpi__primary {
+    font-weight: 600;
+  }
+
+  .ps-surface-compare.fw-semibold .ps-surface-kpi__suffix {
+    color: #777e83;
+    font-weight: 400;
   }
 }
 

@@ -47,13 +47,15 @@ final class SurfaceCompareFormatter extends FormatterBase {
 
     // phpcs:disable DrupalPractice.Objects.GlobalClass
     if (\Drupal::hasService('ps_offer.surface_kpi_builder')) {
-      $text = \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiSummary($entity, $items);
-      if ($text === '') {
+      /** @var \Drupal\ps_offer\Service\OfferSurfaceKpiBuilder $builder */
+      $builder = \Drupal::service('ps_offer.surface_kpi_builder');
+      $parts = $builder->buildKpiParts($entity, $items);
+      if ($parts['primary'] === '') {
         return [];
       }
 
       return [
-        0 => $this->buildCompareSurfaceCell($text),
+        0 => $this->buildCompareSurfaceCell($builder->buildPartsRenderArray($parts, ['ps-surface-kpi', 'ps-surface-compare', 'fw-semibold'])),
       ];
     }
     // phpcs:enable DrupalPractice.Objects.GlobalClass
@@ -73,49 +75,91 @@ final class SurfaceCompareFormatter extends FormatterBase {
       }
     }
 
-    $total = $by_qual['TOTAL'] ?? NULL;
-    if ($total === NULL || $total->value === NULL) {
+    $markup = $this->buildFallbackSurfaceMarkup($by_qual, $entity, $asset_type);
+    if ($markup === []) {
       return [];
     }
 
-    $unit_label = strtolower((string) ($total->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
-    $text = $this->formatValue((float) $total->value) . ' ' . $unit_label;
-
-    $is_land = $asset_type === 'TER';
-    $divisible = $entity->hasField('field_divisible') && (bool) $entity->get('field_divisible')->value;
-
-    if (!$is_land && $divisible) {
-      foreach (['MINIM', 'DISPO'] as $qualification) {
-        $min = $by_qual[$qualification] ?? NULL;
-        if ($min !== NULL && $min->value !== NULL && (float) $min->value > 0 && (float) $min->value < (float) $total->value) {
-          $text .= ' · ' . $this->t(
-            'from @surface',
-            ['@surface' => $this->formatValue((float) $min->value) . ' ' . $unit_label],
-          );
-          break;
-        }
-      }
-    }
-
     return [
-      0 => $this->buildCompareSurfaceCell($text),
+      0 => $this->buildCompareSurfaceCell($markup),
     ];
   }
 
   /**
+   * @param array<string, \Drupal\Core\Field\FieldItemInterface> $by_qual
+   *
    * @return array<string, mixed>
    */
-  private function buildCompareSurfaceCell(string $text): array {
+  private function buildFallbackSurfaceMarkup(array $by_qual, NodeInterface $entity, string $asset_type): array {
+    $is_land = $asset_type === 'TER';
+    $divisible = $entity->hasField('field_divisible') && (bool) $entity->get('field_divisible')->value;
+
+    $primary = NULL;
+    if ($is_land) {
+      $primary = $by_qual['TOTAL'] ?? NULL;
+    }
+    elseif ($divisible) {
+      $primary = $by_qual['TOTAL'] ?? NULL;
+    }
+    else {
+      $primary = $by_qual['TOTAL'] ?? $by_qual['DISPO'] ?? NULL;
+    }
+
+    $parts = ['primary' => '', 'suffix' => NULL];
+    if ($primary === NULL || $primary->value === NULL || (float) $primary->value <= 0) {
+      return [];
+    }
+
+    $unit_label = strtolower((string) ($primary->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
+    $parts['primary'] = $this->formatValue((float) $primary->value) . ' ' . $unit_label;
+
+      if (!$is_land && $divisible) {
+        foreach (['MINIM', 'ETREF'] as $qualification) {
+          $min = $by_qual[$qualification] ?? NULL;
+          if ($min !== NULL && $min->value !== NULL && (float) $min->value > 0 && (float) $min->value < (float) $primary->value) {
+            $min_label = $this->formatValue((float) $min->value) . ' ' . $unit_label;
+            $suffix = str_replace(
+              '@surface',
+              $min_label,
+              (string) (\Drupal::config('ps_offer.settings')->get('surface_divisible_template') ?? 'Divisible from @surface'),
+            );
+            $first = mb_substr($suffix, 0, 1, 'UTF-8');
+            $rest = mb_substr($suffix, 1, NULL, 'UTF-8');
+            $parts['suffix'] = '(' . mb_strtolower($first, 'UTF-8') . $rest . ')';
+            break;
+          }
+        }
+      }
+
+    return [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-surface-kpi', 'ps-surface-compare', 'fw-semibold']],
+      '#attached' => ['library' => ['ps_offer/surface_kpi']],
+      'primary' => [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $parts['primary'],
+        '#attributes' => ['class' => ['ps-surface-kpi__primary']],
+      ],
+    ] + ($parts['suffix'] ? [
+      'suffix' => [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => ' ' . $parts['suffix'],
+        '#attributes' => ['class' => ['ps-surface-kpi__suffix']],
+      ],
+    ] : []);
+  }
+
+  /**
+   * @param array<string, mixed> $text
+   */
+  private function buildCompareSurfaceCell(array $text): array {
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['ps-surface-compare-wrap']],
       'icon' => Bootstrap::icon('floors', 'bnp_custom', ['size' => '16px']),
-      'text' => [
-        '#type' => 'html_tag',
-        '#tag' => 'span',
-        '#value' => $text,
-        '#attributes' => ['class' => ['ps-surface-compare', 'fw-semibold']],
-      ],
+      'text' => $text,
     ];
   }
 

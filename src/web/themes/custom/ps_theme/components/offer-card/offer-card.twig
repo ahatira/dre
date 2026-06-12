@@ -28,7 +28,14 @@
       <p class="ps-offer-card__location text-muted small mb-2">{{ location }}</p>
     {% endif %}
     <dl class="ps-offer-card__meta row g-2 small mb-0">
-      {% if surface %}
+      {% if surface_primary %}
+        <div class="col-auto">
+          <dt class="visually-hidden">{{ 'Surface'|t }}</dt>
+          <dd class="mb-0 ps-surface-kpi">
+            <span class="ps-surface-kpi__primary">{{ surface_primary }}</span>{% if surface_suffix %}<span class="ps-surface-kpi__suffix"> {{ surface_suffix }}</span>{% endif %}
+          </dd>
+        </div>
+      {% elseif surface %}
         <div class="col-auto">
           <dt class="visually-hidden">{{ 'Surface'|t }}</dt>
           <dd class="mb-0">{{ surface }}</dd>

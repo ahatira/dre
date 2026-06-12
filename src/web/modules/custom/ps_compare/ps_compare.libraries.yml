@@ -28,10 +28,11 @@ compare-panel:
     - ps_compare/compare-toggle
     - ps_compare/compare-page
     - ps_compare/compare-share-offcanvas
+    - ps_offer/surface_kpi
     - ui_suite_bnp/bootstrap
 
 compare-page:
-  version: 1.13
+  version: 1.15
   js:
     js/ps-compare-page.js: {}
     js/ps-compare-gallery.js: {}
@@ -46,10 +47,11 @@ compare-page:
     - ps_compare/compare-share-offcanvas
     - ps_favorite/favorites
     - ps_theme/framework
+    - ps_offer/surface_kpi
     - ui_suite_bnp/bootstrap
 
 compare-share-offcanvas:
-  version: 1.2
+  version: 1.6
   js:
     js/ps-compare-share-offcanvas.js: {}
   css:
@@ -57,6 +59,7 @@ compare-share-offcanvas:
       css/ps-compare-share-offcanvas.css: {}
   dependencies:
     - core/drupal
+    - core/jquery
     - core/once
     - core/drupal.ajax
     - core/drupal.dialog.off_canvas

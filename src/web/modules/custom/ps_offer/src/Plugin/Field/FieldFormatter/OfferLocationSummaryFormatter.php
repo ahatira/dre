@@ -78,11 +78,11 @@ final class OfferLocationSummaryFormatter extends AddressPlainFormatter implemen
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $entity = $items->getEntity();
-    $parts = [];
+    $location_parts = [];
 
-    $kpi = $this->surfaceKpiBuilder->buildKpiSummary($entity);
-    if ($kpi !== '') {
-      $parts[] = $kpi;
+    $kpi = $this->surfaceKpiBuilder->buildKpiRenderArray($entity);
+    if ($kpi !== []) {
+      $location_parts[] = $kpi;
     }
 
     foreach ($items as $item) {
@@ -90,20 +90,35 @@ final class OfferLocationSummaryFormatter extends AddressPlainFormatter implemen
       $locality = trim((string) ($item->locality ?? ''));
       $location = trim($postal . ' ' . $locality);
       if ($location !== '') {
-        $parts[] = $location;
+        $location_parts[] = [
+          '#type' => 'html_tag',
+          '#tag' => 'span',
+          '#value' => $location,
+        ];
       }
     }
 
-    if ($parts === []) {
+    if ($location_parts === []) {
       return [];
+    }
+
+    $children = [];
+    foreach ($location_parts as $index => $part) {
+      if ($index > 0) {
+        $children['sep_' . $index] = [
+          '#type' => 'html_tag',
+          '#tag' => 'span',
+          '#value' => ' • ',
+        ];
+      }
+      $children['part_' . $index] = $part;
     }
 
     return [
       0 => [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => implode(' • ', $parts),
+        '#type' => 'container',
         '#attributes' => ['class' => ['ps-offer-location-summary']],
+        'content' => $children,
       ],
     ];
   }

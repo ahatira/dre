@@ -166,14 +166,16 @@ assert_html_not_contains 'ps-compare-table__column-reference' "Column header omi
 assert_html_not_contains 'ps-compare-table__column-price' "Column header omits price (summary rows only)"
 assert_html_contains 'ps-compare-table__section-row' "Comparison table section headers present"
 assert_html_contains 'View property' "Column CTA uses View property label"
-assert_html_contains 'ps-compare-table__row--reference' "Summary reference row below column header"
+assert_html_contains 'ps-compare-table__row--photos' "Photos row as first table body row"
+assert_html_not_contains 'compare-section-photos' "Photos section header removed"
+assert_html_not_contains 'ps-compare-table__row--reference' "Reference row removed from comparison table"
 assert_page_has_one_of "Aménagement section present" 'Aménagement' 'Layout'
 assert_html_contains 'ps-compare-table__row--price' "Price row in Aménagement section"
 assert_html_contains 'ps-compare-table__row--surface' "Surface row in Aménagement section"
 assert_html_contains 'ps-surface-compare-wrap' "Surface cell includes floor plan icon wrapper"
 assert_page_has_one_of "Compare budget from prefix or amount" 'ps-offer-budget-compare__from' 'ps-offer-budget-compare'
-assert_html_contains 'ps-compare-table__row--location' "Summary location row at table bottom"
-assert_page_has_one_of "Location mini-map present" 'ps-compare-location-cell__map' 'ps-compare-location-cell'
+assert_html_not_contains 'ps-compare-table__row--location' "Location row removed from comparison table"
+assert_html_not_contains 'ps-compare-location-cell' "Location mini-map cell removed from comparison table"
 assert_html_not_contains 'ps-compare-page__summary' "Comparison summary banner removed"
 assert_html_contains 'data-ps-compare-share' "Share comparison button present"
 assert_html_not_contains 'data-ps-compare-share" disabled' "Share button not disabled"

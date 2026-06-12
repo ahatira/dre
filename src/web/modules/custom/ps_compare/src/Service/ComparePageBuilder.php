@@ -31,13 +31,11 @@ final class ComparePageBuilder {
   private const VIEW_MODE = 'compare';
 
   /**
-   * Static rows in the top summary block (directly under column headers).
+   * Rows always rendered in the comparison table even when all cells are empty.
    */
-  private const SUMMARY_ROW_IDS = [
-    'reference',
+  private const ALWAYS_VISIBLE_ROW_IDS = [
+    'price',
   ];
-
-  private const LOCATION_ROW_ID = 'location';
 
   /**
    * @var \Drupal\Core\Entity\EntityViewBuilderInterface|null
@@ -67,7 +65,6 @@ final class ComparePageBuilder {
     private readonly CompareDisplaySettings $displaySettings,
     private readonly CompareTableEnhancer $tableEnhancer,
     private readonly FavoriteLazyBuilder $favoriteLazyBuilder,
-    private readonly CompareMiniMapBuilder $miniMapBuilder,
   ) {}
 
   /**
@@ -107,16 +104,12 @@ final class ComparePageBuilder {
       ];
     }
 
-    $sections = [];
-    $summary = $this->buildSummarySection($offers);
-    if ($summary !== NULL) {
-      $sections[] = $summary;
+    $leadingRows = [];
+    $photosRow = $this->buildPhotosRow($offers);
+    if ($photosRow !== NULL) {
+      $leadingRows[] = $photosRow;
     }
-    $sections = array_merge($sections, $this->buildStaticSections($offers), $this->buildFeatureSections($offers));
-    $location = $this->buildLocationSection($offers);
-    if ($location !== NULL) {
-      $sections[] = $location;
-    }
+    $sections = array_merge($this->buildStaticSections($offers), $this->buildFeatureSections($offers));
     $sections = array_values(array_filter($sections, static fn (array $section): bool => ($section['rows'] ?? []) !== []));
 
     $enhanced = $this->tableEnhancer->enhance($sections);
@@ -128,6 +121,7 @@ final class ComparePageBuilder {
       '#context' => $context,
       '#columns' => $columns,
       '#sections' => $sections,
+      '#leading_rows' => $leadingRows,
       '#display' => $display,
       '#toolbar' => $this->buildToolbar($display),
       '#compare_url' => $shareUrl,
@@ -211,16 +205,13 @@ final class ComparePageBuilder {
         if (!isset($staticDefinitions[$rowId])) {
           continue;
         }
-        if (in_array($rowId, self::SUMMARY_ROW_IDS, TRUE) || $rowId === self::LOCATION_ROW_ID) {
-          continue;
-        }
         $definition = $staticDefinitions[$rowId];
         $cells = [];
         foreach ($offers as $offer) {
           assert($offer instanceof NodeInterface);
           $cells[] = $this->wrapCell($this->buildStaticRowCell($offer, $definition));
         }
-        if ($this->areAllCellsEmpty($cells)) {
+        if ($this->areAllCellsEmpty($cells) && !in_array($rowId, self::ALWAYS_VISIBLE_ROW_IDS, TRUE)) {
           continue;
         }
         $rows[] = [
@@ -243,78 +234,27 @@ final class ComparePageBuilder {
   }
 
   /**
-   * Summary rows directly under column headers (reference only).
+   * Gallery row — first row in the comparison table body (no section header).
    *
    * @param \Drupal\node\NodeInterface[] $offers
    *
    * @return array<string, mixed>|null
    */
-  private function buildSummarySection(array $offers): ?array {
-    return $this->buildRowsSection($offers, self::SUMMARY_ROW_IDS, 'summary', $this->t('Summary'), FALSE);
-  }
-
-  /**
-   * Location row with mini-map — always last in the comparison table.
-   *
-   * @param \Drupal\node\NodeInterface[] $offers
-   *
-   * @return array<string, mixed>|null
-   */
-  private function buildLocationSection(array $offers): ?array {
-    return $this->buildRowsSection($offers, [self::LOCATION_ROW_ID], 'location', $this->t('Location'), FALSE);
-  }
-
-  /**
-   * @param \Drupal\node\NodeInterface[] $offers
-   * @param list<string> $rowIds
-   *
-   * @return array<string, mixed>|null
-   */
-  private function buildRowsSection(
-    array $offers,
-    array $rowIds,
-    string $sectionId,
-    string|TranslatableMarkup $sectionLabel,
-    bool $showSectionTitle,
-  ): ?array {
-    $staticDefinitions = $this->getStaticRowDefinitions();
-    $rows = [];
-
-    foreach ($rowIds as $rowId) {
-      if (!isset($staticDefinitions[$rowId])) {
-        continue;
-      }
-
-      $definition = $staticDefinitions[$rowId];
-      $cells = [];
-      foreach ($offers as $offer) {
-        assert($offer instanceof NodeInterface);
-        $cell = $rowId === self::LOCATION_ROW_ID
-          ? $this->miniMapBuilder->buildLocationCell($offer, $this->renderContext)
-          : $this->buildStaticRowCell($offer, $definition);
-        $cells[] = $this->wrapCell($cell);
-      }
-
-      if ($this->areAllCellsEmpty($cells)) {
-        continue;
-      }
-
-      $rows[] = [
-        'id' => $rowId,
-        'label' => $definition['label'],
-        'cells' => $cells,
-      ];
+  private function buildPhotosRow(array $offers): ?array {
+    $cells = [];
+    foreach ($offers as $offer) {
+      assert($offer instanceof NodeInterface);
+      $cells[] = $this->wrapCell($this->buildGalleryCarouselCell($offer));
     }
 
-    if ($rows === []) {
+    if ($this->areAllCellsEmpty($cells)) {
       return NULL;
     }
 
     return [
-      'id' => $sectionId,
-      'label' => $sectionLabel,
-      'show_section_title' => $showSectionTitle,
-      'rows' => $rows,
+      'id' => 'photos',
+      'label' => $this->t('Photos'),
+      'cells' => $cells,
     ];
   }
 
@@ -519,17 +459,14 @@ final class ComparePageBuilder {
     }
 
     $showActions = !$this->sharedView && $this->renderContext !== CompareRenderContext::EMAIL;
-    $address = trim((string) ($summary['address'] ?? ''));
-    if ($address === '') {
-      $address = trim((string) ($summary['location'] ?? ''));
-    }
+    $address = trim((string) ($summary['location'] ?? ''));
 
     return [
       '#theme' => 'ps_compare_table_column_header',
       '#title' => $title,
       '#url' => $offer->toUrl()->toString(),
       '#address' => $address,
-      '#gallery' => $this->buildGalleryCarouselCell($offer),
+      '#gallery' => NULL,
       '#favorite' => $showActions ? $this->favoriteLazyBuilder->buildButtonRenderable($offer, 'search') : NULL,
       '#remove' => $showActions ? $this->lazyBuilder->buildButtonRenderable($offer, 'search') : NULL,
       '#show_actions' => $showActions,
@@ -680,17 +617,13 @@ final class ComparePageBuilder {
         'label' => $this->t('Reference'),
         'field' => 'field_reference',
       ],
-      'location' => [
-        'label' => $this->t('Location'),
-        'field' => 'field_address',
-      ],
       'surface' => [
         'label' => $this->t('Area'),
         'field' => 'field_surfaces',
       ],
       'price' => [
         'label' => $this->t('Price'),
-        'field' => 'field_budget_value',
+        'callback' => [$this, 'buildPriceCell'],
       ],
       'availability' => [
         'label' => $this->t('Availability'),
@@ -730,6 +663,44 @@ final class ComparePageBuilder {
     }
 
     return $this->renderField($offer, (string) ($definition['field'] ?? ''));
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  public function buildPriceCell(NodeInterface $offer): array {
+    if (!$offer->hasField('field_budget_value')) {
+      return $this->emptyCell();
+    }
+
+    $display = $this->getCompareDisplay();
+    $component = $display->getComponent('field_budget_value');
+    if ($component === NULL) {
+      return $this->emptyCell();
+    }
+
+    if (!$offer->get('field_budget_value')->isEmpty()) {
+      $build = $this->getNodeViewBuilder()->viewField($offer->get('field_budget_value'), $component);
+      if (!$this->isRenderableEmpty($build)) {
+        return $build;
+      }
+    }
+
+    $onRequest = (string) ($this->configFactory->get('ps_offer.settings')->get('on_request') ?? '');
+    if ($onRequest === '') {
+      return $this->emptyCell();
+    }
+
+    return [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-offer-budget-compare-wrap']],
+      'amount' => [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $onRequest,
+        '#attributes' => ['class' => ['ps-offer-budget-compare', 'fw-semibold']],
+      ],
+    ];
   }
 
   /**

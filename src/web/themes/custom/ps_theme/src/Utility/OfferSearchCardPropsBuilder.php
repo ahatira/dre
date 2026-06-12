@@ -33,6 +33,7 @@ final class OfferSearchCardPropsBuilder {
     $primaryImage = $images[0] ?? $this->placeholderImageUrl();
     $budget = $this->buildBudgetParts($node);
     $qualifiers = $budget['qualifiers'];
+    $surfaceParts = $this->formatSurfaceParts($node);
 
     return [
       'title' => $this->formatListTitle($node, $operationCode),
@@ -42,6 +43,8 @@ final class OfferSearchCardPropsBuilder {
       'image_alt' => $this->formatListTitle($node, $operationCode),
       'location' => $this->formatListLocation($node),
       'surface' => $this->formatSurface($node),
+      'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
+      'surface_suffix' => $surfaceParts['suffix'],
       'price_amount' => $budget['amount'],
       'price_qualifiers' => $qualifiers !== '' ? Markup::create($this->formatQualifiersMarkup($qualifiers)) : '',
       'operation' => $operationCode === 'VEN' ? 'sale' : 'rent',

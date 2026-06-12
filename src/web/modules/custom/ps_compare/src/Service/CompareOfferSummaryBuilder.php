@@ -43,6 +43,7 @@ final class CompareOfferSummaryBuilder {
 
     $node = $this->entityRepository->getTranslationFromContext($node);
     $budget = $this->buildBudgetParts($node);
+    $surfaceParts = $this->surfaceKpiBuilder->buildKpiParts($node);
 
     return [
       'entity_type_id' => $node->getEntityTypeId(),
@@ -50,7 +51,9 @@ final class CompareOfferSummaryBuilder {
       'title' => $this->formatListTitle($node),
       'location' => $this->formatLocation($node),
       'address' => $this->formatFullAddress($node),
-      'surface' => $this->formatSurface($node),
+      'surface' => $this->formatSurfaceFromParts($surfaceParts),
+      'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
+      'surface_suffix' => $surfaceParts['suffix'],
       'price_amount' => $budget['amount'],
       'price_qualifiers' => $budget['qualifiers'],
       'thumbnail' => $this->resolvePrimaryImageUrl($node) ?? $this->placeholderImageUrl(),
@@ -165,9 +168,23 @@ final class CompareOfferSummaryBuilder {
     return $node->label() ?? '';
   }
 
+  /**
+   * @param array{primary: string, suffix: string|null} $parts
+   */
+  private function formatSurfaceFromParts(array $parts): ?string {
+    if ($parts['primary'] === '') {
+      return NULL;
+    }
+
+    if ($parts['suffix'] !== NULL && $parts['suffix'] !== '') {
+      return $parts['primary'] . ' ' . $parts['suffix'];
+    }
+
+    return $parts['primary'];
+  }
+
   private function formatSurface(NodeInterface $node): ?string {
-    $text = $this->surfaceKpiBuilder->buildKpiSummary($node);
-    return $text !== '' ? $text : NULL;
+    return $this->formatSurfaceFromParts($this->surfaceKpiBuilder->buildKpiParts($node));
   }
 
   /**

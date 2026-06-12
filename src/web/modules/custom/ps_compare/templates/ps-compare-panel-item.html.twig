@@ -12,7 +12,11 @@
     <p class="ps-compare-panel-item__title">
       <a href="{{ url }}">{{ title }}</a>
     </p>
-    {% if surface %}
+    {% if surface_primary %}
+      <p class="ps-compare-panel-item__surface">
+        <span class="ps-surface-kpi__primary">{{ surface_primary }}</span>{% if surface_suffix %}<span class="ps-surface-kpi__suffix"> {{ surface_suffix }}</span>{% endif %}
+      </p>
+    {% elseif surface %}
       <p class="ps-compare-panel-item__surface">{{ surface }}</p>
     {% endif %}
     {% if price_amount %}

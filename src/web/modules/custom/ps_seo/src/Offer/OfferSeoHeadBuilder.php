@@ -257,6 +257,11 @@ final class OfferSeoHeadBuilder {
       return '';
     }
 
+    $parenPos = mb_strpos($kpi, ' (', 0, 'UTF-8');
+    if ($parenPos !== FALSE) {
+      return trim(mb_substr($kpi, 0, $parenPos, 'UTF-8'));
+    }
+
     $separator = (string) ($this->configFactory->get('ps_offer.settings')->get('surface_kpi_separator') ?? ' · ');
     $parts = explode($separator, $kpi);
     return trim($parts[0]);

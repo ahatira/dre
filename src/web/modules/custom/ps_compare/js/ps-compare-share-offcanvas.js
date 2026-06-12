@@ -1,14 +1,16 @@
 /**
  * @file
- * Opens the compare share webform in a Bootstrap offcanvas panel.
+ * Opens the compare share webform in a Drupal off-canvas dialog.
  */
-(function (Drupal, once, drupalSettings) {
+(function (Drupal, once, drupalSettings, $) {
   'use strict';
 
   const COMPARE_MODAL_Z = 1055;
   const COMPARE_BACKDROP_Z = 1050;
-  const SHARE_OFFCANVAS_Z = 1085;
-  const SHARE_BACKDROP_Z = 1080;
+  const SHARE_OFFCANVAS_Z = 1090;
+
+  /** @type {object|null} */
+  let compareModalWithPausedFocus = null;
 
   const pageSettings = () => drupalSettings.psComparePage || {};
   const panelSettings = () => drupalSettings.psCompare || {};
@@ -33,45 +35,125 @@
     return query ? `${endpoint}?${query}` : endpoint;
   };
 
-  const adjustShareOffcanvasStack = (offcanvasEl) => {
-    const compareModal = document.querySelector('[data-ps-compare-modal].show');
-    if (!compareModal || !offcanvasEl) {
+  const getShareOffcanvasElement = () => (
+    document.querySelector('#drupal-off-canvas.ps-compare-share-offcanvas')
+    || document.querySelector('.offcanvas.ps-compare-share-offcanvas')
+    || document.querySelector('.ui-dialog.ps-compare-share-offcanvas')
+  );
+
+  const getOpenCompareModal = () => document.querySelector('[data-ps-compare-modal].show');
+
+  const isCompareModalOpen = () => Boolean(getOpenCompareModal());
+
+  const getCompareModalInstance = () => {
+    if (typeof bootstrap === 'undefined' || !bootstrap.Modal) {
+      return null;
+    }
+    const compareModal = getOpenCompareModal();
+    if (!compareModal) {
+      return null;
+    }
+    return bootstrap.Modal.getInstance(compareModal) || bootstrap.Modal.getOrCreateInstance(compareModal);
+  };
+
+  /**
+   * Bootstrap modal focus trap blocks keyboard input in stacked off-canvas.
+   */
+  const pauseCompareModalFocusTrap = () => {
+    if (!isCompareModalOpen()) {
       return;
     }
 
-    compareModal.style.zIndex = String(COMPARE_MODAL_Z);
-    offcanvasEl.style.zIndex = String(SHARE_OFFCANVAS_Z);
+    const instance = getCompareModalInstance();
+    if (!instance?._focustrap?.deactivate) {
+      return;
+    }
 
-    const backdrops = document.querySelectorAll('.offcanvas-backdrop, .modal-backdrop');
-    backdrops.forEach((backdrop, index) => {
-      if (backdrop.classList.contains('offcanvas-backdrop')) {
-        backdrop.style.zIndex = String(SHARE_BACKDROP_Z);
-        return;
-      }
-      if (index === 0) {
-        backdrop.style.zIndex = String(COMPARE_BACKDROP_Z);
-      }
+    instance._focustrap.deactivate();
+    compareModalWithPausedFocus = instance;
+  };
+
+  const resumeCompareModalFocusTrap = () => {
+    const instance = compareModalWithPausedFocus;
+    compareModalWithPausedFocus = null;
+    if (!instance?._focustrap?.activate || !instance._isShown) {
+      return;
+    }
+    instance._focustrap.activate();
+  };
+
+  const adjustShareOffcanvasStack = () => {
+    if (!isCompareModalOpen()) {
+      return;
+    }
+
+    const compareModal = getOpenCompareModal();
+    if (compareModal) {
+      compareModal.style.zIndex = String(COMPARE_MODAL_Z);
+      // Let clicks and focus reach the off-canvas above the modal.
+      compareModal.style.pointerEvents = 'none';
+    }
+
+    const offcanvasEl = getShareOffcanvasElement();
+    const wrapper = document.querySelector('#drupal-off-canvas-wrapper');
+    if (wrapper) {
+      wrapper.style.zIndex = String(SHARE_OFFCANVAS_Z);
+      wrapper.style.pointerEvents = 'auto';
+    }
+    if (offcanvasEl) {
+      offcanvasEl.style.zIndex = String(SHARE_OFFCANVAS_Z);
+      offcanvasEl.style.pointerEvents = 'auto';
+    }
+
+    document.querySelectorAll('.modal-backdrop.show').forEach((backdrop) => {
+      backdrop.style.zIndex = String(COMPARE_BACKDROP_Z);
     });
   };
 
-  const resetShareOffcanvasStack = (offcanvasEl) => {
-    if (offcanvasEl) {
-      offcanvasEl.style.zIndex = '';
-    }
+  const resetShareOffcanvasStack = () => {
+    resumeCompareModalFocusTrap();
 
     const compareModal = document.querySelector('[data-ps-compare-modal]');
     if (compareModal) {
       compareModal.style.zIndex = '';
+      compareModal.style.pointerEvents = '';
     }
 
-    document.querySelectorAll('.offcanvas-backdrop, .modal-backdrop').forEach((backdrop) => {
+    const offcanvasEl = getShareOffcanvasElement();
+    const wrapper = document.querySelector('#drupal-off-canvas-wrapper');
+    if (wrapper) {
+      wrapper.style.zIndex = '';
+      wrapper.style.pointerEvents = '';
+    }
+    if (offcanvasEl) {
+      offcanvasEl.style.zIndex = '';
+      offcanvasEl.style.pointerEvents = '';
+    }
+
+    document.querySelectorAll('.modal-backdrop.show').forEach((backdrop) => {
       backdrop.style.zIndex = '';
     });
   };
 
+  const onShareOffcanvasOpen = () => {
+    adjustShareOffcanvasStack();
+    pauseCompareModalFocusTrap();
+  };
+
+  const onShareOffcanvasClose = () => {
+    resetShareOffcanvasStack();
+  };
+
+  const scheduleStackAdjust = () => {
+    window.requestAnimationFrame(onShareOffcanvasOpen);
+    window.setTimeout(onShareOffcanvasOpen, 50);
+    window.setTimeout(onShareOffcanvasOpen, 300);
+  };
+
   const bindOffcanvasStack = (offcanvasEl) => {
-    offcanvasEl.addEventListener('show.bs.offcanvas', () => adjustShareOffcanvasStack(offcanvasEl));
-    offcanvasEl.addEventListener('hidden.bs.offcanvas', () => resetShareOffcanvasStack(offcanvasEl));
+    offcanvasEl.addEventListener('show.bs.offcanvas', onShareOffcanvasOpen);
+    offcanvasEl.addEventListener('shown.bs.offcanvas', onShareOffcanvasOpen);
+    offcanvasEl.addEventListener('hidden.bs.offcanvas', onShareOffcanvasClose);
   };
 
   const openShareOffcanvas = () => {
@@ -80,27 +162,42 @@
       return;
     }
 
-    Drupal.ajax({
+    const ajaxObject = Drupal.ajax({
       url,
       dialogType: 'dialog',
       dialogRenderer: 'off_canvas',
       dialog: {
         dialogClass: 'ps-compare-share-offcanvas',
-        width: 420,
       },
       progress: {
         type: 'throbber',
       },
-    }).execute();
+    });
+
+    const originalSuccess = ajaxObject.success?.bind(ajaxObject);
+    ajaxObject.success = function (response, status) {
+      if (originalSuccess) {
+        originalSuccess(response, status);
+      }
+      else {
+        Drupal.Ajax.prototype.success.call(this, response, status);
+      }
+      onShareOffcanvasOpen();
+    };
+
+    ajaxObject.execute();
   };
 
   Drupal.behaviors.psCompareShareOffcanvas = {
     attach(context) {
-      once('ps-compare-share-offcanvas-stack', '.ps-compare-share-offcanvas.offcanvas', context).forEach((offcanvasEl) => {
-        if (offcanvasEl.parentElement !== document.body) {
-          document.body.appendChild(offcanvasEl);
-        }
+      once('ps-compare-share-stack', 'body', context).forEach(() => {
+        $(document).on('dialogopen.psCompareShare', '#drupal-off-canvas', onShareOffcanvasOpen);
+        $(document).on('dialogclose.psCompareShare', '#drupal-off-canvas', onShareOffcanvasClose);
+      });
+
+      once('ps-compare-share-offcanvas-stack', '#drupal-off-canvas.ps-compare-share-offcanvas, .offcanvas.ps-compare-share-offcanvas', context).forEach((offcanvasEl) => {
         bindOffcanvasStack(offcanvasEl);
+        onShareOffcanvasOpen();
       });
 
       once('ps-compare-share-open', '[data-ps-compare-share], [data-ps-compare-share-open]', context).forEach((trigger) => {
@@ -111,4 +208,4 @@
       });
     },
   };
-})(Drupal, once, drupalSettings);
+})(Drupal, once, drupalSettings, jQuery);

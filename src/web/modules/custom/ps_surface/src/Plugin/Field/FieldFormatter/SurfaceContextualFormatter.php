@@ -15,9 +15,9 @@ use Drupal\node\NodeInterface;
  *
  *  - COW                  → empty on the surface field (capacity shown elsewhere)
  *  - TER                  → "{TOTAL} {unit}" only
- *  - Others + divisible   → "{TOTAL} {unit} · Divisible from {min} {unit}"
- *    when minimum lot (MINIM, then DISPO) is strictly below TOTAL
- *  - Others + indivisible → "{TOTAL} {unit}"
+ *  - Others + divisible   → "{TOTAL} {unit} ({template @surface})"
+ *    when MINIM or ETREF is strictly below TOTAL
+ *  - Others + indivisible → "{TOTAL} {unit}" or "{DISPO} {unit}"
  *
  * @FieldFormatter(
  *   id = "ps_surface_contextual",
@@ -55,8 +55,12 @@ final class SurfaceContextualFormatter extends FormatterBase {
     // Optional cross-module service: ps_surface must not hard-depend on ps_offer.
     // phpcs:disable DrupalPractice.Objects.GlobalClass
     if (\Drupal::hasService('ps_offer.surface_kpi_builder')) {
-      $text = \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiSummary($entity, $items);
-      return $text !== '' ? [['#markup' => $text]] : [];
+      $markup = \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiRenderArray($entity, $items);
+      if ($markup === []) {
+        return [];
+      }
+
+      return [0 => $markup];
     }
     // phpcs:enable DrupalPractice.Objects.GlobalClass
 
@@ -78,25 +82,40 @@ final class SurfaceContextualFormatter extends FormatterBase {
       }
     }
 
-    $total = $by_qual['TOTAL'] ?? NULL;
-    if ($total === NULL || $total->value === NULL) {
-      return [];
-    }
-
-    $unit_label = strtolower((string) ($total->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
-    $text = $this->formatValue((float) $total->value) . ' ' . $unit_label;
-
     $is_land = $asset_type === 'TER';
     $divisible = $entity->hasField('field_divisible') && (bool) $entity->get('field_divisible')->value;
 
+    $primary = NULL;
+    if ($is_land) {
+      $primary = $by_qual['TOTAL'] ?? NULL;
+    }
+    elseif ($divisible) {
+      $primary = $by_qual['TOTAL'] ?? NULL;
+    }
+    else {
+      $primary = $by_qual['TOTAL'] ?? $by_qual['DISPO'] ?? NULL;
+    }
+
+    if ($primary === NULL || $primary->value === NULL || (float) $primary->value <= 0) {
+      return [];
+    }
+
+    $unit_label = strtolower((string) ($primary->unit_code ?? 'M2')) === 'ha' ? 'ha' : 'm²';
+    $text = $this->formatValue((float) $primary->value) . ' ' . $unit_label;
+
     if (!$is_land && $divisible) {
-      foreach (['MINIM', 'DISPO'] as $qualification) {
+      foreach (['MINIM', 'ETREF'] as $qualification) {
         $min = $by_qual[$qualification] ?? NULL;
-        if ($min !== NULL && $min->value !== NULL && (float) $min->value > 0 && (float) $min->value < (float) $total->value) {
-          $text .= ' · ' . $this->t(
-            'Divisible from @surface',
-            ['@surface' => $this->formatValue((float) $min->value) . ' ' . $unit_label],
+        if ($min !== NULL && $min->value !== NULL && (float) $min->value > 0 && (float) $min->value < (float) $primary->value) {
+          $min_label = $this->formatValue((float) $min->value) . ' ' . $unit_label;
+          $suffix = str_replace(
+            '@surface',
+            $min_label,
+            (string) (\Drupal::config('ps_offer.settings')->get('surface_divisible_template') ?? 'Divisible from @surface'),
           );
+          $first = mb_substr($suffix, 0, 1, 'UTF-8');
+          $rest = mb_substr($suffix, 1, NULL, 'UTF-8');
+          $text .= ' (' . mb_strtolower($first, 'UTF-8') . $rest . ')';
           break;
         }
       }

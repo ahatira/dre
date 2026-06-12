@@ -51,9 +51,22 @@
               {% endfor %}
             </colgroup>
             <tbody class="ps-compare-table__body">
+              {% set leading_rows = leading_rows|default([]) %}
+              {% for row in leading_rows %}
+                <tr class="ps-compare-table__row ps-compare-table__row--{{ row.id }}">
+                  <th scope="row" class="ps-compare-table__label fw-normal text-body-secondary sticky-col{% if row.label is empty %} ps-compare-table__label--empty{% endif %}">
+                    {% if row.label %}
+                      {{ row.label }}
+                    {% endif %}
+                  </th>
+                  {% for cell in row.cells %}
+                    <td class="ps-compare-table__cell">{{ cell }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
               {% for section in sections %}
                 {% set section_anchor = 'compare-section-' ~ section.id %}
-                {% if section.show_section_title|default(true) %}
+                {% if section.show_section_title ?? true %}
                   <tr
                     id="{{ section_anchor }}"
                     class="ps-compare-table__section-row ps-compare-table__section"

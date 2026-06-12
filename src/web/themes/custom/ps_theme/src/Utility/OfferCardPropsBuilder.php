@@ -49,6 +49,7 @@ final class OfferCardPropsBuilder {
     $price = $budget['qualifiers'] === ''
       ? $budget['amount']
       : $budget['amount'] . ' ' . $budget['qualifiers'];
+    $surfaceParts = $this->formatSurfaceParts($node);
 
     return [
       'title' => $title,
@@ -57,6 +58,8 @@ final class OfferCardPropsBuilder {
       'image_alt' => $title,
       'location' => $this->formatGridLocation($node),
       'surface' => $this->formatSurface($node),
+      'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
+      'surface_suffix' => $surfaceParts['suffix'],
       'price' => $price,
       'operation' => $operationCode === 'VEN' ? 'sale' : 'rent',
       'badges' => array_values(array_filter($badges)),

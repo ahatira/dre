@@ -23,8 +23,20 @@
     </tr>
   </thead>
   <tbody>
+    {% for row in leading_rows %}
+      <tr>
+        <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ label_bg }};border:1px solid {{ border }};font-weight:400;color:{{ muted }};">
+          {% if row.label %}{{ row.label }}{% endif %}
+        </th>
+        {% for cell in row.cells %}
+          <td valign="top" style="padding:10px 12px;border:1px solid {{ border }};">
+            {{ cell }}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
     {% for section in sections %}
-      {% if section.show_section_title|default(true) %}
+      {% if section.show_section_title ?? true %}
       <tr>
         <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ section_bg }};border:1px solid {{ border }};font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#434f57;">
           {{ section.label }}

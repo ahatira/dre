@@ -1,13 +1,16 @@
 .ps-compare-share-offcanvas {
-  --bs-offcanvas-width: min(100%, 420px);
-  --bs-offcanvas-zindex: 1085;
+  --bs-offcanvas-zindex: 1090;
+}
+
+/* Drupal off-canvas / Bootstrap offcanvas — default z-index 1045, below compare modal (1055). */
+body:has([data-ps-compare-modal].show) #drupal-off-canvas-wrapper,
+body:has([data-ps-compare-modal].show) #drupal-off-canvas.ps-compare-share-offcanvas.show,
+body:has([data-ps-compare-modal].show) .offcanvas.ps-compare-share-offcanvas.show,
+body:has([data-ps-compare-modal].show) .ui-dialog.ps-compare-share-offcanvas {
+  z-index: 1090 !important;
 }
 
 @media (max-width: 991.98px) {
-  .ps-compare-share-offcanvas {
-    --bs-offcanvas-width: 100%;
-  }
-
   .ps-compare-share-offcanvas .offcanvas-body {
     padding: 1.25rem 1rem 1.5rem;
   }

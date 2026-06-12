@@ -27,12 +27,27 @@ trait OfferNodeCardPropsTrait {
   ];
 
   private function formatSurface(NodeInterface $node): ?string {
-    if (\Drupal::hasService('ps_offer.surface_kpi_builder')) {
-      $text = \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiSummary($node);
-      return $text !== '' ? $text : NULL;
+    $parts = $this->formatSurfaceParts($node);
+    if ($parts['primary'] === '') {
+      return NULL;
     }
 
-    return NULL;
+    if ($parts['suffix'] !== NULL && $parts['suffix'] !== '') {
+      return $parts['primary'] . ' ' . $parts['suffix'];
+    }
+
+    return $parts['primary'];
+  }
+
+  /**
+   * @return array{primary: string, suffix: string|null}
+   */
+  private function formatSurfaceParts(NodeInterface $node): array {
+    if (\Drupal::hasService('ps_offer.surface_kpi_builder')) {
+      return \Drupal::service('ps_offer.surface_kpi_builder')->buildKpiParts($node);
+    }
+
+    return ['primary' => '', 'suffix' => NULL];
   }
 
   /**

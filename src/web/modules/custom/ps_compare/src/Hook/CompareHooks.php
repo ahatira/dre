@@ -72,6 +72,8 @@ final class CompareHooks {
           'entity_id' => NULL,
           'title' => NULL,
           'surface' => NULL,
+          'surface_primary' => NULL,
+          'surface_suffix' => NULL,
           'price_amount' => NULL,
           'price_qualifiers' => NULL,
           'thumbnail' => NULL,
@@ -107,19 +109,13 @@ final class CompareHooks {
         ],
         'template' => 'ps-compare-table-column-header',
       ],
-      'ps_compare_location_cell' => [
-        'variables' => [
-          'label' => '',
-          'map' => NULL,
-        ],
-        'template' => 'ps-compare-location-cell',
-      ],
       'ps_compare_table' => [
         'variables' => [
           'title' => NULL,
           'context' => 'page',
           'columns' => [],
           'sections' => [],
+          'leading_rows' => [],
           'summary' => NULL,
           'display' => [],
           'toolbar' => NULL,
@@ -133,6 +129,7 @@ final class CompareHooks {
           'context' => 'email',
           'columns' => [],
           'sections' => [],
+          'leading_rows' => [],
           'summary' => NULL,
           'display' => [],
           'toolbar' => NULL,

@@ -30,7 +30,9 @@
   <div class="ps-compare-table__column-body">
     <a href="{{ url }}" class="btn btn-primary btn-sm w-100 ps-compare-table__column-cta">{{ 'View property'|t }}</a>
   </div>
-  <div class="ps-compare-table__column-media">
-    {{ gallery }}
-  </div>
+  {% if gallery %}
+    <div class="ps-compare-table__column-media">
+      {{ gallery }}
+    </div>
+  {% endif %}
 </div>
