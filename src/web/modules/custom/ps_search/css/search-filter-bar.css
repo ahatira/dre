@@ -580,6 +580,11 @@ body > .offcanvas-backdrop {
   }
 }
 
+.ps-search-view__wrapper {
+  min-height: 0;
+  position: relative;
+}
+
 .ps-search-view__split {
   min-height: 0;
   overflow: hidden;

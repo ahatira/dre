@@ -66,17 +66,22 @@
   width: 1.5rem;
 }
 
-/* Map compare widget — fixed overlay, outside search split overflow. */
+/* Map compare widget — absolute in .ps-search-view__wrapper (desktop), outside split overflow. */
 .ps-compare-widget {
   --ps-compare-panel-width: 300px;
 
-  bottom: 1rem;
   pointer-events: none;
-  position: fixed;
-  right: 1rem;
-  width: var(--ps-compare-panel-width);
-  max-width: calc(100% - 2rem);
   z-index: var(--ps-z-compare-panel, 120);
+}
+
+@media (min-width: 992px) {
+  .ps-compare-widget {
+    bottom: 1rem;
+    position: absolute;
+    right: 1rem;
+    width: var(--ps-compare-panel-width);
+    max-width: calc(100% - 2rem);
+  }
 }
 
 .ps-compare-widget > * {
@@ -384,6 +389,7 @@
     bottom: 4.5rem;
     left: 0;
     max-width: none;
+    position: absolute;
     right: 0;
     width: auto;
   }

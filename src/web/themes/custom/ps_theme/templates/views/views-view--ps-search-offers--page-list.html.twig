@@ -50,8 +50,9 @@
     </div>
   {% endif %}
 
-  {# Split: list or offer detail panel (left) + map (right) #}
-  <div class="row g-0 flex-grow-1 min-h-0 overflow-hidden ps-search-view__split">
+  {# Split + compare overlay — wrapper is positioning context (compare absolute, split overflow hidden). #}
+  <div class="ps-search-view__wrapper flex-grow-1 min-h-0">
+  <div class="row g-0 min-h-0 h-100 overflow-hidden ps-search-view__split">
     <div class="col-lg-6 d-flex flex-column min-h-0 h-100 border-end ps-search-view__left flex-grow-scroll js-ps-search-left-scroll js-ps-search-results-scroll">
       {% if search_results_header %}
         <div class="flex-shrink-0 bg-white border-bottom px-4 py-3 ps-search-view__results-header" id="ps-search-results-header">
@@ -154,10 +155,10 @@
     </div>
   </div>
 
-  {# Compare widget — outside split overflow so the panel can overlay filter bar and header. #}
   {% if compare_widget %}
     {{ compare_widget }}
   {% endif %}
+  </div>
 
   {% if compare_modal %}
     {{ compare_modal }}
