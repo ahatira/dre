@@ -20,8 +20,32 @@
 
 .ps-offer-budget-compare-wrap {
   align-items: center;
+  color: var(--re-color-primary, #00915a);
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.ps-offer-budget-compare,
+.ps-offer-budget-compare__from {
+  color: inherit;
+}
+
+.ps-offer-budget-compare__qualifiers {
+  color: var(--ps-compare-cell-color, #434f57);
+}
+
+.ps-surface-compare-wrap {
+  align-items: center;
   display: inline-flex;
   gap: 0.35rem;
+  justify-content: center;
+}
+
+.ps-surface-compare-wrap .icon {
+  color: var(--re-color-primary, #00915a);
+  flex-shrink: 0;
 }
 
 .ps-offer-budget-compare__info {

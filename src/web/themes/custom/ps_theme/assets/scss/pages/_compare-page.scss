@@ -264,6 +264,28 @@
   padding: 0;
 }
 
+.ps-compare-table__column-top {
+  padding: 0.875rem 1rem 0;
+  position: relative;
+}
+
+.ps-compare-table__column-actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+.ps-compare-table__column-address {
+  color: var(--ps-compare-section-color, #777e83);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-top: 0.25rem;
+}
+
 .ps-compare-table__column-media {
   position: relative;
   width: 100%;
@@ -279,20 +301,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 0.875rem 1rem 1rem;
-}
-
-.ps-compare-table__column-top {
-  margin-bottom: 0.125rem;
-}
-
-.ps-compare-table__column-actions {
-  align-items: center;
-  display: flex;
-  flex-shrink: 0;
-  gap: 12px;
-  justify-content: flex-end;
-  padding: 0 0 8px;
+  padding: 0.75rem 1rem;
 }
 
 .ps-compare-table__column-action {
@@ -444,8 +453,13 @@
   }
 
   .ps-offer-budget-compare-wrap,
+  .ps-surface-compare-wrap,
   .ps-diagnostic-compare__badge {
     justify-content: center;
+  }
+
+  .ps-offer-budget-compare-wrap {
+    color: var(--re-color-primary, #00915a);
   }
 }
 

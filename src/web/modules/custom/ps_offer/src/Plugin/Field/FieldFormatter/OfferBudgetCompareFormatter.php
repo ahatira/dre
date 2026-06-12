@@ -85,12 +85,22 @@ final class OfferBudgetCompareFormatter extends FormatterBase implements Contain
     $build = [
       '#type' => 'container',
       '#attributes' => ['class' => ['ps-offer-budget-compare-wrap']],
-      'amount' => [
+    ];
+
+    if ($parts['from_prefix'] !== '') {
+      $build['from'] = [
         '#type' => 'html_tag',
         '#tag' => 'span',
-        '#value' => $parts['amount'],
-        '#attributes' => ['class' => ['ps-offer-budget-compare', 'fw-semibold']],
-      ],
+        '#value' => $parts['from_prefix'],
+        '#attributes' => ['class' => ['ps-offer-budget-compare__from']],
+      ];
+    }
+
+    $build['amount'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'span',
+      '#value' => $parts['amount'],
+      '#attributes' => ['class' => ['ps-offer-budget-compare', 'fw-semibold']],
     ];
 
     if ($parts['qualifiers'] !== '') {

@@ -1,8 +1,10 @@
+_core:
+  default_config_hash: qHdAfuQ51o6aXWcixyANindxynKNGao10AgXa09kR4I
 max_items: 4
 min_items: 2
 enabled_targets:
   - node.offer
-compare_feature_codes: []
+compare_feature_codes: {  }
 display_show_summary: false
 display_section_nav: false
 display_collapsible_sections: false

@@ -1,8 +1,9 @@
 compare-toggle:
-  version: 1.5
+  version: 1.6
   js:
     js/ps-compare-toggle.js: {}
     js/ps-compare-toast.js: {}
+    js/ps-compare-undo.js: {}
   css:
     component:
       css/ps-compare.css: {}
@@ -13,7 +14,7 @@ compare-toggle:
     - ui_suite_bnp/bootstrap
 
 compare-panel:
-  version: 1.12
+  version: 1.14
   js:
     js/ps-compare-panel.js: {}
   css:
@@ -26,11 +27,11 @@ compare-panel:
     - core/drupalSettings
     - ps_compare/compare-toggle
     - ps_compare/compare-page
-    - ps_compare/compare-share
+    - ps_compare/compare-share-offcanvas
     - ui_suite_bnp/bootstrap
 
 compare-page:
-  version: 1.9
+  version: 1.11
   js:
     js/ps-compare-page.js: {}
     js/ps-compare-gallery.js: {}
@@ -42,21 +43,22 @@ compare-page:
     - core/drupal
     - core/once
     - ps_compare/compare-toggle
-    - ps_compare/compare-share
+    - ps_compare/compare-share-offcanvas
     - ps_favorite/favorites
     - ps_theme/framework
     - ui_suite_bnp/bootstrap
 
-compare-share:
-  version: 1.6
+compare-share-offcanvas:
+  version: 1.2
   js:
-    js/ps-compare-share.js: {}
+    js/ps-compare-share-offcanvas.js: {}
   css:
     component:
-      css/ps-compare-share-modal.css: {}
-      css/ps-compare-modal.css: {}
+      css/ps-compare-share-offcanvas.css: {}
   dependencies:
     - core/drupal
     - core/once
     - core/drupal.ajax
+    - core/drupal.dialog.off_canvas
+    - ps_theme/component_offcanvas
     - ui_suite_bnp/bootstrap

@@ -94,6 +94,7 @@ final class CompareHooks {
         'variables' => [
           'title' => '',
           'url' => '',
+          'address' => '',
           'surface' => '',
           'location' => '',
           'reference' => '',
@@ -167,6 +168,12 @@ final class CompareHooks {
       'ps_compare_share_modal' => [
         'template' => 'ps-compare-share-modal',
       ],
+      'ps_compare_share_offcanvas' => [
+        'variables' => [
+          'webform' => NULL,
+        ],
+        'template' => 'ps-compare-share-offcanvas',
+      ],
       'ps_compare_share_success' => [
         'variables' => [
           'message' => '',
@@ -174,6 +181,9 @@ final class CompareHooks {
         'template' => 'ps-compare-share-success',
       ],
       'ps_compare_modal' => [
+        'variables' => [
+          'share_enabled' => TRUE,
+        ],
         'template' => 'ps-compare-modal',
       ],
     ];

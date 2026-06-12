@@ -38,6 +38,10 @@ ps_offer.settings:
       type: label
       label: 'On request label'
       translatable: true
+    budget_from_prefix:
+      type: label
+      label: 'Budget from prefix'
+      translatable: true
     label_ttc:
       type: label
       label: 'TTC label'

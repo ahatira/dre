@@ -7,6 +7,7 @@ namespace Drupal\ps_surface\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\node\NodeInterface;
+use Drupal\ui_suite_bnp\Utility\Bootstrap;
 
 /**
  * Compact surface formatter for comparison tables.
@@ -52,12 +53,7 @@ final class SurfaceCompareFormatter extends FormatterBase {
       }
 
       return [
-        0 => [
-          '#type' => 'html_tag',
-          '#tag' => 'span',
-          '#value' => $text,
-          '#attributes' => ['class' => ['ps-surface-compare', 'fw-semibold']],
-        ],
+        0 => $this->buildCompareSurfaceCell($text),
       ];
     }
     // phpcs:enable DrupalPractice.Objects.GlobalClass
@@ -102,7 +98,19 @@ final class SurfaceCompareFormatter extends FormatterBase {
     }
 
     return [
-      0 => [
+      0 => $this->buildCompareSurfaceCell($text),
+    ];
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  private function buildCompareSurfaceCell(string $text): array {
+    return [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['ps-surface-compare-wrap']],
+      'icon' => Bootstrap::icon('floors', 'bnp_custom', ['size' => '16px']),
+      'text' => [
         '#type' => 'html_tag',
         '#tag' => 'span',
         '#value' => $text,

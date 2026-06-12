@@ -56,6 +56,20 @@ ps_compare.share_modal:
   methods: [GET, POST]
   requirements:
     _access: 'TRUE'
+  options:
+    _admin_route: FALSE
+
+# Deprecated: use ps_compare.share_offcanvas (webform compare_share).
+
+ps_compare.share_offcanvas:
+  path: '/api/compare/share-offcanvas'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareShareOffcanvasController::offcanvas'
+    _title_callback: '\Drupal\ps_compare\Controller\CompareShareOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
 
 ps_compare.email:
   path: '/api/compare/email'

@@ -167,8 +167,11 @@ assert_html_not_contains 'ps-compare-table__column-price' "Column header omits p
 assert_html_contains 'ps-compare-table__section-row' "Comparison table section headers present"
 assert_html_contains 'View property' "Column CTA uses View property label"
 assert_html_contains 'ps-compare-table__row--reference' "Summary reference row below column header"
-assert_html_contains 'ps-compare-table__row--price' "Summary price row at table footer"
-assert_html_contains 'ps-compare-table__row--surface' "Summary surface row at table footer"
+assert_page_has_one_of "Aménagement section present" 'Aménagement' 'Layout'
+assert_html_contains 'ps-compare-table__row--price' "Price row in Aménagement section"
+assert_html_contains 'ps-compare-table__row--surface' "Surface row in Aménagement section"
+assert_html_contains 'ps-surface-compare-wrap' "Surface cell includes floor plan icon wrapper"
+assert_page_has_one_of "Compare budget from prefix or amount" 'ps-offer-budget-compare__from' 'ps-offer-budget-compare'
 assert_html_contains 'ps-compare-table__row--location' "Summary location row at table bottom"
 assert_page_has_one_of "Location mini-map present" 'ps-compare-location-cell__map' 'ps-compare-location-cell'
 assert_html_not_contains 'ps-compare-page__summary' "Comparison summary banner removed"
@@ -186,6 +189,17 @@ if [[ "$BUILD_RESULT" == "PASS:page_builder_2" ]]; then
   pass "ComparePageBuilder renders 2 columns and rows"
 else
   fail "ComparePageBuilder ($BUILD_RESULT)"
+fi
+
+UNDO_LIB=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+\$lib = \\Drupal::service(\"library.discovery\")->getLibraryByName(\"ps_compare\", \"compare-toggle\");
+\$paths = array_map(static fn (array \$item): string => (string) (\$item[\"data\"] ?? \"\"), \$lib[\"js\"] ?? []);
+print in_array(\"modules/custom/ps_compare/js/ps-compare-undo.js\", \$paths, true) ? \"PASS:undo_lib\" : \"FAIL:undo_lib\";
+"' 2>/dev/null | tail -1)
+if [[ "$UNDO_LIB" == "PASS:undo_lib" ]]; then
+  pass "Compare undo JS registered in compare-toggle library"
+else
+  fail "Compare undo library ($UNDO_LIB)"
 fi
 
 echo "--- Cleanup ---"

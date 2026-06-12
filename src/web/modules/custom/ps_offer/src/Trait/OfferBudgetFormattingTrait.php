@@ -12,7 +12,7 @@ use Drupal\Core\Config\ImmutableConfig;
 trait OfferBudgetFormattingTrait {
 
   /**
-   * @return array{amount: string, qualifiers: string, show_info: bool}|null
+   * @return array{amount: string, qualifiers: string, show_info: bool, from_prefix: string}|null
    */
   protected function buildBudgetParts(object $entity): ?array {
     $config = $this->budgetConfig();
@@ -22,6 +22,7 @@ trait OfferBudgetFormattingTrait {
         'amount' => (string) ($config->get('on_request') ?? ''),
         'qualifiers' => '',
         'show_info' => FALSE,
+        'from_prefix' => '',
       ];
     }
 
@@ -31,6 +32,7 @@ trait OfferBudgetFormattingTrait {
         'amount' => (string) ($config->get('on_request') ?? ''),
         'qualifiers' => '',
         'show_info' => FALSE,
+        'from_prefix' => '',
       ];
     }
 
@@ -49,6 +51,7 @@ trait OfferBudgetFormattingTrait {
       'amount' => $amount . ' ' . $currency,
       'qualifiers' => $qualifiers,
       'show_info' => $show_info,
+      'from_prefix' => $this->formatBudgetFromPrefix($entity, $config),
     ];
   }
 
@@ -149,6 +152,36 @@ trait OfferBudgetFormattingTrait {
 
     $code = strtoupper((string) $entity->get('field_operation_type')->value);
     return in_array($code, ['LOC', 'RENT'], TRUE);
+  }
+
+  /**
+   * Whether the budget should be prefixed with "From" / "À partir de".
+   */
+  protected function shouldShowBudgetFromPrefix(object $entity): bool {
+    if ($entity->hasField('field_divisible') && (bool) $entity->get('field_divisible')->value) {
+      return TRUE;
+    }
+
+    if (!$this->isRentalBudgetOperation($entity)) {
+      return FALSE;
+    }
+
+    $unit_code = $entity->hasField('field_budget_unit') && !$entity->get('field_budget_unit')->isEmpty()
+      ? strtoupper((string) $entity->get('field_budget_unit')->value)
+      : '';
+
+    return $unit_code === 'PER_M2';
+  }
+
+  /**
+   * Resolves the localized "from" prefix when applicable.
+   */
+  protected function formatBudgetFromPrefix(object $entity, ImmutableConfig $config): string {
+    if (!$this->shouldShowBudgetFromPrefix($entity)) {
+      return '';
+    }
+
+    return trim((string) ($config->get('budget_from_prefix') ?? ''));
   }
 
   /**

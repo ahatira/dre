@@ -23,6 +23,7 @@ final class CompareLazyBuilder implements TrustedCallbackInterface {
     private readonly CompareManagerInterface $compareManager,
     private readonly CsrfTokenGenerator $csrfToken,
     private readonly ComparePathResolver $comparePathResolver,
+    private readonly CompareDisplaySettings $displaySettings,
   ) {}
 
   /**
@@ -77,6 +78,7 @@ final class CompareLazyBuilder implements TrustedCallbackInterface {
             'compareUrl' => $this->comparePathResolver->getPublicPath(),
             'maxItems' => $this->compareManager->getMaxItems(),
             'minItems' => $this->compareManager->getMinItems(),
+            'undoRemoval' => $this->displaySettings->undoRemoval(),
           ],
         ],
       ],

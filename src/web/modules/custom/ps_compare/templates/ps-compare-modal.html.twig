@@ -7,9 +7,21 @@
 <div class="modal fade ps-compare-modal" id="ps-compare-modal" tabindex="-1" aria-labelledby="ps-compare-modal-title" aria-hidden="true" data-ps-compare-modal>
   <div class="modal-dialog modal-xl modal-fullscreen-lg-down ps-compare-modal__dialog modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="ps-compare-modal-title">{{ 'Compare properties'|t }}</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+      <div class="modal-header ps-compare-modal__header">
+        <h2 class="modal-title" id="ps-compare-modal-title">{{ 'Comparator'|t }}</h2>
+        <div class="ps-compare-modal__header-actions">
+          {% if share_enabled %}
+            <button
+              type="button"
+              class="btn btn-primary ps-compare-modal__share-cta"
+              data-ps-compare-share-open
+            >
+              {{ 'Send my selection'|t }}
+              <span class="ps-compare-modal__share-cta-icon" aria-hidden="true">{{ icon('bnp_custom', 'arrow-right', {'size': '16px'}) }}</span>
+            </button>
+          {% endif %}
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+        </div>
       </div>
       <div class="modal-body" data-ps-compare-modal-body>
         <div class="ps-compare-modal__loading d-flex justify-content-center py-5" data-ps-compare-modal-loading hidden>
@@ -18,7 +30,6 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer d-none" data-ps-compare-modal-footer></div>
     </div>
   </div>
 </div>

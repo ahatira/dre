@@ -31,6 +31,7 @@ final class CompareDisplaySettings {
       'price_info' => (bool) ($config->get('display_price_info') ?? TRUE),
       'merge_energy' => (bool) ($config->get('display_merge_energy') ?? TRUE),
       'share_button' => (bool) ($config->get('display_share_button') ?? $config->get('display_email_share') ?? TRUE),
+      'undo_removal' => (bool) ($config->get('display_undo_removal') ?? TRUE),
     ];
   }
 
@@ -59,8 +60,12 @@ final class CompareDisplaySettings {
     return (bool) ($config->get('display_share_button') ?? $config->get('display_email_share') ?? TRUE);
   }
 
+  public function undoRemoval(): bool {
+    return $this->all()['undo_removal'];
+  }
+
   /**
-   * @deprecated Phase 2 will wire share to webform email.
+   * @deprecated in ps_compare:1.x; use shareButton() instead.
    */
   public function emailShare(): bool {
     return $this->shareButton();

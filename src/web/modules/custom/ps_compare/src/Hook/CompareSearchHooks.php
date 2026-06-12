@@ -36,12 +36,7 @@ final class CompareSearchHooks {
     $variables['search_mobile_bottom_bar'] = [
       '#theme' => 'ps_search_mobile_bottom_bar',
     ];
-    $variables['compare_modal'] = [
-      '#theme' => 'ps_compare_modal',
-    ];
-    $variables['compare_share_modal'] = [
-      '#theme' => 'ps_compare_share_modal',
-    ];
+    $variables['compare_modal'] = $this->panelBuilder->buildModal();
   }
 
   /**

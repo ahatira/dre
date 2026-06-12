@@ -45,6 +45,9 @@ ps_compare.settings:
     display_share_button:
       type: boolean
       label: 'Show share comparison button'
+    display_undo_removal:
+      type: boolean
+      label: 'Show undo toast when removing a property'
     display_email_share:
       type: boolean
       label: 'Deprecated — use display_share_button'

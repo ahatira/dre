@@ -10,3 +10,105 @@ msgstr ""
 
 msgid "Add at least one more listing to be able to compare."
 msgstr "Ajouter au moins une deuxième annonce pour pouvoir comparer."
+
+msgid "Comparator"
+msgstr "Comparateur"
+
+msgid "Compare properties"
+msgstr "Comparateur"
+
+msgid "Compare selection"
+msgstr "Comparer la sélection"
+
+msgid "Send my selection"
+msgstr "Envoyer ma sélection"
+
+msgid "View property"
+msgstr "Voir l'annonce"
+
+msgid "Share comparison"
+msgstr "Envoyer ma sélection"
+
+msgid "Receive my comparison"
+msgstr "Recevoir mon comparatif"
+
+msgid "Open full page"
+msgstr "Ouvrir en pleine page"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Loading…"
+msgstr "Chargement…"
+
+msgid "Layout"
+msgstr "Aménagement"
+
+msgid "Area"
+msgstr "Surface"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "Overview"
+msgstr "Informations générales"
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Removed from comparison."
+msgstr "Retiré du comparateur."
+
+msgid "Added to comparison."
+msgstr "Ajouté au comparateur."
+
+msgid "Remove from comparison"
+msgstr "Retirer du comparateur"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Terms & availability"
+msgstr "Conditions et disponibilité"
+
+msgid "Energy performance"
+msgstr "Performance énergétique"
+
+msgid "Transaction type"
+msgstr "Type de transaction"
+
+msgid "Property type"
+msgstr "Type de bien"
+
+msgid "Reference"
+msgstr "Référence"
+
+msgid "Location"
+msgstr "Localisation"
+
+msgid "Availability"
+msgstr "Disponibilité"
+
+msgid "Exclusivity"
+msgstr "Exclusivité"
+
+msgid "Divisible"
+msgstr "Divisible"
+
+msgid "Summary"
+msgstr "Synthèse"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "Ref. @ref"
+msgstr "Réf. @ref"
+
+msgid "Select at least @min properties to compare."
+msgstr "Sélectionnez au moins @min annonces pour comparer."
+
+msgid "You have not selected any properties to compare yet."
+msgstr "Vous n'avez pas encore sélectionné d'annonces à comparer."

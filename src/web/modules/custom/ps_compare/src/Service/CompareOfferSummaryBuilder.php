@@ -12,6 +12,7 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
 use Drupal\ps_dictionary\Service\DictionaryResolver;
+use Drupal\ps_offer\Service\OfferMapLocationBuilder;
 use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
 
 /**
@@ -28,6 +29,7 @@ final class CompareOfferSummaryBuilder {
     private readonly DictionaryResolver $dictionaryResolver,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly EntityRepositoryInterface $entityRepository,
+    private readonly OfferMapLocationBuilder $mapLocationBuilder,
   ) {}
 
   /**
@@ -47,6 +49,7 @@ final class CompareOfferSummaryBuilder {
       'entity_id' => (int) $node->id(),
       'title' => $this->formatListTitle($node),
       'location' => $this->formatLocation($node),
+      'address' => $this->formatFullAddress($node),
       'surface' => $this->formatSurface($node),
       'price_amount' => $budget['amount'],
       'price_qualifiers' => $budget['qualifiers'],
@@ -120,6 +123,14 @@ final class CompareOfferSummaryBuilder {
     $location = trim($postal . ' ' . $locality);
 
     return $location !== '' ? $location : NULL;
+  }
+
+  /**
+   * Full public address for compare column headers (street, postal code, city).
+   */
+  private function formatFullAddress(NodeInterface $node): ?string {
+    $address = trim($this->mapLocationBuilder->buildPublicAddress($node));
+    return $address !== '' ? $address : NULL;
   }
 
   private function formatListTitle(NodeInterface $node): string {

@@ -60,16 +60,6 @@ final class CompareController extends ControllerBase implements ContainerInjecti
       '#type' => 'container',
       '#attributes' => ['class' => ['ps-compare-route']],
       'content' => $this->buildCompareContent(CompareRenderContext::PAGE, $request),
-      'share_modal' => $this->buildShareModalShell(),
-    ];
-  }
-
-  /**
-   * @return array<string, mixed>
-   */
-  private function buildShareModalShell(): array {
-    return [
-      '#theme' => 'ps_compare_share_modal',
     ];
   }
 

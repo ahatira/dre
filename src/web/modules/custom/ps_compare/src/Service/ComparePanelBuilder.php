@@ -20,6 +20,7 @@ final class ComparePanelBuilder {
     private readonly CompareManagerInterface $compareManager,
     private readonly CompareOfferSummaryBuilder $offerSummaryBuilder,
     private readonly ComparePathResolver $comparePathResolver,
+    private readonly CompareDisplaySettings $displaySettings,
     private readonly CsrfTokenGenerator $csrfToken,
   ) {}
 
@@ -50,10 +51,11 @@ final class ComparePanelBuilder {
             'panelEndpoint' => Url::fromRoute('ps_compare.panel')->toString(),
             'panelListEndpoint' => Url::fromRoute('ps_compare.panel_list')->toString(),
             'modalEndpoint' => Url::fromRoute('ps_compare.modal')->toString(),
-            'shareModalEndpoint' => Url::fromRoute('ps_compare.share_modal')->toString(),
+            'shareOffcanvasEndpoint' => Url::fromRoute('ps_compare.share_offcanvas')->toString(),
             'compareUrl' => $this->comparePathResolver->getPublicPath(),
             'maxItems' => $this->compareManager->getMaxItems(),
             'minItems' => $this->compareManager->getMinItems(),
+            'undoRemoval' => $this->displaySettings->undoRemoval(),
           ],
         ],
       ],
@@ -62,6 +64,18 @@ final class ComparePanelBuilder {
         'tags' => ['ps_compare:list', 'ps_compare:count'],
         'max-age' => 0,
       ],
+    ];
+  }
+
+  /**
+   * Builds the compare modal shell for search pages.
+   *
+   * @return array<string, mixed>
+   */
+  public function buildModal(): array {
+    return [
+      '#theme' => 'ps_compare_modal',
+      '#share_enabled' => $this->displaySettings->shareButton(),
     ];
   }
 

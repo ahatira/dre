@@ -220,3 +220,16 @@ function ps_compare_update_9011(): string {
 
   return 'Removed display_highlight_differences setting (difference highlighting dropped).';
 }
+
+/**
+ * Enables undo toast when removing a property from the comparison list.
+ */
+function ps_compare_update_9012(): string {
+  $config = \Drupal::configFactory()->getEditable('ps_compare.settings');
+  if ($config->get('display_undo_removal') === NULL) {
+    $config->set('display_undo_removal', TRUE)->save();
+    return 'Installed display_undo_removal setting.';
+  }
+
+  return 'display_undo_removal already configured.';
+}

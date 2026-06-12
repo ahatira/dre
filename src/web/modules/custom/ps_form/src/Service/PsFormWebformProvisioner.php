@@ -19,6 +19,7 @@ final class PsFormWebformProvisioner {
    */
   public const REQUIRED_WEBFORMS = [
     'contact',
+    'compare_share',
     'offer_contact',
     'schedule_visit',
     'search_alert',

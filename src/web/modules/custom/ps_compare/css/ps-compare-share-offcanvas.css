@@ -1,0 +1,136 @@
+.ps-compare-share-offcanvas {
+  --bs-offcanvas-width: min(100%, 420px);
+  --bs-offcanvas-zindex: 1085;
+}
+
+@media (max-width: 991.98px) {
+  .ps-compare-share-offcanvas {
+    --bs-offcanvas-width: 100%;
+  }
+
+  .ps-compare-share-offcanvas .offcanvas-body {
+    padding: 1.25rem 1rem 1.5rem;
+  }
+}
+
+.ps-compare-share-offcanvas .offcanvas-body {
+  padding: 1.5rem;
+}
+
+.ps-compare-share-offcanvas .webform-submission-form,
+.ps-compare-share-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 0;
+}
+
+.ps-compare-share-form__intro {
+  color: var(--re-color-text-strong, #333);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ps-compare-share-offcanvas .ps-compare-share-form__optout.card,
+.ps-compare-share-offcanvas fieldset.ps-compare-share-form__optout {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-compare-share-form__optout-intro {
+  color: var(--re-color-text-strong, #333);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.ps-compare-share-offcanvas .ps-compare-share-form__optout .form-check.form-type-checkbox {
+  display: inline-flex;
+  margin-bottom: 0.5rem;
+  margin-right: 1.25rem;
+  min-height: 1.5rem;
+  position: relative;
+}
+
+.ps-compare-share-offcanvas .form-check.form-type-checkbox {
+  min-height: 1.5rem;
+  position: relative;
+}
+
+.ps-compare-share-offcanvas .form-check-input[type='checkbox'] {
+  cursor: pointer;
+  height: 1.25rem;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0.125rem;
+  width: 1.25rem;
+  z-index: 2;
+}
+
+.ps-compare-share-offcanvas .form-check-input[type='checkbox'] + .form-check-label {
+  cursor: pointer;
+  display: block;
+  line-height: 1.5rem;
+  min-height: 1.25rem;
+  padding-left: calc(1.25rem + 0.5rem);
+  position: relative;
+}
+
+.ps-compare-share-form__legal-notice {
+  color: var(--re-color-text-muted, #777e83);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ps-compare-share-offcanvas .webform-actions,
+.ps-compare-share-offcanvas .form-actions {
+  margin: 0.25rem 0 0;
+}
+
+.ps-compare-share-offcanvas .webform-actions .webform-button--submit,
+.ps-compare-share-offcanvas .form-actions .form-submit {
+  background-color: var(--re-color-primary, #00915a);
+  border-color: var(--re-color-primary, #00915a);
+  font-size: 1rem;
+  font-weight: 600;
+  min-height: 2.75rem;
+  width: 100%;
+}
+
+.ps-compare-share-offcanvas .webform-actions .webform-button--submit:hover,
+.ps-compare-share-offcanvas .form-actions .form-submit:hover,
+.ps-compare-share-offcanvas .webform-actions .webform-button--submit:focus-visible,
+.ps-compare-share-offcanvas .form-actions .form-submit:focus-visible {
+  background-color: var(--bnp-color-primary-strong, #017f4f);
+  border-color: var(--bnp-color-primary-strong, #017f4f);
+}
+
+.ps-compare-share-offcanvas .webform-confirmation,
+.ps-compare-share-offcanvas .webform-confirmation__message,
+.ps-compare-share__success {
+  background: var(--bnp-color-primary-soft, #e6f4ee);
+  border: 1px solid rgba(0, 145, 90, 0.2);
+  border-radius: 4px;
+  color: var(--re-color-text-strong, #333);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 1rem;
+}
+
+.ps-compare-share__success-message {
+  margin: 0;
+}
+
+.ps-compare-share-offcanvas .ps-site-urgency-help {
+  border-top: 1px solid var(--re-color-border-soft, #ebedef);
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+}

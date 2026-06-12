@@ -35,8 +35,6 @@ final class ComparePageBuilder {
    */
   private const SUMMARY_ROW_IDS = [
     'reference',
-    'price',
-    'surface',
   ];
 
   private const LOCATION_ROW_ID = 'location';
@@ -158,7 +156,9 @@ final class ComparePageBuilder {
           'psComparePage' => [
             'context' => $context,
             'collapsibleSections' => $display['collapsible_sections'],
-            'shareModalEndpoint' => Url::fromRoute('ps_compare.share_modal')->toString(),
+            'shareOffcanvasEndpoint' => Url::fromRoute('ps_compare.share_offcanvas')->toString(),
+            'minItems' => $this->compareManager->getMinItems(),
+            'undoRemoval' => $this->displaySettings->undoRemoval(),
           ],
         ],
       ];
@@ -177,7 +177,7 @@ final class ComparePageBuilder {
       return NULL;
     }
 
-    $showShare = $display['share_button'];
+    $showShare = $display['share_button'] && $this->renderContext !== CompareRenderContext::MODAL;
     $showFullPage = $this->renderContext === CompareRenderContext::MODAL;
     if (!$showShare && !$showFullPage) {
       return NULL;
@@ -243,7 +243,7 @@ final class ComparePageBuilder {
   }
 
   /**
-   * Summary rows directly under column headers (reference, price, surface).
+   * Summary rows directly under column headers (reference only).
    *
    * @param \Drupal\node\NodeInterface[] $offers
    *
@@ -519,11 +519,16 @@ final class ComparePageBuilder {
     }
 
     $showActions = !$this->sharedView && $this->renderContext !== CompareRenderContext::EMAIL;
+    $address = trim((string) ($summary['address'] ?? ''));
+    if ($address === '') {
+      $address = trim((string) ($summary['location'] ?? ''));
+    }
 
     return [
       '#theme' => 'ps_compare_table_column_header',
       '#title' => $title,
       '#url' => $offer->toUrl()->toString(),
+      '#address' => $address,
       '#gallery' => $this->buildGalleryCarouselCell($offer),
       '#favorite' => $showActions ? $this->favoriteLazyBuilder->buildButtonRenderable($offer, 'search') : NULL,
       '#remove' => $showActions ? $this->lazyBuilder->buildButtonRenderable($offer, 'search') : NULL,
@@ -639,6 +644,10 @@ final class ComparePageBuilder {
       : ['dpe', 'ges'];
 
     return [
+      'amenagement' => [
+        'label' => $this->t('Layout'),
+        'row_ids' => ['price', 'surface'],
+      ],
       'general' => [
         'label' => $this->t('Overview'),
         'row_ids' => ['operation_type', 'asset_type'],
@@ -676,7 +685,7 @@ final class ComparePageBuilder {
         'field' => 'field_address',
       ],
       'surface' => [
-        'label' => $this->t('Total area'),
+        'label' => $this->t('Area'),
         'field' => 'field_surfaces',
       ],
       'price' => [

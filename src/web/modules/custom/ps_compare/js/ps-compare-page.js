@@ -59,7 +59,24 @@
     }
 
     const detail = event.detail || {};
+    if (detail.restored) {
+      const minItems = (drupalSettings.psCompare || {}).minItems || 2;
+      if (typeof detail.count === 'number' && detail.count >= minItems) {
+        Drupal.psCompareUndo?.refreshComparePage?.();
+      }
+      else {
+        window.location.reload();
+      }
+      return;
+    }
+
     if (detail.isCompared === false || (typeof detail.count === 'number' && detail.count < 2)) {
+      if (Drupal.psCompareUndo?.shouldDeferReload?.()) {
+        Drupal.psCompareUndo.scheduleDeferredReload(() => {
+          window.location.reload();
+        });
+        return;
+      }
       window.location.reload();
     }
   });

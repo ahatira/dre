@@ -14,6 +14,9 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Returns the share-by-email form for the comparison share modal.
+ *
+ * @deprecated in ps_compare:1.x; use CompareShareOffcanvasController and
+ *   webform compare_share instead. Route kept for backward compatibility.
  */
 final class CompareShareModalController extends ControllerBase {
 

@@ -47,3 +47,10 @@ function ps_form_update_10002(): void {
 function ps_form_update_10003(): void {
   \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
 }
+
+/**
+ * Provisions the compare share webform for comparison email lead capture.
+ */
+function ps_form_update_10004(): void {
+  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
+}

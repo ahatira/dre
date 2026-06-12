@@ -158,33 +158,6 @@
     return bootstrap.Modal.getOrCreateInstance(modal);
   };
 
-  const getModalFooter = () => {
-    const modal = getModalElement();
-    return modal?.querySelector('[data-ps-compare-modal-footer]') || null;
-  };
-
-  const resetCompareModalFooter = () => {
-    const footer = getModalFooter();
-    if (!footer) {
-      return;
-    }
-    footer.replaceChildren();
-    footer.classList.add('d-none');
-  };
-
-  const relocateCompareModalToolbar = () => {
-    const modal = getModalElement();
-    const footer = getModalFooter();
-    const toolbar = modal?.querySelector('[data-ps-compare-toolbar]');
-    if (!footer || !toolbar) {
-      resetCompareModalFooter();
-      return;
-    }
-    toolbar.classList.add('ps-compare-toolbar--modal-footer');
-    footer.appendChild(toolbar);
-    footer.classList.remove('d-none');
-  };
-
   const loadCompareModalContent = async() => {
     const endpoint = settings().modalEndpoint;
     const body = getModalBody();
@@ -192,7 +165,6 @@
       return false;
     }
 
-    resetCompareModalFooter();
     body.innerHTML = '<div class="ps-compare-modal__loading d-flex justify-content-center py-5" data-ps-compare-modal-loading><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading</span></div></div>';
 
     const response = await fetch(endpoint, {
@@ -208,7 +180,6 @@
     const html = await response.text();
     body.innerHTML = html.trim();
     Drupal.attachBehaviors(body);
-    relocateCompareModalToolbar();
     return true;
   };
 
@@ -217,7 +188,16 @@
     if (!modal?.classList.contains('show')) {
       return;
     }
+    if (eventDetail?.restored) {
+      if (typeof eventDetail?.count === 'number' && eventDetail.count >= (settings().minItems || 2)) {
+        await loadCompareModalContent();
+      }
+      return;
+    }
     if (eventDetail?.isCompared === false || (typeof eventDetail?.count === 'number' && eventDetail.count < 2)) {
+      if (Drupal.psCompareUndo?.shouldDeferModalClose?.()) {
+        return;
+      }
       getModalInstance()?.hide();
       return;
     }
@@ -396,6 +376,13 @@
     showLimitAlert(widget, !!detail.limit);
     const payload = await fetchPanel();
     await applyPanelPayload(widget, payload);
+    if (detail.restored) {
+      const modal = getModalElement();
+      if (modal?.classList.contains('show') || (typeof detail.count === 'number' && detail.count >= (settings().minItems || 2))) {
+        await loadCompareModalContent();
+      }
+      return;
+    }
     if (detail.isCompared === false || (typeof detail.count === 'number' && detail.count < 2)) {
       await refreshCompareModalIfOpen(detail);
     }

@@ -72,6 +72,14 @@ final class CompareSettingsForm extends ConfigFormBase {
       '#open' => TRUE,
     ];
 
+    $form['display']['share_help'] = [
+      '#type' => 'item',
+      '#title' => $this->t('Share offcanvas footer'),
+      '#markup' => $this->t('The consultant phone and opening hours in the share offcanvas are managed under <a href=":url">PS Core settings</a>.', [
+        ':url' => '/admin/ps/config/core',
+      ]),
+    ];
+
     $displayFields = [
       'display_show_summary' => $this->t('Show summary banner'),
       'display_section_nav' => $this->t('Show section navigation'),
@@ -81,7 +89,8 @@ final class CompareSettingsForm extends ConfigFormBase {
       'display_sticky_cta' => $this->t('Sticky view-property bar'),
       'display_price_info' => $this->t('Show price info popover'),
       'display_merge_energy' => $this->t('Merge DPE and GES on one row'),
-      'display_share_button' => $this->t('Show share comparison button'),
+      'display_share_button' => $this->t('Show “Send my selection” share button'),
+      'display_undo_removal' => $this->t('Show undo toast when removing a property'),
     ];
 
     foreach ($displayFields as $key => $label) {
@@ -120,6 +129,7 @@ final class CompareSettingsForm extends ConfigFormBase {
       ->set('display_price_info', (bool) $form_state->getValue('display_price_info'))
       ->set('display_merge_energy', (bool) $form_state->getValue('display_merge_energy'))
       ->set('display_share_button', (bool) $form_state->getValue('display_share_button'))
+      ->set('display_undo_removal', (bool) $form_state->getValue('display_undo_removal'))
       ->save();
 
     parent::submitForm($form, $form_state);

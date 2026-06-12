@@ -49,6 +49,7 @@ services:
       - '@ps_compare.manager'
       - '@csrf_token'
       - '@ps_compare.path_resolver'
+      - '@ps_compare.display_settings'
 
   ps_compare.offer_summary_builder:
     class: Drupal\ps_compare\Service\CompareOfferSummaryBuilder
@@ -57,6 +58,7 @@ services:
       - '@ps_dictionary.resolver'
       - '@config.factory'
       - '@entity.repository'
+      - '@ps_offer.map_location_builder'
 
   ps_compare.panel_builder:
     class: Drupal\ps_compare\Service\ComparePanelBuilder
@@ -64,6 +66,7 @@ services:
       - '@ps_compare.manager'
       - '@ps_compare.offer_summary_builder'
       - '@ps_compare.path_resolver'
+      - '@ps_compare.display_settings'
       - '@csrf_token'
 
   ps_compare.display_settings:
@@ -163,6 +166,12 @@ services:
       - '@ps_compare.manager'
       - '@renderer'
 
+  Drupal\ps_compare\Controller\CompareShareOffcanvasController:
+    class: Drupal\ps_compare\Controller\CompareShareOffcanvasController
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.path_resolver'
+
   Drupal\ps_compare\Hook\CompareHooks:
     class: Drupal\ps_compare\Hook\CompareHooks
     arguments:
@@ -173,6 +182,17 @@ services:
     class: Drupal\ps_compare\Hook\CompareSearchHooks
     arguments:
       - '@ps_compare.panel_builder'
+
+  Drupal\ps_compare\Hook\CompareWebformHooks:
+    class: Drupal\ps_compare\Hook\CompareWebformHooks
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.email_sender'
+      - '@ps_compare.path_resolver'
+      - '@request_stack'
+      - '@messenger'
+      - '@current_user'
+      - '@ps_core.site_urgency_contact'
 
   ps_compare.response_subscriber:
     class: Drupal\ps_compare\EventSubscriber\CompareResponseSubscriber

@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Compare toolbar — share action and modal shortcuts.
+ * Compare toolbar — share action on full page only.
  */
 #}
 <div class="ps-compare-toolbar{% if context != 'modal' %} mb-3{% endif %}" data-ps-compare-toolbar>
@@ -9,17 +9,18 @@
     {% if share_enabled %}
       <button
         type="button"
-        class="btn btn-outline-secondary ps-compare-toolbar__share"
-        data-ps-compare-share
+        class="btn btn-primary ps-compare-toolbar__share"
+        data-ps-compare-share-open
       >
-        {{ 'Share comparison'|t }}
+        {{ 'Send my selection'|t }}
+        <span class="ps-compare-toolbar__share-icon" aria-hidden="true">{{ icon('bnp_custom', 'arrow-right', {'size': '16px'}) }}</span>
       </button>
     {% endif %}
 
     {% if context == 'modal' and compare_url %}
       <a
         href="{{ compare_url }}"
-        class="btn btn-primary ps-compare-toolbar__full-page"
+        class="btn btn-outline-secondary ps-compare-toolbar__full-page"
         target="_blank"
         rel="noopener"
       >

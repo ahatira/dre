@@ -50,6 +50,16 @@
   pointer-events: none;
 }
 
+.ps-compare-undo-toast .toast-body {
+  font-size: 0.875rem;
+}
+
+.ps-compare-undo-toast__action {
+  flex-shrink: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .ps-compare-button__icon-filled {
   color: #c03a78;
 }

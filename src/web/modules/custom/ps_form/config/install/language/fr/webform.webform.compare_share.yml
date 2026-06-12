@@ -1,0 +1,24 @@
+title: 'Recevoir mon comparatif'
+description: 'Partager le comparatif immobilier par e-mail.'
+elements: |
+  intro:
+    '#markup': '<p class="ps-compare-share-form__intro">Saisissez votre e-mail professionnel pour recevoir votre comparatif :</p>'
+  prof_email_address:
+    '#title': 'E-mail professionnel'
+  optout_group:
+    '#title': 'Communications commerciales'
+    optout_intro:
+      '#markup': '<p class="ps-compare-share-form__optout-intro">Je m''oppose à recevoir des communications commerciales de BNP Paribas Real Estate Transaction France :</p>'
+    optout_email_transaction:
+      '#title': E-mail
+    optout_sms_transaction:
+      '#title': SMS
+    optout_tel_transaction:
+      '#title': Téléphone
+  legal:
+    '#title': 'J''ai lu et j''accepte les conditions de la Politique de protection des données personnelles.'
+  legal_notice:
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France traite vos données pour vous envoyer le comparatif demandé. Consultez notre <a href="/data-protection">Notice de protection des données</a> pour vos droits.</p>'
+settings:
+  confirmation_message: '<p>Votre comparatif a été envoyé par e-mail.</p>'
+  form_submit_label: 'Recevoir mon comparatif'
