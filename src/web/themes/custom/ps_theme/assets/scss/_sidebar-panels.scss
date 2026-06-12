@@ -14,11 +14,7 @@
   }
 }
 
-// Header contact offcanvas: core Ajax off-canvas injects 300px; restore DS default (400px).
-.ps-contact-offcanvas.offcanvas-end {
-  --bs-offcanvas-width: 400px !important;
-}
-
+// Header contact offcanvas body spacing.
 .ps-contact-offcanvas .offcanvas-body {
   padding-top: 0;
 }

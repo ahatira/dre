@@ -89,16 +89,6 @@
 
   Drupal.behaviors.psFavorite = {
     attach(context) {
-      once('ps-favorite-offcanvas-width', 'body', context).forEach(() => {
-        document.addEventListener('dialog:beforecreate', (event) => {
-          const dialogClasses = event.settings?.classes?.['ui-dialog'] ?? '';
-          if (!dialogClasses.includes('ps-favorite-offcanvas')) {
-            return;
-          }
-          delete event.settings.width;
-        });
-      });
-
       once('ps-favorite-count-refresh', 'body', context).forEach(() => {
         fetchCount();
         const refreshMs = Number(drupalSettings.psFavorite?.countRefreshMs || 0);

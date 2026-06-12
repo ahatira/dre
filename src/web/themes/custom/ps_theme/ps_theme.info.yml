@@ -42,5 +42,7 @@ libraries-extend:
     - ps_theme/form
   ui_suite_bnp/framework:
     - ps_theme/framework
+  core/drupal.dialog.off_canvas:
+    - ps_theme/offcanvas_default_width
 version: 1.0.0
 generator: 'ui_suite_bnp_starterkit_split:unknown-version'

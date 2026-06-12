@@ -82,8 +82,3 @@ services:
     tags:
       - { name: event_subscriber }
 
-  ps_favorite.offcanvas_dialog_subscriber:
-    class: Drupal\ps_favorite\EventSubscriber\FavoriteOffcanvasDialogSubscriber
-    tags:
-      - { name: event_subscriber }
-

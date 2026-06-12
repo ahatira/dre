@@ -17,6 +17,12 @@ drupal.ajax:
   dependencies:
     - ui_suite_bnp/drupal.ajax
 
+offcanvas_default_width:
+  js:
+    assets/js/offcanvas-default-width.js: {}
+  dependencies:
+    - core/once
+
 header:
   js:
     assets/js/header-sticky.js: {}
