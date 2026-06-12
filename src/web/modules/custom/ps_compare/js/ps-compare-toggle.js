@@ -86,7 +86,7 @@
             if (typeof payload.count === 'number') {
               updateBarCount(payload.count);
             }
-            if (payload.message) {
+            if (payload.message && response.ok) {
               announce(payload.message);
             }
 

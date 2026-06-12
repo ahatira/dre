@@ -9,20 +9,7 @@
   }
 
   /**
-   * Reads the sticky site header offset used by compare table CSS.
-   *
-   * @param {HTMLElement} page
-   *
-   * @return {number}
-   */
-  function getChromeOffset(page) {
-    const raw = window.getComputedStyle(page).getPropertyValue('--ps-compare-chrome-offset').trim();
-    const parsed = parseFloat(raw);
-    return Number.isFinite(parsed) ? parsed : 0;
-  }
-
-  /**
-   * Horizontal scroll + sticky compact header (CodyHouse-style).
+   * Horizontal scroll + column navigation (CodyHouse-style).
    *
    * @param {HTMLElement} control
    *   Wrapper with head pin, scroll container and navigation buttons.
@@ -34,7 +21,6 @@
     const headTable = control.querySelector('[data-ps-compare-table-head-table]');
     const table = control.querySelector('[data-ps-compare-table-body]')
       || control.querySelector('[data-ps-compare-table]');
-    const sentinel = control.querySelector('[data-ps-compare-table-sentinel]');
     const prev = control.querySelector('[data-ps-compare-table-prev]');
     const next = control.querySelector('[data-ps-compare-table-next]');
     if (!scrollEl || !table || !prev || !next) {
@@ -147,23 +133,6 @@
       const observer = new ResizeObserver(updateScrollState);
       observer.observe(scrollEl);
       observer.observe(table);
-    }
-
-    if (sentinel && page && typeof IntersectionObserver !== 'undefined') {
-      const compactObserver = new IntersectionObserver(([entry]) => {
-        control.classList.toggle('is-head-compact', !entry.isIntersecting);
-        syncTableLayout();
-      }, {
-        root: null,
-        threshold: 0,
-        rootMargin: `-${getChromeOffset(page)}px 0px 0px 0px`,
-      });
-      compactObserver.observe(sentinel);
-
-      window.addEventListener('resize', () => {
-        compactObserver.disconnect();
-        compactObserver.observe(sentinel);
-      }, { passive: true });
     }
 
     syncTableLayout();

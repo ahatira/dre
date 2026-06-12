@@ -235,6 +235,10 @@
       dismissActiveToast();
       return;
     }
+    // Max-limit responses (409) also set isCompared to false — only the red panel alert applies.
+    if (detail.limit) {
+      return;
+    }
     if (detail.isCompared !== false || !isCompareContext()) {
       return;
     }

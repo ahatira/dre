@@ -376,6 +376,9 @@
     showLimitAlert(widget, !!detail.limit);
     const payload = await fetchPanel();
     await applyPanelPayload(widget, payload);
+    if (detail.limit) {
+      return;
+    }
     if (detail.restored) {
       const modal = getModalElement();
       if (modal?.classList.contains('show') || (typeof detail.count === 'number' && detail.count >= (settings().minItems || 2))) {
