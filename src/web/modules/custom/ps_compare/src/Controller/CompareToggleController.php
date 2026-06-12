@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_compare\Controller;
 
+use Drupal\Core\Access\CsrfRequestHeaderAccessCheck;
 use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -51,7 +52,7 @@ final class CompareToggleController implements ContainerInjectionInterface {
     }
 
     $token = (string) $request->headers->get('X-CSRF-Token', '');
-    if (!$this->csrfToken->validate($token, 'ps_compare.toggle')) {
+    if (!$this->isValidToggleToken($token)) {
       return new JsonResponse(['message' => (string) $this->t('Invalid CSRF token.')], 403);
     }
 
@@ -106,6 +107,19 @@ final class CompareToggleController implements ContainerInjectionInterface {
 
     $entity = $this->entityTypeManager->getStorage($entityTypeId)->load($entityId);
     return $entity instanceof EntityInterface ? $entity : NULL;
+  }
+
+  /**
+   * Validates route-specific or session CSRF tokens (cached pages use session).
+   */
+  private function isValidToggleToken(string $token): bool {
+    if ($token === '') {
+      return FALSE;
+    }
+
+    return $this->csrfToken->validate($token, 'ps_compare.toggle')
+      || $this->csrfToken->validate($token, CsrfRequestHeaderAccessCheck::TOKEN_KEY)
+      || $this->csrfToken->validate($token, 'session');
   }
 
 }

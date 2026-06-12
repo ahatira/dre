@@ -770,6 +770,28 @@
   };
 
   /**
+   * Ensures ?lang= matches the active content language for /api/ps/* calls.
+   *
+   * @param {URLSearchParams} params
+   *   Query params to augment in place.
+   *
+   * @return {URLSearchParams}
+   *   The same params instance.
+   */
+  Drupal.psSearchPage.appendContentLangParam = function (params) {
+    if (!(params instanceof URLSearchParams) || params.has('lang')) {
+      return params;
+    }
+    const lang = drupalSettings.path?.currentLanguage
+      || document.documentElement.lang?.split('-')[0]
+      || '';
+    if (lang) {
+      params.set('lang', lang);
+    }
+    return params;
+  };
+
+  /**
    * Builds search query params from the browser URL + server-injected SEO filters.
    *
    * SEO paths (/for-rent/office/) inject operation_type/asset_type server-side
@@ -819,6 +841,8 @@
         params.set(key, value);
       });
     }
+
+    Drupal.psSearchPage.appendContentLangParam(params);
 
     return params;
   };

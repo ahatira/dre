@@ -1,12 +1,81 @@
 langcode: en
 hero:
   background: assets/images/hero/hero-homepage.png
+  promo_background: assets/images/hero/hero-profile.png
   titles:
     en: 'What are you looking for?'
-    fr: 'Trouvez votre espace professionnel'
+    fr: 'Que recherchez-vous ?'
   subtitles:
     en: 'Offices, logistics, retail — across France'
     fr: 'Bureaux, logistique, commerce — partout en France'
+  search:
+    transaction_type_label:
+      en: 'Transaction type'
+      fr: 'Type de transaction'
+    op_buy_label:
+      en: Buy
+      fr: Acheter
+    op_rent_label:
+      en: Rent
+      fr: Louer
+    op_flexible_label:
+      en: "I'm flexible"
+      fr: 'Je suis flexible'
+    location_label:
+      en: Location(s)
+      fr: Localisation(s)
+    location_placeholder:
+      en: 'City, district or zip code'
+      fr: 'Ville, quartier ou code postal'
+    property_type_label:
+      en: 'Property type'
+      fr: 'Type de bien'
+    property_type_placeholder:
+      en: 'Type of property'
+      fr: 'Type de bien'
+    surface_min_label:
+      en: 'Minimum surface (m²)'
+      fr: 'Surface minimum (m²)'
+    surface_min_placeholder:
+      en: '200 m²'
+      fr: '200 m²'
+    price_max_label:
+      en: 'Maximum price'
+      fr: 'Prix maximum'
+    price_max_placeholder:
+      en: '10 000'
+      fr: '10 000'
+    optional_label:
+      en: Optional
+      fr: Facultatif
+    search_button_label:
+      en: Search
+      fr: Rechercher
+    delegate_prompt:
+      en: 'Would you like to delegate your search?'
+      fr: 'Souhaitez-vous déléguer votre recherche ?'
+    delegate_button_label:
+      en: 'Delegate my search'
+      fr: 'Déléguer ma recherche'
+    delegate_url:
+      en: /contact
+      fr: /contact
+  promo:
+    title:
+      en: 'Commercial real estate: find your future business premises'
+      fr: 'Immobilier d''entreprise : trouvez vos futurs locaux professionnels'
+    offers_line:
+      en: '5990 offers currently available'
+      fr: '5990 offres actuellement disponibles'
+    description:
+      en: 'Offices, coworking spaces, logistics warehouses, business premises or retail premises: BNP Paribas Real Estate''s commercial real estate offer covers all the assets on the market to better meet your expectations.'
+      fr: 'Bureaux, espaces de coworking, entrepôts logistiques, locaux d''activité ou commerces : l''offre immobilière d''entreprise de BNP Paribas Real Estate couvre l''ensemble des actifs du marché pour mieux répondre à vos attentes.'
+    cta_label:
+      en: 'Discover our service offers'
+      fr: 'Découvrir nos offres de services'
+    cta_url:
+      en: /find-property
+      fr: /recherche-immobiliere
 featured:
   titles:
     en: 'Featured properties'

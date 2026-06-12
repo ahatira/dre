@@ -12,8 +12,11 @@ Usage: scripts/main.sh drupal install [OPTIONS]
 
 Options:
   --force          Force reinstall (recreate database)
+  --minimal        Site shell only (skip demo, offers, Solr, ps_search/ps_seo)
   --dev            Enable development modules (devel, stage_file_proxy)
   -h, --help       Show this help
+
+By default, install runs post-install (demo, sample offers, ps_search/ps_seo, Solr).
 
 Prerequisites:
   - Docker containers running (ps_php, ps_postgres)
@@ -45,12 +48,17 @@ DB_NAME="${DB_NAME:-drupal}"
 DB_USER="${DB_USER:-drupal}"
 FORCE_INSTALL=0
 ENABLE_DEV=0
+MINIMAL_INSTALL=0
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --force)
       FORCE_INSTALL=1
+      shift
+      ;;
+    --minimal)
+      MINIMAL_INSTALL=1
       shift
       ;;
     --dev)
@@ -163,8 +171,6 @@ ps_retry 2 2 ps_drush en -y ps_offer
 ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
 ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true
 ps_retry 2 2 ps_drush en -y ps_context
-# ps_search is enabled after dictionary + offers import (search clean-slate workflow).
-# Run: docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush en -y ps_search'
 ps_success "PS modules enabled"
 
 # Anti-spam modules
@@ -238,5 +244,9 @@ ps_drush status --fields=bootstrap,db-status,drupal-version,drush-version
 echo ""
 ps_info "Back-office: ${PS_HTTP_URL}/admin"
 ps_info "Login: ${ADMIN_USER} / ${ADMIN_PASS}"
-ps_info "Front: ${PS_HTTP_URL}/ (thème actif, menus vides — Structure > Menus)"
-ps_info "Optional: make demo | make import-sample-xml | make index-solr"
+if [[ ${MINIMAL_INSTALL} -eq 1 ]]; then
+  ps_info "Front: ${PS_HTTP_URL}/ (shell only — run: make post-install)"
+else
+  ps_info "Running post-install (demo, offers, search, SEO, Solr)..."
+  bash "${PS_SCRIPTS_DIR}/drupal/post-install.sh"
+fi

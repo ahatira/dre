@@ -1,5 +1,5 @@
 favorites:
-  version: 1.x
+  version: 1.1
   css:
     component:
       css/ps-favorite.css: {}

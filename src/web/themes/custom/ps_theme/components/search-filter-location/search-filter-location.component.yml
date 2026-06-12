@@ -20,6 +20,12 @@ props:
     suggest_id:
       type: string
       title: Suggest listbox element id (aria-controls)
+    placeholder:
+      type: string
+      title: Input placeholder
+    aria_label:
+      type: string
+      title: Input aria-label
 libraryOverrides:
   css:
     component:

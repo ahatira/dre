@@ -66,6 +66,7 @@ final class FavoriteLazyBuilder implements TrustedCallbackInterface {
           'ps_favorite:count',
           sprintf('ps_favorite:%s:%d', $entity->getEntityTypeId(), $entityId),
         ]),
+        'contexts' => ['session', 'user'],
         'max-age' => 0,
       ],
     ];
@@ -86,6 +87,7 @@ final class FavoriteLazyBuilder implements TrustedCallbackInterface {
       ],
       '#cache' => [
         'tags' => ['ps_favorite:count'],
+        'contexts' => ['session', 'user'],
         'max-age' => 0,
       ],
     ];

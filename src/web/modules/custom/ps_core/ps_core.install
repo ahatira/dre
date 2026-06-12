@@ -8,18 +8,33 @@
 declare(strict_types=1);
 
 /**
- * Sets the global Mailer policy theme to ps_theme.
+ * Applies PS mailer policy defaults without conflicting with mailer_policy install.
  */
-function ps_core_update_9001(): string {
+function ps_core_install(): void {
+  ps_core_apply_mailer_policy_theme();
+}
+
+/**
+ * Sets the global Mailer policy theme and related defaults.
+ */
+function ps_core_apply_mailer_policy_theme(): void {
   $config = \Drupal::configFactory()->getEditable('mailer_policy.mailer_policy._');
   if ($config->isNew()) {
-    \Drupal::service('config.installer')->installDefaultConfig('module', 'ps_core');
-    return 'Installed ps_core mailer policy.';
+    return;
   }
 
   $configuration = $config->get('configuration') ?? [];
+  $configuration['mailer_url_to_absolute'] = $configuration['mailer_url_to_absolute'] ?? [];
+  $configuration['mailer_inline_css'] = $configuration['mailer_inline_css'] ?? [];
+  $configuration['mailer_wrap_and_convert'] = $configuration['mailer_wrap_and_convert'] ?? ['plain' => FALSE];
   $configuration['email_theme'] = ['theme' => 'ps_theme'];
   $config->set('configuration', $configuration)->save();
+}
 
+/**
+ * Sets the global Mailer policy theme to ps_theme.
+ */
+function ps_core_update_9001(): string {
+  ps_core_apply_mailer_policy_theme();
   return 'Updated global mailer policy to render emails with ps_theme.';
 }

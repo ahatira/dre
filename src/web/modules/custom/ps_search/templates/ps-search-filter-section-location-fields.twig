@@ -3,11 +3,13 @@
  * @file
  * Wrapper — delegates to ps_theme SDC search-filter-location (Phase 5A.3).
  *
- * Variables: id_suffix, layout ('dropdown'|'stacked').
+ * Variables: id_suffix, layout ('dropdown'|'stacked'), placeholder, aria_label.
  */
 #}
 {% include 'ps_theme:search-filter-location' with {
   id_suffix: id_suffix|default(''),
   layout: layout|default('dropdown'),
   suggest_id: 'ps-location-suggest' ~ id_suffix|default(''),
+  placeholder: placeholder|default(''),
+  aria_label: aria_label|default(''),
 } only %}

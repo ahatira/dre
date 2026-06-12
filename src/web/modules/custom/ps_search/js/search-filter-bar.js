@@ -1186,6 +1186,21 @@
         };
       }
 
+      function appendContentLangParam(p) {
+        if (Drupal.psSearchPage && typeof Drupal.psSearchPage.appendContentLangParam === 'function') {
+          return Drupal.psSearchPage.appendContentLangParam(p);
+        }
+        if (!p.has('lang')) {
+          const lang = drupalSettings.path?.currentLanguage
+            || document.documentElement.lang?.split('-')[0]
+            || '';
+          if (lang) {
+            p.set('lang', lang);
+          }
+        }
+        return p;
+      }
+
       function buildCountParams() {
         const p = new URLSearchParams();
         if (selectedOp) p.set('operation_type', selectedOp);
@@ -1206,7 +1221,7 @@
         if (budgetMin) p.set('budget_min', budgetMin);
         if (budgetMax) p.set('budget_max', budgetMax);
         appendMoreFiltersToParams(p, true);
-        return p;
+        return appendContentLangParam(p);
       }
 
       function setApplyBtnsLoading(loading) {
@@ -1668,7 +1683,10 @@
             return;
           }
 
-          fetch(locationSuggestUrl + '?q=' + encodeURIComponent(partialToken), {
+          const suggestParams = appendContentLangParam(new URLSearchParams({
+            q: partialToken,
+          }));
+          fetch(locationSuggestUrl + '?' + suggestParams.toString(), {
             headers: { Accept: 'application/json' },
             credentials: 'same-origin',
           })
@@ -1716,6 +1734,7 @@
           selectedLocalityTokens.forEach(function (token) {
             params.append('localities[]', token);
           });
+          appendContentLangParam(params);
           fetch(locationDataUrl + '?' + params.toString(), {
             headers: { Accept: 'application/json' },
             credentials: 'same-origin',

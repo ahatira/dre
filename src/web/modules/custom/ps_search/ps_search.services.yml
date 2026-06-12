@@ -340,4 +340,9 @@ services:
   ps_search.hero_search_builder:
     class: Drupal\ps_search\Search\Hero\HeroSearchBuilder
     arguments:
-      - '@ps_search.header_search_panel_builder'
+      - '@ps_search.homepage_search_panel_builder'
+
+  ps_search.homepage_search_panel_builder:
+    class: Drupal\ps_search\Search\Hero\HomepageSearchPanelBuilder
+    arguments:
+      - '@ps_search.filter_bar_builder'

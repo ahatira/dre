@@ -42,6 +42,93 @@ final class FilterBarBuilder {
    * Builds the filter bar render array.
    */
   public function build(): array {
+    return $this->buildFilterBarRenderArray($this->resolveFilterData());
+  }
+
+  /**
+   * Builds the compact homepage hero search panel (BNPPRE entry point).
+   *
+   * @param array<string, string> $labels
+   *   Localized editorial labels from SearchHeroBlock.
+   *
+   * @return array<string, mixed>
+   */
+  public function buildHomepageEntryPanel(array $labels = []): array {
+    $data = $this->resolveFilterData([
+      'active_op' => 'VEN',
+      'active_asset' => NULL,
+      'initial_locality' => '',
+      'active_flexible' => FALSE,
+    ]);
+
+    return [
+      '#theme' => 'ps_search_homepage_entry',
+      '#operation_types' => $data['operation_types'],
+      '#asset_types' => $data['asset_types'],
+      '#active_op' => $data['active_op'],
+      '#active_flexible' => $data['active_flexible'],
+      '#active_asset' => $data['active_asset'],
+      '#active_op_label' => $data['active_op_label'],
+      '#active_asset_label' => $data['active_asset_label'],
+      '#search_path' => $data['search_path'],
+      '#budget_config' => $data['budget_config'],
+      '#show_surface_filter' => $data['show_surface_filter'],
+      '#labels' => $labels,
+      '#attached' => [
+        'library' => [
+          'ps_search/filter.bar',
+          'ps_search/homepage.search',
+        ],
+        'drupalSettings' => [
+          'psSearchFilterHtmx' => $this->htmxSettings->buildJsSettings(),
+          'psSearch' => $this->buildPsSearchSettings($data),
+        ],
+      ],
+      '#cache' => $this->buildFilterCacheTags(),
+    ];
+  }
+
+  /**
+   * @param array<string, mixed> $data
+   *   Resolved filter data from resolveFilterData().
+   *
+   * @return array<string, mixed>
+   */
+  private function buildFilterBarRenderArray(array $data): array {
+    return [
+      '#theme' => 'ps_search_filter_bar',
+      '#operation_types' => $data['operation_types'],
+      '#asset_types' => $data['asset_types'],
+      '#more_criteria_groups' => $data['more_criteria_groups'],
+      '#core_criteria_items' => $data['core_criteria_items'],
+      '#active_op' => $data['active_op'],
+      '#active_flexible' => $data['active_flexible'],
+      '#active_asset' => $data['active_asset'],
+      '#active_op_label' => $data['active_op_label'],
+      '#active_asset_label' => $data['active_asset_label'],
+      '#budget_config' => $data['budget_config'],
+      '#lang_prefix' => $data['lang_prefix'],
+      '#show_surface_filter' => $data['show_surface_filter'],
+      '#show_capacity_filter' => $data['show_capacity_filter'],
+      '#capacity_filter_label' => $data['capacity_filter_label'],
+      '#attached' => [
+        'library' => ['ps_search/filter.bar'],
+        'drupalSettings' => [
+          'psSearchFilterHtmx' => $this->htmxSettings->buildJsSettings(),
+          'psSearch' => $this->buildPsSearchSettings($data),
+        ],
+      ],
+      '#cache' => $this->buildFilterCacheTags(),
+    ];
+  }
+
+  /**
+   * @param array<string, mixed> $overrides
+   *   Optional keys: active_op, active_asset, initial_locality, active_flexible.
+   *
+   * @return array<string, mixed>
+   */
+  private function resolveFilterData(array $overrides = []): array {
     $langcode = $this->languageManager->getCurrentLanguage()->getId();
     $request = $this->requestStack->getCurrentRequest();
     $base = $this->configFactory->get('ps_search.seo_url_mappings');
@@ -63,45 +150,54 @@ final class FilterBarBuilder {
       ? '/' . $langcode
       : '';
 
-    $pathInfo = $request?->getPathInfo() ?? '';
-    if ($langPrefix !== '' && str_starts_with($pathInfo, $langPrefix . '/')) {
-      $stripped = substr($pathInfo, strlen($langPrefix));
+    if ($overrides !== []) {
+      $activeOp = $overrides['active_op'] ?? NULL;
+      $activeAsset = $overrides['active_asset'] ?? NULL;
+      $initialLocality = (string) ($overrides['initial_locality'] ?? '');
+      $activeFlexible = (bool) ($overrides['active_flexible'] ?? ($activeOp === NULL));
     }
     else {
-      $stripped = $pathInfo;
-    }
-    $segments = array_values(array_filter(explode('/', $stripped)));
-
-    $queryAll = $request?->query->all() ?? [];
-
-    $activeOp = NULL;
-    $activeAsset = NULL;
-    if (!empty($segments[0]) && isset($opBySlug[$segments[0]])) {
-      $activeOp = $opBySlug[$segments[0]];
-      if (!empty($segments[1]) && isset($assetBySlug[$segments[1]])) {
-        $activeAsset = $assetBySlug[$segments[1]];
+      $pathInfo = $request?->getPathInfo() ?? '';
+      if ($langPrefix !== '' && str_starts_with($pathInfo, $langPrefix . '/')) {
+        $stripped = substr($pathInfo, strlen($langPrefix));
       }
-    }
+      else {
+        $stripped = $pathInfo;
+      }
+      $segments = array_values(array_filter(explode('/', $stripped)));
 
-    // Path processor injects query params on SEO URLs (not visible in the address bar).
-    if (!$activeOp) {
-      $rawOp = $queryAll['operation_type'] ?? NULL;
-      $activeOp = is_array($rawOp) ? array_key_first($rawOp) : $rawOp;
-      $activeOp = is_string($activeOp) && $activeOp !== '' ? strtoupper($activeOp) : NULL;
-    }
-    if (!$activeAsset) {
-      $rawAsset = $queryAll['asset_type'] ?? NULL;
-      $activeAsset = is_array($rawAsset) ? array_key_first($rawAsset) : $rawAsset;
-      $activeAsset = is_string($activeAsset) && $activeAsset !== '' ? strtoupper($activeAsset) : NULL;
-    }
+      $queryAll = $request?->query->all() ?? [];
 
-    $initialLocality = '';
-    $localityRaw = $queryAll['locations'] ?? $queryAll['locality'] ?? NULL;
-    if (is_array($localityRaw)) {
-      $initialLocality = implode(', ', array_values(array_filter(array_map('strval', $localityRaw))));
-    }
-    elseif (is_string($localityRaw) && $localityRaw !== '') {
-      $initialLocality = $localityRaw;
+      $activeOp = NULL;
+      $activeAsset = NULL;
+      if (!empty($segments[0]) && isset($opBySlug[$segments[0]])) {
+        $activeOp = $opBySlug[$segments[0]];
+        if (!empty($segments[1]) && isset($assetBySlug[$segments[1]])) {
+          $activeAsset = $assetBySlug[$segments[1]];
+        }
+      }
+
+      if (!$activeOp) {
+        $rawOp = $queryAll['operation_type'] ?? NULL;
+        $activeOp = is_array($rawOp) ? array_key_first($rawOp) : $rawOp;
+        $activeOp = is_string($activeOp) && $activeOp !== '' ? strtoupper($activeOp) : NULL;
+      }
+      if (!$activeAsset) {
+        $rawAsset = $queryAll['asset_type'] ?? NULL;
+        $activeAsset = is_array($rawAsset) ? array_key_first($rawAsset) : $rawAsset;
+        $activeAsset = is_string($activeAsset) && $activeAsset !== '' ? strtoupper($activeAsset) : NULL;
+      }
+
+      $initialLocality = '';
+      $localityRaw = $queryAll['locations'] ?? $queryAll['locality'] ?? NULL;
+      if (is_array($localityRaw)) {
+        $initialLocality = implode(', ', array_values(array_filter(array_map('strval', $localityRaw))));
+      }
+      elseif (is_string($localityRaw) && $localityRaw !== '') {
+        $initialLocality = $localityRaw;
+      }
+
+      $activeFlexible = $activeOp === NULL;
     }
 
     $storage = $this->entityTypeManager->getStorage('ps_dictionary_entry');
@@ -165,61 +261,77 @@ final class FilterBarBuilder {
     $moreFilterSchema = $this->moreCriteriaBuilder->buildFilterSchema($activeAsset);
 
     return [
-      '#theme' => 'ps_search_filter_bar',
-      '#operation_types' => $operationTypes,
-      '#asset_types' => $assetTypes,
-      '#more_criteria_groups' => $summaries,
-      '#core_criteria_items' => $coreItems,
-      '#active_op' => $activeOp,
-      '#active_flexible' => $activeOp === NULL,
-      '#active_asset' => $activeAsset,
-      '#active_op_label' => $activeOpLabel,
-      '#active_asset_label' => $activeAssetLabel,
-      '#budget_config' => $budgetConfig,
-      '#lang_prefix' => $langPrefix,
-      '#show_surface_filter' => $initialVisibility['show_surface'],
-      '#show_capacity_filter' => $initialVisibility['show_capacity'],
-      '#capacity_filter_label' => $capacityFilterLabel,
-      '#attached' => [
-        'library' => ['ps_search/filter.bar'],
-        'drupalSettings' => [
-          'psSearchFilterHtmx' => $this->htmxSettings->buildJsSettings(),
-          'psSearch' => [
-            'apiBase' => ApiRoutePaths::BASE,
-            'langPrefix' => $langPrefix,
-            'searchPath' => $searchPath,
-            'opSlugs' => $opSlugs,
-            'assetSlugs' => $assetSlugs,
-            'activeOp' => $activeOp,
-            'activeFlexible' => $activeOp === NULL,
-            'activeAsset' => $activeAsset,
-            'initialLocality' => $initialLocality,
-            'locationSuggestUrl' => ApiRoutePaths::LOCATION_SUGGEST,
-            'locationDataUrl' => ApiRoutePaths::LOCATION_DATA,
-            'filterVisibilityByAsset' => $visibilityByAsset,
-            'capacityFilterLabel' => $capacityFilterLabel,
-            'capacityUnit' => $capacityUnit,
-            'budgetFilterConfig' => $budgetConfig,
-            'budgetFilterByAsset' => $budgetFilterByAsset,
-            'moreFilterSchema' => $moreFilterSchema,
-          ],
-        ],
+      'operation_types' => $operationTypes,
+      'asset_types' => $assetTypes,
+      'more_criteria_groups' => $summaries,
+      'core_criteria_items' => $coreItems,
+      'active_op' => $activeOp,
+      'active_flexible' => $activeFlexible,
+      'active_asset' => $activeAsset,
+      'active_op_label' => $activeOpLabel,
+      'active_asset_label' => $activeAssetLabel,
+      'budget_config' => $budgetConfig,
+      'lang_prefix' => $langPrefix,
+      'show_surface_filter' => $initialVisibility['show_surface'],
+      'show_capacity_filter' => $initialVisibility['show_capacity'],
+      'capacity_filter_label' => $capacityFilterLabel,
+      'search_path' => $searchPath,
+      'op_slugs' => $opSlugs,
+      'asset_slugs' => $assetSlugs,
+      'initial_locality' => $initialLocality,
+      'visibility_by_asset' => $visibilityByAsset,
+      'capacity_unit' => $capacityUnit,
+      'budget_filter_by_asset' => $budgetFilterByAsset,
+      'more_filter_schema' => $moreFilterSchema,
+    ];
+  }
+
+  /**
+   * @param array<string, mixed> $data
+   *   Resolved filter data.
+   *
+   * @return array<string, mixed>
+   */
+  private function buildPsSearchSettings(array $data): array {
+    return [
+      'apiBase' => ApiRoutePaths::BASE,
+      'langPrefix' => $data['lang_prefix'],
+      'searchPath' => $data['search_path'],
+      'opSlugs' => $data['op_slugs'],
+      'assetSlugs' => $data['asset_slugs'],
+      'activeOp' => $data['active_op'],
+      'activeFlexible' => $data['active_flexible'],
+      'activeAsset' => $data['active_asset'],
+      'initialLocality' => $data['initial_locality'],
+      'locationSuggestUrl' => ApiRoutePaths::LOCATION_SUGGEST,
+      'locationDataUrl' => ApiRoutePaths::LOCATION_DATA,
+      'filterVisibilityByAsset' => $data['visibility_by_asset'],
+      'capacityFilterLabel' => $data['capacity_filter_label'],
+      'capacityUnit' => $data['capacity_unit'],
+      'budgetFilterConfig' => $data['budget_config'],
+      'budgetFilterByAsset' => $data['budget_filter_by_asset'],
+      'moreFilterSchema' => $data['more_filter_schema'],
+    ];
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  private function buildFilterCacheTags(): array {
+    return [
+      'contexts' => [
+        'url.path',
+        'url.query_args:locality',
+        'url.query_args:operation_type',
+        'url.query_args:asset_type',
+        'languages:language_interface',
       ],
-      '#cache' => [
-        'contexts' => [
-          'url.path',
-          'url.query_args:locality',
-          'url.query_args:operation_type',
-          'url.query_args:asset_type',
-          'languages:language_interface',
-        ],
-        'tags' => [
-          'config:ps_search.seo_url_mappings',
-          'config:ps_offer.settings',
-          'ps_context_rule_list',
-          'fb_feature_definition_list',
-          'config:ps_dictionary.entry.*',
-        ],
+      'tags' => [
+        'config:ps_search.seo_url_mappings',
+        'config:ps_offer.settings',
+        'ps_context_rule_list',
+        'fb_feature_definition_list',
+        'config:ps_dictionary.entry.*',
       ],
     ];
   }

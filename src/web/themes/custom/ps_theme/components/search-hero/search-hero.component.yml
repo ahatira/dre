@@ -1,5 +1,5 @@
 name: Search hero
-description: "Homepage hero with title, background image and search slot (Stellar)."
+description: "Homepage hero — 2-column BNPPRE search entry + promo panel."
 group: Property Search
 status: stable
 props:
@@ -8,24 +8,40 @@ props:
     title:
       type: string
       title: Hero title
-      default: "Trouvez votre espace professionnel"
-    subtitle:
-      type: string
-      title: Subtitle
     background_image:
       type: string
-      title: Background image URL
-      description: "Absolute URL or site-relative path to the hero background."
+      title: Hero background image URL
     background_alt:
       type: string
-      title: Background image alt
+      title: Hero background alt text
+    promo_title:
+      type: string
+      title: Promo panel title
+    promo_offers_line:
+      type: string
+      title: Promo offers line
+    promo_description:
+      type: string
+      title: Promo description
+    promo_cta_label:
+      type: string
+      title: Promo CTA label
+    promo_cta_url:
+      type: string
+      title: Promo CTA URL
+    promo_background_image:
+      type: string
+      title: Promo panel background URL
+    promo_background_alt:
+      type: string
+      title: Promo background alt text
+    delegate_url:
+      type: string
+      title: Delegate search URL
 slots:
   search:
-    title: Search
-    description: Search form or filter bar (transaction toggle, location…)
-  actions:
-    title: Actions
-    description: Secondary CTAs below search
+    title: Search form
+    description: Left column search form slot
 libraryOverrides:
   css:
     component:

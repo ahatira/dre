@@ -58,7 +58,7 @@ final class ComparePanelBuilder {
         ],
       ],
       '#cache' => [
-        'contexts' => ['user'],
+        'contexts' => ['session', 'user'],
         'tags' => ['ps_compare:list', 'ps_compare:count'],
         'max-age' => 0,
       ],

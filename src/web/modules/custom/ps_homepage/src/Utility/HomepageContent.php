@@ -52,6 +52,40 @@ final class HomepageContent {
     return (string) (self::data()['hero']['subtitles'][$langcode] ?? self::data()['hero']['subtitles']['en'] ?? '');
   }
 
+  /**
+   * Resolves a homepage search hero editorial field from ps_demo.homepage.
+   */
+  public static function heroSearchField(string $key, ?string $langcode = NULL): string {
+    $langcode ??= self::langcode();
+    if ($key === 'title') {
+      return self::heroTitle($langcode);
+    }
+
+    $data = self::data();
+
+    $promoMap = [
+      'promo_title' => ['promo', 'title'],
+      'promo_offers_line' => ['promo', 'offers_line'],
+      'promo_description' => ['promo', 'description'],
+      'promo_cta_label' => ['promo', 'cta_label'],
+      'promo_cta_url' => ['promo', 'cta_url'],
+    ];
+
+    if (isset($promoMap[$key])) {
+      [$section, $field] = $promoMap[$key];
+      $values = $data['hero'][$section][$field] ?? [];
+      return (string) ($values[$langcode] ?? $values['en'] ?? '');
+    }
+
+    $values = $data['hero']['search'][$key] ?? [];
+    return (string) ($values[$langcode] ?? $values['en'] ?? '');
+  }
+
+  public static function heroPromoBackgroundUrl(): string {
+    $relative = (string) (self::data()['hero']['promo_background'] ?? 'assets/images/hero/hero-profile.png');
+    return self::themeAssetUrl($relative);
+  }
+
   public static function featuredTitle(?string $langcode = NULL): string {
     $langcode ??= self::langcode();
     return (string) (self::data()['featured']['titles'][$langcode] ?? self::data()['featured']['titles']['en'] ?? '');

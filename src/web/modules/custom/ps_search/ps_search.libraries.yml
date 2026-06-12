@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 filter.bar:
-  version: 1.0.55
+  version: 1.0.56
   js:
     js/search-filter-bar.js: {}
   css:
@@ -37,8 +37,21 @@ header.search:
     - core/drupal
     - ps_theme/header
 
+homepage.search:
+  version: 1.0.1
+  js:
+    js/homepage-search.js: {}
+  css:
+    component:
+      css/homepage-search.css: {}
+  dependencies:
+    - core/once
+    - core/drupal
+    - ps_search/filter.bar
+    - ps_theme/form
+
 search-page-map-utils:
-  version: 1.0.7
+  version: 1.0.9
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:

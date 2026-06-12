@@ -322,7 +322,16 @@ final class FavoriteManager implements FavoriteManagerInterface {
       return $entries;
     }
 
-    foreach ($this->cookieStorage->getAllItems() as $currentEntityTypeId => $entityIds) {
+    $entries = [];
+    $allItems = $this->cookieState->hasPendingChanges()
+      ? array_merge($this->cookieStorage->getAllItems(), $this->cookieState->getOverrides())
+      : $this->cookieStorage->getAllItems();
+
+    foreach ($this->cookieState->getClearedEntityTypes() as $clearedEntityTypeId) {
+      unset($allItems[$clearedEntityTypeId]);
+    }
+
+    foreach ($allItems as $currentEntityTypeId => $entityIds) {
       foreach ($entityIds as $entityId) {
         $entries[] = ['entity_type' => $currentEntityTypeId, 'entity_id' => (int) $entityId];
       }

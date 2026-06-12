@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\ps_favorite\Kernel;
 
+use Drupal\Core\Access\CsrfRequestHeaderAccessCheck;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
@@ -95,7 +96,26 @@ final class FavoriteToggleControllerKernelTest extends KernelTestBase {
     );
 
     $routeToken = $this->container->get('csrf_token')->get('ps_favorite.toggle');
-    $sessionToken = $this->container->get('csrf_token')->get('session');
+    $headerToken = $this->container->get('csrf_token')->get(CsrfRequestHeaderAccessCheck::TOKEN_KEY);
+
+    $headerAcceptedResponse = $controller->toggle(
+      Request::create('/favorites/toggle/node/' . $node->id(), 'POST', [], [], [], [
+        'HTTP_ACCEPT' => 'application/json',
+        'HTTP_X_CSRF_TOKEN' => $headerToken,
+      ]),
+      'node',
+      (int) $node->id(),
+    );
+    $this->assertSame(200, $headerAcceptedResponse->getStatusCode());
+
+    $controller->toggle(
+      Request::create('/favorites/toggle/node/' . $node->id(), 'POST', [], [], [], [
+        'HTTP_ACCEPT' => 'application/json',
+        'HTTP_X_CSRF_TOKEN' => $headerToken,
+      ]),
+      'node',
+      (int) $node->id(),
+    );
 
     $acceptedResponse = $controller->toggle(
       Request::create('/favorites/toggle/node/' . $node->id(), 'POST', [], [], [], [
@@ -114,7 +134,7 @@ final class FavoriteToggleControllerKernelTest extends KernelTestBase {
     $rejectedResponse = $controller->toggle(
       Request::create('/favorites/toggle/node/' . $node->id(), 'POST', [], [], [], [
         'HTTP_ACCEPT' => 'application/json',
-        'HTTP_X_CSRF_TOKEN' => $sessionToken,
+        'HTTP_X_CSRF_TOKEN' => 'invalid-token-value',
       ]),
       'node',
       (int) $node->id(),

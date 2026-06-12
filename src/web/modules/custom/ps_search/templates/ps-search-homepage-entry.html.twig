@@ -1,0 +1,129 @@
+{#
+/**
+ * @file
+ * Homepage hero search entry — BNPPRE 2-column left form.
+ *
+ * Variables: labels (editorial strings), operation_types, asset_types, search_path,
+ * budget_config, show_surface_filter, active_op, active_flexible, active_asset.
+ */
+#}
+{% set l = labels|default({}) %}
+<div class="ps-homepage-search-entry" data-ps-homepage-search-entry>
+  <form
+    class="ps-homepage-search-form"
+    method="get"
+    action="{{ search_path }}"
+    role="search"
+    aria-label="{{ l.search_button_label|default('Search') }}"
+  >
+    <input type="hidden" name="operation_type" value="{{ active_op|default('VEN') }}" class="js-ps-homepage-operation" />
+
+    <div class="ps-homepage-search-entry__section">
+      <h3 class="ps-homepage-search-entry__section-title">{{ l.transaction_type_label }}</h3>
+      <div class="ps-homepage-search-entry__op-group ps-op-choices" role="group" aria-label="{{ l.transaction_type_label }}">
+        <button
+          type="button"
+          class="ps-op-btn js-ps-op-btn{% if active_op == 'VEN' %} is-active{% endif %}"
+          data-code="VEN"
+          aria-pressed="{{ active_op == 'VEN' ? 'true' : 'false' }}"
+        >{{ l.op_buy_label }}</button>
+        <button
+          type="button"
+          class="ps-op-btn js-ps-op-btn{% if active_op == 'LOC' %} is-active{% endif %}"
+          data-code="LOC"
+          aria-pressed="{{ active_op == 'LOC' ? 'true' : 'false' }}"
+        >{{ l.op_rent_label }}</button>
+        <button
+          type="button"
+          class="ps-op-btn js-ps-op-btn{% if active_flexible %} is-active{% endif %}"
+          data-code="FLEX"
+          aria-pressed="{{ active_flexible ? 'true' : 'false' }}"
+        >{{ l.op_flexible_label }}</button>
+      </div>
+    </div>
+
+    <div class="ps-homepage-search-entry__section">
+      <label class="form-label ps-homepage-search-entry__label" for="ps-homepage-location-input">
+        {{ l.location_label }}
+      </label>
+      <div class="ps-homepage-search-entry__location-wrap">
+        {% include '@ps_search/ps-search-filter-section-location-fields.twig' with {
+          id_suffix: '-homepage',
+          layout: 'stacked',
+          placeholder: l.location_placeholder,
+          aria_label: l.location_label,
+        } only %}
+        <div id="ps-location-suggest-homepage" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+      </div>
+      <div class="js-ps-homepage-locality-hidden" hidden aria-hidden="true"></div>
+    </div>
+
+    <div class="ps-homepage-search-entry__section">
+      <label class="form-label ps-homepage-search-entry__label" for="ps-homepage-asset-select">
+        {{ l.property_type_label }}
+      </label>
+      <select id="ps-homepage-asset-select" name="asset_type" class="form-select js-ps-homepage-asset-select">
+        <option value="">{{ l.property_type_placeholder }}</option>
+        {% for asset in asset_types %}
+          <option value="{{ asset.code }}"{% if asset.active %} selected{% endif %}>{{ asset.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="ps-homepage-search-entry__row">
+      <div class="ps-homepage-search-entry__field">
+        <div class="ps-homepage-search-entry__label-row">
+          <label class="form-label ps-homepage-search-entry__label mb-0" for="ps-homepage-surface-min">
+            {{ l.surface_min_label }}
+          </label>
+          <span class="ps-homepage-search-entry__optional">{{ l.optional_label }}</span>
+        </div>
+        <input
+          type="number"
+          id="ps-homepage-surface-min"
+          name="surface_min"
+          class="form-control js-ps-homepage-surface-min"
+          min="0"
+          step="50"
+          placeholder="{{ l.surface_min_placeholder }}"
+          {% if not show_surface_filter %}disabled{% endif %}
+        >
+      </div>
+      <div class="ps-homepage-search-entry__field">
+        <div class="ps-homepage-search-entry__label-row">
+          <label class="form-label ps-homepage-search-entry__label mb-0" for="ps-homepage-budget-max">
+            {{ l.price_max_label }}
+          </label>
+          <span class="ps-homepage-search-entry__optional">{{ l.optional_label }}</span>
+        </div>
+        <input
+          type="number"
+          id="ps-homepage-budget-max"
+          name="budget_max"
+          class="form-control js-ps-homepage-budget-max"
+          min="0"
+          step="{{ budget_config.step|default(10) }}"
+          placeholder="{{ l.price_max_placeholder }}"
+        >
+      </div>
+    </div>
+
+    <div class="ps-homepage-search-entry__submit">
+      <button type="submit" class="btn btn-primary w-100">
+        {{ l.search_button_label }}
+      </button>
+    </div>
+  </form>
+
+  <div class="ps-homepage-search-entry__delegate">
+    <p class="ps-homepage-search-entry__delegate-text mb-0">
+      {{ l.delegate_prompt }}
+      <span class="ps-homepage-search-entry__info-icon" aria-hidden="true" title="{{ l.delegate_prompt }}">i</span>
+    </p>
+    {% if l.delegate_url %}
+      <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn" href="{{ l.delegate_url }}">
+        {{ l.delegate_button_label }}
+      </a>
+    {% endif %}
+  </div>
+</div>

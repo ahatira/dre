@@ -46,16 +46,28 @@ src/config/demo/                 # Partial CMI (mega-menu, multilingual)
 ```bash
 make up
 bash src/scripts/main.sh tools build
-make reinstall          # site + modules + ps_theme (vide)
-make demo               # menus, homepage, mega-menu
-make import-sample-xml  # offres sample (optionnel)
-make index-solr         # index Solr (optionnel)
+make install              # site + demo + offres sample + Solr + ps_search/ps_seo
+# ou, pour repartir de zéro :
+make reinstall              # DB reset + install complete
 ```
 
-Enchaînement :
+Étapes exécutées automatiquement par `make install` / `make reinstall` :
 
-1. **`make reinstall`** — Drupal + modules PS + dictionnaire + dépendances thème (`ps_block`, `ps_homepage`, mega-menu) + **`ps_theme`** (blocs/menus vides)
-2. **`make demo`** — contenu Stellar (menus, homepage) + normalisation footer (`DemoMenuNormalizer`) + CMI mega-menu / multilingue / bloc Follow us
+1. **Install Drupal** — modules PS, dictionnaire, thème `ps_theme`
+2. **Post-install** (`post-install.sh`) — demo, migrate offres, `ps_compare` / `ps_search` / `ps_seo`, index Solr
+
+Options :
+
+```bash
+make post-install                    # compléter un site installé avec --minimal
+scripts/main.sh drupal install --minimal   # coquille seule (sans demo/offres/Solr)
+scripts/main.sh drupal post-install --skip-offers   # si offres déjà importées
+```
+
+Enchaînement manuel (équivalent) :
+
+1. **`make reinstall --minimal`** ou **`make install --minimal`** — coquille vide
+2. **`make demo`** — contenu Stellar (menus, homepage) + CMI mega-menu
 3. **`make import-sample-xml`** — migrate offres CRM
 4. **`make index-solr`** — index Search API / Solr
 

@@ -1,0 +1,18 @@
+block.settings.ps_homepage_search_hero_block:
+  type: mapping
+  label: 'Search hero (homepage) block'
+  mapping:
+    background_image:
+      type: integer
+      label: 'Hero background file ID'
+      nullable: true
+    promo_background_image:
+      type: integer
+      label: 'Promo background file ID'
+      nullable: true
+    background_alt:
+      type: string
+      label: 'Hero background alt'
+    promo_background_alt:
+      type: string
+      label: 'Promo background alt'

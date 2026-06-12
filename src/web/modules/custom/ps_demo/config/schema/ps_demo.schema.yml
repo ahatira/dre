@@ -50,6 +50,15 @@ ps_demo.homepage:
             fr:
               type: text
               label: 'French subtitle'
+        promo_background:
+          type: string
+          label: 'Promo panel background (theme-relative)'
+        search:
+          type: mapping
+          label: 'Hero search form copy'
+        promo:
+          type: mapping
+          label: 'Hero promo panel copy'
     featured:
       type: mapping
       label: Featured

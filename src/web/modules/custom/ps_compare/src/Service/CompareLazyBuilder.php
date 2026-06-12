@@ -86,7 +86,7 @@ final class CompareLazyBuilder implements TrustedCallbackInterface {
           'ps_compare:count',
           sprintf('ps_compare:%s:%d', $entity->getEntityTypeId(), $entityId),
         ]),
-        'contexts' => ['user'],
+        'contexts' => ['session', 'user'],
         'max-age' => 0,
       ],
     ];

@@ -19,7 +19,7 @@ XML_TARGET := src/web/sites/default/files/crm/offers.xml
 .PHONY: \
 	help up down restart ps logs rebuild \
 	composer-install composer-update npm-install bootstrap \
-	install reinstall demo index-solr deploy verify cleanup \
+	install reinstall demo post-install index-solr deploy verify cleanup \
 	drush-status drush-cr drush-uli modules-list theme-admin db-reset \
 	dictionary-import xml-stage-sample \
 	import-crm import-sample-xml import-status import-reset import-rollback
@@ -32,8 +32,10 @@ help:
 	@echo "  make ps                - Etat des conteneurs"
 	@echo "  make logs              - Logs nginx"
 	@echo "  make rebuild           - Reconstruire l'image PHP"
-	@echo "  make install           - Installation Drupal (site + modules + theme)"
-	@echo "  make reinstall         - Reinstallation Drupal (DB reset, sans demo/offres)"
+	@echo "  make install           - Installation Drupal complete (site + demo + offres + Solr)"
+	@echo "  make install --minimal - Coquille Drupal seule (sans demo/offres/Solr)"
+	@echo "  make reinstall         - Reinstallation Drupal complete (DB reset + post-install)"
+	@echo "  make post-install      - Demo + offres sample + ps_search/ps_seo + Solr (apres install --minimal)"
 	@echo "  make demo              - Contenu demo (menus, homepage, mega-menu CMI)"
 	@echo "  make import-sample-xml - Import offres sample (migrate CRM XML)"
 	@echo "  make index-solr        - Indexer les offres dans Solr"
@@ -78,10 +80,13 @@ npm-install:
 bootstrap: up composer-install
 
 install:
-	bash "$(SCRIPTS_CLI)" drupal install
+	bash "$(SCRIPTS_CLI)" drupal install $(filter-out $@,$(MAKECMDGOALS))
 
 reinstall:
-	bash "$(SCRIPTS_CLI)" drupal install --force
+	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out $@,$(MAKECMDGOALS))
+
+post-install:
+	bash "$(SCRIPTS_CLI)" drupal post-install
 
 demo:
 	bash "$(SCRIPTS_CLI)" drupal demo
@@ -156,3 +161,7 @@ import-rollback:
 	$(call drush,migrate:rollback ps_agent_avatar_file_from_xml) || true
 	$(call drush,migrate:rollback ps_feature_definitions_from_xml) || true
 	$(call drush,migrate:rollback ps_feature_groups_from_xml) || true
+
+# Allow: make install --minimal
+%:
+	@:

@@ -1,5 +1,5 @@
 compare-toggle:
-  version: 1.4
+  version: 1.5
   js:
     js/ps-compare-toggle.js: {}
     js/ps-compare-toast.js: {}

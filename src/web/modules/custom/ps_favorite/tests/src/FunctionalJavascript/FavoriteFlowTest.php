@@ -117,7 +117,7 @@ final class FavoriteFlowTest extends WebDriverTestBase {
     $rejectedResponse = $client->post($toggleUrl, [
       'headers' => [
         'Accept' => 'application/json',
-        'X-CSRF-Token' => \Drupal::service('csrf_token')->get('session'),
+        'X-CSRF-Token' => 'invalid-token-value',
       ],
       'http_errors' => FALSE,
     ]);

@@ -42,19 +42,13 @@
 
   const getCsrfToken = async() => {
     if (!csrfTokenPromise) {
-      csrfTokenPromise = Promise.resolve(settings().csrfToken || '').then((token) => {
-        if (token) {
-          return token;
-        }
-
-        return fetch('/session/token', {
-          method: 'GET',
-          credentials: 'same-origin',
-          headers: { Accept: 'text/plain' },
-        })
-          .then((response) => (response.ok ? response.text() : ''))
-          .catch(() => '');
-      });
+      csrfTokenPromise = fetch('/session/token', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: { Accept: 'text/plain' },
+      })
+        .then((response) => (response.ok ? response.text() : ''))
+        .catch(() => '');
     }
 
     return csrfTokenPromise;

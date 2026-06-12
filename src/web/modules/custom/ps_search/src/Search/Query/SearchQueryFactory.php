@@ -61,7 +61,7 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
    * {@inheritdoc}
    */
   public function applyBusinessFilters(QueryInterface $query, Request $request): void {
-    $this->applyContentLanguageFilter($query);
+    $this->applyContentLanguageFilter($query, $request);
 
     $operationType = $this->queryFacetCode($request, 'operation_type');
     $assetType = $this->queryFacetCode($request, 'asset_type');
@@ -132,13 +132,28 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
   }
 
   /**
-   * Restricts results to the current content language (one row per offer).
+   * Restricts results to the resolved content language (one row per offer).
+   *
+   * Public API routes (/api/ps/*) have no language prefix; callers pass ?lang=
+   * from drupalSettings.path.currentLanguage so markers match the search page.
    */
-  private function applyContentLanguageFilter(QueryInterface $query): void {
-    $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+  private function applyContentLanguageFilter(QueryInterface $query, Request $request): void {
+    $langcode = $this->resolveContentLangcode($request);
     if ($langcode !== '') {
       $query->addCondition('langcode', $langcode);
     }
+  }
+
+  /**
+   * Resolves the content language for Search API business-filter queries.
+   */
+  private function resolveContentLangcode(Request $request): string {
+    $langParam = strtolower(trim((string) $request->query->get('lang', '')));
+    if ($langParam !== '' && $this->languageManager->getLanguage($langParam) !== NULL) {
+      return $langParam;
+    }
+
+    return $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
   }
 
   /**

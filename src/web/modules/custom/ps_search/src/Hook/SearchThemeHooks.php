@@ -64,6 +64,22 @@ final class SearchThemeHooks {
         ],
         'template' => 'ps-search-results-header',
       ],
+      'ps_search_homepage_entry' => [
+        'variables' => [
+          'operation_types' => [],
+          'asset_types' => [],
+          'active_op' => NULL,
+          'active_flexible' => FALSE,
+          'active_asset' => NULL,
+          'active_op_label' => NULL,
+          'active_asset_label' => NULL,
+          'search_path' => '',
+          'budget_config' => [],
+          'show_surface_filter' => TRUE,
+          'labels' => [],
+        ],
+        'template' => 'ps-search-homepage-entry',
+      ],
     ];
   }
 
