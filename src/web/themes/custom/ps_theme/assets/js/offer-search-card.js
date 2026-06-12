@@ -110,24 +110,20 @@
   }
 
   /**
-   * Prepares comparator action (placeholder until comparator module ships).
+   * Initializes compare wrapper click isolation.
    *
    * @param {HTMLElement} card
    *   Offer search card root element.
    */
-  function initComparator(card) {
-    const compareBtn = card.querySelector('.ps-offer-search-card__action--compare');
-    if (!compareBtn || compareBtn.dataset.psCompareBound) {
+  function initCompareWrapper(card) {
+    const wrapper = card.querySelector('.ps-offer-search-card__action--compare');
+    if (!wrapper || wrapper.dataset.psCompareWrapperBound) {
       return;
     }
 
-    compareBtn.dataset.psCompareBound = '1';
-    compareBtn.addEventListener('click', function (event) {
-      event.preventDefault();
+    wrapper.dataset.psCompareWrapperBound = '1';
+    wrapper.addEventListener('click', function (event) {
       event.stopPropagation();
-      if (typeof Drupal.announce === 'function') {
-        Drupal.announce(Drupal.t('Comparator coming soon.'));
-      }
     });
   }
 
@@ -199,7 +195,7 @@
 
     applyViewedBadge(card);
     initCardNavigation(card);
-    initComparator(card);
+    initCompareWrapper(card);
     initFavoriteWrapper(card);
 
     const media = card.querySelector('.ps-offer-search-card__media');

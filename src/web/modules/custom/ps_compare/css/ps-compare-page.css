@@ -1,0 +1,39 @@
+/* Compare formatters and mobile layout — page styles live in ps_theme. */
+
+.ps-compare-energy-combined__item {
+  min-width: 0;
+}
+
+.ps-compare-mobile__card .card-header {
+  padding-bottom: 0;
+}
+
+.ps-compare-mobile__section:last-of-type {
+  margin-bottom: 1rem !important;
+}
+
+.ps-diagnostic-compare__badge {
+  font-size: 0.8125rem;
+  min-width: 1.75rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.ps-offer-budget-compare-wrap {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.ps-offer-budget-compare__info {
+  background: transparent;
+  border: 1px solid #ebedef;
+  border-radius: 50%;
+  color: #777e83;
+  cursor: pointer;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  height: 1.25rem;
+  line-height: 1;
+  padding: 0;
+  width: 1.25rem;
+}

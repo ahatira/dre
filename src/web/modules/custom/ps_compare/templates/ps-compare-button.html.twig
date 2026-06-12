@@ -1,0 +1,28 @@
+<button
+  type="button"
+  class="ps-compare-button ps-compare-button--{{ context }}{{ is_compared ? ' is-active' : '' }}"
+  data-ps-compare-toggle
+  data-entity-type-id="{{ entity_type_id }}"
+  data-entity-id="{{ entity_id }}"
+  data-url="{{ toggle_url }}"
+  data-ps-compare-context="{{ context }}"
+  data-label-add="{{ label_add }}"
+  data-label-remove="{{ label_remove }}"
+  aria-pressed="{{ is_compared ? 'true' : 'false' }}"
+  aria-label="{{ is_compared ? label_remove : label_add }}"
+  title="{{ is_compared ? label_remove : label_add }}"
+>
+  <span class="ps-compare-button__icon" aria-hidden="true">
+    {% if context == 'compare-page' %}
+      <span class="ps-compare-button__icon-close">&times;</span>
+    {% else %}
+      <span class="ps-compare-button__icon-state ps-compare-button__icon-state--inactive">
+        {{ icon('bnp_custom', 'comparator', {'size': '24px'}) }}
+      </span>
+      <span class="ps-compare-button__icon-state ps-compare-button__icon-state--active">
+        {{ icon('bnp_custom', 'comparator', {'size': '24px', 'class': 'ps-compare-button__icon-filled'}) }}
+      </span>
+    {% endif %}
+  </span>
+  <span class="visually-hidden js-ps-compare-sr">{{ is_compared ? label_remove : label_add }}</span>
+</button>

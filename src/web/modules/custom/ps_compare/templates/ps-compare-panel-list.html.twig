@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Compare panel list — selected offers and one empty slot when below limit.
+ */
+#}
+<ul class="ps-compare-panel__list" data-ps-compare-panel-list>
+  {% for item in items %}
+    <li class="ps-compare-panel__item">
+      {{ {
+        '#theme': 'ps_compare_panel_item',
+        '#entity_type_id': item.entity_type_id,
+        '#entity_id': item.entity_id,
+        '#title': item.title,
+        '#surface': item.surface,
+        '#price_amount': item.price_amount,
+        '#price_qualifiers': item.price_qualifiers,
+        '#thumbnail': item.thumbnail,
+        '#url': item.url,
+        '#toggle_url': item.toggle_url,
+      } }}
+    </li>
+  {% endfor %}
+  {% if count > 0 and remaining_slots > 0 %}
+    <li class="ps-compare-panel__item ps-compare-panel__item--slot">
+      <div class="ps-compare-panel-slot" aria-hidden="true"></div>
+      <span class="visually-hidden">{{ 'Empty comparison slot'|t }}</span>
+    </li>
+  {% endif %}
+</ul>

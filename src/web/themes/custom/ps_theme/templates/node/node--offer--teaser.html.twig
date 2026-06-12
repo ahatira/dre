@@ -4,7 +4,11 @@
  * Offer teaser — renders the offer-card SDC (vertical grid / homepage).
  */
 #}
-{% if offer_card %}
+{% if offer_card_component %}
+  <div class="ps-offer-card-wrapper h-100">
+    {{ offer_card_component }}
+  </div>
+{% elseif offer_card %}
   <div class="ps-offer-card-wrapper h-100">
     {% include 'ps_theme:offer-card' with offer_card only %}
   </div>

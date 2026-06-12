@@ -1,0 +1,78 @@
+{#
+/**
+ * @file
+ * Compare widget — bar + panel overlay on search map column.
+ */
+#}
+<div class="ps-compare-widget{% if count > 0 %} is-visible{% endif %}" data-ps-compare-widget{% if count <= 0 %} hidden{% endif %}>
+  <div class="ps-compare-widget__limit-alert d-none" role="alert" data-ps-compare-limit-alert hidden>
+    <button type="button" class="ps-compare-widget__limit-dismiss btn-close" data-ps-compare-limit-dismiss aria-label="{{ 'Close'|t }}"></button>
+    <p class="mb-0">{{ "You can't compare more than @max ads at the same time. Delete one to add this one."|t({'@max': max_items}) }}</p>
+  </div>
+
+  <div class="ps-compare-panel ps-compare-panel--collapsed" data-ps-compare-panel>
+    <button
+      type="button"
+      class="ps-compare-panel__trigger collapsed d-none d-lg-flex"
+      data-ps-compare-panel-toggle
+      data-bs-toggle="collapse"
+      data-bs-target="#ps-compare-panel-collapse"
+      aria-expanded="false"
+      aria-controls="ps-compare-panel-collapse"
+    >
+      <span
+        class="ps-compare-panel__title"
+        data-ps-compare-bar-label
+        data-base-label="{{ 'Comparator'|t }}"
+        data-expanded-label="{{ 'Comparator (@count ads)'|t }}"
+      >
+        {{ 'Comparator'|t }}
+      </span>
+      <span class="ps-compare-panel__chevron" aria-hidden="true">{{ icon('bnp_custom', 'arrow-down', {'size': '16px'}) }}</span>
+    </button>
+
+    <div class="ps-compare-panel__mobile-header d-lg-none">
+      <span
+        class="ps-compare-panel__title"
+        data-ps-compare-bar-label
+        data-base-label="{{ 'Comparator'|t }}"
+        data-expanded-label="{{ 'Comparator (@count ads)'|t }}"
+      >
+        {{ 'Comparator'|t }}
+      </span>
+      <button type="button" class="ps-compare-panel__close" data-ps-compare-panel-close aria-label="{{ 'Close'|t }}">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div
+      id="ps-compare-panel-collapse"
+      class="collapse"
+      data-ps-compare-panel-collapse
+      data-ps-compare-panel-body
+    >
+      {{ {
+        '#theme': 'ps_compare_panel_list',
+        '#items': items,
+        '#count': count,
+        '#max_items': max_items,
+        '#remaining_slots': max(0, max_items - count),
+      } }}
+
+      <div class="ps-compare-panel__footer">
+        <button
+          type="button"
+          class="btn btn-primary w-100 ps-compare-panel__cta{{ can_compare ? '' : ' disabled' }}"
+          data-ps-compare-cta
+          {% if not can_compare %}disabled aria-disabled="true"{% endif %}
+        >
+          {{ 'Compare selection'|t }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="ps-compare-mobile-bar d-lg-none" data-ps-compare-mobile-open hidden>
+    <span data-ps-compare-bar-label data-base-label="{{ 'Comparator'|t }}" data-expanded-label="{{ 'Comparator (@count ads)'|t }}">{{ 'Comparator'|t }}</span>
+  </button>
+</div>

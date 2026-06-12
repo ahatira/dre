@@ -47,8 +47,13 @@
       <span class="visually-hidden">{{ title }}</span>
     </a>
   {% endif %}
-  {% if favorite or actions %}
-    <div class="card-footer ps-offer-card__footer bg-transparent border-0 pt-0">
+  {% if show_compare or favorite or actions %}
+    <div class="card-footer ps-offer-card__footer bg-transparent border-0 pt-0 d-flex gap-2 justify-content-end">
+      {% if show_compare %}
+        <div class="ps-offer-card__compare">
+          {% block compare %}{% endblock %}
+        </div>
+      {% endif %}
       {% if favorite %}
         <button type="button" class="btn btn-link btn-sm ps-offer-card__favorite" aria-label="{{ 'Add to favorites'|t }}">
           {{ 'Favorite'|t }}

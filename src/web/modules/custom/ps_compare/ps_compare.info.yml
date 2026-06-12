@@ -1,0 +1,16 @@
+name: 'PS Compare'
+type: module
+description: 'Property offer comparison list with anonymous and authenticated persistence.'
+core_version_requirement: ^10.3 || ^11
+package: 'Property Search'
+dependencies:
+  - drupal:node
+  - drupal:user
+  - ps_core:ps_core
+  - ps_offer:ps_offer
+  - ps_dictionary:ps_dictionary
+  - ps_feature:ps_feature
+  - ps_surface:ps_surface
+  - ps_diagnostic:ps_diagnostic
+  - ps_media:ps_media
+  - ps_favorite:ps_favorite

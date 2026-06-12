@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Bootstrap modal shell for the comparison table on search pages.
+ */
+#}
+<div class="modal fade ps-compare-modal" id="ps-compare-modal" tabindex="-1" aria-labelledby="ps-compare-modal-title" aria-hidden="true" data-ps-compare-modal>
+  <div class="modal-dialog modal-xl modal-fullscreen-lg-down ps-compare-modal__dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="ps-compare-modal-title">{{ 'Compare properties'|t }}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+      </div>
+      <div class="modal-body" data-ps-compare-modal-body>
+        <div class="ps-compare-modal__loading d-flex justify-content-center py-5" data-ps-compare-modal-loading hidden>
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">{{ 'Loading…'|t }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-none" data-ps-compare-modal-footer></div>
+    </div>
+  </div>
+</div>

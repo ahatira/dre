@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Column header card for the comparison table (page + modal).
+ */
+#}
+<div class="ps-compare-table__column-header">
+  {% if show_actions and (favorite or remove) %}
+    <div class="ps-compare-table__column-actions">
+      {% if remove %}
+        <div class="ps-compare-table__column-action ps-compare-table__column-action--compare">
+          {{ remove }}
+        </div>
+      {% endif %}
+      {% if favorite %}
+        <div class="ps-compare-table__column-action ps-compare-table__column-action--favorite">
+          {{ favorite }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="ps-compare-table__column-media">
+    {{ gallery }}
+  </div>
+  <div class="ps-compare-table__column-body">
+    {% if title %}
+      <a href="{{ url }}" class="ps-compare-table__column-title fw-semibold link-body-emphasis text-decoration-none d-block">{{ title }}</a>
+    {% endif %}
+    <a href="{{ url }}" class="btn btn-primary btn-sm w-100 ps-compare-table__column-cta">{{ 'View property'|t }}</a>
+  </div>
+</div>

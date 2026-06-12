@@ -1,0 +1,31 @@
+{% set raw_value = item.value is defined ? item.value : '' %}
+{% set raw_class = item.class is defined ? item.class : '' %}
+{% set value_number = raw_value is not empty ? raw_value + 0 : null %}
+{% set is_dimmed = is_disabled|default(false) %}
+{% set has_data = not is_dimmed and (value_number is not null or raw_class is not empty) %}
+{% set derived_class = active_class ? active_class.label|upper : '' %}
+{% if derived_class == '' and raw_class is not empty %}
+  {% set derived_class = raw_class|upper %}
+{% endif %}
+{% set display_text = is_dimmed ? '?' : (derived_class ?: '?') %}
+{% set badge_fill = cursor_fill|default('#989a9f') %}
+{% set badge_text = cursor_text|default('#ffffff') %}
+
+<div class="ps-diagnostic-compare d-inline-flex align-items-center gap-2">
+  <span
+    class="ps-diagnostic-compare__badge badge rounded-1 fw-bold"
+    style="background-color: {{ badge_fill }}; color: {{ badge_text }};"
+    aria-label="{{ type_label|default('Diagnostic'|t) }} {{ display_text|upper }}"
+  >
+    {{ display_text|upper }}
+  </span>
+  {% if has_data and unit and raw_value is not empty %}
+    <span class="ps-diagnostic-compare__value small text-body-secondary">
+      {{ raw_value }} {{ unit }}
+    </span>
+  {% elseif is_dimmed and disabled_message %}
+    <span class="ps-diagnostic-compare__message small text-muted">
+      {{ disabled_message }}
+    </span>
+  {% endif %}
+</div>

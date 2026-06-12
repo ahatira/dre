@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Compare toolbar — share action and modal shortcuts.
+ */
+#}
+<div class="ps-compare-toolbar{% if context != 'modal' %} mb-3{% endif %}" data-ps-compare-toolbar>
+  <div class="ps-compare-toolbar__inner d-flex flex-wrap align-items-center justify-content-end gap-3">
+    {% if share_enabled %}
+      <button
+        type="button"
+        class="btn btn-outline-secondary ps-compare-toolbar__share"
+        data-ps-compare-share
+      >
+        {{ 'Share comparison'|t }}
+      </button>
+    {% endif %}
+
+    {% if context == 'modal' and compare_url %}
+      <a
+        href="{{ compare_url }}"
+        class="btn btn-primary ps-compare-toolbar__full-page"
+        target="_blank"
+        rel="noopener"
+      >
+        {{ 'Open full page'|t }}
+      </a>
+    {% endif %}
+  </div>
+</div>

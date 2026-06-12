@@ -46,9 +46,13 @@
   --bs-btn-border-color: var(--re-color-primary-strong);
   --bs-btn-hover-bg: var(--re-color-primary-strong);
   --bs-btn-hover-border-color: var(--re-color-primary-strong);
+  --bs-btn-hover-color: var(--re-color-surface);
   --bs-btn-active-bg: var(--re-color-primary-strong);
   --bs-btn-active-border-color: var(--re-color-primary-strong);
-  --bs-btn-disabled-border-color: var(--re-color-primary-strong);
+  --bs-btn-active-color: var(--re-color-surface);
+  --bs-btn-disabled-color: var(--re-color-primary-disabled);
+  --bs-btn-disabled-border-color: var(--re-color-primary-disabled);
+  --bs-btn-focus-shadow-rgb: var(--re-color-primary-rgb);
 }
 
 // ─── Secondary variant (pink brand) ─────────────────────────────────────────
@@ -74,5 +78,19 @@
   --bs-btn-disabled-border-color: transparent;
 
   // Focus ring
+  --bs-btn-focus-shadow-rgb: var(--re-color-secondary-rgb);
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--re-color-secondary);
+  --bs-btn-border-color: var(--re-color-secondary);
+  --bs-btn-hover-bg: var(--re-color-secondary-hover);
+  --bs-btn-hover-border-color: var(--re-color-secondary-hover);
+  --bs-btn-hover-color: var(--re-color-surface);
+  --bs-btn-active-bg: var(--re-color-secondary-strong);
+  --bs-btn-active-border-color: var(--re-color-secondary-strong);
+  --bs-btn-active-color: var(--re-color-surface);
+  --bs-btn-disabled-color: var(--re-color-secondary-disabled);
+  --bs-btn-disabled-border-color: var(--re-color-secondary-disabled);
   --bs-btn-focus-shadow-rgb: var(--re-color-secondary-rgb);
 }

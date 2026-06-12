@@ -31,7 +31,37 @@ final class Offer {
     $view_mode = (string) ($variables['view_mode'] ?? '');
 
     if ($view_mode === 'teaser') {
-      $variables['offer_card'] = OfferCardPropsBuilder::build($node);
+      $props = array_merge(OfferCardPropsBuilder::build($node), [
+        'show_compare' => TRUE,
+        'node_id' => (int) $node->id(),
+      ]);
+      $component = [
+        '#type' => 'component',
+        '#component' => 'ps_theme:offer-card',
+        '#props' => $props,
+      ];
+
+      if (\Drupal::hasService('ps_favorite.lazy_builder')) {
+        $component['#slots']['actions'] = [
+          '#lazy_builder' => [
+            'ps_favorite.lazy_builder:buildButton',
+            [$node->getEntityTypeId(), (int) $node->id(), 'teaser'],
+          ],
+          '#create_placeholder' => TRUE,
+        ];
+      }
+
+      if (\Drupal::hasService('ps_compare.lazy_builder')) {
+        $component['#slots']['compare'] = [
+          '#lazy_builder' => [
+            'ps_compare.lazy_builder:buildButton',
+            [$node->getEntityTypeId(), (int) $node->id(), 'teaser'],
+          ],
+          '#create_placeholder' => TRUE,
+        ];
+      }
+
+      $variables['offer_card_component'] = $component;
       return;
     }
 
@@ -46,6 +76,16 @@ final class Offer {
         $component['#slots']['actions'] = [
           '#lazy_builder' => [
             'ps_favorite.lazy_builder:buildButton',
+            [$node->getEntityTypeId(), (int) $node->id(), 'search'],
+          ],
+          '#create_placeholder' => TRUE,
+        ];
+      }
+
+      if (\Drupal::hasService('ps_compare.lazy_builder')) {
+        $component['#slots']['compare'] = [
+          '#lazy_builder' => [
+            'ps_compare.lazy_builder:buildButton',
             [$node->getEntityTypeId(), (int) $node->id(), 'search'],
           ],
           '#create_placeholder' => TRUE,

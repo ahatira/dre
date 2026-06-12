@@ -1,0 +1,192 @@
+services:
+  ps_compare.cookie_storage:
+    class: Drupal\ps_compare\Service\CompareCookieStorage
+    arguments:
+      - '@request_stack'
+      - '@private_key'
+      - '@settings'
+
+  ps_compare.cookie_state:
+    class: Drupal\ps_compare\Service\CompareCookieState
+
+  ps_compare.repository:
+    class: Drupal\ps_compare\Repository\CompareRepository
+    arguments:
+      - '@database'
+      - '@datetime.time'
+
+  Drupal\ps_compare\Repository\CompareRepositoryInterface:
+    alias: ps_compare.repository
+
+  ps_compare.path_resolver:
+    class: Drupal\ps_compare\Service\ComparePathResolver
+    arguments:
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@config.storage'
+
+  Drupal\ps_compare\Contract\ComparePathResolverInterface:
+    alias: ps_compare.path_resolver
+
+  ps_compare.manager:
+    class: Drupal\ps_compare\Service\CompareManager
+    arguments:
+      - '@current_user'
+      - '@entity_type.manager'
+      - '@ps_compare.repository'
+      - '@ps_compare.cookie_storage'
+      - '@ps_compare.cookie_state'
+      - '@cache_tags.invalidator'
+      - '@config.factory'
+
+  Drupal\ps_compare\Service\CompareManagerInterface:
+    alias: ps_compare.manager
+
+  ps_compare.lazy_builder:
+    class: Drupal\ps_compare\Service\CompareLazyBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_compare.manager'
+      - '@csrf_token'
+      - '@ps_compare.path_resolver'
+
+  ps_compare.offer_summary_builder:
+    class: Drupal\ps_compare\Service\CompareOfferSummaryBuilder
+    arguments:
+      - '@ps_offer.surface_kpi_builder'
+      - '@ps_dictionary.resolver'
+      - '@config.factory'
+      - '@entity.repository'
+
+  ps_compare.panel_builder:
+    class: Drupal\ps_compare\Service\ComparePanelBuilder
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.offer_summary_builder'
+      - '@ps_compare.path_resolver'
+      - '@csrf_token'
+
+  ps_compare.display_settings:
+    class: Drupal\ps_compare\Service\CompareDisplaySettings
+    arguments:
+      - '@config.factory'
+
+  ps_compare.table_enhancer:
+    class: Drupal\ps_compare\Service\CompareTableEnhancer
+    arguments:
+      - '@ps_compare.display_settings'
+
+  ps_compare.email_sender:
+    class: Drupal\ps_compare\Service\CompareEmailSender
+    arguments:
+      - '@ps_compare.email_builder'
+      - '@ps_compare.manager'
+      - '@plugin.manager.mail'
+      - '@language_manager'
+      - '@renderer'
+      - '@csrf_token'
+      - '@config.factory'
+
+  ps_compare.share_resolver:
+    class: Drupal\ps_compare\Service\CompareShareResolver
+    arguments:
+      - '@ps_compare.path_resolver'
+      - '@ps_compare.manager'
+      - '@entity_type.manager'
+
+  ps_compare.email_builder:
+    class: Drupal\ps_compare\Service\CompareEmailBuilder
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.page_builder'
+      - '@ps_compare.share_resolver'
+      - '@renderer'
+
+  ps_compare.email_image_encoder:
+    class: Drupal\ps_compare\Service\CompareEmailImageEncoder
+    arguments:
+      - '@ps_compare.offer_summary_builder'
+      - '@file_system'
+      - '@extension.path.resolver'
+      - '@http_client'
+
+  ps_compare.mini_map_builder:
+    class: Drupal\ps_compare\Service\CompareMiniMapBuilder
+    arguments:
+      - '@ps_offer.map_location_builder'
+      - '@ps_offer.map_settings'
+      - '@ps_offer.google_maps_settings'
+      - '@ps_compare.email_image_encoder'
+      - '@http_client'
+      - '@state'
+
+  ps_compare.page_builder:
+    class: Drupal\ps_compare\Service\ComparePageBuilder
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.lazy_builder'
+      - '@ps_compare.offer_summary_builder'
+      - '@ps_compare.share_resolver'
+      - '@ps_compare.email_image_encoder'
+      - '@entity_type.manager'
+      - '@entity_display.repository'
+      - '@renderer'
+      - '@config.factory'
+      - '@plugin.manager.feature_type'
+      - '@ps_compare.display_settings'
+      - '@ps_compare.table_enhancer'
+      - '@ps_favorite.lazy_builder'
+      - '@ps_compare.mini_map_builder'
+
+  Drupal\ps_compare\Controller\CompareController:
+    class: Drupal\ps_compare\Controller\CompareController
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.panel_builder'
+      - '@ps_compare.page_builder'
+      - '@ps_compare.path_resolver'
+      - '@ps_compare.email_sender'
+      - '@csrf_token'
+      - '@renderer'
+
+  Drupal\ps_compare\Controller\CompareToggleController:
+    class: Drupal\ps_compare\Controller\CompareToggleController
+    arguments:
+      - '@ps_compare.manager'
+      - '@entity_type.manager'
+      - '@csrf_token'
+      - '@ps_compare.path_resolver'
+
+  Drupal\ps_compare\Controller\CompareShareModalController:
+    class: Drupal\ps_compare\Controller\CompareShareModalController
+    arguments:
+      - '@ps_compare.manager'
+      - '@renderer'
+
+  Drupal\ps_compare\Hook\CompareHooks:
+    class: Drupal\ps_compare\Hook\CompareHooks
+    arguments:
+      - '@ps_compare.manager'
+      - '@ps_compare.repository'
+
+  Drupal\ps_compare\Hook\CompareSearchHooks:
+    class: Drupal\ps_compare\Hook\CompareSearchHooks
+    arguments:
+      - '@ps_compare.panel_builder'
+
+  ps_compare.response_subscriber:
+    class: Drupal\ps_compare\EventSubscriber\CompareResponseSubscriber
+    arguments:
+      - '@ps_compare.cookie_storage'
+      - '@ps_compare.cookie_state'
+    tags:
+      - { name: event_subscriber }
+
+  ps_compare.base_path_processor:
+    class: Drupal\ps_compare\PathProcessor\CompareBasePathProcessor
+    arguments:
+      - '@ps_compare.path_resolver'
+      - '@language_manager'
+    tags:
+      - { name: path_processor_inbound, priority: 280 }
+      - { name: path_processor_outbound, priority: 100 }

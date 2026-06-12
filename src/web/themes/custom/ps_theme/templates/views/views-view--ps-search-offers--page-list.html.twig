@@ -147,12 +147,23 @@
         </button>
         <div class="js-ps-search-map-popup-content"></div>
       </div>
+      {% if compare_widget %}
+        {{ compare_widget }}
+      {% endif %}
       <button type="button" class="btn btn-sm position-absolute shadow-sm js-ps-show-list ps-search-map-layout-btn z-1 d-none d-lg-inline-flex align-items-center" hidden>
         {{ icon('bnp_custom', 'eye', {'size': '20px', 'class': 'ps-search-map-layout-btn__icon'}) }}
         <span>{{ 'Show list'|t }}</span>
       </button>
     </div>
   </div>
+
+  {% if compare_modal %}
+    {{ compare_modal }}
+  {% endif %}
+
+  {% if compare_share_modal %}
+    {{ compare_share_modal }}
+  {% endif %}
 
   {# Customize area modal (desktop full-map maquette) #}
   <div class="modal fade ps-search-customize-area-modal" id="ps-search-customize-area" tabindex="-1" aria-labelledby="ps-search-customize-area-title" aria-hidden="true">

@@ -62,9 +62,12 @@ props:
       title: CTA link label
       default: "View the property"
 slots:
+  compare:
+    title: Compare action
+    description: Compare toggle button (ps_compare lazy builder).
   actions:
     title: Actions
-    description: Header actions (favorite button, compare…)
+    description: Header actions (favorite button…)
 libraryOverrides:
   dependencies:
     - ps_theme/offer-search-card

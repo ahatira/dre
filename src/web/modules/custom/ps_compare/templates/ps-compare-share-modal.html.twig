@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Modal shell for sharing a comparison by email.
+ */
+#}
+<div
+  class="modal fade ps-compare-share-modal"
+  id="ps-compare-share-modal"
+  tabindex="-1"
+  aria-labelledby="ps-compare-share-modal-title"
+  aria-hidden="true"
+  data-ps-compare-share-modal
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="ps-compare-share-modal-title">{{ 'Share comparison'|t }}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+      </div>
+      <div class="modal-body" data-ps-compare-share-modal-body>
+        <div class="ps-compare-share-modal__loading d-flex justify-content-center py-4" data-ps-compare-share-modal-loading hidden>
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">{{ 'Loading…'|t }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

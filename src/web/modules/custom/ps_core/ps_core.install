@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for ps_core.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Sets the global Mailer policy theme to ps_theme.
+ */
+function ps_core_update_9001(): string {
+  $config = \Drupal::configFactory()->getEditable('mailer_policy.mailer_policy._');
+  if ($config->isNew()) {
+    \Drupal::service('config.installer')->installDefaultConfig('module', 'ps_core');
+    return 'Installed ps_core mailer policy.';
+  }
+
+  $configuration = $config->get('configuration') ?? [];
+  $configuration['email_theme'] = ['theme' => 'ps_theme'];
+  $config->set('configuration', $configuration)->save();
+
+  return 'Updated global mailer policy to render emails with ps_theme.';
+}

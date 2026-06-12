@@ -1,0 +1,7 @@
+<div class="ps-compare-empty-state container py-5">
+  <h1 class="h3 mb-3">{{ title }}</h1>
+  <p class="mb-4">{{ message }}</p>
+  {% if search_url %}
+    <a class="btn btn-primary" href="{{ search_url }}">{{ 'Back to search'|t }}</a>
+  {% endif %}
+</div>

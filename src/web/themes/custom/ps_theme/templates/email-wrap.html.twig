@@ -1,0 +1,152 @@
+{#
+/**
+ * @file
+ * Property Search — generic Symfony Mailer wrapper (BNP Paribas Real Estate).
+ *
+ * Replaces symfony_mailer/templates/email-wrap.html.twig in ps_theme.
+ * Inner modules must output HTML fragments only (no DOCTYPE/html/body).
+ *
+ * Available variables:
+ * - subject, body, is_html, type, sub_type, attributes
+ * - email_logo_url, site_name, site_slogan, site_url
+ * - email_primary_color, email_team_name
+ */
+#}
+{%
+  set classes = [
+    'ps-email',
+    'email-type-' ~ type|clean_class,
+    'email-sub-type-' ~ sub_type|clean_class,
+  ]
+%}
+{% set green = email_primary_color|default('#00915a') %}
+
+{% if is_html %}
+<!DOCTYPE html>
+<html lang="{{ language.id|default('en') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>{{ subject }}</title>
+  <style type="text/css">
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    table { border-collapse: collapse !important; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; }
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; }
+
+    @media screen and (min-width: 621px) {
+      .ps-email-slogan { white-space: nowrap !important; }
+      .ps-email-title { font-size: 28px !important; line-height: 1.35 !important; }
+      .ps-email-outer-padding { padding: 32px 16px !important; }
+      .ps-email-header-padding { padding: 32px 40px 24px !important; }
+      .ps-email-content-padding { padding-left: 40px !important; padding-right: 40px !important; }
+      .ps-email-title-wrap { padding: 8px 40px 32px !important; }
+      .ps-email-signoff-wrap { padding: 0 40px 32px !important; }
+      .ps-email-footer-wrap { padding: 20px 40px !important; }
+      .ps-email-card-body { padding: 20px 24px 24px !important; }
+    }
+
+    @media screen and (max-width: 620px) {
+      .ps-email-container { width: 100% !important; max-width: 100% !important; }
+      .ps-email-outer-padding { padding: 16px 8px !important; }
+      .ps-email-header-padding { padding: 20px 16px 16px !important; }
+      .ps-email-content-padding { padding-left: 16px !important; padding-right: 16px !important; }
+      .ps-email-title { font-size: 22px !important; line-height: 1.3 !important; }
+      .ps-email-title-wrap { padding: 4px 16px 24px !important; }
+      .ps-email-signoff-wrap { padding: 0 16px 24px !important; }
+      .ps-email-footer-wrap { padding: 16px !important; }
+      .ps-email-slogan-wrap { display: none !important; max-height: 0 !important; overflow: hidden !important; mso-hide: all; }
+      .ps-email-logo { height: 23px !important; max-width: 115px !important; width: auto !important; }
+      .ps-email-fluid-img { width: 100% !important; max-width: 100% !important; height: auto !important; }
+      .ps-email-btn-cell { display: block !important; width: 100% !important; }
+      .ps-email-btn { display: block !important; width: 100% !important; box-sizing: border-box !important; text-align: center !important; }
+      .ps-email-card-body { padding: 16px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#f0f0f0;font-family:'BNP Sans','Open Sans',Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#333333;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f0;">
+    <tr>
+      <td align="center" class="ps-email-outer-padding" style="padding:16px 8px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="ps-email-container" style="width:100%;max-width:600px;background:#ffffff;">
+          {# Header: logo + separator + slogan (slogan hidden on mobile, like ps_theme header). #}
+          <tr>
+            <td class="ps-email-header-padding" style="padding:20px 16px 16px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="vertical-align:middle;width:1%;white-space:nowrap;">
+                    {% if email_logo_url %}
+                      <img src="{{ email_logo_url }}" alt="{{ 'BNP Paribas Real Estate'|t }}" width="162" height="31" class="ps-email-logo" style="display:block;height:31px;width:auto;max-width:162px;border:0;">
+                    {% else %}
+                      <span style="font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#333333;">BNP Paribas Real Estate</span>
+                    {% endif %}
+                  </td>
+                  {% if site_slogan %}
+                    <td class="ps-email-slogan-wrap" style="vertical-align:middle;padding-left:9px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="width:1px;background:#cccccc;font-size:0;line-height:0;padding:0;">
+                            <span style="display:block;width:1px;height:24px;line-height:24px;font-size:0;">&nbsp;</span>
+                          </td>
+                          <td class="ps-email-slogan" style="vertical-align:middle;padding-left:9px;font-family:'BNP Sans','Open Sans',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:24px;color:#777e83;">
+                            {{ site_slogan }}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  {% endif %}
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {% if subject %}
+            <tr>
+              <td class="ps-email-title-wrap ps-email-content-padding" style="padding:4px 16px 24px;text-align:center;">
+                <h1 class="ps-email-title" style="margin:0;font-size:22px;font-weight:400;line-height:1.3;color:{{ green }};">{{ subject }}</h1>
+              </td>
+            </tr>
+          {% endif %}
+
+          <tr>
+            <td class="ps-email-content-padding" style="padding:0 16px 24px;">
+              <div{{ attributes.addClass(classes) }} style="color:#333333;">
+                {{ body }}
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="ps-email-signoff-wrap ps-email-content-padding" style="padding:0 16px 24px;">
+              <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">{{ 'See you soon!'|t }}</p>
+              <p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#333333;">
+                <strong>{{ email_team_name|default('The @team team'|t({'@team': site_name|default('Property Search')})) }}</strong>
+              </p>
+              {% if site_url %}
+                <p style="margin:0;font-size:14px;line-height:1.6;word-break:break-all;">
+                  <a href="{{ site_url }}" style="color:{{ green }};text-decoration:none;">{{ site_url }}</a>
+                </p>
+              {% endif %}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="ps-email-footer-wrap ps-email-content-padding" style="padding:16px;background:#f0f0f0;">
+              <p style="margin:0;font-size:11px;line-height:1.5;color:#777e83;text-align:center;">
+                {{ 'This message was sent by'|t }} {{ site_name|default('Property Search') }}.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+{% else %}
+{{ body }}
+{% endif %}

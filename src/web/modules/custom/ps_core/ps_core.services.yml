@@ -43,3 +43,23 @@ services:
     class: Drupal\ps_core\Service\OfferSectionHeadingBuilder
     arguments:
       - '@ps_core.section_registry'
+
+  ps_core.email_branding_builder:
+    class: Drupal\ps_core\Service\EmailBrandingBuilder
+    arguments:
+      - '@config.factory'
+      - '@extension.list.theme'
+      - '@file_url_generator'
+
+  ps_core.email_logo_attachment_processor:
+    class: Drupal\ps_core\Processor\EmailLogoAttachmentProcessor
+    arguments:
+      - '@ps_core.email_branding_builder'
+
+  Drupal\ps_core\Hook\MailHooks:
+    class: Drupal\ps_core\Hook\MailHooks
+    arguments:
+      - '@config.factory'
+      - '@ps_core.email_branding_builder'
+      - '@ps_core.email_logo_attachment_processor'
+

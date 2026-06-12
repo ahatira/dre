@@ -1,0 +1,14 @@
+max_items: 4
+min_items: 2
+enabled_targets:
+  - node.offer
+compare_feature_codes: []
+display_show_summary: false
+display_section_nav: false
+display_collapsible_sections: false
+display_collapsible_feature_only: false
+display_mobile_cards: false
+display_sticky_cta: true
+display_price_info: true
+display_merge_energy: false
+display_share_button: true

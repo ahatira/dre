@@ -1,0 +1,58 @@
+ps_compare.settings:
+  type: config_object
+  label: 'PS Compare settings'
+  mapping:
+    max_items:
+      type: integer
+      label: 'Maximum compared items'
+    min_items:
+      type: integer
+      label: 'Minimum items required to open comparison page'
+    enabled_targets:
+      type: sequence
+      label: 'Enabled entity targets'
+      sequence:
+        type: string
+    compare_feature_codes:
+      type: sequence
+      label: 'Feature definition IDs or codes shown in comparison table (empty = all applicable features)'
+      sequence:
+        type: string
+    display_show_summary:
+      type: boolean
+      label: 'Show comparison summary banner'
+    display_section_nav:
+      type: boolean
+      label: 'Show section navigation'
+    display_collapsible_sections:
+      type: boolean
+      label: 'Enable collapsible sections'
+    display_collapsible_feature_only:
+      type: boolean
+      label: 'Collapsible feature groups only'
+    display_mobile_cards:
+      type: boolean
+      label: 'Mobile card layout'
+    display_sticky_cta:
+      type: boolean
+      label: 'Sticky view-property bar'
+    display_price_info:
+      type: boolean
+      label: 'Show price info popover in compare table'
+    display_merge_energy:
+      type: boolean
+      label: 'Merge DPE and GES on one row'
+    display_share_button:
+      type: boolean
+      label: 'Show share comparison button'
+    display_email_share:
+      type: boolean
+      label: 'Deprecated — use display_share_button'
+
+ps_compare.seo_url_mappings:
+  type: config_object
+  label: 'PS Compare SEO URL mappings'
+  mapping:
+    compare_path:
+      type: label
+      label: 'Public compare page slug'

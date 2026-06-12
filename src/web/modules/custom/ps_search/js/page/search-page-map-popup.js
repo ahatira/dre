@@ -58,6 +58,12 @@
           if (cloneFavorite && sourceFavorite && sourceFavorite.innerHTML.trim()) {
             cloneFavorite.innerHTML = sourceFavorite.innerHTML;
           }
+
+          const cloneCompare = clone.querySelector('.ps-offer-search-card__action--compare');
+          const sourceCompare = source.querySelector('.ps-offer-search-card__action--compare');
+          if (cloneCompare && sourceCompare && sourceCompare.innerHTML.trim()) {
+            cloneCompare.innerHTML = sourceCompare.innerHTML;
+          }
         }
 
         /**

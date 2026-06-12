@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Single item in the compare selection panel.
+ */
+#}
+<article class="ps-compare-panel-item" data-ps-compare-panel-item data-entity-type-id="{{ entity_type_id }}" data-entity-id="{{ entity_id }}">
+  <a href="{{ url }}" class="ps-compare-panel-item__media">
+    <img src="{{ thumbnail }}" alt="" width="72" height="72" loading="lazy" />
+  </a>
+  <div class="ps-compare-panel-item__content">
+    <p class="ps-compare-panel-item__title">
+      <a href="{{ url }}">{{ title }}</a>
+    </p>
+    {% if surface %}
+      <p class="ps-compare-panel-item__surface">{{ surface }}</p>
+    {% endif %}
+    {% if price_amount %}
+      <p class="ps-compare-panel-item__price">
+        <span class="ps-compare-panel-item__price-amount">{{ price_amount }}</span>
+        {% if price_qualifiers %}
+          <span class="ps-compare-panel-item__price-qualifiers">{{ price_qualifiers|replace({'m²': 'm<sup>2</sup>'})|raw }}</span>
+        {% endif %}
+      </p>
+    {% endif %}
+  </div>
+  <div class="ps-compare-panel-item__action">
+    {{ {
+      '#theme': 'ps_compare_button',
+      '#entity_type_id': entity_type_id,
+      '#entity_id': entity_id,
+      '#toggle_url': toggle_url,
+      '#is_compared': true,
+      '#context': 'panel',
+      '#label_add': 'Compare'|t,
+      '#label_remove': 'Remove from comparison'|t,
+    } }}
+  </div>
+</article>

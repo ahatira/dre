@@ -1,0 +1,62 @@
+compare-toggle:
+  version: 1.4
+  js:
+    js/ps-compare-toggle.js: {}
+    js/ps-compare-toast.js: {}
+  css:
+    component:
+      css/ps-compare.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+    - ui_suite_bnp/bootstrap
+
+compare-panel:
+  version: 1.10
+  js:
+    js/ps-compare-panel.js: {}
+  css:
+    component:
+      css/ps-compare.css: {}
+      css/ps-compare-modal.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+    - ps_compare/compare-toggle
+    - ps_compare/compare-page
+    - ps_compare/compare-share
+    - ui_suite_bnp/bootstrap
+
+compare-page:
+  version: 1.9
+  js:
+    js/ps-compare-page.js: {}
+    js/ps-compare-gallery.js: {}
+    js/ps-compare-table-scroll.js: {}
+  css:
+    theme:
+      css/ps-compare-page.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - ps_compare/compare-toggle
+    - ps_compare/compare-share
+    - ps_favorite/favorites
+    - ps_theme/framework
+    - ui_suite_bnp/bootstrap
+
+compare-share:
+  version: 1.1
+  js:
+    js/ps-compare-share.js: {}
+  css:
+    component:
+      css/ps-compare-share-modal.css: {}
+      css/ps-compare-modal.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupal.ajax
+    - ui_suite_bnp/bootstrap

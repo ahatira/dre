@@ -1,0 +1,11 @@
+.ps-compare-share-modal .modal-dialog {
+  max-width: 36.5rem;
+}
+
+.ps-compare-share-form__feedback:not(:empty) {
+  margin-bottom: 1rem;
+}
+
+.ps-compare-share-form .form-actions {
+  margin-bottom: 0;
+}

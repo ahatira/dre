@@ -1,0 +1,94 @@
+ps_compare.page:
+  path: '/compare'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::page'
+    _title: 'Compare properties'
+  requirements:
+    _access: 'TRUE'
+
+ps_compare.count:
+  path: '/api/compare/count'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::count'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+ps_compare.state:
+  path: '/api/compare/state'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::compareState'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+ps_compare.panel:
+  path: '/api/compare/panel'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::panel'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+ps_compare.panel_list:
+  path: '/api/compare/panel/list'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::panelList'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+ps_compare.modal:
+  path: '/api/compare/modal'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::modal'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+ps_compare.share_modal:
+  path: '/api/compare/share-modal'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareShareModalController::modal'
+  methods: [GET, POST]
+  requirements:
+    _access: 'TRUE'
+
+ps_compare.email:
+  path: '/api/compare/email'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::email'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+ps_compare.email_token:
+  path: '/api/compare/email/token'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareController::emailToken'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+ps_compare.toggle:
+  path: '/api/compare/toggle/{entity_type_id}/{entity_id}'
+  defaults:
+    _controller: '\Drupal\ps_compare\Controller\CompareToggleController::toggle'
+  methods: [POST]
+  requirements:
+    entity_type_id: '[a-z_]+'
+    entity_id: '\d+'
+    _access: 'TRUE'
+
+ps_compare.settings:
+  path: '/admin/ps/config/compare'
+  defaults:
+    _form: '\Drupal\ps_compare\Form\CompareSettingsForm'
+    _title: 'Comparison settings'
+  requirements:
+    _permission: 'manage ps_compare'

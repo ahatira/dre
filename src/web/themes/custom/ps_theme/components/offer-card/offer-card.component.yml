@@ -45,7 +45,17 @@ props:
       type: boolean
       title: Show favorite action placeholder
       default: false
+    show_compare:
+      type: boolean
+      title: Show compare action
+      default: false
+    node_id:
+      type: integer
+      title: Offer node ID
 slots:
+  compare:
+    title: Compare action
+    description: Compare toggle button (ps_compare lazy builder).
   actions:
     title: Actions
     description: Footer actions (favorite button…)

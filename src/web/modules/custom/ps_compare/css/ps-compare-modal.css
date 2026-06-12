@@ -1,0 +1,171 @@
+/* Compare + share modals — aligned with ps_theme modal-form shell (square, 2rem padding). */
+
+.ps-compare-modal.modal .modal-dialog,
+.ps-compare-modal.modal:has(.modal-body form) .modal-dialog {
+  margin: 1rem auto;
+  max-width: min(95vw, 1400px) !important;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .ps-compare-modal.modal .modal-dialog,
+  .ps-compare-modal.modal:has(.modal-body form) .modal-dialog {
+    height: calc(100vh - 2rem);
+    max-height: calc(100vh - 2rem);
+  }
+}
+
+.ps-compare-modal .modal-content,
+.ps-compare-share-modal .modal-content {
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.ps-compare-modal .modal-content {
+  max-height: calc(100vh - 2rem);
+}
+
+.ps-compare-modal .modal-header,
+.ps-compare-share-modal .modal-header {
+  align-items: center;
+  border-bottom: 0;
+  display: flex;
+  flex-shrink: 0;
+  gap: 2.5rem;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.ps-compare-modal .modal-title,
+.ps-compare-share-modal .modal-title {
+  color: var(--re-color-text-strong, #333);
+  flex: 1 1 auto;
+  font-family: var(--re-font-family-heading, 'BNP Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+  margin: 0;
+  min-width: 0;
+}
+
+.ps-compare-modal .btn-close,
+.ps-compare-share-modal .btn-close {
+  --bs-btn-close-bg: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26.6663 3.25928L28.7405 5.33346L18.0735 15.9993L28.7405 26.6668L26.6663 28.741L15.9988 18.0739L5.33297 28.741L3.25879 26.6668L13.9255 15.9993L3.25879 5.33346L5.33297 3.25928L15.9988 13.9259L26.6663 3.25928Z' fill='%23333'/%3E%3C/svg%3E");
+  --bs-btn-close-opacity: 1;
+  --bs-btn-close-hover-opacity: 0.75;
+  background-size: 2rem 2rem;
+  box-shadow: none;
+  flex-shrink: 0;
+  height: 2rem;
+  margin: 0 0 0 auto;
+  opacity: 1;
+  padding: 0;
+  width: 2rem;
+}
+
+.ps-compare-modal .btn-close:focus,
+.ps-compare-share-modal .btn-close:focus {
+  box-shadow: none;
+  outline: 2px solid #333;
+  outline-offset: 2px;
+}
+
+.ps-compare-modal .modal-body {
+  background: var(--re-color-surface, #fff);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 0;
+}
+
+.ps-compare-share-modal .modal-body {
+  padding: 0 2rem 2rem;
+}
+
+.ps-compare-modal .modal-footer {
+  border-top: 0;
+  flex-shrink: 0;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding: 0 2rem 2rem;
+}
+
+.ps-compare-modal .ps-compare-toolbar--modal-footer {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.ps-compare-modal .ps-compare-toolbar--modal-footer .ps-compare-toolbar__inner {
+  justify-content: flex-end;
+}
+
+@media (max-width: 991.98px) {
+  .ps-compare-modal.modal .modal-dialog,
+  .ps-compare-modal.modal:has(.modal-body form) .modal-dialog {
+    height: 100%;
+    margin: 0;
+    max-width: none !important;
+    width: 100vw;
+  }
+
+  .ps-compare-modal .modal-content {
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .ps-compare-modal .modal-header,
+  .ps-compare-share-modal .modal-header {
+    padding: 1.25rem 1rem;
+  }
+
+  .ps-compare-modal .modal-title,
+  .ps-compare-share-modal .modal-title {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
+
+  .ps-compare-modal .modal-footer {
+    padding: 0 1rem 1.25rem;
+  }
+}
+
+.ps-compare-modal .ps-compare-page--modal {
+  min-height: 100%;
+}
+
+.ps-compare-modal .ps-compare-page--modal .ps-compare-page__inner {
+  max-width: none;
+  padding: 1rem 1rem 1.5rem !important;
+}
+
+@media (min-width: 992px) {
+  .ps-compare-modal .ps-compare-page--modal .ps-compare-page__inner {
+    padding: 0 2rem 2rem !important;
+  }
+}
+
+.ps-compare-modal .ps-compare-empty-state {
+  padding: 2rem 1rem;
+}
+
+@media (min-width: 992px) {
+  .ps-compare-modal .ps-compare-empty-state {
+    padding: 2rem;
+  }
+}
+
+.ps-compare-modal .ps-compare-page--modal .ps-compare-table__scroll {
+  max-height: none;
+}
+
+.ps-compare-modal .ps-compare-page--modal .ps-compare-table__wrapper {
+  overflow-x: auto;
+}
+
+.ps-compare-modal .ps-compare-page--modal .ps-compare-table {
+  min-width: max(720px, 100%);
+}

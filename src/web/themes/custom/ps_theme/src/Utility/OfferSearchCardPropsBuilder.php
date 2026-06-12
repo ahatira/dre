@@ -52,6 +52,11 @@ final class OfferSearchCardPropsBuilder {
   }
 
   private function formatListTitle(NodeInterface $node, string $operationCode): string {
+    $commercial = trim((string) ($node->get('field_commercial_title')->value ?? ''));
+    if ($commercial !== '') {
+      return $commercial;
+    }
+
     $parts = [];
 
     if ($operationCode !== '') {
@@ -61,12 +66,6 @@ final class OfferSearchCardPropsBuilder {
     $assetCode = (string) ($node->get('field_asset_type')->value ?? '');
     if ($assetCode !== '') {
       $parts[] = $this->dictionaryLabel('asset_type', $assetCode);
-    }
-
-    $commercial = trim((string) ($node->get('field_commercial_title')->value ?? ''));
-    if ($commercial !== '') {
-      $parts[] = $commercial;
-      return implode(' ', array_filter($parts));
     }
 
     if ($node->hasField('field_address') && !$node->get('field_address')->isEmpty()) {

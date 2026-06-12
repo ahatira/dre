@@ -190,17 +190,25 @@
     --bs-btn-border-color: var(--bnp-color-primary);
     --bs-btn-hover-bg: var(--bnp-color-primary);
     --bs-btn-hover-border-color: var(--bnp-color-primary);
+    --bs-btn-hover-color: var(--bnp-color-surface);
     --bs-btn-active-bg: var(--bnp-color-primary-strong);
     --bs-btn-active-border-color: var(--bnp-color-primary-strong);
+    --bs-btn-active-color: var(--bnp-color-surface);
+    --bs-btn-disabled-color: var(--bnp-color-disabled);
+    --bs-btn-disabled-border-color: var(--bnp-color-disabled);
   }
 
   .btn-outline-secondary {
     --bs-btn-color: var(--bnp-color-secondary);
     --bs-btn-border-color: var(--bnp-color-secondary);
-    --bs-btn-hover-bg: var(--bnp-color-secondary);
-    --bs-btn-hover-border-color: var(--bnp-color-secondary);
+    --bs-btn-hover-bg: var(--bnp-color-secondary-bright);
+    --bs-btn-hover-border-color: var(--bnp-color-secondary-bright);
+    --bs-btn-hover-color: var(--bnp-color-surface);
     --bs-btn-active-bg: var(--bnp-color-secondary-strong);
     --bs-btn-active-border-color: var(--bnp-color-secondary-strong);
+    --bs-btn-active-color: var(--bnp-color-surface);
+    --bs-btn-disabled-color: var(--bnp-color-secondary-soft);
+    --bs-btn-disabled-border-color: var(--bnp-color-secondary-soft);
   }
 
   .form-label,

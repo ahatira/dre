@@ -1,0 +1,100 @@
+{#
+/**
+ * @file
+ * Comparison table — CodyHouse-style flat layout (labels sticky left, columns scroll).
+ */
+#}
+{% set context = context|default('page') %}
+<div
+  class="ps-compare-page ps-compare-page--{{ context }}"
+  data-ps-compare-page
+  data-ps-compare-context="{{ context }}"
+>
+  <div class="ps-compare-page__inner{% if context == 'modal' %} container-fluid px-3 px-lg-4 py-3{% else %} container py-4 py-lg-5{% endif %}">
+    {% if toolbar %}
+      {{ toolbar }}
+    {% endif %}
+
+    <div class="ps-compare-table__control" data-ps-compare-table-control>
+      <div class="ps-compare-table__sentinel" data-ps-compare-table-sentinel aria-hidden="true"></div>
+      <div class="ps-compare-table__head-pin" data-ps-compare-table-head-pin>
+        <div class="ps-compare-table__head-scroll" data-ps-compare-table-head-scroll aria-hidden="true">
+          <div class="ps-compare-table__wrapper">
+            <table class="table table-bordered table-sm align-middle mb-0 ps-compare-table ps-compare-table--head" data-ps-compare-table-head-table>
+              <colgroup>
+                <col class="ps-compare-table__col-label">
+                {% for column in columns %}
+                  <col class="ps-compare-table__col-property">
+                {% endfor %}
+              </colgroup>
+              <thead class="ps-compare-table__head" data-ps-compare-table-head>
+                <tr>
+                  <th scope="col" class="ps-compare-table__label-col sticky-col"></th>
+                  {% for column in columns %}
+                    <th scope="col" class="ps-compare-table__column ps-compare-table__column--sticky">
+                      {{ column.header }}
+                    </th>
+                  {% endfor %}
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="ps-compare-table__scroll" data-ps-compare-table-scroll tabindex="0">
+        <div class="ps-compare-table__wrapper">
+          <table class="table table-bordered table-sm align-middle mb-0 ps-compare-table ps-compare-table--body" data-ps-compare-table-body>
+            <colgroup>
+              <col class="ps-compare-table__col-label">
+              {% for column in columns %}
+                <col class="ps-compare-table__col-property">
+              {% endfor %}
+            </colgroup>
+            <tbody class="ps-compare-table__body">
+              {% for section in sections %}
+                {% set section_anchor = 'compare-section-' ~ section.id %}
+                {% if section.show_section_title|default(true) %}
+                  <tr
+                    id="{{ section_anchor }}"
+                    class="ps-compare-table__section-row ps-compare-table__section"
+                  >
+                    <th scope="row" class="ps-compare-table__section-title sticky-col fw-semibold text-uppercase small py-2 px-3 mb-0">
+                      {{ section.label }}
+                    </th>
+                    {% for column in columns %}
+                      <td class="ps-compare-table__section-gap" aria-hidden="true"></td>
+                    {% endfor %}
+                  </tr>
+                {% else %}
+                  <tr id="{{ section_anchor }}" class="visually-hidden" aria-hidden="true">
+                    <th scope="row" colspan="{{ columns|length + 1 }}">{{ section.label }}</th>
+                  </tr>
+                {% endif %}
+                {% for row in section.rows %}
+                  <tr class="ps-compare-table__row ps-compare-table__row--{{ row.id }}">
+                    <th scope="row" class="ps-compare-table__label fw-normal text-body-secondary sticky-col{% if row.label is empty %} ps-compare-table__label--empty{% endif %}">
+                      {% if row.label %}
+                        {{ row.label }}
+                      {% endif %}
+                    </th>
+                    {% for cell in row.cells %}
+                      <td class="ps-compare-table__cell">{{ cell }}</td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <nav class="ps-compare-table__navigation" data-ps-compare-table-navigation aria-label="{{ 'Compare table columns'|t }}">
+        <button type="button" class="ps-compare-table__nav-btn ps-compare-table__nav-btn--prev" data-ps-compare-table-prev disabled>
+          {{ 'Prev'|t }}
+        </button>
+        <button type="button" class="ps-compare-table__nav-btn ps-compare-table__nav-btn--next" data-ps-compare-table-next disabled>
+          {{ 'Next'|t }}
+        </button>
+      </nav>
+    </div>
+  </div>
+</div>

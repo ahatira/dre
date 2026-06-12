@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Comparison table fragment for HTML email (same data model as ps-compare-table).
+ */
+#}
+{% set green = '#00915a' %}
+{% set border = '#ebedef' %}
+{% set muted = '#777e83' %}
+{% set text = '#333333' %}
+{% set label_bg = '#f9f9fb' %}
+{% set section_bg = '#f3f4f6' %}
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid {{ border }};margin:0 0 24px;font-size:14px;color:{{ text }};">
+  <thead>
+    <tr>
+      <th align="left" valign="top" style="padding:12px;background:{{ label_bg }};border:1px solid {{ border }};width:28%;"></th>
+      {% for column in columns %}
+        <th align="left" valign="top" style="padding:12px;background:#ffffff;border:1px solid {{ border }};width:{{ (72 / columns|length)|round(2) }}%;">
+          {{ column.header }}
+        </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for section in sections %}
+      {% if section.show_section_title|default(true) %}
+      <tr>
+        <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ section_bg }};border:1px solid {{ border }};font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#434f57;">
+          {{ section.label }}
+        </th>
+        {% for column in columns %}
+          <td style="padding:0;background:{{ section_bg }};border:1px solid {{ border }};font-size:0;line-height:0;" aria-hidden="true">&nbsp;</td>
+        {% endfor %}
+      </tr>
+      {% endif %}
+      {% for row in section.rows %}
+        <tr>
+          <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ label_bg }};border:1px solid {{ border }};font-weight:400;color:{{ muted }};">
+            {% if row.label %}{{ row.label }}{% endif %}
+          </th>
+          {% for cell in row.cells %}
+            <td valign="top" style="padding:10px 12px;border:1px solid {{ border }};">
+              {{ cell }}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>

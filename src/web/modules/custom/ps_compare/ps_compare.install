@@ -1,0 +1,222 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install hooks for the ps_compare module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function ps_compare_schema(): array {
+  $schema['ps_compare_item'] = [
+    'description' => 'Stores persistent comparison lists for authenticated users.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'entity_type' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'weight' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'created' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'uid_entity' => ['uid', 'entity_type', 'entity_id'],
+    ],
+    'indexes' => [
+      'entity_lookup' => ['entity_type', 'entity_id'],
+      'uid_weight' => ['uid', 'weight'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function ps_compare_install(): void {
+  // Default configuration is imported from config/install on module install.
+}
+
+/**
+ * Installs default configuration when missing after early enablement.
+ */
+function ps_compare_update_9001(): void {
+  \Drupal::service('config.installer')->installDefaultConfig('module', 'ps_compare');
+}
+
+/**
+ * Installs compare view mode and entity display configuration.
+ */
+function ps_compare_update_9002(): void {
+  \Drupal::service('config.installer')->installDefaultConfig('module', 'ps_compare');
+}
+
+/**
+ * Creates ps_compare_item table when module was enabled without schema install.
+ */
+function ps_compare_update_9003(): string {
+  $schema_handler = \Drupal::database()->schema();
+  if ($schema_handler->tableExists('ps_compare_item')) {
+    return 'Table ps_compare_item already exists.';
+  }
+
+  $module_schema = ps_compare_schema();
+  $schema_handler->createTable('ps_compare_item', $module_schema['ps_compare_item']);
+
+  return 'Created ps_compare_item table.';
+}
+
+/**
+ * Installs compare image style and refreshes compare entity display formatters.
+ */
+function ps_compare_update_9004(): string {
+  \Drupal::service('config.installer')->installDefaultConfig('module', 'ps_compare');
+  return 'Installed ps_compare_column image style and updated compare view display.';
+}
+
+/**
+ * Installs compare page display settings defaults.
+ */
+function ps_compare_update_9005(): string {
+  $config = \Drupal::configFactory()->getEditable('ps_compare.settings');
+  $defaults = [
+    'display_show_summary' => TRUE,
+    'display_section_nav' => TRUE,
+    'display_highlight_differences' => TRUE,
+    'display_collapsible_sections' => TRUE,
+    'display_collapsible_feature_only' => TRUE,
+    'display_mobile_cards' => TRUE,
+    'display_sticky_cta' => TRUE,
+    'display_price_info' => TRUE,
+    'display_merge_energy' => TRUE,
+  ];
+
+  foreach ($defaults as $key => $value) {
+    if ($config->get($key) === NULL) {
+      $config->set($key, $value);
+    }
+  }
+  $config->save();
+
+  return 'Installed compare page display settings.';
+}
+
+/**
+ * Adds email share display setting.
+ */
+function ps_compare_update_9006(): string {
+  $config = \Drupal::configFactory()->getEditable('ps_compare.settings');
+  if ($config->get('display_email_share') === NULL) {
+    $config->set('display_email_share', TRUE)->save();
+    return 'Installed display_email_share setting.';
+  }
+
+  return 'display_email_share already configured.';
+}
+
+/**
+ * Disables section navigation by default (sticky column headers replace it).
+ */
+function ps_compare_update_9007(): string {
+  \Drupal::configFactory()->getEditable('ps_compare.settings')
+    ->set('display_section_nav', FALSE)
+    ->save();
+
+  return 'Disabled compare section navigation by default.';
+}
+
+/**
+ * Phase 1 UX: disable summary banner, migrate email share to share button.
+ */
+function ps_compare_update_9008(): string {
+  $config = \Drupal::configFactory()->getEditable('ps_compare.settings');
+  $config->set('display_show_summary', FALSE);
+
+  if ($config->get('display_share_button') === NULL) {
+    $legacy = $config->get('display_email_share');
+    $config->set('display_share_button', $legacy === NULL ? TRUE : (bool) $legacy);
+  }
+
+  $config->save();
+
+  return 'Disabled compare summary banner and installed display_share_button.';
+}
+
+/**
+ * Simplified compare table, 320×220 images, and share URLs with offer refs.
+ */
+function ps_compare_update_9009(): string {
+  \Drupal::configFactory()->getEditable('ps_compare.settings')
+    ->set('display_collapsible_sections', FALSE)
+    ->set('display_collapsible_feature_only', FALSE)
+    ->set('display_mobile_cards', FALSE)
+    ->save();
+
+  $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('ps_compare_column');
+  if ($style !== NULL) {
+    $style->set('label', 'PS Compare column (320×220)');
+    foreach ($style->getEffects() as $effect) {
+      if ($effect->getPluginId() === 'image_scale_and_crop') {
+        $effect->setConfiguration([
+          'width' => 320,
+          'height' => 220,
+          'anchor' => 'center-center',
+        ]);
+        break;
+      }
+    }
+    $style->save();
+  }
+
+  return 'Simplified compare table display, updated image style to 320×220.';
+}
+
+/**
+ * Shows DPE and GES on separate comparison rows.
+ */
+function ps_compare_update_9010(): string {
+  \Drupal::configFactory()->getEditable('ps_compare.settings')
+    ->set('display_merge_energy', FALSE)
+    ->save();
+
+  return 'Disabled merged energy row; DPE and GES display on separate lines.';
+}
+
+/**
+ * Removes deprecated difference highlighting display setting.
+ */
+function ps_compare_update_9011(): string {
+  \Drupal::configFactory()->getEditable('ps_compare.settings')
+    ->clear('display_highlight_differences')
+    ->save();
+
+  return 'Removed display_highlight_differences setting (difference highlighting dropped).';
+}

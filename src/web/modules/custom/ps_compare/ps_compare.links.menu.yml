@@ -1,0 +1,6 @@
+ps_compare.settings:
+  title: 'Comparison'
+  description: 'Configure property comparison limits and targets.'
+  route_name: ps_compare.settings
+  parent: ps_core.config
+  weight: 15

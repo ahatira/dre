@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - mailer_policy
+    - symfony_mailer
+id: _
+configuration:
+  mailer_url_to_absolute: {}
+  mailer_inline_css: {}
+  mailer_wrap_and_convert:
+    plain: false
+  email_theme:
+    theme: ps_theme

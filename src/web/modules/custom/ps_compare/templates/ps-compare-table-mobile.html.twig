@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Mobile card layout for property comparison.
+ */
+#}
+<div class="ps-compare-mobile__list d-flex flex-column gap-3">
+  {% for column in columns %}
+    {% set column_index = loop.index0 %}
+    <article class="card shadow-sm border-0 ps-compare-mobile__card">
+      <div class="card-header bg-white border-0 pb-0">
+        {{ column.header }}
+      </div>
+      <div class="card-body pt-3">
+        {% for section in sections %}
+          {% if section.id != 'actions' %}
+            <section class="ps-compare-mobile__section mb-3" aria-labelledby="mobile-section-{{ column_index }}-{{ section.id }}">
+              <h2 class="h6 text-uppercase text-muted mb-2" id="mobile-section-{{ column_index }}-{{ section.id }}">{{ section.label }}</h2>
+              <dl class="row mb-0 small">
+                {% for row in section.rows %}
+                  <dt class="col-5 text-body-secondary">{{ row.label }}</dt>
+                  <dd class="col-7 mb-2">{{ row.cells[column_index] }}</dd>
+                {% endfor %}
+              </dl>
+            </section>
+          {% endif %}
+        {% endfor %}
+        <a href="{{ column.url }}" class="btn btn-primary btn-sm w-100">{{ 'View property'|t }}</a>
+      </div>
+    </article>
+  {% endfor %}
+</div>

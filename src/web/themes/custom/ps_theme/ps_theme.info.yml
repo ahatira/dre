@@ -11,6 +11,7 @@ dependencies:
   - ps_agent
   - ps_block
   - ps_favorite
+  - ps_compare
   - ps_homepage
   - search
 regions:

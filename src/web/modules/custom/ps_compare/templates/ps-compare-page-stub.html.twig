@@ -1,0 +1,13 @@
+<div class="ps-compare-page-stub container py-5">
+  <h1 class="h3 mb-3">{{ title }}</h1>
+  {% if intro %}
+    <p class="text-muted mb-4">{{ intro }}</p>
+  {% endif %}
+  {% if items %}
+    <ul class="list-unstyled">
+      {% for item in items %}
+        <li class="mb-2">{{ item }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

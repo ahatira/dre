@@ -125,6 +125,8 @@
         "test:search-isochrone-e2e": "bash web/modules/custom/ps_search/tests/b2b_isochrone.sh",
         "test:search-map-isochrone-sync-e2e": "bash web/modules/custom/ps_search/tests/b2b_map_isochrone_sync.sh",
         "test:search-markers-cluster-e2e": "bash web/modules/custom/ps_search/tests/b2b_markers_cluster.sh",
+        "test:compare-search-b2b": "bash web/modules/custom/ps_compare/tests/b2b_compare_search.sh",
+        "test:compare-b2b": "bash web/modules/custom/ps_compare/tests/b2b_compare_full.sh",
         "test:behat": "vendor/bin/behat --config behat.yml.dist --strict --colors",
         "test:regression:modules": "bash scripts/test/regression.sh"
     },

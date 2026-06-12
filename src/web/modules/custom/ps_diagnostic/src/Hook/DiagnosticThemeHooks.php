@@ -54,6 +54,10 @@ final class DiagnosticThemeHooks {
         'variables' => $variables,
         'template' => 'diagnostic-item-full',
       ],
+      'ps_diagnostic_item_compare' => [
+        'variables' => $variables,
+        'template' => 'diagnostic-item-compare',
+      ],
       'ps_certification_label_list' => [
         'variables' => [
           'items' => [],

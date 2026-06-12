@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Horizontal gallery for compare photo cells (offer-search-card pattern).
+ */
+#}
+<div class="ps-compare-gallery" data-ps-compare-gallery>
+  <div class="ps-compare-gallery__media">
+    {% if images|length > 1 %}
+      <div class="ps-compare-gallery__track" data-ps-compare-gallery-track>
+        {% for image in images %}
+          <div class="ps-compare-gallery__slide">
+            <img
+              src="{{ image }}"
+              alt="{{ alt }}"
+              class="ps-compare-gallery__image"
+              loading="lazy"
+            >
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="ps-compare-gallery__nav ps-compare-gallery__nav--prev" aria-label="{{ 'Previous image'|t }}">
+        {{ icon('bnp_custom', 'arrow-left', {'size': '24px'}) }}
+      </button>
+      <button type="button" class="ps-compare-gallery__nav ps-compare-gallery__nav--next" aria-label="{{ 'Next image'|t }}">
+        {{ icon('bnp_custom', 'arrow-right', {'size': '24px'}) }}
+      </button>
+    {% elseif images|length == 1 %}
+      <img
+        src="{{ images[0] }}"
+        alt="{{ alt }}"
+        class="ps-compare-gallery__image"
+        loading="lazy"
+      >
+    {% endif %}
+  </div>
+</div>
