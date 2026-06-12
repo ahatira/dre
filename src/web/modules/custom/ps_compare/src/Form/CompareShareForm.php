@@ -6,9 +6,12 @@ namespace Drupal\ps_compare\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Url;
 use Drupal\ps_compare\Service\CompareEmailSender;
 use Drupal\ps_compare\Service\CompareManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,6 +24,7 @@ final class CompareShareForm extends FormBase {
   public function __construct(
     private readonly CompareEmailSender $emailSender,
     private readonly CompareManagerInterface $compareManager,
+    private readonly RendererInterface $renderer,
   ) {}
 
   /**
@@ -30,6 +34,7 @@ final class CompareShareForm extends FormBase {
     return new static(
       $container->get('ps_compare.email_sender'),
       $container->get('ps_compare.manager'),
+      $container->get('renderer'),
     );
   }
 
@@ -45,6 +50,7 @@ final class CompareShareForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['#attributes']['class'][] = 'ps-compare-share-form';
+    $form['#action'] = Url::fromRoute('ps_compare.share_modal')->toString();
 
     if (!$this->compareManager->canOpenComparisonPage()) {
       $form['notice'] = [
@@ -102,6 +108,11 @@ final class CompareShareForm extends FormBase {
         '#ajax' => [
           'callback' => '::ajaxSubmit',
           'wrapper' => 'ps-compare-share-form-wrapper',
+          'effect' => 'none',
+          'progress' => [
+            'type' => 'throbber',
+            'message' => NULL,
+          ],
         ],
       ],
     ];
@@ -153,22 +164,38 @@ final class CompareShareForm extends FormBase {
 
     if ($form_state->get('share_success')) {
       $message = $form_state->get('share_success_message');
-      $markup = $message instanceof TranslatableMarkup
+      $text = $message instanceof TranslatableMarkup
         ? (string) $message
         : (string) $message;
+
+      $success = [
+        '#theme' => 'ps_compare_share_success',
+        '#message' => $text,
+      ];
+
       $response->addCommand(new HtmlCommand(
-        '#ps-compare-share-form-wrapper',
-        '<div class="alert alert-success mb-0" data-ps-compare-share-success role="status">' . $markup . '</div>',
+        '[data-ps-compare-share-modal-body]',
+        (string) $this->renderer->renderRoot($success),
       ));
+      $response->addCommand(new InvokeCommand(
+        '[data-ps-compare-share-modal]',
+        'addClass',
+        ['ps-compare-share-modal--sent'],
+      ));
+
       return $response;
     }
 
-    if ($form_state->hasAnyErrors()) {
-      $response->addCommand(new HtmlCommand('#ps-compare-share-form-wrapper', $form));
-      return $response;
-    }
+    $response->addCommand(new InvokeCommand(
+      '[data-ps-compare-share-modal]',
+      'removeClass',
+      ['ps-compare-share-modal--sent'],
+    ));
+    $response->addCommand(new HtmlCommand(
+      '#ps-compare-share-form-wrapper',
+      (string) $this->renderer->renderRoot($form),
+    ));
 
-    $response->addCommand(new HtmlCommand('#ps-compare-share-form-wrapper', $form));
     return $response;
   }
 

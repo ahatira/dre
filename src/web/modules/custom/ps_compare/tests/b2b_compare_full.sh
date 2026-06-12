@@ -25,6 +25,7 @@ for entry in \
   "b2b_compare_search.sh:Search page" \
   "b2b_compare_homepage.sh:Homepage offer cards" \
   "b2b_compare_page.sh:Compare table page" \
+  "b2b_compare_share.sh:Share modal AJAX + Mailpit" \
   "b2b_compare_email.sh:Share email Mailpit" \
   "b2b_compare_authenticated.sh:Authenticated user"; do
   script="${entry%%:*}"

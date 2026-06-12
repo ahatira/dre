@@ -166,6 +166,12 @@ final class CompareHooks {
       'ps_compare_share_modal' => [
         'template' => 'ps-compare-share-modal',
       ],
+      'ps_compare_share_success' => [
+        'variables' => [
+          'message' => '',
+        ],
+        'template' => 'ps-compare-share-success',
+      ],
       'ps_compare_modal' => [
         'template' => 'ps-compare-modal',
       ],

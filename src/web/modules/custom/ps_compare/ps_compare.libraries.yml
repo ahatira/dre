@@ -48,7 +48,7 @@ compare-page:
     - ui_suite_bnp/bootstrap
 
 compare-share:
-  version: 1.1
+  version: 1.6
   js:
     js/ps-compare-share.js: {}
   css:

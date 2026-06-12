@@ -1,3 +1,8 @@
+.ps-compare-share-modal.modal {
+  --bs-modal-zindex: 1075;
+  z-index: 1075;
+}
+
 .ps-compare-share-modal .modal-dialog {
   max-width: 36.5rem;
 }
@@ -8,4 +13,19 @@
 
 .ps-compare-share-form .form-actions {
   margin-bottom: 0;
+}
+
+.ps-compare-share-modal.ps-compare-share-modal--sent .modal-header {
+  display: none;
+}
+
+.ps-compare-share-modal__success {
+  padding: 2rem;
+  text-align: center;
+}
+
+.ps-compare-share-modal__success-message {
+  color: #333;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
 }
