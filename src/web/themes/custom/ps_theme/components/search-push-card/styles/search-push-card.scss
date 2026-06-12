@@ -5,10 +5,11 @@
 
 .ps-search-push-card {
   background: var(--re-color-surface-muted, #f3f4f6);
+  border: 1.5px solid var(--re-color-border-subtle, #ebedef);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.25rem;
   text-align: left;
 
   &__title {
@@ -24,10 +25,12 @@
     font-size: 0.875rem;
     line-height: 1.5;
     margin: 0;
+    max-width: 42rem;
   }
 
   &__cta {
     align-self: flex-start;
+    background: var(--re-color-surface, #fff);
     font-size: 0.875rem;
     font-weight: 600;
     min-height: 2.75rem;

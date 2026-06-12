@@ -31,6 +31,11 @@ final class SearchPushViewsHooks {
       return;
     }
 
+    // Only inject on the first load-more page (avoid duplicate cards on append).
+    if ((int) $view->getCurrentPage() !== 0) {
+      return;
+    }
+
     $pageRowCount = count($variables['rows'] ?? []);
     $totalResults = (int) ($view->total_rows ?? 0);
 
