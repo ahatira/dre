@@ -96,6 +96,7 @@ final class ComparePanelBuilder {
       '#items' => $items,
       '#count' => $count,
       '#max_items' => $maxItems,
+      '#min_items' => $this->compareManager->getMinItems(),
       '#remaining_slots' => max(0, $maxItems - $count),
     ];
   }

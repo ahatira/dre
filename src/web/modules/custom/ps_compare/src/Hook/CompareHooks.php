@@ -85,6 +85,7 @@ final class CompareHooks {
           'items' => [],
           'count' => 0,
           'max_items' => 4,
+          'min_items' => 2,
           'remaining_slots' => 0,
         ],
         'template' => 'ps-compare-panel-list',

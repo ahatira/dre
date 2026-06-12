@@ -261,6 +261,21 @@
   width: 100%;
 }
 
+.ps-compare-panel-slot--hint {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+}
+
+.ps-compare-panel__hint {
+  color: var(--re-color-text-muted, #6b7280);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin: 0;
+  text-align: center;
+}
+
 .ps-compare-panel__footer {
   border-top: 1px solid #ebedef;
   flex-shrink: 0;
