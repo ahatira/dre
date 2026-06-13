@@ -31,6 +31,7 @@ final class HomepageSearchHeroEditorial {
     'optional_label',
     'search_button_label',
     'delegate_prompt',
+    'delegate_tooltip',
     'delegate_button_label',
     'promo_title',
     'promo_offers_line',

@@ -54,6 +54,9 @@ hero:
     delegate_prompt:
       en: 'Would you like to delegate your search?'
       fr: 'Souhaitez-vous déléguer votre recherche ?'
+    delegate_tooltip:
+      en: 'To find your next business premises, contact our BNP Paribas Real Estate experts and delegate your search.'
+      fr: 'Pour trouver votre prochain local professionnel, contactez nos experts BNP Paribas Real Estate et déléguez votre recherche.'
     delegate_button_label:
       en: 'Delegate my search'
       fr: 'Déléguer ma recherche'

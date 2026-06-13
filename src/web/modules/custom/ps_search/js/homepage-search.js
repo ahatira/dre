@@ -202,6 +202,48 @@
 
         syncOperationField();
       });
+
+      once('ps-homepage-delegate-info', '[data-ps-delegate-info]', context).forEach((trigger) => {
+        const tooltip = trigger.closest('.ps-homepage-search-entry__tooltip');
+        const panel = tooltip?.querySelector('.ps-homepage-search-entry__tooltip-panel');
+        if (!tooltip || !panel) {
+          return;
+        }
+
+        const closePanel = () => {
+          panel.classList.add('is-hidden');
+          trigger.setAttribute('aria-expanded', 'false');
+        };
+
+        const openPanel = () => {
+          panel.classList.remove('is-hidden');
+          trigger.setAttribute('aria-expanded', 'true');
+        };
+
+        trigger.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          if (panel.classList.contains('is-hidden')) {
+            openPanel();
+          }
+          else {
+            closePanel();
+          }
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!tooltip.contains(event.target)) {
+            closePanel();
+          }
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            closePanel();
+            trigger.focus();
+          }
+        });
+      });
     },
   };
 })(Drupal, drupalSettings, once);

@@ -137,6 +137,7 @@ final class SearchHeroBlockFormBuilder {
         'optional_label',
         'search_button_label',
         'delegate_prompt',
+        'delegate_tooltip',
         'delegate_button_label',
       ],
       'promo' => [
@@ -203,6 +204,7 @@ final class SearchHeroBlockFormBuilder {
       'optional_label' => ['title' => 'Optional hint label', 'max_length' => 64],
       'search_button_label' => ['title' => 'Search button label', 'max_length' => 64],
       'delegate_prompt' => ['title' => 'Delegate search — prompt text', 'max_length' => 512],
+      'delegate_tooltip' => ['title' => 'Delegate search — info tooltip text', 'type' => 'textarea', 'max_length' => 1024],
       'delegate_button_label' => ['title' => 'Delegate my search — button label', 'max_length' => 128],
     ];
 
