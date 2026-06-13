@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_dictionary\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,12 @@ msgstr "Appliquer"
 msgid "Autocomplete"
 msgstr "Autocomplétion"
 
+msgid "Budget periods"
+msgstr "Périodes de budget"
+
+msgid "Budget units"
+msgstr "Unités de budget"
+
 msgid "CSV file"
 msgstr "Fichier CSV"
 
@@ -44,6 +50,12 @@ msgstr "Code métier canonique, par exemple BUR ou RENT."
 
 msgid "Check boxes/radio buttons"
 msgstr "Cases à cocher/boutons radio"
+
+msgid "Classes DPE"
+msgstr "Classes DPE"
+
+msgid "Classes GES"
+msgstr "Classes GES"
 
 msgid "Code"
 msgstr "Code"
@@ -79,6 +91,9 @@ msgstr "Supprimer les entrées sélectionnées"
 msgid "Description"
 msgstr "Description"
 
+msgid "Devises"
+msgstr "Devises"
+
 msgid "Dictionary code"
 msgstr "Code du dictionnaire"
 
@@ -112,8 +127,15 @@ msgstr "Entrées"
 msgid "Entries for @type"
 msgstr "Entrées pour @type"
 
+msgid "French departments"
+msgstr "Départements français"
+
 msgid "ID"
 msgstr "ID"
+
+msgid "INSEE department codes and names for location search."
+msgstr "Codes et libellés INSEE des départements pour la recherche par localis"
+"ation."
 
 msgid "Icon"
 msgstr "Icône"
@@ -166,6 +188,12 @@ msgstr "Liste de sélection"
 msgid "Stores a business dictionary code (ex: BUR, SALE, EUR)."
 msgstr "Stocke un code de dictionnaire métier (ex. : BUR, SALE, EUR)."
 
+msgid "Surface qualifications"
+msgstr "Qualifications de surface"
+
+msgid "Surface units"
+msgstr "Unités de surface"
+
 msgid "The dictionary entry %label has been deleted."
 msgstr "L'entrée de dictionnaire %label a été supprimée."
 
@@ -185,6 +213,18 @@ msgstr "Type"
 
 msgid "Type filter (optional)"
 msgstr "Filtre par type (facultatif)"
+
+msgid "Types d'actifs"
+msgstr "Types d'actifs"
+
+msgid "Types d'operation"
+msgstr "Types d'opération"
+
+msgid "Types de clients"
+msgstr "Types de clients"
+
+msgid "Types de mandats"
+msgstr "Types de mandats"
 
 msgid "UI Icon"
 msgstr "Icône UI"
@@ -221,8 +261,17 @@ msgstr "Pondération"
 msgid "Weights saved."
 msgstr "Pondérations enregistrées."
 
+msgid "description"
+msgstr "description"
+
+msgid "label"
+msgstr "libellé"
+
 msgid "ps_dictionary field settings"
 msgstr "Paramètres de champ ps_dictionary"
 
 msgid "ps_dictionary field storage settings"
 msgstr "Paramètres de stockage de champ ps_dictionary"
+
+msgid "title"
+msgstr "titre"

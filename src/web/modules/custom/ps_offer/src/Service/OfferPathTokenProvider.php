@@ -22,8 +22,8 @@ final class OfferPathTokenProvider {
     private readonly CountryRepositoryInterface $countryRepository,
     private readonly TransliterationInterface $transliteration,
     private readonly LanguageManagerInterface $languageManager,
-    private readonly SearchPathResolver $searchPathResolver,
-    private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
+    private readonly ?SearchPathResolver $searchPathResolver,
+    private readonly ?SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
     private readonly OfferLocationTokenResolver $locationTokenResolver,
   ) {}
 
@@ -34,6 +34,9 @@ final class OfferPathTokenProvider {
     }
 
     $langcode = $this->resolveLangcode($langcode);
+    if ($this->searchPathResolver === NULL) {
+      return 'n-a';
+    }
     $slug = $this->searchPathResolver->getSeoSlugMappings($langcode)['val_to_op'][$code] ?? NULL;
     return $slug ?? 'n-a';
   }
@@ -45,6 +48,9 @@ final class OfferPathTokenProvider {
     }
 
     $langcode = $this->resolveLangcode($langcode);
+    if ($this->searchPathResolver === NULL) {
+      return 'n-a';
+    }
     $slug = $this->searchPathResolver->getSeoSlugMappings($langcode)['val_to_asset'][$code] ?? NULL;
     return $slug ?? 'n-a';
   }
@@ -68,7 +74,7 @@ final class OfferPathTokenProvider {
     }
 
     $localityToken = $this->locationTokenResolver->resolveFromOffer($node);
-    if ($localityToken !== NULL) {
+    if ($localityToken !== NULL && $this->seoLocalityPathBuilder !== NULL) {
       $segments = $this->seoLocalityPathBuilder->tokenToPathSegments($localityToken);
       if (isset($segments['dept'])) {
         $parts[] = $segments['dept'];
@@ -95,7 +101,7 @@ final class OfferPathTokenProvider {
 
   public function getDepartmentSegment(NodeInterface $node, ?string $langcode = NULL): string {
     $localityToken = $this->locationTokenResolver->resolveFromOffer($node);
-    if ($localityToken === NULL) {
+    if ($localityToken === NULL || $this->seoLocalityPathBuilder === NULL) {
       return 'n-a';
     }
 
@@ -105,7 +111,7 @@ final class OfferPathTokenProvider {
 
   public function getCitySegment(NodeInterface $node, ?string $langcode = NULL): string {
     $localityToken = $this->locationTokenResolver->resolveFromOffer($node);
-    if ($localityToken === NULL) {
+    if ($localityToken === NULL || $this->seoLocalityPathBuilder === NULL) {
       return 'n-a';
     }
 

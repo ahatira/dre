@@ -183,8 +183,8 @@ ps_info "Assigning ps_admin role to ${ADMIN_USER}..."
 ps_drush user:role:add ps_admin "${ADMIN_USER}" -y || true
 ps_success "Role assigned"
 
-# Import PS module translations
-ps_info "Importing PS module translations..."
+# Import custom module translations (ps_* and bnp_*) + theme FR.
+ps_info "Importing custom module translations..."
 IMPORTED=0
 SKIPPED=0
 FAILED=0
@@ -192,26 +192,35 @@ FAILED=0
 # Get active languages
 ACTIVE_LANGS=$(ps_drush ev 'echo implode(PHP_EOL, array_keys(\Drupal::languageManager()->getLanguages()));')
 
-# Find and import .po files
-while IFS= read -r po_file; do
-  [[ -z "${po_file}" ]] && continue
-  
-  filename=$(basename "${po_file}")
-  langcode="${filename%.po}"
-  langcode="${langcode##*.}"
-  
-  # Check if language is active
+import_po_file() {
+  local po_file="$1"
+  local langcode="$2"
+  if [[ -z "${po_file}" || -z "${langcode}" ]]; then
+    return 1
+  fi
   if ! echo "${ACTIVE_LANGS}" | grep -q "^${langcode}$"; then
     SKIPPED=$((SKIPPED + 1))
-    continue
+    return 0
   fi
-  
   if ps_drush locale:import "${langcode}" "/var/www/html/${po_file}" --type=customized --override=all -y >/dev/null 2>&1; then
     IMPORTED=$((IMPORTED + 1))
   else
     FAILED=$((FAILED + 1))
   fi
-done < <(ps_docker_exec_php "find web/modules/custom -path '*/translations/*.po' -name 'ps_*.*.po' 2>/dev/null || true")
+}
+
+while IFS= read -r po_file; do
+  [[ -z "${po_file}" ]] && continue
+  filename=$(basename "${po_file}")
+  langcode="${filename%.po}"
+  langcode="${langcode##*.}"
+  import_po_file "${po_file}" "${langcode}"
+done < <(ps_docker_exec_php "find web/modules/custom -path '*/translations/*.po' \( -name 'ps_*.*.po' -o -name 'bnp_*.*.po' \) 2>/dev/null | sort || true")
+
+if [[ -f "${PS_SRC_DIR}/web/themes/custom/ps_theme/translations/fr.po" ]] \
+  && echo "${ACTIVE_LANGS}" | grep -q '^fr$'; then
+  import_po_file "web/themes/custom/ps_theme/translations/fr.po" "fr"
+fi
 
 ps_info "Translations: imported=${IMPORTED}, skipped=${SKIPPED}, failed=${FAILED}"
 [[ ${FAILED} -gt 0 ]] && ps_warn "Some translations failed to import"
@@ -219,6 +228,10 @@ ps_info "Translations: imported=${IMPORTED}, skipped=${SKIPPED}, failed=${FAILED
 ps_info "Importing dictionary data..."
 ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
 ps_success "Dictionary imported"
+
+ps_info "Enabling search, compare and SEO modules (required by ps_homepage)..."
+ps_retry 2 2 ps_drush en -y ps_compare ps_search ps_seo
+ps_success "ps_compare, ps_search and ps_seo enabled"
 
 ps_info "Enabling theme shell dependencies..."
 ps_retry 2 2 ps_drush en -y ps_block ps_homepage
@@ -247,6 +260,9 @@ ps_info "Login: ${ADMIN_USER} / ${ADMIN_PASS}"
 if [[ ${MINIMAL_INSTALL} -eq 1 ]]; then
   ps_info "Front: ${PS_HTTP_URL}/ (shell only — run: make post-install)"
 else
-  ps_info "Running post-install (demo, offers, search, SEO, Solr)..."
+  ps_info "Running post-install (demo, offers, Solr)..."
   bash "${PS_SCRIPTS_DIR}/drupal/post-install.sh"
+  ps_info "Syncing FR config language overrides..."
+  ps_drush php:script scripts/import_language_config_overrides.php fr \
+    || ps_warn "Config language override sync failed"
 fi

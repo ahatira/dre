@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +48,9 @@ msgstr "Porównywarka (@count ogłoszeń)"
 msgid "Compare"
 msgstr "Porównaj"
 
+msgid "Compare column"
+msgstr "Kolumna porównania"
+
 msgid "Compare page display"
 msgstr "Wyświetlanie strony porównania"
 
@@ -68,6 +71,9 @@ msgstr "Limity porównania"
 
 msgid "Comparison sent to @email."
 msgstr "Porównanie wysłano na @email."
+
+msgid "Comparison settings"
+msgstr "Comparison settings"
 
 msgid "Configure UX options for the comparison table and modal."
 msgstr "Skonfiguruj opcje UX tabeli porównania i modala."
@@ -132,6 +138,9 @@ msgstr "Układ"
 msgid "Loading…"
 msgstr "Ładowanie…"
 
+msgid "Location"
+msgstr "Location"
+
 msgid "Manage Property Search comparison"
 msgstr "Zarządzaj porównaniem Property Search"
 
@@ -168,6 +177,9 @@ msgstr "Za mało nieruchomości na liście porównania."
 msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Jeden cel na linię w formacie entity_type.bundle (np. node.offer)."
 
+msgid "Open full page"
+msgstr "Open full page"
+
 msgid "Optional message"
 msgstr "Opcjonalna wiadomość"
 
@@ -179,6 +191,9 @@ msgstr "Przegląd"
 
 msgid "PS Compare SEO URL mappings"
 msgstr "Mapowania URL SEO PS Compare"
+
+msgid "PS Compare column (320×220)"
+msgstr "Kolumna PS Compare (320×220)"
 
 msgid "PS Compare settings"
 msgstr "Ustawienia PS Compare"
@@ -285,6 +300,9 @@ msgstr "Pokaż przycisk « Wyślij mój wybór »"
 
 msgid "Sticky view-property bar"
 msgstr "Przyklejony pasek « Zobacz nieruchomość »"
+
+msgid "Summary"
+msgstr "Summary"
 
 msgid "Terms & availability"
 msgstr "Warunki i dostępność"

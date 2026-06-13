@@ -2,18 +2,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_migrate\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: lb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Address line 1"
+msgstr "Adresszeil 1"
+
+msgid "Agent UID"
+msgstr "Agent-UID"
+
+msgid "All surface qualification codes (test multi-extraction)"
+msgstr "All Flächenqualifikatiounscoden (Test Multi-Extraktioun)"
+
 msgid "All surface values"
 msgstr "All Flächenwäerter"
 
+msgid "All surface values (test multi-extraction)"
+msgstr "All Flächenwäerter (Test Multi-Extraktioun)"
+
 msgid "Already published: @count"
 msgstr "Scho publizéiert: @count"
+
+msgid "Alternative text FR"
+msgstr "Alternativtext FR"
 
 msgid "Asset Type"
 msgstr "Verméigensart"
@@ -21,8 +36,32 @@ msgstr "Verméigensart"
 msgid "Asset type code"
 msgstr "Verméigensart-Code"
 
+msgid "Availability (FR)"
+msgstr "Disponibilitéit (FR)"
+
+msgid "Avatar URL"
+msgstr "Avatar-URL"
+
+msgid "Budget CC flag"
+msgstr "Budget-CC-Flag"
+
+msgid "Budget HT flag"
+msgstr "Budget-HT-Flag"
+
 msgid "Budget Value"
 msgstr "Budgetwäert"
+
+msgid "Budget period code"
+msgstr "Budgetperioden-Code"
+
+msgid "Budget unit code"
+msgstr "Budgeteenheeten-Code"
+
+msgid "Budget value"
+msgstr "Budgetwäert"
+
+msgid "Building name"
+msgstr "Gebäudenumm"
 
 msgid "Business ID"
 msgstr "Business-ID"
@@ -42,14 +81,56 @@ msgstr "Stad"
 msgid "Commercial Title"
 msgstr "Kommerzielle Titel"
 
+msgid "Country"
+msgstr "Land"
+
 msgid "Country ISO code"
 msgstr "Land-ISO-Code"
+
+msgid "Creation date"
+msgstr "Erstellungsdatum"
+
+msgid "Definition ID"
+msgstr "Definitiouns-ID"
 
 msgid "Description"
 msgstr "Beschreiwung"
 
+msgid "Diagnostic classes"
+msgstr "Diagnoseklassen"
+
+msgid "Diagnostic dates"
+msgstr "Diagnosedaten"
+
+msgid "Diagnostic no classification markers"
+msgstr "Diagnose-Marker ouni Klassifikatioun"
+
+msgid "Diagnostic non applicable markers"
+msgstr "Diagnose-Marker net applicabel"
+
+msgid "Diagnostic types"
+msgstr "Diagnosetypen"
+
+msgid "Diagnostic validity end dates"
+msgstr "Enddaten vun der Diagnosegültegkeet"
+
+msgid "Diagnostic values"
+msgstr "Diagnosewäerter"
+
+msgid "Display order"
+msgstr "Uweisungsreiefolleg"
+
+msgid "Division IDs list"
+msgstr "Lëscht vun Divisiouns-IDs"
+
+msgid "Email"
+msgstr "E-Mail"
+
 msgid "External ID"
 msgstr "Extern ID"
+
+msgid "Feature Code"
+msgstr "Feature-Code"
 
 msgid "Feature code"
 msgstr "Feature-Code"
@@ -63,23 +144,107 @@ msgstr "Feature-Gruppen-ID"
 msgid "Feature group code"
 msgstr "Feature-Gruppen-Code"
 
+msgid "Fees (honoraires)"
+msgstr "Honoraren"
+
+msgid "First name"
+msgstr "Virnumm"
+
+msgid "Floor"
+msgstr "Stack"
+
 msgid "Full offer XML node"
 msgstr "Kompletten Offer-XML-Knäppchen"
 
 msgid "Generated at: @date"
 msgstr "Generéiert den: @date"
 
+msgid "Group Code"
+msgstr "Gruppencode"
+
+msgid "Group ID"
+msgstr "Gruppen-ID"
+
+msgid "Import Agent Avatar Files from CRM XML (Step 1: Download avatar images"
+")"
+msgstr "Agenten-Avatar-Fichieren aus CRM-XML importéieren (Schrëtt 1: Avatare "
+"eroflueden)"
+
+msgid "Import Agents from CRM XML (Config-First)"
+msgstr "Agenten aus CRM-XML importéieren (Config-First)"
+
+msgid "Import Feature Definitions from CRM XML"
+msgstr "Feature-Definitiounen aus CRM-XML importéieren"
+
+msgid "Import Feature Groups from CRM XML"
+msgstr "Feature-Gruppen aus CRM-XML importéieren"
+
+msgid "Import Files from CRM XML (Step 1: Download images)"
+msgstr "Fichieren aus CRM-XML importéieren (Schrëtt 1: Biller eroflueden)"
+
+msgid "Import Media from CRM XML (Step 2: Create media entities)"
+msgstr "Medien aus CRM-XML importéieren (Schrëtt 2: Medien-Entitéiten erstelle"
+"n)"
+
+msgid "Import Offer Translations from CRM XML (dynamic)"
+msgstr "Offer-Iwwersetzungen aus CRM-XML importéieren (dynamesch)"
+
+msgid "Import Offers from CRM XML (Config-First - Phase 1)"
+msgstr "Offeren aus CRM-XML importéieren (Config-First – Phase 1)"
+
 msgid "Import Offers from CRM XML (Example)"
 msgstr "Offeren aus CRM-XML importéieren (Beispill)"
 
+msgid "Import Virtual Tour Media from CRM XML (TYPE_CODE=VIS)"
+msgstr "Virtuell Tour-Medien aus CRM-XML importéieren (TYPE_CODE=VIS)"
+
 msgid "Import rejections"
 msgstr "Import-Oflehnungen"
+
+msgid "Is divisible"
+msgstr "Ass deelbar"
+
+msgid "LOT identifier"
+msgstr "LOT-Identifizéierer"
 
 msgid "Label"
 msgstr "Bezeechnung"
 
 msgid "Last Post-Import Publication Report"
 msgstr "Leschten Post-Import-Publikatiounsbericht"
+
+msgid "Last name"
+msgstr "Familljennumm"
+
+msgid "Last update date"
+msgstr "Datum vun der leschter Aktualiséierung"
+
+msgid "Latitude"
+msgstr "Breedegrad"
+
+msgid "List of media display orders"
+msgstr "Lëscht vun Medien-Uweisungsreiefollegen"
+
+msgid "Longitude"
+msgstr "Längtegrad"
+
+msgid "Main business leader UID"
+msgstr "UID vum Haapt-Business-Leader"
+
+msgid "Media Type Code"
+msgstr "Medientyp-Code"
+
+msgid "Media URL"
+msgstr "Medien-URL"
+
+msgid "Media filename"
+msgstr "Medien-Dateinumm"
+
+msgid "Migration group for importing data from CRM XML files"
+msgstr "Migratiounsgrupp fir den Import vu Daten aus CRM-XML-Fichieren"
+
+msgid "Nature label"
+msgstr "Naturbezeechnung"
 
 msgid "No post-import publication report is available yet. Run CRM import fir"
 "st."
@@ -95,19 +260,37 @@ msgstr "Knäppchen-ID"
 msgid "Offer Title"
 msgstr "Offertentitel"
 
+msgid "Offer XML node"
+msgstr "Offer-XML-Knäppchen"
+
+msgid "Operation Code"
+msgstr "Operatiounscode"
+
 msgid "Operation Type"
 msgstr "Operatiounstyp"
 
 msgid "Operation code"
 msgstr "Operatiounscode"
 
+msgid "PS CRM Import"
+msgstr "PS CRM-Import"
+
+msgid "Parent Offer Business ID"
+msgstr "Business-ID vun der iwwergeordneter Offer"
+
 msgid "Payload defaults"
 msgstr "Payload-Standardwäerter"
+
+msgid "Phone"
+msgstr "Telefon"
 
 msgid "Provides migration support for PS entities with entity protection inte"
 "gration"
 msgstr "Bitt Migratiouns-Ënnerstëtzung fir PS-Entitéiten mat Entitéitsschutz-I"
 "ntegratioun."
+
+msgid "Publication end date"
+msgstr "Enddatum vun der Publikatioun"
 
 msgid "Published during post-import: @count"
 msgstr "Bei Post-Import publizéiert: @count"
@@ -129,11 +312,23 @@ msgid "Review post-import publication rejections for source data quality trac"
 msgstr "Post-Import-Publikatiouns-Oflehnungen fir Quelldatenqualitéit iwwerpré"
 "iwen."
 
+msgid "Source Drupal language"
+msgstr "Drupal-Quellsprooch"
+
 msgid "Source index"
 msgstr "Quellindex"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Surface divisions from CRM XML"
+msgstr "Flächendivisiounen aus CRM-XML"
+
+msgid "Surface qualification code"
+msgstr "Flächenqualifikatiounscode"
+
+msgid "Surface value"
+msgstr "Flächenwäert"
 
 msgid "Target Drupal language"
 msgstr "Zil-Drupal-Sprooch"
@@ -141,14 +336,35 @@ msgstr "Zil-Drupal-Sprooch"
 msgid "Target XML language"
 msgstr "Zil-XML-Sprooch"
 
+msgid "Technical ID"
+msgstr "Technesch ID"
+
+msgid "Technical elements"
+msgstr "Technesch Elementer"
+
 msgid "Technical elements node"
 msgstr "Knäppchen technesch Elementer"
+
+msgid "Timestamp"
+msgstr "Zäitstempel"
 
 msgid "Total offers scanned: @count"
 msgstr "Total gescannt Offeren: @count"
 
+msgid "Type Code"
+msgstr "Typcode"
+
 msgid "Type driver"
 msgstr "Typ-Driver"
 
+msgid "Virtual tour URL"
+msgstr "Virtuell Tour URL"
+
+msgid "Watermark flag"
+msgstr "Waasserzeechen-Flag"
+
 msgid "Weight"
 msgstr "Gewiicht"
+
+msgid "ZIP code"
+msgstr "Postleitzuel"

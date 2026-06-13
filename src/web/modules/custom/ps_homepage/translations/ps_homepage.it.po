@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_homepage\n"
-"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

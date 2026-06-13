@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +48,9 @@ msgstr "Vergelijker (@count advertenties)"
 msgid "Compare"
 msgstr "Vergelijken"
 
+msgid "Compare column"
+msgstr "Vergelijkingskolom"
+
 msgid "Compare page display"
 msgstr "Weergave vergelijkingspagina"
 
@@ -68,6 +71,9 @@ msgstr "Vergelijkingslimieten"
 
 msgid "Comparison sent to @email."
 msgstr "Vergelijking verzonden naar @email."
+
+msgid "Comparison settings"
+msgstr "Comparison settings"
 
 msgid "Configure UX options for the comparison table and modal."
 msgstr "Configureer UX-opties voor vergelijkingstabel en modal."
@@ -133,6 +139,9 @@ msgstr "Indeling"
 msgid "Loading…"
 msgstr "Laden…"
 
+msgid "Location"
+msgstr "Location"
+
 msgid "Manage Property Search comparison"
 msgstr "Property Search-vergelijking beheren"
 
@@ -169,6 +178,9 @@ msgstr "Niet genoeg vastgoed in de vergelijkingslijst."
 msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Eén doel per regel in entity_type.bundle-formaat (bijv. node.offer)."
 
+msgid "Open full page"
+msgstr "Open full page"
+
 msgid "Optional message"
 msgstr "Optioneel bericht"
 
@@ -180,6 +192,9 @@ msgstr "Overzicht"
 
 msgid "PS Compare SEO URL mappings"
 msgstr "PS Compare SEO-URL-toewijzingen"
+
+msgid "PS Compare column (320×220)"
+msgstr "PS Compare-kolom (320×220)"
 
 msgid "PS Compare settings"
 msgstr "PS Compare-instellingen"
@@ -287,6 +302,9 @@ msgstr "Knop « Mijn selectie verzenden » tonen"
 
 msgid "Sticky view-property bar"
 msgstr "Vaste balk « Vastgoed bekijken »"
+
+msgid "Summary"
+msgstr "Summary"
 
 msgid "Terms & availability"
 msgstr "Voorwaarden en beschikbaarheid"

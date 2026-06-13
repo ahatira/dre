@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_media\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -111,6 +111,12 @@ msgstr "Kolejnosc: @order"
 msgid "PS Media gallery settings"
 msgstr "Ustawienia galerii PS Media"
 
+msgid "PS Offer gallery hero (788×462)"
+msgstr "Hero galerii oferty PS (788×462)"
+
+msgid "PS Offer gallery thumb (120×70)"
+msgstr "Miniatura galerii oferty PS (120×70)"
+
 msgid "Photos badge icon"
 msgstr "Ikona odznaki zdjec"
 
@@ -164,3 +170,12 @@ msgid "When provided, lightbox thumbnails and non-image previews use this ima"
 "ge style."
 msgstr "Po podaniu miniatury lightboxa i podglady niebedace obrazami uzywaja t"
 "ego stylu obrazu."
+
+msgid "description"
+msgstr "opis"
+
+msgid "label"
+msgstr "etykieta"
+
+msgid "title"
+msgstr "tytul"

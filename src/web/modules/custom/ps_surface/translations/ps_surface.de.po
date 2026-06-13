@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_surface\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -165,6 +165,9 @@ msgstr "Flächentabelle"
 msgid "Surfaces"
 msgstr "Flächen"
 
+msgid "Table row"
+msgstr "Tabellenzeile"
+
 msgid "Unavailable"
 msgstr "Nicht verfügbar"
 
@@ -180,11 +183,20 @@ msgstr "Unbekannt"
 msgid "Value"
 msgstr "Wert"
 
+msgid "description"
+msgstr "Beschreibung"
+
+msgid "label"
+msgstr "bezeichnung"
+
 msgid "surface division"
 msgstr "flächenaufteilung"
 
 msgid "surface divisions"
 msgstr "flächenaufteilungen"
+
+msgid "title"
+msgstr "titel"
 
 msgid "⚠️ <strong>Enable this lock to prevent automated imports from overwrit"
 "ing manually curated data.</strong> Use this when you have manually co"

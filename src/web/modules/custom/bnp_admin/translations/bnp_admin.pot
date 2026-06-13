@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bnp_admin\n"
-"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,12 +19,6 @@ msgid "Apply Gin branding"
 msgstr ""
 
 msgid "BNP Admin settings"
-msgstr ""
-
-msgid "Content administrator"
-msgstr ""
-
-msgid "Content editor"
 msgstr ""
 
 msgid "Core Drupal baseline"
@@ -53,19 +47,7 @@ msgstr ""
 msgid "Restrict registration to administrators"
 msgstr ""
 
-msgid "SEO administrator"
-msgstr ""
-
 msgid "Show description toggle in Gin"
-msgstr ""
-
-msgid "Site administrator"
-msgstr ""
-
-msgid "Translation administrator"
-msgstr ""
-
-msgid "Translation editor"
 msgstr ""
 
 msgid "Use admin theme on node forms"

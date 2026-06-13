@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_dictionary\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,12 @@ msgstr "Aplicar"
 msgid "Autocomplete"
 msgstr "Autocompletar"
 
+msgid "Budget periods"
+msgstr "Períodos de presupuesto"
+
+msgid "Budget units"
+msgstr "Unidades de presupuesto"
+
 msgid "CSV file"
 msgstr "Archivo CSV"
 
@@ -44,6 +50,12 @@ msgstr "Código de negocio canónico, por ejemplo BUR o RENT."
 
 msgid "Check boxes/radio buttons"
 msgstr "Casillas de verificación/botones de opción"
+
+msgid "Classes DPE"
+msgstr "Clases DPE"
+
+msgid "Classes GES"
+msgstr "Clases GES"
 
 msgid "Code"
 msgstr "Código"
@@ -79,6 +91,9 @@ msgstr "Eliminar entradas seleccionadas"
 msgid "Description"
 msgstr "Descripción"
 
+msgid "Devises"
+msgstr "Divisas"
+
 msgid "Dictionary code"
 msgstr "Código de diccionario"
 
@@ -112,8 +127,15 @@ msgstr "Entradas"
 msgid "Entries for @type"
 msgstr "Entradas para @type"
 
+msgid "French departments"
+msgstr "Departamentos franceses"
+
 msgid "ID"
 msgstr "ID"
+
+msgid "INSEE department codes and names for location search."
+msgstr "Códigos y nombres de departamentos INSEE para la búsqueda por ubicació"
+"n."
 
 msgid "Icon"
 msgstr "Icono"
@@ -167,6 +189,12 @@ msgstr "Lista de selección"
 msgid "Stores a business dictionary code (ex: BUR, SALE, EUR)."
 msgstr "Almacena un código de diccionario de negocio (ej.: BUR, SALE, EUR)."
 
+msgid "Surface qualifications"
+msgstr "Calificaciones de superficie"
+
+msgid "Surface units"
+msgstr "Unidades de superficie"
+
 msgid "The dictionary entry %label has been deleted."
 msgstr "La entrada de diccionario %label se ha eliminado."
 
@@ -186,6 +214,18 @@ msgstr "Tipo"
 
 msgid "Type filter (optional)"
 msgstr "Filtro por tipo (opcional)"
+
+msgid "Types d'actifs"
+msgstr "Tipos de activos"
+
+msgid "Types d'operation"
+msgstr "Tipos de operación"
+
+msgid "Types de clients"
+msgstr "Tipos de clientes"
+
+msgid "Types de mandats"
+msgstr "Tipos de mandatos"
 
 msgid "UI Icon"
 msgstr "Icono de UI"
@@ -222,8 +262,17 @@ msgstr "Peso"
 msgid "Weights saved."
 msgstr "Pesos guardados."
 
+msgid "description"
+msgstr "descripción"
+
+msgid "label"
+msgstr "etiqueta"
+
 msgid "ps_dictionary field settings"
 msgstr "Ajustes de campo ps_dictionary"
 
 msgid "ps_dictionary field storage settings"
 msgstr "Ajustes de almacenamiento de campo ps_dictionary"
+
+msgid "title"
+msgstr "título"

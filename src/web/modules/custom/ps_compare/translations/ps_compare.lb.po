@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: lb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +49,9 @@ msgstr "Vergläicher (@count Annoncen)"
 msgid "Compare"
 msgstr "Vergläichen"
 
+msgid "Compare column"
+msgstr "Vergläichssail"
+
 msgid "Compare page display"
 msgstr "Uweisung vun der Vergläichs-Säit"
 
@@ -69,6 +72,9 @@ msgstr "Vergläichsgrenzen"
 
 msgid "Comparison sent to @email."
 msgstr "Vergläich un @email geschéckt."
+
+msgid "Comparison settings"
+msgstr "Comparison settings"
 
 msgid "Configure UX options for the comparison table and modal."
 msgstr "UX-Optioune fir d'Vergläichstabel an de Modal astellen."
@@ -135,6 +141,9 @@ msgstr "Aménagement"
 msgid "Loading…"
 msgstr "Gëtt gelueden…"
 
+msgid "Location"
+msgstr "Location"
+
 msgid "Manage Property Search comparison"
 msgstr "Property Search-Vergläich geréieren"
 
@@ -171,6 +180,9 @@ msgstr "Net genuch Objeten an der Vergläichslëscht."
 msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Een Zil pro Zeil am Format entity_type.bundle (z. B. node.offer)."
 
+msgid "Open full page"
+msgstr "Open full page"
+
 msgid "Optional message"
 msgstr "Optional Noriicht"
 
@@ -182,6 +194,9 @@ msgstr "Iwwersiicht"
 
 msgid "PS Compare SEO URL mappings"
 msgstr "PS Compare SEO-URL-Mappings"
+
+msgid "PS Compare column (320×220)"
+msgstr "PS Compare-Sail (320×220)"
 
 msgid "PS Compare settings"
 msgstr "PS Compare-Astellungen"
@@ -288,6 +303,9 @@ msgstr "Knäppchen « Meng Auswiel schécken » weisen"
 
 msgid "Sticky view-property bar"
 msgstr "Fix Bar « Objet kucken »"
+
+msgid "Summary"
+msgstr "Summary"
 
 msgid "Terms & availability"
 msgstr "Konditiounen a Disponibilitéit"

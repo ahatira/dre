@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: { }
+name: ps_offer_card
+label: 'PS offer card (320×220)'
+effects:
+  ps_offer_card_scale_crop:
+    uuid: 4a8e1f2b-6c3d-4e9a-b1c2-0d5e7f9a3b6d
+    id: image_scale_and_crop
+    weight: 0
+    data:
+      width: 320
+      height: 220
+      anchor: center-center

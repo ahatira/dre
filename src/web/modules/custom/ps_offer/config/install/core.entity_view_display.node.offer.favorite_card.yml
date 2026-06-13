@@ -47,7 +47,7 @@ dependencies:
     - field.field.node.offer.field_source_tracking
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_technical_id
-    - image.style.ps_compare_column
+    - image.style.ps_offer_card
     - node.type.offer
   module:
     - image
@@ -68,7 +68,7 @@ content:
       use_thumbnail: true
       lazy_load: true
       max_items: 1
-      image_style: ps_compare_column
+      image_style: ps_offer_card
     third_party_settings: { }
     weight: 0
     region: content

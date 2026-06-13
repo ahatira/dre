@@ -2,18 +2,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_migrate\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Address line 1"
+msgstr "Adresse ligne 1"
+
+msgid "Agent UID"
+msgstr "UID agent"
+
+msgid "All surface qualification codes (test multi-extraction)"
+msgstr "Tous les codes de qualification de surface (test multi-extraction)"
+
 msgid "All surface values"
 msgstr "Toutes les valeurs de surface"
 
+msgid "All surface values (test multi-extraction)"
+msgstr "Toutes les valeurs de surface (test multi-extraction)"
+
 msgid "Already published: @count"
 msgstr "Déjà publié : @count"
+
+msgid "Alternative text FR"
+msgstr "Texte alternatif FR"
 
 msgid "Asset Type"
 msgstr "Type d'actif"
@@ -21,8 +36,32 @@ msgstr "Type d'actif"
 msgid "Asset type code"
 msgstr "Code type d'actif"
 
+msgid "Availability (FR)"
+msgstr "Disponibilité (FR)"
+
+msgid "Avatar URL"
+msgstr "URL avatar"
+
+msgid "Budget CC flag"
+msgstr "Indicateur budget CC"
+
+msgid "Budget HT flag"
+msgstr "Indicateur budget HT"
+
 msgid "Budget Value"
 msgstr "Valeur budget"
+
+msgid "Budget period code"
+msgstr "Code période budget"
+
+msgid "Budget unit code"
+msgstr "Code unité budget"
+
+msgid "Budget value"
+msgstr "Valeur budget"
+
+msgid "Building name"
+msgstr "Nom du bâtiment"
 
 msgid "Business ID"
 msgstr "ID métier"
@@ -42,14 +81,56 @@ msgstr "Ville"
 msgid "Commercial Title"
 msgstr "Titre commercial"
 
+msgid "Country"
+msgstr "Pays"
+
 msgid "Country ISO code"
 msgstr "Code ISO pays"
+
+msgid "Creation date"
+msgstr "Date de création"
+
+msgid "Definition ID"
+msgstr "ID définition"
 
 msgid "Description"
 msgstr "Description"
 
+msgid "Diagnostic classes"
+msgstr "Classes diagnostiques"
+
+msgid "Diagnostic dates"
+msgstr "Dates diagnostiques"
+
+msgid "Diagnostic no classification markers"
+msgstr "Marqueurs diagnostic sans classification"
+
+msgid "Diagnostic non applicable markers"
+msgstr "Marqueurs diagnostic non applicable"
+
+msgid "Diagnostic types"
+msgstr "Types diagnostiques"
+
+msgid "Diagnostic validity end dates"
+msgstr "Dates de fin de validité diagnostiques"
+
+msgid "Diagnostic values"
+msgstr "Valeurs diagnostiques"
+
+msgid "Display order"
+msgstr "Ordre d'affichage"
+
+msgid "Division IDs list"
+msgstr "Liste des IDs de division"
+
+msgid "Email"
+msgstr "E-mail"
+
 msgid "External ID"
 msgstr "ID externe"
+
+msgid "Feature Code"
+msgstr "Code caractéristique"
 
 msgid "Feature code"
 msgstr "Code caractéristique"
@@ -63,23 +144,108 @@ msgstr "ID groupe caractéristique"
 msgid "Feature group code"
 msgstr "Code groupe caractéristique"
 
+msgid "Fees (honoraires)"
+msgstr "Honoraires"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Floor"
+msgstr "Étage"
+
 msgid "Full offer XML node"
 msgstr "Nœud XML offre complet"
 
 msgid "Generated at: @date"
 msgstr "Généré le : @date"
 
+msgid "Group Code"
+msgstr "Code groupe"
+
+msgid "Group ID"
+msgstr "ID groupe"
+
+msgid "Import Agent Avatar Files from CRM XML (Step 1: Download avatar images"
+")"
+msgstr "Importer les fichiers avatar agent depuis XML CRM (Étape 1 : télécharg"
+"er les avatars)"
+
+msgid "Import Agents from CRM XML (Config-First)"
+msgstr "Importer les agents depuis XML CRM (Config-First)"
+
+msgid "Import Feature Definitions from CRM XML"
+msgstr "Importer les définitions de caractéristiques depuis XML CRM"
+
+msgid "Import Feature Groups from CRM XML"
+msgstr "Importer les groupes de caractéristiques depuis XML CRM"
+
+msgid "Import Files from CRM XML (Step 1: Download images)"
+msgstr "Importer les fichiers depuis XML CRM (Étape 1 : télécharger les images"
+")"
+
+msgid "Import Media from CRM XML (Step 2: Create media entities)"
+msgstr "Importer les médias depuis XML CRM (Étape 2 : créer les entités média)"
+
+msgid "Import Offer Translations from CRM XML (dynamic)"
+msgstr "Importer les traductions d'offres depuis XML CRM (dynamique)"
+
+msgid "Import Offers from CRM XML (Config-First - Phase 1)"
+msgstr "Importer les offres depuis XML CRM (Config-First – Phase 1)"
+
 msgid "Import Offers from CRM XML (Example)"
 msgstr "Importer les offres depuis XML CRM (exemple)"
 
+msgid "Import Virtual Tour Media from CRM XML (TYPE_CODE=VIS)"
+msgstr "Importer les médias visite virtuelle depuis XML CRM (TYPE_CODE=VIS)"
+
 msgid "Import rejections"
 msgstr "Rejets d'import"
+
+msgid "Is divisible"
+msgstr "Est divisible"
+
+msgid "LOT identifier"
+msgstr "Identifiant LOT"
 
 msgid "Label"
 msgstr "Libellé"
 
 msgid "Last Post-Import Publication Report"
 msgstr "Dernier rapport de publication post-import"
+
+msgid "Last name"
+msgstr "Nom"
+
+msgid "Last update date"
+msgstr "Date de dernière mise à jour"
+
+msgid "Latitude"
+msgstr "Latitude"
+
+msgid "List of media display orders"
+msgstr "Liste des ordres d'affichage média"
+
+msgid "Longitude"
+msgstr "Longitude"
+
+msgid "Main business leader UID"
+msgstr "UID responsable métier principal"
+
+msgid "Media Type Code"
+msgstr "Code type média"
+
+msgid "Media URL"
+msgstr "URL média"
+
+msgid "Media filename"
+msgstr "Nom de fichier média"
+
+msgid "Migration group for importing data from CRM XML files"
+msgstr "Groupe de migration pour l'import de données depuis les fichiers XML C"
+"RM"
+
+msgid "Nature label"
+msgstr "Libellé nature"
 
 msgid "No post-import publication report is available yet. Run CRM import fir"
 "st."
@@ -95,19 +261,37 @@ msgstr "ID nœud"
 msgid "Offer Title"
 msgstr "Titre de l'offre"
 
+msgid "Offer XML node"
+msgstr "Nœud XML offre"
+
+msgid "Operation Code"
+msgstr "Code opération"
+
 msgid "Operation Type"
 msgstr "Type d'opération"
 
 msgid "Operation code"
 msgstr "Code opération"
 
+msgid "PS CRM Import"
+msgstr "Import CRM PS"
+
+msgid "Parent Offer Business ID"
+msgstr "ID métier offre parente"
+
 msgid "Payload defaults"
 msgstr "Valeurs par défaut du payload"
+
+msgid "Phone"
+msgstr "Téléphone"
 
 msgid "Provides migration support for PS entities with entity protection inte"
 "gration"
 msgstr "Fournit le support de migration pour les entités PS avec intégration d"
 "e protection d'entité."
+
+msgid "Publication end date"
+msgstr "Date de fin de publication"
 
 msgid "Published during post-import: @count"
 msgstr "Publié lors du post-import : @count"
@@ -129,11 +313,23 @@ msgid "Review post-import publication rejections for source data quality trac"
 msgstr "Consulter les rejets de publication post-import pour le suivi qualité "
 "des données source."
 
+msgid "Source Drupal language"
+msgstr "Langue Drupal source"
+
 msgid "Source index"
 msgstr "Index source"
 
 msgid "Status"
 msgstr "Statut"
+
+msgid "Surface divisions from CRM XML"
+msgstr "Divisions de surface depuis XML CRM"
+
+msgid "Surface qualification code"
+msgstr "Code qualification surface"
+
+msgid "Surface value"
+msgstr "Valeur surface"
 
 msgid "Target Drupal language"
 msgstr "Langue Drupal cible"
@@ -141,14 +337,35 @@ msgstr "Langue Drupal cible"
 msgid "Target XML language"
 msgstr "Langue XML cible"
 
+msgid "Technical ID"
+msgstr "ID technique"
+
+msgid "Technical elements"
+msgstr "Éléments techniques"
+
 msgid "Technical elements node"
 msgstr "Nœud éléments techniques"
+
+msgid "Timestamp"
+msgstr "Horodatage"
 
 msgid "Total offers scanned: @count"
 msgstr "Total offres analysées : @count"
 
+msgid "Type Code"
+msgstr "Code type"
+
 msgid "Type driver"
 msgstr "Driver de type"
 
+msgid "Virtual tour URL"
+msgstr "URL visite virtuelle"
+
+msgid "Watermark flag"
+msgstr "Indicateur filigrane"
+
 msgid "Weight"
 msgstr "Poids"
+
+msgid "ZIP code"
+msgstr "Code postal"

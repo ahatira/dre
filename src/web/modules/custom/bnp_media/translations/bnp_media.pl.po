@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bnp_media\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,8 +12,17 @@ msgstr ""
 msgid "A locally hosted image file."
 msgstr "Lokalnie hostowany plik obrazu."
 
+msgid "Add video URL"
+msgstr "Dodaj URL wideo"
+
+msgid "Add virtual tour"
+msgstr "Dodaj wirtualny spacer"
+
 msgid "Allowed providers"
 msgstr "Dozwoleni dostawcy"
+
+msgid "Audio file"
+msgstr "Plik audio"
 
 msgid "Autocomplete placeholder"
 msgstr "Symbol zastępczy autouzupełniania"
@@ -33,6 +42,9 @@ msgstr "Galeria BNP"
 msgid "BNP Image"
 msgstr "Obraz BNP"
 
+msgid "BNP Media Admin Card (4:3)"
+msgstr "Karta admin BNP Media (4:3)"
+
 msgid "BNP Remote video"
 msgstr "Wideo zdalne BNP"
 
@@ -51,6 +63,9 @@ msgstr "Iframe oEmbed BNP"
 msgid "BNP remote video source configuration"
 msgstr "Konfiguracja zdalnego źródła wideo BNP"
 
+msgid "Brochure document picker"
+msgstr "Wybór dokumentów broszury"
+
 msgid "Bulk input"
 msgstr "Wprowadzanie masowe"
 
@@ -62,6 +77,13 @@ msgstr "Tworzy lub ponownie wykorzystuje encje mediów z URL osadzania."
 
 msgid "Default name"
 msgstr "Nazwa domyślna"
+
+msgid "Direct external video URL (non-oEmbed) for MediaHub AssetLink links."
+msgstr "Bezpośredni zewnętrzny URL wideo (bez oEmbed) dla linków MediaHub Asse"
+"tLink."
+
+msgid "Direct video URL (expected: MediaHub AssetLink .mp4)"
+msgstr "Bezpośredni URL wideo (oczekiwany: MediaHub AssetLink .mp4)"
 
 msgid "Embed URLs"
 msgstr "URL osadzania"
@@ -89,16 +111,44 @@ msgstr "Symbol zastępczy okna dialogowego ogólnego osadzania Entity Browser."
 msgid "Entity form proxy"
 msgstr "Proxy formularza encji"
 
+msgid "Gallery media picker"
+msgstr "Wybór mediów galerii"
+
 msgid "Generic entity browser and entity embed bridge for media workflows."
 msgstr "Ogólna przeglądarka encji i most osadzania dla przepływów mediów."
+
+msgid "Generic locally hosted image."
+msgstr "Ogólny obraz hostowany lokalnie."
 
 msgid "Generic media foundation with Entity Browser and Dropzone upload workf"
 "lows."
 msgstr "Ogólna podstawa mediów z Entity Browser i przepływami uploadu Dropzone"
 "."
 
+msgid "Generic remote video media item (YouTube, Vimeo, MediaHub)."
+msgstr "Ogólny zdalny nośnik wideo (YouTube, Vimeo, MediaHub)."
+
+msgid "Generic reusable audio file."
+msgstr "Ogólny plik audio wielokrotnego użytku."
+
+msgid "Generic reusable image gallery."
+msgstr "Ogólna galeria obrazów wielokrotnego użytku."
+
+msgid "Generic reusable local file."
+msgstr "Ogólny lokalny plik wielokrotnego użytku."
+
+msgid "Generic reusable video file."
+msgstr "Ogólny plik wideo wielokrotnego użytku."
+
 msgid "Invalid URL(s): @urls"
 msgstr "Nieprawidłowe URL: @urls"
+
+msgid "Link to 360° tour, Matterport, or similar virtual tour interface"
+msgstr "Link do spaceru 360°, Matterport lub podobnego interfejsu wirtualnego "
+"spaceru"
+
+msgid "Link to virtual tour with manual thumbnail"
+msgstr "Link do wirtualnego spaceru z ręczną miniaturą"
 
 msgid "Max height"
 msgstr "Maks. wysokość"
@@ -115,12 +165,22 @@ msgstr "Maks. szerokość: @value"
 msgid "Media bundle"
 msgstr "Pakiet mediów"
 
+msgid "MediaHub video URL"
+msgstr "URL wideo MediaHub"
+
 msgid "Name field machine name"
 msgstr "Nazwa maszynowa pola nazwy"
+
+msgid "Normalized provider ID (youtube, vimeo, mediahub)."
+msgstr "Znormalizowany identyfikator dostawcy (youtube, vimeo, mediahub)."
 
 msgid "One bundle machine name per line. Leave empty to allow all bundles."
 msgstr "Jedna nazwa maszynowa pakietu na wiersz. Pozostaw puste, aby zezwolić "
 "na wszystkie pakiety."
+
+msgid "Optional thumbnail image shown for virtual tour items in gallery."
+msgstr "Opcjonalny obraz miniatury dla elementów wirtualnego spaceru w galerii"
+"."
 
 msgid "Please provide at least one valid URL."
 msgstr "Podaj co najmniej jeden prawidłowy URL."
@@ -131,11 +191,17 @@ msgstr "Wybierz co najmniej jedną encję."
 msgid "Process"
 msgstr "Przetwórz"
 
+msgid "Remote video"
+msgstr "Wideo zdalne"
+
 msgid "Render remote video URLs via media.oembed_iframe."
 msgstr "Renderuj zdalne URL wideo przez media.oembed_iframe."
 
 msgid "Reuse existing media when URL already exists"
 msgstr "Ponownie użyj istniejących mediów, gdy URL już istnieje"
+
+msgid "Search existing"
+msgstr "Szukaj istniejących"
 
 msgid "Select entities"
 msgstr "Wybierz encje"
@@ -172,6 +238,15 @@ msgstr "Katalog miniaturek"
 msgid "URL field machine name"
 msgstr "Nazwa maszynowa pola URL"
 
+msgid "Upload brochure"
+msgstr "Prześlij broszurę"
+
+msgid "Upload images"
+msgstr "Prześlij obrazy"
+
+msgid "Upload videos"
+msgstr "Prześlij wideo"
+
 msgid "Use a local image collection for reusable galleries."
 msgstr "Użyj lokalnej kolekcji obrazów dla galerii wielokrotnego użytku."
 
@@ -189,3 +264,18 @@ msgstr "Użyj zdalnych URL wideo dla mediów wielokrotnego użytku."
 
 msgid "Use video files for reusable media."
 msgstr "Użyj plików wideo dla mediów wielokrotnego użytku."
+
+msgid "Video URL"
+msgstr "URL wideo"
+
+msgid "Video file"
+msgstr "Plik wideo"
+
+msgid "Virtual Tour"
+msgstr "Wirtualny spacer"
+
+msgid "Virtual tour URL"
+msgstr "URL wirtualnego spaceru"
+
+msgid "Virtual tour thumbnail"
+msgstr "Miniatura wirtualnego spaceru"

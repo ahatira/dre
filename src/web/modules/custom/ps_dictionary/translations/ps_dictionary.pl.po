@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_dictionary\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,12 @@ msgstr "Zastosuj"
 msgid "Autocomplete"
 msgstr "Autouzupełnianie"
 
+msgid "Budget periods"
+msgstr "Okresy budżetowe"
+
+msgid "Budget units"
+msgstr "Jednostki budżetowe"
+
 msgid "CSV file"
 msgstr "Plik CSV"
 
@@ -44,6 +50,12 @@ msgstr "Kanoniczny kod biznesowy, na przykład BUR lub RENT."
 
 msgid "Check boxes/radio buttons"
 msgstr "Pola wyboru/przyciski opcji"
+
+msgid "Classes DPE"
+msgstr "Klasy DPE"
+
+msgid "Classes GES"
+msgstr "Klasy GES"
 
 msgid "Code"
 msgstr "Kod"
@@ -79,6 +91,9 @@ msgstr "Usuń wybrane wpisy"
 msgid "Description"
 msgstr "Opis"
 
+msgid "Devises"
+msgstr "Waluty"
+
 msgid "Dictionary code"
 msgstr "Kod słownika"
 
@@ -112,8 +127,14 @@ msgstr "Wpisy"
 msgid "Entries for @type"
 msgstr "Wpisy dla @type"
 
+msgid "French departments"
+msgstr "Departamenty francuskie"
+
 msgid "ID"
 msgstr "ID"
+
+msgid "INSEE department codes and names for location search."
+msgstr "Kody i nazwy departamentów INSEE do wyszukiwania lokalizacji."
 
 msgid "Icon"
 msgstr "Ikona"
@@ -164,6 +185,12 @@ msgstr "Lista wyboru"
 msgid "Stores a business dictionary code (ex: BUR, SALE, EUR)."
 msgstr "Przechowuje kod słownika biznesowego (np. BUR, SALE, EUR)."
 
+msgid "Surface qualifications"
+msgstr "Kwalifikacje powierzchni"
+
+msgid "Surface units"
+msgstr "Jednostki powierzchni"
+
 msgid "The dictionary entry %label has been deleted."
 msgstr "Wpis słownika %label został usunięty."
 
@@ -183,6 +210,18 @@ msgstr "Typ"
 
 msgid "Type filter (optional)"
 msgstr "Filtr typu (opcjonalny)"
+
+msgid "Types d'actifs"
+msgstr "Typy aktywów"
+
+msgid "Types d'operation"
+msgstr "Typy operacji"
+
+msgid "Types de clients"
+msgstr "Typy klientów"
+
+msgid "Types de mandats"
+msgstr "Typy mandatów"
 
 msgid "UI Icon"
 msgstr "Ikona UI"
@@ -218,8 +257,17 @@ msgstr "Waga"
 msgid "Weights saved."
 msgstr "Wagi zapisane."
 
+msgid "description"
+msgstr "opis"
+
+msgid "label"
+msgstr "etykieta"
+
 msgid "ps_dictionary field settings"
 msgstr "Ustawienia pola ps_dictionary"
 
 msgid "ps_dictionary field storage settings"
 msgstr "Ustawienia przechowywania pola ps_dictionary"
+
+msgid "title"
+msgstr "tytuł"

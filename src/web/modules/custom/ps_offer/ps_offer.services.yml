@@ -12,8 +12,8 @@ services:
       - '@address.country_repository'
       - '@transliteration'
       - '@language_manager'
-      - '@ps_search.search_path_resolver'
-      - '@ps_search.seo_locality_path_builder'
+      - '@?ps_search.search_path_resolver'
+      - '@?ps_search.seo_locality_path_builder'
       - '@ps_offer.location_token_resolver'
 
   ps_offer.location_token_resolver:

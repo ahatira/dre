@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_agent\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: lb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,9 @@ msgstr "Agent derbäisetzen"
 msgid "Add agent type"
 msgstr "Agententyp derbäisetzen"
 
+msgid "Admin search and management view for agents."
+msgstr "Admin-Sich- a Gestiouns-Uweis fir Agenten."
+
 msgid "Administer PS agent entities"
 msgstr "PS-Agenten-Entitéiten verwalten"
 
@@ -28,6 +31,18 @@ msgstr "Fallback-Astellunge fir Agenten verwalten"
 
 msgid "Administer PS agent types"
 msgstr "PS-Agententypen verwalten"
+
+msgid "Agent avatar LG (160x160)"
+msgstr "Agenten-Avatar LG (160×160)"
+
+msgid "Agent avatar MD (96x96)"
+msgstr "Agenten-Avatar MD (96×96)"
+
+msgid "Agent avatar SM (64x64)"
+msgstr "Agenten-Avatar SM (64×64)"
+
+msgid "Agent avatar XS (40x40)"
+msgstr "Agenten-Avatar XS (40×40)"
 
 msgid "Agent directory entity with contact validation and admin UI."
 msgstr "Agenten-Verzeechnes-Entitéit mat Kontaktvalidatioun an Admin-UI."
@@ -44,11 +59,17 @@ msgstr "Agententypen"
 msgid "Agents"
 msgstr "Agenten"
 
+msgid "Agents admin"
+msgstr "Agenten-Admin"
+
 msgid "Authored by"
 msgstr "Erstallt vum"
 
 msgid "Avatar"
 msgstr "Avatar"
+
+msgid "Bulk operations"
+msgstr "Massenoperatiounen"
 
 msgid "Changed"
 msgstr "Geännert"
@@ -154,6 +175,9 @@ msgstr "Nee"
 msgid "One file only. Recommended: square image for best result."
 msgstr "Nëmmen ee Fichier. Recommandéiert: quadratescht Bild."
 
+msgid "PS Agent Avatar (96x96)"
+msgstr "PS-Agenten-Avatar (96×96)"
+
 msgid "PS Agent fallback settings"
 msgstr "PS-Agenten-Fallback-Astellungen"
 
@@ -185,6 +209,12 @@ msgid "Upload fallback avatar files used when agent avatar is missing or inac"
 "cessible. Allowed formats: png jpg jpeg webp svg."
 msgstr "Fallback-Avatar-Fichieren eroplueden wann den Agenten-Avatar feelt. Er"
 "laabt Formater: png, jpg, jpeg, webp, svg."
+
+msgid "With avatar"
+msgstr "Mat Avatar"
+
+msgid "Without avatar"
+msgstr "Ouni Avatar"
 
 msgid "Yes"
 msgstr "Jo"

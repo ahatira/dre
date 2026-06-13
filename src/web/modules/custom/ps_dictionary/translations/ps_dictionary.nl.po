@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_dictionary\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,12 @@ msgstr "Toepassen"
 msgid "Autocomplete"
 msgstr "Automatisch aanvullen"
 
+msgid "Budget periods"
+msgstr "Budgetperioden"
+
+msgid "Budget units"
+msgstr "Budgeteenheden"
+
 msgid "CSV file"
 msgstr "CSV-bestand"
 
@@ -44,6 +50,12 @@ msgstr "Canonieke businesscode, bijvoorbeeld BUR of RENT."
 
 msgid "Check boxes/radio buttons"
 msgstr "Selectievakjes/radioknoppen"
+
+msgid "Classes DPE"
+msgstr "DPE-klassen"
+
+msgid "Classes GES"
+msgstr "GES-klassen"
 
 msgid "Code"
 msgstr "Code"
@@ -79,6 +91,9 @@ msgstr "Geselecteerde items verwijderen"
 msgid "Description"
 msgstr "Beschrijving"
 
+msgid "Devises"
+msgstr "Valuta's"
+
 msgid "Dictionary code"
 msgstr "Woordenboekcode"
 
@@ -112,8 +127,14 @@ msgstr "Items"
 msgid "Entries for @type"
 msgstr "Items voor @type"
 
+msgid "French departments"
+msgstr "Franse departementen"
+
 msgid "ID"
 msgstr "ID"
+
+msgid "INSEE department codes and names for location search."
+msgstr "INSEE-departementcodes en -namen voor locatiezoeken."
 
 msgid "Icon"
 msgstr "Pictogram"
@@ -166,6 +187,12 @@ msgstr "Keuzelijst"
 msgid "Stores a business dictionary code (ex: BUR, SALE, EUR)."
 msgstr "Slaat een zakelijke woordenboekcode op (bijv. BUR, SALE, EUR)."
 
+msgid "Surface qualifications"
+msgstr "Oppervlaktekwalificaties"
+
+msgid "Surface units"
+msgstr "Oppervlakte-eenheden"
+
 msgid "The dictionary entry %label has been deleted."
 msgstr "Het woordenboekitem %label is verwijderd."
 
@@ -185,6 +212,18 @@ msgstr "Type"
 
 msgid "Type filter (optional)"
 msgstr "Typefilter (optioneel)"
+
+msgid "Types d'actifs"
+msgstr "Activatypen"
+
+msgid "Types d'operation"
+msgstr "Operatietypen"
+
+msgid "Types de clients"
+msgstr "Klanttypen"
+
+msgid "Types de mandats"
+msgstr "Mandaattypen"
 
 msgid "UI Icon"
 msgstr "UI-pictogram"
@@ -220,8 +259,17 @@ msgstr "Weging"
 msgid "Weights saved."
 msgstr "Wegingen opgeslagen."
 
+msgid "description"
+msgstr "beschrijving"
+
+msgid "label"
+msgstr "label"
+
 msgid "ps_dictionary field settings"
 msgstr "ps_dictionary veldinstellingen"
 
 msgid "ps_dictionary field storage settings"
 msgstr "ps_dictionary veldopslaginstellingen"
+
+msgid "title"
+msgstr "titel"

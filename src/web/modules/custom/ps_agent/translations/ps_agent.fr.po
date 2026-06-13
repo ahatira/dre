@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_agent\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,9 @@ msgstr "Ajouter un agent"
 msgid "Add agent type"
 msgstr "Ajouter un type d'agent"
 
+msgid "Admin search and management view for agents."
+msgstr "Vue admin de recherche et gestion des agents."
+
 msgid "Administer PS agent entities"
 msgstr "Administrer les entités agent PS"
 
@@ -28,6 +31,18 @@ msgstr "Administrer les paramètres d'avatar de secours des agents"
 
 msgid "Administer PS agent types"
 msgstr "Administrer les types d'agent PS"
+
+msgid "Agent avatar LG (160x160)"
+msgstr "Avatar agent LG (160×160)"
+
+msgid "Agent avatar MD (96x96)"
+msgstr "Avatar agent MD (96×96)"
+
+msgid "Agent avatar SM (64x64)"
+msgstr "Avatar agent SM (64×64)"
+
+msgid "Agent avatar XS (40x40)"
+msgstr "Avatar agent XS (40×40)"
 
 msgid "Agent directory entity with contact validation and admin UI."
 msgstr "Entité annuaire d'agents avec validation des contacts et interface d'a"
@@ -45,11 +60,17 @@ msgstr "Types d'agent"
 msgid "Agents"
 msgstr "Agents"
 
+msgid "Agents admin"
+msgstr "Administration des agents"
+
 msgid "Authored by"
 msgstr "Créé par"
 
 msgid "Avatar"
 msgstr "Avatar"
+
+msgid "Bulk operations"
+msgstr "Opérations en masse"
 
 msgid "Changed"
 msgstr "Modifié"
@@ -155,6 +176,9 @@ msgstr "Non"
 msgid "One file only. Recommended: square image for best result."
 msgstr "Un seul fichier. Recommandé : image carrée pour un meilleur rendu."
 
+msgid "PS Agent Avatar (96x96)"
+msgstr "Avatar agent PS (96×96)"
+
 msgid "PS Agent fallback settings"
 msgstr "Paramètres d'avatar de secours des agents PS"
 
@@ -187,6 +211,12 @@ msgid "Upload fallback avatar files used when agent avatar is missing or inac"
 msgstr "Téléversez les avatars de secours utilisés lorsque l'avatar de l'agent"
 " est absent ou inaccessible. Formats autorisés : png, jpg, jpeg, webp,"
 " svg."
+
+msgid "With avatar"
+msgstr "Avec avatar"
+
+msgid "Without avatar"
+msgstr "Sans avatar"
 
 msgid "Yes"
 msgstr "Oui"

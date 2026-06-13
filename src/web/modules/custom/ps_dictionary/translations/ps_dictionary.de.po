@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_dictionary\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,12 @@ msgstr "Anwenden"
 msgid "Autocomplete"
 msgstr "Autovervollständigung"
 
+msgid "Budget periods"
+msgstr "Budgetperioden"
+
+msgid "Budget units"
+msgstr "Budgeteinheiten"
+
 msgid "CSV file"
 msgstr "CSV-Datei"
 
@@ -44,6 +50,12 @@ msgstr "Kanonischer Geschäftscode, zum Beispiel BUR oder RENT."
 
 msgid "Check boxes/radio buttons"
 msgstr "Kontrollkästchen/Optionsfelder"
+
+msgid "Classes DPE"
+msgstr "DPE-Klassen"
+
+msgid "Classes GES"
+msgstr "GES-Klassen"
 
 msgid "Code"
 msgstr "Code"
@@ -79,6 +91,9 @@ msgstr "Ausgewählte Einträge löschen"
 msgid "Description"
 msgstr "Beschreibung"
 
+msgid "Devises"
+msgstr "Währungen"
+
 msgid "Dictionary code"
 msgstr "Wörterbuchcode"
 
@@ -112,8 +127,14 @@ msgstr "Einträge"
 msgid "Entries for @type"
 msgstr "Einträge für @type"
 
+msgid "French departments"
+msgstr "Französische Departements"
+
 msgid "ID"
 msgstr "ID"
+
+msgid "INSEE department codes and names for location search."
+msgstr "INSEE-Departementscodes und -namen für die Standortsuche."
 
 msgid "Icon"
 msgstr "Symbol"
@@ -166,6 +187,12 @@ msgstr "Auswahlliste"
 msgid "Stores a business dictionary code (ex: BUR, SALE, EUR)."
 msgstr "Speichert einen Business-Dictionary-Code (z. B. BUR, SALE, EUR)."
 
+msgid "Surface qualifications"
+msgstr "Oberflächenqualifikationen"
+
+msgid "Surface units"
+msgstr "Flächeneinheiten"
+
 msgid "The dictionary entry %label has been deleted."
 msgstr "Der Wörterbucheintrag %label wurde gelöscht."
 
@@ -185,6 +212,18 @@ msgstr "Typ"
 
 msgid "Type filter (optional)"
 msgstr "Typ-Filter (optional)"
+
+msgid "Types d'actifs"
+msgstr "Vermögensarten"
+
+msgid "Types d'operation"
+msgstr "Transaktionsarten"
+
+msgid "Types de clients"
+msgstr "Kundentypen"
+
+msgid "Types de mandats"
+msgstr "Mandatstypen"
 
 msgid "UI Icon"
 msgstr "UI-Symbol"
@@ -221,8 +260,17 @@ msgstr "Gewichtung"
 msgid "Weights saved."
 msgstr "Gewichtungen gespeichert."
 
+msgid "description"
+msgstr "Beschreibung"
+
+msgid "label"
+msgstr "bezeichnung"
+
 msgid "ps_dictionary field settings"
 msgstr "ps_dictionary Feldeinstellungen"
 
 msgid "ps_dictionary field storage settings"
 msgstr "ps_dictionary Feldspeicher-Einstellungen"
+
+msgid "title"
+msgstr "titel"

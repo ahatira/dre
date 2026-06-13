@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_agent\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,9 @@ msgstr "Aggiungi agente"
 msgid "Add agent type"
 msgstr "Aggiungi tipo di agente"
 
+msgid "Admin search and management view for agents."
+msgstr "Vista admin per ricerca e gestione degli agenti."
+
 msgid "Administer PS agent entities"
 msgstr "Amministrare entità agente PS"
 
@@ -28,6 +31,18 @@ msgstr "Amministrare impostazioni avatar di fallback agenti"
 
 msgid "Administer PS agent types"
 msgstr "Amministrare tipi di agente PS"
+
+msgid "Agent avatar LG (160x160)"
+msgstr "Avatar agente LG (160×160)"
+
+msgid "Agent avatar MD (96x96)"
+msgstr "Avatar agente MD (96×96)"
+
+msgid "Agent avatar SM (64x64)"
+msgstr "Avatar agente SM (64×64)"
+
+msgid "Agent avatar XS (40x40)"
+msgstr "Avatar agente XS (40×40)"
 
 msgid "Agent directory entity with contact validation and admin UI."
 msgstr "Entità directory agenti con validazione contatti e interfaccia admin."
@@ -44,11 +59,17 @@ msgstr "Tipi di agente"
 msgid "Agents"
 msgstr "Agenti"
 
+msgid "Agents admin"
+msgstr "Amministrazione agenti"
+
 msgid "Authored by"
 msgstr "Creato da"
 
 msgid "Avatar"
 msgstr "Avatar"
+
+msgid "Bulk operations"
+msgstr "Operazioni in blocco"
 
 msgid "Changed"
 msgstr "Modificato"
@@ -154,6 +175,9 @@ msgstr "No"
 msgid "One file only. Recommended: square image for best result."
 msgstr "Un solo file. Consigliato: immagine quadrata per il miglior risultato."
 
+msgid "PS Agent Avatar (96x96)"
+msgstr "Avatar agente PS (96×96)"
+
 msgid "PS Agent fallback settings"
 msgstr "Impostazioni avatar di fallback agenti PS"
 
@@ -185,6 +209,12 @@ msgid "Upload fallback avatar files used when agent avatar is missing or inac"
 "cessible. Allowed formats: png jpg jpeg webp svg."
 msgstr "Carica file avatar di fallback quando l'avatar dell'agente manca o non"
 " è accessibile. Formati consentiti: png, jpg, jpeg, webp, svg."
+
+msgid "With avatar"
+msgstr "Con avatar"
+
+msgid "Without avatar"
+msgstr "Senza avatar"
 
 msgid "Yes"
 msgstr "Sì"

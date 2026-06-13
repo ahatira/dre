@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_feature\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,6 +61,9 @@ msgstr "Afwezig"
 msgid "Active"
 msgstr "Actief"
 
+msgid "Activities not permitted on the premises."
+msgstr "Niet toegestane activiteiten op het terrein."
+
 msgid "Activity unit"
 msgstr "Activiteitseenheid"
 
@@ -72,6 +75,9 @@ msgstr "Kenmerk toevoegen"
 
 msgid "Add group"
 msgstr "Groep toevoegen"
+
+msgid "Additional information"
+msgstr "Aanvullende informatie"
 
 msgid "Administer PS Features"
 msgstr "PS-kenmerken beheren"
@@ -122,6 +128,21 @@ msgstr "Beschikbare opties"
 
 msgid "Back to groups"
 msgstr "Terug naar groepen"
+
+msgid "Building equipment and facilities."
+msgstr "Gebouwinstallaties en voorzieningen."
+
+msgid "Building structure"
+msgstr "Gebouwstructuur"
+
+msgid "Building type and condition"
+msgstr "Gebouwtype en -staat"
+
+msgid "Building type, state and structure."
+msgstr "Gebouwtype, staat en structuur."
+
+msgid "Ceiling heights and clear heights."
+msgstr "Plafondhoogtes en vrije hoogtes."
 
 msgid "Changed"
 msgstr "Gewijzigd"
@@ -243,6 +264,9 @@ msgstr "Voer één woordenboekcode per regel in."
 msgid "Enter the payload as JSON. Structure depends on feature type."
 msgstr "Voer de payload in als JSON. De structuur is afhankelijk van het funct"
 "ietype."
+
+msgid "Environmental and quality certifications."
+msgstr "Milieu- en kwaliteitscertificeringen."
 
 msgid "Error formatting feature: @error"
 msgstr "Foutformatteringsfunctie: @error"
@@ -435,6 +459,9 @@ msgstr "Inclusief tijd"
 msgid "Input field height (1 = single-line field, >1 = text area)."
 msgstr "Hoogte van het invoerveld (1 = veld met één regel, >1 = tekstgebied)."
 
+msgid "Interior fittings and layout."
+msgstr "Interieurinrichting en indeling."
+
 msgid "Invalid JSON format: @error"
 msgstr "Ongeldig JSON-formaat: @error"
 
@@ -443,6 +470,12 @@ msgstr "JSON-gegevens"
 
 msgid "JSON payload according to the type driver schema."
 msgstr "JSON-payload volgens het type driver-schema."
+
+msgid "LEED certification"
+msgstr "LEED-certificering"
+
+msgid "LEED or equivalent environmental certification level."
+msgstr "LEED of equivalente milieucertificering."
 
 msgid "Label"
 msgstr "Label"
@@ -607,6 +640,9 @@ msgstr "Bied functies aan"
 msgid "Office"
 msgstr "Kantoor"
 
+msgid "On-site services and amenities."
+msgstr "Diensten en voorzieningen ter plaatse."
+
 msgid "One option per line. Format: key|Label (e.g., wifi|Wi-Fi)."
 msgstr "Eén optie per regel. Formaat: sleutel|Label (bijvoorbeeld wifi|Wi-Fi)."
 
@@ -632,6 +668,9 @@ msgstr "Origineel: @value"
 
 msgid "Other"
 msgstr "Overige"
+
+msgid "Outdoor areas and surroundings."
+msgstr "Buitenruimtes en omgeving."
 
 msgid "PS Feature"
 msgstr "PS Kenmerk"
@@ -695,6 +734,9 @@ msgid "Restrict which features can be used. Leave empty to allow all."
 msgstr "Beperk welke functies kunnen worden gebruikt. Laat leeg om alles toe t"
 "e staan."
 
+msgid "Restricted activities"
+msgstr "Beperkte activiteiten"
+
 msgid "Retail unit"
 msgstr "Winkeleenheid"
 
@@ -757,11 +799,20 @@ msgid "Shown on offer pages when a feature group has no icon configured."
 msgstr "Wordt weergegeven op aanbiedingspagina's wanneer voor een functiegroep"
 " geen pictogram is geconfigureerd."
 
+msgid "Standards, certifications and labels"
+msgstr "Normen, certificeringen en labels"
+
+msgid "Standards, certifications and labels."
+msgstr "Normen, certificeringen en labels."
+
 msgid "Status"
 msgstr "Status"
 
 msgid "Stores a feature definition reference and its payload."
 msgstr "Slaat een functiedefinitiereferentie en de bijbehorende payload op."
+
+msgid "Structural characteristics of the building."
+msgstr "Structurele kenmerken van het gebouw."
 
 msgid "Style: @style"
 msgstr "Stijl: @style"
@@ -780,6 +831,9 @@ msgstr "Voorgestelde minimumwaarde"
 
 msgid "Suggested minimum value (optional)."
 msgstr "Voorgestelde minimumwaarde (optioneel)."
+
+msgid "Supplementary offer information."
+msgstr "Aanvullende aanbiedingsinformatie."
 
 msgid "Taxonomy"
 msgstr "Taxonomie"
@@ -871,6 +925,9 @@ msgstr "Waarde"
 msgid "Value range"
 msgstr "Waardebereik"
 
+msgid "Vehicle access and public transport."
+msgstr "Voertuigtoegang en openbaar vervoer."
+
 msgid "Vocabulary"
 msgstr "Vocabulaire"
 
@@ -921,6 +978,9 @@ msgstr "Ja/Nee"
 msgid "always displayed on the listing, even if the value is No."
 msgstr "altijd weergegeven op de advertentie, ook als de waarde Nee is."
 
+msgid "description"
+msgstr "beschrijving"
+
 msgid "e.g., m², m, kg, etc."
 msgstr "bijv. m², m, kg, enz."
 
@@ -943,11 +1003,17 @@ msgid "if disabled, the feature will not appear on the listing page."
 msgstr "indien uitgeschakeld, verschijnt het kenmerk niet op de advertentiepag"
 "ina."
 
+msgid "label"
+msgstr "label"
+
 msgid "max"
 msgstr "max"
 
 msgid "min"
 msgstr "min"
+
+msgid "title"
+msgstr "titel"
 
 msgid "unit"
 msgstr "eenheid"

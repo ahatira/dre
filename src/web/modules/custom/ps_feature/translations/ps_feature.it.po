@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_feature\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,6 +61,9 @@ msgstr "Assente"
 msgid "Active"
 msgstr "Attivo"
 
+msgid "Activities not permitted on the premises."
+msgstr "Attività non consentite nel sito."
+
 msgid "Activity unit"
 msgstr "Unità di attività"
 
@@ -72,6 +75,9 @@ msgstr "Aggiungi caratteristica"
 
 msgid "Add group"
 msgstr "Aggiungi gruppo"
+
+msgid "Additional information"
+msgstr "Informazioni aggiuntive"
 
 msgid "Administer PS Features"
 msgstr "Amministra caratteristiche PS"
@@ -121,6 +127,21 @@ msgstr "Opzioni disponibili"
 
 msgid "Back to groups"
 msgstr "Torna ai gruppi"
+
+msgid "Building equipment and facilities."
+msgstr "Attrezzature e dotazioni dell'edificio."
+
+msgid "Building structure"
+msgstr "Struttura dell'edificio"
+
+msgid "Building type and condition"
+msgstr "Tipo e stato dell'edificio"
+
+msgid "Building type, state and structure."
+msgstr "Tipo, stato e struttura dell'edificio."
+
+msgid "Ceiling heights and clear heights."
+msgstr "Altezze dei soffitti e altezze libere."
 
 msgid "Changed"
 msgstr "Cambiato"
@@ -243,6 +264,9 @@ msgstr "Inserisci un codice dizionario per riga."
 msgid "Enter the payload as JSON. Structure depends on feature type."
 msgstr "Inserisci il payload come JSON. La struttura dipende dal tipo di funzi"
 "onalità."
+
+msgid "Environmental and quality certifications."
+msgstr "Certificazioni ambientali e di qualità."
 
 msgid "Error formatting feature: @error"
 msgstr "Funzionalità di formattazione degli errori: @error"
@@ -437,6 +461,9 @@ msgid "Input field height (1 = single-line field, >1 = text area)."
 msgstr "Altezza del campo di immissione (1 = campo a riga singola, >1 = area d"
 "i testo)."
 
+msgid "Interior fittings and layout."
+msgstr "Allestimenti e layout interni."
+
 msgid "Invalid JSON format: @error"
 msgstr "Formato JSON non valido: @error"
 
@@ -445,6 +472,12 @@ msgstr "Dati JSON"
 
 msgid "JSON payload according to the type driver schema."
 msgstr "Payload JSON in base allo schema del driver del tipo."
+
+msgid "LEED certification"
+msgstr "Certificazione LEED"
+
+msgid "LEED or equivalent environmental certification level."
+msgstr "Certificazione LEED o equivalente ambientale."
 
 msgid "Label"
 msgstr "Etichetta"
@@ -611,6 +644,9 @@ msgstr "Funzionalità dell'offerta"
 msgid "Office"
 msgstr "Ufficio"
 
+msgid "On-site services and amenities."
+msgstr "Servizi e dotazioni in loco."
+
 msgid "One option per line. Format: key|Label (e.g., wifi|Wi-Fi)."
 msgstr "Una opzione per riga. Formato: chiave|Etichetta (ad esempio, wifi|Wi-F"
 "i)."
@@ -638,6 +674,9 @@ msgstr "Originale: @value"
 
 msgid "Other"
 msgstr "Altro"
+
+msgid "Outdoor areas and surroundings."
+msgstr "Spazi esterni e dintorni."
 
 msgid "PS Feature"
 msgstr "PS Caratteristica"
@@ -702,6 +741,9 @@ msgid "Restrict which features can be used. Leave empty to allow all."
 msgstr "Limita le funzionalità che possono essere utilizzate. Lascia vuoto per"
 " consentire tutto."
 
+msgid "Restricted activities"
+msgstr "Attività limitate"
+
 msgid "Retail unit"
 msgstr "Unità di vendita al dettaglio"
 
@@ -764,12 +806,21 @@ msgid "Shown on offer pages when a feature group has no icon configured."
 msgstr "Visualizzato nelle pagine delle offerte quando per un gruppo di funzio"
 "nalità non è configurata alcuna icona."
 
+msgid "Standards, certifications and labels"
+msgstr "Standard, certificazioni ed etichette"
+
+msgid "Standards, certifications and labels."
+msgstr "Standard, certificazioni ed etichette."
+
 msgid "Status"
 msgstr "Stato"
 
 msgid "Stores a feature definition reference and its payload."
 msgstr "Memorizza un riferimento alla definizione di funzionalità e il relativ"
 "o payload."
+
+msgid "Structural characteristics of the building."
+msgstr "Caratteristiche strutturali dell'edificio."
 
 msgid "Style: @style"
 msgstr "Stile: @style"
@@ -788,6 +839,9 @@ msgstr "Valore minimo suggerito"
 
 msgid "Suggested minimum value (optional)."
 msgstr "Valore minimo suggerito (facoltativo)."
+
+msgid "Supplementary offer information."
+msgstr "Informazioni supplementari sull'offerta."
 
 msgid "Taxonomy"
 msgstr "Tassonomia"
@@ -880,6 +934,9 @@ msgstr "Valore"
 msgid "Value range"
 msgstr "Intervallo di valori"
 
+msgid "Vehicle access and public transport."
+msgstr "Accesso veicoli e trasporto pubblico."
+
 msgid "Vocabulary"
 msgstr "Vocabolario"
 
@@ -931,6 +988,9 @@ msgstr "Sì/No"
 msgid "always displayed on the listing, even if the value is No."
 msgstr "sempre visualizzato nell'annuncio, anche se il valore è No."
 
+msgid "description"
+msgstr "descrizione"
+
 msgid "e.g., m², m, kg, etc."
 msgstr "ad esempio m², m, kg, ecc."
 
@@ -953,11 +1013,17 @@ msgid "if disabled, the feature will not appear on the listing page."
 msgstr "se disabilitato, la caratteristica non apparirà nella pagina dell'annu"
 "ncio."
 
+msgid "label"
+msgstr "etichetta"
+
 msgid "max"
 msgstr "max"
 
 msgid "min"
 msgstr "min"
+
+msgid "title"
+msgstr "titolo"
 
 msgid "unit"
 msgstr "unità"

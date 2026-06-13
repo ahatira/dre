@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bnp_media\n"
-"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,8 +12,17 @@ msgstr ""
 msgid "A locally hosted image file."
 msgstr "Lokaal gehost afbeeldingsbestand."
 
+msgid "Add video URL"
+msgstr "Video-URL toevoegen"
+
+msgid "Add virtual tour"
+msgstr "Virtuele tour toevoegen"
+
 msgid "Allowed providers"
 msgstr "Toegestane providers"
+
+msgid "Audio file"
+msgstr "Audiobestand"
 
 msgid "Autocomplete placeholder"
 msgstr "Autocomplete-placeholder"
@@ -33,6 +42,9 @@ msgstr "BNP-galerij"
 msgid "BNP Image"
 msgstr "BNP-afbeelding"
 
+msgid "BNP Media Admin Card (4:3)"
+msgstr "BNP Media adminkaart (4:3)"
+
 msgid "BNP Remote video"
 msgstr "BNP externe video"
 
@@ -51,6 +63,9 @@ msgstr "BNP oEmbed-iframe"
 msgid "BNP remote video source configuration"
 msgstr "BNP externe videobronconfiguratie"
 
+msgid "Brochure document picker"
+msgstr "Brochuredocumentkiezer"
+
 msgid "Bulk input"
 msgstr "Bulkinvoer"
 
@@ -62,6 +77,12 @@ msgstr "Maakt media-entiteiten aan of hergebruikt ze vanuit embed-URL's."
 
 msgid "Default name"
 msgstr "Standaardnaam"
+
+msgid "Direct external video URL (non-oEmbed) for MediaHub AssetLink links."
+msgstr "Directe externe video-URL (non-oEmbed) voor MediaHub AssetLink-links."
+
+msgid "Direct video URL (expected: MediaHub AssetLink .mp4)"
+msgstr "Directe video-URL (verwacht: MediaHub AssetLink .mp4)"
 
 msgid "Embed URLs"
 msgstr "Embed-URL's"
@@ -89,16 +110,44 @@ msgstr "Placeholder van generieke embed-dialoog Entity Browser."
 msgid "Entity form proxy"
 msgstr "Entiteitsformulierproxy"
 
+msgid "Gallery media picker"
+msgstr "Galerijmediakiezer"
+
 msgid "Generic entity browser and entity embed bridge for media workflows."
 msgstr "Generieke entity browser en entity-embedbrug voor mediaworkflows."
+
+msgid "Generic locally hosted image."
+msgstr "Generieke lokaal gehoste afbeelding."
 
 msgid "Generic media foundation with Entity Browser and Dropzone upload workf"
 "lows."
 msgstr "Generieke mediafundering met Entity Browser en Dropzone-uploadworkflow"
 "s."
 
+msgid "Generic remote video media item (YouTube, Vimeo, MediaHub)."
+msgstr "Generiek extern videomedium (YouTube, Vimeo, MediaHub)."
+
+msgid "Generic reusable audio file."
+msgstr "Generiek herbruikbaar audiobestand."
+
+msgid "Generic reusable image gallery."
+msgstr "Generieke herbruikbare afbeeldingsgalerij."
+
+msgid "Generic reusable local file."
+msgstr "Generiek herbruikbaar lokaal bestand."
+
+msgid "Generic reusable video file."
+msgstr "Generiek herbruikbaar videobestand."
+
 msgid "Invalid URL(s): @urls"
 msgstr "Ongeldige URL('s): @urls"
+
+msgid "Link to 360° tour, Matterport, or similar virtual tour interface"
+msgstr "Link naar 360°-tour, Matterport of vergelijkbare virtuele tourinterfac"
+"e"
+
+msgid "Link to virtual tour with manual thumbnail"
+msgstr "Link naar virtuele tour met handmatige thumbnail"
 
 msgid "Max height"
 msgstr "Max. hoogte"
@@ -115,12 +164,21 @@ msgstr "Max. breedte: @value"
 msgid "Media bundle"
 msgstr "Mediabundle"
 
+msgid "MediaHub video URL"
+msgstr "MediaHub-video-URL"
+
 msgid "Name field machine name"
 msgstr "Machinenaam van naamveld"
+
+msgid "Normalized provider ID (youtube, vimeo, mediahub)."
+msgstr "Genormaliseerde provider-ID (youtube, vimeo, mediahub)."
 
 msgid "One bundle machine name per line. Leave empty to allow all bundles."
 msgstr "Eén bundlemachinenaam per regel. Laat leeg om alle bundles toe te staa"
 "n."
+
+msgid "Optional thumbnail image shown for virtual tour items in gallery."
+msgstr "Optionele thumbnailafbeelding voor virtuele touritems in galerij."
 
 msgid "Please provide at least one valid URL."
 msgstr "Geef minstens één geldige URL op."
@@ -131,11 +189,17 @@ msgstr "Selecteer minstens één entiteit."
 msgid "Process"
 msgstr "Verwerken"
 
+msgid "Remote video"
+msgstr "Externe video"
+
 msgid "Render remote video URLs via media.oembed_iframe."
 msgstr "Externe video-URL's weergeven via media.oembed_iframe."
 
 msgid "Reuse existing media when URL already exists"
 msgstr "Bestaande media hergebruiken wanneer URL al bestaat"
+
+msgid "Search existing"
+msgstr "Bestaande zoeken"
 
 msgid "Select entities"
 msgstr "Entiteiten selecteren"
@@ -173,6 +237,15 @@ msgstr "Thumbnailmap"
 msgid "URL field machine name"
 msgstr "Machinenaam van URL-veld"
 
+msgid "Upload brochure"
+msgstr "Brochure uploaden"
+
+msgid "Upload images"
+msgstr "Afbeeldingen uploaden"
+
+msgid "Upload videos"
+msgstr "Video's uploaden"
+
 msgid "Use a local image collection for reusable galleries."
 msgstr "Gebruik een lokale afbeeldingscollectie voor herbruikbare galerijen."
 
@@ -190,3 +263,18 @@ msgstr "Gebruik externe video-URL's voor herbruikbare media."
 
 msgid "Use video files for reusable media."
 msgstr "Gebruik videobestanden voor herbruikbare media."
+
+msgid "Video URL"
+msgstr "Video-URL"
+
+msgid "Video file"
+msgstr "Videobestand"
+
+msgid "Virtual Tour"
+msgstr "Virtuele tour"
+
+msgid "Virtual tour URL"
+msgstr "URL virtuele tour"
+
+msgid "Virtual tour thumbnail"
+msgstr "Thumbnail virtuele tour"

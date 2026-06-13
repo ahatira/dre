@@ -2,12 +2,27 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_favorite\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "<code>media.*:5</code> enables favorites for all media bundles with a "
+"shared limit of 5 items per bundle rule."
+msgstr "<code>media.*:5</code> active les favoris pour tous les bundles media "
+"avec une limite partagée de 5 éléments par règle de bundle."
+
+msgid "<code>node.article:10</code> enables favorites for article nodes with "
+"a limit of 10 items."
+msgstr "<code>node.article:10</code> active les favoris pour les nœuds article"
+" avec une limite de 10 éléments."
+
+msgid "<code>node.offer:0</code> enables favorites for all offer nodes with n"
+"o limit."
+msgstr "<code>node.offer:0</code> active les favoris pour tous les nœuds offer"
+" sans limite."
 
 msgid "@entity_type: @bundle"
 msgstr "@entity_type : @bundle"
@@ -30,13 +45,25 @@ msgstr "Type de contenu"
 msgid "Card favorite view mode when available."
 msgstr "Mode d'affichage carte favori lorsque disponible."
 
+msgid "Configure favorites behavior."
+msgstr "Configurer le comportement des favoris."
+
 msgid "Configure which entity targets can be favorited and how favorite cards"
 " should be rendered."
 msgstr "Configure quelles cibles d'entité peuvent être ajoutées aux favoris et"
 " comment les cartes de favoris doivent être rendues."
 
+msgid "Configured card view modes"
+msgstr "Modes d'affichage de carte configurés"
+
+msgid "Configured favorite targets"
+msgstr "Cibles de favoris configurées"
+
 msgid "Configured view mode for the matching entity target."
 msgstr "Mode d'affichage configuré pour la cible d'entité correspondante."
+
+msgid "Current configuration summary"
+msgstr "Résumé de la configuration actuelle"
 
 msgid "Enable"
 msgstr "Activer"
@@ -52,6 +79,12 @@ msgstr "Activé"
 msgid "Entity type ID"
 msgstr "ID du type d'entité"
 
+msgid "Examples"
+msgstr "Exemples"
+
+msgid "Expected format"
+msgstr "Format attendu"
+
 msgid "Fallback title with canonical link."
 msgstr "Titre de repli avec lien canonique."
 
@@ -60,6 +93,9 @@ msgstr "Rendu des cartes de favoris"
 
 msgid "Favorite card view mode mapping"
 msgstr "Mapping du mode d'affichage carte favori"
+
+msgid "Favorite card view modes"
+msgstr "Modes d'affichage des cartes de favoris"
 
 msgid "Favorite limit reached (@limit)."
 msgstr "Limite de favoris atteinte (@limit)."
@@ -75,8 +111,14 @@ msgstr "Cible favori"
 msgid "Favorite targets"
 msgstr "Cibles de favoris"
 
+msgid "Favorite-enabled entity targets and limits"
+msgstr "Cibles d'entité favorables et limites"
+
 msgid "Favorites"
 msgstr "Favoris"
+
+msgid "Favorites settings"
+msgstr "Paramètres des favoris"
 
 msgid "Fixed limit"
 msgstr "Limite fixe"
@@ -92,6 +134,19 @@ msgstr "Libellé"
 
 msgid "Limit mode"
 msgstr "Mode de limite"
+
+msgid "Line @line duplicates an existing target rule: @value"
+msgstr "La ligne @line duplique une règle de cible existante : @value"
+
+msgid "Line @line duplicates an existing view mode rule: @value"
+msgstr "La ligne @line duplique une règle de mode d'affichage existante : @val"
+"ue"
+
+msgid "Line @line has an invalid format: @value"
+msgstr "La ligne @line a un format invalide : @value"
+
+msgid "Line @line has an invalid view mode format: @value"
+msgstr "La ligne @line a un format de mode d'affichage invalide : @value"
 
 msgid "Manage Property Search favorites"
 msgstr "Gérer les favoris Property Search"
@@ -111,6 +166,11 @@ msgstr "Mapping du nombre maximum de favoris"
 msgid "My favorites"
 msgstr "Mes favoris"
 
+msgid "No custom view mode configured. The module will try teaser, then fall "
+"back to a title link."
+msgstr "Aucun mode d'affichage personnalisé n'est configuré. Le module essaier"
+"a teaser, puis un lien sur le titre."
+
 msgid "No eligible bundle found for this entity type."
 msgstr "Aucun bundle éligible trouvé pour ce type d'entité."
 
@@ -120,8 +180,32 @@ msgstr "Aucun favori pour le moment"
 msgid "No limit"
 msgstr "Aucune limite"
 
+msgid "No preview available"
+msgstr "Aucun aperçu disponible"
+
+msgid "No target configured. Favorite buttons remain hidden until at least on"
+"e target is declared."
+msgstr "Aucune cible n'est configurée. Les boutons favoris restent masqués tan"
+"t qu'au moins une cible n'est pas déclarée."
+
 msgid "Open favorites panel"
 msgstr "Ouvrir le panneau des favoris"
+
+msgid "Optional. Use one rule per line to force a preferred view mode for fav"
+"orite cards."
+msgstr "Optionnel. Utilisez une règle par ligne pour forcer un mode d'affichag"
+"e préféré pour les cartes de favoris."
+
+msgid "Optional. Use one rule per line, for example: <code>node.offer:favorit"
+"e_card</code>. Format: <code>entity_type.bundle:view_mode</code>. You "
+"may also use <code>entity_type.*:view_mode</code>. If no configured vi"
+"ew mode exists, the module tries <code>teaser</code>, then falls back "
+"to a title link."
+msgstr "Optionnel. Utilisez une règle par ligne, par exemple : <code>node.offe"
+"r:favorite_card</code>. Format : <code>entity_type.bundle:view_mode</c"
+"ode>. Vous pouvez aussi utiliser <code>entity_type.*:view_mode</code>."
+" Si aucun mode d'affichage configuré n'existe, le module essaie <code>"
+"teaser</code>, puis bascule vers un lien sur le titre."
 
 msgid "PS Favorite settings"
 msgstr "Paramètres PS Favorite"
@@ -144,6 +228,18 @@ msgstr "Enregistrer"
 msgid "Saved"
 msgstr "Enregistré"
 
+msgid "Saved 1 favorite target rule."
+msgstr "1 règle de cible favorite enregistrée."
+
+msgid "Saved 1 view mode rule."
+msgstr "1 règle de mode d'affichage enregistrée."
+
+msgid "Saved @count favorite target rules."
+msgstr "@count règles de cible favorite enregistrées."
+
+msgid "Saved @count view mode rules."
+msgstr "@count règles de mode d'affichage enregistrées."
+
 msgid "Selected view mode is invalid for @target."
 msgstr "Le mode d'affichage sélectionné est invalide pour @target."
 
@@ -165,6 +261,20 @@ msgstr "Impossible de mettre à jour le favori."
 
 msgid "Unsupported entity target."
 msgstr "Cible d'entité non prise en charge."
+
+msgid "Use one rule per line, for example: <code>node.offer:20</code>. Format"
+": <code>entity_type.bundle:max</code>. You may also use <code>entity_t"
+"ype.*:max</code>. Only configured targets are favoritable. Use <code>:"
+"0</code> for no limit."
+msgstr "Utilisez une règle par ligne, par exemple : <code>node.offer:20</code>"
+". Format : <code>entity_type.bundle:max</code>. Vous pouvez aussi util"
+"iser <code>entity_type.*:max</code>. Seules les cibles configurées peu"
+"vent être ajoutées aux favoris. Utilisez <code>:0</code> pour ne pas f"
+"ixer de limite."
+
+msgid "Use one rule per line. Only configured targets are favoritable."
+msgstr "Utilisez une règle par ligne. Seules les cibles configurées peuvent êt"
+"re ajoutées aux favoris."
 
 msgid "Use the favorite button on a supported entity to keep it close at hand"
 "."

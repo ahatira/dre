@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +49,9 @@ msgstr "Vergleich (@count Anzeigen)"
 msgid "Compare"
 msgstr "Vergleichen"
 
+msgid "Compare column"
+msgstr "Vergleichsspalte"
+
 msgid "Compare page display"
 msgstr "Darstellung der Vergleichsseite"
 
@@ -69,6 +72,9 @@ msgstr "Vergleichslimits"
 
 msgid "Comparison sent to @email."
 msgstr "Vergleich an @email gesendet."
+
+msgid "Comparison settings"
+msgstr "Comparison settings"
 
 msgid "Configure UX options for the comparison table and modal."
 msgstr "UX-Optionen für Vergleichstabelle und Modal konfigurieren."
@@ -136,6 +142,9 @@ msgstr "Ausstattung"
 msgid "Loading…"
 msgstr "Wird geladen…"
 
+msgid "Location"
+msgstr "Location"
+
 msgid "Manage Property Search comparison"
 msgstr "Property Search-Vergleich verwalten"
 
@@ -172,6 +181,9 @@ msgstr "Nicht genügend Objekte in der Vergleichsliste."
 msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Ein Ziel pro Zeile im Format entity_type.bundle (z. B. node.offer)."
 
+msgid "Open full page"
+msgstr "Open full page"
+
 msgid "Optional message"
 msgstr "Optionale Nachricht"
 
@@ -183,6 +195,9 @@ msgstr "Übersicht"
 
 msgid "PS Compare SEO URL mappings"
 msgstr "PS Compare SEO-URL-Zuordnungen"
+
+msgid "PS Compare column (320×220)"
+msgstr "PS Compare-Spalte (320×220)"
 
 msgid "PS Compare settings"
 msgstr "PS Compare-Einstellungen"
@@ -290,6 +305,9 @@ msgstr "Schaltfläche „Meine Auswahl senden“ anzeigen"
 
 msgid "Sticky view-property bar"
 msgstr "Fixierte Leiste „Objekt ansehen“"
+
+msgid "Summary"
+msgstr "Summary"
 
 msgid "Terms & availability"
 msgstr "Bedingungen und Verfügbarkeit"

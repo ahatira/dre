@@ -2,12 +2,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_search\n"
-"PO-Revision-Date: 2026-06-13 04:23+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "10 minutes"
+msgstr "10 minuten"
+
+msgid "15 minutes"
+msgstr "15 minuten"
+
+msgid "20 minutes"
+msgstr "20 minuten"
+
+msgid "30 minutes"
+msgstr "30 minuten"
 
 msgid "5 minutes"
 msgstr "5 minuten"
@@ -41,6 +53,9 @@ msgstr "API-limieten en cache"
 msgid "Active"
 msgstr "Actief"
 
+msgid "Additional information"
+msgstr "Additional information"
+
 msgid "Administer search alerts"
 msgstr "Zoekmeldingen beheren"
 
@@ -72,6 +87,21 @@ msgid "An active alert already exists for this email and search criteria."
 msgstr "Er bestaat al een actieve melding voor dit e-mailadres en zoekcriteria"
 "."
 
+msgid "Apply"
+msgstr "Apply"
+
+msgid "Apply location filter"
+msgstr "Apply location filter"
+
+msgid "Apply mobile filters"
+msgstr "Apply mobile filters"
+
+msgid "Apply property type filter"
+msgstr "Apply property type filter"
+
+msgid "Apply range filter"
+msgstr "Apply range filter"
+
 msgid "Approximate number of grid cells used to aggregate markers (e.g. 64 ≈ "
 "8×8)."
 msgstr "Geschat aantal rastercellen voor aggregatie van markers (bijv. 64 ≈ 8×"
@@ -80,11 +110,20 @@ msgstr "Geschat aantal rastercellen voor aggregatie van markers (bijv. 64 ≈ 8�
 msgid "Approximation (offline circle)"
 msgstr "Benadering (offline cirkel)"
 
+msgid "Asc"
+msgstr "Asc"
+
+msgid "Asset type"
+msgstr "Activatype"
+
 msgid "Asset type slugs"
 msgstr "Activatype-slugs"
 
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Availability"
+msgstr "Availability"
 
 msgid "BCC email"
 msgstr "BCC-e-mail"
@@ -95,11 +134,23 @@ msgstr "Terug"
 msgid "Back to PS configuration hub"
 msgstr "Terug naar PS-configuratiehub"
 
+msgid "Bike"
+msgstr "Bike"
+
 msgid "Body text"
 msgstr "Berichttekst"
 
 msgid "Budget"
 msgstr "Budget"
+
+msgid "Budget currency"
+msgstr "Budgetvaluta"
+
+msgid "Building structure"
+msgstr "Building structure"
+
+msgid "Building type and condition"
+msgstr "Building type and condition"
 
 msgid "Button URL"
 msgstr "Knop-URL"
@@ -110,17 +161,29 @@ msgstr "Knoplabel"
 msgid "Buy"
 msgstr "Kopen"
 
+msgid "Bypass PS Search API rate limits"
+msgstr "Bypass PS Search API rate limits"
+
 msgid "CTA button URL"
 msgstr "CTA-knop-URL"
 
 msgid "CTA button label"
 msgstr "CTA-knoplabel"
 
+msgid "Calculate the target surface area of your future offices!"
+msgstr "Bereken het streefoppervlak van uw toekomstige kantoren!"
+
 msgid "Canonical asset slug"
 msgstr "Canonieke activatype-slug"
 
 msgid "Capacity"
 msgstr "Capaciteit"
+
+msgid "Capacity total"
+msgstr "Totale capaciteit"
+
+msgid "Car"
+msgstr "Car"
 
 msgid "Card Push"
 msgstr "Card Push"
@@ -159,6 +222,9 @@ msgstr "Stad"
 msgid "City, department, region…"
 msgstr "Stad, departement, regio…"
 
+msgid "City, district or zip code"
+msgstr "City, district or zip code"
+
 msgid "Clear"
 msgstr "Wissen"
 
@@ -183,8 +249,14 @@ msgstr "Actieve kenmerkfilters combineren"
 msgid "Combine mode for active feature filters"
 msgstr "Combinatiemodus voor actieve kenmerkfilters"
 
+msgid "Coming soon"
+msgstr "Coming soon"
+
 msgid "Comma-separated cities, postal codes or department codes."
 msgstr "Steden, postcodes of departementcodes, kommagescheiden."
+
+msgid "Commercial title"
+msgstr "Commerciële titel"
 
 msgid "Comparator"
 msgstr "Vergelijker"
@@ -237,11 +309,19 @@ msgstr "Criteria-hash"
 msgid "Cron notifications and retention for property search alerts."
 msgstr "Cron-meldingen en retentie voor vastgoedzoekmeldingen."
 
+msgid "Customize and define the distance zone according to the means of locom"
+"otion. By default, the zone is set to 5 minutes walk."
+msgstr "Customize and define the distance zone according to the means of locom"
+"otion. By default, the zone is set to 5 minutes walk."
+
 msgid "Customize area"
 msgstr "Gebied aanpassen"
 
 msgid "Daily"
 msgstr "Dagelijks"
+
+msgid "Date updated"
+msgstr "Datum bijgewerkt"
 
 msgid "Decimal places for isochrone cache key coordinates"
 msgstr "Decimalen voor isochroon cache-sleutelcoördinaten"
@@ -290,6 +370,9 @@ msgstr "Alles verwijderen"
 msgid "Department"
 msgstr "Departement"
 
+msgid "Desc"
+msgstr "Desc"
+
 msgid "Dictionary label"
 msgstr "Woordenboeklabel"
 
@@ -323,6 +406,9 @@ msgstr "Distance zone isochrone"
 msgid "District"
 msgstr "District"
 
+msgid "Divisible"
+msgstr "Deelbaar"
+
 msgid "Email"
 msgstr "E-mail"
 
@@ -351,6 +437,9 @@ msgid "Enable server-side grid clusters when zone exceeds markers_max"
 msgstr "Server-side rasterclusters inschakelen wanneer zone markers_max oversc"
 "hrijdt"
 
+msgid "Equipments"
+msgstr "Equipments"
+
 msgid "Exposes derived fields for More-filters core criteria."
 msgstr "Stelt afgeleide velden bloot voor Meer-filters kerncriteria."
 
@@ -373,6 +462,9 @@ msgstr "Externe providers vereisen API-sleutels. Bij falen gebruikt fallback d"
 msgid "Fallback to approximation when external provider fails"
 msgstr "Terugvallen op benadering wanneer externe provider faalt"
 
+msgid "Feature IDs"
+msgstr "Kenmerk-ID's"
+
 msgid "Feature filters"
 msgstr "Feature filters"
 
@@ -390,6 +482,9 @@ msgstr "Filteren"
 
 msgid "Find your next property"
 msgstr "Vind uw volgende pand"
+
+msgid "Fittings"
+msgstr "Fittings"
 
 msgid "Frequency"
 msgstr "Frequentie"
@@ -448,6 +543,12 @@ msgstr "Heeft video"
 msgid "Header search (property)"
 msgstr "Header search (property)"
 
+msgid "Heights"
+msgstr "Heights"
+
+msgid "Hide list"
+msgstr "Hide list"
+
 msgid "Immersive tour"
 msgstr "Immersieve rondleiding"
 
@@ -503,6 +604,9 @@ msgstr "Isochroonprovider (approximation, ors, google)"
 msgid "Isochrone server cache TTL (seconds)"
 msgstr "Isochroon server-cache TTL (seconden)"
 
+msgid "Keywords"
+msgstr "Keywords"
+
 msgid "Last match count"
 msgstr "Laatste aantal matches"
 
@@ -555,11 +659,17 @@ msgstr "Location data"
 msgid "Location data endpoint"
 msgstr "Locatiegegevens-endpoint"
 
+msgid "Location structured data"
+msgstr "Location structured data"
+
 msgid "Location suggest"
 msgstr "Location suggest"
 
 msgid "Location suggest endpoint"
 msgstr "Locatiesuggestie-endpoint"
+
+msgid "Location suggestions"
+msgstr "Location suggestions"
 
 msgid "Location tokens"
 msgstr "Locatietokens"
@@ -627,6 +737,12 @@ msgstr "Maximum teruggegeven markers per zone"
 msgid "Maximum zoom"
 msgstr "Maximum zoom"
 
+msgid "Means of transport"
+msgstr "Means of transport"
+
+msgid "Metro, bus, train..."
+msgstr "Metro, bus, train..."
+
 msgid "Min"
 msgstr "Min"
 
@@ -644,6 +760,9 @@ msgstr "Minimum deelbaar oppervlak uit field_surfaces (kwalificatie = MINIM, o"
 msgid "Minimum map zoom level"
 msgstr "Minimum kaartzoomniveau"
 
+msgid "Minimum surface (m²)"
+msgstr "Minimum oppervlak (m²)"
+
 msgid "Minimum zoom"
 msgstr "Minimum zoom"
 
@@ -651,6 +770,9 @@ msgid "Module ps_search 1.0.0 — search engine, filters, map and public API un"
 "der /api/ps/*."
 msgstr "Module ps_search 1.0.0 — zoekmachine, filters, kaart en openbare API o"
 "nder /api/ps/*."
+
+msgid "More criteria group"
+msgstr "More criteria group"
 
 msgid "More filters"
 msgstr "Meer filters"
@@ -676,6 +798,15 @@ msgstr "Nee"
 msgid "No location found"
 msgstr "Geen locatie gevonden"
 
+msgid "No offers match your search criteria. Please adjust your filters."
+msgstr "No offers match your search criteria. Please adjust your filters."
+
+msgid "No properties in this map area"
+msgstr "No properties in this map area"
+
+msgid "No results found"
+msgstr "No results found"
+
 msgid "None"
 msgstr "Geen"
 
@@ -688,6 +819,9 @@ msgstr "Afgeleide aanbodzoekvelden"
 
 msgid "Offer geo latitude/longitude"
 msgstr "Aanbod geo-breedtegraad/lengtegraad"
+
+msgid "Offer reference..."
+msgstr "Offer reference..."
 
 msgid "Offices, retail and logistics across France."
 msgstr "Kantoren, retail en logistiek in Frankrijk."
@@ -704,6 +838,9 @@ msgstr "OpenRouteService"
 
 msgid "OpenRouteService API key"
 msgstr "OpenRouteService API-sleutel"
+
+msgid "Operation type"
+msgstr "Operatietype"
 
 msgid "Operation type slugs"
 msgstr "Operatietype-slugs"
@@ -735,6 +872,9 @@ msgstr "Overig"
 msgid "Other criteria"
 msgstr "Overige criteria"
 
+msgid "Outdoors"
+msgstr "Outdoors"
+
 msgid "Overview"
 msgstr "Overzicht"
 
@@ -753,6 +893,9 @@ msgstr "PS Search Card Push — plaatsing zoekresultaten"
 msgid "PS Search SEO URL mappings"
 msgstr "PS Search SEO-URL-toewijzingen"
 
+msgid "PS Search SEO URL slugs"
+msgstr "PS Search SEO-URL-slugs"
+
 msgid "PS Search alert settings"
 msgstr "PS Search-meldingsinstellingen"
 
@@ -767,6 +910,9 @@ msgstr "PS Search locatietokenfilterwaarde"
 
 msgid "PS Search map zone settings"
 msgstr "PS Search kaartzone-instellingen"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Pan the map or use “Search this area” to explore other regions."
 
 msgid "Paused"
 msgstr "Gepauzeerd"
@@ -791,6 +937,9 @@ msgstr "Selecteer een transactietype."
 
 msgid "Postal code"
 msgstr "Postcode"
+
+msgid "Price"
+msgstr "Price"
 
 msgid "Professional email"
 msgstr "Professioneel e-mailadres"
@@ -817,6 +966,9 @@ msgstr "Vastgoedzoekfilters"
 
 msgid "Property type"
 msgstr "Type pand"
+
+msgid "Public search page for property offers."
+msgstr "Openbare zoekpagina voor vastgoedaanbiedingen."
 
 msgid "Public slug for the flexible search page (e.g. find-property). Transla"
 "table per language via Configuration translation."
@@ -859,6 +1011,9 @@ msgstr "Gereserveerd voor toekomstige release (IntersectionObserver). Momentee"
 msgid "Reset"
 msgstr "Resetten"
 
+msgid "Restricted activities"
+msgstr "Restricted activities"
+
 msgid "Result count"
 msgstr "Aantal resultaten"
 
@@ -885,6 +1040,10 @@ msgstr "Veiligheidslimiet voor het /api/ps/markers JSON-endpoint."
 
 msgid "Search"
 msgstr "Zoeken"
+
+msgid "Search API index for property offers (node:offer), backed by Solr."
+msgstr "Search API-index voor vastgoedaanbiedingen (node:offer), ondersteund d"
+"oor Solr."
 
 msgid "Search URL"
 msgstr "Zoek-URL"
@@ -917,6 +1076,15 @@ msgstr "Filterbalk zoeken"
 msgid "Search hero (homepage)"
 msgstr "Search hero (homepage)"
 
+msgid "Search keywords..."
+msgstr "Search keywords..."
+
+msgid "Search map markers"
+msgstr "Search map markers"
+
+msgid "Search offers"
+msgstr "Zoekaanbod"
+
 msgid "Search page URL slug"
 msgstr "Zoekpagina-URL-slug"
 
@@ -928,13 +1096,22 @@ msgstr "Zoekpagina-URL-slug (basisconfig = interne Views-route; vertalingen = "
 msgid "Search path"
 msgstr "Zoekpad"
 
+msgid "Search result count"
+msgstr "Search result count"
+
 msgid "Search results"
 msgstr "Zoekresultaten"
+
+msgid "Search results header"
+msgstr "Search results header"
 
 msgid "Search results placement — renders the <em>search-push-card</em> SDC a"
 "fter a configurable result index."
 msgstr "Zoekresultatenplaatsing — rendert de <em>search-push-card</em> SDC na "
 "een configureerbare resultaatindex."
+
+msgid "Search this area"
+msgstr "Search this area"
 
 msgid "Search zones"
 msgstr "Zoekzones"
@@ -942,8 +1119,14 @@ msgstr "Zoekzones"
 msgid "See all filters"
 msgstr "Alle filters bekijken"
 
+msgid "Selected property"
+msgstr "Selected property"
+
 msgid "Server cache"
 msgstr "Servercache"
+
+msgid "Services"
+msgstr "Services"
 
 msgid "Settings for the PS-owned Google Map shell on the search page. The Goo"
 "gle Maps JavaScript API key is read from Geofield Map settings (/admin"
@@ -963,6 +1146,9 @@ msgstr "Lijst tonen"
 
 msgid "Show map"
 msgstr "Kaart tonen"
+
+msgid "Show more results"
+msgstr "Show more results"
 
 msgid "Showing @count in this area"
 msgstr "@count getoond in dit gebied"
@@ -1003,8 +1189,16 @@ msgstr "Slug voor TER (grond)"
 msgid "Slug for VEN (sale)"
 msgstr "Slug voor VEN (verkoop)"
 
+msgid "Solr search server for Property Search (Docker service: solr, core: ps"
+"_project)"
+msgstr "Solr-zoekserver voor Property Search (Docker-service: solr, core: ps_p"
+"roject)"
+
 msgid "Sort by"
 msgstr "Sorteren op"
+
+msgid "Standards, certifications and labels"
+msgstr "Standards, certifications and labels"
 
 msgid "Start typing a city name or postal code"
 msgstr "Typ een stad of postcode"
@@ -1062,6 +1256,18 @@ msgstr "Titel"
 msgid "Total surface area from field_surfaces (qualification = TOTAL)."
 msgstr "Totaal oppervlak uit field_surfaces (kwalificatie = TOTAL)."
 
+msgid "Transaction type"
+msgstr "Transactietype"
+
+msgid "Transport"
+msgstr "Transport"
+
+msgid "Transports"
+msgstr "Vervoer"
+
+msgid "Travel time"
+msgstr "Travel time"
+
 msgid "URL slugs for each asset/property type (e.g. BUR → bureau)."
 msgstr "URL-slugs voor elk activa-/pandtype (bijv. BUR → bureau)."
 
@@ -1072,8 +1278,14 @@ msgid "Used when no locality is selected and no explicit map bounds are set."
 msgstr "Gebruikt wanneer geen locatie is geselecteerd en geen expliciete kaart"
 "grenzen zijn ingesteld."
 
+msgid "Validate"
+msgstr "Validate"
+
 msgid "Video"
 msgstr "Video"
+
+msgid "Walking"
+msgstr "Walking"
 
 msgid "Weekly"
 msgstr "Wekelijks"

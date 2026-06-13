@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bnp_editor\n"
-"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"PO-Revision-Date: 2026-06-13 12:30+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,9 @@ msgstr "Au moins un protocole doit être autorisé."
 
 msgid "BNP Editor"
 msgstr "Éditeur BNP"
+
+msgid "BNP Editor Settings"
+msgstr "Paramètres de l'éditeur BNP"
 
 msgid "BNP Editor settings"
 msgstr "Paramètres de l'éditeur BNP"
