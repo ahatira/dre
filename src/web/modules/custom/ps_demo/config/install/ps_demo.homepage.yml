@@ -1,6 +1,6 @@
 langcode: en
 hero:
-  background: assets/images/hero/hero-homepage.png
+  background: assets/images/hero/hero-profile.png
   promo_background: assets/images/hero/hero-profile.png
   titles:
     en: 'What are you looking for?'
