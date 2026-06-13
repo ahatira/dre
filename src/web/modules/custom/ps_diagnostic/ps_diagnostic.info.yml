@@ -11,5 +11,6 @@ dependencies:
   - drupal:taxonomy
   - drupal:media
   - drupal:media_library
+  - entity_browser:entity_browser
   - ps_core:ps_core
   - ui_icons_picker:ui_icons_picker

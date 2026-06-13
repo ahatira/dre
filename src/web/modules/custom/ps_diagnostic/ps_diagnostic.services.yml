@@ -7,6 +7,9 @@ services:
     class: Drupal\ps_diagnostic\Service\DiagnosticTypeIconResolver
     arguments: ['@ps_diagnostic.type_options']
 
+  ps_diagnostic.certification_label_badge_builder:
+    class: Drupal\ps_diagnostic\Service\CertificationLabelBadgeBuilder
+
   Drupal\ps_diagnostic\Hook\DiagnosticThemeHooks:
     class: Drupal\ps_diagnostic\Hook\DiagnosticThemeHooks
 

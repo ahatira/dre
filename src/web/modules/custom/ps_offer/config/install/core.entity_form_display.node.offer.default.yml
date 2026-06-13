@@ -44,6 +44,7 @@ dependencies:
     - field.field.node.offer.field_divisions
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_certification_labels
+    - entity_browser.browser.ps_certification_labels
     - field.field.node.offer.field_diagnostics
     - field.field.node.offer.field_diagnostics_dpe
     - field.field.node.offer.field_diagnostics_ges
@@ -346,14 +347,19 @@ content:
     settings: { }
     third_party_settings: { }
   field_certification_labels:
-    type: entity_reference_autocomplete_tags
+    type: entity_browser_entity_reference
     weight: 37
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      entity_browser: ps_certification_labels
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: badge_picker
+      field_widget_edit: false
+      field_widget_remove: true
+      field_widget_replace: false
+      open: false
+      selection_mode: append
     third_party_settings: { }
   path:
     type: path
@@ -641,7 +647,7 @@ third_party_settings:
         label_as_html: false
         formatter: closed
         description: ''
-        required_fields: true
+        required_fields: false
     group_gallery:
       children:
         - field_media_gallery

@@ -12,8 +12,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\file\FileInterface;
-use Drupal\media\MediaInterface;
+use Drupal\ps_diagnostic\Service\CertificationLabelBadgeBuilder;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -36,6 +35,7 @@ final class CertificationLabelBadgeFormatter extends FormatterBase implements Co
     string $view_mode,
     array $third_party_settings,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly CertificationLabelBadgeBuilder $badgeBuilder,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
@@ -50,6 +50,7 @@ final class CertificationLabelBadgeFormatter extends FormatterBase implements Co
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $container->get('entity_type.manager'),
+      $container->get('ps_diagnostic.certification_label_badge_builder'),
     );
   }
 
@@ -98,7 +99,7 @@ final class CertificationLabelBadgeFormatter extends FormatterBase implements Co
       $labels[] = [
         '#theme' => 'ps_certification_label_item',
         '#label' => $entity->label(),
-        '#badge' => $this->buildBadgeRenderArray($entity, $langcode),
+        '#badge' => $this->badgeBuilder->build($entity, (string) $this->getSetting('image_style')),
         '#cache' => [
           'tags' => $entity->getCacheTags(),
         ],
@@ -116,49 +117,6 @@ final class CertificationLabelBadgeFormatter extends FormatterBase implements Co
         '#attached' => [
           'library' => ['ps_diagnostic/certification_label'],
         ],
-      ],
-    ];
-  }
-
-  /**
-   * Builds the badge image render array for a certification label term.
-   */
-  private function buildBadgeRenderArray(TermInterface $term, string $langcode): array {
-    if (!$term->hasField('field_badge') || $term->get('field_badge')->isEmpty()) {
-      return [];
-    }
-
-    $media = $term->get('field_badge')->entity;
-    if (!$media instanceof MediaInterface || !$media->hasField('field_media_image') || $media->get('field_media_image')->isEmpty()) {
-      return [];
-    }
-
-    $file = $media->get('field_media_image')->entity;
-    if (!$file instanceof FileInterface) {
-      return [];
-    }
-
-    $style = trim((string) $this->getSetting('image_style'));
-    if ($style === '') {
-      return [
-        '#theme' => 'image',
-        '#uri' => $file->getFileUri(),
-        '#alt' => $term->label(),
-        '#title' => $term->label(),
-        '#cache' => [
-          'tags' => array_merge($media->getCacheTags(), $file->getCacheTags()),
-        ],
-      ];
-    }
-
-    return [
-      '#theme' => 'image_style',
-      '#style_name' => $style,
-      '#uri' => $file->getFileUri(),
-      '#alt' => $term->label(),
-      '#title' => $term->label(),
-      '#cache' => [
-        'tags' => array_merge($media->getCacheTags(), $file->getCacheTags()),
       ],
     ];
   }

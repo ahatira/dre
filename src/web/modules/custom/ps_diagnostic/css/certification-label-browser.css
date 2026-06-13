@@ -1,0 +1,258 @@
+/**
+ * Certification label entity browser — modal grid cards + form selection.
+ */
+
+.view-ps-certification-labels-browser {
+  --ps-cert-card-border: #d8dfeb;
+  --ps-cert-card-bg: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+  --ps-cert-card-accent: #0550e6;
+  --ps-cert-card-radius: 12px;
+}
+
+.view-ps-certification-labels-browser .views-exposed-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 1rem;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.view-ps-certification-labels-browser .views-exposed-form .form-item {
+  margin: 0;
+}
+
+.view-ps-certification-labels-browser .views-view-grid .views-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 200px));
+  gap: 14px;
+  justify-content: start;
+}
+
+.view-ps-certification-labels-browser .views-view-grid .views-col {
+  float: none !important;
+  width: 100% !important;
+  max-width: 200px;
+  padding: 0 !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 12px 12px 10px;
+  border: 1px solid var(--ps-cert-card-border);
+  border-radius: var(--ps-cert-card-radius);
+  background: var(--ps-cert-card-bg);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.view-ps-certification-labels-browser .views-view-grid .views-col:hover {
+  border-color: #4f74c8;
+  box-shadow: 0 10px 24px rgba(5, 80, 230, 0.12);
+  transform: translateY(-1px);
+}
+
+.view-ps-certification-labels-browser .views-view-grid .views-col:has(input:checked) {
+  border-color: var(--ps-cert-card-accent);
+  background: linear-gradient(180deg, #f5f8ff 0%, #eef3ff 100%);
+  box-shadow: 0 0 0 2px rgba(5, 80, 230, 0.18), 0 10px 24px rgba(5, 80, 230, 0.12);
+}
+
+.view-ps-certification-labels-browser .views-field-entity-browser-select {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  margin: 0;
+}
+
+.view-ps-certification-labels-browser .views-field-entity-browser-select input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ps-cert-card-accent);
+  cursor: pointer;
+}
+
+.view-ps-certification-labels-browser .contextual {
+  display: none !important;
+}
+
+.view-ps-certification-labels-browser .views-field-rendered-entity {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.view-ps-certification-labels-browser .ps-cert-label-card {
+  width: 100%;
+  margin: 0;
+}
+
+.view-ps-certification-labels-browser .ps-cert-label-card .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.view-ps-certification-labels-browser .ps-cert-label-card .field--name-field-badge {
+  order: 1;
+  width: 100%;
+}
+
+.view-ps-certification-labels-browser .ps-cert-label-card .field--name-name {
+  order: 2;
+}
+
+.view-ps-certification-labels-browser .ps-cert-label-card h2 {
+  display: none;
+}
+
+.view-ps-certification-labels-browser .field--name-field-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 96px;
+  padding: 4px 0;
+}
+
+.view-ps-certification-labels-browser .field--name-field-badge img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 88px;
+  object-fit: contain;
+}
+
+.view-ps-certification-labels-browser .field--name-name {
+  display: block;
+  margin: 0;
+  color: #1e293b;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.field--name-field-certification-labels .entities-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 0.5rem;
+}
+
+.field--name-field-certification-labels .entities-list .item-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 12px 10px;
+  padding-top: 36px;
+  border: 1px solid #d8dfeb;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  text-align: center;
+  vertical-align: top;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.field--name-field-certification-labels .entities-list .item-container:hover {
+  border-color: #4f74c8;
+  box-shadow: 0 8px 20px rgba(5, 80, 230, 0.1);
+}
+
+.field--name-field-certification-labels .entities-list .ps-cert-label-card {
+  width: 100%;
+}
+
+.field--name-field-certification-labels .entities-list .ps-cert-label-card h2 {
+  display: none;
+}
+
+.field--name-field-certification-labels .entities-list .ps-cert-label-card__body,
+.field--name-field-certification-labels .entities-list .ps-cert-label-card .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.field--name-field-certification-labels .entities-list .field--name-field-badge {
+  order: 1;
+}
+
+.field--name-field-certification-labels .entities-list .field--name-name {
+  order: 2;
+}
+
+.field--name-field-certification-labels .entities-list .field--name-field-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 80px;
+  padding: 4px 0;
+}
+
+.field--name-field-certification-labels .entities-list .field--name-field-badge img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
+}
+
+.field--name-field-certification-labels .entities-list .field--name-name {
+  display: block;
+  margin: 0;
+  color: #1e293b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.field--name-field-certification-labels .entities-list .remove-button {
+  position: absolute !important;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  margin: 0 !important;
+  min-width: 28px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 999px;
+}
+
+@media (max-width: 720px) {
+  .view-ps-certification-labels-browser .views-view-grid .views-row {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+
+  .field--name-field-certification-labels .entities-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+}

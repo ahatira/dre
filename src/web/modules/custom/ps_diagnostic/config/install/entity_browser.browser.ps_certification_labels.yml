@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.ps_certification_labels_browser
+  module:
+    - views
+name: ps_certification_labels
+label: 'Certification label picker'
+display: modal
+display_configuration:
+  width: '960'
+  height: '680'
+  link_text: 'Select certification labels'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  a1b2c3d4-e5f6-7890-abcd-ef1234567890:
+    settings:
+      view: ps_certification_labels_browser
+      view_display: entity_browser_1
+      submit_text: 'Select labels'
+    uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    weight: 0
+    label: 'Certification labels'
+    id: view

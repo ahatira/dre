@@ -4,6 +4,12 @@ certification_label:
     theme:
       css/certification-label.css: {}
 
+certification_label_browser:
+  version: 1.x
+  css:
+    theme:
+      css/certification-label-browser.css: {}
+
 diagnostic:
   version: 1.x
   css:

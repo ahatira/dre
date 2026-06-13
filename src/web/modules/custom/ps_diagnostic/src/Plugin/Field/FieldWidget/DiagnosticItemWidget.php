@@ -94,7 +94,7 @@ final class DiagnosticItemWidget extends WidgetBase implements ContainerFactoryP
         '#title' => $this->t('Diagnostic type'),
         '#options' => ['' => $this->t('- Select -')] + $type_options,
         '#default_value' => $current['diagnostic_type'] ?? '',
-        '#required' => TRUE,
+        '#required' => FALSE,
         '#description' => $this->t('Choose the diagnostic family before entering the class or value.'),
       ];
     }
@@ -274,6 +274,8 @@ final class DiagnosticItemWidget extends WidgetBase implements ContainerFactoryP
     $configured_types = $this->getConfiguredTypes();
     $single_configured_type = count($configured_types) === 1 ? $configured_types[0] : '';
 
+    $values = array_values(array_filter($values, fn (array $value): bool => !$this->isEffectivelyEmpty($value, $single_configured_type)));
+
     foreach ($values as &$value) {
       if ($single_configured_type !== '' && (($value['diagnostic_type'] ?? '') === '')) {
         $value['diagnostic_type'] = $single_configured_type;
@@ -399,6 +401,25 @@ final class DiagnosticItemWidget extends WidgetBase implements ContainerFactoryP
 
     $last_class = end($classes);
     return is_array($last_class) ? (string) ($last_class['label'] ?? '') : NULL;
+  }
+
+  private function isEffectivelyEmpty(array $value, string $single_configured_type): bool {
+    if (!empty($value['no_classification']) || !empty($value['non_applicable'])) {
+      return FALSE;
+    }
+
+    foreach (['value', 'class', 'diagnostic_date', 'validity_end_date'] as $key) {
+      if (trim((string) ($value[$key] ?? '')) !== '') {
+        return FALSE;
+      }
+    }
+
+    $type = trim((string) ($value['diagnostic_type'] ?? ''));
+    if ($type === '') {
+      return TRUE;
+    }
+
+    return $single_configured_type !== '' && $type === $single_configured_type;
   }
 
   private function extractNumericValue(string $value): ?float {
