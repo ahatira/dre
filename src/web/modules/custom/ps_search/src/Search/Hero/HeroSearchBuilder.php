@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Search\Hero;
 
+use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 
@@ -14,8 +15,11 @@ final class HeroSearchBuilder {
 
   use StringTranslationTrait;
 
+  private const DEFAULT_BACKGROUND = 'assets/images/hero/hero-profile.png';
+
   public function __construct(
     private readonly HomepageSearchPanelBuilder $homepageSearchPanelBuilder,
+    private readonly ExtensionPathResolver $extensionPathResolver,
   ) {}
 
   /**
@@ -31,13 +35,17 @@ final class HeroSearchBuilder {
 
     $delegateUrl = (string) ($heroProps['delegate_url'] ?? '/contact');
     $promoCtaUrl = (string) ($heroProps['promo_cta_url'] ?? '/find-property');
+    $backgroundImage = (string) ($heroProps['background_image'] ?? '');
+    if ($backgroundImage === '') {
+      $backgroundImage = $this->defaultHeroBackgroundUrl();
+    }
 
     return [
       '#type' => 'component',
       '#component' => 'ps_theme:search-hero',
       '#props' => [
         'title' => (string) ($heroProps['title'] ?? ''),
-        'background_image' => (string) ($heroProps['background_image'] ?? ''),
+        'background_image' => $backgroundImage,
         'background_alt' => (string) ($heroProps['background_alt'] ?? ''),
         'promo_title' => (string) ($heroProps['promo_title'] ?? ''),
         'promo_offers_line' => (string) ($heroProps['promo_offers_line'] ?? ''),
@@ -61,6 +69,14 @@ final class HeroSearchBuilder {
         'max-age' => 0,
       ],
     ];
+  }
+
+  /**
+   * Default blurred hero background from ps_theme assets.
+   */
+  private function defaultHeroBackgroundUrl(): string {
+    $themePath = $this->extensionPathResolver->getPath('theme', 'ps_theme');
+    return Url::fromUri('base:' . $themePath . '/' . self::DEFAULT_BACKGROUND)->toString();
   }
 
 }

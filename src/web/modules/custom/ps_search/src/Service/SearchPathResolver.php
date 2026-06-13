@@ -117,6 +117,118 @@ final class SearchPathResolver implements \Drupal\ps_search\Contract\SearchPathR
   }
 
   /**
+   * Parses SEO path segments into operation/asset codes and locality tail segments.
+   *
+   * Supports operation+asset, operation-only, and asset-only (Indifférent) patterns.
+   *
+   * @param string[] $segments
+   *   Path segments without language prefix.
+   *
+   * @return array{operation_type: ?string, asset_type: ?string, locality_segments: list<string>}
+   *   Parsed facet codes and remaining locality path segments.
+   */
+  public function resolveFacetsFromPathSegments(string $langcode, array $segments): array {
+    $empty = [
+      'operation_type' => NULL,
+      'asset_type' => NULL,
+      'locality_segments' => [],
+    ];
+    if ($segments === []) {
+      return $empty;
+    }
+
+    $m = $this->getSeoSlugMappings($langcode);
+    $first = strtolower($segments[0]);
+
+    if (isset($m['op_to_val'][$first])) {
+      $result = $empty;
+      $result['operation_type'] = $m['op_to_val'][$first];
+      $rest = array_slice($segments, 1);
+      if ($rest !== [] && isset($m['asset_to_val'][strtolower((string) $rest[0])])) {
+        $result['asset_type'] = $m['asset_to_val'][strtolower((string) $rest[0])];
+        $result['locality_segments'] = array_values(array_slice($rest, 1));
+      }
+      else {
+        $result['locality_segments'] = $rest;
+      }
+      return $result;
+    }
+
+    if (isset($m['asset_to_val'][$first])) {
+      return [
+        'operation_type' => NULL,
+        'asset_type' => $m['asset_to_val'][$first],
+        'locality_segments' => array_values(array_slice($segments, 1)),
+      ];
+    }
+
+    return $empty;
+  }
+
+  /**
+   * Builds the SEO path prefix for active operation and/or asset filters.
+   *
+   * Asset-only paths omit the operation slug (Indifférent / flexible transaction).
+   */
+  public function buildSeoFilterPathPrefix(string $langcode, ?string $operationType, ?string $assetType): ?string {
+    $m = $this->getSeoSlugMappings($langcode);
+    $operationType = is_string($operationType) && $operationType !== '' ? strtoupper($operationType) : NULL;
+    $assetType = is_string($assetType) && $assetType !== '' ? strtoupper($assetType) : NULL;
+
+    if ($operationType !== NULL) {
+      $opSlug = $m['val_to_op'][$operationType] ?? NULL;
+      if ($opSlug === NULL) {
+        return NULL;
+      }
+      $path = '/' . $opSlug;
+      if ($assetType !== NULL) {
+        $assetSlug = $m['val_to_asset'][$assetType] ?? NULL;
+        if ($assetSlug !== NULL) {
+          $path .= '/' . $assetSlug;
+        }
+      }
+      return $path;
+    }
+
+    if ($assetType !== NULL) {
+      $assetSlug = $m['val_to_asset'][$assetType] ?? NULL;
+      return $assetSlug !== NULL ? '/' . $assetSlug : NULL;
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Whether a path segment is a configured operation slug for a language.
+   */
+  public function isOperationSlug(string $langcode, string $slug): bool {
+    $m = $this->getSeoSlugMappings($langcode);
+    return isset($m['op_to_val'][strtolower($slug)]);
+  }
+
+  /**
+   * Whether a path segment is a configured asset slug (or alias) for a language.
+   */
+  public function isAssetSlug(string $langcode, string $slug): bool {
+    $slug = strtolower($slug);
+    $m = $this->getSeoSlugMappings($langcode);
+    if (isset($m['asset_to_val'][$slug])) {
+      return TRUE;
+    }
+    $aliases = $this->getAssetSlugAliases($langcode);
+    return isset($aliases[$slug]);
+  }
+
+  /**
+   * Resolves a legacy asset slug alias to its canonical slug.
+   */
+  public function resolveAssetSlugAlias(string $langcode, string $slug): string {
+    $slug = strtolower($slug);
+    $aliases = $this->getAssetSlugAliases($langcode);
+    return $aliases[$slug] ?? $slug;
+  }
+
+  /**
    * Legacy slug for 301 redirects.
    */
   public function getLegacySlug(): string {

@@ -752,6 +752,13 @@
         }
       });
     }
+    else if (!operationType) {
+      Object.keys(assetSlugs).forEach(function (code) {
+        if (assetSlugs[code] === segments[0]) {
+          assetType = code;
+        }
+      });
+    }
 
     const facets = {};
     if (operationType) {

@@ -935,13 +935,20 @@
       }
 
       function buildSeoBase() {
-        if (!selectedOp) return langPrefix + searchPath;
-        const opSlug = opSlugs[selectedOp];
-        if (!opSlug) return langPrefix + searchPath;
-        if (selectedAsset && assetSlugs[selectedAsset]) {
-          return langPrefix + '/' + opSlug + '/' + assetSlugs[selectedAsset] + '/';
+        if (selectedOp) {
+          const opSlug = opSlugs[selectedOp];
+          if (!opSlug) {
+            return langPrefix + searchPath;
+          }
+          if (selectedAsset && assetSlugs[selectedAsset]) {
+            return langPrefix + '/' + opSlug + '/' + assetSlugs[selectedAsset] + '/';
+          }
+          return langPrefix + '/' + opSlug + '/';
         }
-        return langPrefix + '/' + opSlug + '/';
+        if (opFlexible && selectedAsset && assetSlugs[selectedAsset]) {
+          return langPrefix + '/' + assetSlugs[selectedAsset] + '/';
+        }
+        return langPrefix + searchPath;
       }
 
       function toSeoSlug(value) {
@@ -994,16 +1001,21 @@
           return String(slug || '').toLowerCase();
         });
 
-        if (opSlugValues.indexOf(String(segments[0]).toLowerCase()) === -1) {
+        const firstSegment = String(segments[0]).toLowerCase();
+        const firstIsOp = opSlugValues.indexOf(firstSegment) !== -1;
+        const firstIsAsset = assetSlugValues.indexOf(firstSegment) !== -1;
+        if (!firstIsOp && !firstIsAsset) {
           return '';
         }
 
         let restStart = 1;
-        if (segments[1] && assetSlugValues.indexOf(String(segments[1]).toLowerCase()) !== -1) {
-          restStart = 2;
-        }
-        else if (segments.length >= 3 && looksLikeDeptSegment(segments[2])) {
-          restStart = 2;
+        if (firstIsOp) {
+          if (segments[1] && assetSlugValues.indexOf(String(segments[1]).toLowerCase()) !== -1) {
+            restStart = 2;
+          }
+          else if (segments.length >= 3 && looksLikeDeptSegment(segments[2])) {
+            restStart = 2;
+          }
         }
 
         const localitySegments = segments.slice(restStart);
@@ -1169,7 +1181,7 @@
       function usesSeoLocalityPath(base) {
         const normalized = String(base || '').replace(/\/$/, '');
         const searchBase = String(searchPath || '').replace(/\/$/, '');
-        return Boolean(selectedOp && normalized.indexOf(searchBase) === -1);
+        return normalized !== searchBase && normalized.indexOf(searchBase) === -1;
       }
 
       function buildNavigationUrl() {
@@ -1183,12 +1195,12 @@
           || primaryData.postal_code
         );
 
-        // Flexible (no operation): asset stays as query param on /find-property (BEF array format).
-        if (selectedAsset && !selectedOp) {
+        // Asset-only (Indifférent): asset slug is in the SEO path, not query params.
+        if (selectedAsset && !selectedOp && !opFlexible) {
           setFacetQueryParam(p, 'asset_type', selectedAsset);
         }
 
-        // SEO locality segments only under /a-louer/… — never append to flexible search base (404).
+        // SEO locality segments on operation or asset-only SEO bases.
         if (useSeoLocalityPath) {
           base = base.replace(/\/?$/, '/');
           const segments = buildLocalitySeoPathSegments(primaryData);

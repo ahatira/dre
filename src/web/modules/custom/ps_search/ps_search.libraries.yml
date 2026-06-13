@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 filter.bar:
-  version: 1.0.62
+  version: 1.0.63
   js:
     js/search-filter-bar.js: {}
   css:
@@ -38,7 +38,7 @@ header.search:
     - ps_theme/header
 
 homepage.search:
-  version: 1.0.1
+  version: 1.0.3
   js:
     js/homepage-search.js: {}
   css:
@@ -51,7 +51,7 @@ homepage.search:
     - ps_theme/form
 
 search-page-map-utils:
-  version: 1.0.9
+  version: 1.0.10
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:

@@ -263,6 +263,7 @@ services:
       - '@ps_search.location_filter'
       - '@ps_search.result_counter'
       - '@ps_search.list_sort_applier'
+      - '@ps_search.search_path_resolver'
 
   ps_search.push_block_builder:
     class: Drupal\ps_search\Search\Push\SearchPushBlockBuilder
@@ -368,6 +369,7 @@ services:
     class: Drupal\ps_search\Search\Hero\HeroSearchBuilder
     arguments:
       - '@ps_search.homepage_search_panel_builder'
+      - '@extension.path.resolver'
 
   ps_search.homepage_search_panel_builder:
     class: Drupal\ps_search\Search\Hero\HomepageSearchPanelBuilder

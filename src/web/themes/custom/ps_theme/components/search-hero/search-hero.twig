@@ -17,7 +17,7 @@
       <h1 class="ps-search-hero__title">{{ title }}</h1>
     {% endif %}
     <div class="row g-0 align-items-stretch ps-search-hero__card">
-      <div class="col-lg-7 ps-search-hero__form-col">
+      <div class="col-lg-6 ps-search-hero__form-col">
         {% if search %}
           <div class="ps-search-hero__search">
             {{ search }}
@@ -25,7 +25,7 @@
         {% endif %}
       </div>
 
-      <div class="col-lg-5 ps-search-hero__promo-col">
+      <div class="col-lg-6 ps-search-hero__promo-col">
         <aside class="ps-search-hero__promo" aria-label="{{ promo_title|default('') }}">
           {% if promo_background_image %}
             <div class="ps-search-hero__promo-background" aria-hidden="true">

@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * to the canonical SEO URL /a-louer[/bureaux][/paris]/.
  *
  * Asset-only flexible URLs (/recherche-immobiliere?asset_type=COW) canonicalize
- * to the default rent operation (LOC → /a-louer/coworking/).
+ * to asset-only SEO paths (/coworking/) without an operation segment (Indifférent).
  *
  * Also 301-redirects the legacy slug /recherche when it is not the current
  * language search path (e.g. EN bookmarks after migration to /find-property).
@@ -57,50 +57,20 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     // processInbound(), so _disable_route_normalizer is never set by the path
     // processor. We set it here (priority 31, every request, no caching) instead.
     //
-    // Match /[lang]/operation-slug[/...] patterns.
+    // Match /[lang]/operation-slug[/...] or /[lang]/asset-slug[/...] (Indifférent).
     if (preg_match('#^((?:/[a-z]{2,8}(?:-[a-z]{2,4})?)?)/([-a-z]+)((?:/[-a-z]*)*?)/?$#', $pathInfo, $seoCheck)) {
       $langPrefix = $seoCheck[1];
       $firstSegment = strtolower($seoCheck[2]);
       $restSegments = trim($seoCheck[3] ?? '', '/');
       $langcode = $langPrefix ? ltrim($langPrefix, '/') : $this->getDefaultLangcode();
-      $m = $this->getMappings($langcode);
-      if (in_array($firstSegment, $m['op'], TRUE)) {
-        $restParts = $restSegments !== '' ? explode('/', $restSegments) : [];
-        if ($restParts !== []) {
-          $aliases = $this->searchPathResolver->getAssetSlugAliases($langcode);
-          $assetSegment = strtolower($restParts[0]);
-          if (isset($aliases[$assetSegment])) {
-            $restParts[0] = $aliases[$assetSegment];
-            $target = $langPrefix . '/' . $firstSegment . '/' . implode('/', $restParts) . '/';
-            $queryString = $request->getQueryString();
-            if ($queryString !== NULL && $queryString !== '') {
-              $target .= '?' . $queryString;
-            }
-            $event->setResponse(new RedirectResponse($target, 301));
-            return;
-          }
-        }
 
-        // Check if asset_type query param needs to be incorporated into the path.
-        $rawAssetParam = $request->query->all()['asset_type'] ?? NULL;
-        if ($rawAssetParam !== NULL) {
-          $assetType = is_array($rawAssetParam) ? array_key_first($rawAssetParam) : $rawAssetParam;
-          if (is_string($assetType) && !empty($assetType)) {
-            $assetSlug = $m['asset'][strtoupper($assetType)] ?? NULL;
-            // Only redirect if the asset slug is not already in the path.
-            if ($assetSlug !== NULL && strpos($restSegments, $assetSlug) === FALSE) {
-              $seoPath = $langPrefix . '/' . $firstSegment . '/' . $assetSlug . '/';
-              $remainingQuery = $request->query->all();
-              unset($remainingQuery['asset_type'], $remainingQuery['operation_type']);
-              if (!empty($remainingQuery)) {
-                $seoPath .= '?' . http_build_query($remainingQuery);
-              }
-              $event->setResponse(new RedirectResponse($seoPath, 301));
-              return;
-            }
-          }
-        }
-        $request->attributes->set('_disable_route_normalizer', TRUE);
+      if ($this->searchPathResolver->isOperationSlug($langcode, $firstSegment)) {
+        $this->handleExistingOperationSeoPath($event, $request, $langPrefix, $firstSegment, $restSegments, $langcode);
+        return;
+      }
+
+      if ($this->searchPathResolver->isAssetSlug($langcode, $firstSegment)) {
+        $this->handleExistingAssetOnlySeoPath($event, $request, $langPrefix, $firstSegment, $restSegments, $langcode);
         return;
       }
     }
@@ -136,28 +106,13 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       return;
     }
 
-    // Asset-only flexible URLs canonicalize to default rent (LOC / for-rent).
-    if ($operationType === NULL) {
-      $operationType = 'LOC';
-    }
-
-    // Detect URL language from path prefix (not interface/admin preference).
     $langcode = $langPrefix ? ltrim($langPrefix, '/') : $this->getDefaultLangcode();
-    $m = $this->getMappings($langcode);
-
-    $opSlug = $m['op'][strtoupper($operationType)] ?? NULL;
-    if ($opSlug === NULL) {
+    $seoPrefix = $this->searchPathResolver->buildSeoFilterPathPrefix($langcode, $operationType, $assetType);
+    if ($seoPrefix === NULL) {
       return;
     }
 
-    $seoPath = $langPrefix . '/' . $opSlug;
-
-    if ($assetType !== NULL) {
-      $assetSlug = $m['asset'][strtoupper($assetType)] ?? NULL;
-      if ($assetSlug !== NULL) {
-        $seoPath .= '/' . $assetSlug;
-      }
-    }
+    $seoPath = $langPrefix . $seoPrefix;
 
     $localityRaw = $request->query->all()['locality'] ?? NULL;
     $tokens = is_array($localityRaw)
@@ -173,7 +128,7 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     $seoPath .= '/';
 
     // Preserve remaining query params (budget, surface, keywords, etc.).
-    $remainingQuery = $request->query->all();
+    $remainingQuery = $this->filterNonEmptyQueryParams($request->query->all());
     unset($remainingQuery['operation_type'], $remainingQuery['asset_type']);
     if (count($tokens) <= 1) {
       unset($remainingQuery['locality'], $remainingQuery['locations']);
@@ -182,11 +137,89 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       $remainingQuery['locations'] = implode(',', $tokens);
       unset($remainingQuery['locality']);
     }
-    if (!empty($remainingQuery)) {
+    if ($remainingQuery !== []) {
       $seoPath .= '?' . http_build_query($remainingQuery);
     }
 
     $event->setResponse(new RedirectResponse($seoPath, 301));
+  }
+
+  /**
+   * Handles canonical redirects and normalizer flags for operation SEO paths.
+   */
+  private function handleExistingOperationSeoPath(
+    RequestEvent $event,
+    Request $request,
+    string $langPrefix,
+    string $firstSegment,
+    string $restSegments,
+    string $langcode,
+  ): void {
+    $m = $this->getMappings($langcode);
+    $restParts = $restSegments !== '' ? explode('/', $restSegments) : [];
+    if ($restParts !== []) {
+      $aliases = $this->searchPathResolver->getAssetSlugAliases($langcode);
+      $assetSegment = strtolower($restParts[0]);
+      if (isset($aliases[$assetSegment])) {
+        $restParts[0] = $aliases[$assetSegment];
+        $target = $langPrefix . '/' . $firstSegment . '/' . implode('/', $restParts) . '/';
+        $queryString = $request->getQueryString();
+        if ($queryString !== NULL && $queryString !== '') {
+          $target .= '?' . $queryString;
+        }
+        $event->setResponse(new RedirectResponse($target, 301));
+        return;
+      }
+    }
+
+    $rawAssetParam = $request->query->all()['asset_type'] ?? NULL;
+    if ($rawAssetParam !== NULL) {
+      $assetType = is_array($rawAssetParam) ? array_key_first($rawAssetParam) : $rawAssetParam;
+      if (is_string($assetType) && $assetType !== '') {
+        $assetSlug = $m['asset'][strtoupper($assetType)] ?? NULL;
+        if ($assetSlug !== NULL && strpos($restSegments, $assetSlug) === FALSE) {
+          $seoPath = $langPrefix . '/' . $firstSegment . '/' . $assetSlug . '/';
+          $remainingQuery = $this->filterNonEmptyQueryParams($request->query->all());
+          unset($remainingQuery['asset_type'], $remainingQuery['operation_type']);
+          if ($remainingQuery !== []) {
+            $seoPath .= '?' . http_build_query($remainingQuery);
+          }
+          $event->setResponse(new RedirectResponse($seoPath, 301));
+          return;
+        }
+      }
+    }
+
+    $request->attributes->set('_disable_route_normalizer', TRUE);
+  }
+
+  /**
+   * Handles canonical redirects and normalizer flags for asset-only SEO paths.
+   */
+  private function handleExistingAssetOnlySeoPath(
+    RequestEvent $event,
+    Request $request,
+    string $langPrefix,
+    string $firstSegment,
+    string $restSegments,
+    string $langcode,
+  ): void {
+    $canonicalAssetSlug = $this->searchPathResolver->resolveAssetSlugAlias($langcode, $firstSegment);
+    if ($canonicalAssetSlug !== $firstSegment) {
+      $target = $langPrefix . '/' . $canonicalAssetSlug;
+      if ($restSegments !== '') {
+        $target .= '/' . $restSegments;
+      }
+      $target .= '/';
+      $queryString = $request->getQueryString();
+      if ($queryString !== NULL && $queryString !== '') {
+        $target .= '?' . $queryString;
+      }
+      $event->setResponse(new RedirectResponse($target, 301));
+      return;
+    }
+
+    $request->attributes->set('_disable_route_normalizer', TRUE);
   }
 
   private function getMappings(string $langcode): array {
@@ -199,6 +232,32 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
 
   private function getDefaultLangcode(): string {
     return \Drupal::languageManager()->getDefaultLanguage()->getId();
+  }
+
+  /**
+   * Drops empty/null query values before building redirect URLs.
+   *
+   * @param array<string, mixed> $query
+   *   Raw query parameters.
+   *
+   * @return array<string, mixed>
+   *   Query without empty scalar values or empty nested arrays.
+   */
+  private function filterNonEmptyQueryParams(array $query): array {
+    $filtered = [];
+    foreach ($query as $key => $value) {
+      if (is_array($value)) {
+        $nested = $this->filterNonEmptyQueryParams($value);
+        if ($nested !== []) {
+          $filtered[$key] = $nested;
+        }
+        continue;
+      }
+      if ($value !== NULL && $value !== '') {
+        $filtered[$key] = $value;
+      }
+    }
+    return $filtered;
   }
 
   /**

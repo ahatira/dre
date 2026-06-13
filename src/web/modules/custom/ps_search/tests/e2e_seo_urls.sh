@@ -159,8 +159,24 @@ echo "--- 5. Query param → canonical SEO redirect ---"
 assert_redirect "/for-rent/" "$BASE/find-property?operation_type=LOC" "find-property?operation_type=LOC"
 assert_redirect "/for-rent/office/" "$BASE/find-property?operation_type=LOC&asset_type=BUR" "find-property?op+asset"
 assert_redirect "/fr/a-louer/bureaux/" "$BASE/fr/recherche-immobiliere?operation_type=LOC&asset_type=BUR" "FR find-property?op+asset"
-assert_redirect "/fr/a-louer/coworking/" "$BASE/fr/recherche-immobiliere?asset_type%5BCOW%5D=COW" "FR asset-only BEF → default LOC SEO"
-assert_redirect "/for-rent/coworking/" "$BASE/find-property?asset_type=COW" "EN asset-only scalar → default LOC SEO"
+assert_redirect "/fr/a-louer/coworking/" "$BASE/fr/recherche-immobiliere?operation_type=LOC&asset_type=COW" "FR op+asset from flexible base"
+assert_redirect "/fr/coworking/" "$BASE/fr/recherche-immobiliere?asset_type%5BCOW%5D=COW" "FR asset-only (Indifférent) → /fr/coworking/"
+assert_redirect "/coworking/" "$BASE/find-property?asset_type=COW" "EN asset-only (Indifférent) → /coworking/"
+assert_redirect "/for-rent/retail/" "$BASE/find-property?operation_type=LOC&asset_type=COM&surface_min=&budget_max=" "Hero-style submit strips empty optional query params"
+
+echo ""
+echo "--- 5b. Asset-only SEO (Indifférent, no operation slug) ---"
+assert_http 200 "$BASE/office/" "EN asset-only /office/"
+assert_http 200 "$BASE/fr/bureaux/" "FR asset-only /fr/bureaux/"
+assert_drupal_setting "$BASE/office/" "activeAsset" "BUR" "EN asset-only activeAsset"
+html_office=$(curl -sL -m 60 "$BASE/office/")
+if echo "$html_office" | grep -q '"activeFlexible":true'; then
+  pass "EN asset-only activeFlexible"
+else
+  fail "EN asset-only activeFlexible missing"
+fi
+assert_canonical "$BASE/office/" "/office/" "EN asset-only canonical"
+assert_canonical "$BASE/fr/bureaux/" "/fr/bureaux/" "FR asset-only canonical"
 
 echo ""
 echo "--- 6. Locality SEO segments ---"

@@ -18,9 +18,11 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * Inbound (priority 290, after language processor at 300):
  *   /a-louer/bureaux/paris/ -> /find-property + query params
+ *   /bureaux/loire-42/parigny-42120/ -> /find-property + asset + locality (no op)
  *
  * Outbound (priority 110, before language processor at 100):
  *   /find-property + query['operation_type'=>'LOC',...] -> /a-louer/bureaux/paris/
+ *   /find-property + query['asset_type'=>'BUR'] (no op) -> /office/…
  *
  * Slugs are configurable via ps_search.seo_url_mappings config and
  * translatable per language via the Config Translation module.
@@ -40,84 +42,47 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
   /**
    * {@inheritdoc}
    *
-   * Converts /a-louer[/asset][/city]/ -> /find-property and injects query params.
+   * Converts SEO paths to /find-property and injects facet query params.
    * Sets _disable_route_normalizer to prevent the redirect module from
    * issuing a 301 back to /find-property.
    */
   public function processInbound($path, Request $request): string {
-    // Use TYPE_URL (from the URL prefix /fr/, /en/) not TYPE_INTERFACE (admin
-    // user's preferred language). This ensures /fr/a-louer is resolved correctly
-    // even for admin users whose interface language is EN.
     $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
-    $m = $this->getMappings($langcode);
 
-    // Extract first segment and check against known operation slugs.
     $stripped = ltrim($path, '/');
-    $slashPos = strpos($stripped, '/');
-    $firstSegment = $slashPos !== FALSE ? substr($stripped, 0, $slashPos) : $stripped;
-
-    if ($firstSegment === '' || !isset($m['op_to_val'][$firstSegment])) {
+    $segments = ($stripped !== '') ? array_values(array_filter(explode('/', $stripped))) : [];
+    if ($segments === []) {
       return $path;
     }
 
-    // Offer detail URLs share the SEO prefix but end with .html — leave to path aliases.
+    // Offer detail URLs share SEO prefixes but end with .html — leave to path aliases.
     if (str_ends_with(strtolower($path), '.html')) {
       return $path;
     }
 
-    $params = ['operation_type' => $m['op_to_val'][$firstSegment]];
-    $rest = $slashPos !== FALSE ? substr($stripped, $slashPos + 1) : '';
-    $segments = ($rest !== '') ? array_values(array_filter(explode('/', $rest))) : [];
-
-    // Search SEO paths have at most operation + asset + dept + city segments.
-    if (count($segments) > 3) {
+    $facets = $this->searchPathResolver->resolveFacetsFromPathSegments($langcode, $segments);
+    if ($facets['operation_type'] === NULL && $facets['asset_type'] === NULL) {
       return $path;
     }
 
-    $assetFound = FALSE;
-    $possibleDeptSegment = NULL;
-    $possibleCitySegment = NULL;
-
-    foreach ($segments as $i => $segment) {
-      $slug = strtolower($segment);
-      if (!$assetFound && isset($m['asset_to_val'][$slug])) {
-        $params['asset_type'] = $m['asset_to_val'][$slug];
-        $assetFound = TRUE;
-      }
-      elseif ($segment !== '') {
-        // Collect last two non-empty segments as potential dept+city.
-        $possibleDeptSegment = $possibleCitySegment;
-        $possibleCitySegment = $segment;
-      }
+    // Operation paths: op + up to 3 tail segments. Asset-only: up to 3 total segments.
+    $maxSegments = $facets['operation_type'] !== NULL ? 4 : 3;
+    if (count($segments) > $maxSegments) {
+      return $path;
     }
 
-    // Try BNPPRE two-segment format: dept-code / city-postal.
-    if ($possibleDeptSegment !== NULL && $possibleCitySegment !== NULL) {
-      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(
-        $possibleDeptSegment,
-        $possibleCitySegment,
-      );
-      if ($token !== NULL) {
-        $params['locality'] = $token;
-      }
+    $params = [];
+    if ($facets['operation_type'] !== NULL) {
+      $params['operation_type'] = $facets['operation_type'];
     }
-    elseif ($possibleCitySegment !== NULL) {
-      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(NULL, $possibleCitySegment);
-      if ($token === NULL) {
-        $token = $this->seoLocalityPathBuilder->deptSegmentToToken($possibleCitySegment);
-      }
-      if ($token !== NULL) {
-        $params['locality'] = $token;
-      }
-      else {
-        $params['locality'] = $this->slugToCity($possibleCitySegment);
-      }
+    if ($facets['asset_type'] !== NULL) {
+      $params['asset_type'] = $facets['asset_type'];
     }
+
+    $this->applyLocalitySegmentsToParams($params, $facets['locality_segments']);
 
     $request->query->add($params);
     $this->syncLocationsQueryParam($request);
-    // Prevent redirect module (RouteNormalizerRequestSubscriber, priority 30)
-    // from issuing a 301 because the public URL does not match the internal path.
     $request->attributes->set('_disable_route_normalizer', TRUE);
 
     return $this->searchPathResolver->getInternalPath();
@@ -126,7 +91,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
   /**
    * {@inheritdoc}
    *
-   * Converts /find-property + query params -> /a-louer[/asset][/city]/
+   * Converts /find-property + query params -> SEO slug paths.
    */
   public function processOutbound($path, &$options = [], ?Request $request = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): string {
     if ($path !== $this->searchPathResolver->getInternalPath()) {
@@ -134,30 +99,27 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     }
 
     $query = $options['query'] ?? [];
-    $rawOp = $query['operation_type'] ?? NULL;
-    if (!$rawOp || !is_string($rawOp)) {
+    $rawOp = $this->firstQueryScalar($query['operation_type'] ?? NULL);
+    $rawAsset = $this->firstQueryScalar($query['asset_type'] ?? NULL);
+
+    if ($rawOp === NULL && $rawAsset === NULL) {
       return $path;
     }
 
     $langcode = $this->resolveOutboundLangcode($options);
-    $m = $this->getMappings($langcode);
-
-    $opSlug = $m['val_to_op'][strtoupper($rawOp)] ?? NULL;
-    if ($opSlug === NULL) {
+    $seoPrefix = $this->searchPathResolver->buildSeoFilterPathPrefix($langcode, $rawOp, $rawAsset);
+    if ($seoPrefix === NULL) {
       return $path;
     }
 
-    $seoPath = '/' . $opSlug;
-    unset($query['operation_type']);
-
-    $rawAsset = $query['asset_type'] ?? NULL;
-    if ($rawAsset !== NULL && is_string($rawAsset)) {
-      $assetSlug = $m['val_to_asset'][strtoupper($rawAsset)] ?? NULL;
-      if ($assetSlug !== NULL) {
-        $seoPath .= '/' . $assetSlug;
-        unset($query['asset_type']);
-      }
+    if ($rawOp !== NULL) {
+      unset($query['operation_type']);
     }
+    if ($rawAsset !== NULL) {
+      unset($query['asset_type']);
+    }
+
+    $seoPath = $seoPrefix;
 
     $locality = $query['locality'] ?? NULL;
     $locations = $query['locations'] ?? NULL;
@@ -204,27 +166,70 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
   }
 
   /**
-   * Builds slug<->value lookup tables for a specific language.
+   * Adds locality filter params from SEO path tail segments.
    *
-   * Explicitly loads the language config override for TYPE_URL language
-   * (from the URL prefix, e.g. /fr/) instead of relying on ConfigFactory
-   * which uses TYPE_INTERFACE (admin user preferred language, e.g. EN).
-   *
-   * Results are cached per langcode within the request.
-   *
-   * @return array{op_to_val: array<string,string>, val_to_op: array<string,string>, asset_to_val: array<string,string>, val_to_asset: array<string,string>}
+   * @param array<string, string> $params
+   *   Facet params to augment in place.
+   * @param string[] $localitySegments
+   *   Remaining path segments after operation/asset slugs.
    */
-  private function getMappings(string $langcode): array {
-    return $this->searchPathResolver->getSeoSlugMappings($langcode);
+  private function applyLocalitySegmentsToParams(array &$params, array $localitySegments): void {
+    $possibleDeptSegment = NULL;
+    $possibleCitySegment = NULL;
+
+    foreach ($localitySegments as $segment) {
+      if ($segment === '') {
+        continue;
+      }
+      $possibleDeptSegment = $possibleCitySegment;
+      $possibleCitySegment = $segment;
+    }
+
+    if ($possibleDeptSegment !== NULL && $possibleCitySegment !== NULL) {
+      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(
+        $possibleDeptSegment,
+        $possibleCitySegment,
+      );
+      if ($token !== NULL) {
+        $params['locality'] = $token;
+      }
+      return;
+    }
+
+    if ($possibleCitySegment === NULL) {
+      return;
+    }
+
+    $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(NULL, $possibleCitySegment);
+    if ($token === NULL) {
+      $token = $this->seoLocalityPathBuilder->deptSegmentToToken($possibleCitySegment);
+    }
+    if ($token !== NULL) {
+      $params['locality'] = $token;
+      return;
+    }
+
+    $params['locality'] = $this->slugToCity($possibleCitySegment);
   }
 
   /**
    * Converts a URL slug back to a city name for the filter value.
-   *
-   * Example: "la-defense" -> "La Defense"
    */
   private function slugToCity(string $slug): string {
     return ucwords(str_replace('-', ' ', $slug));
+  }
+
+  /**
+   * Normalizes a BEF or scalar query parameter to a string value.
+   */
+  private function firstQueryScalar(mixed $value): ?string {
+    if (is_array($value)) {
+      $value = array_key_first($value);
+    }
+    if (!is_string($value) || $value === '') {
+      return NULL;
+    }
+    return $value;
   }
 
   /**

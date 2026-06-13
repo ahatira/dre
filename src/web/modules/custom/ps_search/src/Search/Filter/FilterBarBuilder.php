@@ -55,7 +55,7 @@ final class FilterBarBuilder {
    */
   public function buildHomepageEntryPanel(array $labels = []): array {
     $data = $this->resolveFilterData([
-      'active_op' => 'VEN',
+      'active_op' => NULL,
       'active_asset' => NULL,
       'initial_locality' => '',
       'active_flexible' => FALSE,
@@ -170,11 +170,10 @@ final class FilterBarBuilder {
 
       $activeOp = NULL;
       $activeAsset = NULL;
-      if (!empty($segments[0]) && isset($opBySlug[$segments[0]])) {
-        $activeOp = $opBySlug[$segments[0]];
-        if (!empty($segments[1]) && isset($assetBySlug[$segments[1]])) {
-          $activeAsset = $assetBySlug[$segments[1]];
-        }
+      if ($segments !== []) {
+        $facets = $this->searchPathResolver->resolveFacetsFromPathSegments($langcode, $segments);
+        $activeOp = $facets['operation_type'];
+        $activeAsset = $facets['asset_type'];
       }
 
       if (!$activeOp) {

@@ -158,26 +158,19 @@ final class SearchSeoCanonicalUrlBuilder {
   private function buildCanonicalPathFromQuery(string $langcode, array $query): ?string {
     $langPrefix = $this->languagePrefix($langcode);
     $operationType = $query['operation_type'] ?? NULL;
+    $assetType = $query['asset_type'] ?? NULL;
 
-    if ($operationType === NULL) {
+    $seoPrefix = $this->searchPathResolver->buildSeoFilterPathPrefix(
+      $langcode,
+      is_string($operationType) ? $operationType : NULL,
+      is_string($assetType) ? $assetType : NULL,
+    );
+
+    if ($seoPrefix === NULL) {
       return $this->normalizePath($langPrefix . '/' . $this->searchPathResolver->getSlugForLang($langcode));
     }
 
-    $m = $this->searchPathResolver->getSeoSlugMappings($langcode);
-    $opSlug = $m['val_to_op'][strtoupper($operationType)] ?? NULL;
-    if ($opSlug === NULL) {
-      return NULL;
-    }
-
-    $seoPath = $langPrefix . '/' . $opSlug;
-
-    $assetType = $query['asset_type'] ?? NULL;
-    if (is_string($assetType) && $assetType !== '') {
-      $assetSlug = $m['val_to_asset'][strtoupper($assetType)] ?? NULL;
-      if ($assetSlug !== NULL) {
-        $seoPath .= '/' . $assetSlug;
-      }
-    }
+    $seoPath = $langPrefix . $seoPrefix;
 
     $locality = $query['locality'] ?? NULL;
     $locations = $query['locations'] ?? NULL;
@@ -204,26 +197,25 @@ final class SearchSeoCanonicalUrlBuilder {
       return [];
     }
 
-    $m = $this->searchPathResolver->getSeoSlugMappings($langcode);
-    $operationType = $m['op_to_val'][strtolower($segments[0])] ?? NULL;
-    if ($operationType === NULL) {
+    $facets = $this->searchPathResolver->resolveFacetsFromPathSegments($langcode, $segments);
+    if ($facets['operation_type'] === NULL && $facets['asset_type'] === NULL) {
       return [];
     }
 
-    $query = ['operation_type' => $operationType];
-    $rest = array_slice($segments, 1);
-    $assetFound = FALSE;
+    $query = [];
+    if ($facets['operation_type'] !== NULL) {
+      $query['operation_type'] = $facets['operation_type'];
+    }
+    if ($facets['asset_type'] !== NULL) {
+      $query['asset_type'] = $facets['asset_type'];
+    }
+
     $possibleDeptSegment = NULL;
     $possibleCitySegment = NULL;
-
-    foreach ($rest as $segment) {
-      $slug = strtolower($segment);
-      if (!$assetFound && isset($m['asset_to_val'][$slug])) {
-        $query['asset_type'] = $m['asset_to_val'][$slug];
-        $assetFound = TRUE;
+    foreach ($facets['locality_segments'] as $segment) {
+      if ($segment === '') {
         continue;
       }
-
       $possibleDeptSegment = $possibleCitySegment;
       $possibleCitySegment = $segment;
     }
@@ -259,8 +251,8 @@ final class SearchSeoCanonicalUrlBuilder {
       return FALSE;
     }
 
-    $m = $this->searchPathResolver->getSeoSlugMappings($langcode);
-    return isset($m['op_to_val'][strtolower($segments[0])]);
+    $facets = $this->searchPathResolver->resolveFacetsFromPathSegments($langcode, $segments);
+    return $facets['operation_type'] !== NULL || $facets['asset_type'] !== NULL;
   }
 
   /**

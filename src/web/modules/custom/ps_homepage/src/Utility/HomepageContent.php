@@ -147,7 +147,7 @@ final class HomepageContent {
   }
 
   public static function heroBackgroundUrl(): string {
-    $relative = (string) (self::data()['hero']['background'] ?? 'assets/images/hero/hero-homepage.png');
+    $relative = (string) (self::data()['hero']['background'] ?? 'assets/images/hero/hero-profile.png');
     return self::themeAssetUrl($relative);
   }
 

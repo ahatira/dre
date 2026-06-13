@@ -11,6 +11,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\ps_search\Service\LocationSearchFilter;
+use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchResultCounter;
 use Drupal\ps_search\Search\Query\SearchListSortApplier;
 use Drupal\views\ViewExecutable;
@@ -33,6 +34,7 @@ final class SearchResultsHeaderBuilder {
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly SearchResultCounter $searchResultCounter,
     private readonly SearchListSortApplier $sortApplier,
+    private readonly SearchPathResolver $searchPathResolver,
   ) {}
 
   /**
@@ -127,19 +129,6 @@ final class SearchResultsHeaderBuilder {
   private function resolveActiveFilters(): array {
     $request = $this->requestStack->getCurrentRequest();
     $langcode = $this->languageManager->getCurrentLanguage()->getId();
-    $base = $this->configFactory->get('ps_search.seo_url_mappings');
-    $langOverride = $this->langConfigOverride->getOverride($langcode, 'ps_search.seo_url_mappings');
-
-    $opSlugs = array_merge(
-      $base->get('operation_types') ?? [],
-      $langOverride->get('operation_types') ?? [],
-    );
-    $assetSlugs = array_merge(
-      $base->get('asset_types') ?? [],
-      $langOverride->get('asset_types') ?? [],
-    );
-    $opBySlug = array_flip($opSlugs);
-    $assetBySlug = array_flip($assetSlugs);
 
     $langPrefix = ($langcode !== $this->languageManager->getDefaultLanguage()->getId())
       ? '/' . $langcode
@@ -156,11 +145,10 @@ final class SearchResultsHeaderBuilder {
 
     $activeOp = NULL;
     $activeAsset = NULL;
-    if (!empty($segments[0]) && isset($opBySlug[$segments[0]])) {
-      $activeOp = $opBySlug[$segments[0]];
-      if (!empty($segments[1]) && isset($assetBySlug[$segments[1]])) {
-        $activeAsset = $assetBySlug[$segments[1]];
-      }
+    if ($segments !== []) {
+      $facets = $this->searchPathResolver->resolveFacetsFromPathSegments($langcode, $segments);
+      $activeOp = $facets['operation_type'];
+      $activeAsset = $facets['asset_type'];
     }
 
     $query = $request?->query;
@@ -224,17 +212,6 @@ final class SearchResultsHeaderBuilder {
   private function extractLocalityFromPath(): ?string {
     $request = $this->requestStack->getCurrentRequest();
     $langcode = $this->languageManager->getCurrentLanguage()->getId();
-    $base = $this->configFactory->get('ps_search.seo_url_mappings');
-    $langOverride = $this->langConfigOverride->getOverride($langcode, 'ps_search.seo_url_mappings');
-
-    $opSlugs = array_map('strtolower', array_values(array_merge(
-      $base->get('operation_types') ?? [],
-      $langOverride->get('operation_types') ?? [],
-    )));
-    $assetSlugs = array_map('strtolower', array_values(array_merge(
-      $base->get('asset_types') ?? [],
-      $langOverride->get('asset_types') ?? [],
-    )));
 
     $langPrefix = ($langcode !== $this->languageManager->getDefaultLanguage()->getId())
       ? '/' . $langcode
@@ -245,20 +222,21 @@ final class SearchResultsHeaderBuilder {
     }
 
     $segments = array_values(array_filter(explode('/', $pathInfo)));
-    if ($segments === [] || !in_array(strtolower($segments[0]), $opSlugs, TRUE)) {
+    if ($segments === []) {
       return NULL;
     }
 
-    $localityIndex = 1;
-    if (!empty($segments[1]) && in_array(strtolower($segments[1]), $assetSlugs, TRUE)) {
-      $localityIndex = 2;
-    }
-
-    if (empty($segments[$localityIndex])) {
+    $facets = $this->searchPathResolver->resolveFacetsFromPathSegments($langcode, $segments);
+    if ($facets['operation_type'] === NULL && $facets['asset_type'] === NULL) {
       return NULL;
     }
 
-    $slug = preg_replace('/-\d{5}$/', '', $segments[$localityIndex]) ?? $segments[$localityIndex];
+    $localitySegments = $facets['locality_segments'];
+    if ($localitySegments === []) {
+      return NULL;
+    }
+
+    $slug = preg_replace('/-\d{5}$/', '', (string) end($localitySegments)) ?? (string) end($localitySegments);
     $words = explode('-', $slug);
     $words = array_map(static fn(string $word): string => ucfirst($word), $words);
 

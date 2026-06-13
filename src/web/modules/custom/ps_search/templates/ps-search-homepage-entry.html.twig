@@ -14,13 +14,18 @@
     method="get"
     action="{{ search_path }}"
     role="search"
+    novalidate
     aria-label="{{ l.search_button_label|default('Search') }}"
   >
-    <input type="hidden" name="operation_type" value="{{ active_op|default('VEN') }}" class="js-ps-homepage-operation" />
+    <input type="hidden" name="operation_type" value="" class="js-ps-homepage-operation" disabled />
+
+    <div class="ps-homepage-search-entry__errors js-ps-homepage-errors" role="alert" hidden></div>
 
     <div class="ps-homepage-search-entry__section">
-      <h3 class="ps-homepage-search-entry__section-title">{{ l.transaction_type_label }}</h3>
-      <div class="ps-homepage-search-entry__op-group ps-op-choices" role="group" aria-label="{{ l.transaction_type_label }}">
+      <h3 class="ps-homepage-search-entry__section-title">
+        {{ l.transaction_type_label }}
+      </h3>
+      <div class="ps-homepage-search-entry__op-group ps-op-choices js-ps-homepage-op-group" role="group" aria-label="{{ l.transaction_type_label }}">
         <button
           type="button"
           class="ps-op-btn js-ps-op-btn{% if active_op == 'VEN' %} is-active{% endif %}"
@@ -42,9 +47,9 @@
       </div>
     </div>
 
-    <div class="ps-homepage-search-entry__section">
+    <div class="ps-homepage-search-entry__section js-ps-homepage-location-section">
       <label class="form-label ps-homepage-search-entry__label" for="ps-homepage-location-input">
-        {{ l.location_label }}
+        {{ l.location_label }} <span class="ps-homepage-search-entry__required" aria-hidden="true">*</span>
       </label>
       <div class="ps-homepage-search-entry__location-wrap">
         {% include '@ps_search/ps-search-filter-section-location-fields.twig' with {
@@ -58,11 +63,11 @@
       <div class="js-ps-homepage-locality-hidden" hidden aria-hidden="true"></div>
     </div>
 
-    <div class="ps-homepage-search-entry__section">
+    <div class="ps-homepage-search-entry__section js-ps-homepage-asset-section">
       <label class="form-label ps-homepage-search-entry__label" for="ps-homepage-asset-select">
-        {{ l.property_type_label }}
+        {{ l.property_type_label }} <span class="ps-homepage-search-entry__required" aria-hidden="true">*</span>
       </label>
-      <select id="ps-homepage-asset-select" name="asset_type" class="form-select js-ps-homepage-asset-select">
+      <select id="ps-homepage-asset-select" name="asset_type" class="form-select js-ps-homepage-asset-select" required>
         <option value="">{{ l.property_type_placeholder }}</option>
         {% for asset in asset_types %}
           <option value="{{ asset.code }}"{% if asset.active %} selected{% endif %}>{{ asset.label }}</option>

@@ -20,11 +20,15 @@
       once('ps-homepage-search-form', '.ps-homepage-search-form', context).forEach((form) => {
         const root = form.closest('[data-ps-homepage-search-entry]') || form.parentElement;
         const opInput = form.querySelector('.js-ps-homepage-operation');
+        const opGroup = form.querySelector('.js-ps-homepage-op-group');
         const assetSelect = form.querySelector('.js-ps-homepage-asset-select');
         const localityInput = form.querySelector('.js-ps-locality-input');
+        const locationSection = form.querySelector('.js-ps-homepage-location-section');
+        const assetSection = form.querySelector('.js-ps-homepage-asset-section');
         const chipsContainer = form.querySelector('.js-ps-location-chips');
         const hiddenLocality = root ? root.querySelector('.js-ps-homepage-locality-hidden') : null;
         const suggestBox = root ? root.querySelector('.js-ps-location-suggest') : null;
+        const errorsBox = root ? root.querySelector('.js-ps-homepage-errors') : null;
         let selectedTokens = [];
         let debounceTimer = null;
 
@@ -34,6 +38,9 @@
             btn.classList.toggle('is-active', active);
             btn.setAttribute('aria-pressed', active ? 'true' : 'false');
           });
+          if (opGroup) {
+            opGroup.classList.remove('is-invalid');
+          }
         };
 
         const syncOperationField = () => {
@@ -42,14 +49,52 @@
           }
           const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
           const code = activeBtn ? activeBtn.dataset.code : '';
-          if (code === 'FLEX' || !code) {
+          if (!code || code === 'FLEX') {
             opInput.value = '';
             opInput.disabled = true;
+            return;
+          }
+          opInput.disabled = false;
+          opInput.value = code;
+        };
+
+        const clearErrors = () => {
+          if (errorsBox) {
+            errorsBox.hidden = true;
+            errorsBox.textContent = '';
+          }
+          form.querySelectorAll('.is-invalid').forEach((el) => {
+            el.classList.remove('is-invalid');
+          });
+        };
+
+        const showErrors = (messages) => {
+          if (!errorsBox || !messages.length) {
+            return;
+          }
+          errorsBox.innerHTML = '';
+          if (messages.length === 1) {
+            errorsBox.textContent = messages[0];
           }
           else {
-            opInput.disabled = false;
-            opInput.value = code;
+            const list = document.createElement('ul');
+            list.className = 'ps-homepage-search-entry__errors-list';
+            messages.forEach((message) => {
+              const item = document.createElement('li');
+              item.textContent = message;
+              list.appendChild(item);
+            });
+            errorsBox.appendChild(list);
           }
+          errorsBox.hidden = false;
+        };
+
+        const stripEmptyOptionalFields = () => {
+          form.querySelectorAll('.js-ps-homepage-surface-min, .js-ps-homepage-budget-max').forEach((input) => {
+            if (!String(input.value || '').trim()) {
+              input.removeAttribute('name');
+            }
+          });
         };
 
         const renderChips = () => {
@@ -73,6 +118,9 @@
             chip.appendChild(remove);
             chipsContainer.appendChild(chip);
           });
+          if (locationSection && selectedTokens.length) {
+            locationSection.classList.remove('is-invalid');
+          }
         };
 
         const addTokens = (tokens) => {
@@ -94,6 +142,53 @@
           }
           addTokens(parseLocationTokens(draft));
           localityInput.value = '';
+        };
+
+        const getActiveOperationCode = () => {
+          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
+          return activeBtn ? activeBtn.dataset.code : '';
+        };
+
+        const validateForm = () => {
+          commitDraft();
+          syncOperationField();
+          clearErrors();
+
+          const messages = [];
+          const opCode = getActiveOperationCode();
+          if (!opCode) {
+            messages.push(Drupal.t('Please select a transaction type.'));
+            if (opGroup) {
+              opGroup.classList.add('is-invalid');
+            }
+          }
+
+          if (!selectedTokens.length) {
+            messages.push(Drupal.t('Please enter at least one location.'));
+            if (locationSection) {
+              locationSection.classList.add('is-invalid');
+            }
+            if (localityInput) {
+              localityInput.classList.add('is-invalid');
+            }
+          }
+
+          if (!assetSelect || !assetSelect.value) {
+            messages.push(Drupal.t('Please select a property type.'));
+            if (assetSection) {
+              assetSection.classList.add('is-invalid');
+            }
+            if (assetSelect) {
+              assetSelect.classList.add('is-invalid');
+            }
+          }
+
+          if (messages.length) {
+            showErrors(messages);
+            return false;
+          }
+
+          return true;
         };
 
         const renderSuggestions = (groups) => {
@@ -149,8 +244,21 @@
           });
         });
 
+        if (assetSelect) {
+          assetSelect.addEventListener('change', () => {
+            assetSelect.classList.remove('is-invalid');
+            if (assetSection) {
+              assetSection.classList.remove('is-invalid');
+            }
+          });
+        }
+
         if (localityInput) {
           localityInput.addEventListener('input', () => {
+            localityInput.classList.remove('is-invalid');
+            if (locationSection) {
+              locationSection.classList.remove('is-invalid');
+            }
             window.clearTimeout(debounceTimer);
             const query = localityInput.value.trim();
             if (query.length < 2) {
@@ -173,9 +281,13 @@
           });
         }
 
-        form.addEventListener('submit', () => {
-          commitDraft();
-          syncOperationField();
+        form.addEventListener('submit', (event) => {
+          if (!validateForm()) {
+            event.preventDefault();
+            return;
+          }
+
+          stripEmptyOptionalFields();
 
           if (hiddenLocality) {
             hiddenLocality.innerHTML = '';
@@ -186,10 +298,6 @@
               input.value = token;
               hiddenLocality.appendChild(input);
             });
-          }
-
-          if (assetSelect && !assetSelect.value) {
-            assetSelect.removeAttribute('name');
           }
         });
 

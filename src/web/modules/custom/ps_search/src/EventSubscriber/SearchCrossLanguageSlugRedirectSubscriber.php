@@ -78,14 +78,28 @@ final class SearchCrossLanguageSlugRedirectSubscriber implements EventSubscriber
       $ownerLang = $this->findSearchPathOwnerLangcode($firstSegment);
     }
     else {
-      $ownerLang = $this->findOperationSlugOwnerLangcode($firstSegment);
+      $ownerLang = $this->findOperationSlugOwnerLangcode($firstSegment)
+        ?? $this->findAssetSlugOwnerLangcode($firstSegment);
     }
 
     if ($ownerLang === NULL || $ownerLang === $currentUrlLang) {
       return;
     }
 
+    // Shared asset slugs (e.g. coworking) exist in several languages — keep prefix.
+    if ($this->isSlugValidForLang($firstSegment, $currentUrlLang)) {
+      return;
+    }
+
     $this->setRedirectResponse($event, $request, $ownerLang, $relativePath);
+  }
+
+  /**
+   * Whether a segment is a known SEO slug for the given URL language.
+   */
+  private function isSlugValidForLang(string $segment, string $langcode): bool {
+    return $this->searchPathResolver->isOperationSlug($langcode, $segment)
+      || $this->searchPathResolver->isAssetSlug($langcode, $segment);
   }
 
   /**
@@ -147,6 +161,19 @@ final class SearchCrossLanguageSlugRedirectSubscriber implements EventSubscriber
     }
 
     return str_ends_with(strtolower($pathInfo), '.html');
+  }
+
+  /**
+   * Finds which configured URL language owns an asset slug.
+   */
+  private function findAssetSlugOwnerLangcode(string $assetSlug): ?string {
+    foreach ($this->languageManager->getLanguages() as $langcode => $_language) {
+      if ($this->searchPathResolver->isAssetSlug($langcode, $assetSlug)) {
+        return $langcode;
+      }
+    }
+
+    return NULL;
   }
 
   /**
