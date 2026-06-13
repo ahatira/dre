@@ -142,5 +142,23 @@
     "lb": "Notifikatioun un den Agent",
     "nl": "Melding aan makelaar",
     "pl": "Powiadomienie agenta"
+  },
+  "I object to receiving commercial communications from BNP Paribas Real Estate Transaction France:": {
+    "de": "Ich widerspreche dem Erhalt von Werbekommunikation von BNP Paribas Real Estate Transaction France:",
+    "es": "Me opongo a recibir comunicaciones comerciales de BNP Paribas Real Estate Transaction France:",
+    "fr": "Je m'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Transaction France :",
+    "it": "Mi oppongo a ricevere comunicazioni commerciali da BNP Paribas Real Estate Transaction France:",
+    "lb": "Ech widerspriechen dem Empfang vu kommerziellen Kommunikatiounen vu BNP Paribas Real Estate Transaction France:",
+    "nl": "Ik verzet mij tegen het ontvangen van commerciële communicatie van BNP Paribas Real Estate Transaction France:",
+    "pl": "Sprzeciwiam się otrzymywaniu komunikacji handlowej od BNP Paribas Real Estate Transaction France:"
+  },
+  "BNP Paribas Real Estate Transaction France processes your data to send the comparison you requested. See our Data Protection Notice for your rights.": {
+    "de": "BNP Paribas Real Estate Transaction France verarbeitet Ihre Daten, um Ihnen den angeforderten Vergleich zu senden. Informationen zu Ihren Rechten finden Sie in unserer Datenschutzhinweis.",
+    "es": "BNP Paribas Real Estate Transaction France trata sus datos para enviarle la comparativa solicitada. Consulte nuestro Aviso de protección de datos para conocer sus derechos.",
+    "fr": "BNP Paribas Real Estate Transaction France traite vos données pour vous envoyer le comparatif demandé. Consultez notre Notice de protection des données pour vos droits.",
+    "it": "BNP Paribas Real Estate Transaction France tratta i suoi dati per inviarle il confronto richiesto. Consultare la nostra Informativa sulla protezione dei dati per i suoi diritti.",
+    "lb": "BNP Paribas Real Estate Transaction France veraarbecht Är Donnéeën fir Iech de gefrote Vergläich ze schécken. Kuckt eis Dateschutz-Notiz fir Är Rechter.",
+    "nl": "BNP Paribas Real Estate Transaction France verwerkt uw gegevens om de door u aangevraagde vergelijking te verzenden. Raadpleeg onze Kennisgeving gegevensbescherming voor uw rechten.",
+    "pl": "BNP Paribas Real Estate Transaction France przetwarza Państwa dane w celu przesłania żądanego porównania. Zapoznajcie się z naszą Informacją o ochronie danych, aby poznać swoje prawa."
   }
 }

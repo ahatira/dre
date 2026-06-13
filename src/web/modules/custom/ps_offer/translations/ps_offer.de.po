@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_offer\n"
-"PO-Revision-Date: 2026-06-13 04:26+0000\n"
+"PO-Revision-Date: 2026-06-13 04:55+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,6 +14,12 @@ msgstr "Ein Quellfeld ist für Feldzuordnungssegmente erforderlich."
 
 msgid "Access to the surface area table"
 msgstr "Zum Flächentableau"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Admin listing of offers with feature-based filtering."
+msgstr "Admin-Auflistung von Angeboten mit merkmalbasiertem Filter."
 
 msgid "Administer offer reference patterns"
 msgstr "Angebotsreferenzmuster verwalten"
@@ -60,14 +66,32 @@ msgstr "Radius Annäherungskreis"
 msgid "Approximate circle radius in large cities"
 msgstr "Radius Annäherungskreis in Großstädten"
 
+msgid "Asset code"
+msgstr "Vermögenscode"
+
+msgid "Asset type"
+msgstr "Vermögensart"
+
+msgid "Asset type (raw code from import)"
+msgstr "Vermögensart (Rohcode aus Import)"
+
 msgid "At least one segment is required."
 msgstr "Mindestens ein Segment ist erforderlich."
 
 msgid "At least one target bundle is required."
 msgstr "Mindestens ein Ziel-Bundle ist erforderlich."
 
+msgid "Availability"
+msgstr "Verfügbarkeit"
+
 msgid "Available :"
 msgstr "Verfügbar :"
+
+msgid "BNPPRE real estate offer"
+msgstr "BNPPRE-Immobilienangebot"
+
+msgid "Budget display"
+msgstr "Budget display"
 
 msgid "Budget display labels"
 msgstr "Budget-Anzeigelabels"
@@ -84,6 +108,12 @@ msgstr "Bundle"
 msgid "Bundles"
 msgstr "Bundles"
 
+msgid "Business ID"
+msgstr "Business-ID"
+
+msgid "CC (Charges Comprises)"
+msgstr "CC (Nebenkosten inklusive)"
+
 msgid "CC definition"
 msgstr "CC-Definition"
 
@@ -93,14 +123,50 @@ msgstr "CSS-Farbwert, z. B. #0072CE."
 msgid "CSS color value, for example #00915A."
 msgstr "CSS-Farbwert, z. B. #00915A."
 
+msgid "Calculate your travel time :"
+msgstr "Calculate your travel time :"
+
+msgid "Capacity available"
+msgstr "Verfügbare Kapazität"
+
+msgid "Capacity mode"
+msgstr "Kapazitätsmodus"
+
+msgid "Capacity notes"
+msgstr "Kapazitätshinweise"
+
+msgid "Capacity total"
+msgstr "Gesamtkapazität"
+
+msgid "Capacity unit"
+msgstr "Kapazitätseinheit"
+
 msgid "Capacity unit label"
 msgstr "Kapazitätseinheit"
 
 msgid "Car"
 msgstr "Auto"
 
+msgid "Certification labels"
+msgstr "Zertifizierungslabels"
+
+msgid "Checksum source"
+msgstr "Prüfsummenquelle"
+
+msgid "Clear departure address"
+msgstr "Clear departure address"
+
+msgid "Client type"
+msgstr "Kundentyp"
+
 msgid "Comma-separated pattern IDs. Leave empty to apply to all patterns."
 msgstr "Kommagetrennte Muster-IDs. Leer lassen für alle Muster."
+
+msgid "Commercial title"
+msgstr "Kommerzieller Titel"
+
+msgid "Configure budget popover labels and default fees text."
+msgstr "Configure budget popover labels and default fees text."
 
 msgid "Configure headings and icons for offer detail page sections. Sections "
 "are registered by modules; only installed sections appear below."
@@ -135,11 +201,17 @@ msgstr "Kontaktbezeichnung: @label"
 msgid "Contact modal dialog options (JSON)"
 msgstr "Kontakt-Modal-Dialog-Optionen (JSON)"
 
+msgid "Contact the consultancy"
+msgstr "Die Beratung kontaktieren"
+
 msgid "Counter scope mode"
 msgstr "Zählerbereichsmodus"
 
 msgid "Cycling"
 msgstr "Fahrrad"
+
+msgid "Default offer reference pattern"
+msgstr "Standard-Angebotsreferenzmuster"
 
 msgid "Default rental fees text"
 msgstr "Standard-Honorartext Miete"
@@ -165,11 +237,21 @@ msgstr "Standard-Zoom für ungefähre Lage"
 msgid "Default zoom for exact address"
 msgstr "Standard-Zoom für exakte Adresse"
 
+msgid "Departure address :"
+msgstr "Departure address :"
+
+msgid "Departure or destination address could not be found."
+msgstr "Departure or destination address could not be found."
+
 msgid "Description"
 msgstr "Beschreibung"
 
 msgid "Disabled"
 msgstr "Deaktiviert"
+
+msgid "Display the precise address in frontend (if unchecked, only show city/"
+"region)"
+msgstr "Genaue Adresse im Frontend anzeigen (sonst nur Stadt/Region)."
 
 msgid "Divisible surface template"
 msgstr "Vorlage Teilfläche"
@@ -199,19 +281,47 @@ msgstr "Reisezeit-Tools aktivieren"
 msgid "Enabled"
 msgstr "Aktiviert"
 
+msgid "Energy consumption"
+msgstr "Energieverbrauch"
+
+msgid "Energy diagnostics imported from CRM XML (DPE/GES)."
+msgstr "Energiediagnosen aus CRM-XML importiert (DPE/GES)."
+
+msgid "Energy performance diagnostic. Enter the value and let the widget sugg"
+"est the class automatically when possible."
+msgstr "Energieeffizienzdiagnose. Wert eingeben; das Widget schlägt die Klasse"
+" automatisch vor, wenn möglich."
+
+msgid "Enter an address"
+msgstr "Enter an address"
+
 msgid "Entries"
 msgstr "Einträge"
 
 msgid "Fallback value"
 msgstr "Fallback-Wert"
 
+msgid "Favorite card"
+msgstr "Favoritenkarte"
+
+msgid "Feature ID"
+msgstr "Merkmal-ID"
+
 msgid "Features from this group are shown under the transport line in the loc"
 "ation section."
 msgstr "Merkmale dieser Gruppe werden unter der Transportzeile im Standortabsc"
 "hnitt angezeigt."
 
+msgid "Fees (honoraires)"
+msgstr "Honorare"
+
 msgid "Fees line prefix"
 msgstr "Präfix Honorarzeile"
+
+msgid "Fees payable by the tenant or buyer. Shown in the budget info popover "
+"when set."
+msgstr "Vom Mieter oder Käufer zu zahlende Honorare. Im Budget-Popover angezei"
+"gt, wenn ausgefüllt."
 
 msgid "Gallery must contain at least one media item before publishing the off"
 "er."
@@ -233,11 +343,25 @@ msgstr "Generierungseinstellungen"
 msgid "Global"
 msgstr "Global"
 
+msgid "Google Maps"
+msgstr "Google Maps"
+
+msgid "Greenhouse gas emissions"
+msgstr "Treibhausgasemissionen"
+
+msgid "Greenhouse gas emissions diagnostic. Enter the value and let the widge"
+"t suggest the class automatically when possible."
+msgstr "Treibhausgasemissionsdiagnose. Wert eingeben; das Widget schlägt die K"
+"lasse automatisch vor, wenn möglich."
+
 msgid "HC definition"
 msgstr "HC-Definition"
 
 msgid "HD definition"
 msgstr "HD-Definition"
+
+msgid "HT (Hors Taxes)"
+msgstr "HT (ohne Steuern)"
 
 msgid "HT definition"
 msgstr "HT-Definition"
@@ -259,14 +383,25 @@ msgid "Icons displayed on the travel mode selector when the offer shows its p"
 msgstr "Symbole im Reisemodus-Selektor, wenn das Angebot die genaue Adresse ze"
 "igt."
 
+msgid "Import ID"
+msgstr "Import-ID"
+
 msgid "Info icon aria-label"
 msgstr "Aria-Label Info-Icon"
+
+msgid "JSON metadata tracking import source information (managed programmatic"
+"ally)."
+msgstr "JSON-Metadaten zur Nachverfolgung von Importquellinformationen (progra"
+"mmatisch verwaltet)."
 
 msgid "Label"
 msgstr "Bezeichnung"
 
 msgid "Large city localities"
 msgstr "Großstadt-Orte"
+
+msgid "Last imported at"
+msgstr "Zuletzt importiert am"
 
 msgid "Length"
 msgstr "Länge"
@@ -286,6 +421,9 @@ msgstr "Referenz-Alias-Sets verwalten."
 msgid "Manage reference patterns."
 msgstr "Referenzmuster verwalten."
 
+msgid "Mandate type"
+msgstr "Mandatstyp"
+
 msgid "Manual override"
 msgstr "Manuelle Überschreibung"
 
@@ -301,9 +439,28 @@ msgstr "Zugeordneter Wert"
 msgid "Mapping"
 msgstr "Zuordnung"
 
+msgid "Media gallery (images, videos, audio, files, galleries, virtual tours)"
+msgstr "Mediengalerie (Bilder, Videos, Audio, Dateien, Galerien, virtuelle Tou"
+"ren)"
+
+msgid "Meta tags"
+msgstr "Meta-Tags"
+
+msgid "No cycling route found for this journey."
+msgstr "No cycling route found for this journey."
+
 msgid "No preview available yet. Fill operation type and asset type."
 msgstr "Noch keine Vorschau verfügbar. Transaktionstyp und Vermögensart ausfül"
 "len."
+
+msgid "No public transport route found for this journey."
+msgstr "No public transport route found for this journey."
+
+msgid "No route found for this journey."
+msgstr "No route found for this journey."
+
+msgid "No walking route found for this journey."
+msgstr "No walking route found for this journey."
 
 msgid "Number of text lines shown before the read-more control."
 msgstr "Anzahl Textzeilen vor der Mehr-lesen-Steuerung."
@@ -323,6 +480,9 @@ msgstr "Angebotsbudget (Vergleichstabelle)"
 msgid "Offer budget (composed)"
 msgstr "Angebotsbudget (zusammengesetzt)"
 
+msgid "Offer budget display"
+msgstr "Offer budget display"
+
 msgid "Offer content model and business validations."
 msgstr "Angebots-Inhaltsmodell und Geschäftsvalidierungen."
 
@@ -340,6 +500,9 @@ msgstr "Angebotsdetail-Standort"
 
 msgid "Offer display settings"
 msgstr "Anzeigeeinstellungen Angebot"
+
+msgid "Offer features managed through the Feature Builder widget."
+msgstr "Angebotsmerkmale über das Feature Builder-Widget verwaltet."
 
 msgid "Offer interactive map"
 msgstr "Interaktive Angebotskarte"
@@ -377,6 +540,15 @@ msgstr "Angebotsreferenzmuster"
 msgid "Offer section headings"
 msgstr "Angebotsabschnittsüberschriften"
 
+msgid "Offer type"
+msgstr "Angebotstyp"
+
+msgid "Offers by feature"
+msgstr "Angebote nach Merkmal"
+
+msgid "On request"
+msgstr "On request"
+
 msgid "On request label"
 msgstr "Label Preis auf Anfrage"
 
@@ -393,6 +565,15 @@ msgstr "Eine Stadt pro Zeile. Für ungefähren Kartenzoom und Kreisradius."
 
 msgid "Only shown when the offer displays its precise address."
 msgstr "Nur angezeigt, wenn das Angebot die genaue Adresse zeigt."
+
+msgid "Operation code"
+msgstr "Operationscode"
+
+msgid "Operation type"
+msgstr "Operationstyp"
+
+msgid "Operation type (raw code from import)"
+msgstr "Operationstyp (Rohcode aus Import)"
 
 msgid "Optional JSON settings for advanced segment behavior."
 msgstr "Optionale JSON-Einstellungen für erweitertes Segmentverhalten."
@@ -478,6 +659,9 @@ msgstr "Pin-Farben für jede POI-Kategorie auf der Karte."
 msgid "Pin icons displayed on the map for each POI category."
 msgstr "Pin-Symbole auf der Karte für jede POI-Kategorie."
 
+msgid "Please select an address from the suggestions."
+msgstr "Please select an address from the suggestions."
+
 msgid "Points of interest"
 msgstr "Points of Interest"
 
@@ -490,14 +674,37 @@ msgstr "Präfix"
 msgid "Prepended to the offer fees field or the default fees text."
 msgstr "Wird dem Honorarfeld oder dem Standardtext vorangestellt."
 
+msgid "Price currency"
+msgstr "Preiswährung"
+
 msgid "Price information"
 msgstr "Preisinformationen"
+
+msgid "Price period"
+msgstr "Preisperiode"
+
+msgid "Price unit"
+msgstr "Preiseinheit"
+
+msgid "Primary agent"
+msgstr "Hauptagent"
 
 msgid "Property Search"
 msgstr "Property Search"
 
+msgid "Property location"
+msgstr "Property location"
+
+msgid "Protection Lock"
+msgstr "Schutzsperre"
+
 msgid "Public transport"
 msgstr "Öffentliche Verkehrsmittel"
+
+msgid "Qualified surfaces TOTAL / DISPO / ETREF / MINIM (aggregated from divi"
+"sions or entered manually)."
+msgstr "Qualifizierte Flächen TOTAL / DISPO / ETREF / MINIM (aus Divisionen ag"
+"gregiert oder manuell eingegeben)."
 
 msgid "Read less"
 msgstr "Weniger lesen"
@@ -517,8 +724,14 @@ msgstr "Mehr-lesen-Beschriftung"
 msgid "Read more: @label"
 msgstr "Mehr lesen: @label"
 
+msgid "Reference"
+msgstr "Referenz"
+
 msgid "Reference : @ref"
 msgstr "Referenz: @ref"
+
+msgid "Reference Auto"
+msgstr "Referenz Auto"
 
 msgid "Reference aliases"
 msgstr "Referenz-Aliase"
@@ -538,6 +751,11 @@ msgstr "Bei Quelländerung neu generieren"
 msgid "Regenerate when source values change"
 msgstr "Neu generieren, wenn Quellwerte sich ändern"
 
+msgid "Related property offers on offer detail pages (same operation and asse"
+"t type)."
+msgstr "Verwandte Immobilienangebote auf Angebotsdetailseiten (gleiche Transak"
+"tion und Vermögensart)."
+
 msgid "Require uniqueness"
 msgstr "Eindeutigkeit erfordern"
 
@@ -549,6 +767,12 @@ msgstr "Restaurants"
 
 msgid "Results page"
 msgstr "Ergebnisseite"
+
+msgid "Schedule a visit"
+msgstr "Besichtigung vereinbaren"
+
+msgid "Secondary agents"
+msgstr "Sekundäre Agenten"
 
 msgid "Section headings"
 msgstr "Abschnittsüberschriften"
@@ -585,8 +809,26 @@ msgstr "Einstellungen"
 msgid "Settings (JSON)"
 msgstr "Einstellungen (JSON)"
 
+msgid "Show points of interest :"
+msgstr "Show points of interest :"
+
+msgid "Show precise address"
+msgstr "Genaue Adresse anzeigen"
+
+msgid "Similar offers"
+msgstr "Ähnliche Angebote"
+
+msgid "Single downloadable brochure document (PDF, Word, etc.)"
+msgstr "Einzelnes herunterladbares Broschürendokument (PDF, Word usw.)."
+
+msgid "Source Tracking"
+msgstr "Quellenverfolgung"
+
 msgid "Source field"
 msgstr "Quellfeld"
+
+msgid "Source system"
+msgstr "Quellsystem"
 
 msgid "Source value"
 msgstr "Quellwert"
@@ -594,17 +836,36 @@ msgstr "Quellwert"
 msgid "Status"
 msgstr "Status"
 
+msgid "Stores the raw asset type code when the dictionary entry does not exis"
+"t."
+msgstr "Speichert den Roh-Vermögensartcode, wenn der Wörterbucheintrag nicht e"
+"xistiert."
+
+msgid "Stores the raw operation type code when the dictionary entry does not "
+"exist."
+msgstr "Speichert den Roh-Operationstypcode, wenn der Wörterbucheintrag nicht "
+"existiert."
+
 msgid "Surface KPI separator"
 msgstr "KPI-Trennzeichen Fläche"
 
 msgid "Surface display labels"
 msgstr "Anzeigelabels Fläche"
 
+msgid "Surfaces"
+msgstr "Flächen"
+
+msgid "TTC"
+msgstr "TTC"
+
 msgid "TTC label"
 msgstr "Brutto-Label"
 
 msgid "Target bundles"
 msgstr "Ziel-Bundles"
+
+msgid "Technical ID"
+msgstr "Technische ID"
 
 msgid "The offer has been saved as a draft because no primary agent is set."
 msgstr "Das Angebot wurde als Entwurf gespeichert, da kein Hauptagent gesetzt "
@@ -616,6 +877,9 @@ msgid "The offer is marked as non-divisible, but available surface (@dispo m²"
 msgstr "Das Angebot ist als nicht teilbar markiert, aber verfügbare Fläche (@d"
 "ispo m²) ist kleiner als Gesamtfläche (@total m²). Erwägen Sie Teilbar"
 "keit."
+
+msgid "This route may include several connections."
+msgstr "This route may include several connections."
 
 msgid "Toggle button text"
 msgstr "Umschalt-Schaltflächentext"
@@ -631,6 +895,12 @@ msgstr "Transport-Merkmalgruppe"
 
 msgid "Transports"
 msgstr "Verkehrsmittel"
+
+msgid "Travel mode"
+msgstr "Travel mode"
+
+msgid "Travel mode :"
+msgstr "Travel mode :"
 
 msgid "Travel mode icon (car)"
 msgstr "Reisemodus-Symbol (Auto)"
@@ -658,6 +928,9 @@ msgstr "Mandatsart :"
 
 msgid "UUID"
 msgstr "UUID"
+
+msgid "Unable to calculate travel time."
+msgstr "Unable to calculate travel time."
 
 msgid "Unknown asset type code: <strong>@code</strong>. <a href=\"@url\">Crea"
 "te this asset type</a>."
@@ -689,6 +962,9 @@ msgstr "Wird verwendet, wenn das Honorarfeld leer ist (Kauf)."
 msgid "Validate manual value against pattern"
 msgstr "Manuellen Wert gegen Muster validieren"
 
+msgid "Via"
+msgstr "Via"
+
 msgid "Visible lines when collapsed"
 msgstr "Sichtbare Zeilen im eingeklappten Zustand"
 
@@ -704,6 +980,11 @@ msgstr "Besuchsabschnittstitel"
 msgid "Visit title: @label"
 msgstr "Besuchstitel: @label"
 
+msgid "Visual certification labels shown below energy diagnostics on offer de"
+"tail pages."
+msgstr "Visuelle Zertifizierungslabels unter Energiediagnosen auf Angebotsdeta"
+"ilseiten."
+
 msgid "Walking"
 msgstr "Zu Fuß"
 
@@ -712,6 +993,12 @@ msgstr "Warnmeldung"
 
 msgid "Weight"
 msgstr "Gewicht"
+
+msgid "Would you like to visit?"
+msgstr "Möchten Sie einen Besichtigungstermin?"
+
+msgid "Your consultant"
+msgstr "Ihr Berater"
 
 msgid "mo"
 msgstr "Mon."
@@ -733,3 +1020,10 @@ msgstr "Arbeitsplatz"
 
 msgid "yr"
 msgstr "J."
+
+msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CRM"
+" imports.</strong> When locked, this offer will not be overwritten dur"
+"ing import synchronization."
+msgstr "⚠️ <strong>Aktivieren Sie diese Sperre, um manuelle Bearbeitungen vor "
+"automatisierten CRM-Importen zu schützen.</strong> Wenn gesperrt, wird"
+" dieses Angebot bei der Importsynchronisierung nicht überschrieben."

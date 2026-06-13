@@ -107,7 +107,7 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
     }
 
     $agent_render = reset($elements);
-    $agent_render['#consultant_label'] = (string) $this->getSetting('consultant_label');
+    $agent_render['#consultant_label'] = (string) $this->t((string) $this->getSetting('consultant_label'));
     $offer = $items->getEntity();
     $agents = $this->getEntitiesToView($items, $langcode);
     $agent = $agents !== [] ? reset($agents) : NULL;
@@ -131,12 +131,12 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
         '#type' => 'component',
         '#component' => 'ps_theme:offer-agent-card',
         '#props' => [
-          'consultant_label' => (string) $this->getSetting('consultant_label'),
-          'contact_label' => (string) $this->getSetting('contact_label'),
-          'contact_label_mobile' => (string) $this->getSetting('contact_label_mobile'),
-          'visit_title' => (string) $this->getSetting('visit_title'),
-          'visit_label' => (string) $this->getSetting('visit_label'),
-          'visit_label_mobile' => (string) $this->getSetting('visit_label_mobile'),
+          'consultant_label' => (string) $this->t((string) $this->getSetting('consultant_label')),
+          'contact_label' => (string) $this->t((string) $this->getSetting('contact_label')),
+          'contact_label_mobile' => (string) $this->t((string) $this->getSetting('contact_label_mobile')),
+          'visit_title' => (string) $this->t((string) $this->getSetting('visit_title')),
+          'visit_label' => (string) $this->t((string) $this->getSetting('visit_label')),
+          'visit_label_mobile' => (string) $this->t((string) $this->getSetting('visit_label_mobile')),
           'contact_url' => $contact_url,
           'contact_dialog_options' => (string) $this->getSetting('contact_dialog_options'),
           'visit_phone' => $this->normalizeTelUrl($phone),

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_core\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 04:55+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,6 +93,9 @@ msgstr "Angebote erstellen, aktualisieren und verwalten."
 msgid "Default cache TTL (seconds)"
 msgstr "Standard-Cache-TTL (Sekunden)"
 
+msgid "Description"
+msgstr "Beschreibung"
+
 msgid "Display urgency help block"
 msgstr "Dringlichkeitshilfe-Block anzeigen"
 
@@ -101,6 +104,9 @@ msgstr "Audit-Protokollierung aktivieren"
 
 msgid "Enable site-wide urgency help block"
 msgstr "Websiteweiten Dringlichkeitshilfe-Block aktivieren"
+
+msgid "Energy & diagnostics"
+msgstr "Energie & Diagnostik"
 
 msgid "Foundation infrastructure for Property Search ecosystem."
 msgstr "Basisinfrastruktur für das Property Search-Ökosystem."
@@ -119,6 +125,9 @@ msgstr "Interne Sperre"
 
 msgid "Lead text"
 msgstr "Einleitungstext"
+
+msgid "Location"
+msgstr "Standort"
 
 msgid "Manage Property Search agents"
 msgstr "Property Search-Agenten verwalten"
@@ -165,6 +174,9 @@ msgstr "Import- und Migrations-Workflows verwalten."
 msgid "Manage structural entities and dictionaries."
 msgstr "Strukturelle Entitäten und Wörterbücher verwalten."
 
+msgid "Monday to Friday, 9:00 AM to 7:00 PM."
+msgstr "Montag bis Freitag, 9:00 bis 19:00 Uhr."
+
 msgid "No actions are currently available for your permissions."
 msgstr "Für Ihre Berechtigungen sind derzeit keine Aktionen verfügbar."
 
@@ -198,6 +210,12 @@ msgstr "Telefonnummer (Anzeige)"
 
 msgid "Property Search"
 msgstr "Immobiliensuche"
+
+msgid "Property Search Administrator"
+msgstr "Property Search-Administrator"
+
+msgid "Property Search Content Editor"
+msgstr "Property Search-Content-Editor"
 
 msgid "Property Search Core settings"
 msgstr "Property Search Core-Einstellungen"
@@ -246,6 +264,9 @@ msgstr "Struktur-Hub"
 
 msgid "Structured JSON payload used for source traceability."
 msgstr "Strukturierte JSON-Nutzlast für die Quellenrückverfolgbarkeit."
+
+msgid "Surface table"
+msgstr "Flächentabelle"
 
 msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
 msgstr "Text vor der Telefonnummer, z. B. „In Eile? Rufen Sie uns an unter“."

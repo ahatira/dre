@@ -2,18 +2,69 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_form\n"
-"PO-Revision-Date: 2026-06-13 04:15+0000\n"
+"PO-Revision-Date: 2026-06-13 04:55+0000\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Agent notification"
+msgstr "Powiadomienie agenta"
+
+msgid "BNP Paribas Real Estate Transaction France processes your data to send"
+" the comparison you requested. See our Data Protection Notice for your"
+" rights."
+msgstr "BNP Paribas Real Estate Transaction France przetwarza Państwa dane w c"
+"elu przesłania żądanego porównania. Zapoznajcie się z naszą Informacją"
+" o ochronie danych, aby poznać swoje prawa."
+
 msgid "Contact form is not available."
 msgstr "Formularz kontaktowy jest niedostępny."
 
 msgid "Contact the consultancy"
 msgstr "Skontaktuj się z doradztwem"
+
+msgid "Contact us"
+msgstr "Skontaktuj się z nami"
+
+msgid "Create a search alert"
+msgstr "Utwórz alert wyszukiwania"
+
+msgid "I object to receiving commercial communications from BNP Paribas Real "
+"Estate Transaction France:"
+msgstr "Sprzeciwiam się otrzymywaniu komunikacji handlowej od BNP Paribas Real"
+" Estate Transaction France:"
+
+msgid "Offer detail contact form."
+msgstr "Formularz kontaktowy na stronie szczegółów oferty."
+
+msgid "Offer visit scheduling form."
+msgstr "Formularz prośby o wizytę oferty."
+
+msgid "Property Search"
+msgstr "Wyszukiwanie nieruchomości"
+
+msgid "Property search alert subscription form."
+msgstr "Formularz subskrypcji alertów wyszukiwania nieruchomości."
+
+msgid "Receive my comparison"
+msgstr "Otrzymaj moje porównanie"
+
+msgid "Schedule a visit"
+msgstr "Umów wizytę"
+
+msgid "Share the property comparison by email."
+msgstr "Udostępnij porównanie nieruchomości e-mailem."
+
+msgid "Site notification"
+msgstr "Powiadomienie witryny"
+
+msgid "Site-wide contact form for header offcanvas."
+msgstr "Ogólnositeowy formularz kontaktowy dla panelu bocznego nagłówka."
+
+msgid "Visitor confirmation"
+msgstr "Potwierdzenie dla odwiedzającego"
 
 msgid "Webform definitions and front integrations for Property Search."
 msgstr "Definicje Webform i integracje frontowe dla Property Search."

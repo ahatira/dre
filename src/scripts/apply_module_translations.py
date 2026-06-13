@@ -51,11 +51,11 @@ def apply_module(module_name: str, dry_run: bool = False) -> dict:
     module_dir = CUSTOM_MODULES / module_name
     translations_dir = module_dir / "translations"
     source_strings, source_plurals = collect_source_strings(module_dir)
-    msgids = sorted(source_strings)
-
     catalog_singular, catalog_plural = load_catalog(module_name)
+    catalog_keys = {key for key in catalog_singular if not key.startswith("@")}
+    msgids = sorted(set(source_strings) | catalog_keys)
 
-    missing_catalog = sorted(set(msgids) - set(catalog_singular) - set(catalog_plural))
+    missing_catalog = sorted(set(source_strings) - set(catalog_singular) - set(catalog_plural))
     if missing_catalog:
         raise ValueError(
             f"{module_name}: catalog missing {len(missing_catalog)} msgids, e.g. {missing_catalog[:3]}"
@@ -65,7 +65,7 @@ def apply_module(module_name: str, dry_run: bool = False) -> dict:
 
     for lang in EXPECTED_LANGS:
         translations = {
-            msgid: catalog_singular[msgid][lang]
+            msgid: catalog_singular[msgid].get(lang, msgid)
             for msgid in msgids
             if msgid in catalog_singular
         }

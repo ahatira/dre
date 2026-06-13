@@ -67,5 +67,28 @@
     "pl": {
       "label": "Edytor treści Property Search"
     }
+  },
+  "ps_core.settings.yml": {
+    "de": {
+      "urgency_help_hours": "Montag bis Freitag, 9:00 bis 19:00 Uhr."
+    },
+    "es": {
+      "urgency_help_hours": "De lunes a viernes, de 9:00 a 19:00."
+    },
+    "fr": {
+      "urgency_help_hours": "Du lundi au vendredi, de 9 h à 19 h."
+    },
+    "it": {
+      "urgency_help_hours": "Dal lunedì al venerdì, dalle 9:00 alle 19:00."
+    },
+    "lb": {
+      "urgency_help_hours": "Vun Méindeg bis Freideg, 9:00 bis 19:00 Auer."
+    },
+    "nl": {
+      "urgency_help_hours": "Maandag tot en met vrijdag, 9:00 tot 19:00 uur."
+    },
+    "pl": {
+      "urgency_help_hours": "Od poniedziałku do piątku, 9:00–19:00."
+    }
   }
 }

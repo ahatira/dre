@@ -28,7 +28,7 @@
 
     return `
       <div class="ps-compare-remove-confirm">
-        <p class="ps-compare-remove-confirm__text mb-2">${Drupal.checkPlain(heading)}</p>
+        <p class="ps-compare-remove-confirm__text mb-2">${heading}</p>
         <div class="ps-compare-remove-confirm__actions d-flex gap-2">
           <button type="button" class="btn btn-sm btn-outline-secondary" data-ps-compare-remove-cancel>${Drupal.t('Cancel')}</button>
           <button type="button" class="btn btn-sm btn-danger" data-ps-compare-remove-accept>${Drupal.t('Remove')}</button>

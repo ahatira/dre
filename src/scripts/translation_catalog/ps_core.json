@@ -817,5 +817,14 @@
     "lb": "Telefonlink fir Noutfall-Hëllef (tel:-URI, optional)",
     "nl": "Telefoonlink voor urgentiehulp (tel:-URI, optioneel)",
     "pl": "Link telefonu pomocy pilnej (URI tel:, opcjonalne)"
+  },
+  "Monday to Friday, 9:00 AM to 7:00 PM.": {
+    "de": "Montag bis Freitag, 9:00 bis 19:00 Uhr.",
+    "es": "De lunes a viernes, de 9:00 a 19:00.",
+    "fr": "Du lundi au vendredi, de 9 h à 19 h.",
+    "it": "Dal lunedì al venerdì, dalle 9:00 alle 19:00.",
+    "lb": "Vun Méindeg bis Freideg, 9:00 bis 19:00 Auer.",
+    "nl": "Maandag tot en met vrijdag, 9:00 tot 19:00 uur.",
+    "pl": "Od poniedziałku do piątku, 9:00–19:00."
   }
 }

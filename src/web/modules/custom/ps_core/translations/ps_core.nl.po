@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_core\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 04:55+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,6 +93,9 @@ msgstr "Aanbiedingen aanmaken, bijwerken en beheren."
 msgid "Default cache TTL (seconds)"
 msgstr "Standaard cache-TTL (seconden)"
 
+msgid "Description"
+msgstr "Beschrijving"
+
 msgid "Display urgency help block"
 msgstr "Urgentiehulpblok weergeven"
 
@@ -101,6 +104,9 @@ msgstr "Auditlogboek inschakelen"
 
 msgid "Enable site-wide urgency help block"
 msgstr "Sitebreed urgentiehulpblok inschakelen"
+
+msgid "Energy & diagnostics"
+msgstr "Energie en diagnostiek"
 
 msgid "Foundation infrastructure for Property Search ecosystem."
 msgstr "Fundamentele infrastructuur voor het Property Search-ecosysteem."
@@ -119,6 +125,9 @@ msgstr "Interne vergrendeling"
 
 msgid "Lead text"
 msgstr "Inleidende tekst"
+
+msgid "Location"
+msgstr "Locatie"
 
 msgid "Manage Property Search agents"
 msgstr "Property Search-makelaars beheren"
@@ -165,6 +174,9 @@ msgstr "Import- en migratieworkflows beheren."
 msgid "Manage structural entities and dictionaries."
 msgstr "Structurele entiteiten en woordenboeken beheren."
 
+msgid "Monday to Friday, 9:00 AM to 7:00 PM."
+msgstr "Maandag tot en met vrijdag, 9:00 tot 19:00 uur."
+
 msgid "No actions are currently available for your permissions."
 msgstr "Er zijn momenteel geen acties beschikbaar voor uw rechten."
 
@@ -198,6 +210,12 @@ msgstr "Telefoonnummer (weergave)"
 
 msgid "Property Search"
 msgstr "Vastgoedzoeken"
+
+msgid "Property Search Administrator"
+msgstr "Property Search-beheerder"
+
+msgid "Property Search Content Editor"
+msgstr "Property Search-contenteditor"
 
 msgid "Property Search Core settings"
 msgstr "Property Search-kerninstellingen"
@@ -247,6 +265,9 @@ msgstr "Structuurhub"
 
 msgid "Structured JSON payload used for source traceability."
 msgstr "Gestructureerde JSON-payload gebruikt voor brontraceerbaarheid."
+
+msgid "Surface table"
+msgstr "Oppervlaktetabel"
 
 msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
 msgstr "Tekst vóór het telefoonnummer, bijv. \"Haast? Bel ons op\"."

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_core\n"
-"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"PO-Revision-Date: 2026-06-13 04:55+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,6 +94,9 @@ msgstr "Crear, actualizar y gestionar ofertas."
 msgid "Default cache TTL (seconds)"
 msgstr "TTL de caché por defecto (segundos)"
 
+msgid "Description"
+msgstr "Descripción"
+
 msgid "Display urgency help block"
 msgstr "Mostrar bloque de ayuda urgente"
 
@@ -102,6 +105,9 @@ msgstr "Habilitar registro de auditoría"
 
 msgid "Enable site-wide urgency help block"
 msgstr "Habilitar bloque global de ayuda urgente"
+
+msgid "Energy & diagnostics"
+msgstr "Energía y diagnósticos"
 
 msgid "Foundation infrastructure for Property Search ecosystem."
 msgstr "Infraestructura base del ecosistema Property Search."
@@ -120,6 +126,9 @@ msgstr "Bloqueo interno"
 
 msgid "Lead text"
 msgstr "Texto introductorio"
+
+msgid "Location"
+msgstr "Ubicación"
 
 msgid "Manage Property Search agents"
 msgstr "Gestionar agentes de Property Search"
@@ -167,6 +176,9 @@ msgstr "Gestionar flujos de trabajo de importación y migración."
 msgid "Manage structural entities and dictionaries."
 msgstr "Gestionar entidades estructurales y diccionarios."
 
+msgid "Monday to Friday, 9:00 AM to 7:00 PM."
+msgstr "De lunes a viernes, de 9:00 a 19:00."
+
 msgid "No actions are currently available for your permissions."
 msgstr "Actualmente no hay acciones disponibles para sus permisos."
 
@@ -200,6 +212,12 @@ msgstr "Número de teléfono (visualización)"
 
 msgid "Property Search"
 msgstr "Búsqueda inmobiliaria"
+
+msgid "Property Search Administrator"
+msgstr "Administrador de Property Search"
+
+msgid "Property Search Content Editor"
+msgstr "Editor de contenido de Property Search"
 
 msgid "Property Search Core settings"
 msgstr "Configuración principal de Property Search"
@@ -249,6 +267,9 @@ msgstr "Hub de estructura"
 
 msgid "Structured JSON payload used for source traceability."
 msgstr "Carga JSON estructurada usada para trazabilidad de origen."
+
+msgid "Surface table"
+msgstr "Tabla de superficies"
 
 msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
 msgstr "Texto antes del número de teléfono, p. ej., \"¿Tiene prisa? Llámenos a"

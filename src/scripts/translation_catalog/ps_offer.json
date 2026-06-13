@@ -890,6 +890,60 @@
     "nl": "Broeikasgasemissiediagnostiek. Voer de waarde in; de widget stelt de klasse automatisch voor indien mogelijk.",
     "pl": "Diagnostyka emisji gazów cieplarnianych. Wprowadź wartość; widget zasugeruje klasę automatycznie, jeśli możliwe."
   },
+  "Greenhouse gas emissions": {
+    "de": "Treibhausgasemissionen",
+    "es": "Emisiones de gases de efecto invernadero",
+    "fr": "Émissions de gaz à effet de serre",
+    "it": "Emissioni di gas serra",
+    "lb": "Treibhausgasemissiounen",
+    "nl": "Broeikasgasemissies",
+    "pl": "Emisje gazów cieplarnianych"
+  },
+  "Energy consumption": {
+    "de": "Energieverbrauch",
+    "es": "Consumo energético",
+    "fr": "Consommations énergétiques",
+    "it": "Consumo energetico",
+    "lb": "Energieverbrauch",
+    "nl": "Energieverbruik",
+    "pl": "Zużycie energii"
+  },
+  "Your consultant": {
+    "de": "Ihr Berater",
+    "es": "Su asesor",
+    "fr": "Votre conseiller",
+    "it": "Il suo consulente",
+    "lb": "Äre Beroder",
+    "nl": "Uw consultant",
+    "pl": "Państwa konsultant"
+  },
+  "Contact the consultancy": {
+    "de": "Die Beratung kontaktieren",
+    "es": "Contactar con la consultoría",
+    "fr": "Contacter le conseil",
+    "it": "Contatta la consulenza",
+    "lb": "D'Berodung kontaktéieren",
+    "nl": "Contact opnemen met het adviesbureau",
+    "pl": "Skontaktuj się z doradztwem"
+  },
+  "Would you like to visit?": {
+    "de": "Möchten Sie einen Besichtigungstermin?",
+    "es": "¿Desea programar una visita?",
+    "fr": "Souhaitez-vous visiter ?",
+    "it": "Desidera organizzare una visita?",
+    "lb": "Wëllt Dir eng Visite plangen?",
+    "nl": "Wilt u een bezichtiging plannen?",
+    "pl": "Czy chcą Państwo umówić wizytę?"
+  },
+  "Schedule a visit": {
+    "de": "Besichtigung vereinbaren",
+    "es": "Programar una visita",
+    "fr": "Planifier une visite",
+    "it": "Pianifica una visita",
+    "lb": "Eng Visite plangen",
+    "nl": "Bezichtiging plannen",
+    "pl": "Umów wizytę"
+  },
   "HC definition": {
     "de": "HC-Definition",
     "es": "Definición HC",

@@ -90,3 +90,12 @@ msgstr "Aucun résultat"
 
 msgid "Close"
 msgstr "Fermer"
+
+msgid "City, district or zip code"
+msgstr "Ville, quartier ou code postal"
+
+msgid "I'm flexible"
+msgstr "Je suis flexible"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Déplacez la carte ou utilisez « Rechercher dans cette zone » pour explorer d'autres régions."
