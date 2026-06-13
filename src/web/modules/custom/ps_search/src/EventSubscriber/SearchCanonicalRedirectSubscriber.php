@@ -8,12 +8,16 @@ use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Redirects /find-property?operation_type=LOC[&asset_type=BUR][&locality=Paris]
  * to the canonical SEO URL /a-louer[/bureaux][/paris]/.
+ *
+ * Asset-only flexible URLs (/recherche-immobiliere?asset_type=COW) canonicalize
+ * to the default rent operation (LOC → /a-louer/coworking/).
  *
  * Also 301-redirects the legacy slug /recherche when it is not the current
  * language search path (e.g. EN bookmarks after migration to /find-property).
@@ -125,19 +129,16 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
       return;
     }
 
-    // operation_type must be present to build an SEO URL.
-    // BEF links with facets uses operation_type[LOC]=LOC (array format).
-    // Direct links use operation_type=LOC (scalar format).
-    $rawOpParam = $request->query->all()['operation_type'] ?? NULL;
-    if (is_array($rawOpParam)) {
-      // BEF array format: keys are the values.
-      $operationType = array_key_first($rawOpParam);
-    }
-    else {
-      $operationType = $rawOpParam;
-    }
-    if (empty($operationType) || !is_string($operationType)) {
+    $operationType = $this->extractFacetQueryValue($request, 'operation_type');
+    $assetType = $this->extractFacetQueryValue($request, 'asset_type');
+
+    if ($operationType === NULL && $assetType === NULL) {
       return;
+    }
+
+    // Asset-only flexible URLs canonicalize to default rent (LOC / for-rent).
+    if ($operationType === NULL) {
+      $operationType = 'LOC';
     }
 
     // Detect URL language from path prefix (not interface/admin preference).
@@ -151,15 +152,7 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
 
     $seoPath = $langPrefix . '/' . $opSlug;
 
-    // asset_type also supports BEF array format.
-    $rawAssetParam = $request->query->all()['asset_type'] ?? NULL;
-    if (is_array($rawAssetParam)) {
-      $assetType = array_key_first($rawAssetParam);
-    }
-    else {
-      $assetType = $rawAssetParam;
-    }
-    if (!empty($assetType) && is_string($assetType)) {
+    if ($assetType !== NULL) {
       $assetSlug = $m['asset'][strtoupper($assetType)] ?? NULL;
       if ($assetSlug !== NULL) {
         $seoPath .= '/' . $assetSlug;
@@ -206,6 +199,21 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
 
   private function getDefaultLangcode(): string {
     return \Drupal::languageManager()->getDefaultLanguage()->getId();
+  }
+
+  /**
+   * Reads a facet query value (scalar or BEF array format).
+   */
+  private function extractFacetQueryValue(Request $request, string $key): ?string {
+    $raw = $request->query->all()[$key] ?? NULL;
+    if (is_array($raw)) {
+      $value = array_key_first($raw);
+      return is_string($value) && $value !== '' ? $value : NULL;
+    }
+    if (is_string($raw) && $raw !== '') {
+      return $raw;
+    }
+    return NULL;
   }
 
   /**

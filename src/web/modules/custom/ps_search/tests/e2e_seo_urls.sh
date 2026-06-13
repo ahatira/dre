@@ -159,6 +159,8 @@ echo "--- 5. Query param → canonical SEO redirect ---"
 assert_redirect "/for-rent/" "$BASE/find-property?operation_type=LOC" "find-property?operation_type=LOC"
 assert_redirect "/for-rent/office/" "$BASE/find-property?operation_type=LOC&asset_type=BUR" "find-property?op+asset"
 assert_redirect "/fr/a-louer/bureaux/" "$BASE/fr/recherche-immobiliere?operation_type=LOC&asset_type=BUR" "FR find-property?op+asset"
+assert_redirect "/fr/a-louer/coworking/" "$BASE/fr/recherche-immobiliere?asset_type%5BCOW%5D=COW" "FR asset-only BEF → default LOC SEO"
+assert_redirect "/for-rent/coworking/" "$BASE/find-property?asset_type=COW" "EN asset-only scalar → default LOC SEO"
 
 echo ""
 echo "--- 6. Locality SEO segments ---"

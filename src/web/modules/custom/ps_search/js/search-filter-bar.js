@@ -1260,6 +1260,101 @@
         };
       }
 
+      /**
+       * Normalizes a pathname for stable comparison (trailing slash).
+       *
+       * @param {string} pathname
+       *   URL pathname.
+       *
+       * @return {string}
+       *   Normalized pathname.
+       */
+      function normalizePathname(pathname) {
+        const path = String(pathname || '/');
+        if (path.length > 1 && path.endsWith('/')) {
+          return path.slice(0, -1);
+        }
+        return path;
+      }
+
+      /**
+       * Whether the pathname is the flexible search base (no operation slug).
+       *
+       * @param {string} pathname
+       *   URL pathname.
+       *
+       * @return {boolean}
+       *   TRUE on /find-property or /fr/recherche-immobiliere style paths.
+       */
+      function isFlexibleSearchPathname(pathname) {
+        const flexBase = normalizePathname(langPrefix + searchPath);
+        return normalizePathname(pathname) === flexBase;
+      }
+
+      /**
+       * Reads a facet value from query params (scalar or BEF bracket format).
+       *
+       * @param {URLSearchParams} params
+       *   Query parameters.
+       * @param {string} key
+       *   Facet key (e.g. operation_type, asset_type).
+       *
+       * @return {string|null}
+       *   Facet code or NULL.
+       */
+      function extractFacetQueryValue(params, key) {
+        if (params.has(key)) {
+          return params.get(key);
+        }
+        const prefix = key + '[';
+        let found = null;
+        params.forEach(function (value, name) {
+          if (found !== null) {
+            return;
+          }
+          if (name.indexOf(prefix) === 0 && name.endsWith(']')) {
+            found = value || name.slice(prefix.length, -1);
+          }
+        });
+        return found;
+      }
+
+      /**
+       * Whether flexible-base query params should canonicalize via server 301.
+       *
+       * @param {URLSearchParams} params
+       *   Target query parameters.
+       *
+       * @return {boolean}
+       *   TRUE when operation_type and/or asset_type are present.
+       */
+      function hasCanonicalFacetQuery(params) {
+        return Boolean(
+          extractFacetQueryValue(params, 'operation_type')
+          || extractFacetQueryValue(params, 'asset_type'),
+        );
+      }
+
+      /**
+       * Whether filter apply must trigger a full page load (SEO path change).
+       *
+       * Query-only updates on the flexible base with facet params use a full
+       * load so SearchCanonicalRedirectSubscriber can 301 to SEO URLs.
+       *
+       * @param {string} browserUrl
+       *   Target browser URL (path + query).
+       *
+       * @return {boolean}
+       *   TRUE when pathname differs or canonical facet query needs server redirect.
+       */
+      function requiresFullNavigation(browserUrl) {
+        const next = new URL(browserUrl, window.location.origin);
+        if (normalizePathname(next.pathname) !== normalizePathname(window.location.pathname)) {
+          return true;
+        }
+        return isFlexibleSearchPathname(next.pathname) && hasCanonicalFacetQuery(next.searchParams);
+      }
+
       function appendContentLangParam(p) {
         if (Drupal.psSearchPage && typeof Drupal.psSearchPage.appendContentLangParam === 'function') {
           return Drupal.psSearchPage.appendContentLangParam(p);
@@ -1365,6 +1460,11 @@
       function applyFilters() {
         const ajaxPayload = buildViewAjaxParams();
         const root = document.querySelector('.ps-search-view');
+
+        if (requiresFullNavigation(ajaxPayload.browserUrl)) {
+          window.location.assign(ajaxPayload.browserUrl);
+          return;
+        }
 
         if (!root || typeof Drupal.psSearchPage?.reloadSearch !== 'function') {
           window.location.href = ajaxPayload.browserUrl;
