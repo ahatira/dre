@@ -9,7 +9,7 @@ use Drupal\ps_search\Search\Push\SearchPushBlockBuilder;
 use Drupal\views\ViewExecutable;
 
 /**
- * Injects the push calculator card into search result rows.
+ * Injects a Card Push placement into search result rows.
  */
 final class SearchPushViewsHooks {
 

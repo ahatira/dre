@@ -8,7 +8,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Admin settings for the search results push calculator card.
+ * Card Push — search results placement (calculator SDC).
  */
 final class PushSettingsForm extends ConfigFormBase {
 
@@ -32,9 +32,15 @@ final class PushSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.push_settings');
 
+    $form['intro'] = [
+      '#type' => 'markup',
+      '#markup' => '<p>' . $this->t('Search results placement — renders the <em>search-push-card</em> SDC after a configurable result index.') . '</p>',
+      '#weight' => -20,
+    ];
+
     $form['enabled'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable push calculator card'),
+      '#title' => $this->t('Enable Card Push on search results'),
       '#description' => $this->t('When enabled, a promotional card is inserted in the search results list (disabled by default).'),
       '#default_value' => $config->get('enabled'),
     ];
@@ -73,7 +79,7 @@ final class PushSettingsForm extends ConfigFormBase {
     $form['cta_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button URL'),
-      '#description' => $this->t('Internal path (e.g. /calculator) or absolute URL. Required when the push card is enabled.'),
+      '#description' => $this->t('Internal path (e.g. /calculator) or absolute URL. Required when Card Push is enabled.'),
       '#default_value' => $config->get('cta_url'),
       '#maxlength' => 2048,
     ];
@@ -93,7 +99,7 @@ final class PushSettingsForm extends ConfigFormBase {
 
     foreach (['title', 'cta_label', 'cta_url'] as $field) {
       if (trim((string) $form_state->getValue($field)) === '') {
-        $form_state->setErrorByName($field, $this->t('This field is required when the push card is enabled.'));
+        $form_state->setErrorByName($field, $this->t('This field is required when Card Push is enabled for search results.'));
       }
     }
   }

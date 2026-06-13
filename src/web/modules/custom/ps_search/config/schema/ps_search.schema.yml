@@ -185,11 +185,11 @@ ps_search.api_cache_settings:
 
 ps_search.push_settings:
   type: config_object
-  label: 'PS Search push calculator card settings'
+  label: 'PS Search Card Push — search results placement'
   mapping:
     enabled:
       type: boolean
-      label: 'Enable push calculator card'
+      label: 'Enable Card Push on search results'
     after_result:
       type: integer
       label: 'Insert after result index'

@@ -8,7 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 
 /**
- * Builds the configurable search results push card (calculator interstitial).
+ * Builds a Card Push render array for the search results placement.
  */
 final class SearchPushBlockBuilder {
 
