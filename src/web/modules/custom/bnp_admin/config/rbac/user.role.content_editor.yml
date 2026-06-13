@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnp_editor
+    - coffee
+    - node
+    - user
+    - ps_agent
+    - ps_core
+    - ps_diagnostic
+    - ps_dictionary
+    - ps_feature
+    - ps_offer
+    - sitewide_alert
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access coffee'
+  - 'access content'
+  - 'access ps diagnostic admin'
+  - 'access ps_core content section'
+  - 'access ps_core hub'
+  - 'access ps_core structure section'
+  - 'administer ps agent entities'
+  - 'create offer content'
+  - 'delete own offer content'
+  - 'edit own offer content'
+  - 'manage ps_agent'
+  - 'manage ps_diagnostic'
+  - 'manage ps_dictionary'
+  - 'manage ps_feature'
+  - 'manage ps_offer'
+  - 'use text format basic_html'
+  - 'use text format restricted_html'
+  - 'view own unpublished content'
+  - 'view published sitewide alert entities'
+  - 'view the administration theme'

@@ -28,7 +28,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "form" = {
  *       "add" = "Drupal\ps_context\Form\PsContextRuleForm",
  *       "edit" = "Drupal\ps_context\Form\PsContextRuleForm",
- *       "delete" = "Drupal\Core\Entity\EntityDeleteForm"
+ *       "delete" = "Drupal\ps_context\Form\PsContextRuleDeleteForm"
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider"

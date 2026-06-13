@@ -83,11 +83,6 @@ final class BnpEditorRoleInstaller {
       ],
     ];
 
-    if ($this->moduleHandler->moduleExists('ps_core')) {
-      $map['ps_admin'] = array_merge(['administer bnp editor'], $editorFormats);
-      $map['ps_content_editor'] = $contributorFormats;
-    }
-
     return $map;
   }
 

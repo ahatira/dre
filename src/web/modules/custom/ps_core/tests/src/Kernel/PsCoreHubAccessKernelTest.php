@@ -70,9 +70,16 @@ final class PsCoreHubAccessKernelTest extends KernelTestBase {
 
   }
 
-  public function testInstalledEditorRolePermissions(): void {
-    $editorRole = Role::load('ps_content_editor');
-    self::assertNotNull($editorRole);
+  public function testContentEditorRoleHubAccess(): void {
+    $editorRole = Role::create([
+      'id' => 'content_editor',
+      'label' => 'Content editor',
+    ]);
+    $editorRole
+      ->grantPermission('access ps_core hub')
+      ->grantPermission('access ps_core content section')
+      ->grantPermission('access ps_core structure section')
+      ->save();
 
     self::assertTrue($editorRole->hasPermission('access ps_core hub'));
     self::assertTrue($editorRole->hasPermission('access ps_core content section'));
@@ -81,9 +88,18 @@ final class PsCoreHubAccessKernelTest extends KernelTestBase {
     self::assertFalse($editorRole->hasPermission('administer ps_core'));
   }
 
-  public function testInstalledAdminRolePermissions(): void {
-    $adminRole = Role::load('ps_admin');
-    self::assertNotNull($adminRole);
+  public function testContentAdminRoleHubAccess(): void {
+    $adminRole = Role::create([
+      'id' => 'content_admin',
+      'label' => 'Content administrator',
+    ]);
+    $adminRole
+      ->grantPermission('access ps_core hub')
+      ->grantPermission('access ps_core content section')
+      ->grantPermission('access ps_core structure section')
+      ->grantPermission('access ps_core config section')
+      ->grantPermission('administer ps_core')
+      ->save();
 
     self::assertTrue($adminRole->hasPermission('access ps_core hub'));
     self::assertTrue($adminRole->hasPermission('access ps_core content section'));

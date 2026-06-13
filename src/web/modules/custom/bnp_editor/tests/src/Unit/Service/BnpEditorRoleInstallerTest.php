@@ -33,9 +33,9 @@ final class BnpEditorRoleInstallerTest extends UnitTestCase {
   }
 
   /**
-   * Ensures PS roles are included when ps_core is enabled.
+   * Ensures PS overlay roles are not referenced (RBAC Option A).
    */
-  public function testBuildRolePermissionMapIncludesPsRolesWhenPsCoreEnabled(): void {
+  public function testBuildRolePermissionMapExcludesLegacyPsRoles(): void {
     $moduleHandler = $this->createMock(ModuleHandlerInterface::class);
     $moduleHandler->method('moduleExists')->with('ps_core')->willReturn(TRUE);
 
@@ -46,9 +46,9 @@ final class BnpEditorRoleInstallerTest extends UnitTestCase {
 
     $map = $installer->buildRolePermissionMap();
 
-    self::assertArrayHasKey('ps_admin', $map);
-    self::assertArrayHasKey('ps_content_editor', $map);
-    self::assertContains('use text format full_html', $map['ps_admin']);
+    self::assertArrayNotHasKey('ps_admin', $map);
+    self::assertArrayNotHasKey('ps_content_editor', $map);
+    self::assertContains('use text format full_html', $map['content_admin']);
   }
 
 }

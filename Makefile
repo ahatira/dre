@@ -20,6 +20,7 @@ XML_TARGET := src/web/sites/default/files/crm/offers.xml
 	help up down restart ps logs rebuild \
 	composer-install composer-update npm-install bootstrap \
 	install reinstall demo post-install index-solr deploy verify cleanup \
+	rbac-sync rbac-export create-test-users rbac-sec-e2e \
 	drush-status drush-cr drush-uli modules-list theme-admin db-reset \
 	dictionary-import xml-stage-sample \
 	import-crm import-sample-xml import-status import-reset import-rollback
@@ -36,6 +37,10 @@ help:
 	@echo "  make install --minimal - Coquille Drupal seule (sans demo/offres/Solr)"
 	@echo "  make reinstall         - Reinstallation Drupal complete (DB reset + post-install)"
 	@echo "  make post-install      - Demo + offres sample + ps_search/ps_seo + Solr (apres install --minimal)"
+	@echo "  make rbac-sync         - Importer les roles BNP avec permissions PS (post-install)"
+	@echo "  make rbac-export       - Exporter les roles actifs vers bnp_admin/config/rbac/"
+	@echo "  make create-test-users - Creer un compte test par role BNP"
+	@echo "  make rbac-sec-e2e      - E2E SEC + CTX-ADM (RBAC recette)"
 	@echo "  make demo              - Contenu demo (menus, homepage, mega-menu CMI)"
 	@echo "  make import-sample-xml - Import offres sample (migrate CRM XML)"
 	@echo "  make index-solr        - Indexer les offres dans Solr"
@@ -87,6 +92,18 @@ reinstall:
 
 post-install:
 	bash "$(SCRIPTS_CLI)" drupal post-install
+
+rbac-sync:
+	bash "$(SCRIPTS_CLI)" drupal rbac-sync
+
+rbac-export:
+	bash "$(SCRIPTS_CLI)" drupal rbac-sync --export
+
+create-test-users:
+	bash "$(SCRIPTS_CLI)" drupal create-test-users
+
+rbac-sec-e2e:
+	cd "$(SRC_DIR)" && composer test:rbac-sec-e2e
 
 demo:
 	bash "$(SCRIPTS_CLI)" drupal demo

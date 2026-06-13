@@ -1,13 +1,29 @@
 services:
+  ps_context.rule_evaluator:
+    class: Drupal\ps_context\Service\ContextRuleEvaluator
+    arguments:
+      - '@entity_type.manager'
+
+  Drupal\ps_context\Service\ContextRuleEvaluatorInterface:
+    alias: ps_context.rule_evaluator
+
   ps_context.offer_matrix_rules:
     class: Drupal\ps_context\Service\OfferMatrixRules
     arguments:
       - '@entity_type.manager'
 
+  ps_context.offer_context_resolver:
+    class: Drupal\ps_context\Service\OfferMatrixContextResolver
+    arguments:
+      - '@ps_context.rule_evaluator'
+
+  Drupal\ps_offer\OfferContextResolverInterface:
+    alias: ps_context.offer_context_resolver
+
   ps_context.search_filter_visibility:
     class: Drupal\ps_context\Service\SearchFilterVisibilityResolver
     arguments:
-      - '@entity_type.manager'
+      - '@ps_context.rule_evaluator'
 
   ps_context.search_budget_filter:
     class: Drupal\ps_context\Service\SearchBudgetFilterResolver

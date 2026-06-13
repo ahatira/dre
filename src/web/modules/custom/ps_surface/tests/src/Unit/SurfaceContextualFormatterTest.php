@@ -14,6 +14,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\OfferContextResolverInterface;
 use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
 use Drupal\ps_surface\Plugin\Field\FieldFormatter\SurfaceContextualFormatter;
 use Drupal\Tests\UnitTestCase;
@@ -48,6 +49,15 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('ps_offer.settings')->willReturn($config);
 
+    $contextResolver = $this->createMock(OfferContextResolverInterface::class);
+    $contextResolver->method('isCapacityDriven')->willReturnCallback(
+      static function (NodeInterface $node): bool {
+        return $node->hasField('field_asset_type')
+          && (string) $node->get('field_asset_type')->value === 'COW';
+      },
+    );
+    $contextResolver->method('isTabVisible')->willReturn(TRUE);
+
     $renderer = $this->createMock(RendererInterface::class);
     $renderer->method('render')->willReturnCallback(function (array &$element) use ($renderer): string {
       if (($element['#type'] ?? '') === 'html_tag') {
@@ -73,7 +83,8 @@ final class SurfaceContextualFormatterTest extends UnitTestCase {
     $container = new ContainerBuilder();
     $container->set('string_translation', $translation);
     $container->set('renderer', $renderer);
-    $container->set('ps_offer.surface_kpi_builder', new OfferSurfaceKpiBuilder($config_factory));
+    $container->set('Drupal\ps_offer\OfferContextResolverInterface', $contextResolver);
+    $container->set('ps_offer.surface_kpi_builder', new OfferSurfaceKpiBuilder($config_factory, $contextResolver));
     \Drupal::setContainer($container);
   }
 

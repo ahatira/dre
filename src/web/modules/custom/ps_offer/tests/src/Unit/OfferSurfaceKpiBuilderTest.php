@@ -7,6 +7,7 @@ namespace Drupal\Tests\ps_offer\Unit;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\OfferContextResolverInterface;
 use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
 use Drupal\Tests\UnitTestCase;
 
@@ -20,7 +21,7 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
   /**
    * Builds a builder with default test settings.
    */
-  private function buildBuilder(array $settings = []): OfferSurfaceKpiBuilder {
+  private function buildBuilder(array $settings = [], ?OfferContextResolverInterface $contextResolver = NULL): OfferSurfaceKpiBuilder {
     $defaults = [
       'surface_divisible_template' => 'Divisible from @surface',
       'surface_capacity_unit' => 'seats',
@@ -35,7 +36,7 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('ps_offer.settings')->willReturn($config);
 
-    return new OfferSurfaceKpiBuilder($config_factory);
+    return new OfferSurfaceKpiBuilder($config_factory, $contextResolver);
   }
 
   /**
@@ -54,7 +55,7 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
       $value = $field_values[$name] ?? NULL;
 
       if ($name === 'field_surfaces') {
-        return new class($value ?? []) {
+        return new class($value ?? []) implements \IteratorAggregate {
           public function __construct(private readonly array $items) {}
           public function isEmpty(): bool {
             return $this->items === [];
@@ -80,7 +81,10 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
   }
 
   public function testCowShowsCapacity(): void {
-    $builder = $this->buildBuilder(['surface_capacity_unit' => 'postes']);
+    $contextResolver = $this->createMock(OfferContextResolverInterface::class);
+    $contextResolver->method('isCapacityDriven')->willReturn(TRUE);
+
+    $builder = $this->buildBuilder(['surface_capacity_unit' => 'postes'], $contextResolver);
     $node = $this->buildOfferNode([
       'field_asset_type' => 'COW',
       'field_capacity_total' => 12,
@@ -95,12 +99,12 @@ final class OfferSurfaceKpiBuilderTest extends UnitTestCase {
       'field_asset_type' => 'TER',
       'field_divisible' => TRUE,
       'field_surfaces' => [
-        ['qualification' => 'TOTAL', 'value' => 5.5, 'unit_code' => 'HA'],
+        ['qualification' => 'TOTAL', 'value' => 5.0, 'unit_code' => 'HA'],
         ['qualification' => 'DISPO', 'value' => 3.0, 'unit_code' => 'HA'],
       ],
     ]);
 
-    $this->assertSame('5,5 ha', $builder->buildKpiSummary($node));
+    $this->assertSame('5 ha', $builder->buildKpiSummary($node));
   }
 
   public function testDivisibleWithMinimBelowTotal(): void {

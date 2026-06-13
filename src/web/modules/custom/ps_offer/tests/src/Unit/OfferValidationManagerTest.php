@@ -14,6 +14,7 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\OfferContextResolverInterface;
 use Drupal\ps_offer\Service\OfferValidationManager;
 use Drupal\Tests\UnitTestCase;
 
@@ -324,6 +325,58 @@ final class OfferValidationManagerTest extends UnitTestCase {
     $node->expects($this->never())->method('get');
 
     $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager->apply($node);
+  }
+
+  public function testPublishedCowWithoutSurfacePassesWhenCapacityTabVisible(): void {
+    $messenger = $this->createMock(MessengerInterface::class);
+    $node = $this->createMock(NodeInterface::class);
+    $this->mockDefaultLanguageContext($node);
+
+    $contextResolver = $this->createMock(OfferContextResolverInterface::class);
+    $contextResolver->method('isTabVisible')->willReturnCallback(
+      static fn (NodeInterface $offer, string $tab): bool => match ($tab) {
+        'group_surface' => FALSE,
+        'group_capacity' => TRUE,
+        default => TRUE,
+      },
+    );
+
+    $messenger->expects($this->never())->method('addError');
+
+    $node->method('bundle')->willReturn('offer');
+    $node->method('isPublished')->willReturn(TRUE);
+    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, [
+      'field_budget_period',
+      'field_budget_value',
+      'field_primary_agent',
+      'field_capacity_mode',
+      'field_capacity_total',
+      'field_capacity_available',
+      'field_budget_unit',
+      'field_surfaces',
+      'field_divisible',
+    ], TRUE));
+    $node->method('get')->willReturnCallback(function (string $field): FieldItemListInterface {
+      return match ($field) {
+        'field_budget_period' => $this->emptyFieldList(),
+        'field_budget_value' => $this->emptyFieldList(),
+        'field_primary_agent' => $this->fieldListWithValue('42'),
+        'field_capacity_mode' => $this->fieldListWithValue('SEAT_BASED'),
+        'field_capacity_total' => $this->fieldListWithValue('20'),
+        'field_capacity_available' => $this->fieldListWithValue('15'),
+        'field_budget_unit' => $this->emptyFieldList(),
+        'field_surfaces' => $this->emptyFieldList(),
+        'field_divisible' => $this->fieldListWithValue('0'),
+        default => throw new \InvalidArgumentException('Unexpected field requested in test.'),
+      };
+    });
+
+    $manager = new OfferValidationManager(
+      $messenger,
+      $this->entityTypeManagerWithManualReferenceDuplicateCount(0),
+      $contextResolver,
+    );
     $manager->apply($node);
   }
 

@@ -8,6 +8,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_context\ContextSeedRules;
 
 /**
  * Add / edit form for ps_context_rule config entities.
@@ -575,6 +576,13 @@ final class PsContextRuleForm extends EntityForm {
 
     $entity->set('conditions', $conditions);
     $entity->set('actions', $actions);
+
+    if (ContextSeedRules::isSeed($entity->id()) && !$entity->status()) {
+      $this->messenger()->addWarning($this->t(
+        'Seed rule %label is disabled. Validation, search filters, and offer display derive behavior from active matrix rules. Disabling this rule may cause inconsistencies across the site.',
+        ['%label' => $entity->label()],
+      ));
+    }
 
     $status = $entity->save();
 

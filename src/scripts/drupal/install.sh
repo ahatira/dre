@@ -169,7 +169,6 @@ ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->provisi
 ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->getMissingWebformIds(); if ($missing !== []) { throw new \RuntimeException("Missing PS Form webforms: " . implode(", ", $missing)); } echo "PS Form webforms OK" . PHP_EOL;' || ps_die "PS Form webforms were not provisioned"
 ps_retry 2 2 ps_drush en -y ps_offer
 ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
-ps_drush role:perm:add ps_admin "manage ps_favorite" -y || true
 ps_retry 2 2 ps_drush en -y ps_context
 ps_success "PS modules enabled"
 
@@ -178,9 +177,9 @@ ps_info "Enabling anti-spam modules..."
 ps_retry 2 2 ps_drush en -y captcha altcha || ps_warn "Anti-spam modules not available"
 ps_success "Anti-spam configured"
 
-# Assign ps_admin role
-ps_info "Assigning ps_admin role to ${ADMIN_USER}..."
-ps_drush user:role:add ps_admin "${ADMIN_USER}" -y || true
+# Assign BNP administrator role (RBAC: bnp_admin is the single role source).
+ps_info "Assigning administrator role to ${ADMIN_USER}..."
+ps_drush user:role:add administrator "${ADMIN_USER}" -y || true
 ps_success "Role assigned"
 
 # Import custom module translations (ps_* and bnp_*) + theme FR.
@@ -232,6 +231,9 @@ ps_success "Dictionary imported"
 ps_info "Enabling search, compare and SEO modules (required by ps_homepage)..."
 ps_retry 2 2 ps_drush en -y ps_compare ps_search ps_seo
 ps_success "ps_compare, ps_search and ps_seo enabled"
+
+ps_info "Syncing BNP RBAC roles (PS permissions)..."
+bash "${PS_SCRIPTS_DIR}/drupal/rbac-sync.sh"
 
 ps_info "Enabling theme shell dependencies..."
 ps_retry 2 2 ps_drush en -y ps_block ps_homepage

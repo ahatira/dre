@@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\node\NodeInterface;
 use Drupal\ps_core\Service\OfferSectionHeadingBuilder;
 use Drupal\ps_surface\Entity\SurfaceDivision;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,11 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   field_types: ['entity_reference'],
 )]
 final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * Asset types where surface divisions are not displayed on the offer page.
-   */
-  private const CAPACITY_DRIVEN_ASSET_TYPES = ['COW'];
 
   public function __construct(
     string $plugin_id,
@@ -131,14 +127,18 @@ final class SurfaceDivisionTableFormatter extends EntityReferenceFormatterBase i
   }
 
   /**
-   * Whether the parent offer hides surface divisions (capacity-driven types).
+   * Whether the parent offer hides surface divisions per the context matrix.
    */
   private function shouldHideForParentEntity(EntityInterface $entity): bool {
-    if (!$entity->hasField('field_asset_type') || $entity->get('field_asset_type')->isEmpty()) {
+    if (!$entity instanceof NodeInterface || $entity->bundle() !== 'offer') {
       return FALSE;
     }
 
-    return in_array((string) $entity->get('field_asset_type')->value, self::CAPACITY_DRIVEN_ASSET_TYPES, TRUE);
+    if (\Drupal::hasService('Drupal\ps_offer\OfferContextResolverInterface')) {
+      return \Drupal::service('Drupal\ps_offer\OfferContextResolverInterface')->isCapacityDriven($entity);
+    }
+
+    return FALSE;
   }
 
   /**

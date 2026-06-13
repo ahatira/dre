@@ -115,6 +115,10 @@
     "prefer-stable": true,
     "scripts": {
         "test:offer-ref-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_reference.sh 1",
+        "test:rbac-sec-e2e": "bash web/modules/custom/bnp_admin/tests/e2e_rbac_sec_ctx.sh",
+        "test:manual-recette-ctx": "bash web/modules/custom/bnp_admin/tests/e2e_manual_recette_ctx.sh",
+        "test:manual-offer-val": "bash web/modules/custom/bnp_admin/tests/e2e_manual_offer_val_recette.sh",
+        "test:manual-offer-full": "bash web/modules/custom/bnp_admin/tests/e2e_manual_offer_full_recette.sh",
         "test:offer-sections-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_sections.sh 7",
         "test:search-urls-e2e": "bash web/modules/custom/ps_search/tests/b2b_search_urls_security.sh",
         "test:search-seo-e2e": "bash web/modules/custom/ps_search/tests/e2e_seo_urls.sh",

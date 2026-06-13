@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnp_editor
+    - coffee
+    - content_translation
+    - locale
+    - node
+    - system
+id: translate_editor
+label: 'Translation editor'
+weight: 4
+is_admin: false
+permissions:
+  - 'access coffee'
+  - 'access content'
+  - 'create content translations'
+  - 'translate editable entities'
+  - 'translate interface'
+  - 'update content translations'
+  - 'use text format basic_html'
+  - 'use text format restricted_html'
+  - 'view any unpublished content'

@@ -85,3 +85,55 @@ function bnp_admin_update_9002(): void {
 
   $configurator->applyRoleBaseline();
 }
+
+/**
+ * Migrate legacy PS overlay roles into BNP baseline roles (Option A).
+ */
+function bnp_admin_update_9003(): void {
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  $userStorage = \Drupal::entityTypeManager()->getStorage('user');
+
+  $migrations = [
+    'ps_admin' => ['content_admin', 'site_admin'],
+    'ps_content_editor' => ['content_editor'],
+  ];
+
+  foreach ($migrations as $legacyRole => $targetRoles) {
+    if ($roleStorage->load($legacyRole) === NULL) {
+      continue;
+    }
+
+    $uids = $userStorage->getQuery()
+      ->condition('roles', $legacyRole)
+      ->accessCheck(FALSE)
+      ->execute();
+
+    foreach ($uids as $uid) {
+      $account = $userStorage->load($uid);
+      if ($account === NULL) {
+        continue;
+      }
+      foreach ($targetRoles as $targetRole) {
+        if ($roleStorage->load($targetRole) !== NULL) {
+          $account->addRole($targetRole);
+        }
+      }
+      $account->removeRole($legacyRole);
+      $account->save();
+    }
+
+    $legacy = $roleStorage->load($legacyRole);
+    if ($legacy !== NULL) {
+      $roleStorage->delete([$legacy]);
+    }
+  }
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($configFactory->listAll('system.action.user_') as $actionId) {
+    $config = $configFactory->get($actionId);
+    $rid = $config->get('configuration.rid');
+    if (in_array($rid, ['ps_admin', 'ps_content_editor'], TRUE)) {
+      $configFactory->getEditable($actionId)->delete();
+    }
+  }
+}

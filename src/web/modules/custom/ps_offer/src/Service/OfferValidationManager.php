@@ -10,12 +10,14 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\OfferContextResolverInterface;
 
 final class OfferValidationManager implements OfferValidationManagerInterface {
 
   public function __construct(
     private readonly MessengerInterface $messenger,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ?OfferContextResolverInterface $contextResolver = NULL,
   ) {}
 
   public function apply(NodeInterface $node): void {
@@ -182,13 +184,22 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
       $budget_unit = mb_strtoupper((string) ($this->fieldValue($offer->get('field_budget_unit')) ?? ''));
       if ($budget_unit === 'PER_POSTE' && (!$has_total || $total <= 0)) {
         $this->raiseValidationIssue($offer, 'Capacity total must be greater than 0 when budget unit is PER_POSTE.');
+        return;
       }
+    }
+
+    if ($this->isCapacityTabRequired($offer) && (!$has_total || $total <= 0)) {
+      $this->raiseValidationIssue($offer, 'Capacity total must be greater than 0.');
     }
   }
 
 
   private function validateSurface(NodeInterface $offer): void {
     if (!$offer->hasField('field_surfaces')) {
+      return;
+    }
+
+    if ($this->contextResolver !== NULL && !$this->contextResolver->isTabVisible($offer, 'group_surface')) {
       return;
     }
 
@@ -208,6 +219,10 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
 
   private function validateDivisibility(NodeInterface $offer): void {
     if (!$offer->hasField('field_divisible') || !$offer->hasField('field_surfaces')) {
+      return;
+    }
+
+    if ($this->contextResolver !== NULL && !$this->contextResolver->isTabVisible($offer, 'group_surface')) {
       return;
     }
 
@@ -244,6 +259,10 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
     }
 
     $this->messenger->addWarning(new TranslatableMarkup($message));
+  }
+
+  private function isCapacityTabRequired(NodeInterface $offer): bool {
+    return $this->contextResolver?->isTabVisible($offer, 'group_capacity') ?? FALSE;
   }
 
   private function fieldValue(FieldItemListInterface $items): ?string {

@@ -62,7 +62,10 @@ services:
 
   Drupal\ps_offer\Service\OfferValidationManager:
     class: Drupal\ps_offer\Service\OfferValidationManager
-    arguments: ['@messenger', '@entity_type.manager']
+    arguments:
+      - '@messenger'
+      - '@entity_type.manager'
+      - '@?Drupal\ps_offer\OfferContextResolverInterface'
 
   Drupal\ps_offer\Service\OfferValidationManagerInterface:
     alias: Drupal\ps_offer\Service\OfferValidationManager
@@ -71,11 +74,13 @@ services:
     class: Drupal\ps_offer\Service\OfferDetailActionsBuilder
     arguments:
       - '@entity_type.manager'
+      - '@?Drupal\ps_offer\OfferContextResolverInterface'
 
   ps_offer.surface_kpi_builder:
     class: Drupal\ps_offer\Service\OfferSurfaceKpiBuilder
     arguments:
       - '@config.factory'
+      - '@?Drupal\ps_offer\OfferContextResolverInterface'
 
   ps_offer.map_location_builder:
     class: Drupal\ps_offer\Service\OfferMapLocationBuilder

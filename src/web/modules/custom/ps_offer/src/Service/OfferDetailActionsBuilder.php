@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\OfferContextResolverInterface;
 
 /**
  * Builds offer detail CTA actions (surface table + brochure).
@@ -18,6 +19,7 @@ final class OfferDetailActionsBuilder {
 
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ?OfferContextResolverInterface $contextResolver = NULL,
   ) {}
 
   /**
@@ -76,10 +78,8 @@ final class OfferDetailActionsBuilder {
       return FALSE;
     }
 
-    if ($node->hasField('field_asset_type') && !$node->get('field_asset_type')->isEmpty()) {
-      if ((string) $node->get('field_asset_type')->value === 'COW') {
-        return FALSE;
-      }
+    if ($this->contextResolver !== NULL && $this->contextResolver->isCapacityDriven($node)) {
+      return FALSE;
     }
 
     return TRUE;

@@ -23,11 +23,6 @@ use Drupal\ui_suite_bnp\Utility\Bootstrap;
 final class SurfaceCompareFormatter extends FormatterBase {
 
   /**
-   * Asset types whose offers are capacity-driven (no m² on surface field).
-   */
-  private const CAPACITY_DRIVEN_TYPES = ['COW'];
-
-  /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
@@ -37,11 +32,7 @@ final class SurfaceCompareFormatter extends FormatterBase {
       return $this->renderRaw($items);
     }
 
-    $asset_type = $entity->hasField('field_asset_type')
-      ? strtoupper((string) ($entity->get('field_asset_type')->value ?? ''))
-      : '';
-
-    if (in_array($asset_type, self::CAPACITY_DRIVEN_TYPES, TRUE)) {
+    if ($this->isCapacityDrivenOffer($entity)) {
       return [];
     }
 
@@ -60,7 +51,19 @@ final class SurfaceCompareFormatter extends FormatterBase {
     }
     // phpcs:enable DrupalPractice.Objects.GlobalClass
 
+    $asset_type = $entity->hasField('field_asset_type')
+      ? strtoupper((string) ($entity->get('field_asset_type')->value ?? ''))
+      : '';
+
     return $this->renderFallback($items, $entity, $asset_type);
+  }
+
+  private function isCapacityDrivenOffer(NodeInterface $entity): bool {
+    if (\Drupal::hasService('Drupal\ps_offer\OfferContextResolverInterface')) {
+      return \Drupal::service('Drupal\ps_offer\OfferContextResolverInterface')->isCapacityDriven($entity);
+    }
+
+    return FALSE;
   }
 
   /**

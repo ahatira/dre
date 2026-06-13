@@ -7,11 +7,15 @@ namespace Drupal\ps_offer\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+use Drupal\ps_offer\OfferContextResolverInterface;
 
 /**
  * Builds surface/capacity KPI strings for offer displays (bnppre.fr rules).
  *
- * - COW → capacity (postes / seats), no m².
+ * Visibility is driven by ps_context when available:
+ *
+ * - Capacity tab visible + surface tab hidden → capacity (postes / seats), no m².
  * - TER → total land area only (ha / m²), no divisibility suffix.
  * - Divisible → "{TOTAL} {unit} ({template @surface})" when MINIM or ETREF
  *   is strictly below TOTAL (e.g. "2 000 m² (divisible dès 80 m²)").
@@ -20,11 +24,8 @@ use Drupal\Core\Entity\EntityInterface;
 final class OfferSurfaceKpiBuilder {
 
   /**
-   * Asset types driven by capacity instead of surface. */
-  private const CAPACITY_DRIVEN_TYPES = ['COW'];
-
-  /**
-   * Land asset types: no divisibility suffix. */
+   * Land asset types: no divisibility suffix.
+   */
   private const LAND_TYPES = ['TER'];
 
   /**
@@ -39,6 +40,7 @@ final class OfferSurfaceKpiBuilder {
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly ?OfferContextResolverInterface $contextResolver = NULL,
   ) {}
 
   /**
@@ -70,11 +72,7 @@ final class OfferSurfaceKpiBuilder {
    *   Primary surface label and optional divisibility suffix.
    */
   public function buildKpiParts(EntityInterface $entity, ?iterable $surface_items = NULL): array {
-    $asset_type = $entity->hasField('field_asset_type')
-      ? strtoupper((string) ($entity->get('field_asset_type')->value ?? ''))
-      : '';
-
-    if (in_array($asset_type, self::CAPACITY_DRIVEN_TYPES, TRUE)) {
+    if ($this->isCapacityDriven($entity)) {
       $capacity = $this->formatCapacity($entity);
 
       return [
@@ -82,6 +80,10 @@ final class OfferSurfaceKpiBuilder {
         'suffix' => NULL,
       ];
     }
+
+    $asset_type = $entity->hasField('field_asset_type')
+      ? strtoupper((string) ($entity->get('field_asset_type')->value ?? ''))
+      : '';
 
     $surfaces = $surface_items !== NULL
       ? $this->indexSurfacesFromIterable($surface_items)
@@ -378,6 +380,14 @@ final class OfferSurfaceKpiBuilder {
    */
   private function settings(): ImmutableConfig {
     return $this->configFactory->get('ps_offer.settings');
+  }
+
+  private function isCapacityDriven(EntityInterface $entity): bool {
+    if ($entity instanceof NodeInterface && $this->contextResolver !== NULL) {
+      return $this->contextResolver->isCapacityDriven($entity);
+    }
+
+    return FALSE;
   }
 
 }

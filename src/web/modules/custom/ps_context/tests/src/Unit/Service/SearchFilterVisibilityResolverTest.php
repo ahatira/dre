@@ -7,6 +7,7 @@ namespace Drupal\Tests\ps_context\Unit\Service;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\ps_context\Entity\PsContextRuleInterface;
+use Drupal\ps_context\Service\ContextRuleEvaluator;
 use Drupal\ps_context\Service\SearchFilterVisibilityResolver;
 use Drupal\Tests\UnitTestCase;
 
@@ -20,7 +21,7 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
    * @covers ::resolve
    */
   public function testResolveWithoutAssetShowsSurface(): void {
-    $resolver = new SearchFilterVisibilityResolver($this->createEntityTypeManager([]));
+    $resolver = new SearchFilterVisibilityResolver(new ContextRuleEvaluator($this->createEntityTypeManager([])));
 
     $result = $resolver->resolve(NULL);
 
@@ -48,7 +49,7 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
       ]),
     ];
 
-    $resolver = new SearchFilterVisibilityResolver($this->createEntityTypeManager($rules));
+    $resolver = new SearchFilterVisibilityResolver(new ContextRuleEvaluator($this->createEntityTypeManager($rules)));
     $result = $resolver->resolve('COW');
 
     $this->assertFalse($result['show_surface']);
@@ -74,7 +75,7 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
       ]),
     ];
 
-    $resolver = new SearchFilterVisibilityResolver($this->createEntityTypeManager($rules));
+    $resolver = new SearchFilterVisibilityResolver(new ContextRuleEvaluator($this->createEntityTypeManager($rules)));
     $result = $resolver->resolve('BUR');
 
     $this->assertTrue($result['show_surface']);

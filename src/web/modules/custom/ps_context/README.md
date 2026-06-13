@@ -12,7 +12,7 @@ Le module évalue les règles côté serveur (PHP : required/disabled/defaults) 
 
 Ce module **ne fait pas** :
 - la définition des champs offre (`ps_offer`) ;
-- la validation métier à la sauvegarde (`OfferValidationManager` dans `ps_offer`) ;
+- la validation métier à la sauvegarde (`OfferValidationManager` dans `ps_offer`, via pont optionnel `OfferContextResolverInterface`) ;
 - le catalogue de features (`ps_feature`) ;
 - la recherche front-end (`ps_search`).
 
@@ -33,7 +33,10 @@ Référence métier complète : `.ai/PROJECT_MATRIX.md` (DEC-0020).
 
 | Service ID | Classe | Rôle |
 |---|---|---|
-| `ps_context.offer_matrix_rules` | `OfferMatrixRules` | Charge les règles actives, applique actions PHP, attache JS |
+| `ps_context.rule_evaluator` | `ContextRuleEvaluator` | Moteur PHP canonique (même algorithme que le JS formulaire) |
+| `ps_context.offer_context_resolver` | `OfferMatrixContextResolver` | Pont `OfferContextResolverInterface` (validation, KPI, formatters) |
+| `ps_context.offer_matrix_rules` | `OfferMatrixRules` | Charge les règles actives, applique actions PHP formulaire, attache JS |
+| `ps_context.search_filter_visibility` | `SearchFilterVisibilityResolver` | Filtres recherche dérivés de la matrix |
 | `Drupal\ps_context\Hook\OfferFormHooks` | `OfferFormHooks` | Hooks formulaire offer (injection via FQCN) |
 
 ### Entités
