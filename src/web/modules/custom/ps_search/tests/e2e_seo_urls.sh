@@ -216,15 +216,31 @@ else
 fi
 
 echo ""
-echo "--- 9. Results not empty (language fallback) ---"
-assert_html_contains "$BASE/for-rent/office/" '"globalCount":' "EN page has globalCount"
-html_en=$(curl -sL -m 60 "$BASE/for-rent/office/")
-gc=$(echo "$html_en" | grep -oE '"globalCount":[0-9]+' | head -1 | cut -d: -f2)
-if [[ -n "$gc" && "$gc" -gt 0 ]]; then
-  pass "EN /for-rent/office/ globalCount=$gc (>0)"
-else
-  fail "EN /for-rent/office/ globalCount is 0"
-fi
+echo "--- 9. Strict content language (count/list alignment) ---"
+
+assert_list_count_alignment() {
+  local url="$1" desc="$2"
+  local html gc has_rows
+  html=$(curl -sL -m 60 "$url")
+  gc=$(echo "$html" | grep -oE '"globalCount":[0-9]+' | head -1 | cut -d: -f2)
+  if [[ "$html" == *"js-ps-search-results-rows"* ]]; then
+    has_rows=1
+  else
+    has_rows=0
+  fi
+  if [[ -z "$gc" ]]; then
+    fail "$desc — globalCount missing in drupalSettings"
+    return
+  fi
+  if [[ "$gc" -gt 0 && "$has_rows" -eq 1 ]]; then
+    pass "$desc — globalCount=$gc with list rows"
+  elif [[ "$gc" -eq 0 && "$has_rows" -eq 0 ]]; then
+    pass "$desc — globalCount=0, list empty (strict language)"
+  else
+    fail "$desc — globalCount=$gc but list rows=$has_rows (misaligned)"
+  fi
+}
+
 html_fr=$(curl -sL -m 60 "$BASE/fr/a-louer/bureaux/")
 gc_fr=$(echo "$html_fr" | grep -oE '"globalCount":[0-9]+' | head -1 | cut -d: -f2)
 if [[ -n "$gc_fr" && "$gc_fr" -gt 0 ]]; then
@@ -232,6 +248,9 @@ if [[ -n "$gc_fr" && "$gc_fr" -gt 0 ]]; then
 else
   fail "FR /fr/a-louer/bureaux/ globalCount is 0"
 fi
+assert_list_count_alignment "$BASE/fr/a-louer/bureaux/" "FR filtered search"
+assert_list_count_alignment "$BASE/find-property" "EN base search"
+assert_list_count_alignment "$BASE/for-rent/office/" "EN filtered search"
 
 echo ""
 echo "--- 10. Legacy slug ---"

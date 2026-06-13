@@ -131,7 +131,7 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
   }
 
   /**
-   * Restricts results to resolved content language(s), with indexed fallback.
+   * Restricts results to the resolved content language (strict, no cross-lang fallback).
    *
    * Public API routes (/api/ps/*) have no language prefix; callers pass ?lang=
    * from drupalSettings.path.currentLanguage so markers match the search page.

@@ -51,9 +51,7 @@ services:
   ps_search.content_language_resolver:
     class: Drupal\ps_search\Service\SearchContentLanguageResolver
     arguments:
-      - '@database'
       - '@language_manager'
-      - '@cache.default'
 
   ps_search.location_filter:
     class: Drupal\ps_search\Service\LocationSearchFilter
@@ -289,8 +287,8 @@ services:
       - '@ps_offer.map_settings'
       - '@config.factory'
       - '@request_stack'
-      - '@language_manager'
       - '@ps_search.map_settings_builder'
+      - '@ps_search.content_language_resolver'
 
   Drupal\ps_search\Service\SearchMapMarkerBuilder:
     class: Drupal\ps_search\Service\SearchMapMarkerBuilder

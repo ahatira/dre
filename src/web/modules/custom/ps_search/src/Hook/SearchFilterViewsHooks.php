@@ -6,14 +6,13 @@ namespace Drupal\ps_search\Hook;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\Core\Language\LanguageInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\ps_offer\Service\OfferMapSettings;
 use Drupal\ps_search\Api\ApiRoutePaths;
 use Drupal\ps_search\Search\Filter\FilterBarBuilder;
 use Drupal\ps_search\Search\Filter\SearchResultsHeaderBuilder;
 use Drupal\ps_search\Service\LocationCentroidResolver;
 use Drupal\ps_search\Service\MapBoundsResolver;
+use Drupal\ps_search\Service\SearchContentLanguageResolver;
 use Drupal\ps_search\Service\SearchMapSettingsBuilder;
 use Drupal\ps_search\Service\SearchResultCounter;
 use Drupal\search_api\Plugin\views\query\SearchApiQuery;
@@ -44,14 +43,14 @@ final class SearchFilterViewsHooks {
     private readonly OfferMapSettings $offerMapSettings,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly RequestStack $requestStack,
-    private readonly LanguageManagerInterface $languageManager,
     private readonly SearchMapSettingsBuilder $mapSettingsBuilder,
+    private readonly SearchContentLanguageResolver $contentLanguageResolver,
   ) {}
 
   /**
    * Implements hook_views_pre_execute().
    *
-   * Ensures list and map displays index one row per offer (current language).
+   * Restricts the offer list to the current content language (same as counts/map).
    */
   #[Hook('views_pre_execute')]
   public function viewsPreExecute(ViewExecutable $view): void {
@@ -64,12 +63,17 @@ final class SearchFilterViewsHooks {
       return;
     }
 
-    $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
-    if ($langcode === '') {
+    $request = $this->requestStack->getCurrentRequest();
+    if ($request === NULL) {
       return;
     }
 
-    $query->setLanguages([$langcode]);
+    $langcodes = $this->contentLanguageResolver->resolveSearchLangcodes($request);
+    if ($langcodes === []) {
+      return;
+    }
+
+    $query->setLanguages($langcodes);
   }
 
   /**
