@@ -7,6 +7,7 @@ namespace Drupal\ps_search\Search\Filter;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
 use Drupal\ps_search\Service\LocationSearchFilter;
@@ -293,29 +294,29 @@ final class SearchResultsHeaderBuilder {
 
     if ($assetLabel && $opPhrase && $locality) {
       return (string) $this->t('@asset @operation @in @locality', [
-        '@asset' => $assetLabel,
+        '@asset' => Markup::create($assetLabel),
         '@operation' => $opPhrase,
         '@in' => $in,
-        '@locality' => $locality,
+        '@locality' => Markup::create($locality),
       ]);
     }
     if ($assetLabel && $opPhrase) {
       return (string) $this->t('@asset @operation', [
-        '@asset' => $assetLabel,
+        '@asset' => Markup::create($assetLabel),
         '@operation' => $opPhrase,
       ]);
     }
     if ($assetLabel && $locality) {
       return (string) $this->t('@asset @in @locality', [
-        '@asset' => $assetLabel,
+        '@asset' => Markup::create($assetLabel),
         '@in' => $in,
-        '@locality' => $locality,
+        '@locality' => Markup::create($locality),
       ]);
     }
     if ($locality) {
       return (string) $this->t('Properties @in @locality', [
         '@in' => $in,
-        '@locality' => $locality,
+        '@locality' => Markup::create($locality),
       ]);
     }
     if ($assetLabel) {
@@ -330,21 +331,21 @@ final class SearchResultsHeaderBuilder {
    */
   private function buildMetaDescription(?string $assetLabel, ?string $operationCode, ?string $locality): string {
     $localitySuffix = $locality
-      ? (string) $this->t('in @locality', ['@locality' => $locality])
+      ? (string) $this->t('in @locality', ['@locality' => Markup::create($locality)])
       : (string) $this->t('across France');
 
     if ($assetLabel && $operationCode) {
       return match (strtoupper($operationCode)) {
         'LOC' => (string) $this->t('Discover all our @asset for rent @locality_suffix and find your ideal space quickly.', [
-          '@asset' => mb_strtolower($assetLabel),
+          '@asset' => Markup::create(mb_strtolower($assetLabel)),
           '@locality_suffix' => $localitySuffix,
         ]),
         'VEN' => (string) $this->t('Discover all our @asset for sale @locality_suffix and find your ideal space quickly.', [
-          '@asset' => mb_strtolower($assetLabel),
+          '@asset' => Markup::create(mb_strtolower($assetLabel)),
           '@locality_suffix' => $localitySuffix,
         ]),
         default => (string) $this->t('Discover all our @asset @locality_suffix and find your ideal space quickly.', [
-          '@asset' => mb_strtolower($assetLabel),
+          '@asset' => Markup::create(mb_strtolower($assetLabel)),
           '@locality_suffix' => $localitySuffix,
         ]),
       };
