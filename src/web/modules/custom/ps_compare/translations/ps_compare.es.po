@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-12 00:00+0000\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,26 +69,29 @@ msgstr "Límites de comparación"
 msgid "Comparison sent to @email."
 msgstr "Comparación enviada a @email."
 
-msgid "Comparison settings"
-msgstr "Configuración de comparación"
+msgid "Configure UX options for the comparison table and modal."
+msgstr "Configurar opciones UX de la tabla y el modal de comparación."
 
 msgid "Configure property comparison limits and targets."
 msgstr "Configurar límites y objetivos de comparación."
 
-msgid "Configure UX options for the comparison table and modal."
-msgstr "Configurar opciones UX de la tabla y el modal de comparación."
+msgid "DPE"
+msgstr "DPE"
+
+msgid "Deprecated — use display_share_button"
+msgstr "Obsoleto — usar display_share_button"
 
 msgid "Divisible"
 msgstr "Divisible"
-
-msgid "DPE"
-msgstr "DPE"
 
 msgid "Empty comparison slot"
 msgstr "Espacio de comparación vacío"
 
 msgid "Enable collapsible sections"
 msgstr "Activar secciones plegables"
+
+msgid "Enabled entity targets"
+msgstr "Objetivos de entidad habilitados"
 
 msgid "Enabled targets"
 msgstr "Objetivos habilitados"
@@ -99,11 +102,18 @@ msgstr "Rendimiento energético"
 msgid "Exclusivity"
 msgstr "Exclusividad"
 
+msgid "Feature definition IDs or codes shown in comparison table (empty = all"
+" applicable features)"
+msgstr "IDs o códigos de características en la tabla de comparación (vacío = t"
+"odas las aplicables)"
+
 msgid "GES"
 msgstr "GES"
 
-msgid "I have read and accept the terms of the Personal Data Protection Policy."
-msgstr "He leído y acepto las condiciones de la Política de protección de datos personales."
+msgid "I have read and accept the terms of the Personal Data Protection Polic"
+"y."
+msgstr "He leído y acepto las condiciones de la Política de protección de dato"
+"s personales."
 
 msgid "If the button does not work, copy the following URL into your browser:"
 msgstr "Si el botón no funciona, copie la siguiente URL en su navegador:"
@@ -123,20 +133,20 @@ msgstr "Distribución"
 msgid "Loading…"
 msgstr "Cargando…"
 
-msgid "Location"
-msgstr "Ubicación"
+msgid "Manage Property Search comparison"
+msgstr "Gestionar la comparación de Property Search"
 
 msgid "Manage comparison settings and integrations."
 msgstr "Gestionar la configuración e integraciones de comparación."
-
-msgid "Manage Property Search comparison"
-msgstr "Gestionar la comparación de Property Search"
 
 msgid "Maximum compared items"
 msgstr "Máximo de inmuebles comparados"
 
 msgid "Merge DPE and GES on one row"
 msgstr "Combinar DPE y GES en una fila"
+
+msgid "Minimum items required to open comparison page"
+msgstr "Mínimo de elementos para abrir la página de comparación"
 
 msgid "Minimum items to open comparison page"
 msgstr "Mínimo de fichas para abrir la página de comparación"
@@ -157,10 +167,8 @@ msgid "Not enough properties in the comparison list."
 msgstr "No hay suficientes inmuebles en la lista de comparación."
 
 msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
-msgstr "Un objetivo por línea en formato entity_type.bundle (p. ej. node.offer)."
-
-msgid "Open full page"
-msgstr "Abrir página completa"
+msgstr "Un objetivo por línea en formato entity_type.bundle (p. ej. node.offer"
+")."
 
 msgid "Optional message"
 msgstr "Mensaje opcional"
@@ -170,6 +178,12 @@ msgstr "Otras características"
 
 msgid "Overview"
 msgstr "Información general"
+
+msgid "PS Compare SEO URL mappings"
+msgstr "Mapeos URL SEO de PS Compare"
+
+msgid "PS Compare settings"
+msgstr "Ajustes de PS Compare"
 
 msgid "Photos"
 msgstr "Fotos"
@@ -189,8 +203,16 @@ msgstr "Precio"
 msgid "Property comparison"
 msgstr "Comparación de inmuebles"
 
+msgid "Property offer comparison list with anonymous and authenticated persis"
+"tence."
+msgstr "Lista de comparación de ofertas con persistencia anónima y autenticada"
+"."
+
 msgid "Property type"
 msgstr "Tipo de inmueble"
+
+msgid "Public compare page slug"
+msgstr "Slug de la página pública de comparación"
 
 msgid "Receive my comparison"
 msgstr "Recibir mi comparación"
@@ -240,11 +262,20 @@ msgstr "Compartir comparación"
 msgid "Share offcanvas footer"
 msgstr "Pie del offcanvas de compartir"
 
+msgid "Show comparison summary banner"
+msgstr "Mostrar banner resumen de comparación"
+
 msgid "Show price info popover"
 msgstr "Mostrar popover de precio"
 
+msgid "Show price info popover in compare table"
+msgstr "Mostrar popover de precio en tabla de comparación"
+
 msgid "Show section navigation"
 msgstr "Mostrar navegación por secciones"
+
+msgid "Show share comparison button"
+msgstr "Mostrar botón compartir comparación"
 
 msgid "Show summary banner"
 msgstr "Mostrar banner resumen"
@@ -258,20 +289,21 @@ msgstr "Mostrar botón « Enviar mi selección »"
 msgid "Sticky view-property bar"
 msgstr "Barra fija « Ver inmueble »"
 
-msgid "Summary"
-msgstr "Resumen"
-
 msgid "Terms & availability"
 msgstr "Condiciones y disponibilidad"
 
 msgid "The comparison share form is not available yet."
 msgstr "El formulario de comparación compartida aún no está disponible."
 
-msgid "The consultant phone and opening hours in the share offcanvas are managed under <a href=\":url\">PS Core settings</a>."
-msgstr "El teléfono del asesor y el horario en el offcanvas de compartir se gestionan en <a href=\":url\">configuración PS Core</a>."
+msgid "The consultant phone and opening hours in the share offcanvas are mana"
+"ged under <a href=\":url\">PS Core settings</a>."
+msgstr "El teléfono del asesor y el horario en el offcanvas de compartir se ge"
+"stionan en <a href=\":url\">configuración PS Core</a>."
 
-msgid "This comparison link is invalid or has expired. At least @min valid property references are required."
-msgstr "Este enlace de comparación no es válido o ha caducado. Se requieren al menos @min referencias válidas."
+msgid "This comparison link is invalid or has expired. At least @min valid pr"
+"operty references are required."
+msgstr "Este enlace de comparación no es válido o ha caducado. Se requieren al"
+" menos @min referencias válidas."
 
 msgid "Transaction type"
 msgstr "Tipo de transacción"
@@ -280,7 +312,8 @@ msgid "Unable to add this property to the comparison right now."
 msgstr "No se puede añadir este inmueble a la comparación en este momento."
 
 msgid "Unable to send the comparison. Check the email address and try again."
-msgstr "No se pudo enviar la comparación. Compruebe el correo e inténtelo de nuevo."
+msgstr "No se pudo enviar la comparación. Compruebe el correo e inténtelo de n"
+"uevo."
 
 msgid "Unable to send the comparison. Please try again."
 msgstr "No se pudo enviar la comparación. Inténtelo de nuevo."
@@ -303,23 +336,22 @@ msgstr "Ver inmueble"
 msgid "Yes"
 msgstr "Sí"
 
-msgid "You can't compare more than @max ads at the same time. Delete one to add this one."
-msgstr "No puede comparar más de @max fichas a la vez. Elimine una para añadir esta."
+msgid "You can't compare more than @max ads at the same time. Delete one to a"
+"dd this one."
+msgstr "No puede comparar más de @max fichas a la vez. Elimine una para añadir"
+" esta."
 
 msgid "You have not selected any properties to compare yet."
 msgstr "Aún no ha seleccionado inmuebles para comparar."
 
-msgid "—"
-msgstr "—"
-
-msgctxt "Offer budget period short"
 msgid "mo"
 msgstr "mes"
 
-msgctxt "Offer budget period short"
+msgid "seat"
+msgstr "puesto"
+
 msgid "yr"
 msgstr "año"
 
-msgctxt "Offer budget unit"
-msgid "seat"
-msgstr "puesto"
+msgid "—"
+msgstr "—"

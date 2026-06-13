@@ -1,0 +1,96 @@
+# NL translation for ps_demo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_demo\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background image path (theme-relative)"
+msgstr "Achtergrondafbeeldingspad (thema-relatief)"
+
+msgid "Business univers"
+msgstr "Zakelijk universum"
+
+msgid "Default demo content and configuration for Property Search (export hub"
+")."
+msgstr "Standaard demo-inhoud en configuratie voor Property Search (exporthub)"
+"."
+
+msgid "Editorial promo"
+msgstr "Redactionele promo"
+
+msgid "English alias"
+msgstr "Engelse alias"
+
+msgid "English body"
+msgstr "Engelse hoofdtekst"
+
+msgid "English label"
+msgstr "Engels label"
+
+msgid "English path"
+msgstr "Engels pad"
+
+msgid "English subtitle"
+msgstr "Engelse ondertitel"
+
+msgid "English title"
+msgstr "Engelse titel"
+
+msgid "Featured offers"
+msgstr "Uitgelichte aanbiedingen"
+
+msgid "French alias"
+msgstr "Franse alias"
+
+msgid "French body"
+msgstr "Franse hoofdtekst"
+
+msgid "French label"
+msgstr "Frans label"
+
+msgid "French path"
+msgstr "Frans pad"
+
+msgid "French subtitle"
+msgstr "Franse ondertitel"
+
+msgid "French title"
+msgstr "Franse titel"
+
+msgid "Front page internal path"
+msgstr "Intern pad van de voorpagina"
+
+msgid "Hero promo panel copy"
+msgstr "Tekst van het hero-promopaneel"
+
+msgid "Hero search form copy"
+msgstr "Tekst van het hero-zoekformulier"
+
+msgid "Homepage URL aliases per language"
+msgstr "Homepage-URL-aliassen per taal"
+
+msgid "Homepage node UUID (export reference)"
+msgstr "Homepage-node-UUID (exportreferentie)"
+
+msgid "Image path (theme-relative)"
+msgstr "Afbeeldingspad (thema-relatief)"
+
+msgid "PS Demo homepage block copy"
+msgstr "Tekst van het PS Demo-homepageblok"
+
+msgid "PS Demo settings"
+msgstr "PS Demo-instellingen"
+
+msgid "Promo panel background (theme-relative)"
+msgstr "Achtergrond van het promopaneel (thema-relatief)"
+
+msgid "Search hero"
+msgstr "Zoek-hero"
+
+msgid "Search query string"
+msgstr "Zoekquery-string"

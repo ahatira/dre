@@ -1,0 +1,437 @@
+# EN translation for ps_diagnostic module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_diagnostic\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "- None -"
+msgstr ""
+
+msgid "- Select -"
+msgstr ""
+
+msgid "A"
+msgstr ""
+
+msgid "Access diagnostic admin pages"
+msgstr ""
+
+msgid "Add class"
+msgstr ""
+
+msgid "Add diagnostic type"
+msgstr ""
+
+msgid "Administer diagnostic settings"
+msgstr ""
+
+msgid "Administer diagnostic types"
+msgstr ""
+
+msgid "Allow empty diagnostic value"
+msgstr ""
+
+msgid "Allow empty value"
+msgstr ""
+
+msgid "Allow manual class"
+msgstr ""
+
+msgid "Allow manual class entry"
+msgstr ""
+
+msgid "Allowed diagnostic type IDs"
+msgstr ""
+
+msgid "Allowed diagnostic types"
+msgstr ""
+
+msgid "Auto"
+msgstr ""
+
+msgid "Back to diagnostics structure"
+msgstr ""
+
+msgid "Back to types"
+msgstr ""
+
+msgid "Badge image style"
+msgstr ""
+
+msgid "Badge image style: @style"
+msgstr ""
+
+msgid "Badge image style: none"
+msgstr ""
+
+msgid "Best class"
+msgstr ""
+
+msgid "Certification label badge"
+msgstr ""
+
+msgid "Certification labels"
+msgstr ""
+
+msgid "Choose the diagnostic family before entering the class or value."
+msgstr ""
+
+msgid "Class"
+msgstr ""
+
+msgid "Class (auto preview)"
+msgstr ""
+
+msgid "Class auto-detected: @class"
+msgstr ""
+
+msgid "Class is computed automatically from the value scale."
+msgstr ""
+
+msgid "Class label is required when a class row is used."
+msgstr ""
+
+msgid "Class ranges must be strictly increasing."
+msgstr ""
+
+msgid "Class slider preview"
+msgstr ""
+
+msgid "Classes"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Color must be a valid hex value (example: #8BC34A)."
+msgstr ""
+
+msgid "Configure diagnostics."
+msgstr ""
+
+msgid "Configure offer section headings"
+msgstr ""
+
+msgid "Dates: hidden"
+msgstr ""
+
+msgid "Dates: shown"
+msgstr ""
+
+msgid "Default validity duration (months)"
+msgstr ""
+
+msgid "Default validity months"
+msgstr ""
+
+msgid "Define classes in ascending order. The last configured class is open-e"
+"nded and must keep an empty max range."
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Detailed message per reason"
+msgstr ""
+
+msgid "Diagnostic - Compare table (badge)"
+msgstr ""
+
+msgid "Diagnostic - Full"
+msgstr ""
+
+msgid "Diagnostic - Horizontal (default)"
+msgstr ""
+
+msgid "Diagnostic - Vertical"
+msgstr ""
+
+msgid "Diagnostic date"
+msgstr ""
+
+msgid "Diagnostic fields for offers."
+msgstr ""
+
+msgid "Diagnostic has expired."
+msgstr ""
+
+msgid "Diagnostic has no classification."
+msgstr ""
+
+msgid "Diagnostic item"
+msgstr ""
+
+msgid "Diagnostic item editor"
+msgstr ""
+
+msgid "Diagnostic item field settings"
+msgstr ""
+
+msgid "Diagnostic item storage settings"
+msgstr ""
+
+msgid "Diagnostic item values"
+msgstr ""
+
+msgid "Diagnostic label is not provided by the owner."
+msgstr ""
+
+msgid "Diagnostic not applicable for this offer."
+msgstr ""
+
+msgid "Diagnostic scale"
+msgstr ""
+
+msgid "Diagnostic settings"
+msgstr ""
+
+msgid "Diagnostic summary"
+msgstr ""
+
+msgid "Diagnostic type"
+msgstr ""
+
+msgid "Diagnostic type %label has been saved."
+msgstr ""
+
+msgid "Diagnostic types"
+msgstr ""
+
+msgid "Diagnostics"
+msgstr ""
+
+msgid "Diagnostics overview"
+msgstr ""
+
+msgid "Disabled diagnostic message mode"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "Energy & diagnostics"
+msgstr ""
+
+msgid "Energy classes"
+msgstr ""
+
+msgid "Energy label not provided by the owner."
+msgstr ""
+
+msgid "Energy-efficient property"
+msgstr ""
+
+msgid "Energy-intensive property"
+msgstr ""
+
+msgid "Enter a value to auto-detect the class."
+msgstr ""
+
+msgid "Enter the measured value first. The widget suggests the class automati"
+"cally from the scale."
+msgstr ""
+
+msgid "Example: kWh/m2/year, kgCO2/m2/year."
+msgstr ""
+
+msgid "Fallback message mode"
+msgstr ""
+
+msgid "From:"
+msgstr ""
+
+msgid "High greenhouse gas emissions"
+msgstr ""
+
+msgid "How this field works"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Low greenhouse gas emissions"
+msgstr ""
+
+msgid "Manage diagnostic types."
+msgstr ""
+
+msgid "Manage diagnostics from this simple interface."
+msgstr ""
+
+msgid "Manage diagnostics structure."
+msgstr ""
+
+msgid "Manual class override: @class"
+msgstr ""
+
+msgid "Measured value used to calculate the class automatically."
+msgstr ""
+
+msgid "Move"
+msgstr ""
+
+msgid "Navigation"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "No automatic class could be inferred from the current value."
+msgstr ""
+
+msgid "No class scale configured."
+msgstr ""
+
+msgid "No classes configured yet."
+msgstr ""
+
+msgid "No classification"
+msgstr ""
+
+msgid "Non applicable"
+msgstr ""
+
+msgid "Offer detail display"
+msgstr ""
+
+msgid "Offer section headings"
+msgstr ""
+
+msgid "One type ID per line. Leave empty to allow all types."
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "PS Diagnostic"
+msgstr ""
+
+msgid "Range max"
+msgstr ""
+
+msgid "Range max is required for configured classes except the last one."
+msgstr ""
+
+msgid "Ranges: hidden"
+msgstr ""
+
+msgid "Ranges: shown"
+msgstr ""
+
+msgid "Reference table: hidden"
+msgstr ""
+
+msgid "Reference table: shown"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Remove selected"
+msgstr ""
+
+msgid "Section title and icon"
+msgstr ""
+
+msgid "Show dates"
+msgstr ""
+
+msgid "Show ranges"
+msgstr ""
+
+msgid "Show reference threshold table"
+msgstr ""
+
+msgid "Show unknown-state banner"
+msgstr ""
+
+msgid "Shown for all disabled diagnostics when single message mode is selecte"
+"d."
+msgstr ""
+
+msgid "Simple and configurable diagnostics module for offers."
+msgstr ""
+
+msgid "Single fallback message"
+msgstr ""
+
+msgid "Single message (BNPPRE style)"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "Stores one diagnostic item based on XML structure."
+msgstr ""
+
+msgid "The last configured class must keep an empty range max."
+msgstr ""
+
+msgid "This diagnostic is marked as having no classification."
+msgstr ""
+
+msgid "This diagnostic is marked as non applicable."
+msgstr ""
+
+msgid "Threshold"
+msgstr ""
+
+msgid "Types"
+msgstr ""
+
+msgid "UI Icon shown next to the diagnostic title on offer pages."
+msgstr ""
+
+msgid "UUID"
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Unknown banner: hidden"
+msgstr ""
+
+msgid "Unknown banner: shown"
+msgstr ""
+
+msgid "Until:"
+msgstr ""
+
+msgid "Used by the Full formatter."
+msgstr ""
+
+msgid "Validity end date"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Weight"
+msgstr ""
+
+msgid "When a diagnostic cannot be displayed, choose one shared message or a "
+"specific message per status."
+msgstr ""
+
+msgid "Worst class"
+msgstr ""
+
+msgid "Yes"
+msgstr ""

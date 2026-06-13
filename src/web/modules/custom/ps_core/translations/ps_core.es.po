@@ -1,0 +1,273 @@
+# ES translation for ps_core module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_core\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@description"
+msgstr "@description"
+
+msgid "Access /admin/ps/config and related section links."
+msgstr "Acceso a /admin/ps/config y a los enlaces de secciones relacionadas."
+
+msgid "Access /admin/ps/content and related section links."
+msgstr "Acceso a /admin/ps/content y a los enlaces de secciones relacionadas."
+
+msgid "Access /admin/ps/structure and related section links."
+msgstr "Acceso a /admin/ps/structure y a los enlaces de secciones relacionadas"
+"."
+
+msgid "Access Property Search config section"
+msgstr "Acceder a la sección de configuración de Property Search"
+
+msgid "Access Property Search content section"
+msgstr "Acceder a la sección de contenido de Property Search"
+
+msgid "Access Property Search hub"
+msgstr "Acceder al hub de Property Search"
+
+msgid "Access Property Search structure section"
+msgstr "Acceder a la sección de estructura de Property Search"
+
+msgid "Access the Property Search admin hub pages."
+msgstr "Acceder a las páginas del hub de administración de Property Search."
+
+msgid "Administer Property Search core settings"
+msgstr "Administrar la configuración principal de Property Search"
+
+msgid "Audit retention (days)"
+msgstr "Retención de auditoría (días)"
+
+msgid "Audit settings"
+msgstr "Configuración de auditoría"
+
+msgid "Availability text"
+msgstr "Texto de disponibilidad"
+
+msgid "Cache settings"
+msgstr "Configuración de caché"
+
+msgid "Central access to Property Search content operations."
+msgstr "Acceso central a las operaciones de contenido de Property Search."
+
+msgid "Change icon"
+msgstr "Cambiar icono"
+
+msgid "Checksum"
+msgstr "Suma de verificación"
+
+msgid "Configuration"
+msgstr "Configuración"
+
+msgid "Configuration hub"
+msgstr "Hub de configuración"
+
+msgid "Configuration transverse Property Search"
+msgstr "Configuración transversal de Property Search"
+
+msgid "Configure cross-cutting Property Search settings."
+msgstr "Configurar ajustes transversales de Property Search."
+
+msgid "Conflict detection settings"
+msgstr "Configuración de detección de conflictos"
+
+msgid "Conflict detection window (seconds)"
+msgstr "Ventana de detección de conflictos (segundos)"
+
+msgid "Content hub"
+msgstr "Hub de contenido"
+
+msgid "Contenu"
+msgstr "Contenido"
+
+msgid "Core settings"
+msgstr "Configuración principal"
+
+msgid "Create, update and manage offers."
+msgstr "Crear, actualizar y gestionar ofertas."
+
+msgid "Default cache TTL (seconds)"
+msgstr "TTL de caché por defecto (segundos)"
+
+msgid "Display urgency help block"
+msgstr "Mostrar bloque de ayuda urgente"
+
+msgid "Enable audit logging"
+msgstr "Habilitar registro de auditoría"
+
+msgid "Enable site-wide urgency help block"
+msgstr "Habilitar bloque global de ayuda urgente"
+
+msgid "Foundation infrastructure for Property Search ecosystem."
+msgstr "Infraestructura base del ecosistema Property Search."
+
+msgid "Gestion du contenu Property Search"
+msgstr "Gestión de contenido de Property Search"
+
+msgid "Health"
+msgstr "Estado"
+
+msgid "In a hurry? Call us at"
+msgstr "¿Tiene prisa? Llámenos al"
+
+msgid "Internal lock"
+msgstr "Bloqueo interno"
+
+msgid "Lead text"
+msgstr "Texto introductorio"
+
+msgid "Manage Property Search agents"
+msgstr "Gestionar agentes de Property Search"
+
+msgid "Manage Property Search context rules"
+msgstr "Gestionar reglas de contexto de Property Search"
+
+msgid "Manage Property Search core settings and diagnostics."
+msgstr "Gestionar la configuración principal y los diagnósticos de Property Se"
+"arch."
+
+msgid "Manage Property Search diagnostics"
+msgstr "Gestionar diagnósticos de Property Search"
+
+msgid "Manage Property Search dictionary"
+msgstr "Gestionar diccionario de Property Search"
+
+msgid "Manage Property Search features"
+msgstr "Gestionar características de Property Search"
+
+msgid "Manage Property Search migration"
+msgstr "Gestionar migración de Property Search"
+
+msgid "Manage Property Search offers"
+msgstr "Gestionar ofertas de Property Search"
+
+msgid "Manage agent profiles and assignments."
+msgstr "Gestionar perfiles y asignaciones de agentes."
+
+msgid "Manage business dictionaries and entries."
+msgstr "Gestionar diccionarios de negocio y sus entradas."
+
+msgid "Manage context rules and orchestration."
+msgstr "Gestionar reglas de contexto y orquestación."
+
+msgid "Manage diagnostics and energy data."
+msgstr "Gestionar diagnósticos y datos energéticos."
+
+msgid "Manage feature definitions and values."
+msgstr "Gestionar definiciones y valores de características."
+
+msgid "Manage import and migration workflows."
+msgstr "Gestionar flujos de trabajo de importación y migración."
+
+msgid "Manage structural entities and dictionaries."
+msgstr "Gestionar entidades estructurales y diccionarios."
+
+msgid "No actions are currently available for your permissions."
+msgstr "Actualmente no hay acciones disponibles para sus permisos."
+
+msgid "Offer detail sections"
+msgstr "Secciones de detalle de la oferta"
+
+msgid "Offer section settings"
+msgstr "Configuración de secciones de la oferta"
+
+msgid "Opening hours"
+msgstr "Horario de apertura"
+
+msgid "Optional. Leave empty to derive from the display number (FR numbers st"
+"arting with 0)."
+msgstr "Opcional. Dejar vacío para derivarlo del número mostrado (números FR q"
+"ue empiezan por 0)."
+
+msgid "Parametres transverses ps_core"
+msgstr "Parámetros transversales ps_core"
+
+msgid "Phone and opening hours shown in offcanvas forms (search alert, contac"
+"t, etc.)."
+msgstr "Teléfono y horario mostrados en formularios offcanvas (alerta de búsqu"
+"eda, contacto, etc.)."
+
+msgid "Phone link (tel: URI)"
+msgstr "Enlace de teléfono (URI tel:)"
+
+msgid "Phone number (display)"
+msgstr "Número de teléfono (visualización)"
+
+msgid "Property Search"
+msgstr "Búsqueda inmobiliaria"
+
+msgid "Property Search Core settings"
+msgstr "Configuración principal de Property Search"
+
+msgid "Property Search admin hub"
+msgstr "Hub de administración de Property Search"
+
+msgid "Property Search health checks"
+msgstr "Comprobaciones de estado de Property Search"
+
+msgid "Protects manually curated data from automated overwrites."
+msgstr "Protege los datos curados manualmente de sobrescrituras automáticas."
+
+msgid "Raw availability text imported from source systems."
+msgstr "Texto bruto de disponibilidad importado desde sistemas fuente."
+
+msgid "SHA256 hash of entity data for import idempotence."
+msgstr "Hash SHA256 de los datos de la entidad para idempotencia de importació"
+"n."
+
+msgid "Section"
+msgstr "Sección"
+
+msgid "Section icon"
+msgstr "Icono de sección"
+
+msgid "Section title"
+msgstr "Título de sección"
+
+msgid "Select icon"
+msgstr "Seleccionar icono"
+
+msgid "Site contact — urgency help"
+msgstr "Contacto del sitio — ayuda urgente"
+
+msgid "Source tracking"
+msgstr "Seguimiento de origen"
+
+msgid "Structure"
+msgstr "Estructura"
+
+msgid "Structure et modeles de donnees"
+msgstr "Estructura y modelos de datos"
+
+msgid "Structure hub"
+msgstr "Hub de estructura"
+
+msgid "Structured JSON payload used for source traceability."
+msgstr "Carga JSON estructurada usada para trazabilidad de origen."
+
+msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
+msgstr "Texto antes del número de teléfono, p. ej., \"¿Tiene prisa? Llámenos a"
+"l\"."
+
+msgid "The @team team"
+msgstr "El equipo de @team"
+
+msgid "Transport feature group"
+msgstr "Grupo de características de transporte"
+
+msgid "Urgency help lead text"
+msgstr "Texto principal de ayuda urgente"
+
+msgid "Urgency help opening hours"
+msgstr "Horario de ayuda urgente"
+
+msgid "Urgency help phone (display)"
+msgstr "Teléfono de ayuda urgente (visualización)"
+
+msgid "Urgency help phone link (tel: URI, optional)"
+msgstr "Enlace telefónico de ayuda urgente (URI tel:, opcional)"

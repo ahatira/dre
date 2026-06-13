@@ -1,0 +1,44 @@
+title: 'Otrzymaj moje porównanie'
+description: "Udostępnij porównanie nieruchomości e-mailem."
+category: 'Wyszukiwanie nieruchomości'
+elements: |-
+  intro:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__intro">Wpisz swój służbowy e-mail, aby otrzymać porównanie nieruchomości:</p>'
+  prof_email_address:
+    '#type': email
+    '#title': 'Służbowy e-mail'
+    '#required': true
+  optout_group:
+    '#type': fieldset
+    '#title': 'Komunikacja handlowa'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-compare-share-form__optout-intro">Sprzeciwiam się otrzymywaniu komunikacji handlowej od BNP Paribas Real Estate Transaction France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefon
+  legal:
+    '#type': checkbox
+    '#title': 'Przeczytałem(-am) i akceptuję warunki Polityki ochrony danych osobowych.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France przetwarza Twoje dane, aby wysłać żądane porównanie. Zapoznaj się z naszą <a href="/data-protection">Informacją o ochronie danych</a>, aby poznać swoje prawa.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  compare_url:
+    '#type': hidden
+    '#title': 'URL porównania'
+settings:
+  form_submit_label: 'Otrzymaj moje porównanie'
+  confirmation_message: "<p>Twoje porównanie zostało wysłane e-mailem.</p>"
+handlers:

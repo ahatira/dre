@@ -1,0 +1,48 @@
+title: 'Plan een bezoek'
+description: 'Formulier om een bezoek voor een aanbod in te plannen.'
+category: 'Vastgoed zoeken'
+elements: |-
+  visitor:
+    '#type': fieldset
+    '#title': 'Uw contactgegevens'
+    first_name:
+      '#type': textfield
+      '#title': 'Voornaam'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Achternaam'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefoon
+  visit:
+    '#type': fieldset
+    '#title': 'Bezoekaanvraag'
+    preferred_date:
+      '#type': date
+      '#title': 'Voorkeursdatum'
+    message:
+      '#type': textarea
+      '#title': Bericht
+      '#default_value': 'Ik wil graag een bezoek plannen voor dit aanbod.'
+  legal:
+    '#type': checkbox
+    '#title': 'Ik ga akkoord met het privacybeleid.'
+    '#required': true
+settings:
+  form_submit_label: Verzenden
+  confirmation_message: 'Bedankt. Uw bezoekaanvraag is verzonden.'
+handlers:
+  email_agent:
+    label: 'Melding adviseur'
+    subject: "Bezoekaanvraag — Aanbod [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: 'Bevestiging bezoeker'
+    subject: "Uw bezoekaanvraag — [webform_submission:source-entity:field_reference]"
+    body: "<p>Bedankt voor uw bezoekaanvraag over het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Onze adviseur neemt spoedig contact met u op om het bezoek te plannen.</p>"

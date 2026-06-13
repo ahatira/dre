@@ -1,8 +1,243 @@
+# DE translation for ps_context module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_context\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: de\n"
+
+msgid "- Select action -"
+msgstr "- Aktion auswählen -"
+
+msgid "- Select field -"
+msgstr "- Feld auswählen -"
+
+msgid "- Select tab -"
+msgstr "- Tab auswählen -"
+
+msgid "AND — all conditions must match"
+msgstr "UND — alle Bedingungen müssen erfüllt sein"
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Action type"
+msgstr "Aktionstyp"
+
+msgid "Action value"
+msgstr "Aktionswert"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Actions applied when conditions match."
+msgstr "Aktionen, die angewendet werden, wenn die Bedingungen erfüllt sind."
+
+msgid "Add action"
+msgstr "Aktion hinzufügen"
+
+msgid "Add condition"
+msgstr "Bedingung hinzufügen"
+
+msgid "Add rule"
+msgstr "Regel hinzufügen"
+
+msgid "Administer PS Context matrix"
+msgstr "PS-Context-Matrix verwalten"
+
+msgid "Advanced"
+msgstr "Erweitert"
+
+msgid "Always applies"
+msgstr "Immer anwendbar"
+
+msgid "Budget"
+msgstr "Preis"
+
+msgid "Condition"
+msgstr "Bedingung"
+
+msgid "Conditions"
+msgstr "Bedingungen"
+
+msgid "Conditions logic"
+msgstr "Bedingungslogik"
+
+msgid "Conditions logic (AND/OR)"
+msgstr "Bedingungslogik (UND/ODER)"
+
+msgid "Configure offer form field visibility rules (conditional rules engine)"
+"."
+msgstr "Regeln zur Feldsichtbarkeit im Angebotsformular konfigurieren (Engine "
+"für bedingte Regeln)."
+
+msgid "Configure the offer form field visibility matrix rules."
+msgstr "Regeln der Sichtbarkeitsmatrix für Felder im Angebotsformular konfigur"
+"ieren."
+
+msgid "Context rule"
+msgstr "Kontextregel"
+
+msgid "Context rules"
+msgstr "Kontextregeln"
+
+msgid "Created context rule %label."
+msgstr "Kontextregel %label wurde erstellt."
+
+msgid "Disable field"
+msgstr "Feld deaktivieren"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "E.g. BUR, COW, ENT, ACT, COM, TER (asset type) · LOC, VEN (operation t"
+"ype) · 1 / 0 (checkbox)."
+msgstr "Z. B. BUR, COW, ENT, ACT, COM, TER (Objekttyp) · LOC, VEN (Vorgangstyp"
+") · 1 / 0 (Kontrollkästchen)."
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Expected value"
+msgstr "Erwarteter Wert"
+
+msgid "Field"
+msgstr "Feld"
+
+msgid "Field machine name"
+msgstr "Technischer Feldname"
+
+msgid "Fields"
+msgstr "Felder"
+
+msgid "For \"Set default value\": value to fill in. For \"Hide surface row\":"
+" delta index (1 = DISPO, 2 = ETREF)."
+msgstr "Für „Standardwert setzen“: auszufüllender Wert. Für „Flächenzeile ausb"
+"lenden“: Delta-Index (1 = DISPO, 2 = ETREF)."
+
+msgid "Hide field"
+msgstr "Feld ausblenden"
+
+msgid "Hide surface row (delta)"
+msgstr "Flächenzeile ausblenden (Delta)"
+
+msgid "Hide tab"
+msgstr "Tab ausblenden"
+
+msgid "Implements the offer form matrix rules engine: conditional field visib"
+"ility driven by asset_type × operation_type × field_divisible."
+msgstr "Implementiert die Matrixregel-Engine des Angebotsformulars: bedingte F"
+"eldsichtbarkeit gesteuert durch asset_type × operation_type × field_di"
+"visible."
+
+msgid "Label"
+msgstr "Bezeichnung"
+
+msgid "Leave empty to make this rule always apply (unconditional)."
+msgstr "Leer lassen, damit diese Regel immer gilt (ohne Bedingung)."
+
+msgid "Machine name"
+msgstr "Technischer Name"
+
+msgid "Make optional"
+msgstr "Optional machen"
+
+msgid "Make required"
+msgstr "Pflichtfeld machen"
+
+msgid "Matrix rules"
+msgstr "Matrixregeln"
+
+msgid "Max budget (€)"
+msgstr "Max. Preis (€)"
+
+msgid "Max price (€)"
+msgstr "Max. Preis (€)"
+
+msgid "Max rent (€/m²/year)"
+msgstr "Max. Miete (€/m²/Jahr)"
+
+msgid "Max rent (€/seat/year)"
+msgstr "Max. Miete (€/Sitz/Jahr)"
+
+msgid "Min budget (€)"
+msgstr "Min. Preis (€)"
+
+msgid "Min price (€)"
+msgstr "Min. Preis (€)"
+
+msgid "Min rent (€/m²/year)"
+msgstr "Min. Miete (€/m²/Jahr)"
+
+msgid "Min rent (€/seat/year)"
+msgstr "Min. Miete (€/Sitz/Jahr)"
+
+msgid "OR — at least one condition must match"
+msgstr "ODER — mindestens eine Bedingung muss erfüllt sein"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Price"
+msgstr "Preis"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Rent"
+msgstr "Miete"
+
+msgid "Rule %label has no valid actions and will have no effect."
+msgstr "Regel %label hat keine gültigen Aktionen und hat keine Wirkung."
+
+msgid "Rules with lower weight are evaluated first. When two rules affect the"
+" same element, the last evaluated wins."
+msgstr "Regeln mit niedrigerem Gewicht werden zuerst ausgewertet. Wenn zwei Re"
+"geln dasselbe Element betreffen, gilt die zuletzt ausgewertete."
+
+msgid "Set default value"
+msgstr "Standardwert setzen"
+
+msgid "Show field"
+msgstr "Feld anzeigen"
+
+msgid "Show tab"
+msgstr "Tab anzeigen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tab"
+msgstr "Tab"
+
+msgid "Tabs"
+msgstr "Tabs"
+
+msgid "Target (field or tab machine name)"
+msgstr "Ziel (technischer Name von Feld oder Tab)"
+
+msgid "The delta value for \"Hide surface row\" must be a positive integer (e"
+".g. 1 for DISPO, 2 for ETREF)."
+msgstr "Der Delta-Wert für „Flächenzeile ausblenden“ muss eine positive Ganzza"
+"hl sein (z. B. 1 für DISPO, 2 für ETREF)."
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Updated context rule %label."
+msgstr "Kontextregel %label wurde aktualisiert."
+
+msgid "Value"
+msgstr "Wert"
+
+msgid "Weight"
+msgstr "Gewichtung"
+
+msgid "context rule"
+msgstr "Kontextregel"
+
+msgid "context rules"
+msgstr "Kontextregeln"

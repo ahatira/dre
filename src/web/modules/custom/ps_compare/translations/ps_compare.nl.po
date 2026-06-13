@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-12 00:00+0000\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,26 +69,29 @@ msgstr "Vergelijkingslimieten"
 msgid "Comparison sent to @email."
 msgstr "Vergelijking verzonden naar @email."
 
-msgid "Comparison settings"
-msgstr "Vergelijkingsinstellingen"
+msgid "Configure UX options for the comparison table and modal."
+msgstr "Configureer UX-opties voor vergelijkingstabel en modal."
 
 msgid "Configure property comparison limits and targets."
 msgstr "Configureer vergelijkingslimieten en doelen."
 
-msgid "Configure UX options for the comparison table and modal."
-msgstr "Configureer UX-opties voor vergelijkingstabel en modal."
+msgid "DPE"
+msgstr "DPE"
+
+msgid "Deprecated — use display_share_button"
+msgstr "Verouderd — gebruik display_share_button"
 
 msgid "Divisible"
 msgstr "Deelbaar"
-
-msgid "DPE"
-msgstr "DPE"
 
 msgid "Empty comparison slot"
 msgstr "Lege vergelijkingsplek"
 
 msgid "Enable collapsible sections"
 msgstr "Inklapbare secties inschakelen"
+
+msgid "Enabled entity targets"
+msgstr "Ingeschakelde entiteitsdoelen"
 
 msgid "Enabled targets"
 msgstr "Ingeschakelde doelen"
@@ -99,11 +102,18 @@ msgstr "Energieprestatie"
 msgid "Exclusivity"
 msgstr "Exclusiviteit"
 
+msgid "Feature definition IDs or codes shown in comparison table (empty = all"
+" applicable features)"
+msgstr "Kenmerkdefinitie-IDs of -codes in vergelijkingstabel (leeg = alle toep"
+"asselijke kenmerken)"
+
 msgid "GES"
 msgstr "GES"
 
-msgid "I have read and accept the terms of the Personal Data Protection Policy."
-msgstr "Ik heb de voorwaarden van het beleid inzake bescherming van persoonsgegevens gelezen en accepteer deze."
+msgid "I have read and accept the terms of the Personal Data Protection Polic"
+"y."
+msgstr "Ik heb de voorwaarden van het beleid inzake bescherming van persoonsge"
+"gevens gelezen en accepteer deze."
 
 msgid "If the button does not work, copy the following URL into your browser:"
 msgstr "Als de knop niet werkt, kopieer dan de volgende URL in uw browser:"
@@ -123,20 +133,20 @@ msgstr "Indeling"
 msgid "Loading…"
 msgstr "Laden…"
 
-msgid "Location"
-msgstr "Locatie"
+msgid "Manage Property Search comparison"
+msgstr "Property Search-vergelijking beheren"
 
 msgid "Manage comparison settings and integrations."
 msgstr "Vergelijkingsinstellingen en integraties beheren."
-
-msgid "Manage Property Search comparison"
-msgstr "Property Search-vergelijking beheren"
 
 msgid "Maximum compared items"
 msgstr "Maximum aantal vergeleken items"
 
 msgid "Merge DPE and GES on one row"
 msgstr "DPE en GES op één rij samenvoegen"
+
+msgid "Minimum items required to open comparison page"
+msgstr "Minimum aantal items om vergelijkingspagina te openen"
 
 msgid "Minimum items to open comparison page"
 msgstr "Minimum items om vergelijkingspagina te openen"
@@ -159,9 +169,6 @@ msgstr "Niet genoeg vastgoed in de vergelijkingslijst."
 msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Eén doel per regel in entity_type.bundle-formaat (bijv. node.offer)."
 
-msgid "Open full page"
-msgstr "Volledige pagina openen"
-
 msgid "Optional message"
 msgstr "Optioneel bericht"
 
@@ -170,6 +177,12 @@ msgstr "Overige kenmerken"
 
 msgid "Overview"
 msgstr "Overzicht"
+
+msgid "PS Compare SEO URL mappings"
+msgstr "PS Compare SEO-URL-toewijzingen"
+
+msgid "PS Compare settings"
+msgstr "PS Compare-instellingen"
 
 msgid "Photos"
 msgstr "Foto's"
@@ -189,8 +202,16 @@ msgstr "Prijs"
 msgid "Property comparison"
 msgstr "Vastgoedvergelijking"
 
+msgid "Property offer comparison list with anonymous and authenticated persis"
+"tence."
+msgstr "Vergelijkingslijst voor aanbiedingen met anonieme en geauthenticeerde "
+"persistentie."
+
 msgid "Property type"
 msgstr "Type vastgoed"
+
+msgid "Public compare page slug"
+msgstr "Slug van openbare vergelijkingspagina"
 
 msgid "Receive my comparison"
 msgstr "Mijn vergelijking ontvangen"
@@ -240,11 +261,20 @@ msgstr "Vergelijking delen"
 msgid "Share offcanvas footer"
 msgstr "Offcanvas-footer delen"
 
+msgid "Show comparison summary banner"
+msgstr "Vergelijkingssamenvattingsbanner tonen"
+
 msgid "Show price info popover"
 msgstr "Prijsinfopopover tonen"
 
+msgid "Show price info popover in compare table"
+msgstr "Prijsinfopopover in vergelijkingstabel tonen"
+
 msgid "Show section navigation"
 msgstr "Sectienavigatie tonen"
+
+msgid "Show share comparison button"
+msgstr "Knop vergelijking delen tonen"
 
 msgid "Show summary banner"
 msgstr "Samenvattingsbanner tonen"
@@ -258,20 +288,21 @@ msgstr "Knop « Mijn selectie verzenden » tonen"
 msgid "Sticky view-property bar"
 msgstr "Vaste balk « Vastgoed bekijken »"
 
-msgid "Summary"
-msgstr "Samenvatting"
-
 msgid "Terms & availability"
 msgstr "Voorwaarden en beschikbaarheid"
 
 msgid "The comparison share form is not available yet."
 msgstr "Het formulier om een vergelijking te delen is nog niet beschikbaar."
 
-msgid "The consultant phone and opening hours in the share offcanvas are managed under <a href=\":url\">PS Core settings</a>."
-msgstr "Telefoon en openingstijden van de adviseur in de offcanvas worden beheerd onder <a href=\":url\">PS Core-instellingen</a>."
+msgid "The consultant phone and opening hours in the share offcanvas are mana"
+"ged under <a href=\":url\">PS Core settings</a>."
+msgstr "Telefoon en openingstijden van de adviseur in de offcanvas worden behe"
+"erd onder <a href=\":url\">PS Core-instellingen</a>."
 
-msgid "This comparison link is invalid or has expired. At least @min valid property references are required."
-msgstr "Deze vergelijkingslink is ongeldig of verlopen. Minstens @min geldige referenties vereist."
+msgid "This comparison link is invalid or has expired. At least @min valid pr"
+"operty references are required."
+msgstr "Deze vergelijkingslink is ongeldig of verlopen. Minstens @min geldige "
+"referenties vereist."
 
 msgid "Transaction type"
 msgstr "Transactietype"
@@ -280,7 +311,8 @@ msgid "Unable to add this property to the comparison right now."
 msgstr "Kan dit vastgoed momenteel niet aan vergelijking toevoegen."
 
 msgid "Unable to send the comparison. Check the email address and try again."
-msgstr "Kan vergelijking niet verzenden. Controleer het e-mailadres en probeer opnieuw."
+msgstr "Kan vergelijking niet verzenden. Controleer het e-mailadres en probeer"
+" opnieuw."
 
 msgid "Unable to send the comparison. Please try again."
 msgstr "Kan vergelijking niet verzenden. Probeer opnieuw."
@@ -303,23 +335,22 @@ msgstr "Vastgoed bekijken"
 msgid "Yes"
 msgstr "Ja"
 
-msgid "You can't compare more than @max ads at the same time. Delete one to add this one."
-msgstr "U kunt niet meer dan @max advertenties tegelijk vergelijken. Verwijder er een om deze toe te voegen."
+msgid "You can't compare more than @max ads at the same time. Delete one to a"
+"dd this one."
+msgstr "U kunt niet meer dan @max advertenties tegelijk vergelijken. Verwijder"
+" er een om deze toe te voegen."
 
 msgid "You have not selected any properties to compare yet."
 msgstr "U heeft nog geen vastgoed geselecteerd om te vergelijken."
 
-msgid "—"
-msgstr "—"
-
-msgctxt "Offer budget period short"
 msgid "mo"
 msgstr "mnd"
 
-msgctxt "Offer budget period short"
+msgid "seat"
+msgstr "werkplek"
+
 msgid "yr"
 msgstr "jr"
 
-msgctxt "Offer budget unit"
-msgid "seat"
-msgstr "werkplek"
+msgid "—"
+msgstr "—"

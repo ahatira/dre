@@ -1,0 +1,347 @@
+{
+  "ps_context.rule.asset_selected_show_surface.yml": {
+    "de": {
+      "label": "Objekt ausgewählt: Reiter Fläche anzeigen"
+    },
+    "es": {
+      "label": "Activo seleccionado: mostrar pestaña Superficie"
+    },
+    "fr": {
+      "label": "Actif sélectionné : afficher l'onglet Surface"
+    },
+    "it": {
+      "label": "Asset selezionato: mostra scheda Superficie"
+    },
+    "lb": {
+      "label": "Objekt ausgewielt: Tab Fläch weisen"
+    },
+    "nl": {
+      "label": "Object geselecteerd: tabblad Oppervlakte tonen"
+    },
+    "pl": {
+      "label": "Wybrano zasób: pokaż zakładkę Powierzchnia"
+    }
+  },
+  "ps_context.rule.asset_type_cow.yml": {
+    "de": {
+      "label": "Objekttyp COW: Kapazität anzeigen, Fläche und Teilbar ausblenden"
+    },
+    "es": {
+      "label": "Tipo de activo COW: mostrar Capacidad, ocultar Superficie y Divisible"
+    },
+    "fr": {
+      "label": "Type d'actif COW : afficher Capacité, masquer Surface et Divisible"
+    },
+    "it": {
+      "label": "Tipo asset COW: mostra Capacità, nascondi Superficie e Divisibile"
+    },
+    "lb": {
+      "label": "Objekttyp COW: Kapazitéit weisen, Fläch a Deelbar verstoppen"
+    },
+    "nl": {
+      "label": "Objecttype COW: Capaciteit tonen, Oppervlakte en Deelbaar verbergen"
+    },
+    "pl": {
+      "label": "Typ zasobu COW: pokaż Pojemność, ukryj Powierzchnię i Podzielność"
+    }
+  },
+  "ps_context.rule.default_budget_currency_eur.yml": {
+    "de": {
+      "label": "Standard: Preiswährung auf EUR setzen"
+    },
+    "es": {
+      "label": "Por defecto: establecer moneda del precio en EUR"
+    },
+    "fr": {
+      "label": "Par défaut : définir la devise du prix sur EUR"
+    },
+    "it": {
+      "label": "Predefinito: imposta la valuta del prezzo su EUR"
+    },
+    "lb": {
+      "label": "Standard: Präiswährung op EUR setzen"
+    },
+    "nl": {
+      "label": "Standaard: prijsvaluta instellen op EUR"
+    },
+    "pl": {
+      "label": "Domyślnie: ustaw walutę ceny na EUR"
+    }
+  },
+  "ps_context.rule.default_hide_budget.yml": {
+    "de": {
+      "label": "Standard: Reiter Preis ausblenden"
+    },
+    "es": {
+      "label": "Por defecto: ocultar pestaña Precio"
+    },
+    "fr": {
+      "label": "Par défaut : masquer l'onglet Prix"
+    },
+    "it": {
+      "label": "Predefinito: nascondi scheda Prezzo"
+    },
+    "lb": {
+      "label": "Standard: Tab Präis verstoppen"
+    },
+    "nl": {
+      "label": "Standaard: tabblad Prijs verbergen"
+    },
+    "pl": {
+      "label": "Domyślnie: ukryj zakładkę Cena"
+    }
+  },
+  "ps_context.rule.default_hide_capacity.yml": {
+    "de": {
+      "label": "Standard: Reiter Kapazität ausblenden"
+    },
+    "es": {
+      "label": "Por defecto: ocultar pestaña Capacidad"
+    },
+    "fr": {
+      "label": "Par défaut : masquer l'onglet Capacité"
+    },
+    "it": {
+      "label": "Predefinito: nascondi scheda Capacità"
+    },
+    "lb": {
+      "label": "Standard: Tab Kapazitéit verstoppen"
+    },
+    "nl": {
+      "label": "Standaard: tabblad Capaciteit verbergen"
+    },
+    "pl": {
+      "label": "Domyślnie: ukryj zakładkę Pojemność"
+    }
+  },
+  "ps_context.rule.default_hide_lots.yml": {
+    "de": {
+      "label": "Standard: Reiter Lose ausblenden"
+    },
+    "es": {
+      "label": "Por defecto: ocultar pestaña Lotes"
+    },
+    "fr": {
+      "label": "Par défaut : masquer l'onglet Lots"
+    },
+    "it": {
+      "label": "Predefinito: nascondi scheda Lotti"
+    },
+    "lb": {
+      "label": "Standard: Tab Loten verstoppen"
+    },
+    "nl": {
+      "label": "Standaard: tabblad Kavels verbergen"
+    },
+    "pl": {
+      "label": "Domyślnie: ukryj zakładkę Działki"
+    }
+  },
+  "ps_context.rule.default_hide_surface.yml": {
+    "de": {
+      "label": "Standard: Reiter Fläche ausblenden"
+    },
+    "es": {
+      "label": "Por defecto: ocultar pestaña Superficie"
+    },
+    "fr": {
+      "label": "Par défaut : masquer l'onglet Surface"
+    },
+    "it": {
+      "label": "Predefinito: nascondi scheda Superficie"
+    },
+    "lb": {
+      "label": "Standard: Tab Fläch verstoppen"
+    },
+    "nl": {
+      "label": "Standaard: tabblad Oppervlakte verbergen"
+    },
+    "pl": {
+      "label": "Domyślnie: ukryj zakładkę Powierzchnia"
+    }
+  },
+  "ps_context.rule.divisible_show_lots.yml": {
+    "de": {
+      "label": "Teilbar: Reiter Lose anzeigen"
+    },
+    "es": {
+      "label": "Divisible: mostrar pestaña Lotes"
+    },
+    "fr": {
+      "label": "Divisible : afficher l'onglet Lots"
+    },
+    "it": {
+      "label": "Divisibile: mostra scheda Lotti"
+    },
+    "lb": {
+      "label": "Deelbar: Tab Loten weisen"
+    },
+    "nl": {
+      "label": "Deelbaar: tabblad Kavels tonen"
+    },
+    "pl": {
+      "label": "Podzielne: pokaż zakładkę Działki"
+    }
+  },
+  "ps_context.rule.loc_budget_period_year.yml": {
+    "de": {
+      "label": "LOC: Preisperiode auf YEAR setzen"
+    },
+    "es": {
+      "label": "LOC: establecer periodo de precio en YEAR"
+    },
+    "fr": {
+      "label": "LOC : définir la période de prix sur YEAR"
+    },
+    "it": {
+      "label": "LOC: imposta periodo prezzo su YEAR"
+    },
+    "lb": {
+      "label": "LOC: Präisperiode op YEAR setzen"
+    },
+    "nl": {
+      "label": "LOC: prijsperiode instellen op YEAR"
+    },
+    "pl": {
+      "label": "LOC: ustaw okres ceny na YEAR"
+    }
+  },
+  "ps_context.rule.loc_budget_unit_per_m2.yml": {
+    "de": {
+      "label": "LOC: Preiseinheit auf PER_M2 setzen"
+    },
+    "es": {
+      "label": "LOC: establecer unidad de precio en PER_M2"
+    },
+    "fr": {
+      "label": "LOC : définir l'unité de prix sur PER_M2"
+    },
+    "it": {
+      "label": "LOC: imposta unità prezzo su PER_M2"
+    },
+    "lb": {
+      "label": "LOC: Präiseenheet op PER_M2 setzen"
+    },
+    "nl": {
+      "label": "LOC: prijseenheid instellen op PER_M2"
+    },
+    "pl": {
+      "label": "LOC: ustaw jednostkę ceny na PER_M2"
+    }
+  },
+  "ps_context.rule.loc_cow_budget_unit_per_poste.yml": {
+    "de": {
+      "label": "LOC + COW: Preiseinheit auf PER_POSTE setzen"
+    },
+    "es": {
+      "label": "LOC + COW: establecer unidad de precio en PER_POSTE"
+    },
+    "fr": {
+      "label": "LOC + COW : définir l'unité de prix sur PER_POSTE"
+    },
+    "it": {
+      "label": "LOC + COW: imposta unità prezzo su PER_POSTE"
+    },
+    "lb": {
+      "label": "LOC + COW: Präiseenheet op PER_POSTE setzen"
+    },
+    "nl": {
+      "label": "LOC + COW: prijseenheid instellen op PER_POSTE"
+    },
+    "pl": {
+      "label": "LOC + COW: ustaw jednostkę ceny na PER_POSTE"
+    }
+  },
+  "ps_context.rule.not_divisible_hide_surface_rows.yml": {
+    "de": {
+      "label": "Nicht teilbar: Flächenzeilen DISPO (1) und ETREF (2) ausblenden"
+    },
+    "es": {
+      "label": "No divisible: ocultar filas de superficie DISPO (1) y ETREF (2)"
+    },
+    "fr": {
+      "label": "Non divisible : masquer les lignes de surface DISPO (1) et ETREF (2)"
+    },
+    "it": {
+      "label": "Non divisibile: nascondi righe superficie DISPO (1) ed ETREF (2)"
+    },
+    "lb": {
+      "label": "Net deelbar: Flächzeilen DISPO (1) an ETREF (2) verstoppen"
+    },
+    "nl": {
+      "label": "Niet deelbaar: oppervlakterijen DISPO (1) en ETREF (2) verbergen"
+    },
+    "pl": {
+      "label": "Niepodzielne: ukryj wiersze powierzchni DISPO (1) i ETREF (2)"
+    }
+  },
+  "ps_context.rule.operation_selected_show_budget.yml": {
+    "de": {
+      "label": "Vorgang ausgewählt: Reiter Preis anzeigen"
+    },
+    "es": {
+      "label": "Operación seleccionada: mostrar pestaña Precio"
+    },
+    "fr": {
+      "label": "Opération sélectionnée : afficher l'onglet Prix"
+    },
+    "it": {
+      "label": "Operazione selezionata: mostra scheda Prezzo"
+    },
+    "lb": {
+      "label": "Operatioun ausgewielt: Tab Präis weisen"
+    },
+    "nl": {
+      "label": "Bewerking geselecteerd: tabblad Prijs tonen"
+    },
+    "pl": {
+      "label": "Wybrano operację: pokaż zakładkę Cena"
+    }
+  },
+  "ps_context.rule.operation_type_ven.yml": {
+    "de": {
+      "label": "Vorgangstyp VEN: Preisperiode ausblenden"
+    },
+    "es": {
+      "label": "Tipo de operación VEN: ocultar periodo de precio"
+    },
+    "fr": {
+      "label": "Type d'opération VEN : masquer la période de prix"
+    },
+    "it": {
+      "label": "Tipo operazione VEN: nascondi periodo prezzo"
+    },
+    "lb": {
+      "label": "Operatiounstyp VEN: Präisperiode verstoppen"
+    },
+    "nl": {
+      "label": "Bewerkingstype VEN: prijsperiode verbergen"
+    },
+    "pl": {
+      "label": "Typ operacji VEN: ukryj okres ceny"
+    }
+  },
+  "ps_context.rule.ven_budget_unit_global.yml": {
+    "de": {
+      "label": "VEN: Preiseinheit auf GLOBAL setzen"
+    },
+    "es": {
+      "label": "VEN: establecer unidad de precio en GLOBAL"
+    },
+    "fr": {
+      "label": "VEN : définir l'unité de prix sur GLOBAL"
+    },
+    "it": {
+      "label": "VEN: imposta unità prezzo su GLOBAL"
+    },
+    "lb": {
+      "label": "VEN: Präiseenheet op GLOBAL setzen"
+    },
+    "nl": {
+      "label": "VEN: prijseenheid instellen op GLOBAL"
+    },
+    "pl": {
+      "label": "VEN: ustaw jednostkę ceny na GLOBAL"
+    }
+  }
+}

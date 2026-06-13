@@ -1,0 +1,148 @@
+# PL translation for ps_seo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_seo\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@city (@postal_code)"
+msgstr "@city (@postal_code)"
+
+msgid "@lead in @location"
+msgstr "@lead w @location"
+
+msgid "@lead. Ref. @reference."
+msgstr "@lead. Ref. @reference."
+
+msgid "@location, @region"
+msgstr "@location, @region"
+
+msgid "Access Property Search SEO admin"
+msgstr "Dostep do panelu SEO Property Search"
+
+msgid "Access the PS SEO configuration hub and related links."
+msgstr "Zapewnia dostep do centrum konfiguracji SEO PS i powiazanych linkow."
+
+msgid "Administer Property Search SEO settings"
+msgstr "Zarzadzaj ustawieniami SEO Property Search"
+
+msgid "Back to PS configuration hub"
+msgstr "Powrot do centrum konfiguracji PS"
+
+msgid "Centralizes Property Search SEO: Metatag defaults, Schema.org, sitemap"
+" and search head tags."
+msgstr "Centralizuje SEO Property Search: domyslne metatagi, Schema.org, sitem"
+"ap i tagi head wyszukiwarki."
+
+msgid "Configuration"
+msgstr "Konfiguracja"
+
+msgid "Front page"
+msgstr "Strona glowna"
+
+msgid "Legacy default sitemap — disabled in favour of per-asset-type offer si"
+"temaps."
+msgstr "Stara domyslna mapa witryny - wylaczona na rzecz map ofert wedlug typu"
+" zasobu."
+
+msgid "Lists all offer sitemaps by asset type (BNPPRE-style)."
+msgstr "Wylistowuje wszystkie mapy ofert wedlug typu zasobu (styl BNPPRE)."
+
+msgid "Manage PS SEO module settings."
+msgstr "Zarzadzaj ustawieniami modulu PS SEO."
+
+msgid "Metatag defaults"
+msgstr "Domyslne metatagi"
+
+msgid "Metatags, Schema.org, sitemap and search SEO settings."
+msgstr "Ustawienia metatagow, Schema.org, mapy witryny i SEO wyszukiwania."
+
+msgid "Module ps_seo — Metatag defaults, Schema.org, sitemap and search listi"
+"ng head tags."
+msgstr "Modul ps_seo - domyslne metatagi, Schema.org, mapa witryny i tagi head"
+" listy wyszukiwania."
+
+msgid "Offers — Activity (ACT)"
+msgstr "Oferty - Aktywnosc (ACT)"
+
+msgid "Offers — Coworking (COW)"
+msgstr "Oferty - Coworking (COW)"
+
+msgid "Offers — Land (TER)"
+msgstr "Oferty - Grunty (TER)"
+
+msgid "Offers — Logistics (LOG)"
+msgstr "Oferty - Logistyka (LOG)"
+
+msgid "Offers — Offices (BUR)"
+msgstr "Oferty - Biura (BUR)"
+
+msgid "Offers — Retail (COM)"
+msgstr "Oferty - Handel (COM)"
+
+msgid "Offers — Warehouse (ENT)"
+msgstr "Oferty - Magazyn (ENT)"
+
+msgid "Pathauto patterns"
+msgstr "Wzorce Pathauto"
+
+msgid "Published offer nodes for asset type ACT."
+msgstr "Opublikowane wezly ofert dla typu zasobu ACT."
+
+msgid "Published offer nodes for asset type BUR."
+msgstr "Opublikowane wezly ofert dla typu zasobu BUR."
+
+msgid "Published offer nodes for asset type COM."
+msgstr "Opublikowane wezly ofert dla typu zasobu COM."
+
+msgid "Published offer nodes for asset type COW."
+msgstr "Opublikowane wezly ofert dla typu zasobu COW."
+
+msgid "Published offer nodes for asset type ENT."
+msgstr "Opublikowane wezly ofert dla typu zasobu ENT."
+
+msgid "Published offer nodes for asset type LOG."
+msgstr "Opublikowane wezly ofert dla typu zasobu LOG."
+
+msgid "Published offer nodes for asset type TER."
+msgstr "Opublikowane wezly ofert dla typu zasobu TER."
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Search SEO URL mappings"
+msgstr "Mapowania URL SEO wyszukiwania"
+
+msgid "Simple XML sitemap"
+msgstr "Prosta mapa XML"
+
+msgid "Sitemap index"
+msgstr "Indeks mapy witryny"
+
+msgid "URL redirects"
+msgstr "Przekierowania URL"
+
+msgid "[current-page:title] | [site:name]"
+msgstr "[current-page:title] | [site:name]"
+
+msgid "[node:field_commercial_title] | [site:name]"
+msgstr "[node:field_commercial_title] | [site:name]"
+
+msgid "[node:summary]"
+msgstr "[node:summary]"
+
+msgid "[site:name]"
+msgstr "[site:name]"
+
+msgid "[site:slogan]"
+msgstr "[site:slogan]"
+
+msgid "for rent"
+msgstr "do wynajecia"
+
+msgid "for sale"
+msgstr "na sprzedaz"

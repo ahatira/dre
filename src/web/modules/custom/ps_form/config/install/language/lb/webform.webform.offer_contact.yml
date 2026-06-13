@@ -1,0 +1,69 @@
+title: 'De Beroder kontaktéieren'
+description: "Kontaktformular op der Offerdetail-Säit."
+category: Immobiliesich
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Wat sinn Är Kontaktdonnéeën?'
+    first_name:
+      '#type': textfield
+      '#title': 'Virnumm'
+      '#placeholder': Diego
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Numm'
+      '#placeholder': Plot
+      '#required': true
+    email:
+      '#type': email
+      '#title': 'Berufflech E-Mail'
+      '#placeholder': diego.plot@google.com
+      '#required': true
+    company:
+      '#type': textfield
+      '#title': Firma
+      '#placeholder': 'Gitt Är Firma an'
+    phone:
+      '#type': tel
+      '#title': 'Berufflechen Telefon'
+      '#placeholder': 'Gitt Äre berufflechen Telefon an'
+  project:
+    '#type': fieldset
+    '#title': 'Wëllt Dir méi iwwer Äre Projet wëssen?'
+    message:
+      '#type': textarea
+      '#title': Noriicht
+      '#required': true
+      '#default_value': "Moien, ech hätt gär méi Informatiounen iwwer d'Offer mat der Referenz '[webform_submission:source-entity:field_reference]'. Merci"
+  legal:
+    '#type': checkbox
+    '#title': 'Ech hunn d'Konditioune vun der Politik zum Schutz vu perséinlechen Donnéeën gelies an acceptéieren se.'
+    '#required': true
+  marketing:
+    '#type': checkbox
+    '#title': 'Ech stëmmen zou Marketing-Kommunikatioune vu BNP Paribas Real Estate ze kréien.'
+  newsletter:
+    '#type': checkbox
+    '#title': 'Ech stëmmen zou den Newsletter ze kréien.'
+  similar_offers:
+    '#type': checkbox
+    '#title': 'Ech stëmmen zou fir ähnlech Objeten kontaktéiert ze ginn.'
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p>BNP Paribas Real Estate Transaction France veraarbecht Är Donnéeën fir Är Ufro ze behandelen an, mat Ärer Zoustëmmung, fir kommerziell Kommunikatiounen. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'
+    '#wrapper_attributes':
+      class:
+        - ps-offer-contact-modal__legal
+settings:
+  form_submit_label: Schécken
+  confirmation_message: "<p>Merci. Är Noriicht gouf geschéckt.</p>"
+handlers:
+  email_agent:
+    label: "Beroder-Benoriichtung"
+    subject: "Kontaktufro — Offer [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: Besicherbestätegung
+    subject: "Är Kontaktufro — [webform_submission:source-entity:field_reference]"
+    body: "<p>Merci fir Ären Interessi un der Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Är Noriicht gouf un eise Beroder weidergeleet. Mir mellen eis geschwënn bei Iech.</p>"

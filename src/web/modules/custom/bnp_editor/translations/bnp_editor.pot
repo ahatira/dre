@@ -1,0 +1,89 @@
+# EN translation for bnp_editor module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_editor\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Access to Basic HTML format with standard editing tools."
+msgstr ""
+
+msgid "Access to Full HTML format with complete CKEditor capabilities."
+msgstr ""
+
+msgid "Access to Plain text format (no HTML)."
+msgstr ""
+
+msgid "Access to Restricted HTML format (limited tags)."
+msgstr ""
+
+msgid "Administer BNP Editor"
+msgstr ""
+
+msgid "Allow embedding media items in rich text content."
+msgstr ""
+
+msgid "Allowed link protocols"
+msgstr ""
+
+msgid "At least one protocol must be allowed."
+msgstr ""
+
+msgid "BNP Editor"
+msgstr ""
+
+msgid "BNP Editor settings"
+msgstr ""
+
+msgid "Configure CKEditor settings and manage editor configurations."
+msgstr ""
+
+msgid "Configure CKEditor settings and plugins for BNP platform."
+msgstr ""
+
+msgid "Custom Plugin"
+msgstr ""
+
+msgid "Enable custom CKEditor plugins"
+msgstr ""
+
+msgid "Enable custom plugins"
+msgstr ""
+
+msgid "Enable custom plugins developed for BNP platform."
+msgstr ""
+
+msgid "Enable media embed"
+msgstr ""
+
+msgid "Enhanced CKEditor 5 configuration with contrib plugins for BNP propert"
+"y search platform."
+msgstr ""
+
+msgid "Enter one protocol per line (e.g., http, https, mailto, tel)."
+msgstr ""
+
+msgid "General Settings"
+msgstr ""
+
+msgid "Invalid protocol format: @protocol"
+msgstr ""
+
+msgid "Plugin Configuration"
+msgstr ""
+
+msgid "Use Basic HTML text format"
+msgstr ""
+
+msgid "Use Full HTML text format"
+msgstr ""
+
+msgid "Use Plain text format"
+msgstr ""
+
+msgid "Use Restricted HTML text format"
+msgstr ""

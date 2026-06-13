@@ -1,0 +1,77 @@
+# PL translation for bnp_admin module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_admin\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Administration theme machine name"
+msgstr "Nazwa maszynowa motywu administracyjnego"
+
+msgid "Apply Gin Login branding"
+msgstr "Zastosuj branding Gin Login"
+
+msgid "Apply Gin branding"
+msgstr "Zastosuj branding Gin"
+
+msgid "BNP Admin settings"
+msgstr "Ustawienia BNP Admin"
+
+msgid "Content administrator"
+msgstr "Administrator tresci"
+
+msgid "Content editor"
+msgstr "Edytor tresci"
+
+msgid "Core Drupal baseline"
+msgstr "Bazowa linia Drupal Core"
+
+msgid "Gin Login branding"
+msgstr "Branding Gin Login"
+
+msgid "Gin accent color preset"
+msgstr "Ustawienie koloru akcentu Gin"
+
+msgid "Gin theme branding"
+msgstr "Branding motywu Gin"
+
+msgid "Gin toolbar variant"
+msgstr "Wariant paska narzedzi Gin"
+
+msgid "Optional recipe mirror of the bnp_admin module dependency set. Prefer "
+"enabling the bnp_admin module directly."
+msgstr "Opcjonalny przepis odzwierciedlajacy zestaw zaleznosci modulu bnp_admi"
+"n. Zalecane jest bezposrednie wlaczenie modulu bnp_admin."
+
+msgid "Provides a reusable administration baseline with module activation, co"
+"nfiguration defaults, and role provisioning."
+msgstr "Zapewnia wielokrotnego uzytku baze administracyjna z aktywacja modulow"
+", domyslna konfiguracja i nadawaniem rol."
+
+msgid "Restrict registration to administrators"
+msgstr "Ogranicz rejestracje do administratorow"
+
+msgid "SEO administrator"
+msgstr "Administrator SEO"
+
+msgid "Show description toggle in Gin"
+msgstr "Pokaz przelacznik opisu w Gin"
+
+msgid "Site administrator"
+msgstr "Administrator witryny"
+
+msgid "Translation administrator"
+msgstr "Administrator tlumaczen"
+
+msgid "Translation editor"
+msgstr "Edytor tlumaczen"
+
+msgid "Use admin theme on node forms"
+msgstr "Uzyj motywu administracyjnego w formularzach wezlow"
+
+msgid "Use default Gin Login brand image"
+msgstr "Uzyj domyslnego obrazu marki Gin Login"

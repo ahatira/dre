@@ -1,0 +1,48 @@
+{
+  "core.entity_view_mode.node.compare.yml": {
+    "de": {
+      "label": "Compare column"
+    },
+    "es": {
+      "label": "Compare column"
+    },
+    "fr": {
+      "label": "Compare column"
+    },
+    "it": {
+      "label": "Compare column"
+    },
+    "lb": {
+      "label": "Compare column"
+    },
+    "nl": {
+      "label": "Compare column"
+    },
+    "pl": {
+      "label": "Compare column"
+    }
+  },
+  "image.style.ps_compare_column.yml": {
+    "de": {
+      "label": "PS Compare column (320×220)"
+    },
+    "es": {
+      "label": "PS Compare column (320×220)"
+    },
+    "fr": {
+      "label": "PS Compare column (320×220)"
+    },
+    "it": {
+      "label": "PS Compare column (320×220)"
+    },
+    "lb": {
+      "label": "PS Compare column (320×220)"
+    },
+    "nl": {
+      "label": "PS Compare column (320×220)"
+    },
+    "pl": {
+      "label": "PS Compare column (320×220)"
+    }
+  }
+}

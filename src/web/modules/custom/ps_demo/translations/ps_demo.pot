@@ -1,0 +1,95 @@
+# EN translation for ps_demo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_demo\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background image path (theme-relative)"
+msgstr ""
+
+msgid "Business univers"
+msgstr ""
+
+msgid "Default demo content and configuration for Property Search (export hub"
+")."
+msgstr ""
+
+msgid "Editorial promo"
+msgstr ""
+
+msgid "English alias"
+msgstr ""
+
+msgid "English body"
+msgstr ""
+
+msgid "English label"
+msgstr ""
+
+msgid "English path"
+msgstr ""
+
+msgid "English subtitle"
+msgstr ""
+
+msgid "English title"
+msgstr ""
+
+msgid "Featured offers"
+msgstr ""
+
+msgid "French alias"
+msgstr ""
+
+msgid "French body"
+msgstr ""
+
+msgid "French label"
+msgstr ""
+
+msgid "French path"
+msgstr ""
+
+msgid "French subtitle"
+msgstr ""
+
+msgid "French title"
+msgstr ""
+
+msgid "Front page internal path"
+msgstr ""
+
+msgid "Hero promo panel copy"
+msgstr ""
+
+msgid "Hero search form copy"
+msgstr ""
+
+msgid "Homepage URL aliases per language"
+msgstr ""
+
+msgid "Homepage node UUID (export reference)"
+msgstr ""
+
+msgid "Image path (theme-relative)"
+msgstr ""
+
+msgid "PS Demo homepage block copy"
+msgstr ""
+
+msgid "PS Demo settings"
+msgstr ""
+
+msgid "Promo panel background (theme-relative)"
+msgstr ""
+
+msgid "Search hero"
+msgstr ""
+
+msgid "Search query string"
+msgstr ""

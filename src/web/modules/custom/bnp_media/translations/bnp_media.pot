@@ -1,0 +1,187 @@
+# EN translation for bnp_media module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_media\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A locally hosted image file."
+msgstr ""
+
+msgid "Allowed providers"
+msgstr ""
+
+msgid "Autocomplete placeholder"
+msgstr ""
+
+msgid "BNP Audio file"
+msgstr ""
+
+msgid "BNP External video URL"
+msgstr ""
+
+msgid "BNP File"
+msgstr ""
+
+msgid "BNP Gallery"
+msgstr ""
+
+msgid "BNP Image"
+msgstr ""
+
+msgid "BNP Remote video"
+msgstr ""
+
+msgid "BNP Video file"
+msgstr ""
+
+msgid "BNP external video source configuration"
+msgstr ""
+
+msgid "BNP oEmbed formatter settings"
+msgstr ""
+
+msgid "BNP oEmbed iframe"
+msgstr ""
+
+msgid "BNP remote video source configuration"
+msgstr ""
+
+msgid "Bulk input"
+msgstr ""
+
+msgid "Create and select media"
+msgstr ""
+
+msgid "Creates or reuses media entities from embed URLs."
+msgstr ""
+
+msgid "Default name"
+msgstr ""
+
+msgid "Embed URLs"
+msgstr ""
+
+msgid "Embed code"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Enter one URL per line. Existing media will be reused when deduplicati"
+"on is enabled."
+msgstr ""
+
+msgid "Entities"
+msgstr ""
+
+msgid "Entity Browser Generic Embed settings"
+msgstr ""
+
+msgid "Entity browser generic embed dialog placeholder."
+msgstr ""
+
+msgid "Entity form proxy"
+msgstr ""
+
+msgid "Generic entity browser and entity embed bridge for media workflows."
+msgstr ""
+
+msgid "Generic media foundation with Entity Browser and Dropzone upload workf"
+"lows."
+msgstr ""
+
+msgid "Invalid URL(s): @urls"
+msgstr ""
+
+msgid "Max height"
+msgstr ""
+
+msgid "Max height: @value"
+msgstr ""
+
+msgid "Max width"
+msgstr ""
+
+msgid "Max width: @value"
+msgstr ""
+
+msgid "Media bundle"
+msgstr ""
+
+msgid "Name field machine name"
+msgstr ""
+
+msgid "One bundle machine name per line. Leave empty to allow all bundles."
+msgstr ""
+
+msgid "Please provide at least one valid URL."
+msgstr ""
+
+msgid "Please select at least one entity."
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Render remote video URLs via media.oembed_iframe."
+msgstr ""
+
+msgid "Reuse existing media when URL already exists"
+msgstr ""
+
+msgid "Select entities"
+msgstr ""
+
+msgid "Selected entities must belong to configured bundles only."
+msgstr ""
+
+msgid "Selects existing entities through a configurable autocomplete proxy fo"
+"rm."
+msgstr ""
+
+msgid "Source URL"
+msgstr ""
+
+msgid "Source field"
+msgstr ""
+
+msgid "Start typing to search entities"
+msgstr ""
+
+msgid "Target bundles"
+msgstr ""
+
+msgid "Target entity type"
+msgstr ""
+
+msgid "Thumbnail local URI"
+msgstr ""
+
+msgid "Thumbnails directory"
+msgstr ""
+
+msgid "URL field machine name"
+msgstr ""
+
+msgid "Use a local image collection for reusable galleries."
+msgstr ""
+
+msgid "Use audio files for reusable media."
+msgstr ""
+
+msgid "Use direct external video URLs (for example MediaHub AssetLink)."
+msgstr ""
+
+msgid "Use local files for reusable media."
+msgstr ""
+
+msgid "Use remote video URLs for reusable media."
+msgstr ""
+
+msgid "Use video files for reusable media."
+msgstr ""

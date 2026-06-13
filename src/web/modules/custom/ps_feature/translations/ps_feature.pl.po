@@ -1,951 +1,950 @@
-# Polish translation for ps_feature module.
+# PL translation for ps_feature module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_feature\n"
-"POT-Creation-Date: 2026-05-17 00:00+0000\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
 "Language: pl\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-# FeatureGroupListBuilder
-msgid "Manage order"
-msgstr "Zarządzaj kolejnością"
+msgid "(empty list)"
+msgstr "(pusta lista)"
 
-# FeatureDefinitionByGroupController
-msgid "Manage definitions: @group"
-msgstr "Zarządzaj definicjami: @group"
+msgid "(none)"
+msgstr "(brak)"
 
-# FeatureDefinitionByGroupListBuilder
-msgid "Manage order of feature definitions for the group: <strong>@group</strong>"
-msgstr "Zarządzaj kolejnością cech dla grupy: <strong>@group</strong>"
+msgid "(not present)"
+msgstr "(nieobecny)"
 
-msgid "Back to groups"
-msgstr "Wróć do grup"
+msgid "(to choose)"
+msgstr "(do wyboru)"
 
-msgid "Drag the rows to reorganize the order of features in this group."
-msgstr "Przeciągnij wiersze, aby zmienić kolejność cech w tej grupie."
+msgid "(to complete)"
+msgstr "(do uzupełnienia)"
 
-msgid "The order of features has been updated."
-msgstr "Kolejność cech została zaktualizowana."
+msgid "- All groups -"
+msgstr "- Wszystkie grupy -"
 
-msgid "No definitions in this group."
-msgstr "Brak definicji w tej grupie."
+msgid "- Select -"
+msgstr "- Wybierać -"
 
-msgid "All types"
-msgstr "Wszystkie typy"
+msgid "- Select a dictionary entry -"
+msgstr "- Wybierz wpis słownika -"
 
-msgid "Feature name"
-msgstr "Nazwa cechy"
+msgid "- Select a feature -"
+msgstr "- Wybierz funkcję -"
 
-msgid "Data type"
-msgstr "Typ danych"
+msgid "- Select a taxonomy term -"
+msgstr "- Wybierz termin taksonomii -"
 
-msgid "Required asset types"
-msgstr "Wymagane typy zasobów"
+msgid "12h (02:30 PM)"
+msgstr "12:00 (14:30)"
 
-msgid "Office"
-msgstr "Biuro"
+msgid "24h (14:30)"
+msgstr "24h (14:30)"
 
-msgid "Coworking"
-msgstr "Coworking"
-
-msgid "Local"
-msgstr "Lokal"
-
-# Menu/action/task links
-msgid "Feature groups"
-msgstr "Grupy cech"
-
-msgid "Manage feature groups (e.g. Amenities, Technical features)"
-msgstr "Zarządzaj grupami cech (np. Udogodnienia, Cechy techniczne)"
-
-msgid "Features"
-msgstr "Cechy"
-
-msgid "Manage the feature catalogue available for offers"
-msgstr "Zarządzaj katalogiem cech dostępnych dla ofert"
-
-msgid "Feature types"
-msgstr "Typy cech"
-
-msgid "Available data types for features (defined by developers)"
-msgstr "Dostępne typy danych dla cech (zdefiniowane przez deweloperów)"
-
-msgid "Add group"
-msgstr "Dodaj grupę"
-
-msgid "Add feature"
-msgstr "Dodaj cechę"
-
-msgid "Edit"
-msgstr "Edytuj"
-
-# Feature Builder JS widget
-msgid "Feature Builder"
-msgstr "Kreator cech"
+msgid "<em>Technical note</em>: these types are implemented through the plugi"
+"n system in <code>src/Plugin/FeatureType/</code>."
+msgstr "<em>Nota techniczna</em>: te typy są implementowane poprzez system wty"
+"czek w <code>src/Plugin/FeatureType/</code>."
 
 msgid "@count feature filled in"
 msgid_plural "@count features filled in"
 msgstr[0] "@count cecha wypełniona"
 msgstr[1] "@count cechy wypełnione"
-msgstr[2] "@count cech wypełnionych"
+
+msgid "Absent"
+msgstr "Brak"
+
+msgid "Active"
+msgstr "Aktywny"
+
+msgid "Activity unit"
+msgstr "Jednostka aktywności"
 
 msgid "Add a feature"
 msgstr "Dodaj cechę"
 
-msgid "Search for a feature…"
-msgstr "Szukaj cechy…"
+msgid "Add feature"
+msgstr "Dodaj cechę"
 
-msgid "No features yet. Click Add to get started."
-msgstr "Brak cech. Kliknij Dodaj, aby rozpocząć."
+msgid "Add group"
+msgstr "Dodaj grupę"
+
+msgid "Administer PS Features"
+msgstr "Zarządzaj cechami PS"
+
+msgid "All types"
+msgstr "Wszystkie typy"
+
+msgid "Allow custom values"
+msgstr "Zezwalaj na wartości niestandardowe"
+
+msgid "Allowed feature groups"
+msgstr "Dozwolone grupy funkcji"
+
+msgid "Allowed features"
+msgstr "Dozwolone funkcje"
+
+msgid "Allowed maximum value (optional)."
+msgstr "Dozwolona wartość maksymalna (opcjonalnie)."
+
+msgid "Allowed minimum value (optional)."
+msgstr "Dozwolona wartość minimalna (opcjonalnie)."
+
+msgid "Allows entering a value not present in the dictionary."
+msgstr "Umożliwia wprowadzenie wartości, której nie ma w słowniku."
+
+msgid "Allows selecting multiple terms."
+msgstr "Umożliwia wybranie wielu terminów."
+
+msgid "Allows selecting multiple values."
+msgstr "Umożliwia wybranie wielu wartości."
+
+msgid "Also display time with the date."
+msgstr "Wyświetl także czas z datą."
+
+msgid "Asset type code"
+msgstr "Kod typu aktywa"
+
+msgid "Asset types"
+msgstr "Typy aktywów"
+
+msgid "Available data types for features (defined by developers)"
+msgstr "Dostępne typy danych cech (zdefiniowane przez deweloperów)"
+
+msgid "Available options"
+msgstr "Dostępne opcje"
+
+msgid "Back to groups"
+msgstr "Wróć do grup"
+
+msgid "Changed"
+msgstr "Zmieniono"
+
+msgid "Check if this feature is present."
+msgstr "Sprawdź, czy ta funkcja jest dostępna."
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Code \"@code\" is already used by another feature in this group."
+msgstr "Kod „@code” jest już używany przez inną funkcję w tej grupie."
+
+msgid "Compact"
+msgstr "Kompaktowy"
+
+msgid "Configure the default icon used for feature groups that do not define "
+"their own UI Icon."
+msgstr "Skonfiguruj domyślną ikonę używaną dla grup funkcji, które nie definiu"
+"ją własnej ikony interfejsu użytkownika."
+
+msgid "Coworking"
+msgstr "Coworking"
+
+msgid "DD/MM/YYYY (17/05/2026)"
+msgstr "DD/MM/RRRR (17.05.2026)"
+
+msgid "Data type"
+msgstr "Typ danych"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date display format."
+msgstr "Format wyświetlania daty."
+
+msgid "Date format"
+msgstr "Format daty"
+
+msgid "Date with precision: {value: date, precision: string}"
+msgstr "Data z precyzją: {wartość: data, precyzja: ciąg}"
+
+msgid "Day"
+msgstr "Dzień"
+
+msgid "Decimal places"
+msgstr "Miejsca dziesiętne"
+
+msgid "Default"
+msgstr "Domyślny"
+
+msgid "Default feature display"
+msgstr "Domyślny wyświetlacz funkcji"
+
+msgid "Default feature group icon"
+msgstr "Domyślna ikona grupy funkcji"
+
+msgid "Default icon for feature groups without a custom icon"
+msgstr "Domyślna ikona grup bez własnej ikony"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Description and usage"
+msgstr "Opis i zastosowanie"
+
+msgid "Detailed"
+msgstr "Szczegółowy"
+
+msgid "Dictionary"
+msgstr "Słownik"
+
+msgid "Dictionary ID"
+msgstr "ID słownika"
+
+msgid "Dictionary code"
+msgstr "Kod słownika"
+
+msgid "Dictionary code: {code: string}"
+msgstr "Kod słownika: {kod: string}"
+
+msgid "Dictionary codes"
+msgstr "Kody słownikowe"
+
+msgid "Dictionary identifier is required for this data type."
+msgstr "Dla tego typu danych wymagany jest identyfikator słownikowy."
+
+msgid "Display only the feature label."
+msgstr "Wyświetl tylko etykietę elementu."
+
+msgid "Display only the formatted feature value."
+msgstr "Wyświetl tylko sformatowaną wartość elementu."
+
+msgid "Display order of the feature. Features with lower weight are shown fir"
+"st."
+msgstr "Kolejność wyświetlania elementu. Najpierw pokazane są funkcje o niższe"
+"j wadze."
+
+msgid "Display order of the group. Groups with lower weight are shown first."
+msgstr "Wyświetl kolejność grupy. W pierwszej kolejności pokazane są grupy o n"
+"iższej masie ciała."
+
+msgid "Drag rows to reorder features in this group."
+msgstr "Przeciągnij wiersze, aby zmienić kolejność obiektów w tej grupie."
+
+msgid "Drag rows to reorder groups."
+msgstr "Przeciągnij wiersze, aby zmienić kolejność grup."
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "Empty catalogue."
 msgstr "Pusty katalog."
 
-msgid "Remove"
-msgstr "Usuń"
+msgid "Enter one dictionary code per line."
+msgstr "Wprowadź jeden kod słownika w każdym wierszu."
 
-msgid "Other"
-msgstr "Inne"
+msgid "Enter the payload as JSON. Structure depends on feature type."
+msgstr "Wprowadź ładunek w formacie JSON. Struktura zależy od typu obiektu."
 
-msgid "Preview:"
-msgstr "Podgląd:"
+msgid "Error formatting feature: @error"
+msgstr "Funkcja formatowania błędu: @error"
 
-msgid "Type"
-msgstr "Typ"
+msgid "Explicit boolean value: {value: bool}"
+msgstr "Jawna wartość logiczna: {value: bool}"
 
-# Flag editor
-msgid "Present on this offer"
-msgstr "Obecny w tej ofercie"
+msgid "Expose as search filter"
+msgstr "Ujawnij jako filtr wyszukiwania"
 
-msgid "if disabled, the feature will not appear on the listing page."
-msgstr "jeśli wyłączone, cecha nie pojawi się na stronie ogłoszenia."
+msgid "Feature"
+msgstr "Funkcja"
 
-msgid "(not present)"
-msgstr "(nieobecny)"
+msgid "Feature Builder"
+msgstr "Kreator cech"
 
-# Yes/No editor
-msgid "Yes"
-msgstr "Tak"
+msgid "Feature Builder (JS)"
+msgstr "Kreator funkcji (JS)"
+
+msgid "Feature Builder - 9 type drivers for business components"
+msgstr "Feature Builder — 9 sterowników typów dla komponentów biznesowych"
+
+msgid "Feature Definition"
+msgstr "Definicja cechy"
+
+msgid "Feature Definition ID"
+msgstr "Identyfikator definicji funkcji"
+
+msgid "Feature Group"
+msgstr "Grupa cech"
+
+msgid "Feature ID"
+msgstr "ID cechy"
+
+msgid "Feature data in JSON format. Example: {\"value\": 250, \"unit\": \"m2\"
+""}"
+msgstr "Dane funkcji w formacie JSON. Przykład: {\"wartość\": 250, \"jednostka"
+"\": \"m2\"}"
+
+msgid "Feature data type."
+msgstr "Typ danych funkcji."
+
+msgid "Feature definition"
+msgstr "Definicja funkcji"
+
+msgid "Feature definition %label has been created."
+msgstr "Utworzono definicję cechy %label."
+
+msgid "Feature definition %label has been updated."
+msgstr "Definicja funkcji %label została zaktualizowana."
+
+msgid "Feature definitions"
+msgstr "Definicje funkcji"
+
+msgid "Feature definitions represent the catalogue of all available features "
+"used to describe offers (e.g., Total surface, Parking included, Air co"
+"nditioning). Each definition belongs to a group and has a specific dat"
+"a type."
+msgstr "Definicje funkcji reprezentują katalog wszystkich dostępnych funkcji u"
+"żywanych do opisu ofert (np. Powierzchnia całkowita, Parking wliczony "
+"w cenę, Klimatyzacja). Każda definicja należy do grupy i ma określony "
+"typ danych."
+
+msgid "Feature display settings"
+msgstr "Ustawienia wyświetlania cech"
+
+msgid "Feature field settings"
+msgstr "Ustawienia pola cech"
+
+msgid "Feature field storage settings"
+msgstr "Ustawienia przechowywania pola cech"
+
+msgid "Feature group"
+msgstr "Grupa funkcji"
+
+msgid "Feature group %label has been created."
+msgstr "Utworzono grupę funkcji %label."
+
+msgid "Feature group %label has been updated."
+msgstr "Grupa funkcji %label została zaktualizowana."
+
+msgid "Feature groups"
+msgstr "Grupy cech"
+
+msgid "Feature groups organize offer features into logical categories (e.g., "
+"Amenities, Technical features). Each group can be associated with one "
+"or more asset types."
+msgstr "Grupy funkcji organizują funkcje oferty w logiczne kategorie (np. Udog"
+"odnienia, Funkcje techniczne). Każda grupa może być powiązana z jednym"
+" lub większą liczbą typów zasobów."
+
+msgid "Feature icon"
+msgstr "Ikona funkcji"
+
+msgid "Feature label only"
+msgstr "Tylko etykieta funkcji"
+
+msgid "Feature name"
+msgstr "Nazwa cechy"
+
+msgid "Feature payload fields used by the ps_feature module."
+msgstr "Pola payload używane przez moduł ps_feature."
+
+msgid "Feature selector"
+msgstr "Selektor funkcji"
+
+msgid "Feature types"
+msgstr "Typy cech"
+
+msgid "Feature types are defined by developers and determine how data is stor"
+"ed and displayed. This list is read-only."
+msgstr "Typy funkcji są definiowane przez programistów i określają sposób prze"
+"chowywania i wyświetlania danych. Ta lista jest tylko do odczytu."
+
+msgid "Feature value only"
+msgstr "Tylko wartość funkcji"
+
+msgid "Features"
+msgstr "Cechy"
+
+msgid "Filter by group"
+msgstr "Filtruj według grupy"
+
+msgid "Flag"
+msgstr "Flaga"
+
+msgid "Flag indicator"
+msgstr "Wskaźnik flagi"
+
+msgid "Format style"
+msgstr "Styl formatowania"
+
+msgid "Free text"
+msgstr "Tekst dowolny"
+
+msgid "Group"
+msgstr "Grupa"
+
+msgid "Group ID"
+msgstr "Identyfikator grupy"
+
+msgid "Group filter: @group"
+msgstr "Filtr grupowy: @group"
+
+msgid "Group icon"
+msgstr "Ikona grupy"
+
+msgid "Group label"
+msgstr "Etykieta grupy"
+
+msgid "Group name"
+msgstr "Nazwa grupy"
+
+msgid "Group order has been updated."
+msgstr "Zamówienie grupowe zostało zaktualizowane."
+
+msgid "Grouped"
+msgstr "Zgrupowane"
+
+msgid "Grouped order: @order"
+msgstr "Zgrupowane zamówienie: @order"
+
+msgid "Grouped order: automatic"
+msgstr "Zamówienie grupowe: automatyczne"
+
+msgid "Hide disabled flag features"
+msgstr "Ukryj wyłączone funkcje flagi"
+
+msgid "Hide disabled flags: @value"
+msgstr "Ukryj wyłączone flagi: @value"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Identifier"
+msgstr "Identyfikator"
+
+msgid "Implicit presence: {presence: true}"
+msgstr "Ukryta obecność: {obecność: prawda}"
+
+msgid "Inactive features are not available in forms."
+msgstr "Nieaktywne funkcje nie są dostępne w formularzach."
+
+msgid "Inactive groups are not shown in forms."
+msgstr "Grupy nieaktywne nie są pokazywane w formularzach."
+
+msgid "Include time"
+msgstr "Uwzględnij czas"
+
+msgid "Input field height (1 = single-line field, >1 = text area)."
+msgstr "Wysokość pola wejściowego (1 = pole jednowierszowe, >1 = obszar teksto"
+"wy)."
+
+msgid "Invalid JSON format: @error"
+msgstr "Nieprawidłowy format JSON: @error"
+
+msgid "JSON data"
+msgstr "Dane JSON"
+
+msgid "JSON payload according to the type driver schema."
+msgstr "Ładunek JSON zgodnie ze schematem sterownika typu."
+
+msgid "Label"
+msgstr "Etykieta"
+
+msgid "Land"
+msgstr "Grunt"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "List of dictionary codes: {codes: array}"
+msgstr "Lista kodów słownikowych: {codes: array}"
+
+msgid "List options"
+msgstr "Opcje listy"
+
+msgid "MM/DD/YYYY (05/17/2026)"
+msgstr "MM/DD/RRRR (17.05.2026)"
+
+msgid "Manage definitions"
+msgstr "Zarządzaj definicjami"
+
+msgid "Manage definitions: @group"
+msgstr "Zarządzaj definicjami: @group"
+
+msgid "Manage feature groups (e.g. Amenities, Technical features)"
+msgstr "Zarządzaj grupami cech (np. udogodnienia, cechy techniczne)"
+
+msgid "Manage feature groups and definitions"
+msgstr "Zarządzaj grupami i definicjami cech"
+
+msgid "Manage order"
+msgstr "Zarządzaj kolejnością"
+
+msgid "Manage order of feature definitions for the group: <strong>@group</str"
+"ong>"
+msgstr "Zarządzaj kolejnością cech dla grupy: <strong>@group</strong>"
+
+msgid "Manage the feature catalogue available for offers"
+msgstr "Zarządzaj katalogiem cech dostępnych dla ofert"
+
+msgid "Maximum"
+msgstr "Maksimum"
+
+msgid "Maximum length"
+msgstr "Maksymalna długość"
+
+msgid "Maximum number of allowed characters."
+msgstr "Maksymalna liczba dozwolonych znaków."
+
+msgid "Maximum number of feature lines per column before starting a new colum"
+"n on desktop."
+msgstr "Maksymalna liczba linii charakterystycznych na kolumnę przed rozpoczęc"
+"iem nowej kolumny na komputerze."
+
+msgid "Maximum value"
+msgstr "Maksymalna wartość"
+
+msgid "Measurement unit (e.g., EUR, m2)."
+msgstr "Jednostka miary (np. EUR, m2)."
+
+msgid "Measurement unit (e.g., m2, EUR, kg)."
+msgstr "Jednostka miary (np. m2, EUR, kg)."
+
+msgid "Min-max range with unit: {min: num, max: num, unit: string}"
+msgstr "Zakres min.-maks. z jednostką: {min: num, max: num, unit: string}"
+
+msgid "Minimum"
+msgstr "Minimum"
+
+msgid "Minimum value"
+msgstr "Wartość minimalna"
+
+msgid "Month"
+msgstr "Miesiąc"
+
+msgid "Multi-column threshold"
+msgstr "Próg wielokolumnowy"
+
+msgid "Multi-column threshold: @count"
+msgstr "Próg wielokolumnowy: @count"
+
+msgid "Multi-value list"
+msgstr "Lista wielowartościowa"
+
+msgid "Multiple selection"
+msgstr "Wybór wielokrotny"
 
 msgid "No"
 msgstr "Nie"
 
+msgid "No definitions in this group."
+msgstr "Brak definicji w tej grupie."
+
+msgid "No description in the original."
+msgstr "Brak opisu w oryginale."
+
+msgid "No dictionary available. <a href=\"@url\">Create a dictionary</a>."
+msgstr "Brak słownika. <a href=\"@url\">Utwórz słownik</a>."
+
+msgid "No dictionary entry configured."
+msgstr "Brak skonfigurowanych wpisów słownika."
+
+msgid "No feature definitions found. Create one to start enriching your offer"
+"s."
+msgstr "Nie znaleziono definicji funkcji. Utwórz go, aby zacząć wzbogacać swoj"
+"e oferty."
+
+msgid "No feature groups defined. Create one to start organizing your feature"
+"s."
+msgstr "Nie zdefiniowano żadnych grup obiektów. Utwórz go, aby zacząć organizo"
+"wać swoje funkcje."
+
+msgid "No feature type defined."
+msgstr "Nie zdefiniowano typu elementu."
+
+msgid "No features found."
+msgstr "Nie znaleziono żadnych funkcji."
+
+msgid "No features yet. Click Add to get started."
+msgstr "Brak cech. Kliknij Dodaj, aby rozpocząć."
+
+msgid "No groups available."
+msgstr "Brak dostępnych grup."
+
+msgid "No options configured for this feature."
+msgstr "Brak skonfigurowanych opcji dla tej cechy."
+
+msgid "No specific configuration for this data type."
+msgstr "Brak konkretnej konfiguracji dla tego typu danych."
+
+msgid "No taxonomy vocabulary available. <a href=\"@url\">Create a vocabulary"
+"</a>."
+msgstr "Brak dostępnego słownictwa dotyczącego taksonomii. <a href=\"@url\">Ut"
+"wórz słownik</a>."
+
+msgid "Number of decimal places to display (default: 2)."
+msgstr "Liczba miejsc dziesiętnych do wyświetlenia (domyślnie: 2)."
+
+msgid "Number of rows"
+msgstr "Liczba rzędów"
+
+msgid "Numeric value"
+msgstr "Wartość liczbowa"
+
+msgid "Numeric value with unit: {value: num, unit: string}"
+msgstr "Wartość numeryczna z jednostką: {wartość: liczba, jednostka: ciąg}"
+
+msgid "Offer feature"
+msgstr "Funkcja oferty"
+
+msgid "Offer feature #@id created."
+msgstr "Utworzono funkcję oferty #@id."
+
+msgid "Offer feature #@id updated."
+msgstr "Zaktualizowano funkcję oferty #@id."
+
+msgid "Offer features"
+msgstr "Funkcje oferty"
+
+msgid "Office"
+msgstr "Biuro"
+
+msgid "One option per line. Format: key|Label (e.g., wifi|Wi-Fi)."
+msgstr "Jedna opcja w każdym wierszu. Format: klucz|Etykieta (np. Wi-Fi|Wi-Fi)"
+"."
+
+msgid "Option: @key"
+msgstr "Opcja: @key"
+
+msgid "Optional description documenting this feature usage."
+msgstr "Opcjonalny opis dokumentujący użycie tej funkcji."
+
+msgid "Optional description documenting this group usage."
+msgstr "Opcjonalny opis dokumentujący użycie tej grupy."
+
+msgid "Optional icon shown next to this feature on offer pages. Leave empty t"
+"o hide the icon."
+msgstr "Opcjonalna ikona wyświetlana obok tej funkcji na stronach ofert. Pozos"
+"taw puste, aby ukryć ikonę."
+
+msgid "Order"
+msgstr "Zamówienie"
+
+msgid "Original: @value"
+msgstr "Oryginał: @value"
+
+msgid "Other"
+msgstr "Inne"
+
+msgid "PS Feature"
+msgstr "PS Cecha"
+
+msgid "PS Feature settings"
+msgstr "Ustawienia PS Cecha"
+
+msgid "Payload"
+msgstr "Ładunek"
+
+msgid "Payload (JSON)"
+msgstr "Ładunek (JSON)"
+
+msgid "Payload JSON"
+msgstr "Ładunek JSON"
+
+msgid "Payload defaults"
+msgstr "Domyślne wartości payload"
+
+msgid "Please provide at least one option."
+msgstr "Proszę podać przynajmniej jedną opcję."
+
+msgid "Precision"
+msgstr "Precyzja"
+
+msgid "Present"
+msgstr "Obecny"
+
+msgid "Present on this offer"
+msgstr "Obecny w tej ofercie"
+
+msgid "Preview:"
+msgstr "Podgląd:"
+
+msgid "Quarter"
+msgstr "Kwartał"
+
+msgid "Range"
+msgstr "Zakres"
+
+msgid "Reference to a taxonomy term: {tid: int}"
+msgstr "Odniesienie do terminu taksonomii: {tid: int}"
+
+msgid "Reference to the feature definition config entity."
+msgstr "Odniesienie do encji konfiguracji definicji funkcji."
+
+msgid "Relevant asset types"
+msgstr "Odpowiednie typy aktywów"
+
+msgid "Remove"
+msgstr "Usuń"
+
+msgid "Required asset types"
+msgstr "Wymagane typy zasobów"
+
+msgid "Restrict which feature groups can be used. Leave empty to allow all."
+msgstr "Ogranicz, które grupy funkcji mogą być używane. Pozostaw puste, aby ze"
+"zwolić wszystkim."
+
+msgid "Restrict which features can be used. Leave empty to allow all."
+msgstr "Ogranicz, z jakich funkcji można korzystać. Pozostaw puste, aby zezwol"
+"ić wszystkim."
+
+msgid "Retail unit"
+msgstr "Jednostka detaliczna"
+
+msgid "Rows per column (desktop)"
+msgstr "Wiersze na kolumnę (komputer stacjonarny)"
+
+msgid "Rows per column: @count"
+msgstr "Wiersze na kolumnę: @count"
+
+msgid "Save translation"
+msgstr "Zapisz tłumaczenie"
+
+msgid "Search for a feature…"
+msgstr "Szukaj cechy…"
+
+msgid "Select a data type to configure default values."
+msgstr "Wybierz typ danych, aby skonfigurować wartości domyślne."
+
+msgid "Select asset types where this feature is required. Leave empty to keep"
+" it optional for all."
+msgstr "Wybierz typy zasobów, w których ta funkcja jest wymagana. Pozostaw pus"
+"te, aby było opcjonalne dla wszystkich."
+
+msgid "Select the asset types this group applies to. Leave empty for all type"
+"s."
+msgstr "Wybierz typy zasobów, których dotyczy ta grupa. Pozostaw puste dla wsz"
+"ystkich typów."
+
+msgid "Select the dictionary to use for this feature."
+msgstr "Wybierz słownik, którego chcesz używać w przypadku tej funkcji."
+
+msgid "Select the feature definition to use."
+msgstr "Wybierz definicję funkcji, która ma zostać użyta."
+
+msgid "Select the group this feature belongs to."
+msgstr "Wybierz grupę, do której należy ta funkcja."
+
+msgid "Select the taxonomy vocabulary to use."
+msgstr "Wybierz słownictwo taksonomii, którego chcesz użyć."
+
+msgid "Settings"
+msgstr "Ustawienia"
+
+msgid "Short text: {value: string}"
+msgstr "Krótki tekst: {wartość: ciąg}"
+
+msgid "Show feature group"
+msgstr "Pokaż grupę funkcji"
+
+msgid "Show feature label"
+msgstr "Pokaż etykietę funkcji"
+
+msgid "Show group: @value"
+msgstr "Pokaż grupę: @value"
+
+msgid "Show label: @value"
+msgstr "Pokaż etykietę: @value"
+
+msgid "Shown on offer pages when a feature group has no icon configured."
+msgstr "Wyświetlane na stronach ofert, gdy grupa funkcji nie ma skonfigurowane"
+"j ikony."
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Stores a feature definition reference and its payload."
+msgstr "Przechowuje odniesienie do definicji funkcji i jej ładunek."
+
+msgid "Style: @style"
+msgstr "Styl: @style"
+
+msgid "Successfully saved @language translation."
+msgstr "Pomyślnie zapisano tłumaczenie @language."
+
+msgid "Suggested maximum value"
+msgstr "Sugerowana wartość maksymalna"
+
+msgid "Suggested maximum value (optional)."
+msgstr "Sugerowana wartość maksymalna (opcjonalnie)."
+
+msgid "Suggested minimum value"
+msgstr "Sugerowana wartość minimalna"
+
+msgid "Suggested minimum value (optional)."
+msgstr "Sugerowana wartość minimalna (opcjonalnie)."
+
+msgid "Taxonomy"
+msgstr "Taksonomia"
+
+msgid "Taxonomy term"
+msgstr "Termin taksonomii"
+
+msgid "Taxonomy vocabularies are unavailable because the Taxonomy module is n"
+"ot enabled."
+msgstr "Słowniki taksonomii są niedostępne, ponieważ moduł taksonomii nie jest"
+" włączony."
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "The ID of the feature definition config entity."
+msgstr "Identyfikator jednostki konfiguracji definicji funkcji."
+
+msgid "The JSON payload containing feature values."
+msgstr "Ładunek JSON zawierający wartości funkcji."
+
+msgid "The name displayed for this feature (e.g., Total surface, Parking incl"
+"uded)."
+msgstr "Nazwa wyświetlana dla tej funkcji (np. Powierzchnia całkowita, Parking"
+" wliczony w cenę)."
+
+msgid "The name shown for this feature group (e.g., Amenities, Technical feat"
+"ures)."
+msgstr "Nazwa wyświetlana dla tej grupy funkcji (np. Udogodnienia, Funkcje tec"
+"hniczne)."
+
+msgid "The order of features has been updated."
+msgstr "Kolejność cech została zaktualizowana."
+
+msgid "The time that the feature was last edited."
+msgstr "Godzina ostatniej edycji obiektu."
+
+msgid "The type driver: flag, yes_no, numeric, range, text, dictionary, list,"
+" date."
+msgstr "Sterownik typu: flaga, tak_nie, numeryczny, zakres, tekst, słownik, li"
+"sta, data."
+
+msgid "The value type this feature can store (numeric, text, yes/no, etc.)."
+msgstr "Typ wartości, jaki może przechowywać ta funkcja (liczbowy, tekstowy, t"
+"ak/nie itp.)."
+
+msgid "This data type does not require additional configuration."
+msgstr "Ten typ danych nie wymaga dodatkowej konfiguracji."
+
+msgid "Time display format."
+msgstr "Format wyświetlania czasu."
+
+msgid "Time format"
+msgstr "Format czasu"
+
+msgid "Translate"
+msgstr "Tłumaczyć"
+
+msgid "Translate the labels for each option. Keys should remain unchanged."
+msgstr "Przetłumacz etykiety dla każdej opcji. Klucze powinny pozostać niezmie"
+"nione."
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Type driver"
+msgstr "Wpisz sterownik"
+
+msgid "UI Icon"
+msgstr "Ikona UI"
+
+msgid "UI Icon shown next to the group title on offer pages. Leave empty to u"
+"se the default icon from feature settings."
+msgstr "Ikona interfejsu użytkownika wyświetlana obok tytułu grupy na stronach"
+" ofert. Pozostaw puste, aby użyć domyślnej ikony z ustawień funkcji."
+
+msgid "Unique code for this feature within the group (for import/export). Exa"
+"mple: total_area, parking_included"
+msgstr "Unikalny kod tej funkcji w obrębie grupy (dla importu/eksportu). Przyk"
+"ład: całkowita_powierzchnia, parking_wliczony w cenę"
+
+msgid "Unit"
+msgstr "Jednostka"
+
+msgid "Value"
+msgstr "Wartość"
+
+msgid "Value range"
+msgstr "Zakres wartości"
+
+msgid "Vocabulary"
+msgstr "Słownictwo"
+
+msgid "Vocabulary \"@vocabulary\" does not exist."
+msgstr "Słownik „@vocabulary” nie istnieje."
+
+msgid "Vocabulary ID"
+msgstr "ID słownika taksonomii"
+
+msgid "Vocabulary is required for this data type."
+msgstr "Dla tego typu danych wymagane jest słownictwo."
+
+msgid "Warehouse/Logistics"
+msgstr "Magazyn/logistyka"
+
+msgid "Weight"
+msgstr "Waga"
+
+msgid "When a group has more features than this number, desktop layout uses m"
+"ultiple columns."
+msgstr "Jeśli grupa ma więcej funkcji niż ta liczba, układ pulpitu wykorzystuj"
+"e wiele kolumn."
+
+msgid "When checked, this feature will be available as a filter in the search"
+" page."
+msgstr "Po zaznaczeniu ta funkcja będzie dostępna jako filtr na stronie wyszuk"
+"iwania."
+
+msgid "When enabled, flag features with a disabled payload are not rendered."
+msgstr "Po włączeniu funkcje flag z wyłączonym ładunkiem nie są renderowane."
+
+msgid "When set, only features from this group are rendered."
+msgstr "Gdy ta opcja jest ustawiona, renderowane są tylko obiekty z tej grupy."
+
+msgid "YYYY-MM-DD (2026-05-17)"
+msgstr "RRRR-MM-DD (17.05.2026)"
+
+msgid "Year"
+msgstr "Rok"
+
+msgid "Yes"
+msgstr "Tak"
+
+msgid "Yes/No"
+msgstr "Tak/Nie"
+
 msgid "always displayed on the listing, even if the value is No."
 msgstr "zawsze wyświetlany na ogłoszeniu, nawet jeśli wartość to Nie."
 
-# Numeric / Range editors
-msgid "unit"
-msgstr "jednostka"
+msgid "e.g., m², m, kg, etc."
+msgstr "np. m², m, kg itp."
 
-msgid "(to complete)"
-msgstr "(do uzupełnienia)"
+msgid "e.g., m², m, kg, €, etc."
+msgstr "np. m², m, kg, € itd."
+
+msgid "feature definition"
+msgstr "definicja cechy"
+
+msgid "feature definitions"
+msgstr "definicje cech"
+
+msgid "feature group"
+msgstr "grupa cech"
+
+msgid "feature groups"
+msgstr "grupy cech"
+
+msgid "if disabled, the feature will not appear on the listing page."
+msgstr "jeśli wyłączone, cecha nie pojawi się na stronie ogłoszenia."
+
+msgid "max"
+msgstr "maks"
 
 msgid "min"
 msgstr "min"
 
-msgid "max"
-msgstr "max"
-
-# List editor
-msgid "No options configured for this feature."
-msgstr "Brak skonfigurowanych opcji dla tej cechy."
-
-msgid "(none)"
-msgstr "(brak)"
-
-# Dictionary editor
-msgid "No dictionary entry configured."
-msgstr "Brak skonfigurowanych wpisów słownika."
+msgid "unit"
+msgstr "jednostka"
 
 msgid "— Choose —"
 msgstr "— Wybierz —"
-
-msgid "(to choose)"
-msgstr "(do wyboru)"
-
-msgid "src/web/modules/custom/ps_feature/ps_feature.install:Installed entity_offer_feature schema."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Controller/FeatureTypesController.php:<em>Technical note</em>: these types are implemented through the plugin system in <code>src/Plugin/FeatureType/</code>."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Controller/FeatureTypesController.php:Description and usage"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Controller/FeatureTypesController.php:Feature types are defined by developers and determine how data is stored and displayed. This list is read-only."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Controller/FeatureTypesController.php:No feature type defined."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Controller/FeatureTypesController.php:Type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Controller/FeatureTypesController.php:ps_feature.type_manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:Changed"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:Feature Definition ID"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:JSON payload according to the type driver schema."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:Payload JSON"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:Reference to the feature definition config entity."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:The time that the feature was last edited."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:The type driver: flag, yes_no, numeric, range, text, dictionary, list, date."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:Type driver"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:feature_definition_id"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:feature_type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Entity/OfferFeature.php:payload"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:All types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:Back to groups"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:Data type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:Drag rows to reorder features in this group."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:Feature name"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:No definitions in this group."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:Required asset types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:The order of features has been updated."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:entity_type.manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionByGroupListBuilder.php:ps_feature.type_manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Activity unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:All types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Coworking"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Data type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Feature definitions represent the catalogue of all available features used to describe offers (e.g., Total surface, Parking included, Air conditioning). Each definition belongs to a group and has a specific data type."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Feature name"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Group"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Identifier"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Land"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:No feature definitions found. Create one to start enriching your offers."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Office"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Required asset types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Retail unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Warehouse/Logistics"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:Weight"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:entity_type.manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureDefinitionListBuilder.php:ps_feature.type_manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Activity unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:All types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Asset types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Coworking"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Drag rows to reorder groups."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Feature groups organize offer features into logical categories (e.g., Amenities, Technical features). Each group can be associated with one or more asset types."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Group name"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Group order has been updated."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Land"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Manage definitions"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Manage order"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:No feature groups defined. Create one to start organizing your features."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Office"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Retail unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/FeatureGroupListBuilder.php:Warehouse/Logistics"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:- Select -"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:12h (02:30 PM)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:24h (14:30)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Active"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Activity unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Allow custom values"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Allowed maximum value (optional)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Allowed minimum value (optional)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Allows entering a value not present in the dictionary."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Allows selecting multiple terms."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Allows selecting multiple values."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Also display time with the date."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Available options"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Code"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Coworking"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:DD/MM/YYYY (17/05/2026)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Data type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Date display format."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Date format"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Decimal places"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Description"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Dictionary"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Dictionary identifier is required for this data type."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Display order of the feature. Features with lower weight are shown first."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Feature group"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Feature name"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Inactive features are not available in forms."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Include time"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Input field height (1 = single-line field, >1 = text area)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Land"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:MM/DD/YYYY (05/17/2026)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Maximum length"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Maximum number of allowed characters."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Maximum value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Measurement unit (e.g., EUR, m2)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Measurement unit (e.g., m2, EUR, kg)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Minimum value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Multiple selection"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:No specific configuration for this data type."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Number of decimal places to display (default: 2)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Number of rows"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Office"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:One option per line. Format: key|Label (e.g., wifi|Wi-Fi)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Optional description documenting this feature usage."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Required asset types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Retail unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Select a data type to configure default values."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Select asset types where this feature is required. Leave empty to keep it optional for all."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Select the dictionary to use for this feature."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Select the group this feature belongs to."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Select the taxonomy vocabulary to use."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Suggested maximum value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Suggested maximum value (optional)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Suggested minimum value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Suggested minimum value (optional)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:The name displayed for this feature (e.g., Total surface, Parking included)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:The value type this feature can store (numeric, text, yes/no, etc.)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:This data type does not require additional configuration."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Time display format."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Time format"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Unique code for this feature within the group (for import/export). Example: total_area, parking_included"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Veuillez saisir au moins une option."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Vocabulary"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Vocabulary is required for this data type."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Warehouse/Logistics"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:Weight"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:YYYY-MM-DD (2026-05-17)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionForm.php:ps_feature.type_manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:Description"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:Label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:List options"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:No description in the original."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:Save translation"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:Translate the labels for each option. Keys should remain unchanged."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:Unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:description"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:payload_defaults"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureDefinitionTranslationForm.php:type_driver"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Active"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Activity unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Coworking"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Description"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Display order of the group. Groups with lower weight are shown first."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Group name"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Inactive groups are not shown in forms."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Land"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Office"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Optional description documenting this group usage."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Relevant asset types"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Retail unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Select the asset types this group applies to. Leave empty for all types."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:The name shown for this feature group (e.g., Amenities, Technical features)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Warehouse/Logistics"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupForm.php:Weight"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupTranslationForm.php:Description"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupTranslationForm.php:Label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupTranslationForm.php:No description in the original."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupTranslationForm.php:Save translation"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupTranslationForm.php:description"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/FeatureGroupTranslationForm.php:label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:- Select -"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Data type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Date"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Dictionary"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Feature data type."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Feature definition"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Flag"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:JSON data"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:List"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Numeric value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Range"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Select the feature definition to use."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Text"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:Yes/No"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:entity.entity_offer_feature.collection"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Form/OfferFeatureForm.php:payload"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Hook/OfferFeatureHooks.php:payload"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Date"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Day"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:F Y"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:F j, Y"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Month"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Precision"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Quarter"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Y"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Y-m-d"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:Year"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DateFeatureType.php:n"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DictionaryFeatureType.php:- Select a dictionary entry -"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DictionaryFeatureType.php:Dictionary code"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/DictionaryFeatureType.php:code"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/FlagFeatureType.php:Absent"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/FlagFeatureType.php:Check if this feature is present."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/FlagFeatureType.php:Present"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/ListFeatureType.php:(empty list)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/ListFeatureType.php:Dictionary codes"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/ListFeatureType.php:Enter one dictionary code per line."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/NumericFeatureType.php:Unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/NumericFeatureType.php:Value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/NumericFeatureType.php:e.g., m², m, kg, etc."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/RangeFeatureType.php:Maximum"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/RangeFeatureType.php:Minimum"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/RangeFeatureType.php:Unit"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/RangeFeatureType.php:e.g., m², m, kg, €, etc."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/TaxonomyFeatureType.php:- Select a taxonomy term -"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/TaxonomyFeatureType.php:Taxonomy term"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/TextFeatureType.php:Value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/YesNoFeatureType.php:No"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/YesNoFeatureType.php:Value"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureType/YesNoFeatureType.php:Yes"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureTypeBase.php:Enter the payload as JSON. Structure depends on feature type."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/FeatureTypeBase.php:Payload (JSON)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Compact"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Default"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Detailed"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Format style"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Group ID"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Group label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Grouped"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Grouped order: automatic"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Hide disabled flag features"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:No"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:No groups available."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Order"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Other"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Show feature group"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Show feature label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Show flag value text (Present/Absent)"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:When disabled, flag features are displayed as label only (without Present/Absent value text)."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:When enabled, flag features with a disabled payload are not rendered."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:Yes"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureFormatter.php:plugin.manager.feature_type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldFormatter/FeatureValueOnlyFormatter.php:plugin.manager.feature_type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:Allowed feature groups"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:Allowed features"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:Feature Definition ID"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:Payload"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:Restrict which feature groups can be used. Leave empty to allow all."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:Restrict which features can be used. Leave empty to allow all."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:The ID of the feature definition config entity."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:The JSON payload containing feature values."
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:feature_definition_id"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldType/FeatureItem.php:payload"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureBuilderWidget.php:entity_type.manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureBuilderWidget.php:ps_feature.catalogue_builder"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureBuilderWidget.php:ps_feature.state_builder"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureWidget.php:- Select a feature -"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureWidget.php:Feature"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureWidget.php:label"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Plugin/Field/FieldWidget/FeatureWidget.php:plugin.manager.feature_type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Routing/TranslationRouteSubscriber.php:config_translation.item.add.entity.fb_feature_definition.edit_form"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Routing/TranslationRouteSubscriber.php:config_translation.item.add.entity.fb_feature_group.edit_form"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Routing/TranslationRouteSubscriber.php:config_translation.item.edit.entity.fb_feature_definition.edit_form"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Routing/TranslationRouteSubscriber.php:config_translation.item.edit.entity.fb_feature_group.edit_form"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Service/FeatureCatalogueBuilder.php:asset_type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Service/FeatureCatalogueBuilder.php:field_asset_type"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/src/Service/FeatureCatalogueBuilder.php:weight"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/tests/src/Kernel/Plugin/Field/FieldWidget/FeatureBuilderWidgetExtractionTest.php:entity_type.manager"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/tests/src/Kernel/Plugin/Field/FieldWidget/FeatureBuilderWidgetExtractionTest.php:field_features"
-msgstr ""
-
-msgid "src/web/modules/custom/ps_feature/tests/src/Kernel/Plugin/Field/FieldWidget/FeatureBuilderWidgetExtractionTest.php:plugin.manager.field.widget"
-msgstr ""

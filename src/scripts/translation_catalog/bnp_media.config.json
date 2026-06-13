@@ -1,0 +1,146 @@
+{
+  "media.type.image.yml": {
+    "de": { "label": "Bild", "description": "Generisches lokal gehostetes Bild." },
+    "es": { "label": "Imagen", "description": "Imagen alojada localmente genérica." },
+    "fr": { "label": "Image", "description": "Image hébergée localement générique." },
+    "it": { "label": "Immagine", "description": "Immagine ospitata localmente generica." },
+    "lb": { "label": "Bild", "description": "Generescht lokal gehost Bild." },
+    "nl": { "label": "Afbeelding", "description": "Generieke lokaal gehoste afbeelding." },
+    "pl": { "label": "Obraz", "description": "Ogólny obraz hostowany lokalnie." }
+  },
+  "media.type.audio.yml": {
+    "de": { "label": "Audio", "description": "Generische wiederverwendbare Audiodatei." },
+    "es": { "label": "Audio", "description": "Archivo de audio reutilizable genérico." },
+    "fr": { "label": "Audio", "description": "Fichier audio réutilisable générique." },
+    "it": { "label": "Audio", "description": "File audio riutilizzabile generico." },
+    "lb": { "label": "Audio", "description": "Generesch widderbenotzbar Audio-Fichier." },
+    "nl": { "label": "Audio", "description": "Generiek herbruikbaar audiobestand." },
+    "pl": { "label": "Audio", "description": "Ogólny plik audio wielokrotnego użytku." }
+  },
+  "media.type.video.yml": {
+    "de": { "label": "Video", "description": "Generische wiederverwendbare Videodatei." },
+    "es": { "label": "Vídeo", "description": "Archivo de vídeo reutilizable genérico." },
+    "fr": { "label": "Vidéo", "description": "Fichier vidéo réutilisable générique." },
+    "it": { "label": "Video", "description": "File video riutilizzabile generico." },
+    "lb": { "label": "Video", "description": "Generesch widderbenotzbar Video-Fichier." },
+    "nl": { "label": "Video", "description": "Generiek herbruikbaar videobestand." },
+    "pl": { "label": "Wideo", "description": "Ogólny plik wideo wielokrotnego użytku." }
+  },
+  "media.type.file.yml": {
+    "de": { "label": "Datei", "description": "Generische wiederverwendbare lokale Datei." },
+    "es": { "label": "Archivo", "description": "Archivo local reutilizable genérico." },
+    "fr": { "label": "Fichier", "description": "Fichier local réutilisable générique." },
+    "it": { "label": "File", "description": "File locale riutilizzabile generico." },
+    "lb": { "label": "Fichier", "description": "Generesch widderbenotzbar lokal Fichier." },
+    "nl": { "label": "Bestand", "description": "Generiek herbruikbaar lokaal bestand." },
+    "pl": { "label": "Plik", "description": "Ogólny lokalny plik wielokrotnego użytku." }
+  },
+  "media.type.gallery.yml": {
+    "de": { "label": "Galerie", "description": "Generische wiederverwendbare Bildgalerie." },
+    "es": { "label": "Galería", "description": "Galería de imágenes reutilizable genérica." },
+    "fr": { "label": "Galerie", "description": "Galerie d'images réutilisable générique." },
+    "it": { "label": "Galleria", "description": "Galleria immagini riutilizzabile generica." },
+    "lb": { "label": "Galerie", "description": "Generesch widderbenotzbar Biller-Galerie." },
+    "nl": { "label": "Galerij", "description": "Generieke herbruikbare afbeeldingsgalerij." },
+    "pl": { "label": "Galeria", "description": "Ogólna galeria obrazów wielokrotnego użytku." }
+  },
+  "media.type.remote_video.yml": {
+    "de": { "label": "Remote-Video", "description": "Generisches Remote-Video-Medium (YouTube, Vimeo, MediaHub)." },
+    "es": { "label": "Vídeo remoto", "description": "Elemento multimedia de vídeo remoto genérico (YouTube, Vimeo, MediaHub)." },
+    "fr": { "label": "Vidéo distante", "description": "Média vidéo distant générique (YouTube, Vimeo, MediaHub)." },
+    "it": { "label": "Video remoto", "description": "Media video remoto generico (YouTube, Vimeo, MediaHub)." },
+    "lb": { "label": "Remote-Video", "description": "Generesch Remote-Video-Medium (YouTube, Vimeo, MediaHub)." },
+    "nl": { "label": "Externe video", "description": "Generiek extern videomedium (YouTube, Vimeo, MediaHub)." },
+    "pl": { "label": "Wideo zdalne", "description": "Ogólny zdalny nośnik wideo (YouTube, Vimeo, MediaHub)." }
+  },
+  "media.type.mediahub_video.yml": {
+    "de": { "label": "MediaHub-Video-URL", "description": "Direkte externe Video-URL (non-oEmbed) für MediaHub AssetLink-Links." },
+    "es": { "label": "URL de vídeo MediaHub", "description": "URL de vídeo externa directa (no oEmbed) para enlaces MediaHub AssetLink." },
+    "fr": { "label": "URL vidéo MediaHub", "description": "URL vidéo externe directe (hors oEmbed) pour les liens MediaHub AssetLink." },
+    "it": { "label": "URL video MediaHub", "description": "URL video esterna diretta (non oEmbed) per link MediaHub AssetLink." },
+    "lb": { "label": "MediaHub-Video-URL", "description": "Direkt extern Video-URL (ouni oEmbed) fir MediaHub AssetLink-Linken." },
+    "nl": { "label": "MediaHub-video-URL", "description": "Directe externe video-URL (non-oEmbed) voor MediaHub AssetLink-links." },
+    "pl": { "label": "URL wideo MediaHub", "description": "Bezpośredni zewnętrzny URL wideo (bez oEmbed) dla linków MediaHub AssetLink." }
+  },
+  "media.type.visite_guided.yml": {
+    "de": { "label": "Virtuelle Tour", "description": "Link zur virtuellen Tour mit manuellem Vorschaubild." },
+    "es": { "label": "Visita virtual", "description": "Enlace a visita virtual con miniatura manual." },
+    "fr": { "label": "Visite virtuelle", "description": "Lien vers visite virtuelle avec vignette manuelle." },
+    "it": { "label": "Visita virtuale", "description": "Link a visita virtuale con miniatura manuale." },
+    "lb": { "label": "Virtuell Tour", "description": "Link op virtuell Tour mat manueller Vignette." },
+    "nl": { "label": "Virtuele tour", "description": "Link naar virtuele tour met handmatige thumbnail." },
+    "pl": { "label": "Wirtualny spacer", "description": "Link do wirtualnego spaceru z ręczną miniaturą." }
+  },
+  "entity_browser.browser.bnp_media_upload.yml": {
+    "de": { "label": "Galerie-Medienauswahl" },
+    "es": { "label": "Selector de medios de galería" },
+    "fr": { "label": "Sélecteur de médias galerie" },
+    "it": { "label": "Selettore media galleria" },
+    "lb": { "label": "Galerie-Medien-Picker" },
+    "nl": { "label": "Galerijmediakiezer" },
+    "pl": { "label": "Wybór mediów galerii" }
+  },
+  "entity_browser.browser.bnp_media_brochure_upload.yml": {
+    "de": { "label": "Broschüren-Dokumentauswahl" },
+    "es": { "label": "Selector de documentos folleto" },
+    "fr": { "label": "Sélecteur de documents brochure" },
+    "it": { "label": "Selettore documenti brochure" },
+    "lb": { "label": "Brochür-Dokument-Picker" },
+    "nl": { "label": "Brochuredocumentkiezer" },
+    "pl": { "label": "Wybór dokumentów broszury" }
+  },
+  "image.style.bnp_media_admin_card.yml": {
+    "de": { "label": "BNP Media Admin-Karte (4:3)" },
+    "es": { "label": "Tarjeta admin BNP Media (4:3)" },
+    "fr": { "label": "Carte admin BNP Media (4:3)" },
+    "it": { "label": "Scheda admin BNP Media (4:3)" },
+    "lb": { "label": "BNP Media Admin-Kaart (4:3)" },
+    "nl": { "label": "BNP Media adminkaart (4:3)" },
+    "pl": { "label": "Karta admin BNP Media (4:3)" }
+  },
+  "core.entity_view_mode.media.thumbnail.yml": {
+    "de": { "label": "Vorschaubild" },
+    "es": { "label": "Miniatura" },
+    "fr": { "label": "Vignette" },
+    "it": { "label": "Miniatura" },
+    "lb": { "label": "Vignette" },
+    "nl": { "label": "Thumbnail" },
+    "pl": { "label": "Miniatura" }
+  },
+  "field.field.media.visite_guided.field_media_link.yml": {
+    "de": { "label": "URL der virtuellen Tour", "description": "Link zu 360°-Tour, Matterport oder ähnlicher virtueller Tour-Oberfläche" },
+    "es": { "label": "URL de visita virtual", "description": "Enlace a tour 360°, Matterport o interfaz de visita virtual similar" },
+    "fr": { "label": "URL de visite virtuelle", "description": "Lien vers visite 360°, Matterport ou interface de visite virtuelle similaire" },
+    "it": { "label": "URL visita virtuale", "description": "Link a tour 360°, Matterport o interfaccia visita virtuale simile" },
+    "lb": { "label": "Virtuell Tour URL", "description": "Link op 360°-Tour, Matterport oder ähnlech virtuell Tour-Interface" },
+    "nl": { "label": "URL virtuele tour", "description": "Link naar 360°-tour, Matterport of vergelijkbare virtuele tourinterface" },
+    "pl": { "label": "URL wirtualnego spaceru", "description": "Link do spaceru 360°, Matterport lub podobnego interfejsu wirtualnego spaceru" }
+  },
+  "field.field.media.visite_guided.field_media_image.yml": {
+    "de": { "label": "Vorschaubild der virtuellen Tour", "description": "Optionales Vorschaubild für virtuelle Tour-Elemente in der Galerie." },
+    "es": { "label": "Miniatura de visita virtual", "description": "Imagen miniatura opcional para elementos de visita virtual en la galería." },
+    "fr": { "label": "Vignette de visite virtuelle", "description": "Image vignette optionnelle pour les éléments de visite virtuelle dans la galerie." },
+    "it": { "label": "Miniatura visita virtuale", "description": "Immagine miniatura opzionale per elementi visita virtuale nella galleria." },
+    "lb": { "label": "Virtuell Tour Vignette", "description": "Optional Vignette-Bild fir virtuell Tour-Elementer an der Galerie." },
+    "nl": { "label": "Thumbnail virtuele tour", "description": "Optionele thumbnailafbeelding voor virtuele touritems in galerij." },
+    "pl": { "label": "Miniatura wirtualnego spaceru", "description": "Opcjonalny obraz miniatury dla elementów wirtualnego spaceru w galerii." }
+  },
+  "field.field.media.mediahub_video.field_media_video_url.yml": {
+    "de": { "label": "Video-URL", "description": "Direkte Video-URL (erwartet: MediaHub AssetLink .mp4)" },
+    "es": { "label": "URL de vídeo", "description": "URL de vídeo directa (esperado: MediaHub AssetLink .mp4)" },
+    "fr": { "label": "URL vidéo", "description": "URL vidéo directe (attendu : MediaHub AssetLink .mp4)" },
+    "it": { "label": "URL video", "description": "URL video diretta (previsto: MediaHub AssetLink .mp4)" },
+    "lb": { "label": "Video-URL", "description": "Direkt Video-URL (erwaart: MediaHub AssetLink .mp4)" },
+    "nl": { "label": "Video-URL", "description": "Directe video-URL (verwacht: MediaHub AssetLink .mp4)" },
+    "pl": { "label": "URL wideo", "description": "Bezpośredni URL wideo (oczekiwany: MediaHub AssetLink .mp4)" }
+  },
+  "field.field.media.remote_video.field_provider.yml": {
+    "de": { "label": "Anbieter", "description": "Normalisierte Anbieter-ID (youtube, vimeo, mediahub)." },
+    "es": { "label": "Proveedor", "description": "ID de proveedor normalizado (youtube, vimeo, mediahub)." },
+    "fr": { "label": "Fournisseur", "description": "Identifiant fournisseur normalisé (youtube, vimeo, mediahub)." },
+    "it": { "label": "Provider", "description": "ID provider normalizzato (youtube, vimeo, mediahub)." },
+    "lb": { "label": "Provider", "description": "Normaliséiert Provider-ID (youtube, vimeo, mediahub)." },
+    "nl": { "label": "Provider", "description": "Genormaliseerde provider-ID (youtube, vimeo, mediahub)." },
+    "pl": { "label": "Dostawca", "description": "Znormalizowany identyfikator dostawcy (youtube, vimeo, mediahub)." }
+  }
+}

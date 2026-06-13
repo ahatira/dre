@@ -1,0 +1,77 @@
+# NL translation for bnp_admin module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_admin\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Administration theme machine name"
+msgstr "Machinenaam van beheerthema"
+
+msgid "Apply Gin Login branding"
+msgstr "Gin Login-branding toepassen"
+
+msgid "Apply Gin branding"
+msgstr "Gin-branding toepassen"
+
+msgid "BNP Admin settings"
+msgstr "BNP Admin-instellingen"
+
+msgid "Content administrator"
+msgstr "Contentbeheerder"
+
+msgid "Content editor"
+msgstr "Contentredacteur"
+
+msgid "Core Drupal baseline"
+msgstr "Drupal Core-basis"
+
+msgid "Gin Login branding"
+msgstr "Gin Login-branding"
+
+msgid "Gin accent color preset"
+msgstr "Voorinstelling voor Gin-accentkleur"
+
+msgid "Gin theme branding"
+msgstr "Gin-thema-branding"
+
+msgid "Gin toolbar variant"
+msgstr "Variant van Gin-werkbalk"
+
+msgid "Optional recipe mirror of the bnp_admin module dependency set. Prefer "
+"enabling the bnp_admin module directly."
+msgstr "Optioneel recept als spiegel van de afhankelijkheden van de module bnp"
+"_admin. Activeer bij voorkeur direct de module bnp_admin."
+
+msgid "Provides a reusable administration baseline with module activation, co"
+"nfiguration defaults, and role provisioning."
+msgstr "Biedt een herbruikbare beheersbasis met moduleactivatie, standaardconf"
+"iguratie en rolvoorziening."
+
+msgid "Restrict registration to administrators"
+msgstr "Registratie beperken tot beheerders"
+
+msgid "SEO administrator"
+msgstr "SEO-beheerder"
+
+msgid "Show description toggle in Gin"
+msgstr "Beschrijving-schakelaar tonen in Gin"
+
+msgid "Site administrator"
+msgstr "Sitebeheerder"
+
+msgid "Translation administrator"
+msgstr "Vertaalbeheerder"
+
+msgid "Translation editor"
+msgstr "Vertaalredacteur"
+
+msgid "Use admin theme on node forms"
+msgstr "Beheerthema gebruiken op nodeformulieren"
+
+msgid "Use default Gin Login brand image"
+msgstr "Standaard Gin Login-merkafbeelding gebruiken"

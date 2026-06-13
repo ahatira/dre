@@ -1,0 +1,48 @@
+title: 'Programar una visita'
+description: 'Formulario para programar la visita de una oferta.'
+category: 'Búsqueda inmobiliaria'
+elements: |-
+  visitor:
+    '#type': fieldset
+    '#title': 'Sus datos de contacto'
+    first_name:
+      '#type': textfield
+      '#title': 'Nombre'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Apellidos'
+      '#required': true
+    email:
+      '#type': email
+      '#title': Correo electrónico
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Teléfono
+  visit:
+    '#type': fieldset
+    '#title': 'Solicitud de visita'
+    preferred_date:
+      '#type': date
+      '#title': 'Fecha preferida'
+    message:
+      '#type': textarea
+      '#title': Mensaje
+      '#default_value': 'Quisiera programar una visita para esta oferta.'
+  legal:
+    '#type': checkbox
+    '#title': 'Acepto la política de privacidad.'
+    '#required': true
+settings:
+  form_submit_label: Enviar
+  confirmation_message: 'Gracias. Su solicitud de visita ha sido enviada.'
+handlers:
+  email_agent:
+    label: 'Notificación al consultor'
+    subject: "Solicitud de visita — Oferta [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: 'Confirmación al visitante'
+    subject: "Su solicitud de visita — [webform_submission:source-entity:field_reference]"
+    body: "<p>Gracias por su solicitud de visita sobre la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Nuestro consultor se pondrá en contacto con usted en breve para organizar la visita.</p>"

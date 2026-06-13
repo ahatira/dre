@@ -1,0 +1,245 @@
+{
+  "BNP Editor": {
+    "de": "BNP Editor",
+    "es": "Editor BNP",
+    "fr": "Éditeur BNP",
+    "it": "Editor BNP",
+    "lb": "BNP Editor",
+    "nl": "BNP Editor",
+    "pl": "Edytor BNP"
+  },
+  "BNP Editor Settings": {
+    "de": "BNP Editor Einstellungen",
+    "es": "Configuración del editor BNP",
+    "fr": "Paramètres de l'éditeur BNP",
+    "it": "Impostazioni editor BNP",
+    "lb": "BNP Editor Astellungen",
+    "nl": "BNP Editor Instellingen",
+    "pl": "Ustawienia edytora BNP"
+  },
+  "Configure CKEditor settings and plugins for BNP platform.": {
+    "de": "CKEditor-Einstellungen und Plugins für BNP-Plattform konfigurieren.",
+    "es": "Configurar ajustes y plugins de CKEditor para la plataforma BNP.",
+    "fr": "Configurer les paramètres et plugins CKEditor pour la plateforme BNP.",
+    "it": "Configurare impostazioni e plugin CKEditor per la piattaforma BNP.",
+    "lb": "CKEditor Astellungen a Plugins fir BNP Plattform konfiguréieren.",
+    "nl": "CKEditor-instellingen en plug-ins voor BNP-platform configureren.",
+    "pl": "Skonfiguruj ustawienia CKEditor i wtyczki dla platformy BNP."
+  },
+  "General Settings": {
+    "de": "Allgemeine Einstellungen",
+    "es": "Configuración general",
+    "fr": "Paramètres généraux",
+    "it": "Impostazioni generali",
+    "lb": "Allgemeng Astellungen",
+    "nl": "Algemene instellingen",
+    "pl": "Ustawienia ogólne"
+  },
+  "Enable custom CKEditor plugins": {
+    "de": "Benutzerdefinierte CKEditor-Plugins aktivieren",
+    "es": "Activar plugins personalizados de CKEditor",
+    "fr": "Activer les plugins CKEditor personnalisés",
+    "it": "Abilita plugin CKEditor personalizzati",
+    "lb": "Personaliséiert CKEditor Plugins aktivéieren",
+    "nl": "Aangepaste CKEditor-plug-ins inschakelen",
+    "pl": "Włącz niestandardowe wtyczki CKEditor"
+  },
+  "Enable custom plugins developed for BNP platform.": {
+    "de": "Benutzerdefinierte Plugins für BNP-Plattform aktivieren.",
+    "es": "Activar plugins personalizados desarrollados para la plataforma BNP.",
+    "fr": "Activer les plugins personnalisés développés pour la plateforme BNP.",
+    "it": "Abilita plugin personalizzati sviluppati per la piattaforma BNP.",
+    "lb": "Personaliséiert Plugins fir BNP Plattform aktivéieren.",
+    "nl": "Aangepaste plug-ins voor BNP-platform inschakelen.",
+    "pl": "Włącz niestandardowe wtyczki opracowane dla platformy BNP."
+  },
+  "Enable media embed": {
+    "de": "Medieneinbettung aktivieren",
+    "es": "Activar integración de medios",
+    "fr": "Activer l'intégration média",
+    "it": "Abilita integrazione media",
+    "lb": "Medien Integratioun aktivéieren",
+    "nl": "Media-integratie inschakelen",
+    "pl": "Włącz osadzanie mediów"
+  },
+  "Allow embedding media items in rich text content.": {
+    "de": "Einbetten von Medienelementen in Rich-Text-Inhalten erlauben.",
+    "es": "Permitir insertar elementos multimedia en contenido enriquecido.",
+    "fr": "Autoriser l'intégration d'éléments média dans le contenu riche.",
+    "it": "Consenti l'incorporamento di elementi multimediali nel contenuto formattato.",
+    "lb": "Medien Elementer an Rich Text Inhalt erlaaben.",
+    "nl": "Media-items insluiten in rich text-inhoud toestaan.",
+    "pl": "Zezwalaj na osadzanie elementów multimedialnych w treści."
+  },
+  "Plugin Configuration": {
+    "de": "Plugin-Konfiguration",
+    "es": "Configuración de plugins",
+    "fr": "Configuration des plugins",
+    "it": "Configurazione plugin",
+    "lb": "Plugin Konfiguratioun",
+    "nl": "Plugin-configuratie",
+    "pl": "Konfiguracja wtyczek"
+  },
+  "Allowed link protocols": {
+    "de": "Erlaubte Link-Protokolle",
+    "es": "Protocolos de enlaces permitidos",
+    "fr": "Protocoles de liens autorisés",
+    "it": "Protocolli di link consentiti",
+    "lb": "Erlaabt Link Protokoller",
+    "nl": "Toegestane linkprotocollen",
+    "pl": "Dozwolone protokoły linków"
+  },
+  "Enter one protocol per line (e.g., http, https, mailto, tel).": {
+    "de": "Ein Protokoll pro Zeile eingeben (z.B. http, https, mailto, tel).",
+    "es": "Introduzca un protocolo por línea (p. ej., http, https, mailto, tel).",
+    "fr": "Entrez un protocole par ligne (ex: http, https, mailto, tel).",
+    "it": "Inserire un protocollo per riga (es. http, https, mailto, tel).",
+    "lb": "Een Protokoll pro Linn aginn (z.B. http, https, mailto, tel).",
+    "nl": "Voer één protocol per regel in (bijv. http, https, mailto, tel).",
+    "pl": "Wprowadź jeden protokół w każdym wierszu (np. http, https, mailto, tel)."
+  },
+  "BNP Editor settings": {
+    "de": "BNP Editor Einstellungen",
+    "es": "Configuración del editor BNP",
+    "fr": "Paramètres de l'éditeur BNP",
+    "it": "Impostazioni editor BNP",
+    "lb": "BNP Editor Astellungen",
+    "nl": "BNP Editor-instellingen",
+    "pl": "Ustawienia edytora BNP"
+  },
+  "Enable custom plugins": {
+    "de": "Benutzerdefinierte Plugins aktivieren",
+    "es": "Activar plugins personalizados",
+    "fr": "Activer les plugins personnalisés",
+    "it": "Abilita plugin personalizzati",
+    "lb": "Personaliséiert Plugins aktivéieren",
+    "nl": "Aangepaste plug-ins inschakelen",
+    "pl": "Włącz niestandardowe wtyczki"
+  },
+  "Enhanced CKEditor 5 configuration with contrib plugins for BNP property search platform.": {
+    "de": "Erweiterte CKEditor-5-Konfiguration mit Contrib-Plugins für die BNP-Immobiliensuchplattform.",
+    "es": "Configuración avanzada de CKEditor 5 con plugins contrib para la plataforma de búsqueda inmobiliaria de BNP.",
+    "fr": "Configuration CKEditor 5 avancée avec plugins contrib pour la plateforme de recherche immobilière BNP.",
+    "it": "Configurazione avanzata di CKEditor 5 con plugin contrib per la piattaforma BNP di ricerca immobiliare.",
+    "lb": "Erweidert CKEditor-5-Konfiguratioun mat Contrib-Plugins fir d’BNP-Immobiliesich-Plattform.",
+    "nl": "Uitgebreide CKEditor 5-configuratie met contrib-plug-ins voor het BNP-vastgoedzoekplatform.",
+    "pl": "Rozszerzona konfiguracja CKEditor 5 z wtyczkami contrib dla platformy wyszukiwania nieruchomości BNP."
+  },
+  "Access to Basic HTML format with standard editing tools.": {
+    "de": "Zugriff auf Basic HTML mit Standard-Editorwerkzeugen.",
+    "es": "Acceso al formato Basic HTML con herramientas de edición estándar.",
+    "fr": "Accès au format Basic HTML avec les outils d'édition standard.",
+    "it": "Accesso al formato Basic HTML con strumenti di editing standard.",
+    "lb": "Zougang op Basic HTML mat Standard-Editor-Tools.",
+    "nl": "Toegang tot Basic HTML-formaat met standaard bewerkingstools.",
+    "pl": "Dostęp do formatu Basic HTML ze standardowymi narzędziami edycji."
+  },
+  "Access to Full HTML format with complete CKEditor capabilities.": {
+    "de": "Zugriff auf Full HTML mit vollständigen CKEditor-Funktionen.",
+    "es": "Acceso al formato Full HTML con capacidades completas de CKEditor.",
+    "fr": "Accès au format Full HTML avec toutes les capacités CKEditor.",
+    "it": "Accesso al formato Full HTML con tutte le funzionalità CKEditor.",
+    "lb": "Zougang op Full HTML mat kompletten CKEditor-Funktiounen.",
+    "nl": "Toegang tot Full HTML-formaat met volledige CKEditor-mogelijkheden.",
+    "pl": "Dostęp do formatu Full HTML z pełnymi możliwościami CKEditor."
+  },
+  "Access to Plain text format (no HTML).": {
+    "de": "Zugriff auf Nur-Text-Format (ohne HTML).",
+    "es": "Acceso al formato de texto plano (sin HTML).",
+    "fr": "Accès au format texte brut (sans HTML).",
+    "it": "Accesso al formato testo semplice (senza HTML).",
+    "lb": "Zougang op Plain-Text-Format (ouni HTML).",
+    "nl": "Toegang tot platte tekst (geen HTML).",
+    "pl": "Dostęp do formatu zwykłego tekstu (bez HTML)."
+  },
+  "Access to Restricted HTML format (limited tags).": {
+    "de": "Zugriff auf eingeschränktes HTML (begrenzte Tags).",
+    "es": "Acceso al formato HTML restringido (etiquetas limitadas).",
+    "fr": "Accès au format HTML restreint (balises limitées).",
+    "it": "Accesso al formato HTML limitato (tag limitati).",
+    "lb": "Zougang op Restricted HTML (limitéiert Tags).",
+    "nl": "Toegang tot beperkt HTML-formaat (beperkte tags).",
+    "pl": "Dostęp do formatu Restricted HTML (ograniczone tagi)."
+  },
+  "Administer BNP Editor": {
+    "de": "BNP Editor verwalten",
+    "es": "Administrar BNP Editor",
+    "fr": "Administrer BNP Editor",
+    "it": "Amministra BNP Editor",
+    "lb": "BNP Editor geréieren",
+    "nl": "BNP Editor beheren",
+    "pl": "Zarządzaj BNP Editor"
+  },
+  "At least one protocol must be allowed.": {
+    "de": "Mindestens ein Protokoll muss erlaubt sein.",
+    "es": "Debe permitirse al menos un protocolo.",
+    "fr": "Au moins un protocole doit être autorisé.",
+    "it": "Deve essere consentito almeno un protocollo.",
+    "lb": "Mindestens ee Protokoll muss erlaabt sinn.",
+    "nl": "Ten minste één protocol moet toegestaan zijn.",
+    "pl": "Co najmniej jeden protokół musi być dozwolony."
+  },
+  "Configure CKEditor settings and manage editor configurations.": {
+    "de": "CKEditor-Einstellungen konfigurieren und Editor-Konfigurationen verwalten.",
+    "es": "Configurar ajustes de CKEditor y gestionar configuraciones del editor.",
+    "fr": "Configurer CKEditor et gérer les configurations de l'éditeur.",
+    "it": "Configura CKEditor e gestisci le configurazioni dell'editor.",
+    "lb": "CKEditor-Astellungen configuréieren an Editor-Configuratiounen geréieren.",
+    "nl": "CKEditor-instellingen configureren en editorconfiguraties beheren.",
+    "pl": "Skonfiguruj CKEditor i zarządzaj konfiguracjami edytora."
+  },
+  "Custom Plugin": {
+    "de": "Benutzerdefiniertes Plugin",
+    "es": "Plugin personalizado",
+    "fr": "Plugin personnalisé",
+    "it": "Plugin personalizzato",
+    "lb": "Custom Plugin",
+    "nl": "Aangepaste plug-in",
+    "pl": "Wtyczka niestandardowa"
+  },
+  "Invalid protocol format: @protocol": {
+    "de": "Ungültiges Protokollformat: @protocol",
+    "es": "Formato de protocolo no válido: @protocol",
+    "fr": "Format de protocole invalide : @protocol",
+    "it": "Formato protocollo non valido: @protocol",
+    "lb": "Ongültegt Protokoll-Format: @protocol",
+    "nl": "Ongeldig protocolformaat: @protocol",
+    "pl": "Nieprawidłowy format protokołu: @protocol"
+  },
+  "Use Basic HTML text format": {
+    "de": "Basic HTML-Textformat verwenden",
+    "es": "Usar formato de texto Basic HTML",
+    "fr": "Utiliser le format texte Basic HTML",
+    "it": "Usa formato testo Basic HTML",
+    "lb": "Basic HTML-Textformat benotzen",
+    "nl": "Basic HTML-tekstformaat gebruiken",
+    "pl": "Użyj formatu tekstu Basic HTML"
+  },
+  "Use Full HTML text format": {
+    "de": "Full HTML-Textformat verwenden",
+    "es": "Usar formato de texto Full HTML",
+    "fr": "Utiliser le format texte Full HTML",
+    "it": "Usa formato testo Full HTML",
+    "lb": "Full HTML-Textformat benotzen",
+    "nl": "Full HTML-tekstformaat gebruiken",
+    "pl": "Użyj formatu tekstu Full HTML"
+  },
+  "Use Plain text format": {
+    "de": "Nur-Text-Format verwenden",
+    "es": "Usar formato de texto plano",
+    "fr": "Utiliser le format texte brut",
+    "it": "Usa formato testo semplice",
+    "lb": "Plain-Text-Format benotzen",
+    "nl": "Platte tekst gebruiken",
+    "pl": "Użyj formatu zwykłego tekstu"
+  },
+  "Use Restricted HTML text format": {
+    "de": "Eingeschränktes HTML-Format verwenden",
+    "es": "Usar formato HTML restringido",
+    "fr": "Utiliser le format HTML restreint",
+    "it": "Usa formato HTML limitato",
+    "lb": "Restricted HTML-Format benotzen",
+    "nl": "Beperkt HTML-formaat gebruiken",
+    "pl": "Użyj formatu Restricted HTML"
+  }
+}

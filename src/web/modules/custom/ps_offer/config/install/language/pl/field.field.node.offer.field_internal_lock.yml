@@ -1,0 +1,2 @@
+label: 'Blokada ochrony'
+description: "⚠️ <strong>Włącz tę blokadę, aby chronić ręczne edycje przed automatycznymi importami CRM.</strong> Po zablokowaniu ta oferta nie zostanie nadpisana podczas synchronizacji importu."

@@ -1,215 +1,721 @@
-# Luxembourgish translation for ps_offer module.
+# LB translation for ps_offer module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_offer\n"
+"PO-Revision-Date: 2026-06-13 04:26+0000\n"
 "Language: lb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Description"
-msgstr "Beschreiwung"
-
-msgid "Read more"
-msgstr "Méi liesen"
-
-msgid "Read less"
-msgstr "Manner weisen"
-
-msgid "Available :"
-msgstr "Disponibel :"
-
-msgid "Type of mandate :"
-msgstr "Typ vum Mandat :"
+msgid "A source field is required for field mapping segments."
+msgstr "Ee Quell-Feld ass erfuerderlech fir Mapping-Segmenter."
 
 msgid "Access to the surface area table"
 msgstr "Op d'Flächentabell"
 
-msgctxt "Offer budget period short"
-msgid "yr"
-msgstr "Joer"
+msgid "Administer offer reference patterns"
+msgstr "Offer-Referenz-Muster verwalten"
 
-msgctxt "Offer budget period short"
-msgid "mo"
-msgstr "M."
+msgid "Alias entries"
+msgstr "Alias-Entréeën"
 
-msgctxt "Offer budget unit"
-msgid "seat"
-msgstr "Aarbechtsplaz"
+msgid "Alias entry"
+msgstr "Alias-Entrée"
 
-msgid "On request"
-msgstr "Präis op Ufro"
+msgid "Alias set ID"
+msgstr "Alias-Set-ID"
 
-msgid "TTC"
-msgstr "Inkl. TVA"
+msgid "Alias set IDs"
+msgstr "Alias-Set-IDs"
 
-msgid "Offer budget (composed)"
-msgstr "Offer-Budget (zesummegesat)"
+msgid "All patterns"
+msgstr "All Muster"
 
-msgid "Budget display"
-msgstr "Budget-Duerstellung"
+msgid "Allow manual override"
+msgstr "Manuell Override erlaben"
 
-msgid "Configure budget popover labels and default fees text."
-msgstr "Popover-Labelen an Standard-Honorartexter configuréieren."
+msgid "Allowed"
+msgstr "Erlaabt"
 
-msgid "Configure offer budget, surface and popover display labels."
-msgstr "Budget-, Surface- a Popover-Uweisungslabels configuréieren."
+msgid "Applies to patterns"
+msgstr "Gëllt fir Muster"
 
-msgid "Budget info popover"
-msgstr "Budget-Informatiouns-Popover"
+msgid "Approximate area circle color"
+msgstr "Approximatiouns-Krees-Faarf"
 
-msgid "Popover title"
-msgstr "Popover-Titel"
+msgid "Approximate area circle radius (meters)"
+msgstr "Approximatiouns-Krees-Radius (Meter)"
 
-msgid "HT definition"
-msgstr "HT-Definitioun"
+msgid "Approximate area circle radius in large cities (meters)"
+msgstr "Approximatiouns-Krees-Radius a Groussstied (Meter)"
 
-msgid "HC definition"
-msgstr "HC-Definitioun"
+msgid "Approximate circle color"
+msgstr "Approximatiouns-Krees-Faarf"
 
-msgid "CC definition"
-msgstr "CC-Definitioun"
+msgid "Approximate circle radius"
+msgstr "Approximatiouns-Krees-Radius"
 
-msgid "HD definition"
-msgstr "HD-Definitioun"
+msgid "Approximate circle radius in large cities"
+msgstr "Approximatiouns-Krees-Radius a Groussstied"
 
-msgid "Fees line prefix"
-msgstr "Prefix Honorare-Zeil"
+msgid "At least one segment is required."
+msgstr "Mindestens ee Segment ass erfuerderlech."
 
-msgid "Prepended to the offer fees field or the default fees text."
-msgstr "Virun d'Honorare-Feld oder den Standardtext gesat."
+msgid "At least one target bundle is required."
+msgstr "Mindestens ee Zil-Bundle ass erfuerderlech."
 
-msgid "Default rental fees text"
-msgstr "Standard-Honorartext Locatioun"
-
-msgid "Used when the offer fees field is empty (rental)."
-msgstr "Gëtt benotzt wann d'Honorare-Feld eidel ass (Locatioun)."
-
-msgid "Default sale fees text"
-msgstr "Standard-Honorartext Verkaf"
-
-msgid "Used when the offer fees field is empty (sale)."
-msgstr "Gëtt benotzt wann d'Honorare-Feld eidel ass (Verkaf)."
+msgid "Available :"
+msgstr "Disponibel :"
 
 msgid "Budget display labels"
 msgstr "Budget-Duerstellung-Labelen"
 
-msgid "On request label"
-msgstr "Label Präis op Ufro"
+msgid "Budget from prefix"
+msgstr "Budget-ab-Präfix"
 
-msgid "TTC label"
-msgstr "TVA-inkl.-Label"
+msgid "Budget info popover"
+msgstr "Budget-Informatiouns-Popover"
 
-msgid "Info icon aria-label"
-msgstr "Aria-Label Info-Ikon"
+msgid "Bundle"
+msgstr "Bundle"
 
-msgid "Offer budget display"
-msgstr "Offer-Budget-Duerstellung"
+msgid "Bundles"
+msgstr "Bundles"
 
-msgid "Fees (honoraires)"
-msgstr "Honoraren"
+msgid "CC definition"
+msgstr "CC-Definitioun"
 
-msgid "Fees payable by the tenant or buyer. Shown in the budget info popover when set."
-msgstr "Honorare vum Locataire oder Keefer ze bezuelen. Am Budget-Popover ugewisen wann ausgefëllt."
+msgid "CSS color value, for example #0072CE."
+msgstr "CSS-Faarfwäert, z. B. #0072CE."
 
-msgid "Download the brochure"
-msgstr "Brochure eroflueden"
-
-msgid "Surface display labels"
-msgstr "Etiquette Surface-Uweisung"
-
-msgid "Divisible surface template"
-msgstr "Modell deelbar Surface"
-
-msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from @surface\")."
-msgstr "@surface als Platzhalter fir de Minimum-Lot benotzen (z. B. «Deelbar ab @surface»)."
+msgid "CSS color value, for example #00915A."
+msgstr "CSS-Faarfwäert, z. B. #00915A."
 
 msgid "Capacity unit label"
 msgstr "Etiquette Kapazitéitsunitéit"
 
-msgid "Used for coworking offers (e.g. seats, postes)."
-msgstr "Fir Coworking-Offeren (z. B. Sëtzer, postes)."
-
-msgid "Surface KPI separator"
-msgstr "Surface-KPI-Trennzeechen"
-
-msgid "Separator between total surface and divisibility suffix."
-msgstr "Trennzeechen tëscht Total-Surface a Deelbarkeetssuffix."
-
-msgid "Offer display settings"
-msgstr "Offer-Uweisungsastellungen"
-
-msgid "Show points of interest :"
-msgstr "Points of Interest weisen :"
-
-msgid "Transports"
-msgstr "Transporten"
-
-msgid "Parkings"
-msgstr "Parkingen"
-
-msgid "Restaurants"
-msgstr "Restauranten"
-
-msgid "Hotels"
-msgstr "Hotellen"
-
-msgid "Property location"
-msgstr "Standuert vun der Immobilie"
-
-msgid "Calculate your travel time :"
-msgstr "Reeszäit berechnen :"
-
-msgid "Departure address :"
-msgstr "Offueradress :"
-
-msgid "Enter an address"
-msgstr "Eng Adress aginn"
-
-msgid "Clear departure address"
-msgstr "Offueradress läschen"
-
-msgid "Travel mode :"
-msgstr "Transportmëttel :"
-
-msgid "Travel mode"
-msgstr "Transportmëttel"
-
 msgid "Car"
 msgstr "Auto"
 
-msgid "Public transport"
-msgstr "Ëffentlechen Transport"
+msgid "Comma-separated pattern IDs. Leave empty to apply to all patterns."
+msgstr "Kommagetrennt Muster-IDs. Eidel fir all."
 
-msgid "Walking"
-msgstr "Zu Fouss"
+msgid "Configure headings and icons for offer detail page sections. Sections "
+"are registered by modules; only installed sections appear below."
+msgstr "Iwwerschriften an Symboler fir Offer-Detail-Sektiounen astellen."
+
+msgid "Configure offer budget, surface and popover display labels."
+msgstr "Budget-, Surface- a Popover-Uweisungslabels configuréieren."
+
+msgid "Configure offer detail section titles and icons."
+msgstr "Titelen an Symboler vun Offer-Detail-Sektiounen astellen."
+
+msgid "Configure offer reference generation."
+msgstr "Offer-Referenz-Generatioun astellen."
+
+msgid "Configure the offer detail interactive map."
+msgstr "Interaktiv Kaart vun der Offer-Detail-Säit astellen."
+
+msgid "Consultant label"
+msgstr "Berater-Bezeechnung"
+
+msgid "Consultant label: @label"
+msgstr "Berater-Bezeechnung: @label"
+
+msgid "Contact button label"
+msgstr "Kontakt-Knäppchen-Bezeechnung"
+
+msgid "Contact label: @label"
+msgstr "Kontakt-Bezeechnung: @label"
+
+msgid "Contact modal dialog options (JSON)"
+msgstr "Kontakt-Modal-Dialog-Optiounen (JSON)"
+
+msgid "Counter scope mode"
+msgstr "Zieler-Beräichsmodus"
 
 msgid "Cycling"
 msgstr "Vëlo"
 
-msgid "Via"
-msgstr "Iwwer"
+msgid "Default rental fees text"
+msgstr "Standard-Honorartext Locatioun"
 
-msgid "This route may include several connections."
-msgstr "Dës Route kann e puer Ëmstiech begräifen."
+msgid "Default sale fees text"
+msgstr "Standard-Honorartext Verkaf"
 
-msgid "Please select an address from the suggestions."
-msgstr "Wielt w.e.g. eng Adress aus de Virschléi."
+msgid "Default zoom (approximate location)"
+msgstr "Standard-Zoom (approximativ Standuert)"
 
-msgid "No public transport route found for this journey."
-msgstr "Keng Route mat ëffentlechem Transport fir dës Streck fonnt."
+msgid "Default zoom (approximate location, large city)"
+msgstr "Standard-Zoom (approximativ, Groussstad)"
 
-msgid "No walking route found for this journey."
-msgstr "Keng Fousswee-Route fir dës Streck fonnt."
+msgid "Default zoom (exact address)"
+msgstr "Standard-Zoom (exakt Adress)"
 
-msgid "No cycling route found for this journey."
-msgstr "Keng Vëlos-Route fir dës Streck fonnt."
+msgid "Default zoom for approximate large city location"
+msgstr "Standard-Zoom fir approximativ Groussstad"
 
-msgid "No route found for this journey."
-msgstr "Keng Route fir dës Streck fonnt."
+msgid "Default zoom for approximate location"
+msgstr "Standard-Zoom fir approximativ Standuert"
 
-msgid "Departure or destination address could not be found."
-msgstr "Offuer- oder Ziladress konnt net fonnt ginn."
+msgid "Default zoom for exact address"
+msgstr "Standard-Zoom fir exakt Adress"
 
-msgid "Unable to calculate travel time."
-msgstr "Reeszäit konnt net berechent ginn."
+msgid "Description"
+msgstr "Beschreiwung"
+
+msgid "Disabled"
+msgstr "Deaktivéiert"
+
+msgid "Divisible surface template"
+msgstr "Modell deelbar Surface"
+
+msgid "Download the brochure"
+msgstr "Brochure eroflueden"
+
+msgid "Each alias entry must define source field, source value, and reference"
+" code."
+msgstr "All Alias-Entrée muss Quell-Feld, Quellwäert a Referenzcode definéiere"
+"n."
+
+msgid "Enable Auto to generate the value from the active pattern, or disable "
+"it to edit manually."
+msgstr "Auto aktivéieren fir Wäert aus aktivem Muster ze generéieren."
+
+msgid "Enable POI filters"
+msgstr "POI-Filter aktivéieren"
+
+msgid "Enable offer detail map"
+msgstr "Offer-Detail-Kaart aktivéieren"
+
+msgid "Enable travel time tools"
+msgstr "Reeszäit-Tools aktivéieren"
+
+msgid "Enabled"
+msgstr "Aktivéiert"
+
+msgid "Entries"
+msgstr "Entréeën"
+
+msgid "Fallback value"
+msgstr "Fallback-Wäert"
+
+msgid "Features from this group are shown under the transport line in the loc"
+"ation section."
+msgstr "Feature vun dëser Grupp ginn ënner der Transport-Linn gewisen."
+
+msgid "Fees line prefix"
+msgstr "Prefix Honorare-Zeil"
+
+msgid "Gallery must contain at least one media item before publishing the off"
+"er."
+msgstr "D'Galerie muss mindestens ee Medium enthalen vir der Publikatioun."
+
+msgid "General"
+msgstr "Allgemeng"
+
+msgid "Generate automatically on create"
+msgstr "Bei Erstellung automatesch generéieren"
+
+msgid "Generate on create"
+msgstr "Bei Erstellung generéieren"
+
+msgid "Generation settings"
+msgstr "Generatiouns-Astellungen"
+
+msgid "Global"
+msgstr "Global"
+
+msgid "HC definition"
+msgstr "HC-Definitioun"
+
+msgid "HD definition"
+msgstr "HD-Definitioun"
+
+msgid "HT definition"
+msgstr "HT-Definitioun"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Hotels"
+msgstr "Hotellen"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Icons displayed next to POI filter checkboxes on the offer map."
+msgstr "Symboler nieft POI-Filter-Checkboxen op der Offer-Kaart."
+
+msgid "Icons displayed on the travel mode selector when the offer shows its p"
+"recise address."
+msgstr "Symboler am Reesmodus-Selektor wann d'Offer d'genee Adress weist."
+
+msgid "Info icon aria-label"
+msgstr "Aria-Label Info-Ikon"
+
+msgid "Label"
+msgstr "Bezeechnung"
+
+msgid "Large city localities"
+msgstr "Groussstad-Localitéiten"
+
+msgid "Length"
+msgstr "Längt"
+
+msgid "Location"
+msgstr "Standuert"
+
+msgid "Machine name"
+msgstr "Maschinnennumm"
+
+msgid "Manage configurable offer reference generation patterns."
+msgstr "Konfiguréierbar Offer-Referenz-Muster verwalten."
+
+msgid "Manage reference alias sets."
+msgstr "Referenz-Alias-Sets verwalten."
+
+msgid "Manage reference patterns."
+msgstr "Referenz-Muster verwalten."
+
+msgid "Manual override"
+msgstr "Manuell Override"
+
+msgid "Manual preview message"
+msgstr "Manuell Preview-Message"
+
+msgid "Map display"
+msgstr "Kaart-Uweisung"
+
+msgid "Mapped value"
+msgstr "Gemappten Wäert"
+
+msgid "Mapping"
+msgstr "Mapping"
+
+msgid "No preview available yet. Fill operation type and asset type."
+msgstr "Nach keng Preview disponibel. Operatiounstyp a Verméigensart ausfëllen"
+"."
+
+msgid "Number of text lines shown before the read-more control."
+msgstr "Unzuel Textzeilen vir der Lies-méi-Kontroll."
+
+msgid "Offer"
+msgstr "Offer"
+
+msgid "Offer Reference"
+msgstr "Offer-Referenz"
+
+msgid "Offer agent card"
+msgstr "Offer-Agenten-Kaart"
+
+msgid "Offer budget (compare table)"
+msgstr "Offer-Budget (Vergläichstabelle)"
+
+msgid "Offer budget (composed)"
+msgstr "Offer-Budget (zesummegesat)"
+
+msgid "Offer content model and business validations."
+msgstr "Offer-Inhaltsmodell a Geschäftsvalidatiounen."
+
+msgid "Offer description (read more)"
+msgstr "Offer-Beschreiwung (méi liesen)"
+
+msgid "Offer detail actions"
+msgstr "Offer-Detail-Aktiounen"
+
+msgid "Offer detail header"
+msgstr "Offer-Detail-Header"
+
+msgid "Offer detail location"
+msgstr "Offer-Detail-Standuert"
+
+msgid "Offer display settings"
+msgstr "Offer-Uweisungsastellungen"
+
+msgid "Offer interactive map"
+msgstr "Interaktiv Offer-Kaart"
+
+msgid "Offer location (compare table)"
+msgstr "Offer-Standuert (Vergläichstabelle)"
+
+msgid "Offer location summary"
+msgstr "Offer-Standuert-Zesummefaassung"
+
+msgid "Offer map settings"
+msgstr "Offer-Kaart-Astellungen"
+
+msgid "Offer reference (auto/manual)"
+msgstr "Offer-Referenz (Auto/Manuell)"
+
+msgid "Offer reference alias set"
+msgstr "Offer-Referenz-Alias-Set"
+
+msgid "Offer reference alias set %label has been saved."
+msgstr "Offer-Referenz-Alias-Set %label gouf gespäichert."
+
+msgid "Offer reference alias sets"
+msgstr "Offer-Referenz-Alias-Sets"
+
+msgid "Offer reference pattern"
+msgstr "Offer-Referenz-Muster"
+
+msgid "Offer reference pattern %label has been saved."
+msgstr "Offer-Referenz-Muster %label gouf gespäichert."
+
+msgid "Offer reference patterns"
+msgstr "Offer-Referenz-Muster"
+
+msgid "Offer section headings"
+msgstr "Offer-Sektiouns-Iwwerschriften"
+
+msgid "On request label"
+msgstr "Label Präis op Ufro"
+
+msgid "One KEY=VALUE pair per line. Example: RENT=L"
+msgstr "EE KEY=VALUE-Paar pro Zeil. Beispill: RENT=L"
+
+msgid "One alias per line: source_field|source_value|reference_code|weight|de"
+"scription. Example: field_asset_type|ENT|LOG|0|Warehouse alias"
+msgstr "Ee Alias pro Zeil: source_field|source_value|reference_code|weight|des"
+"cription."
+
+msgid "One city per line. Used for approximate map zoom and circle radius."
+msgstr "Eng Stad pro Zeil. Fir approximativ Kaart-Zoom a Krees-Radius."
+
+msgid "Only shown when the offer displays its precise address."
+msgstr "Nëmmen gewisen wann d'Offer d'genee Adress weist."
+
+msgid "Optional JSON settings for advanced segment behavior."
+msgstr "Optional JSON-Astellungen fir erweidert Segment-Verhalen."
+
+msgid "Optional comma-separated alias set IDs. Leave empty to use all applica"
+"ble enabled alias sets."
+msgstr "Optional kommagetrennt Alias-Set-IDs."
+
+msgid "Optional. Leave empty to hide the icon on offer detail pages."
+msgstr "Optional. Eidel loossen fir Symbol ze verstoppen."
+
+msgid "POI filter icon (hotels)"
+msgstr "POI-Filter-Symbol (Hotellen)"
+
+msgid "POI filter icon (parkings)"
+msgstr "POI-Filter-Symbol (Parkingen)"
+
+msgid "POI filter icon (restaurants)"
+msgstr "POI-Filter-Symbol (Restauranten)"
+
+msgid "POI filter icon (transports)"
+msgstr "POI-Filter-Symbol (Transporten)"
+
+msgid "POI filter icons"
+msgstr "POI-Filter-Symboler"
+
+msgid "POI map marker color (hotels)"
+msgstr "POI-Kaart-Markerfaarf (Hotellen)"
+
+msgid "POI map marker color (parkings)"
+msgstr "POI-Kaart-Markerfaarf (Parkingen)"
+
+msgid "POI map marker color (restaurants)"
+msgstr "POI-Kaart-Markerfaarf (Restauranten)"
+
+msgid "POI map marker color (transports)"
+msgstr "POI-Kaart-Markerfaarf (Transporten)"
+
+msgid "POI map marker colors"
+msgstr "POI-Kaart-Markerfaarwen"
+
+msgid "POI map marker icon (hotels)"
+msgstr "POI-Kaart-Marker-Symbol (Hotellen)"
+
+msgid "POI map marker icon (parkings)"
+msgstr "POI-Kaart-Marker-Symbol (Parkingen)"
+
+msgid "POI map marker icon (restaurants)"
+msgstr "POI-Kaart-Marker-Symbol (Restauranten)"
+
+msgid "POI map marker icon (transports)"
+msgstr "POI-Kaart-Marker-Symbol (Transporten)"
+
+msgid "POI map marker icons"
+msgstr "POI-Kaart-Marker-Symboler"
+
+msgid "POI search radius"
+msgstr "POI-Sich-Radius"
+
+msgid "POI search radius (meters)"
+msgstr "POI-Sich-Radius (Meter)"
+
+msgid "Parkings"
+msgstr "Parkingen"
+
+msgid "Pattern"
+msgstr "Muster"
+
+msgid "Pattern ID"
+msgstr "Muster-ID"
+
+msgid "Pattern IDs"
+msgstr "Muster-IDs"
+
+msgid "Patterns"
+msgstr "Muster"
+
+msgid "Pin colors applied to each POI category on the map."
+msgstr "Pin-Faarwen fir all POI-Kategorie op der Kaart."
+
+msgid "Pin icons displayed on the map for each POI category."
+msgstr "Pin-Symboler op der Kaart fir all POI-Kategorie."
+
+msgid "Points of interest"
+msgstr "Points of Interest"
+
+msgid "Popover title"
+msgstr "Popover-Titel"
+
+msgid "Prefix"
+msgstr "Präfix"
+
+msgid "Prepended to the offer fees field or the default fees text."
+msgstr "Virun d'Honorare-Feld oder den Standardtext gesat."
+
+msgid "Price information"
+msgstr "Präis-Informatiounen"
+
+msgid "Property Search"
+msgstr "Property Search"
+
+msgid "Public transport"
+msgstr "Ëffentlechen Transport"
+
+msgid "Read less"
+msgstr "Manner weisen"
+
+msgid "Read less label"
+msgstr "Manner-liesen-Bezeechnung"
+
+msgid "Read less: @label"
+msgstr "Manner liesen: @label"
+
+msgid "Read more"
+msgstr "Méi liesen"
+
+msgid "Read more label"
+msgstr "Méi-liesen-Bezeechnung"
+
+msgid "Read more: @label"
+msgstr "Méi liesen: @label"
+
+msgid "Reference : @ref"
+msgstr "Referenz: @ref"
+
+msgid "Reference aliases"
+msgstr "Referenz-Aliassen"
+
+msgid "Reference code"
+msgstr "Referenzcode"
+
+msgid "Reference patterns"
+msgstr "Referenz-Muster"
+
+msgid "Reference preview"
+msgstr "Referenz-Preview"
+
+msgid "Regenerate on source change"
+msgstr "Bei Quell-Ännerung nei generéieren"
+
+msgid "Regenerate when source values change"
+msgstr "Nei generéieren wann Quellwäerter sech änneren"
+
+msgid "Require uniqueness"
+msgstr "Eendeitegkeet erfuerderen"
+
+msgid "Resolution mode"
+msgstr "Opléisungsmodus"
+
+msgid "Restaurants"
+msgstr "Restauranten"
+
+msgid "Results page"
+msgstr "Resultat-Säit"
+
+msgid "Section headings"
+msgstr "Sektiouns-Iwwerschriften"
+
+msgid "Section icon"
+msgstr "Sektiouns-Symbol"
+
+msgid "Section title"
+msgstr "Sektiouns-Titel"
+
+msgid "Segment"
+msgstr "Segment"
+
+msgid "Segment @number"
+msgstr "Segment @number"
+
+msgid "Segment length must be greater than 0."
+msgstr "Segmentlängt muss méi grouss wéi 0 sinn."
+
+msgid "Segments"
+msgstr "Segmenter"
+
+msgid "Segments are evaluated in weight order. Length is enforced by the gene"
+"rator service."
+msgstr "Segmenter ginn no Gewiicht-Reiefolleg ausgewäert."
+
+msgid "Separator between total surface and divisibility suffix."
+msgstr "Trennzeechen tëscht Total-Surface a Deelbarkeetssuffix."
+
+msgid "Settings"
+msgstr "Astellungen"
+
+msgid "Settings (JSON)"
+msgstr "Astellungen (JSON)"
+
+msgid "Source field"
+msgstr "Quell-Feld"
+
+msgid "Source value"
+msgstr "Quell-Wäert"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Surface KPI separator"
+msgstr "Surface-KPI-Trennzeechen"
+
+msgid "Surface display labels"
+msgstr "Etiquette Surface-Uweisung"
+
+msgid "TTC label"
+msgstr "TVA-inkl.-Label"
+
+msgid "Target bundles"
+msgstr "Zil-Bundles"
+
+msgid "The offer has been saved as a draft because no primary agent is set."
+msgstr "D'Offer gouf als Entworf gespäichert well kee Haapt-Agent gesat ass."
+
+msgid "The offer is marked as non-divisible, but available surface (@dispo m²"
+") is less than total surface (@total m²). Consider marking it as divis"
+"ible."
+msgstr "D'Offer ass als net deelbar markéiert."
+
+msgid "Toggle button text"
+msgstr "Toggle-Knäppchen-Text"
+
+msgid "Toggle button text: @label"
+msgstr "Toggle-Knäppchen-Text: @label"
+
+msgid "Transport :"
+msgstr "Transport:"
+
+msgid "Transport feature group"
+msgstr "Transport-Feature-Grupp"
+
+msgid "Transports"
+msgstr "Transporten"
+
+msgid "Travel mode icon (car)"
+msgstr "Reesmodus-Symbol (Auto)"
+
+msgid "Travel mode icon (cycling)"
+msgstr "Reesmodus-Symbol (Vëlo)"
+
+msgid "Travel mode icon (public transport)"
+msgstr "Reesmodus-Symbol (ëffentlech Transport)"
+
+msgid "Travel mode icon (walking)"
+msgstr "Reesmodus-Symbol (zu Fouss)"
+
+msgid "Travel mode icons"
+msgstr "Reesmodus-Symboler"
+
+msgid "Travel time"
+msgstr "Reeszäit"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Type of mandate :"
+msgstr "Typ vum Mandat :"
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Unknown asset type code: <strong>@code</strong>. <a href=\"@url\">Crea"
+"te this asset type</a>."
+msgstr "Onbekannte Verméigensartcode: <strong>@code</strong>."
+
+msgid "Unknown operation type code: <strong>@code</strong>. <a href=\"@url\">"
+"Create this operation type</a>."
+msgstr "Onbekannte Operatiounstypcode: <strong>@code</strong>."
+
+msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from"
+" @surface\")."
+msgstr "@surface als Platzhalter fir de Minimum-Lot benotzen (z. B. «Deelbar a"
+"b @surface»)."
+
+msgid "Used by field mapping segments, for example field_operation_type."
+msgstr "Benotzt vu Mapping-Segmenter, z. B. field_operation_type."
+
+msgid "Used for coworking offers (e.g. seats, postes)."
+msgstr "Fir Coworking-Offeren (z. B. Sëtzer, postes)."
+
+msgid "Used when the offer fees field is empty (rental)."
+msgstr "Gëtt benotzt wann d'Honorare-Feld eidel ass (Locatioun)."
+
+msgid "Used when the offer fees field is empty (sale)."
+msgstr "Gëtt benotzt wann d'Honorare-Feld eidel ass (Verkaf)."
+
+msgid "Validate manual value against pattern"
+msgstr "Manuellen Wäert géint Muster validéieren"
+
+msgid "Visible lines when collapsed"
+msgstr "Siichtbar Zeilen am zougeklappten Zoustand"
+
+msgid "Visible lines: @lines"
+msgstr "Siichtbar Zeilen: @lines"
+
+msgid "Visit button label"
+msgstr "Besuch-Knäppchen-Bezeechnung"
+
+msgid "Visit section title"
+msgstr "Besuch-Sektiouns-Titel"
+
+msgid "Visit title: @label"
+msgstr "Besuchstitel: @label"
+
+msgid "Walking"
+msgstr "Zu Fouss"
+
+msgid "Warning message"
+msgstr "Warnmessage"
+
+msgid "Weight"
+msgstr "Gewiicht"
+
+msgid "mo"
+msgstr "Mount"
+
+msgid "offer reference alias set"
+msgstr "Offer-Referenz-Alias-Set"
+
+msgid "offer reference alias sets"
+msgstr "Offer-Referenz-Alias-Sets"
+
+msgid "offer reference pattern"
+msgstr "Offer-Referenz-Muster"
+
+msgid "offer reference patterns"
+msgstr "Offer-Referenz-Muster"
+
+msgid "seat"
+msgstr "Aarbechtsplaz"
+
+msgid "yr"
+msgstr "Joer"

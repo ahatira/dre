@@ -1,0 +1,96 @@
+# PL translation for ps_demo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_demo\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background image path (theme-relative)"
+msgstr "Ścieżka obrazu tła (względem motywu)"
+
+msgid "Business univers"
+msgstr "Uniwersum biznesowe"
+
+msgid "Default demo content and configuration for Property Search (export hub"
+")."
+msgstr "Domyślna zawartość demonstracyjna i konfiguracja dla Property Search ("
+"hub eksportu)."
+
+msgid "Editorial promo"
+msgstr "Promocja redakcyjna"
+
+msgid "English alias"
+msgstr "Alias angielski"
+
+msgid "English body"
+msgstr "Treść angielska"
+
+msgid "English label"
+msgstr "Etykieta angielska"
+
+msgid "English path"
+msgstr "Ścieżka angielska"
+
+msgid "English subtitle"
+msgstr "Podtytuł angielski"
+
+msgid "English title"
+msgstr "Tytuł angielski"
+
+msgid "Featured offers"
+msgstr "Wyróżnione oferty"
+
+msgid "French alias"
+msgstr "Alias francuski"
+
+msgid "French body"
+msgstr "Treść francuska"
+
+msgid "French label"
+msgstr "Etykieta francuska"
+
+msgid "French path"
+msgstr "Ścieżka francuska"
+
+msgid "French subtitle"
+msgstr "Podtytuł francuski"
+
+msgid "French title"
+msgstr "Tytuł francuski"
+
+msgid "Front page internal path"
+msgstr "Wewnętrzna ścieżka strony głównej"
+
+msgid "Hero promo panel copy"
+msgstr "Treść panelu promocyjnego hero"
+
+msgid "Hero search form copy"
+msgstr "Treść formularza wyszukiwania hero"
+
+msgid "Homepage URL aliases per language"
+msgstr "Aliasy URL strony głównej według języka"
+
+msgid "Homepage node UUID (export reference)"
+msgstr "UUID węzła strony głównej (odniesienie eksportu)"
+
+msgid "Image path (theme-relative)"
+msgstr "Ścieżka obrazu (względem motywu)"
+
+msgid "PS Demo homepage block copy"
+msgstr "Treść bloku strony głównej PS Demo"
+
+msgid "PS Demo settings"
+msgstr "Ustawienia PS Demo"
+
+msgid "Promo panel background (theme-relative)"
+msgstr "Tło panelu promocyjnego (względem motywu)"
+
+msgid "Search hero"
+msgstr "Hero wyszukiwania"
+
+msgid "Search query string"
+msgstr "Ciąg zapytania wyszukiwania"

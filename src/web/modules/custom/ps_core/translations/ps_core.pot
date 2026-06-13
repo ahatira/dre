@@ -1,0 +1,267 @@
+# EN translation for ps_core module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_core\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@description"
+msgstr ""
+
+msgid "Access /admin/ps/config and related section links."
+msgstr ""
+
+msgid "Access /admin/ps/content and related section links."
+msgstr ""
+
+msgid "Access /admin/ps/structure and related section links."
+msgstr ""
+
+msgid "Access Property Search config section"
+msgstr ""
+
+msgid "Access Property Search content section"
+msgstr ""
+
+msgid "Access Property Search hub"
+msgstr ""
+
+msgid "Access Property Search structure section"
+msgstr ""
+
+msgid "Access the Property Search admin hub pages."
+msgstr ""
+
+msgid "Administer Property Search core settings"
+msgstr ""
+
+msgid "Audit retention (days)"
+msgstr ""
+
+msgid "Audit settings"
+msgstr ""
+
+msgid "Availability text"
+msgstr ""
+
+msgid "Cache settings"
+msgstr ""
+
+msgid "Central access to Property Search content operations."
+msgstr ""
+
+msgid "Change icon"
+msgstr ""
+
+msgid "Checksum"
+msgstr ""
+
+msgid "Configuration"
+msgstr ""
+
+msgid "Configuration hub"
+msgstr ""
+
+msgid "Configuration transverse Property Search"
+msgstr ""
+
+msgid "Configure cross-cutting Property Search settings."
+msgstr ""
+
+msgid "Conflict detection settings"
+msgstr ""
+
+msgid "Conflict detection window (seconds)"
+msgstr ""
+
+msgid "Content hub"
+msgstr ""
+
+msgid "Contenu"
+msgstr ""
+
+msgid "Core settings"
+msgstr ""
+
+msgid "Create, update and manage offers."
+msgstr ""
+
+msgid "Default cache TTL (seconds)"
+msgstr ""
+
+msgid "Display urgency help block"
+msgstr ""
+
+msgid "Enable audit logging"
+msgstr ""
+
+msgid "Enable site-wide urgency help block"
+msgstr ""
+
+msgid "Foundation infrastructure for Property Search ecosystem."
+msgstr ""
+
+msgid "Gestion du contenu Property Search"
+msgstr ""
+
+msgid "Health"
+msgstr ""
+
+msgid "In a hurry? Call us at"
+msgstr ""
+
+msgid "Internal lock"
+msgstr ""
+
+msgid "Lead text"
+msgstr ""
+
+msgid "Manage Property Search agents"
+msgstr ""
+
+msgid "Manage Property Search context rules"
+msgstr ""
+
+msgid "Manage Property Search core settings and diagnostics."
+msgstr ""
+
+msgid "Manage Property Search diagnostics"
+msgstr ""
+
+msgid "Manage Property Search dictionary"
+msgstr ""
+
+msgid "Manage Property Search features"
+msgstr ""
+
+msgid "Manage Property Search migration"
+msgstr ""
+
+msgid "Manage Property Search offers"
+msgstr ""
+
+msgid "Manage agent profiles and assignments."
+msgstr ""
+
+msgid "Manage business dictionaries and entries."
+msgstr ""
+
+msgid "Manage context rules and orchestration."
+msgstr ""
+
+msgid "Manage diagnostics and energy data."
+msgstr ""
+
+msgid "Manage feature definitions and values."
+msgstr ""
+
+msgid "Manage import and migration workflows."
+msgstr ""
+
+msgid "Manage structural entities and dictionaries."
+msgstr ""
+
+msgid "No actions are currently available for your permissions."
+msgstr ""
+
+msgid "Offer detail sections"
+msgstr ""
+
+msgid "Offer section settings"
+msgstr ""
+
+msgid "Opening hours"
+msgstr ""
+
+msgid "Optional. Leave empty to derive from the display number (FR numbers st"
+"arting with 0)."
+msgstr ""
+
+msgid "Parametres transverses ps_core"
+msgstr ""
+
+msgid "Phone and opening hours shown in offcanvas forms (search alert, contac"
+"t, etc.)."
+msgstr ""
+
+msgid "Phone link (tel: URI)"
+msgstr ""
+
+msgid "Phone number (display)"
+msgstr ""
+
+msgid "Property Search"
+msgstr ""
+
+msgid "Property Search Core settings"
+msgstr ""
+
+msgid "Property Search admin hub"
+msgstr ""
+
+msgid "Property Search health checks"
+msgstr ""
+
+msgid "Protects manually curated data from automated overwrites."
+msgstr ""
+
+msgid "Raw availability text imported from source systems."
+msgstr ""
+
+msgid "SHA256 hash of entity data for import idempotence."
+msgstr ""
+
+msgid "Section"
+msgstr ""
+
+msgid "Section icon"
+msgstr ""
+
+msgid "Section title"
+msgstr ""
+
+msgid "Select icon"
+msgstr ""
+
+msgid "Site contact — urgency help"
+msgstr ""
+
+msgid "Source tracking"
+msgstr ""
+
+msgid "Structure"
+msgstr ""
+
+msgid "Structure et modeles de donnees"
+msgstr ""
+
+msgid "Structure hub"
+msgstr ""
+
+msgid "Structured JSON payload used for source traceability."
+msgstr ""
+
+msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
+msgstr ""
+
+msgid "The @team team"
+msgstr ""
+
+msgid "Transport feature group"
+msgstr ""
+
+msgid "Urgency help lead text"
+msgstr ""
+
+msgid "Urgency help opening hours"
+msgstr ""
+
+msgid "Urgency help phone (display)"
+msgstr ""
+
+msgid "Urgency help phone link (tel: URI, optional)"
+msgstr ""

@@ -1,0 +1,149 @@
+# LB translation for ps_seo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_seo\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@city (@postal_code)"
+msgstr "@city (@postal_code)"
+
+msgid "@lead in @location"
+msgstr "@lead zu @location"
+
+msgid "@lead. Ref. @reference."
+msgstr "@lead. Ref. @reference."
+
+msgid "@location, @region"
+msgstr "@location, @region"
+
+msgid "Access Property Search SEO admin"
+msgstr "Op d'Property-Search-SEO-Admin zougräifen"
+
+msgid "Access the PS SEO configuration hub and related links."
+msgstr "Erlaabt den Zougrëff op den PS-SEO-Konfiguratiounshub an zougeheireg L"
+"inken."
+
+msgid "Administer Property Search SEO settings"
+msgstr "Property-Search-SEO-Astellungen verwalten"
+
+msgid "Back to PS configuration hub"
+msgstr "Zeréck op de PS-Konfiguratiounshub"
+
+msgid "Centralizes Property Search SEO: Metatag defaults, Schema.org, sitemap"
+" and search head tags."
+msgstr "Zentraliséiert Property-Search-SEO: Standard-Metatags, Schema.org, Sit"
+"emap a Search-Head-Tags."
+
+msgid "Configuration"
+msgstr "Konfiguratioun"
+
+msgid "Front page"
+msgstr "Startsäit"
+
+msgid "Legacy default sitemap — disabled in favour of per-asset-type offer si"
+"temaps."
+msgstr "Legacy-Standard-Sitemap - desaktivéiert zugonschte vun Offer-Sitemaps "
+"pro Asset-Typ."
+
+msgid "Lists all offer sitemaps by asset type (BNPPRE-style)."
+msgstr "Lëscht all Offer-Sitemaps no Asset-Typ (BNPPRE-Stil)."
+
+msgid "Manage PS SEO module settings."
+msgstr "Astellunge vum Modul PS SEO verwalten."
+
+msgid "Metatag defaults"
+msgstr "Standard-Metatags"
+
+msgid "Metatags, Schema.org, sitemap and search SEO settings."
+msgstr "Astellunge fir Metatags, Schema.org, Sitemap a Search-SEO."
+
+msgid "Module ps_seo — Metatag defaults, Schema.org, sitemap and search listi"
+"ng head tags."
+msgstr "Modul ps_seo - Standard-Metatags, Schema.org, Sitemap a Head-Tags vun "
+"der Sichlëscht."
+
+msgid "Offers — Activity (ACT)"
+msgstr "Offeren - Activity (ACT)"
+
+msgid "Offers — Coworking (COW)"
+msgstr "Offeren - Coworking (COW)"
+
+msgid "Offers — Land (TER)"
+msgstr "Offeren - Terrain (TER)"
+
+msgid "Offers — Logistics (LOG)"
+msgstr "Offeren - Logistik (LOG)"
+
+msgid "Offers — Offices (BUR)"
+msgstr "Offeren - Bureaue (BUR)"
+
+msgid "Offers — Retail (COM)"
+msgstr "Offeren - Commerce (COM)"
+
+msgid "Offers — Warehouse (ENT)"
+msgstr "Offeren - Lager (ENT)"
+
+msgid "Pathauto patterns"
+msgstr "Pathauto-Musteren"
+
+msgid "Published offer nodes for asset type ACT."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ ACT."
+
+msgid "Published offer nodes for asset type BUR."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ BUR."
+
+msgid "Published offer nodes for asset type COM."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ COM."
+
+msgid "Published offer nodes for asset type COW."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ COW."
+
+msgid "Published offer nodes for asset type ENT."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ ENT."
+
+msgid "Published offer nodes for asset type LOG."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ LOG."
+
+msgid "Published offer nodes for asset type TER."
+msgstr "Publizéiert Offer-Node fir den Asset-Typ TER."
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Search SEO URL mappings"
+msgstr "Search-SEO-URL-Mappings"
+
+msgid "Simple XML sitemap"
+msgstr "Einfach XML-Sitemap"
+
+msgid "Sitemap index"
+msgstr "Sitemap-Index"
+
+msgid "URL redirects"
+msgstr "URL-Redirecten"
+
+msgid "[current-page:title] | [site:name]"
+msgstr "[current-page:title] | [site:name]"
+
+msgid "[node:field_commercial_title] | [site:name]"
+msgstr "[node:field_commercial_title] | [site:name]"
+
+msgid "[node:summary]"
+msgstr "[node:summary]"
+
+msgid "[site:name]"
+msgstr "[site:name]"
+
+msgid "[site:slogan]"
+msgstr "[site:slogan]"
+
+msgid "for rent"
+msgstr "ze lounen"
+
+msgid "for sale"
+msgstr "ze verkafen"

@@ -1,0 +1,221 @@
+# LB translation for ps_agent module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_agent\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "<strong>Internal:</strong> Employee of the company. <strong>External:<"
+"/strong> Third-party agent or partner."
+msgstr "<strong>Intern:</strong> Mataarbechter vun der Entreprise. <strong>Ext"
+"ern:</strong> Externen Agent oder Partner."
+
+msgid "Add agent"
+msgstr "Agent derbäisetzen"
+
+msgid "Add agent type"
+msgstr "Agententyp derbäisetzen"
+
+msgid "Administer PS agent entities"
+msgstr "PS-Agenten-Entitéiten verwalten"
+
+msgid "Administer PS agent fallback settings"
+msgstr "Fallback-Astellunge fir Agenten verwalten"
+
+msgid "Administer PS agent types"
+msgstr "PS-Agententypen verwalten"
+
+msgid "Agent directory entity with contact validation and admin UI."
+msgstr "Agenten-Verzeechnes-Entitéit mat Kontaktvalidatioun an Admin-UI."
+
+msgid "Agent fallback avatars"
+msgstr "Fallback-Avatare fir Agenten"
+
+msgid "Agent type"
+msgstr "Agententyp"
+
+msgid "Agent types"
+msgstr "Agententypen"
+
+msgid "Agents"
+msgstr "Agenten"
+
+msgid "Authored by"
+msgstr "Erstallt vum"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Changed"
+msgstr "Geännert"
+
+msgid "Civility"
+msgstr "Uried"
+
+msgid "Configure fallback avatar files for agents."
+msgstr "Fallback-Avatar-Fichieren fir Agenten astellen."
+
+msgid "Configure fallback avatars by civility and default."
+msgstr "Fallback-Avatare no Uried an Standard astellen."
+
+msgid "Create, edit, and delete PS agent entities."
+msgstr "PS-Agenten-Entitéiten erstellen, änneren a läschen."
+
+msgid "Create, edit, and delete PS agent types, and manage their fields and d"
+"isplay settings."
+msgstr "PS-Agententypen erstellen, änneren a läschen, Felder an Uweisungen ver"
+"walten."
+
+msgid "Created"
+msgstr "Erstallt"
+
+msgid "Created agent %label."
+msgstr "Agent %label erstallt."
+
+msgid "Default fallback avatar"
+msgstr "Standard-Fallback-Avatar"
+
+msgid "Default fallback file ID"
+msgstr "Standard-Fallback-Fichier-ID"
+
+msgid "Delete agent"
+msgstr "Agent läschen"
+
+msgid "Display name"
+msgstr "Uweisungsnumm"
+
+msgid "Edit"
+msgstr "Änneren"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Fallback avatar for MR"
+msgstr "Fallback-Avatar fir Här"
+
+msgid "Fallback avatar for MRS"
+msgstr "Fallback-Avatar fir Madamm"
+
+msgid "Fallback avatar for MS"
+msgstr "Fallback-Avatar fir Meedchen"
+
+msgid "First name"
+msgstr "Virnumm"
+
+msgid "Full Name"
+msgstr "Ganzen Numm"
+
+msgid "Has avatar"
+msgstr "Huet Avatar"
+
+msgid "Internal or external"
+msgstr "Intern oder extern"
+
+msgid "Job title"
+msgstr "Beruff"
+
+msgid "Label"
+msgstr "Bezeechnung"
+
+msgid "Last name"
+msgstr "Familljennumm"
+
+msgid "List"
+msgstr "Lëscht"
+
+msgid "MR fallback file ID"
+msgstr "Fallback-Fichier-ID Här"
+
+msgid "MRS fallback file ID"
+msgstr "Fallback-Fichier-ID Madamm"
+
+msgid "MS fallback file ID"
+msgstr "Fallback-Fichier-ID Meedchen"
+
+msgid "Machine name"
+msgstr "Maschinnennumm"
+
+msgid "Manage agent types and their fields and display settings."
+msgstr "Agententypen, Felder an Uweisungen verwalten."
+
+msgid "Manage agents"
+msgstr "Agenten verwalten"
+
+msgid "Name"
+msgstr "Numm"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "One file only. Recommended: square image for best result."
+msgstr "Nëmmen ee Fichier. Recommandéiert: quadratescht Bild."
+
+msgid "PS Agent fallback settings"
+msgstr "PS-Agenten-Fallback-Astellungen"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Publish agent"
+msgstr "Agent publizéieren"
+
+msgid "Published"
+msgstr "Publizéiert"
+
+msgid "The agent type %label has been created."
+msgstr "Den Agententyp %label gouf erstallt."
+
+msgid "The agent type %label has been updated."
+msgstr "Den Agententyp %label gouf aktualiséiert."
+
+msgid "The user ID of the author of the Agent entity."
+msgstr "Benotzer-ID vum Auteur vun der Agent-Entitéit."
+
+msgid "Unpublish agent"
+msgstr "Agent depublizéieren"
+
+msgid "Updated agent %label."
+msgstr "Agent %label aktualiséiert."
+
+msgid "Upload fallback avatar files used when agent avatar is missing or inac"
+"cessible. Allowed formats: png jpg jpeg webp svg."
+msgstr "Fallback-Avatar-Fichieren eroplueden wann den Agenten-Avatar feelt. Er"
+"laabt Formater: png, jpg, jpeg, webp, svg."
+
+msgid "Yes"
+msgstr "Jo"
+
+msgid "e.g., +33 1 23 45 67 89"
+msgstr "z. B. +33 1 23 45 67 89"
+
+msgid "e.g., Doe"
+msgstr "z. B. Muller"
+
+msgid "e.g., John"
+msgstr "z. B. Jean"
+
+msgid "e.g., Sales Manager"
+msgstr "z. B. Verkafsmanager"
+
+msgid "e.g., john.doe@example.com"
+msgstr "z. B. jean.dupont@beispill.lu"
+
+msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CRM"
+" imports.</strong> When locked, this agent will not be overwritten dur"
+"ing CRM synchronization."
+msgstr "⚠️ <strong>Aktivéiert dës Spär fir manuell Ännerungen virun automatesc"
+"he CRM-Importen ze schützen.</strong> Wann gespaart, gëtt dësen Agent "
+"net iwwerschriwwen."
+
+msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CRM"
+" imports.</strong> When locked, this agent will not be overwritten dur"
+"ing CRM synchronization. Use this when you've made important manual ch"
+"anges that should be preserved."
+msgstr "⚠️ <strong>Aktivéiert dës Spär fir manuell Ännerungen virun automatesc"
+"he CRM-Importen ze schützen.</strong> Wann gespaart, gëtt dësen Agent "
+"net iwwerschriwwen. Benotzt dës wann Dir wichteg manuell Ännerungen ge"
+"maach hutt."

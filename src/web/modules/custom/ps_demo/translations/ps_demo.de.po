@@ -1,0 +1,96 @@
+# DE translation for ps_demo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_demo\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background image path (theme-relative)"
+msgstr "Hintergrundbildpfad (theme-relativ)"
+
+msgid "Business univers"
+msgstr "Geschäftsuniversum"
+
+msgid "Default demo content and configuration for Property Search (export hub"
+")."
+msgstr "Standard-Demo-Inhalte und -Konfiguration für Property Search (Export-H"
+"ub)."
+
+msgid "Editorial promo"
+msgstr "Redaktionelle Promo"
+
+msgid "English alias"
+msgstr "Englischer Alias"
+
+msgid "English body"
+msgstr "Englischer Textkörper"
+
+msgid "English label"
+msgstr "Englisches Label"
+
+msgid "English path"
+msgstr "Englischer Pfad"
+
+msgid "English subtitle"
+msgstr "Englischer Untertitel"
+
+msgid "English title"
+msgstr "Englischer Titel"
+
+msgid "Featured offers"
+msgstr "Hervorgehobene Angebote"
+
+msgid "French alias"
+msgstr "Französischer Alias"
+
+msgid "French body"
+msgstr "Französischer Textkörper"
+
+msgid "French label"
+msgstr "Französisches Label"
+
+msgid "French path"
+msgstr "Französischer Pfad"
+
+msgid "French subtitle"
+msgstr "Französischer Untertitel"
+
+msgid "French title"
+msgstr "Französischer Titel"
+
+msgid "Front page internal path"
+msgstr "Interner Pfad der Startseite"
+
+msgid "Hero promo panel copy"
+msgstr "Text des Hero-Promo-Panels"
+
+msgid "Hero search form copy"
+msgstr "Text des Hero-Suchformulars"
+
+msgid "Homepage URL aliases per language"
+msgstr "Homepage-URL-Aliasse pro Sprache"
+
+msgid "Homepage node UUID (export reference)"
+msgstr "Homepage-Node-UUID (Exportreferenz)"
+
+msgid "Image path (theme-relative)"
+msgstr "Bildpfad (theme-relativ)"
+
+msgid "PS Demo homepage block copy"
+msgstr "Text des PS-Demo-Homepage-Blocks"
+
+msgid "PS Demo settings"
+msgstr "PS-Demo-Einstellungen"
+
+msgid "Promo panel background (theme-relative)"
+msgstr "Hintergrund des Promo-Panels (theme-relativ)"
+
+msgid "Search hero"
+msgstr "Such-Hero"
+
+msgid "Search query string"
+msgstr "Suchanfrage-String"

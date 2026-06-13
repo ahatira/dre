@@ -1,49 +1,166 @@
-# POT file for ps_media
-
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Download link text"
+# NL translation for ps_media module.
+msgid ""
 msgstr ""
+"Project-Id-Version: ps_media\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Hide block if no documents"
-msgstr ""
+msgid "3D visit badge icon"
+msgstr "3D-bezoekbadgepictogram"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Show document titles"
-msgstr ""
+msgid "Administer PS Media"
+msgstr "PS Media beheren"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:When checked, the entire Documents block will be hidden if there are no documents."
-msgstr ""
+msgid "Audio file"
+msgstr "Audiobestand"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type (images, videos, virtual tours) then manual order"
-msgstr ""
+msgid "By type (images, videos, virtual tours) then manual order"
+msgstr "Op type (afbeeldingen, video's, virtuele rondleidingen), daarna handma"
+"tige volgorde"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type then manual"
-msgstr ""
+msgid "By type then manual"
+msgstr "Op type, daarna handmatig"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Enable lazy loading"
-msgstr ""
+msgid "Choose the icons displayed on offer gallery badges (photos, videos, 3D"
+" visit, plan)."
+msgstr "Kies de pictogrammen die worden weergegeven op de badges van de aanbod"
+"sgalerij (foto's, video's, 3D-bezoek, plattegrond)."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Manual order only"
-msgstr ""
+msgid "Configure PS Media gallery and related settings."
+msgstr "PS Media-galerij en gerelateerde instellingen configureren."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Media ordering"
-msgstr ""
+msgid "Configure offer gallery badge icons."
+msgstr "Badge-iconen van de aanbiedingsgalerij configureren."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Show media titles"
-msgstr ""
+msgid "Display template"
+msgstr "Weergavesjabloon"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Use thumbnail images"
-msgstr ""
+msgid "Document file"
+msgstr "Documentbestand"
 
-msgid "src/web/modules/custom/ps_media/templates/documents-list.html.twig:."
-msgstr ""
+msgid "Documents (PS Media)"
+msgstr "Documenten (PS Media)"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:&"
-msgstr ""
+msgid "Download link text"
+msgstr "Tekst van downloadlink"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:?"
-msgstr ""
+msgid "Enable lazy loading"
+msgstr "Lazy loading inschakelen"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:v="
-msgstr ""
+msgid "Gallery (PS Media)"
+msgstr "Galerij (PS Media)"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:youtu.be/"
-msgstr ""
+msgid "Gallery badge icons"
+msgstr "Galerijbadgepictogrammen"
+
+msgid "Gallery item"
+msgstr "Galerij-item"
+
+msgid "Hero gallery (offer detail)"
+msgstr "Hero-galerij (aanboddetail)"
+
+msgid "Hero image style machine name (optional)"
+msgstr "Machinenaam van hero-afbeeldingsstijl (optioneel)"
+
+msgid "Hero image style: @style"
+msgstr "Hero-afbeeldingsstijl: @style"
+
+msgid "Hide block if no documents"
+msgstr "Blok verbergen als er geen documenten zijn"
+
+msgid "Hide if empty: @hide"
+msgstr "Verbergen indien leeg: @hide"
+
+msgid "Manual order only"
+msgstr "Alleen handmatige volgorde"
+
+msgid "Maximum items to render"
+msgstr "Maximum aantal weer te geven items"
+
+msgid "Maximum items: @count"
+msgstr "Maximum items: @count"
+
+msgid "Maximum items: all"
+msgstr "Maximum items: alle"
+
+msgid "Media ordering"
+msgstr "Media-volgorde"
+
+msgid "MediaHub video"
+msgstr "MediaHub-video"
+
+msgid "Minimal media foundation for offer media workflows."
+msgstr "Minimale mediafundering voor aanbiedingsmedia-workflows."
+
+msgid "No media items in gallery"
+msgstr "Geen media-items in galerij"
+
+msgid "Offer gallery"
+msgstr "Aanbiedingsgalerij"
+
+msgid "Open file"
+msgstr "Bestand openen"
+
+msgid "Order: @order"
+msgstr "Volgorde: @order"
+
+msgid "PS Media gallery settings"
+msgstr "PS Media-galerijinstellingen"
+
+msgid "Photos badge icon"
+msgstr "Fotobadgepictogram"
+
+msgid "Plan badge icon"
+msgstr "Plattegrondbadgepictogram"
+
+msgid "Remote video"
+msgstr "Externe video"
+
+msgid "Show document titles"
+msgstr "Documenttitels tonen"
+
+msgid "Show media titles"
+msgstr "Mediatitels tonen"
+
+msgid "Summary list"
+msgstr "Overzichtslijst"
+
+msgid "Thumbnail image style machine name (optional)"
+msgstr "Machinenaam van miniatuurafbeeldingsstijl (optioneel)"
+
+msgid "Thumbnail image style: @style"
+msgstr "Miniatuurafbeeldingsstijl: @style"
+
+msgid "Use 0 to render all referenced media items."
+msgstr "Gebruik 0 om alle verwezen media-items weer te geven."
+
+msgid "Use thumbnail images"
+msgstr "Miniatuurafbeeldingen gebruiken"
+
+msgid "Video file"
+msgstr "Videobestand"
+
+msgid "Videos badge icon"
+msgstr "Videobadgepictogram"
+
+msgid "Virtual tour thumbnail missing"
+msgstr "Miniatuur van virtuele rondleiding ontbreekt"
+
+msgid "When checked, the entire Documents block will be hidden if there are n"
+"o documents."
+msgstr "Indien aangevinkt, wordt het volledige documentenblok verborgen als er"
+" geen documenten zijn."
+
+msgid "When provided, hero carousel and lightbox main images use this image s"
+"tyle."
+msgstr "Indien opgegeven, gebruiken de hero-carrousel en de hoofdafbeeldingen "
+"van de lightbox deze afbeeldingsstijl."
+
+msgid "When provided, lightbox thumbnails and non-image previews use this ima"
+"ge style."
+msgstr "Indien opgegeven, gebruiken lightboxminiaturen en niet-afbeeldingsvoor"
+"beelden deze afbeeldingsstijl."

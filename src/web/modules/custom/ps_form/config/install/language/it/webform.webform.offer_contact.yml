@@ -1,0 +1,69 @@
+title: 'Contattare il consulente'
+description: 'Modulo di contatto nella scheda offerta.'
+category: 'Ricerca immobiliare'
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Quali sono i tuoi dati di contatto?'
+    first_name:
+      '#type': textfield
+      '#title': 'Nome'
+      '#placeholder': Diego
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Cognome'
+      '#placeholder': Plot
+      '#required': true
+    email:
+      '#type': email
+      '#title': 'E-mail professionale'
+      '#placeholder': diego.plot@google.com
+      '#required': true
+    company:
+      '#type': textfield
+      '#title': Azienda
+      '#placeholder': 'Inserisci la tua azienda'
+    phone:
+      '#type': tel
+      '#title': 'Telefono professionale'
+      '#placeholder': 'Inserisci il tuo telefono professionale'
+  project:
+    '#type': fieldset
+    '#title': 'Vuoi saperne di più sul tuo progetto?'
+    message:
+      '#type': textarea
+      '#title': Messaggio
+      '#required': true
+      '#default_value': "Ciao, vorrei maggiori informazioni sull'offerta con riferimento '[webform_submission:source-entity:field_reference]'. Grazie"
+  legal:
+    '#type': checkbox
+    '#title': 'Ho letto e accetto i termini dell'Informativa sulla protezione dei dati personali.'
+    '#required': true
+  marketing:
+    '#type': checkbox
+    '#title': 'Accetto di ricevere comunicazioni marketing da BNP Paribas Real Estate.'
+  newsletter:
+    '#type': checkbox
+    '#title': 'Accetto di ricevere la newsletter.'
+  similar_offers:
+    '#type': checkbox
+    '#title': 'Accetto di essere contattato per immobili simili.'
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p>BNP Paribas Real Estate Transaction France tratta i tuoi dati per gestire la tua richiesta e, con il tuo consenso, per comunicazioni commerciali. Consulta la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a> per i tuoi diritti.</p>'
+    '#wrapper_attributes':
+      class:
+        - ps-offer-contact-modal__legal
+settings:
+  form_submit_label: Invia
+  confirmation_message: "<p>Grazie. Il tuo messaggio è stato inviato.</p>"
+handlers:
+  email_agent:
+    label: 'Notifica al consulente'
+    subject: "Richiesta di contatto — Offerta [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: 'Conferma visitatore'
+    subject: "La tua richiesta di contatto — [webform_submission:source-entity:field_reference]"
+    body: "<p>Grazie per il tuo interesse verso l'offerta <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Il tuo messaggio è stato inoltrato al nostro consulente. Ti contatteremo a breve.</p>"

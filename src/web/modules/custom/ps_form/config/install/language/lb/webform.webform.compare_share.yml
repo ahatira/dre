@@ -1,0 +1,44 @@
+title: 'Mäi Vergläich kréien'
+description: "Den Immobilievergläich per E-Mail deelen."
+category: Immobiliesich
+elements: |-
+  intro:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__intro">Gitt Är berufflech E-Mail an, fir Ären Immobilievergläich ze kréien:</p>'
+  prof_email_address:
+    '#type': email
+    '#title': 'Berufflech E-Mail'
+    '#required': true
+  optout_group:
+    '#type': fieldset
+    '#title': 'Kommerziell Kommunikatiounen'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-compare-share-form__optout-intro">Ech widdersprieche kommerziell Kommunikatioune vu BNP Paribas Real Estate Transaction France ze kréien:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-Mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefon
+  legal:
+    '#type': checkbox
+    '#title': 'Ech hunn d'Konditioune vun der Politik zum Schutz vu perséinlechen Donnéeën gelies an acceptéieren se.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France veraarbecht Är Donnéeën, fir Iech de gefrote Vergläich ze schécken. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  compare_url:
+    '#type': hidden
+    '#title': 'Vergläichs-URL'
+settings:
+  form_submit_label: 'Mäi Vergläich kréien'
+  confirmation_message: "<p>Äre Vergläich gouf per E-Mail geschéckt.</p>"
+handlers:

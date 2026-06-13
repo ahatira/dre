@@ -1,0 +1,154 @@
+# LB translation for ps_migrate module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_migrate\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All surface values"
+msgstr "All Flächenwäerter"
+
+msgid "Already published: @count"
+msgstr "Scho publizéiert: @count"
+
+msgid "Asset Type"
+msgstr "Verméigensart"
+
+msgid "Asset type code"
+msgstr "Verméigensart-Code"
+
+msgid "Budget Value"
+msgstr "Budgetwäert"
+
+msgid "Business ID"
+msgstr "Business-ID"
+
+msgid "Business ID (source XML)"
+msgstr "Business-ID (Quell-XML)"
+
+msgid "Canonical Drupal source language"
+msgstr "Kanonesch Drupal-Quellsprooch"
+
+msgid "Canonical XML source language"
+msgstr "Kanonesch XML-Quellsprooch"
+
+msgid "City"
+msgstr "Stad"
+
+msgid "Commercial Title"
+msgstr "Kommerzielle Titel"
+
+msgid "Country ISO code"
+msgstr "Land-ISO-Code"
+
+msgid "Description"
+msgstr "Beschreiwung"
+
+msgid "External ID"
+msgstr "Extern ID"
+
+msgid "Feature code"
+msgstr "Feature-Code"
+
+msgid "Feature definition ID"
+msgstr "Feature-Definitiouns-ID"
+
+msgid "Feature group ID"
+msgstr "Feature-Gruppen-ID"
+
+msgid "Feature group code"
+msgstr "Feature-Gruppen-Code"
+
+msgid "Full offer XML node"
+msgstr "Kompletten Offer-XML-Knäppchen"
+
+msgid "Generated at: @date"
+msgstr "Generéiert den: @date"
+
+msgid "Import Offers from CRM XML (Example)"
+msgstr "Offeren aus CRM-XML importéieren (Beispill)"
+
+msgid "Import rejections"
+msgstr "Import-Oflehnungen"
+
+msgid "Label"
+msgstr "Bezeechnung"
+
+msgid "Last Post-Import Publication Report"
+msgstr "Leschten Post-Import-Publikatiounsbericht"
+
+msgid "No post-import publication report is available yet. Run CRM import fir"
+"st."
+msgstr "Nach Import-Publikatiounsbericht nach net disponibel. CRM-Import als é"
+"ischt lancéieren."
+
+msgid "No rejected offers in the latest report."
+msgstr "Keng ofgeleent Offeren am leschten Bericht."
+
+msgid "Node ID"
+msgstr "Knäppchen-ID"
+
+msgid "Offer Title"
+msgstr "Offertentitel"
+
+msgid "Operation Type"
+msgstr "Operatiounstyp"
+
+msgid "Operation code"
+msgstr "Operatiounscode"
+
+msgid "Payload defaults"
+msgstr "Payload-Standardwäerter"
+
+msgid "Provides migration support for PS entities with entity protection inte"
+"gration"
+msgstr "Bitt Migratiouns-Ënnerstëtzung fir PS-Entitéiten mat Entitéitsschutz-I"
+"ntegratioun."
+
+msgid "Published during post-import: @count"
+msgstr "Bei Post-Import publizéiert: @count"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Rejected during publication: @count"
+msgstr "Bei Publikatioun ofgeleent: @count"
+
+msgid "Rejection reason"
+msgstr "Oflehnungsgrond"
+
+msgid "Required asset types"
+msgstr "Erfuerderlech Verméigensarten"
+
+msgid "Review post-import publication rejections for source data quality trac"
+"king."
+msgstr "Post-Import-Publikatiouns-Oflehnungen fir Quelldatenqualitéit iwwerpré"
+"iwen."
+
+msgid "Source index"
+msgstr "Quellindex"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Target Drupal language"
+msgstr "Zil-Drupal-Sprooch"
+
+msgid "Target XML language"
+msgstr "Zil-XML-Sprooch"
+
+msgid "Technical elements node"
+msgstr "Knäppchen technesch Elementer"
+
+msgid "Total offers scanned: @count"
+msgstr "Total gescannt Offeren: @count"
+
+msgid "Type driver"
+msgstr "Typ-Driver"
+
+msgid "Weight"
+msgstr "Gewiicht"

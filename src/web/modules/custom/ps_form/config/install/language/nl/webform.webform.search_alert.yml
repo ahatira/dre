@@ -1,0 +1,63 @@
+title: 'Maak een zoekalert aan'
+description: 'Inschrijfformulier voor vastgoedzoekalerts.'
+category: 'Vastgoed zoeken'
+elements: |-
+  alert_name:
+    '#type': textfield
+    '#title': 'Titel van de alert'
+    '#required': true
+    '#maxlength': 255
+  prof_email_address:
+    '#type': email
+    '#title': 'Zakelijk e-mailadres'
+    '#required': true
+  criteria_display:
+    '#type': webform_markup
+    '#markup': ''
+  frequence:
+    '#type': radios
+    '#title': 'Verzendfrequentie'
+    '#required': true
+    '#options':
+      daily: Dagelijks
+      weekly: Wekelijks
+    '#default_value': weekly
+  optout_group:
+    '#type': fieldset
+    '#title': 'Commerciële communicatie'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-search-alert-form__optout-intro">Ik maak bezwaar tegen het ontvangen van commerciële communicatie van BNP Paribas Real Estate Advisory France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefoon
+  legal:
+    '#type': checkbox
+    '#title': 'Ik heb de voorwaarden van het beleid inzake bescherming van persoonsgegevens gelezen en accepteer deze.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate verwerkt uw gegevens om vastgoedalerts te sturen die overeenkomen met uw zoekcriteria. Bekijk onze <a href="/data-protection">Kennisgeving gegevensbescherming</a> voor uw rechten.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  criteria_json:
+    '#type': hidden
+    '#title': 'Zoekcriteria'
+  search_url:
+    '#type': hidden
+    '#title': 'Zoek-URL'
+  search_path:
+    '#type': hidden
+    '#title': 'Zoekpad'
+settings:
+  form_submit_label: Doorgaan
+  confirmation_message: "<p>Uw zoekalert is aangemaakt. U ontvangt een e-mail wanneer nieuwe panden aan uw criteria voldoen.</p>"
+handlers:

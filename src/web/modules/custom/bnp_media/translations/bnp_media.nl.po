@@ -1,0 +1,192 @@
+# NL translation for bnp_media module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_media\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A locally hosted image file."
+msgstr "Lokaal gehost afbeeldingsbestand."
+
+msgid "Allowed providers"
+msgstr "Toegestane providers"
+
+msgid "Autocomplete placeholder"
+msgstr "Autocomplete-placeholder"
+
+msgid "BNP Audio file"
+msgstr "BNP-audiobestand"
+
+msgid "BNP External video URL"
+msgstr "BNP externe video-URL"
+
+msgid "BNP File"
+msgstr "BNP-bestand"
+
+msgid "BNP Gallery"
+msgstr "BNP-galerij"
+
+msgid "BNP Image"
+msgstr "BNP-afbeelding"
+
+msgid "BNP Remote video"
+msgstr "BNP externe video"
+
+msgid "BNP Video file"
+msgstr "BNP-videobestand"
+
+msgid "BNP external video source configuration"
+msgstr "BNP externe videobronconfiguratie"
+
+msgid "BNP oEmbed formatter settings"
+msgstr "BNP oEmbed-formatterinstellingen"
+
+msgid "BNP oEmbed iframe"
+msgstr "BNP oEmbed-iframe"
+
+msgid "BNP remote video source configuration"
+msgstr "BNP externe videobronconfiguratie"
+
+msgid "Bulk input"
+msgstr "Bulkinvoer"
+
+msgid "Create and select media"
+msgstr "Media aanmaken en selecteren"
+
+msgid "Creates or reuses media entities from embed URLs."
+msgstr "Maakt media-entiteiten aan of hergebruikt ze vanuit embed-URL's."
+
+msgid "Default name"
+msgstr "Standaardnaam"
+
+msgid "Embed URLs"
+msgstr "Embed-URL's"
+
+msgid "Embed code"
+msgstr "Embedcode"
+
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgid "Enter one URL per line. Existing media will be reused when deduplicati"
+"on is enabled."
+msgstr "Voer één URL per regel in. Bestaande media worden hergebruikt wanneer "
+"deduplicatie is ingeschakeld."
+
+msgid "Entities"
+msgstr "Entiteiten"
+
+msgid "Entity Browser Generic Embed settings"
+msgstr "Entity Browser generieke embed-instellingen"
+
+msgid "Entity browser generic embed dialog placeholder."
+msgstr "Placeholder van generieke embed-dialoog Entity Browser."
+
+msgid "Entity form proxy"
+msgstr "Entiteitsformulierproxy"
+
+msgid "Generic entity browser and entity embed bridge for media workflows."
+msgstr "Generieke entity browser en entity-embedbrug voor mediaworkflows."
+
+msgid "Generic media foundation with Entity Browser and Dropzone upload workf"
+"lows."
+msgstr "Generieke mediafundering met Entity Browser en Dropzone-uploadworkflow"
+"s."
+
+msgid "Invalid URL(s): @urls"
+msgstr "Ongeldige URL('s): @urls"
+
+msgid "Max height"
+msgstr "Max. hoogte"
+
+msgid "Max height: @value"
+msgstr "Max. hoogte: @value"
+
+msgid "Max width"
+msgstr "Max. breedte"
+
+msgid "Max width: @value"
+msgstr "Max. breedte: @value"
+
+msgid "Media bundle"
+msgstr "Mediabundle"
+
+msgid "Name field machine name"
+msgstr "Machinenaam van naamveld"
+
+msgid "One bundle machine name per line. Leave empty to allow all bundles."
+msgstr "Eén bundlemachinenaam per regel. Laat leeg om alle bundles toe te staa"
+"n."
+
+msgid "Please provide at least one valid URL."
+msgstr "Geef minstens één geldige URL op."
+
+msgid "Please select at least one entity."
+msgstr "Selecteer minstens één entiteit."
+
+msgid "Process"
+msgstr "Verwerken"
+
+msgid "Render remote video URLs via media.oembed_iframe."
+msgstr "Externe video-URL's weergeven via media.oembed_iframe."
+
+msgid "Reuse existing media when URL already exists"
+msgstr "Bestaande media hergebruiken wanneer URL al bestaat"
+
+msgid "Select entities"
+msgstr "Entiteiten selecteren"
+
+msgid "Selected entities must belong to configured bundles only."
+msgstr "Geselecteerde entiteiten mogen alleen tot geconfigureerde bundles beho"
+"ren."
+
+msgid "Selects existing entities through a configurable autocomplete proxy fo"
+"rm."
+msgstr "Selecteert bestaande entiteiten via een configureerbaar autocomplete-p"
+"roxyformulier."
+
+msgid "Source URL"
+msgstr "Bron-URL"
+
+msgid "Source field"
+msgstr "Bronveld"
+
+msgid "Start typing to search entities"
+msgstr "Begin te typen om entiteiten te zoeken"
+
+msgid "Target bundles"
+msgstr "Doelbundles"
+
+msgid "Target entity type"
+msgstr "Doelentiteitstype"
+
+msgid "Thumbnail local URI"
+msgstr "Lokale thumbnail-URI"
+
+msgid "Thumbnails directory"
+msgstr "Thumbnailmap"
+
+msgid "URL field machine name"
+msgstr "Machinenaam van URL-veld"
+
+msgid "Use a local image collection for reusable galleries."
+msgstr "Gebruik een lokale afbeeldingscollectie voor herbruikbare galerijen."
+
+msgid "Use audio files for reusable media."
+msgstr "Gebruik audiobestanden voor herbruikbare media."
+
+msgid "Use direct external video URLs (for example MediaHub AssetLink)."
+msgstr "Gebruik directe externe video-URL's (bijv. MediaHub AssetLink)."
+
+msgid "Use local files for reusable media."
+msgstr "Gebruik lokale bestanden voor herbruikbare media."
+
+msgid "Use remote video URLs for reusable media."
+msgstr "Gebruik externe video-URL's voor herbruikbare media."
+
+msgid "Use video files for reusable media."
+msgstr "Gebruik videobestanden voor herbruikbare media."

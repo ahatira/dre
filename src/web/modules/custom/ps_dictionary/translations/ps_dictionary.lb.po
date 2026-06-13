@@ -1,175 +1,229 @@
-# POT file for ps_dictionary
-
-msgid "src/web/modules/custom/ps_dictionary/src/Controller/DictionaryEntryListController.php:entity_type.manager"
+# LB translation for ps_dictionary module.
+msgid ""
 msgstr ""
+"Project-Id-Version: ps_dictionary\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Action"
-msgstr ""
+msgid "- Select -"
+msgstr "- Wielt -"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Apply"
-msgstr ""
+msgid "@count dictionary entries deleted."
+msgstr "@count Dictionnaire-Entréeë geläscht."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Code"
-msgstr ""
+msgid "Action"
+msgstr "Aktioun"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Delete selected entries"
-msgstr ""
+msgid "Add dictionary entry"
+msgstr "Dictionnaire-Entrée derbäisetzen"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:ID"
-msgstr ""
+msgid "Add dictionary type"
+msgstr "Dictionnaire-Typ derbäisetzen"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Label"
-msgstr ""
+msgid "An entry with this type/code already exists."
+msgstr "Eng Entrée mat dësem Typ/Code gëtt et schonn."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:No entries selected."
-msgstr ""
+msgid "Apply"
+msgstr "Uwenden"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Save weights"
-msgstr ""
+msgid "Autocomplete"
+msgstr "Autovervollstännegung"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Select"
-msgstr ""
+msgid "CSV file"
+msgstr "CSV-Fichier"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Type"
-msgstr ""
+msgid "CSV source"
+msgstr "CSV-Quell"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:Weights saved."
-msgstr ""
+msgid "Canonical business code, for example BUR or RENT."
+msgstr "Kanonesche Business-Code, zum Beispill BUR oder RENT."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:code"
-msgstr ""
+msgid "Check boxes/radio buttons"
+msgstr "Checkboxen/Radio-Knäppercher"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:entity_type.manager"
-msgstr ""
+msgid "Code"
+msgstr "Code"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:messenger"
-msgstr ""
+msgid "Code is required."
+msgstr "Code ass erfuerderlech."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:type"
-msgstr ""
+msgid "Config-first business dictionaries and resolvers."
+msgstr "Config-first Geschäftsdictionnaire a Resolver."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryEntryListBuilder.php:weight"
-msgstr ""
+msgid "Configure a dictionary type on the field settings to enable autocomple"
+"te."
+msgstr "Konfiguréiert e Dictionnaire-Typ an de Feldastellungen fir d'Autovervo"
+"llstännegung z'aktivéieren."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Add dictionary type"
-msgstr ""
+msgid "Created dictionary entry %label."
+msgstr "Dictionnaire-Entrée %label erstallt."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Entries"
-msgstr ""
+msgid "Created dictionary type %label."
+msgstr "Dictionnaire-Typ %label erstallt."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Import CSV"
-msgstr ""
+msgid "Default fixture bundled with module"
+msgstr "Standard-Fixture am Modul matgeliwwert"
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Label"
-msgstr ""
+msgid "Defines which dictionary is used to build options and autocomplete mat"
+"ches."
+msgstr "Definéiert wéi en Dictionnaire benotzt gëtt fir Optiounen an Treffere "
+"vun der Autovervollstännegung opzebauen."
 
-msgid "src/web/modules/custom/ps_dictionary/src/DictionaryTypeListBuilder.php:Machine name"
-msgstr ""
+msgid "Delete selected entries"
+msgstr "Ausgewielt Entréeë läschen"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryDeleteForm.php:ps_dictionary.type_collection"
-msgstr ""
+msgid "Description"
+msgstr "Beschreiwung"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:An entry with this type/code already exists."
-msgstr ""
+msgid "Dictionary code"
+msgstr "Dictionnaire-Code"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Canonical business code, for example BUR or RENT."
-msgstr ""
+msgid "Dictionary entry"
+msgstr "Dictionnaire-Entrée"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Code"
-msgstr ""
+msgid "Dictionary field value from node page"
+msgstr "Wäert vum Dictionnaire-Feld vun der Node-Säit"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Code is required."
-msgstr ""
+msgid "Dictionary label"
+msgstr "Dictionnaire-Label"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Description"
-msgstr ""
+msgid "Dictionary type"
+msgstr "Dictionnaire-Typ"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Dictionary type"
-msgstr ""
+msgid "Dictionary type is not configured yet."
+msgstr "De Dictionnaire-Typ ass nach net konfiguréiert."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Label"
-msgstr ""
+msgid "Dictionary type: @type"
+msgstr "Dictionnaire-Typ: @type"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Optional description to document the purpose of this dictionary entry."
-msgstr ""
+msgid "Dictionary types"
+msgstr "Dictionnaire-Typen"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:Weight"
-msgstr ""
+msgid "Edit"
+msgstr "Änneren"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:code"
-msgstr ""
+msgid "Entries"
+msgstr "Entréeën"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:type"
-msgstr ""
+msgid "Entries for @type"
+msgstr "Entréeë fir @type"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryEntryForm.php:weight"
-msgstr ""
+msgid "ID"
+msgstr "ID"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:CSV file"
-msgstr ""
+msgid "Icon"
+msgstr "Ikon"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:CSV source"
-msgstr ""
+msgid "Import CSV"
+msgstr "CSV importéieren"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Default fixture bundled with module"
-msgstr ""
+msgid "Import finished: @imported imported, @skipped skipped, @errors errors."
+msgstr "Import fäerdeg: @imported importéiert, @skipped iwwersprongen, @errors"
+" Feeler."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Import CSV"
-msgstr ""
+msgid "Label"
+msgstr "Label"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Machine name of the dictionary type to import only this type."
-msgstr ""
+msgid "Machine name"
+msgstr "Maschinnennumm"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Please upload a CSV file."
-msgstr ""
+msgid "Machine name of the dictionary type to import only this type."
+msgstr "Maschinnennumm vum Dictionnaire-Typ fir nëmmen dësen Typ z'importéiere"
+"n."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Type filter (optional)"
-msgstr ""
+msgid "Manage dictionary types."
+msgstr "Dictionnaire-Typen geréieren."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Unable to read uploaded CSV file."
-msgstr ""
+msgid "No entries selected."
+msgstr "Keng Entrée ausgewielt."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Upload a CSV file"
-msgstr ""
+msgid "Optional description to document the purpose of this dictionary entry."
+msgstr "Optional Beschreiwung fir den Zweck vun dëser Dictionnaire-Entrée ze d"
+"okumentéieren."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Upload a CSV file with columns: type,code,label,weight and optional translations with label_{langcode} (for example label_fr, label_en)."
-msgstr ""
+msgid "Optional description to document the purpose of this dictionary type."
+msgstr "Optional Beschreiwung fir den Zweck vun dësem Dictionnaire-Typ ze doku"
+"mentéieren."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:Uploaded file could not be loaded."
-msgstr ""
+msgid "Please upload a CSV file."
+msgstr "Luet w.e.g. eng CSV-Datei erop."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:file_system"
-msgstr ""
+msgid "Save weights"
+msgstr "Gewiichter späicheren"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryImportForm.php:ps_dictionary.type_collection"
-msgstr ""
+msgid "Select"
+msgstr "Wielt"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryTypeForm.php:Description"
-msgstr ""
+msgid "Select @entry"
+msgstr "@entry auswielen"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryTypeForm.php:Label"
-msgstr ""
+msgid "Select list"
+msgstr "Auswiellëscht"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Form/DictionaryTypeForm.php:Optional description to document the purpose of this dictionary type."
-msgstr ""
+msgid "Stores a business dictionary code (ex: BUR, SALE, EUR)."
+msgstr "Späichert e Business-Dictionnaire-Code (z. B. BUR, SALE, EUR)."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:- Select -"
-msgstr ""
+msgid "The dictionary entry %label has been deleted."
+msgstr "D'Dictionnaire-Entrée %label gouf geläscht."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Defines which dictionary is used to build options and autocomplete matches."
-msgstr ""
+msgid "The dictionary entry has been assigned to the offer."
+msgstr "D'Dictionnaire-Entrée gouf der Offer zougewise."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Dictionary code"
-msgstr ""
+msgid "The dictionary entry was created but could not be automatically assign"
+"ed to the offer. Please assign it manually."
+msgstr "D'Dictionnaire-Entrée gouf erstallt, konnt awer net automatesch der Of"
+"fer zougewise ginn. Weist se w.e.g. manuell zou."
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Dictionary type"
-msgstr ""
+msgid "Translate"
+msgstr "Iwwersetzen"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:Dictionary type is not configured yet."
-msgstr ""
+msgid "Type"
+msgstr "Typ"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldType/DictionaryItemFieldType.php:value"
-msgstr ""
+msgid "Type filter (optional)"
+msgstr "Typ-Filter (optional)"
 
-msgid "src/web/modules/custom/ps_dictionary/src/Plugin/Field/FieldWidget/DictionaryItemWidget.php:Configure a dictionary type on the field settings to enable autocomplete."
-msgstr ""
+msgid "UI Icon"
+msgstr "UI-Icon"
+
+msgid "UI Icon shown for this dictionary entry. Leave empty to use the defaul"
+"t icon when available."
+msgstr "UI-Ikon fir dës Dictionnaire-Entrée. Eidel loossen fir den Standard-Ik"
+"on ze benotzen, wann en disponibel ass."
+
+msgid "Unable to read uploaded CSV file."
+msgstr "Déi eropgeluede CSV-Datei konnt net gelies ginn."
+
+msgid "Updated dictionary entry %label."
+msgstr "Dictionnaire-Entrée %label aktualiséiert."
+
+msgid "Updated dictionary type %label."
+msgstr "Dictionnaire-Typ %label aktualiséiert."
+
+msgid "Upload a CSV file"
+msgstr "Eng CSV-Datei eroplueden"
+
+msgid "Upload a CSV file with columns: type,code,label,weight and optional tr"
+"anslations with label_{langcode} (for example label_fr, label_en)."
+msgstr "Luet eng CSV-Datei erop mat de Kolonnen: type,code,label,weight an opt"
+"ional Iwwersetzunge mat label_{langcode} (zum Beispill label_fr, label"
+"_en)."
+
+msgid "Uploaded file could not be loaded."
+msgstr "Déi eropgeluede Datei konnt net geluede ginn."
+
+msgid "Weight"
+msgstr "Gewiicht"
+
+msgid "Weights saved."
+msgstr "Gewiichter gespäichert."
+
+msgid "ps_dictionary field settings"
+msgstr "ps_dictionary Felder-Astellungen"
+
+msgid "ps_dictionary field storage settings"
+msgstr "ps_dictionary Felder-Späicher-Astellungen"

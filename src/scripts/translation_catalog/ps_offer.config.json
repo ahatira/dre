@@ -1,0 +1,161 @@
+{
+  "config_translation.mapper.ps_offer_settings.yml": {
+    "de": {
+      "label": "Angebotsanzeige-Einstellungen"
+    },
+    "es": {
+      "label": "Ajustes de visualización de ofertas"
+    },
+    "fr": {
+      "label": "Paramètres d'affichage des offres"
+    },
+    "it": {
+      "label": "Impostazioni visualizzazione offerte"
+    },
+    "lb": {
+      "label": "Offer-Uweisungs-Astellungen"
+    },
+    "nl": {
+      "label": "Weergave-instellingen aanbiedingen"
+    },
+    "pl": {
+      "label": "Ustawienia wyświetlania ofert"
+    }
+  },
+  "core.entity_view_mode.node.favorite_card.yml": {
+    "de": {
+      "label": "Favoritenkarte"
+    },
+    "es": {
+      "label": "Tarjeta de favorito"
+    },
+    "fr": {
+      "label": "Carte favori"
+    },
+    "it": {
+      "label": "Scheda preferito"
+    },
+    "lb": {
+      "label": "Favoritten-Kaart"
+    },
+    "nl": {
+      "label": "Favorietkaart"
+    },
+    "pl": {
+      "label": "Karta ulubionych"
+    }
+  },
+  "core.entity_view_mode.node.search.yml": {
+    "de": {
+      "label": "Suche"
+    },
+    "es": {
+      "label": "Búsqueda"
+    },
+    "fr": {
+      "label": "Recherche"
+    },
+    "it": {
+      "label": "Ricerca"
+    },
+    "lb": {
+      "label": "Sich"
+    },
+    "nl": {
+      "label": "Zoeken"
+    },
+    "pl": {
+      "label": "Wyszukiwanie"
+    }
+  },
+  "node.type.offer.yml": {
+    "de": { "name": "Angebot", "description": "BNPPRE-Immobilienangebot" },
+    "es": { "name": "Oferta", "description": "Oferta inmobiliaria BNPPRE" },
+    "fr": { "name": "Offre", "description": "Offre immobilière BNPPRE" },
+    "it": { "name": "Offerta", "description": "Offerta immobiliare BNPPRE" },
+    "lb": { "name": "Offer", "description": "BNPPRE-Immobilie-Offer" },
+    "nl": { "name": "Aanbieding", "description": "BNPPRE-vastgoedaanbieding" },
+    "pl": { "name": "Oferta", "description": "Oferta nieruchomości BNPPRE" }
+  },
+  "views.view.ps_offer_similar.yml": {
+    "de": { "label": "Ähnliche Angebote", "description": "Verwandte Immobilienangebote auf Angebotsdetailseiten (gleiche Transaktion und Vermögensart)." },
+    "es": { "label": "Ofertas similares", "description": "Ofertas relacionadas en fichas oferta (misma operación y tipo de activo)." },
+    "fr": { "label": "Offres similaires", "description": "Offres similaires sur les fiches offre (même opération et type d'actif)." },
+    "it": { "label": "Offerte simili", "description": "Offerte correlate nelle pagine dettaglio (stessa operazione e tipo attività)." },
+    "lb": { "label": "Ähnlech Offeren", "description": "Verwandt Offeren op Offer-Detail-Säiten." },
+    "nl": { "label": "Vergelijkbare aanbiedingen", "description": "Gerelateerde aanbiedingen op detailpagina's (zelfde operatie en activatype)." },
+    "pl": { "label": "Podobne oferty", "description": "Powiązane oferty na stronach szczegółów (ta sama operacja i typ aktywa)." }
+  },
+  "views.view.ps_offer_by_feature.yml": {
+    "de": { "label": "Angebote nach Merkmal", "description": "Admin-Auflistung von Angeboten mit merkmalbasiertem Filter." },
+    "es": { "label": "Ofertas por característica", "description": "Listado admin de ofertas con filtrado por características." },
+    "fr": { "label": "Offres par caractéristique", "description": "Liste admin des offres avec filtrage par caractéristiques." },
+    "it": { "label": "Offerte per caratteristica", "description": "Elenco admin offerte con filtro per caratteristiche." },
+    "lb": { "label": "Offeren no Feature", "description": "Admin-Lëscht vun Offeren mat Feature-Filter." },
+    "nl": { "label": "Aanbiedingen per kenmerk", "description": "Adminlijst van aanbiedingen met kenmerkgebaseerd filter." },
+    "pl": { "label": "Oferty według cechy", "description": "Lista administracyjna ofert z filtrowaniem po cechach." }
+  },
+  "ps_offer.reference_pattern.default.yml": {
+    "de": { "label": "Standard-Angebotsreferenzmuster" },
+    "es": { "label": "Patrón de referencia de oferta predeterminado" },
+    "fr": { "label": "Modèle de référence d'offre par défaut" },
+    "it": { "label": "Pattern riferimento offerta predefinito" },
+    "lb": { "label": "Standard-Offer-Referenz-Muster" },
+    "nl": { "label": "Standaard aanbiedingsreferentiepatroon" },
+    "pl": { "label": "Domyślny wzorzec referencji oferty" }
+  },
+  "pathauto.pattern.offer.yml": {
+    "de": { "label": "Angebot" },
+    "es": { "label": "Oferta" },
+    "fr": { "label": "Offre" },
+    "it": { "label": "Offerta" },
+    "lb": { "label": "Offer" },
+    "nl": { "label": "Aanbieding" },
+    "pl": { "label": "Oferta" }
+  },
+  "field.field.node.offer.field_internal_lock.yml": {
+    "de": { "label": "Schutzsperre", "description": "⚠️ <strong>Aktivieren Sie diese Sperre, um manuelle Bearbeitungen vor automatisierten CRM-Importen zu schützen.</strong> Wenn gesperrt, wird dieses Angebot bei der Importsynchronisierung nicht überschrieben." },
+    "es": { "label": "Bloqueo de protección", "description": "⚠️ <strong>Active este bloqueo para proteger las ediciones manuales de las importaciones CRM automáticas.</strong> Cuando esté bloqueada, esta oferta no se sobrescribirá durante la sincronización de importación." },
+    "fr": { "label": "Verrou de protection", "description": "⚠️ <strong>Activez ce verrou pour protéger les modifications manuelles des imports CRM automatisés.</strong> Une fois verrouillée, cette offre ne sera pas écrasée lors de la synchronisation d'import." },
+    "it": { "label": "Blocco protezione", "description": "⚠️ <strong>Attiva questo blocco per proteggere le modifiche manuali dagli import CRM automatici.</strong> Quando bloccata, questa offerta non verrà sovrascritta durante la sincronizzazione import." },
+    "lb": { "label": "Schutz-Spär", "description": "⚠️ <strong>Aktivéiert dës Spär fir manuell Ännerungen ze schützen.</strong>" },
+    "nl": { "label": "Beschermingsslot", "description": "⚠️ <strong>Schakel dit slot in om handmatige wijzigingen te beschermen tegen geautomatiseerde CRM-imports.</strong> Wanneer vergrendeld, wordt deze aanbieding niet overschreven tijdens importsynchronisatie." },
+    "pl": { "label": "Blokada ochrony", "description": "⚠️ <strong>Włącz tę blokadę, aby chronić ręczne edycje przed automatycznymi importami CRM.</strong> Po zablokowaniu ta oferta nie zostanie nadpisana podczas synchronizacji importu." }
+  },
+  "field.field.node.offer.field_show_address.yml": {
+    "de": { "label": "Genaue Adresse anzeigen", "description": "Genaue Adresse im Frontend anzeigen (sonst nur Stadt/Region)." },
+    "es": { "label": "Mostrar dirección precisa", "description": "Mostrar dirección precisa en front (si no, solo ciudad/región)." },
+    "fr": { "label": "Afficher l'adresse précise", "description": "Afficher l'adresse précise en front (sinon ville/région uniquement)." },
+    "it": { "label": "Mostra indirizzo preciso", "description": "Mostra indirizzo preciso nel front (altrimenti solo città/regione)." },
+    "lb": { "label": "Genee Adress weisen", "description": "Genee Adress am Front weisen (soss nëmmen Stad/Regioun)." },
+    "nl": { "label": "Exact adres tonen", "description": "Toon het exacte adres in de frontend (anders alleen stad/regio)." },
+    "pl": { "label": "Pokaż dokładny adres", "description": "Wyświetl dokładny adres na froncie (w przeciwnym razie tylko miasto/region)." }
+  },
+  "field.field.node.offer.field_certification_labels.yml": {
+    "de": { "label": "Zertifizierungslabels", "description": "Visuelle Zertifizierungslabels unter Energiediagnosen auf Angebotsdetailseiten." },
+    "es": { "label": "Etiquetas de certificación", "description": "Etiquetas de certificación visual bajo diagnósticos energéticos en fichas oferta." },
+    "fr": { "label": "Labels de certification", "description": "Labels de certification visuels affichés sous les diagnostics énergétiques sur les fiches offre." },
+    "it": { "label": "Etichette certificazione", "description": "Etichette certificazione visuali sotto diagnostici energetici nelle pagine dettaglio offerta." },
+    "lb": { "label": "Zertifizéierungs-Labels", "description": "Visuell Zertifizéierungs-Labels ënner Energie-Diagnosen." },
+    "nl": { "label": "Certificeringslabels", "description": "Visuele certificeringslabels onder energiediagnostiek op aanbiedingsdetailpagina's." },
+    "pl": { "label": "Etykiety certyfikacji", "description": "Wizualne etykiety certyfikacji pod diagnostyką energetyczną na stronach szczegółów oferty." }
+  },
+  "field.field.node.offer.field_media_gallery.yml": {
+    "de": { "label": "Galerie", "description": "Mediengalerie (Bilder, Videos, Audio, Dateien, Galerien, virtuelle Touren)" },
+    "es": { "label": "Galería", "description": "Galería multimedia (imágenes, vídeos, audio, archivos, galerías, visitas virtuales)" },
+    "fr": { "label": "Galerie", "description": "Galerie média (images, vidéos, audio, fichiers, galeries, visites virtuelles)" },
+    "it": { "label": "Galleria", "description": "Galleria media (immagini, video, audio, file, gallerie, visite virtuali)" },
+    "lb": { "label": "Galerie", "description": "Medien-Galerie (Biller, Videoen, Audio, Fichieren, Galerien, virtuell Touren)" },
+    "nl": { "label": "Galerij", "description": "Mediagalerij (afbeeldingen, video's, audio, bestanden, galerijen, virtuele tours)" },
+    "pl": { "label": "Galeria", "description": "Galeria mediów (obrazy, wideo, audio, pliki, galerie, wirtualne spacery)" }
+  },
+  "ps_favorite.target.node.offer.yml": {
+    "de": { "label": "Angebot" },
+    "es": { "label": "Oferta" },
+    "fr": { "label": "Offre" },
+    "it": { "label": "Offerta" },
+    "lb": { "label": "Offer" },
+    "nl": { "label": "Aanbieding" },
+    "pl": { "label": "Oferta" }
+  }
+}

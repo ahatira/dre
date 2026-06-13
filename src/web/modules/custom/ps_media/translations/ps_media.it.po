@@ -1,49 +1,165 @@
-# POT file for ps_media
-
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Download link text"
+# IT translation for ps_media module.
+msgid ""
 msgstr ""
+"Project-Id-Version: ps_media\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Hide block if no documents"
-msgstr ""
+msgid "3D visit badge icon"
+msgstr "Icona badge visita 3D"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Show document titles"
-msgstr ""
+msgid "Administer PS Media"
+msgstr "Amministra PS Media"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:When checked, the entire Documents block will be hidden if there are no documents."
-msgstr ""
+msgid "Audio file"
+msgstr "File audio"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type (images, videos, virtual tours) then manual order"
-msgstr ""
+msgid "By type (images, videos, virtual tours) then manual order"
+msgstr "Per tipo (immagini, video, tour virtuali), poi ordine manuale"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type then manual"
-msgstr ""
+msgid "By type then manual"
+msgstr "Per tipo poi manuale"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Enable lazy loading"
-msgstr ""
+msgid "Choose the icons displayed on offer gallery badges (photos, videos, 3D"
+" visit, plan)."
+msgstr "Scegli le icone visualizzate sui badge della galleria offerta (foto, v"
+"ideo, visita 3D, planimetria)."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Manual order only"
-msgstr ""
+msgid "Configure PS Media gallery and related settings."
+msgstr "Configura la galeria PS Media e le impostazioni correlate."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Media ordering"
-msgstr ""
+msgid "Configure offer gallery badge icons."
+msgstr "Configura le icone badge della galleria offerta."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Show media titles"
-msgstr ""
+msgid "Display template"
+msgstr "Template di visualizzazione"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Use thumbnail images"
-msgstr ""
+msgid "Document file"
+msgstr "File documento"
 
-msgid "src/web/modules/custom/ps_media/templates/documents-list.html.twig:."
-msgstr ""
+msgid "Documents (PS Media)"
+msgstr "Documenti (PS Media)"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:&"
-msgstr ""
+msgid "Download link text"
+msgstr "Testo del link di download"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:?"
-msgstr ""
+msgid "Enable lazy loading"
+msgstr "Abilita caricamento differito"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:v="
-msgstr ""
+msgid "Gallery (PS Media)"
+msgstr "Galleria (PS Media)"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:youtu.be/"
-msgstr ""
+msgid "Gallery badge icons"
+msgstr "Icone badge galleria"
+
+msgid "Gallery item"
+msgstr "Elemento galleria"
+
+msgid "Hero gallery (offer detail)"
+msgstr "Galleria hero (dettaglio offerta)"
+
+msgid "Hero image style machine name (optional)"
+msgstr "Nome macchina dello stile immagine hero (opzionale)"
+
+msgid "Hero image style: @style"
+msgstr "Stile immagine hero: @style"
+
+msgid "Hide block if no documents"
+msgstr "Nascondi il blocco se non ci sono documenti"
+
+msgid "Hide if empty: @hide"
+msgstr "Nascondi se vuoto: @hide"
+
+msgid "Manual order only"
+msgstr "Solo ordine manuale"
+
+msgid "Maximum items to render"
+msgstr "Numero massimo di elementi da visualizzare"
+
+msgid "Maximum items: @count"
+msgstr "Elementi massimi: @count"
+
+msgid "Maximum items: all"
+msgstr "Elementi massimi: tutti"
+
+msgid "Media ordering"
+msgstr "Ordinamento media"
+
+msgid "MediaHub video"
+msgstr "Video MediaHub"
+
+msgid "Minimal media foundation for offer media workflows."
+msgstr "Fondamento media minimo per i workflow media delle offerte."
+
+msgid "No media items in gallery"
+msgstr "Nessun elemento multimediale nella galleria"
+
+msgid "Offer gallery"
+msgstr "Galleria offerta"
+
+msgid "Open file"
+msgstr "Apri file"
+
+msgid "Order: @order"
+msgstr "Ordine: @order"
+
+msgid "PS Media gallery settings"
+msgstr "Impostazioni galleria PS Media"
+
+msgid "Photos badge icon"
+msgstr "Icona badge foto"
+
+msgid "Plan badge icon"
+msgstr "Icona badge planimetria"
+
+msgid "Remote video"
+msgstr "Video remoto"
+
+msgid "Show document titles"
+msgstr "Mostra titoli documenti"
+
+msgid "Show media titles"
+msgstr "Mostra titoli media"
+
+msgid "Summary list"
+msgstr "Elenco riepilogo"
+
+msgid "Thumbnail image style machine name (optional)"
+msgstr "Nome macchina dello stile immagine miniatura (opzionale)"
+
+msgid "Thumbnail image style: @style"
+msgstr "Stile immagine miniatura: @style"
+
+msgid "Use 0 to render all referenced media items."
+msgstr "Usa 0 per visualizzare tutti gli elementi multimediali referenziati."
+
+msgid "Use thumbnail images"
+msgstr "Usa immagini miniatura"
+
+msgid "Video file"
+msgstr "File video"
+
+msgid "Videos badge icon"
+msgstr "Icona badge video"
+
+msgid "Virtual tour thumbnail missing"
+msgstr "Miniatura del tour virtuale mancante"
+
+msgid "When checked, the entire Documents block will be hidden if there are n"
+"o documents."
+msgstr "Se selezionato, l'intero blocco Documenti verra nascosto se non ci son"
+"o documenti."
+
+msgid "When provided, hero carousel and lightbox main images use this image s"
+"tyle."
+msgstr "Quando fornito, il carosello hero e le immagini principali della light"
+"box usano questo stile immagine."
+
+msgid "When provided, lightbox thumbnails and non-image previews use this ima"
+"ge style."
+msgstr "Quando fornito, le miniature della lightbox e le anteprime non immagin"
+"e usano questo stile immagine."

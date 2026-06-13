@@ -1,0 +1,48 @@
+title: 'Besichtigung vereinbaren'
+description: 'Formular zur Vereinbarung einer Besichtigung.'
+category: Immobiliensuche
+elements: |-
+  visitor:
+    '#type': fieldset
+    '#title': 'Ihre Kontaktdaten'
+    first_name:
+      '#type': textfield
+      '#title': 'Vorname'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Nachname'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-Mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefon
+  visit:
+    '#type': fieldset
+    '#title': 'Besichtigungsanfrage'
+    preferred_date:
+      '#type': date
+      '#title': 'Wunschtermin'
+    message:
+      '#type': textarea
+      '#title': Nachricht
+      '#default_value': 'Ich möchte für dieses Angebot eine Besichtigung vereinbaren.'
+  legal:
+    '#type': checkbox
+    '#title': 'Ich stimme der Datenschutzrichtlinie zu.'
+    '#required': true
+settings:
+  form_submit_label: Senden
+  confirmation_message: 'Vielen Dank. Ihre Besichtigungsanfrage wurde gesendet.'
+handlers:
+  email_agent:
+    label: Maklerbenachrichtigung
+    subject: "Besichtigungsanfrage — Angebot [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: Besucherbestätigung
+    subject: "Ihre Besichtigungsanfrage — [webform_submission:source-entity:field_reference]"
+    body: "<p>Vielen Dank für Ihre Besichtigungsanfrage zum Angebot <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Unsere Beratung wird Sie in Kürze kontaktieren, um einen Termin zu vereinbaren.</p>"

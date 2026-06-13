@@ -1,49 +1,166 @@
-# POT file for ps_media
-
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Download link text"
+# PL translation for ps_media module.
+msgid ""
 msgstr ""
+"Project-Id-Version: ps_media\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Hide block if no documents"
-msgstr ""
+msgid "3D visit badge icon"
+msgstr "Ikona odznaki wizyty 3D"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:Show document titles"
-msgstr ""
+msgid "Administer PS Media"
+msgstr "Zarządzaj PS Media"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/DocumentsFormatter.php:When checked, the entire Documents block will be hidden if there are no documents."
-msgstr ""
+msgid "Audio file"
+msgstr "Plik audio"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type (images, videos, virtual tours) then manual order"
-msgstr ""
+msgid "By type (images, videos, virtual tours) then manual order"
+msgstr "Wedlug typu (obrazy, filmy, wirtualne spacery), a nastepnie reczna kol"
+"ejnosc"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:By type then manual"
-msgstr ""
+msgid "By type then manual"
+msgstr "Wedlug typu, potem recznie"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Enable lazy loading"
-msgstr ""
+msgid "Choose the icons displayed on offer gallery badges (photos, videos, 3D"
+" visit, plan)."
+msgstr "Wybierz ikony wyswietlane na odznakach galerii oferty (zdjecia, filmy,"
+" wizyta 3D, plan)."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Manual order only"
-msgstr ""
+msgid "Configure PS Media gallery and related settings."
+msgstr "Skonfiguruj galerię PS Media i powiązane ustawienia."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Media ordering"
-msgstr ""
+msgid "Configure offer gallery badge icons."
+msgstr "Skonfiguruj ikony odznak galerii ofert."
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Show media titles"
-msgstr ""
+msgid "Display template"
+msgstr "Szablon wyswietlania"
 
-msgid "src/web/modules/custom/ps_media/src/Plugin/Field/FieldFormatter/GalleryFormatter.php:Use thumbnail images"
-msgstr ""
+msgid "Document file"
+msgstr "Plik dokumentu"
 
-msgid "src/web/modules/custom/ps_media/templates/documents-list.html.twig:."
-msgstr ""
+msgid "Documents (PS Media)"
+msgstr "Dokumenty (PS Media)"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:&"
-msgstr ""
+msgid "Download link text"
+msgstr "Tekst linku pobierania"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:?"
-msgstr ""
+msgid "Enable lazy loading"
+msgstr "Wlacz leniwe ladowanie"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:v="
-msgstr ""
+msgid "Gallery (PS Media)"
+msgstr "Galeria (PS Media)"
 
-msgid "src/web/modules/custom/ps_media/templates/gallery-summary.html.twig:youtu.be/"
-msgstr ""
+msgid "Gallery badge icons"
+msgstr "Ikony odznak galerii"
+
+msgid "Gallery item"
+msgstr "Element galerii"
+
+msgid "Hero gallery (offer detail)"
+msgstr "Galeria hero (szczegoly oferty)"
+
+msgid "Hero image style machine name (optional)"
+msgstr "Nazwa maszynowa stylu obrazu hero (opcjonalnie)"
+
+msgid "Hero image style: @style"
+msgstr "Styl obrazu hero: @style"
+
+msgid "Hide block if no documents"
+msgstr "Ukryj blok, jesli brak dokumentow"
+
+msgid "Hide if empty: @hide"
+msgstr "Ukryj, jesli puste: @hide"
+
+msgid "Manual order only"
+msgstr "Tylko kolejnosc reczna"
+
+msgid "Maximum items to render"
+msgstr "Maksymalna liczba elementow do wyswietlenia"
+
+msgid "Maximum items: @count"
+msgstr "Maksymalna liczba elementow: @count"
+
+msgid "Maximum items: all"
+msgstr "Maksymalna liczba elementow: wszystkie"
+
+msgid "Media ordering"
+msgstr "Kolejnosc mediow"
+
+msgid "MediaHub video"
+msgstr "Wideo MediaHub"
+
+msgid "Minimal media foundation for offer media workflows."
+msgstr "Minimalna podstawa mediów dla workflow mediów ofert."
+
+msgid "No media items in gallery"
+msgstr "Brak elementow mediow w galerii"
+
+msgid "Offer gallery"
+msgstr "Galeria oferty"
+
+msgid "Open file"
+msgstr "Otworz plik"
+
+msgid "Order: @order"
+msgstr "Kolejnosc: @order"
+
+msgid "PS Media gallery settings"
+msgstr "Ustawienia galerii PS Media"
+
+msgid "Photos badge icon"
+msgstr "Ikona odznaki zdjec"
+
+msgid "Plan badge icon"
+msgstr "Ikona odznaki planu"
+
+msgid "Remote video"
+msgstr "Wideo zdalne"
+
+msgid "Show document titles"
+msgstr "Pokaz tytuly dokumentow"
+
+msgid "Show media titles"
+msgstr "Pokaz tytuly mediow"
+
+msgid "Summary list"
+msgstr "Lista podsumowujaca"
+
+msgid "Thumbnail image style machine name (optional)"
+msgstr "Nazwa maszynowa stylu miniatury obrazu (opcjonalnie)"
+
+msgid "Thumbnail image style: @style"
+msgstr "Styl miniatury obrazu: @style"
+
+msgid "Use 0 to render all referenced media items."
+msgstr "Uzyj 0, aby wyswietlic wszystkie powiazane elementy mediow."
+
+msgid "Use thumbnail images"
+msgstr "Uzyj miniatur obrazow"
+
+msgid "Video file"
+msgstr "Plik wideo"
+
+msgid "Videos badge icon"
+msgstr "Ikona odznaki filmow"
+
+msgid "Virtual tour thumbnail missing"
+msgstr "Brak miniatury wirtualnego spaceru"
+
+msgid "When checked, the entire Documents block will be hidden if there are n"
+"o documents."
+msgstr "Po zaznaczeniu caly blok Dokumenty zostanie ukryty, jesli nie ma dokum"
+"entow."
+
+msgid "When provided, hero carousel and lightbox main images use this image s"
+"tyle."
+msgstr "Po podaniu karuzela hero i glowne obrazy lightboxa uzywaja tego stylu "
+"obrazu."
+
+msgid "When provided, lightbox thumbnails and non-image previews use this ima"
+"ge style."
+msgstr "Po podaniu miniatury lightboxa i podglady niebedace obrazami uzywaja t"
+"ego stylu obrazu."

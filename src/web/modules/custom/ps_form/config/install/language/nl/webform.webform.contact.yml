@@ -1,0 +1,42 @@
+title: 'Neem contact met ons op'
+description: "Sitebreed contactformulier voor de header-offcanvas."
+category: 'Vastgoed zoeken'
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Uw contactgegevens'
+    first_name:
+      '#type': textfield
+      '#title': 'Voornaam'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Achternaam'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefoon
+  message:
+    '#type': textarea
+    '#title': Bericht
+    '#required': true
+  legal:
+    '#type': checkbox
+    '#title': 'Ik ga akkoord met het privacybeleid.'
+    '#required': true
+settings:
+  form_submit_label: Verzenden
+  confirmation_message: "<p>Bedankt. Uw bericht is verzonden.</p>"
+handlers:
+  email_notification:
+    label: Sitemelding
+    subject: 'Contactformulier van de website'
+    body: _default
+  email_confirmation:
+    label: 'Bevestiging bezoeker'
+    subject: 'Bedankt voor uw contactaanvraag'
+    body: "<p>Bedankt voor uw bericht.</p><p>Wij hebben uw aanvraag ontvangen en nemen spoedig contact met u op.</p>"

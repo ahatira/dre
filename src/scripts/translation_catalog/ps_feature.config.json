@@ -1,0 +1,408 @@
+{
+  "ps_feature.feature_group.acces_vehicules.yml": {
+    "de": {
+      "label": "Verkehr",
+      "description": "Fahrzeugzugang und öffentliche Verkehrsmittel."
+    },
+    "es": {
+      "label": "Transporte",
+      "description": "Acceso para vehículos y transporte público."
+    },
+    "fr": {
+      "label": "Accès véhicules",
+      "description": "Accès véhicules et transports en commun."
+    },
+    "it": {
+      "label": "Trasporti",
+      "description": "Accesso veicoli e trasporto pubblico."
+    },
+    "lb": {
+      "label": "Transport",
+      "description": "Gefierzougang an ëffentlechen Transport."
+    },
+    "nl": {
+      "label": "Vervoer",
+      "description": "Toegang voor voertuigen en openbaar vervoer."
+    },
+    "pl": {
+      "label": "Transport",
+      "description": "Dojazd dla pojazdów i transport publiczny."
+    }
+  },
+  "ps_feature.feature_group.activite_non_autorisee.yml": {
+    "de": {
+      "label": "Eingeschränkte Aktivitäten",
+      "description": "Nicht auf dem Gelände erlaubte Aktivitäten."
+    },
+    "es": {
+      "label": "Actividades restringidas",
+      "description": "Actividades no permitidas en las instalaciones."
+    },
+    "fr": {
+      "label": "Activités non autorisées",
+      "description": "Activités non autorisées sur le site."
+    },
+    "it": {
+      "label": "Attività non consentite",
+      "description": "Attività non consentite nei locali."
+    },
+    "lb": {
+      "label": "Restriktéiert Aktivitéiten",
+      "description": "Aktivitéiten déi op der Plaz net erlaabt sinn."
+    },
+    "nl": {
+      "label": "Beperkte activiteiten",
+      "description": "Activiteiten die niet op het terrein zijn toegestaan."
+    },
+    "pl": {
+      "label": "Działalność niedozwolona",
+      "description": "Działalności niedozwolone na terenie obiektu."
+    }
+  },
+  "ps_feature.feature_group.amenagements.yml": {
+    "de": {
+      "label": "Ausstattung",
+      "description": "Innenausbau und Raumaufteilung."
+    },
+    "es": {
+      "label": "Distribución interior",
+      "description": "Distribución y acondicionamiento interior."
+    },
+    "fr": {
+      "label": "Aménagements",
+      "description": "Aménagements intérieurs et agencement."
+    },
+    "it": {
+      "label": "Allestimenti",
+      "description": "Allestimenti interni e layout."
+    },
+    "lb": {
+      "label": "Ausbau",
+      "description": "Bannenausbau a Raumopdeelung."
+    },
+    "nl": {
+      "label": "Indeling",
+      "description": "Interieurindeling en inrichting."
+    },
+    "pl": {
+      "label": "Aranżacje",
+      "description": "Układ i aranżacja wnętrz."
+    }
+  },
+  "ps_feature.feature_group.equipements.yml": {
+    "de": {
+      "label": "Ausstattungen",
+      "description": "Gebäudetechnik und Einrichtungen."
+    },
+    "es": {
+      "label": "Equipamientos",
+      "description": "Equipamiento e instalaciones del edificio."
+    },
+    "fr": {
+      "label": "Équipements",
+      "description": "Équipements et installations du bâtiment."
+    },
+    "it": {
+      "label": "Dotazioni",
+      "description": "Dotazioni e impianti dell’edificio."
+    },
+    "lb": {
+      "label": "Equipementer",
+      "description": "Gebaiausrüstung an Ariichtungen."
+    },
+    "nl": {
+      "label": "Uitrusting",
+      "description": "Gebouwuitrusting en voorzieningen."
+    },
+    "pl": {
+      "label": "Wyposażenie",
+      "description": "Wyposażenie i instalacje budynku."
+    }
+  },
+  "ps_feature.feature_group.exterieurs.yml": {
+    "de": {
+      "label": "Außenbereiche",
+      "description": "Außenflächen und Umgebung."
+    },
+    "es": {
+      "label": "Exteriores",
+      "description": "Zonas exteriores y entorno."
+    },
+    "fr": {
+      "label": "Extérieurs",
+      "description": "Espaces extérieurs et environnement."
+    },
+    "it": {
+      "label": "Esterni",
+      "description": "Aree esterne e contesto."
+    },
+    "lb": {
+      "label": "Baussenberäicher",
+      "description": "Bausseflächen an Ëmgéigend."
+    },
+    "nl": {
+      "label": "Buitenruimtes",
+      "description": "Buitenruimtes en omgeving."
+    },
+    "pl": {
+      "label": "Elementy zewnętrzne",
+      "description": "Strefy zewnętrzne i otoczenie."
+    }
+  },
+  "ps_feature.feature_group.hauteurs.yml": {
+    "de": {
+      "label": "Höhen",
+      "description": "Deckenhöhen und freie Höhen."
+    },
+    "es": {
+      "label": "Alturas",
+      "description": "Alturas de techo y alturas libres."
+    },
+    "fr": {
+      "label": "Hauteurs",
+      "description": "Hauteurs sous plafond et hauteurs libres."
+    },
+    "it": {
+      "label": "Altezze",
+      "description": "Altezze interne e altezze utili."
+    },
+    "lb": {
+      "label": "Héichten",
+      "description": "Plafongshéichten an fräi Héichten."
+    },
+    "nl": {
+      "label": "Hoogtes",
+      "description": "Plafondhoogtes en vrije hoogtes."
+    },
+    "pl": {
+      "label": "Wysokości",
+      "description": "Wysokości sufitów i wysokości użytkowe."
+    }
+  },
+  "ps_feature.feature_group.informations_complementaires.yml": {
+    "de": {
+      "label": "Zusätzliche Informationen",
+      "description": "Ergänzende Informationen zum Angebot."
+    },
+    "es": {
+      "label": "Información adicional",
+      "description": "Información complementaria de la oferta."
+    },
+    "fr": {
+      "label": "Informations complémentaires",
+      "description": "Informations complémentaires sur l’offre."
+    },
+    "it": {
+      "label": "Informazioni aggiuntive",
+      "description": "Informazioni supplementari sull’offerta."
+    },
+    "lb": {
+      "label": "Zousätzlech Informatiounen",
+      "description": "Zousätzlech Informatiounen iwwer d’Offer."
+    },
+    "nl": {
+      "label": "Aanvullende informatie",
+      "description": "Aanvullende informatie over het aanbod."
+    },
+    "pl": {
+      "label": "Informacje dodatkowe",
+      "description": "Dodatkowe informacje o ofercie."
+    }
+  },
+  "ps_feature.feature_group.normes_certifications_et_labels.yml": {
+    "de": {
+      "label": "Normen, Zertifizierungen und Labels",
+      "description": "Umwelt- und Qualitätszertifizierungen."
+    },
+    "es": {
+      "label": "Normas, certificaciones y etiquetas",
+      "description": "Certificaciones medioambientales y de calidad."
+    },
+    "fr": {
+      "label": "Normes, certifications et labels",
+      "description": "Certifications environnementales et de qualité."
+    },
+    "it": {
+      "label": "Standard, certificazioni e label",
+      "description": "Certificazioni ambientali e di qualità."
+    },
+    "lb": {
+      "label": "Normen, Zertifizéierungen a Labelen",
+      "description": "Ëmwelt- a Qualitéitszertifizéierungen."
+    },
+    "nl": {
+      "label": "Normen, certificeringen en labels",
+      "description": "Milieu- en kwaliteitscertificeringen."
+    },
+    "pl": {
+      "label": "Normy, certyfikaty i etykiety",
+      "description": "Certyfikaty środowiskowe i jakościowe."
+    }
+  },
+  "ps_feature.feature_group.prestations_de_service.yml": {
+    "de": {
+      "label": "Dienstleistungen",
+      "description": "Dienstleistungen und Angebote vor Ort."
+    },
+    "es": {
+      "label": "Servicios",
+      "description": "Servicios y comodidades in situ."
+    },
+    "fr": {
+      "label": "Prestations de service",
+      "description": "Services et prestations sur site."
+    },
+    "it": {
+      "label": "Servizi",
+      "description": "Servizi e dotazioni in sede."
+    },
+    "lb": {
+      "label": "Servicer",
+      "description": "Servicer an Amenitéiten op der Plaz."
+    },
+    "nl": {
+      "label": "Diensten",
+      "description": "Diensten en voorzieningen op locatie."
+    },
+    "pl": {
+      "label": "Usługi",
+      "description": "Usługi i udogodnienia na miejscu."
+    }
+  },
+  "ps_feature.feature_group.structure_du_batiment.yml": {
+    "de": {
+      "label": "Gebäudestruktur",
+      "description": "Bauliche Merkmale des Gebäudes."
+    },
+    "es": {
+      "label": "Estructura del edificio",
+      "description": "Características estructurales del edificio."
+    },
+    "fr": {
+      "label": "Structure du bâtiment",
+      "description": "Caractéristiques structurelles du bâtiment."
+    },
+    "it": {
+      "label": "Struttura dell’edificio",
+      "description": "Caratteristiche strutturali dell’edificio."
+    },
+    "lb": {
+      "label": "Gebaiestruktur",
+      "description": "Strukturell Charakteristike vum Gebai."
+    },
+    "nl": {
+      "label": "Gebouwstructuur",
+      "description": "Structurele kenmerken van het gebouw."
+    },
+    "pl": {
+      "label": "Konstrukcja budynku",
+      "description": "Cechy konstrukcyjne budynku."
+    }
+  },
+  "ps_feature.feature_group.type_etat_du_batiment.yml": {
+    "de": {
+      "label": "Gebäudetyp und -zustand",
+      "description": "Gebäudetyp, Zustand und Struktur."
+    },
+    "es": {
+      "label": "Tipo y estado del edificio",
+      "description": "Tipo, estado y estructura del edificio."
+    },
+    "fr": {
+      "label": "Type et état du bâtiment",
+      "description": "Type, état et structure du bâtiment."
+    },
+    "it": {
+      "label": "Tipologia e stato dell’edificio",
+      "description": "Tipologia, stato e struttura dell’edificio."
+    },
+    "lb": {
+      "label": "Gebaityp a -zoustand",
+      "description": "Gebaityp, Zoustand a Struktur."
+    },
+    "nl": {
+      "label": "Gebouwtype en staat",
+      "description": "Type, staat en structuur van het gebouw."
+    },
+    "pl": {
+      "label": "Typ i stan budynku",
+      "description": "Typ, stan i struktura budynku."
+    }
+  },
+  "ps_feature.feature_definition.leed_certification.yml": {
+    "de": {
+      "label": "LEED-Zertifizierung",
+      "description": "LEED- oder gleichwertiges Umweltzertifizierungsniveau."
+    },
+    "es": {
+      "label": "Certificación LEED",
+      "description": "Nivel de certificación ambiental LEED o equivalente."
+    },
+    "fr": {
+      "label": "Certification LEED",
+      "description": "Niveau de certification environnementale LEED ou équivalent."
+    },
+    "it": {
+      "label": "Certificazione LEED",
+      "description": "Livello di certificazione ambientale LEED o equivalente."
+    },
+    "lb": {
+      "label": "LEED-Zertifizéierung",
+      "description": "Niveau vun der LEED- oder gläichwäerteger Ëmweltzertifizéierung."
+    },
+    "nl": {
+      "label": "LEED-certificering",
+      "description": "Niveau van LEED- of gelijkwaardige milieucertificering."
+    },
+    "pl": {
+      "label": "Certyfikat LEED",
+      "description": "Poziom certyfikacji środowiskowej LEED lub równoważnej."
+    }
+  },
+  "config_translation.mapper.ps_feature_group.yml": {
+    "de": {
+      "title": "Merkmalsgruppe"
+    },
+    "es": {
+      "title": "Grupo de características"
+    },
+    "fr": {
+      "title": "Groupe de caractéristiques"
+    },
+    "it": {
+      "title": "Gruppo di caratteristiche"
+    },
+    "lb": {
+      "title": "Feature-Grupp"
+    },
+    "nl": {
+      "title": "Kenmerkengroep"
+    },
+    "pl": {
+      "title": "Grupa cech"
+    }
+  },
+  "config_translation.mapper.ps_feature_definition.yml": {
+    "de": {
+      "title": "Merkmalsdefinition"
+    },
+    "es": {
+      "title": "Definición de característica"
+    },
+    "fr": {
+      "title": "Définition de caractéristique"
+    },
+    "it": {
+      "title": "Definizione caratteristica"
+    },
+    "lb": {
+      "title": "Feature-Definitioun"
+    },
+    "nl": {
+      "title": "Kenmerkdefinitie"
+    },
+    "pl": {
+      "title": "Definicja cechy"
+    }
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "Background images": {
+    "de": "Hintergrundbilder",
+    "es": "Imagenes de fondo",
+    "fr": "Images d'arriere-plan",
+    "it": "Immagini di sfondo",
+    "lb": "Hannergrondbiller",
+    "nl": "Achtergrondafbeeldingen",
+    "pl": "Obrazy tla"
+  },
+  "Business univers (homepage)": {
+    "de": "Business-Universum (Startseite)",
+    "es": "Universo de negocio (inicio)",
+    "fr": "Univers metier (page d'accueil)",
+    "it": "Universo business (home page)",
+    "lb": "Business-Universum (Startsäit)",
+    "nl": "Business-universum (homepage)",
+    "pl": "Uniwersum biznesowe (strona glowna)"
+  },
+  "Contact us": {
+    "de": "Kontaktieren Sie uns",
+    "es": "Contactenos",
+    "fr": "Nous contacter",
+    "it": "Contattaci",
+    "lb": "Kontaktéiert eis",
+    "nl": "Neem contact met ons op",
+    "pl": "Skontaktuj sie z nami"
+  },
+  "Content (@language)": {
+    "de": "Inhalt (@language)",
+    "es": "Contenido (@language)",
+    "fr": "Contenu (@language)",
+    "it": "Contenuto (@language)",
+    "lb": "Inhalt (@language)",
+    "nl": "Inhoud (@language)",
+    "pl": "Tresc (@language)"
+  },
+  "Delegate my search — URL": {
+    "de": "Meine Suche delegieren - URL",
+    "es": "Delegar mi busqueda - URL",
+    "fr": "Deleguer ma recherche - URL",
+    "it": "Delega la mia ricerca - URL",
+    "lb": "Meng Sich delegéieren - URL",
+    "nl": "Mijn zoekopdracht delegeren - URL",
+    "pl": "Deleguj moje wyszukiwanie - URL"
+  },
+  "Discover our service offers — URL": {
+    "de": "Unsere Serviceangebote entdecken - URL",
+    "es": "Descubra nuestras ofertas de servicios - URL",
+    "fr": "Decouvrir nos offres de services - URL",
+    "it": "Scopri le nostre offerte di servizi - URL",
+    "lb": "Entdeckt eis Service-Offeren - URL",
+    "nl": "Ontdek onze serviceaanbiedingen - URL",
+    "pl": "Odkryj nasze oferty uslug - URL"
+  },
+  "Editorial promo (homepage)": {
+    "de": "Editorial Promo (Startseite)",
+    "es": "Promo editorial (inicio)",
+    "fr": "Promo editoriale (page d'accueil)",
+    "it": "Promo editoriale (home page)",
+    "lb": "Editorial Promo (Startsäit)",
+    "nl": "Redactionele promo (homepage)",
+    "pl": "Promocja redakcyjna (strona glowna)"
+  },
+  "English": {
+    "de": "Englisch",
+    "es": "Ingles",
+    "fr": "Anglais",
+    "it": "Inglese",
+    "lb": "Englesch",
+    "nl": "Engels",
+    "pl": "Angielski"
+  },
+  "Featured offers (homepage)": {
+    "de": "Hervorgehobene Angebote (Startseite)",
+    "es": "Ofertas destacadas (inicio)",
+    "fr": "Offres mises en avant (page d'accueil)",
+    "it": "Offerte in evidenza (home page)",
+    "lb": "Virgehuewen Offeren (Startsäit)",
+    "nl": "Uitgelichte aanbiedingen (homepage)",
+    "pl": "Wyroznione oferty (strona glowna)"
+  },
+  "French": {
+    "de": "Franzoesisch",
+    "es": "Frances",
+    "fr": "Francais",
+    "it": "Francese",
+    "lb": "Franséisch",
+    "nl": "Frans",
+    "pl": "Francuski"
+  },
+  "Full-width blurred hero background. Leave empty for the demo default.": {
+    "de": "Unscharfer Hero-Hintergrund in voller Breite. Leer lassen fuer den Demo-Standard.",
+    "es": "Fondo hero desenfocado de ancho completo. Dejar vacio para el valor predeterminado de demo.",
+    "fr": "Arriere-plan hero floute pleine largeur. Laisser vide pour la valeur par defaut de la demo.",
+    "it": "Sfondo hero sfocato a larghezza piena. Lascia vuoto per il valore demo predefinito.",
+    "lb": "Onschaarfen Hero-Hannergrond iwwer voll Breet. Eidel loossen fir den Demo-Standard.",
+    "nl": "Volledige breedte wazige hero-achtergrond. Leeg laten voor de standaard demowaarde.",
+    "pl": "Rozmyte tlo hero na pelna szerokosc. Pozostaw puste dla domyslnej wersji demo."
+  },
+  "Hero background alt": {
+    "de": "Alt-Text Hero-Hintergrund",
+    "es": "Alt del fondo hero",
+    "fr": "Alt du fond hero",
+    "it": "Alt sfondo hero",
+    "lb": "Alt vum Hero-Hannergrond",
+    "nl": "Alt van hero-achtergrond",
+    "pl": "Alt tla hero"
+  },
+  "Hero background alternative text": {
+    "de": "Alternativtext des Hero-Hintergrunds",
+    "es": "Texto alternativo del fondo hero",
+    "fr": "Texte alternatif de l'arriere-plan hero",
+    "it": "Testo alternativo dello sfondo hero",
+    "lb": "Alternativtext vum Hero-Hannergrond",
+    "nl": "Alternatieve tekst van hero-achtergrond",
+    "pl": "Tekst alternatywny tla hero"
+  },
+  "Hero background file ID": {
+    "de": "Datei-ID Hero-Hintergrund",
+    "es": "ID de archivo del fondo hero",
+    "fr": "ID de fichier du fond hero",
+    "it": "ID file dello sfondo hero",
+    "lb": "Datei-ID vum Hero-Hannergrond",
+    "nl": "Bestands-ID van hero-achtergrond",
+    "pl": "ID pliku tla hero"
+  },
+  "Hero background image": {
+    "de": "Hero-Hintergrundbild",
+    "es": "Imagen de fondo hero",
+    "fr": "Image d'arriere-plan hero",
+    "it": "Immagine di sfondo hero",
+    "lb": "Hero-Hannergrondbild",
+    "nl": "Hero-achtergrondafbeelding",
+    "pl": "Obraz tla hero"
+  },
+  "Install Webform and create a \"contact\" webform to display the contact form here.": {
+    "de": "Installieren Sie Webform und erstellen Sie ein Webform \"contact\", um hier das Kontaktformular anzuzeigen.",
+    "es": "Instale Webform y cree un webform \"contact\" para mostrar aqui el formulario de contacto.",
+    "fr": "Installez Webform et creez un webform \"contact\" pour afficher le formulaire de contact ici.",
+    "it": "Installa Webform e crea un webform \"contact\" per visualizzare qui il modulo di contatto.",
+    "lb": "Installéiert Webform a erstellt e Webform \"contact\", fir hei de Kontaktformular unzeweisen.",
+    "nl": "Installeer Webform en maak een \"contact\" webform om hier het contactformulier te tonen.",
+    "pl": "Zainstaluj Webform i utworz formularz \"contact\", aby wyswietlic tutaj formularz kontaktowy."
+  },
+  "Language switcher (Stellar)": {
+    "de": "Sprachumschalter (Stellar)",
+    "es": "Selector de idioma (Stellar)",
+    "fr": "Selecteur de langue (Stellar)",
+    "it": "Selettore lingua (Stellar)",
+    "lb": "Sproochwiessler (Stellar)",
+    "nl": "Taalschakelaar (Stellar)",
+    "pl": "Przelacznik jezyka (Stellar)"
+  },
+  "Layout Builder blocks for the Stellar homepage.": {
+    "de": "Layout-Builder-Bloecke fuer die Stellar-Startseite.",
+    "es": "Bloques de Layout Builder para la pagina de inicio Stellar.",
+    "fr": "Blocs Layout Builder pour la page d'accueil Stellar.",
+    "it": "Blocchi Layout Builder per la home page Stellar.",
+    "lb": "Layout-Builder-Bléck fir d'Stellar-Startsäit.",
+    "nl": "Layout Builder-blokken voor de Stellar-homepage.",
+    "pl": "Bloki Layout Builder dla strony glownej Stellar."
+  },
+  "Mega menu — tools (Property Search)": {
+    "de": "Mega-Menue - Tools (Property Search)",
+    "es": "Mega menu - herramientas (Property Search)",
+    "fr": "Mega menu - outils (Property Search)",
+    "it": "Mega menu - strumenti (Property Search)",
+    "lb": "Mega-Menü - Tools (Property Search)",
+    "nl": "Mega-menu - tools (Property Search)",
+    "pl": "Mega menu - narzedzia (Property Search)"
+  },
+  "No featured properties yet.": {
+    "de": "Noch keine hervorgehobenen Immobilien.",
+    "es": "Aun no hay propiedades destacadas.",
+    "fr": "Pas encore de biens mis en avant.",
+    "it": "Nessun immobile in evidenza al momento.",
+    "lb": "Nach keng virgehuewen Objeten.",
+    "nl": "Nog geen uitgelichte panden.",
+    "pl": "Brak jeszcze wyroznionych nieruchomosci."
+  },
+  "Promo background alt": {
+    "de": "Alt-Text Promo-Hintergrund",
+    "es": "Alt del fondo promo",
+    "fr": "Alt du fond promo",
+    "it": "Alt sfondo promo",
+    "lb": "Alt vum Promo-Hannergrond",
+    "nl": "Alt van promo-achtergrond",
+    "pl": "Alt tla promo"
+  },
+  "Promo background alternative text": {
+    "de": "Alternativtext des Promo-Hintergrunds",
+    "es": "Texto alternativo del fondo promo",
+    "fr": "Texte alternatif de l'arriere-plan promo",
+    "it": "Testo alternativo dello sfondo promo",
+    "lb": "Alternativtext vum Promo-Hannergrond",
+    "nl": "Alternatieve tekst van promo-achtergrond",
+    "pl": "Tekst alternatywny tla promo"
+  },
+  "Promo background file ID": {
+    "de": "Datei-ID Promo-Hintergrund",
+    "es": "ID de archivo del fondo promo",
+    "fr": "ID de fichier du fond promo",
+    "it": "ID file dello sfondo promo",
+    "lb": "Datei-ID vum Promo-Hannergrond",
+    "nl": "Bestands-ID van promo-achtergrond",
+    "pl": "ID pliku tla promo"
+  },
+  "Promo panel background image": {
+    "de": "Hintergrundbild des Promo-Panels",
+    "es": "Imagen de fondo del panel promocional",
+    "fr": "Image d'arriere-plan du panneau promo",
+    "it": "Immagine di sfondo del pannello promo",
+    "lb": "Hannergrondbild vum Promo-Panel",
+    "nl": "Achtergrondafbeelding van promotiepaneel",
+    "pl": "Obraz tla panelu promocyjnego"
+  },
+  "Promotional panel": {
+    "de": "Werbepanel",
+    "es": "Panel promocional",
+    "fr": "Panneau promotionnel",
+    "it": "Pannello promozionale",
+    "lb": "Promotiouns-Panel",
+    "nl": "Promotiepaneel",
+    "pl": "Panel promocyjny"
+  },
+  "Property Search": {
+    "de": "Immobiliensuche",
+    "es": "Busqueda inmobiliaria",
+    "fr": "Recherche immobiliere",
+    "it": "Ricerca immobiliare",
+    "lb": "Immobilie Sich",
+    "nl": "Vastgoedzoeken",
+    "pl": "Wyszukiwanie nieruchomosci"
+  },
+  "Right column promotional panel. Leave empty for the demo default.": {
+    "de": "Werbepanel der rechten Spalte. Leer lassen fuer den Demo-Standard.",
+    "es": "Panel promocional de la columna derecha. Dejar vacio para el valor predeterminado de demo.",
+    "fr": "Panneau promotionnel de la colonne droite. Laisser vide pour la valeur par defaut de la demo.",
+    "it": "Pannello promozionale della colonna destra. Lascia vuoto per il valore demo predefinito.",
+    "lb": "Promotiouns-Panel an der rietser Kolonn. Eidel loossen fir den Demo-Standard.",
+    "nl": "Promotiepaneel in de rechterkolom. Leeg laten voor de standaard demowaarde.",
+    "pl": "Panel promocyjny prawej kolumny. Pozostaw puste dla domyslnej wersji demo."
+  },
+  "Search form": {
+    "de": "Suchformular",
+    "es": "Formulario de busqueda",
+    "fr": "Formulaire de recherche",
+    "it": "Modulo di ricerca",
+    "lb": "Sichformular",
+    "nl": "Zoekformulier",
+    "pl": "Formularz wyszukiwania"
+  },
+  "Search hero (homepage)": {
+    "de": "Search Hero (Startseite)",
+    "es": "Hero de busqueda (inicio)",
+    "fr": "Hero de recherche (page d'accueil)",
+    "it": "Hero di ricerca (home page)",
+    "lb": "Search Hero (Startsäit)",
+    "nl": "Zoek-hero (homepage)",
+    "pl": "Hero wyszukiwania (strona glowna)"
+  },
+  "Search hero (homepage) block": {
+    "de": "Block Search Hero (Startseite)",
+    "es": "Bloque hero de busqueda (inicio)",
+    "fr": "Bloc hero de recherche (page d'accueil)",
+    "it": "Blocco hero di ricerca (home page)",
+    "lb": "Search-Hero-Block (Startsäit)",
+    "nl": "Blok zoek-hero (homepage)",
+    "pl": "Blok hero wyszukiwania (strona glowna)"
+  }
+}

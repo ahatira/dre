@@ -1,0 +1,146 @@
+{
+  "Contact form is not available.": {
+    "de": "Kontaktformular ist nicht verfügbar.",
+    "es": "El formulario de contacto no está disponible.",
+    "fr": "Le formulaire de contact n'est pas disponible.",
+    "it": "Il modulo di contatto non è disponibile.",
+    "lb": "Kontaktformulaire ass net disponibel.",
+    "nl": "Contactformulier is niet beschikbaar.",
+    "pl": "Formularz kontaktowy jest niedostępny."
+  },
+  "Contact the consultancy": {
+    "de": "Die Beratung kontaktieren",
+    "es": "Contactar con la consultoría",
+    "fr": "Contacter le conseil",
+    "it": "Contatta la consulenza",
+    "lb": "D'Berodung kontaktéieren",
+    "nl": "Contact opnemen met het adviesbureau",
+    "pl": "Skontaktuj się z doradztwem"
+  },
+  "Contact us": {
+    "de": "Kontaktieren Sie uns",
+    "es": "Contáctenos",
+    "fr": "Nous contacter",
+    "it": "Contattaci",
+    "lb": "Kontaktéiert eis",
+    "nl": "Neem contact met ons op",
+    "pl": "Skontaktuj się z nami"
+  },
+  "Create a search alert": {
+    "de": "Suchalert erstellen",
+    "es": "Crear una alerta de búsqueda",
+    "fr": "Créer une alerte de recherche",
+    "it": "Crea un avviso di ricerca",
+    "lb": "Eng Sichalert erstellen",
+    "nl": "Zoekalert aanmaken",
+    "pl": "Utwórz alert wyszukiwania"
+  },
+  "Offer detail contact form.": {
+    "de": "Kontaktformular auf der Angebotsdetailseite.",
+    "es": "Formulario de contacto en la ficha de oferta.",
+    "fr": "Formulaire de contact sur la fiche offre.",
+    "it": "Modulo di contatto nella scheda offerta.",
+    "lb": "Kontaktformulaire op der Offer-Detail-Säit.",
+    "nl": "Contactformulier op de aanbiedingsdetailpagina.",
+    "pl": "Formularz kontaktowy na stronie szczegółów oferty."
+  },
+  "Offer visit scheduling form.": {
+    "de": "Formular zur Terminvereinbarung für einen Besichtigungstermin.",
+    "es": "Formulario de solicitud de visita de una oferta.",
+    "fr": "Formulaire de demande de visite d'une offre.",
+    "it": "Modulo di richiesta visita per un'offerta.",
+    "lb": "Formulaire fir d'Ufro vun enger Visite.",
+    "nl": "Formulier voor het aanvragen van een bezichtiging.",
+    "pl": "Formularz prośby o wizytę oferty."
+  },
+  "Property Search": {
+    "de": "Immobiliensuche",
+    "es": "Búsqueda inmobiliaria",
+    "fr": "Recherche immobilière",
+    "it": "Ricerca immobiliare",
+    "lb": "Immobilie Sich",
+    "nl": "Vastgoedzoeken",
+    "pl": "Wyszukiwanie nieruchomości"
+  },
+  "Property search alert subscription form.": {
+    "de": "Formular zum Abonnieren von Suchalerts.",
+    "es": "Formulario de suscripción a alertas de búsqueda inmobiliaria.",
+    "fr": "Formulaire d'inscription à une alerte de recherche immobilière.",
+    "it": "Modulo di iscrizione agli avvisi di ricerca immobiliare.",
+    "lb": "Formulaire fir d'Abonnement vun enger Immobilie-Sichalert.",
+    "nl": "Formulier voor het abonneren op vastgoedzoekalerts.",
+    "pl": "Formularz subskrypcji alertów wyszukiwania nieruchomości."
+  },
+  "Receive my comparison": {
+    "de": "Meinen Vergleich erhalten",
+    "es": "Recibir mi comparativa",
+    "fr": "Recevoir mon comparatif",
+    "it": "Ricevi il mio confronto",
+    "lb": "Mäi Vergläich kréien",
+    "nl": "Mijn vergelijking ontvangen",
+    "pl": "Otrzymaj moje porównanie"
+  },
+  "Schedule a visit": {
+    "de": "Besichtigung vereinbaren",
+    "es": "Programar una visita",
+    "fr": "Planifier une visite",
+    "it": "Pianifica una visita",
+    "lb": "Eng Visite plangen",
+    "nl": "Bezichtiging plannen",
+    "pl": "Umów wizytę"
+  },
+  "Share the property comparison by email.": {
+    "de": "Immobilienvergleich per E-Mail teilen.",
+    "es": "Compartir la comparativa inmobiliaria por correo electrónico.",
+    "fr": "Partager le comparatif immobilier par e-mail.",
+    "it": "Condividi il confronto immobiliare via e-mail.",
+    "lb": "Den Immobilievergläich per E-Mail deelen.",
+    "nl": "Vastgoedvergelijking per e-mail delen.",
+    "pl": "Udostępnij porównanie nieruchomości e-mailem."
+  },
+  "Site notification": {
+    "de": "Website-Benachrichtigung",
+    "es": "Notificación del sitio",
+    "fr": "Notification du site",
+    "it": "Notifica del sito",
+    "lb": "Site-Notifikatioun",
+    "nl": "Sitemelding",
+    "pl": "Powiadomienie witryny"
+  },
+  "Site-wide contact form for header offcanvas.": {
+    "de": "Website-weites Kontaktformular für das Header-Offcanvas.",
+    "es": "Formulario de contacto global para el panel lateral del encabezado.",
+    "fr": "Formulaire de contact global pour le panneau latéral de l'en-tête.",
+    "it": "Modulo di contatto globale per il pannello laterale dell'intestazione.",
+    "lb": "Site-breed Kontaktformulaire fir den Header-Offcanvas.",
+    "nl": "Sitebreed contactformulier voor de header-offcanvas.",
+    "pl": "Ogólnositeowy formularz kontaktowy dla panelu bocznego nagłówka."
+  },
+  "Visitor confirmation": {
+    "de": "Besucherbestätigung",
+    "es": "Confirmación al visitante",
+    "fr": "Confirmation au visiteur",
+    "it": "Conferma al visitatore",
+    "lb": "Confirmatioun un den Visiteur",
+    "nl": "Bevestiging aan bezoeker",
+    "pl": "Potwierdzenie dla odwiedzającego"
+  },
+  "Webform definitions and front integrations for Property Search.": {
+    "de": "Webform-Definitionen und Frontend-Integrationen für Property Search.",
+    "es": "Definiciones de Webform e integraciones frontales para Property Search.",
+    "fr": "Définitions Webform et intégrations front pour Property Search.",
+    "it": "Definizioni Webform e integrazioni front-end per Property Search.",
+    "lb": "Webform-Definitiounen a Front-Integratioune fir Property Search.",
+    "nl": "Webform-definities en front-integraties voor Property Search.",
+    "pl": "Definicje Webform i integracje frontowe dla Property Search."
+  },
+  "Agent notification": {
+    "de": "Maklerbenachrichtigung",
+    "es": "Notificación al agente",
+    "fr": "Notification à l'agent",
+    "it": "Notifica all'agente",
+    "lb": "Notifikatioun un den Agent",
+    "nl": "Melding aan makelaar",
+    "pl": "Powiadomienie agenta"
+  }
+}

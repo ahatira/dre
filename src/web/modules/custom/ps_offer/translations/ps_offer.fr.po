@@ -1,218 +1,737 @@
-# French translation for ps_offer module.
+# FR translation for ps_offer module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_offer\n"
-"POT-Creation-Date: 2026-06-07 00:00+0000\n"
-"PO-Revision-Date: 2026-06-07 00:00+0000\n"
+"PO-Revision-Date: 2026-06-13 04:26+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Description"
-msgstr "Description"
-
-msgid "Read more"
-msgstr "Lire la suite"
-
-msgid "Read less"
-msgstr "Réduire"
-
-msgid "Available :"
-msgstr "Disponible :"
-
-msgid "Type of mandate :"
-msgstr "Type de mandat :"
+msgid "A source field is required for field mapping segments."
+msgstr "Un champ source est requis pour les segments de mapping."
 
 msgid "Access to the surface area table"
 msgstr "Accéder au tableau des surfaces"
 
-msgid "Download the brochure"
-msgstr "Télécharger la brochure"
+msgid "Administer offer reference patterns"
+msgstr "Administrer les modèles de référence d'offre"
 
-msgctxt "Offer budget period short"
-msgid "yr"
-msgstr "an"
+msgid "Alias entries"
+msgstr "Entrées d'alias"
 
-msgctxt "Offer budget period short"
-msgid "mo"
-msgstr "mo"
+msgid "Alias entry"
+msgstr "Entrée d'alias"
 
-msgctxt "Offer budget unit"
-msgid "seat"
-msgstr "poste"
+msgid "Alias set ID"
+msgstr "ID jeu d'alias"
 
-msgid "On request"
-msgstr "Prix sur demande"
+msgid "Alias set IDs"
+msgstr "IDs jeux d'alias"
 
-msgid "TTC"
-msgstr "TTC"
+msgid "All patterns"
+msgstr "Tous les modèles"
 
-msgid "Offer budget (composed)"
-msgstr "Budget offre (composé)"
+msgid "Allow manual override"
+msgstr "Autoriser la saisie manuelle"
 
-msgid "Budget display"
-msgstr "Affichage du budget"
+msgid "Allowed"
+msgstr "Autorisé"
 
-msgid "Configure budget popover labels and default fees text."
-msgstr "Configurer les libellés du popover budget, de la surface et de l'affichage offre."
+msgid "Applies to patterns"
+msgstr "S'applique aux modèles"
 
-msgid "Configure offer budget, surface and popover display labels."
-msgstr "Configurer les libellés budget, surface et popover de l'offre."
+msgid "Approximate area circle color"
+msgstr "Couleur cercle zone approximative"
 
-msgid "Budget info popover"
-msgstr "Popover informations budget"
+msgid "Approximate area circle radius (meters)"
+msgstr "Rayon cercle zone approximative (mètres)"
 
-msgid "Popover title"
-msgstr "Titre du popover"
+msgid "Approximate area circle radius in large cities (meters)"
+msgstr "Rayon cercle zone approximative en grande ville (mètres)"
 
-msgid "HT definition"
-msgstr "Définition HT"
+msgid "Approximate circle color"
+msgstr "Couleur cercle approximatif"
 
-msgid "HC definition"
-msgstr "Définition HC"
+msgid "Approximate circle radius"
+msgstr "Rayon cercle approximatif"
 
-msgid "CC definition"
-msgstr "Définition CC"
+msgid "Approximate circle radius in large cities"
+msgstr "Rayon cercle approximatif en grande ville"
 
-msgid "HD definition"
-msgstr "Définition HD"
+msgid "At least one segment is required."
+msgstr "Au moins un segment est requis."
 
-msgid "Fees line prefix"
-msgstr "Préfixe ligne honoraires"
+msgid "At least one target bundle is required."
+msgstr "Au moins un bundle cible est requis."
 
-msgid "Prepended to the offer fees field or the default fees text."
-msgstr "Préfixé au champ honoraires de l'offre ou au texte par défaut."
-
-msgid "Default rental fees text"
-msgstr "Texte honoraires location par défaut"
-
-msgid "Used when the offer fees field is empty (rental)."
-msgstr "Utilisé lorsque le champ honoraires est vide (location)."
-
-msgid "Default sale fees text"
-msgstr "Texte honoraires vente par défaut"
-
-msgid "Used when the offer fees field is empty (sale)."
-msgstr "Utilisé lorsque le champ honoraires est vide (vente)."
+msgid "Available :"
+msgstr "Disponible :"
 
 msgid "Budget display labels"
 msgstr "Libellés affichage budget"
 
-msgid "On request label"
-msgstr "Libellé prix sur demande"
+msgid "Budget from prefix"
+msgstr "Préfixe budget à partir de"
 
-msgid "TTC label"
-msgstr "Libellé TTC"
+msgid "Budget info popover"
+msgstr "Popover informations budget"
 
-msgid "Info icon aria-label"
-msgstr "Libellé aria de l'icône info"
+msgid "Bundle"
+msgstr "Type de contenu"
 
-msgid "Offer budget display"
-msgstr "Affichage budget offre"
+msgid "Bundles"
+msgstr "Types de contenu"
 
-msgid "Fees (honoraires)"
-msgstr "Honoraires"
+msgid "CC definition"
+msgstr "Définition CC"
 
-msgid "Fees payable by the tenant or buyer. Shown in the budget info popover when set."
-msgstr "Honoraires à la charge du locataire ou de l'acquéreur. Affichés dans le popover budget lorsqu'ils sont renseignés."
+msgid "CSS color value, for example #0072CE."
+msgstr "Valeur couleur CSS, par ex. #0072CE."
 
-msgid "Surface display labels"
-msgstr "Libellés affichage surface"
-
-msgid "Divisible surface template"
-msgstr "Modèle surface divisible"
-
-msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from @surface\")."
-msgstr "Utiliser @surface comme placeholder pour le lot minimum (ex. « Divisible dès @surface »)."
+msgid "CSS color value, for example #00915A."
+msgstr "Valeur couleur CSS, par ex. #00915A."
 
 msgid "Capacity unit label"
 msgstr "Libellé unité de capacité"
 
-msgid "Used for coworking offers (e.g. seats, postes)."
-msgstr "Utilisé pour les offres coworking (ex. seats, postes)."
-
-msgid "Surface KPI separator"
-msgstr "Séparateur KPI surface"
-
-msgid "Separator between total surface and divisibility suffix."
-msgstr "Séparateur entre la surface totale et le suffixe de divisibilité."
-
-msgid "Offer display settings"
-msgstr "Paramètres affichage offre"
-
-msgid "Show points of interest :"
-msgstr "Afficher les points d'intérêt :"
-
-msgid "Transports"
-msgstr "Transports"
-
-msgid "Parkings"
-msgstr "Parkings"
-
-msgid "Restaurants"
-msgstr "Restaurants"
-
-msgid "Hotels"
-msgstr "Hôtels"
-
-msgid "Property location"
-msgstr "Localisation du bien"
-
-msgid "Calculate your travel time :"
-msgstr "Calcul du temps de trajet :"
-
-msgid "Departure address :"
-msgstr "Lieu de départ :"
-
-msgid "Enter an address"
-msgstr "Saisir une adresse"
-
-msgid "Clear departure address"
-msgstr "Effacer l'adresse de départ"
-
-msgid "Travel mode :"
-msgstr "Mode de transport :"
-
-msgid "Travel mode"
-msgstr "Mode de transport"
-
 msgid "Car"
 msgstr "Voiture"
 
-msgid "Public transport"
-msgstr "Transports en commun"
+msgid "Comma-separated pattern IDs. Leave empty to apply to all patterns."
+msgstr "IDs de modèles séparés par virgules. Laisser vide pour tous les modèle"
+"s."
 
-msgid "Walking"
-msgstr "À pied"
+msgid "Configure headings and icons for offer detail page sections. Sections "
+"are registered by modules; only installed sections appear below."
+msgstr "Configurer titres et icônes des sections de la fiche offre. Les sectio"
+"ns sont enregistrées par les modules ; seules les sections installées "
+"apparaissent ci-dessous."
+
+msgid "Configure offer budget, surface and popover display labels."
+msgstr "Configurer les libellés budget, surface et popover de l'offre."
+
+msgid "Configure offer detail section titles and icons."
+msgstr "Configurer les titres et icônes des sections fiche offre."
+
+msgid "Configure offer reference generation."
+msgstr "Configurer la génération de référence d'offre."
+
+msgid "Configure the offer detail interactive map."
+msgstr "Configurer la carte interactive de la fiche offre."
+
+msgid "Consultant label"
+msgstr "Libellé consultant"
+
+msgid "Consultant label: @label"
+msgstr "Libellé consultant : @label"
+
+msgid "Contact button label"
+msgstr "Libellé bouton contact"
+
+msgid "Contact label: @label"
+msgstr "Libellé contact : @label"
+
+msgid "Contact modal dialog options (JSON)"
+msgstr "Options dialogue modal contact (JSON)"
+
+msgid "Counter scope mode"
+msgstr "Mode périmètre compteur"
 
 msgid "Cycling"
 msgstr "Vélo"
 
-msgid "Via"
-msgstr "Via"
+msgid "Default rental fees text"
+msgstr "Texte honoraires location par défaut"
 
-msgid "This route may include several connections."
-msgstr "Cet itinéraire peut comporter plusieurs correspondances."
+msgid "Default sale fees text"
+msgstr "Texte honoraires vente par défaut"
 
-msgid "Please select an address from the suggestions."
-msgstr "Veuillez sélectionner une adresse parmi les suggestions."
+msgid "Default zoom (approximate location)"
+msgstr "Zoom par défaut (localisation approximative)"
 
-msgid "No public transport route found for this journey."
-msgstr "Aucun itinéraire en transports en commun trouvé pour ce trajet."
+msgid "Default zoom (approximate location, large city)"
+msgstr "Zoom par défaut (localisation approximative, grande ville)"
 
-msgid "No walking route found for this journey."
-msgstr "Aucun itinéraire à pied trouvé pour ce trajet."
+msgid "Default zoom (exact address)"
+msgstr "Zoom par défaut (adresse exacte)"
 
-msgid "No cycling route found for this journey."
-msgstr "Aucun itinéraire à vélo trouvé pour ce trajet."
+msgid "Default zoom for approximate large city location"
+msgstr "Zoom par défaut pour localisation approximative en grande ville"
 
-msgid "No route found for this journey."
-msgstr "Aucun itinéraire trouvé pour ce trajet."
+msgid "Default zoom for approximate location"
+msgstr "Zoom par défaut pour localisation approximative"
 
-msgid "Departure or destination address could not be found."
-msgstr "L'adresse de départ ou de destination est introuvable."
+msgid "Default zoom for exact address"
+msgstr "Zoom par défaut pour adresse exacte"
 
-msgid "Unable to calculate travel time."
-msgstr "Impossible de calculer le temps de trajet."
+msgid "Description"
+msgstr "Description"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgid "Divisible surface template"
+msgstr "Modèle surface divisible"
+
+msgid "Download the brochure"
+msgstr "Télécharger la brochure"
+
+msgid "Each alias entry must define source field, source value, and reference"
+" code."
+msgstr "Chaque entrée d'alias doit définir champ source, valeur source et code"
+" référence."
+
+msgid "Enable Auto to generate the value from the active pattern, or disable "
+"it to edit manually."
+msgstr "Activer Auto pour générer la valeur depuis le modèle actif, ou désacti"
+"ver pour saisie manuelle."
+
+msgid "Enable POI filters"
+msgstr "Activer les filtres POI"
+
+msgid "Enable offer detail map"
+msgstr "Activer la carte fiche offre"
+
+msgid "Enable travel time tools"
+msgstr "Activer les outils temps de trajet"
+
+msgid "Enabled"
+msgstr "Activé"
+
+msgid "Entries"
+msgstr "Entrées"
+
+msgid "Fallback value"
+msgstr "Valeur de secours"
+
+msgid "Features from this group are shown under the transport line in the loc"
+"ation section."
+msgstr "Les caractéristiques de ce groupe s'affichent sous la ligne transport "
+"dans la section localisation."
+
+msgid "Fees line prefix"
+msgstr "Préfixe ligne honoraires"
+
+msgid "Gallery must contain at least one media item before publishing the off"
+"er."
+msgstr "La galerie doit contenir au moins un média avant publication de l'offr"
+"e."
+
+msgid "General"
+msgstr "Général"
+
+msgid "Generate automatically on create"
+msgstr "Générer automatiquement à la création"
+
+msgid "Generate on create"
+msgstr "Générer à la création"
+
+msgid "Generation settings"
+msgstr "Paramètres de génération"
+
+msgid "Global"
+msgstr "Global"
+
+msgid "HC definition"
+msgstr "Définition HC"
+
+msgid "HD definition"
+msgstr "Définition HD"
+
+msgid "HT definition"
+msgstr "Définition HT"
+
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Hotels"
+msgstr "Hôtels"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Icons displayed next to POI filter checkboxes on the offer map."
+msgstr "Icônes affichées à côté des cases à cocher filtres POI sur la carte of"
+"fre."
+
+msgid "Icons displayed on the travel mode selector when the offer shows its p"
+"recise address."
+msgstr "Icônes du sélecteur de mode de déplacement quand l'offre affiche son a"
+"dresse précise."
+
+msgid "Info icon aria-label"
+msgstr "Libellé aria de l'icône info"
+
+msgid "Label"
+msgstr "Libellé"
+
+msgid "Large city localities"
+msgstr "Localités grande ville"
+
+msgid "Length"
+msgstr "Longueur"
+
+msgid "Location"
+msgstr "Localisation"
+
+msgid "Machine name"
+msgstr "Nom machine"
+
+msgid "Manage configurable offer reference generation patterns."
+msgstr "Gérer les modèles configurables de génération de référence d'offre."
+
+msgid "Manage reference alias sets."
+msgstr "Gérer les jeux d'alias de référence."
+
+msgid "Manage reference patterns."
+msgstr "Gérer les modèles de référence."
+
+msgid "Manual override"
+msgstr "Saisie manuelle"
+
+msgid "Manual preview message"
+msgstr "Message d'aperçu manuel"
+
+msgid "Map display"
+msgstr "Affichage carte"
+
+msgid "Mapped value"
+msgstr "Valeur mappée"
+
+msgid "Mapping"
+msgstr "Mapping"
+
+msgid "No preview available yet. Fill operation type and asset type."
+msgstr "Aucun aperçu disponible. Renseignez le type d'opération et le type d'a"
+"ctif."
+
+msgid "Number of text lines shown before the read-more control."
+msgstr "Nombre de lignes affichées avant le contrôle lire la suite."
+
+msgid "Offer"
+msgstr "Offre"
+
+msgid "Offer Reference"
+msgstr "Référence offre"
+
+msgid "Offer agent card"
+msgstr "Carte agent offre"
+
+msgid "Offer budget (compare table)"
+msgstr "Budget offre (tableau comparatif)"
+
+msgid "Offer budget (composed)"
+msgstr "Budget offre (composé)"
+
+msgid "Offer content model and business validations."
+msgstr "Modèle de contenu offre et validations métier."
+
+msgid "Offer description (read more)"
+msgstr "Description offre (lire la suite)"
+
+msgid "Offer detail actions"
+msgstr "Actions fiche offre"
+
+msgid "Offer detail header"
+msgstr "En-tête fiche offre"
+
+msgid "Offer detail location"
+msgstr "Localisation fiche offre"
+
+msgid "Offer display settings"
+msgstr "Paramètres affichage offre"
+
+msgid "Offer interactive map"
+msgstr "Carte interactive offre"
+
+msgid "Offer location (compare table)"
+msgstr "Localisation offre (tableau comparatif)"
+
+msgid "Offer location summary"
+msgstr "Résumé localisation offre"
+
+msgid "Offer map settings"
+msgstr "Paramètres carte offre"
+
+msgid "Offer reference (auto/manual)"
+msgstr "Référence offre (auto/manuel)"
+
+msgid "Offer reference alias set"
+msgstr "Jeu d'alias référence offre"
+
+msgid "Offer reference alias set %label has been saved."
+msgstr "Le jeu d'alias référence offre %label a été enregistré."
+
+msgid "Offer reference alias sets"
+msgstr "Jeux d'alias référence offre"
+
+msgid "Offer reference pattern"
+msgstr "Modèle référence offre"
+
+msgid "Offer reference pattern %label has been saved."
+msgstr "Le modèle référence offre %label a été enregistré."
+
+msgid "Offer reference patterns"
+msgstr "Modèles référence offre"
+
+msgid "Offer section headings"
+msgstr "Titres sections offre"
+
+msgid "On request label"
+msgstr "Libellé prix sur demande"
+
+msgid "One KEY=VALUE pair per line. Example: RENT=L"
+msgstr "Une paire CLÉ=VALEUR par ligne. Ex. : RENT=L"
+
+msgid "One alias per line: source_field|source_value|reference_code|weight|de"
+"scription. Example: field_asset_type|ENT|LOG|0|Warehouse alias"
+msgstr "Un alias par ligne : champ_source|valeur_source|code_référence|poids|d"
+"escription. Ex. : field_asset_type|ENT|LOG|0|Alias entrepôt"
+
+msgid "One city per line. Used for approximate map zoom and circle radius."
+msgstr "Une ville par ligne. Utilisé pour le zoom carte approximatif et le ray"
+"on du cercle."
+
+msgid "Only shown when the offer displays its precise address."
+msgstr "Affiché uniquement quand l'offre montre son adresse précise."
+
+msgid "Optional JSON settings for advanced segment behavior."
+msgstr "Paramètres JSON optionnels pour comportement avancé des segments."
+
+msgid "Optional comma-separated alias set IDs. Leave empty to use all applica"
+"ble enabled alias sets."
+msgstr "IDs jeux d'alias optionnels séparés par virgules. Vide = tous les jeux"
+" activés applicables."
+
+msgid "Optional. Leave empty to hide the icon on offer detail pages."
+msgstr "Optionnel. Laisser vide pour masquer l'icône sur les fiches offre."
+
+msgid "POI filter icon (hotels)"
+msgstr "Icône filtre POI (hôtels)"
+
+msgid "POI filter icon (parkings)"
+msgstr "Icône filtre POI (parkings)"
+
+msgid "POI filter icon (restaurants)"
+msgstr "Icône filtre POI (restaurants)"
+
+msgid "POI filter icon (transports)"
+msgstr "Icône filtre POI (transports)"
+
+msgid "POI filter icons"
+msgstr "Icônes filtres POI"
+
+msgid "POI map marker color (hotels)"
+msgstr "Couleur marqueur POI carte (hôtels)"
+
+msgid "POI map marker color (parkings)"
+msgstr "Couleur marqueur POI carte (parkings)"
+
+msgid "POI map marker color (restaurants)"
+msgstr "Couleur marqueur POI carte (restaurants)"
+
+msgid "POI map marker color (transports)"
+msgstr "Couleur marqueur POI carte (transports)"
+
+msgid "POI map marker colors"
+msgstr "Couleurs marqueurs POI carte"
+
+msgid "POI map marker icon (hotels)"
+msgstr "Icône marqueur POI carte (hôtels)"
+
+msgid "POI map marker icon (parkings)"
+msgstr "Icône marqueur POI carte (parkings)"
+
+msgid "POI map marker icon (restaurants)"
+msgstr "Icône marqueur POI carte (restaurants)"
+
+msgid "POI map marker icon (transports)"
+msgstr "Icône marqueur POI carte (transports)"
+
+msgid "POI map marker icons"
+msgstr "Icônes marqueurs POI carte"
+
+msgid "POI search radius"
+msgstr "Rayon recherche POI"
+
+msgid "POI search radius (meters)"
+msgstr "Rayon recherche POI (mètres)"
+
+msgid "Parkings"
+msgstr "Parkings"
+
+msgid "Pattern"
+msgstr "Modèle"
+
+msgid "Pattern ID"
+msgstr "ID modèle"
+
+msgid "Pattern IDs"
+msgstr "IDs modèles"
+
+msgid "Patterns"
+msgstr "Modèles"
+
+msgid "Pin colors applied to each POI category on the map."
+msgstr "Couleurs des repères pour chaque catégorie POI sur la carte."
+
+msgid "Pin icons displayed on the map for each POI category."
+msgstr "Icônes des repères affichées sur la carte pour chaque catégorie POI."
+
+msgid "Points of interest"
+msgstr "Points d'intérêt"
+
+msgid "Popover title"
+msgstr "Titre du popover"
+
+msgid "Prefix"
+msgstr "Préfixe"
+
+msgid "Prepended to the offer fees field or the default fees text."
+msgstr "Préfixé au champ honoraires de l'offre ou au texte par défaut."
+
+msgid "Price information"
+msgstr "Informations prix"
+
+msgid "Property Search"
+msgstr "Property Search"
+
+msgid "Public transport"
+msgstr "Transports en commun"
+
+msgid "Read less"
+msgstr "Réduire"
+
+msgid "Read less label"
+msgstr "Libellé lire moins"
+
+msgid "Read less: @label"
+msgstr "Lire moins : @label"
+
+msgid "Read more"
+msgstr "Lire la suite"
+
+msgid "Read more label"
+msgstr "Libellé lire la suite"
+
+msgid "Read more: @label"
+msgstr "Lire la suite : @label"
+
+msgid "Reference : @ref"
+msgstr "Référence : @ref"
+
+msgid "Reference aliases"
+msgstr "Alias de référence"
+
+msgid "Reference code"
+msgstr "Code référence"
+
+msgid "Reference patterns"
+msgstr "Modèles de référence"
+
+msgid "Reference preview"
+msgstr "Aperçu référence"
+
+msgid "Regenerate on source change"
+msgstr "Régénérer si source modifiée"
+
+msgid "Regenerate when source values change"
+msgstr "Régénérer quand les valeurs source changent"
+
+msgid "Require uniqueness"
+msgstr "Exiger l'unicité"
+
+msgid "Resolution mode"
+msgstr "Mode de résolution"
+
+msgid "Restaurants"
+msgstr "Restaurants"
+
+msgid "Results page"
+msgstr "Page de résultats"
+
+msgid "Section headings"
+msgstr "Titres de section"
+
+msgid "Section icon"
+msgstr "Icône de section"
+
+msgid "Section title"
+msgstr "Titre de section"
+
+msgid "Segment"
+msgstr "Segment"
+
+msgid "Segment @number"
+msgstr "Segment @number"
+
+msgid "Segment length must be greater than 0."
+msgstr "La longueur du segment doit être supérieure à 0."
+
+msgid "Segments"
+msgstr "Segments"
+
+msgid "Segments are evaluated in weight order. Length is enforced by the gene"
+"rator service."
+msgstr "Les segments sont évalués par ordre de poids. La longueur est imposée "
+"par le service générateur."
+
+msgid "Separator between total surface and divisibility suffix."
+msgstr "Séparateur entre la surface totale et le suffixe de divisibilité."
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "Settings (JSON)"
+msgstr "Paramètres (JSON)"
+
+msgid "Source field"
+msgstr "Champ source"
+
+msgid "Source value"
+msgstr "Valeur source"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Surface KPI separator"
+msgstr "Séparateur KPI surface"
+
+msgid "Surface display labels"
+msgstr "Libellés affichage surface"
+
+msgid "TTC label"
+msgstr "Libellé TTC"
+
+msgid "Target bundles"
+msgstr "Bundles cibles"
+
+msgid "The offer has been saved as a draft because no primary agent is set."
+msgstr "L'offre a été enregistrée en brouillon car aucun agent principal n'est"
+" défini."
+
+msgid "The offer is marked as non-divisible, but available surface (@dispo m²"
+") is less than total surface (@total m²). Consider marking it as divis"
+"ible."
+msgstr "L'offre est marquée non divisible, mais la surface disponible (@dispo "
+"m²) est inférieure à la surface totale (@total m²). Envisagez de la ma"
+"rquer divisible."
+
+msgid "Toggle button text"
+msgstr "Texte du bouton bascule"
+
+msgid "Toggle button text: @label"
+msgstr "Texte bouton bascule : @label"
+
+msgid "Transport :"
+msgstr "Transport :"
+
+msgid "Transport feature group"
+msgstr "Groupe caractéristiques transport"
+
+msgid "Transports"
+msgstr "Transports"
+
+msgid "Travel mode icon (car)"
+msgstr "Icône mode déplacement (voiture)"
+
+msgid "Travel mode icon (cycling)"
+msgstr "Icône mode déplacement (vélo)"
+
+msgid "Travel mode icon (public transport)"
+msgstr "Icône mode déplacement (transports en commun)"
+
+msgid "Travel mode icon (walking)"
+msgstr "Icône mode déplacement (marche)"
+
+msgid "Travel mode icons"
+msgstr "Icônes modes de déplacement"
+
+msgid "Travel time"
+msgstr "Temps de trajet"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Type of mandate :"
+msgstr "Type de mandat :"
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Unknown asset type code: <strong>@code</strong>. <a href=\"@url\">Crea"
+"te this asset type</a>."
+msgstr "Code type d'actif inconnu : <strong>@code</strong>. <a href=\"@url\">C"
+"réer ce type d'actif</a>."
+
+msgid "Unknown operation type code: <strong>@code</strong>. <a href=\"@url\">"
+"Create this operation type</a>."
+msgstr "Code type d'opération inconnu : <strong>@code</strong>. <a href=\"@url"
+"\">Créer ce type d'opération</a>."
+
+msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from"
+" @surface\")."
+msgstr "Utiliser @surface comme placeholder pour le lot minimum (ex. « Divisib"
+"le dès @surface »)."
+
+msgid "Used by field mapping segments, for example field_operation_type."
+msgstr "Utilisé par les segments de mapping, par ex. field_operation_type."
+
+msgid "Used for coworking offers (e.g. seats, postes)."
+msgstr "Utilisé pour les offres coworking (ex. seats, postes)."
+
+msgid "Used when the offer fees field is empty (rental)."
+msgstr "Utilisé lorsque le champ honoraires est vide (location)."
+
+msgid "Used when the offer fees field is empty (sale)."
+msgstr "Utilisé lorsque le champ honoraires est vide (vente)."
+
+msgid "Validate manual value against pattern"
+msgstr "Valider la valeur manuelle contre le modèle"
+
+msgid "Visible lines when collapsed"
+msgstr "Lignes visibles repliées"
+
+msgid "Visible lines: @lines"
+msgstr "Lignes visibles : @lines"
+
+msgid "Visit button label"
+msgstr "Libellé bouton visite"
+
+msgid "Visit section title"
+msgstr "Titre section visite"
+
+msgid "Visit title: @label"
+msgstr "Titre visite : @label"
+
+msgid "Walking"
+msgstr "À pied"
+
+msgid "Warning message"
+msgstr "Message d'avertissement"
+
+msgid "Weight"
+msgstr "Poids"
+
+msgid "mo"
+msgstr "mois"
+
+msgid "offer reference alias set"
+msgstr "jeu d'alias référence offre"
+
+msgid "offer reference alias sets"
+msgstr "jeux d'alias référence offre"
+
+msgid "offer reference pattern"
+msgstr "modèle référence offre"
+
+msgid "offer reference patterns"
+msgstr "modèles référence offre"
+
+msgid "seat"
+msgstr "poste"
+
+msgid "yr"
+msgstr "an"

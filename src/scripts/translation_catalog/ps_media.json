@@ -1,0 +1,488 @@
+{
+  "3D visit badge icon": {
+    "de": "3D-Besuch-Badge-Symbol",
+    "es": "Icono de insignia de visita 3D",
+    "fr": "Icône de badge visite 3D",
+    "it": "Icona badge visita 3D",
+    "lb": "3D-Visitt Badge-Icon",
+    "nl": "3D-bezoekbadgepictogram",
+    "pl": "Ikona odznaki wizyty 3D"
+  },
+  "Audio file": {
+    "de": "Audiodatei",
+    "es": "Archivo de audio",
+    "fr": "Fichier audio",
+    "it": "File audio",
+    "lb": "Audio-Datei",
+    "nl": "Audiobestand",
+    "pl": "Plik audio"
+  },
+  "By type (images, videos, virtual tours) then manual order": {
+    "de": "Nach Typ (Bilder, Videos, virtuelle Rundgaenge), dann manuelle Reihenfolge",
+    "es": "Por tipo (imagenes, videos, tours virtuales) y luego orden manual",
+    "fr": "Par type (images, videos, visites virtuelles), puis ordre manuel",
+    "it": "Per tipo (immagini, video, tour virtuali), poi ordine manuale",
+    "lb": "No Typ (Biller, Videoen, virtuell Touren), dann manuell Reiefolleg",
+    "nl": "Op type (afbeeldingen, video's, virtuele rondleidingen), daarna handmatige volgorde",
+    "pl": "Wedlug typu (obrazy, filmy, wirtualne spacery), a nastepnie reczna kolejnosc"
+  },
+  "By type then manual": {
+    "de": "Nach Typ, dann manuell",
+    "es": "Por tipo y luego manual",
+    "fr": "Par type puis manuel",
+    "it": "Per tipo poi manuale",
+    "lb": "No Typ, dann manuell",
+    "nl": "Op type, daarna handmatig",
+    "pl": "Wedlug typu, potem recznie"
+  },
+  "Choose the icons displayed on offer gallery badges (photos, videos, 3D visit, plan).": {
+    "de": "Waehlen Sie die Symbole aus, die auf Angebots-Galerie-Badges angezeigt werden (Fotos, Videos, 3D-Besuch, Plan).",
+    "es": "Elija los iconos que se muestran en las insignias de la galeria de la oferta (fotos, videos, visita 3D, plano).",
+    "fr": "Choisissez les icones affichees sur les badges de la galerie d'offre (photos, videos, visite 3D, plan).",
+    "it": "Scegli le icone visualizzate sui badge della galleria offerta (foto, video, visita 3D, planimetria).",
+    "lb": "Wielt d'Iconen, déi op de Badgen vun der Offer-Galerie ugewise ginn (Fotoen, Videoen, 3D-Visitt, Plang).",
+    "nl": "Kies de pictogrammen die worden weergegeven op de badges van de aanbodsgalerij (foto's, video's, 3D-bezoek, plattegrond).",
+    "pl": "Wybierz ikony wyswietlane na odznakach galerii oferty (zdjecia, filmy, wizyta 3D, plan)."
+  },
+  "Display template": {
+    "de": "Anzeigevorlage",
+    "es": "Plantilla de visualizacion",
+    "fr": "Modele d'affichage",
+    "it": "Template di visualizzazione",
+    "lb": "Affichage-Template",
+    "nl": "Weergavesjabloon",
+    "pl": "Szablon wyswietlania"
+  },
+  "Document file": {
+    "de": "Dokumentdatei",
+    "es": "Archivo de documento",
+    "fr": "Fichier document",
+    "it": "File documento",
+    "lb": "Dokument-Datei",
+    "nl": "Documentbestand",
+    "pl": "Plik dokumentu"
+  },
+  "Documents (PS Media)": {
+    "de": "Dokumente (PS Media)",
+    "es": "Documentos (PS Media)",
+    "fr": "Documents (PS Media)",
+    "it": "Documenti (PS Media)",
+    "lb": "Dokumenter (PS Media)",
+    "nl": "Documenten (PS Media)",
+    "pl": "Dokumenty (PS Media)"
+  },
+  "Download link text": {
+    "de": "Text des Download-Links",
+    "es": "Texto del enlace de descarga",
+    "fr": "Texte du lien de telechargement",
+    "it": "Testo del link di download",
+    "lb": "Text vum Download-Link",
+    "nl": "Tekst van downloadlink",
+    "pl": "Tekst linku pobierania"
+  },
+  "Enable lazy loading": {
+    "de": "Lazy Loading aktivieren",
+    "es": "Activar carga diferida",
+    "fr": "Activer le chargement differe",
+    "it": "Abilita caricamento differito",
+    "lb": "Lazy Loading aktivéieren",
+    "nl": "Lazy loading inschakelen",
+    "pl": "Wlacz leniwe ladowanie"
+  },
+  "Gallery (PS Media)": {
+    "de": "Galerie (PS Media)",
+    "es": "Galeria (PS Media)",
+    "fr": "Galerie (PS Media)",
+    "it": "Galleria (PS Media)",
+    "lb": "Galerie (PS Media)",
+    "nl": "Galerij (PS Media)",
+    "pl": "Galeria (PS Media)"
+  },
+  "Gallery badge icons": {
+    "de": "Galerie-Badge-Symbole",
+    "es": "Iconos de insignias de galeria",
+    "fr": "Icones de badge de galerie",
+    "it": "Icone badge galleria",
+    "lb": "Badge-Icone vun der Galerie",
+    "nl": "Galerijbadgepictogrammen",
+    "pl": "Ikony odznak galerii"
+  },
+  "Gallery item": {
+    "de": "Galerieelement",
+    "es": "Elemento de galeria",
+    "fr": "Element de galerie",
+    "it": "Elemento galleria",
+    "lb": "Galerie-Element",
+    "nl": "Galerij-item",
+    "pl": "Element galerii"
+  },
+  "Hero gallery (offer detail)": {
+    "de": "Hero-Galerie (Angebotsdetail)",
+    "es": "Galeria hero (detalle de oferta)",
+    "fr": "Galerie hero (detail de l'offre)",
+    "it": "Galleria hero (dettaglio offerta)",
+    "lb": "Hero-Galerie (Offer-Detail)",
+    "nl": "Hero-galerij (aanboddetail)",
+    "pl": "Galeria hero (szczegoly oferty)"
+  },
+  "Hero image style machine name (optional)": {
+    "de": "Maschinenname des Hero-Bildstils (optional)",
+    "es": "Nombre maquina del estilo de imagen hero (opcional)",
+    "fr": "Nom machine du style d'image hero (optionnel)",
+    "it": "Nome macchina dello stile immagine hero (opzionale)",
+    "lb": "Machine-Numm vum Hero-Bildstil (optional)",
+    "nl": "Machinenaam van hero-afbeeldingsstijl (optioneel)",
+    "pl": "Nazwa maszynowa stylu obrazu hero (opcjonalnie)"
+  },
+  "Hero image style: @style": {
+    "de": "Hero-Bildstil: @style",
+    "es": "Estilo de imagen hero: @style",
+    "fr": "Style d'image hero : @style",
+    "it": "Stile immagine hero: @style",
+    "lb": "Hero-Bildstil: @style",
+    "nl": "Hero-afbeeldingsstijl: @style",
+    "pl": "Styl obrazu hero: @style"
+  },
+  "Hide block if no documents": {
+    "de": "Block ausblenden, wenn keine Dokumente vorhanden sind",
+    "es": "Ocultar bloque si no hay documentos",
+    "fr": "Masquer le bloc s'il n'y a pas de documents",
+    "it": "Nascondi il blocco se non ci sono documenti",
+    "lb": "Block verstoppen, wann et keng Dokumenter ginn",
+    "nl": "Blok verbergen als er geen documenten zijn",
+    "pl": "Ukryj blok, jesli brak dokumentow"
+  },
+  "Hide if empty: @hide": {
+    "de": "Ausblenden, wenn leer: @hide",
+    "es": "Ocultar si esta vacio: @hide",
+    "fr": "Masquer si vide : @hide",
+    "it": "Nascondi se vuoto: @hide",
+    "lb": "Verstoppen wann eidel: @hide",
+    "nl": "Verbergen indien leeg: @hide",
+    "pl": "Ukryj, jesli puste: @hide"
+  },
+  "Manual order only": {
+    "de": "Nur manuelle Reihenfolge",
+    "es": "Solo orden manual",
+    "fr": "Ordre manuel uniquement",
+    "it": "Solo ordine manuale",
+    "lb": "Nëmmen manuell Reiefolleg",
+    "nl": "Alleen handmatige volgorde",
+    "pl": "Tylko kolejnosc reczna"
+  },
+  "Maximum items to render": {
+    "de": "Maximale Anzahl anzuzeigender Elemente",
+    "es": "Numero maximo de elementos a mostrar",
+    "fr": "Nombre maximal d'elements a afficher",
+    "it": "Numero massimo di elementi da visualizzare",
+    "lb": "Maximal Unzuel vun Elementer fir unzeweisen",
+    "nl": "Maximum aantal weer te geven items",
+    "pl": "Maksymalna liczba elementow do wyswietlenia"
+  },
+  "Maximum items: @count": {
+    "de": "Maximale Elemente: @count",
+    "es": "Elementos maximos: @count",
+    "fr": "Elements maximum : @count",
+    "it": "Elementi massimi: @count",
+    "lb": "Maximal Elementer: @count",
+    "nl": "Maximum items: @count",
+    "pl": "Maksymalna liczba elementow: @count"
+  },
+  "Maximum items: all": {
+    "de": "Maximale Elemente: alle",
+    "es": "Elementos maximos: todos",
+    "fr": "Elements maximum : tous",
+    "it": "Elementi massimi: tutti",
+    "lb": "Maximal Elementer: all",
+    "nl": "Maximum items: alle",
+    "pl": "Maksymalna liczba elementow: wszystkie"
+  },
+  "Media ordering": {
+    "de": "Medienreihenfolge",
+    "es": "Orden de medios",
+    "fr": "Ordre des medias",
+    "it": "Ordinamento media",
+    "lb": "Medien-Reiefolleg",
+    "nl": "Media-volgorde",
+    "pl": "Kolejnosc mediow"
+  },
+  "MediaHub video": {
+    "de": "MediaHub-Video",
+    "es": "Video de MediaHub",
+    "fr": "Video MediaHub",
+    "it": "Video MediaHub",
+    "lb": "MediaHub-Video",
+    "nl": "MediaHub-video",
+    "pl": "Wideo MediaHub"
+  },
+  "No media items in gallery": {
+    "de": "Keine Medienelemente in der Galerie",
+    "es": "No hay elementos multimedia en la galeria",
+    "fr": "Aucun element media dans la galerie",
+    "it": "Nessun elemento multimediale nella galleria",
+    "lb": "Keng Medien-Elementer an der Galerie",
+    "nl": "Geen media-items in galerij",
+    "pl": "Brak elementow mediow w galerii"
+  },
+  "Open file": {
+    "de": "Datei oeffnen",
+    "es": "Abrir archivo",
+    "fr": "Ouvrir le fichier",
+    "it": "Apri file",
+    "lb": "Datei opmaachen",
+    "nl": "Bestand openen",
+    "pl": "Otworz plik"
+  },
+  "Order: @order": {
+    "de": "Reihenfolge: @order",
+    "es": "Orden: @order",
+    "fr": "Ordre : @order",
+    "it": "Ordine: @order",
+    "lb": "Reiefolleg: @order",
+    "nl": "Volgorde: @order",
+    "pl": "Kolejnosc: @order"
+  },
+  "Photos badge icon": {
+    "de": "Fotos-Badge-Symbol",
+    "es": "Icono de insignia de fotos",
+    "fr": "Icone de badge photos",
+    "it": "Icona badge foto",
+    "lb": "Fotoen Badge-Icon",
+    "nl": "Fotobadgepictogram",
+    "pl": "Ikona odznaki zdjec"
+  },
+  "Plan badge icon": {
+    "de": "Plan-Badge-Symbol",
+    "es": "Icono de insignia de plano",
+    "fr": "Icone de badge plan",
+    "it": "Icona badge planimetria",
+    "lb": "Plang Badge-Icon",
+    "nl": "Plattegrondbadgepictogram",
+    "pl": "Ikona odznaki planu"
+  },
+  "Remote video": {
+    "de": "Externes Video",
+    "es": "Video remoto",
+    "fr": "Video distant",
+    "it": "Video remoto",
+    "lb": "Remote-Video",
+    "nl": "Externe video",
+    "pl": "Wideo zdalne"
+  },
+  "Show document titles": {
+    "de": "Dokumenttitel anzeigen",
+    "es": "Mostrar titulos de documentos",
+    "fr": "Afficher les titres des documents",
+    "it": "Mostra titoli documenti",
+    "lb": "Dokument-Titelen weisen",
+    "nl": "Documenttitels tonen",
+    "pl": "Pokaz tytuly dokumentow"
+  },
+  "Show media titles": {
+    "de": "Medientitel anzeigen",
+    "es": "Mostrar titulos de medios",
+    "fr": "Afficher les titres des medias",
+    "it": "Mostra titoli media",
+    "lb": "Medien-Titelen weisen",
+    "nl": "Mediatitels tonen",
+    "pl": "Pokaz tytuly mediow"
+  },
+  "Summary list": {
+    "de": "Zusammenfassungsliste",
+    "es": "Lista de resumen",
+    "fr": "Liste de resume",
+    "it": "Elenco riepilogo",
+    "lb": "Resumé-Lëscht",
+    "nl": "Overzichtslijst",
+    "pl": "Lista podsumowujaca"
+  },
+  "Thumbnail image style machine name (optional)": {
+    "de": "Maschinenname des Vorschaubildstils (optional)",
+    "es": "Nombre maquina del estilo de miniatura (opcional)",
+    "fr": "Nom machine du style d'image miniature (optionnel)",
+    "it": "Nome macchina dello stile immagine miniatura (opzionale)",
+    "lb": "Machine-Numm vum Thumbnail-Bildstil (optional)",
+    "nl": "Machinenaam van miniatuurafbeeldingsstijl (optioneel)",
+    "pl": "Nazwa maszynowa stylu miniatury obrazu (opcjonalnie)"
+  },
+  "Thumbnail image style: @style": {
+    "de": "Vorschaubildstil: @style",
+    "es": "Estilo de miniatura: @style",
+    "fr": "Style d'image miniature : @style",
+    "it": "Stile immagine miniatura: @style",
+    "lb": "Thumbnail-Bildstil: @style",
+    "nl": "Miniatuurafbeeldingsstijl: @style",
+    "pl": "Styl miniatury obrazu: @style"
+  },
+  "Use 0 to render all referenced media items.": {
+    "de": "Verwenden Sie 0, um alle referenzierten Medienelemente zu rendern.",
+    "es": "Use 0 para mostrar todos los elementos multimedia referenciados.",
+    "fr": "Utilisez 0 pour afficher tous les elements media references.",
+    "it": "Usa 0 per visualizzare tutti gli elementi multimediali referenziati.",
+    "lb": "Benotzt 0, fir all referenzéiert Medien-Elementer unzeweisen.",
+    "nl": "Gebruik 0 om alle verwezen media-items weer te geven.",
+    "pl": "Uzyj 0, aby wyswietlic wszystkie powiazane elementy mediow."
+  },
+  "Use thumbnail images": {
+    "de": "Vorschaubilder verwenden",
+    "es": "Usar imagenes en miniatura",
+    "fr": "Utiliser des images miniatures",
+    "it": "Usa immagini miniatura",
+    "lb": "Thumbnail-Biller benotzen",
+    "nl": "Miniatuurafbeeldingen gebruiken",
+    "pl": "Uzyj miniatur obrazow"
+  },
+  "Video file": {
+    "de": "Videodatei",
+    "es": "Archivo de video",
+    "fr": "Fichier video",
+    "it": "File video",
+    "lb": "Video-Datei",
+    "nl": "Videobestand",
+    "pl": "Plik wideo"
+  },
+  "Videos badge icon": {
+    "de": "Videos-Badge-Symbol",
+    "es": "Icono de insignia de videos",
+    "fr": "Icone de badge videos",
+    "it": "Icona badge video",
+    "lb": "Videoen Badge-Icon",
+    "nl": "Videobadgepictogram",
+    "pl": "Ikona odznaki filmow"
+  },
+  "Virtual tour thumbnail missing": {
+    "de": "Vorschaubild fuer virtuellen Rundgang fehlt",
+    "es": "Falta la miniatura del tour virtual",
+    "fr": "Miniature de visite virtuelle manquante",
+    "it": "Miniatura del tour virtuale mancante",
+    "lb": "Thumbnail vun der virtueller Tour feelt",
+    "nl": "Miniatuur van virtuele rondleiding ontbreekt",
+    "pl": "Brak miniatury wirtualnego spaceru"
+  },
+  "When checked, the entire Documents block will be hidden if there are no documents.": {
+    "de": "Wenn aktiviert, wird der gesamte Dokumentenblock ausgeblendet, wenn keine Dokumente vorhanden sind.",
+    "es": "Si esta marcado, se ocultara todo el bloque de Documentos si no hay documentos.",
+    "fr": "Si coche, tout le bloc Documents sera masque s'il n'y a aucun document.",
+    "it": "Se selezionato, l'intero blocco Documenti verra nascosto se non ci sono documenti.",
+    "lb": "Wann ugehakt, gëtt de ganze Block Dokumenter verstoppt, wann et keng Dokumenter ginn.",
+    "nl": "Indien aangevinkt, wordt het volledige documentenblok verborgen als er geen documenten zijn.",
+    "pl": "Po zaznaczeniu caly blok Dokumenty zostanie ukryty, jesli nie ma dokumentow."
+  },
+  "When provided, hero carousel and lightbox main images use this image style.": {
+    "de": "Wenn angegeben, verwenden Hero-Karussell und Lightbox-Hauptbilder diesen Bildstil.",
+    "es": "Cuando se proporciona, el carrusel hero y las imagenes principales del lightbox usan este estilo de imagen.",
+    "fr": "Lorsqu'il est fourni, le carrousel hero et les images principales de la lightbox utilisent ce style d'image.",
+    "it": "Quando fornito, il carosello hero e le immagini principali della lightbox usano questo stile immagine.",
+    "lb": "Wann uginn, benotzen den Hero-Karussell an d'Haaptbiller vun der Lightbox dëse Bildstil.",
+    "nl": "Indien opgegeven, gebruiken de hero-carrousel en de hoofdafbeeldingen van de lightbox deze afbeeldingsstijl.",
+    "pl": "Po podaniu karuzela hero i glowne obrazy lightboxa uzywaja tego stylu obrazu."
+  },
+  "When provided, lightbox thumbnails and non-image previews use this image style.": {
+    "de": "Wenn angegeben, verwenden Lightbox-Vorschaubilder und Nicht-Bild-Vorschauen diesen Bildstil.",
+    "es": "Cuando se proporciona, las miniaturas de lightbox y las vistas previas que no son imagen usan este estilo de imagen.",
+    "fr": "Lorsqu'il est fourni, les miniatures de lightbox et les apercus non image utilisent ce style d'image.",
+    "it": "Quando fornito, le miniature della lightbox e le anteprime non immagine usano questo stile immagine.",
+    "lb": "Wann uginn, benotzen d'Lightbox-Thumbnails an d'Virschauen ouni Bild dëse Bildstil.",
+    "nl": "Indien opgegeven, gebruiken lightboxminiaturen en niet-afbeeldingsvoorbeelden deze afbeeldingsstijl.",
+    "pl": "Po podaniu miniatury lightboxa i podglady niebedace obrazami uzywaja tego stylu obrazu."
+  },
+  "description": {
+    "de": "Beschreibung",
+    "es": "descripción",
+    "fr": "description",
+    "it": "descrizione",
+    "lb": "Beschreiwung",
+    "nl": "beschrijving",
+    "pl": "opis"
+  },
+  "label": {
+    "de": "Bezeichnung",
+    "es": "etiqueta",
+    "fr": "etiquette",
+    "it": "etichetta",
+    "lb": "Label",
+    "nl": "label",
+    "pl": "etykieta"
+  },
+  "title": {
+    "de": "Titel",
+    "es": "titulo",
+    "fr": "titre",
+    "it": "titolo",
+    "lb": "Titel",
+    "nl": "titel",
+    "pl": "tytul"
+  },
+  "Administer PS Media": {
+    "de": "PS Media verwalten",
+    "es": "Administrar PS Media",
+    "fr": "Administrer PS Media",
+    "it": "Amministra PS Media",
+    "lb": "PS Media geréieren",
+    "nl": "PS Media beheren",
+    "pl": "Zarządzaj PS Media"
+  },
+  "Configure PS Media gallery and related settings.": {
+    "de": "PS Media-Galerie und zugehörige Einstellungen konfigurieren.",
+    "es": "Configurar la galería PS Media y ajustes relacionados.",
+    "fr": "Configurer la galerie PS Media et les paramètres associés.",
+    "it": "Configura la galeria PS Media e le impostazioni correlate.",
+    "lb": "PS Media-Galerie a verbonnen Astellungen configuréieren.",
+    "nl": "PS Media-galerij en gerelateerde instellingen configureren.",
+    "pl": "Skonfiguruj galerię PS Media i powiązane ustawienia."
+  },
+  "Configure offer gallery badge icons.": {
+    "de": "Badge-Icons der Angebotsgalerie konfigurieren.",
+    "es": "Configurar iconos de insignias de la galería de ofertas.",
+    "fr": "Configurer les icônes de badges de la galerie offre.",
+    "it": "Configura le icone badge della galleria offerta.",
+    "lb": "Offer-Galerie-Badge-Iconen configuréieren.",
+    "nl": "Badge-iconen van de aanbiedingsgalerij configureren.",
+    "pl": "Skonfiguruj ikony odznak galerii ofert."
+  },
+  "Minimal media foundation for offer media workflows.": {
+    "de": "Minimale Medienbasis für Angebots-Medien-Workflows.",
+    "es": "Base media mínima para flujos de medios de ofertas.",
+    "fr": "Fondation média minimale pour les workflows média des offres.",
+    "it": "Fondamento media minimo per i workflow media delle offerte.",
+    "lb": "Minimal Media-Fondatioun fir Offer-Media-Workflows.",
+    "nl": "Minimale mediafundering voor aanbiedingsmedia-workflows.",
+    "pl": "Minimalna podstawa mediów dla workflow mediów ofert."
+  },
+  "Offer gallery": {
+    "de": "Angebotsgalerie",
+    "es": "Galería de oferta",
+    "fr": "Galerie offre",
+    "it": "Galleria offerta",
+    "lb": "Offer-Galerie",
+    "nl": "Aanbiedingsgalerij",
+    "pl": "Galeria oferty"
+  },
+  "PS Media gallery settings": {
+    "de": "PS Media-Galerieeinstellungen",
+    "es": "Ajustes de galería PS Media",
+    "fr": "Paramètres galerie PS Media",
+    "it": "Impostazioni galleria PS Media",
+    "lb": "PS Media-Galerie-Astellungen",
+    "nl": "PS Media-galerijinstellingen",
+    "pl": "Ustawienia galerii PS Media"
+  },
+  "PS Offer gallery hero (788×462)": {
+    "de": "PS Angebotsgalerie Hero (788×462)",
+    "es": "Hero galería oferta PS (788×462)",
+    "fr": "Hero galerie offre PS (788×462)",
+    "it": "Hero galleria offerta PS (788×462)",
+    "lb": "PS Offer-Galerie Hero (788×462)",
+    "nl": "PS aanbiedingsgalerij hero (788×462)",
+    "pl": "Hero galerii oferty PS (788×462)"
+  },
+  "PS Offer gallery thumb (120×70)": {
+    "de": "PS Angebotsgalerie-Thumbnail (120×70)",
+    "es": "Miniatura galería oferta PS (120×70)",
+    "fr": "Vignette galerie offre PS (120×70)",
+    "it": "Thumbnail galleria offerta PS (120×70)",
+    "lb": "PS Offer-Galerie-Thumbnail (120×70)",
+    "nl": "PS aanbiedingsgalerij-thumb (120×70)",
+    "pl": "Miniatura galerii oferty PS (120×70)"
+  }
+}

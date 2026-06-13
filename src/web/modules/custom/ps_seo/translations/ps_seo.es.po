@@ -1,0 +1,150 @@
+# ES translation for ps_seo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_seo\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@city (@postal_code)"
+msgstr "@city (@postal_code)"
+
+msgid "@lead in @location"
+msgstr "@lead en @location"
+
+msgid "@lead. Ref. @reference."
+msgstr "@lead. Ref. @reference."
+
+msgid "@location, @region"
+msgstr "@location, @region"
+
+msgid "Access Property Search SEO admin"
+msgstr "Acceder a la administracion SEO de Property Search"
+
+msgid "Access the PS SEO configuration hub and related links."
+msgstr "Permite acceder al centro de configuracion SEO de PS y a los enlaces r"
+"elacionados."
+
+msgid "Administer Property Search SEO settings"
+msgstr "Administrar la configuracion SEO de Property Search"
+
+msgid "Back to PS configuration hub"
+msgstr "Volver al centro de configuracion de PS"
+
+msgid "Centralizes Property Search SEO: Metatag defaults, Schema.org, sitemap"
+" and search head tags."
+msgstr "Centraliza el SEO de Property Search: metatags por defecto, Schema.org"
+", sitemap y etiquetas head de busqueda."
+
+msgid "Configuration"
+msgstr "Configuración"
+
+msgid "Front page"
+msgstr "Pagina de inicio"
+
+msgid "Legacy default sitemap — disabled in favour of per-asset-type offer si"
+"temaps."
+msgstr "Sitemap predeterminado heredado: desactivado en favor de sitemaps de o"
+"ferta por tipo de activo."
+
+msgid "Lists all offer sitemaps by asset type (BNPPRE-style)."
+msgstr "Lista todos los sitemaps de ofertas por tipo de activo (estilo BNPPRE)"
+"."
+
+msgid "Manage PS SEO module settings."
+msgstr "Gestionar la configuracion del modulo PS SEO."
+
+msgid "Metatag defaults"
+msgstr "Metatags predeterminados"
+
+msgid "Metatags, Schema.org, sitemap and search SEO settings."
+msgstr "Configuracion de metatags, Schema.org, sitemap y SEO de busqueda."
+
+msgid "Module ps_seo — Metatag defaults, Schema.org, sitemap and search listi"
+"ng head tags."
+msgstr "Modulo ps_seo: metatags por defecto, Schema.org, sitemap y etiquetas h"
+"ead de listados de busqueda."
+
+msgid "Offers — Activity (ACT)"
+msgstr "Ofertas - Actividad (ACT)"
+
+msgid "Offers — Coworking (COW)"
+msgstr "Ofertas - Coworking (COW)"
+
+msgid "Offers — Land (TER)"
+msgstr "Ofertas - Terreno (TER)"
+
+msgid "Offers — Logistics (LOG)"
+msgstr "Ofertas - Logistica (LOG)"
+
+msgid "Offers — Offices (BUR)"
+msgstr "Ofertas - Oficinas (BUR)"
+
+msgid "Offers — Retail (COM)"
+msgstr "Ofertas - Comercio (COM)"
+
+msgid "Offers — Warehouse (ENT)"
+msgstr "Ofertas - Almacen (ENT)"
+
+msgid "Pathauto patterns"
+msgstr "Patrones de Pathauto"
+
+msgid "Published offer nodes for asset type ACT."
+msgstr "Nodos de oferta publicados para el tipo de activo ACT."
+
+msgid "Published offer nodes for asset type BUR."
+msgstr "Nodos de oferta publicados para el tipo de activo BUR."
+
+msgid "Published offer nodes for asset type COM."
+msgstr "Nodos de oferta publicados para el tipo de activo COM."
+
+msgid "Published offer nodes for asset type COW."
+msgstr "Nodos de oferta publicados para el tipo de activo COW."
+
+msgid "Published offer nodes for asset type ENT."
+msgstr "Nodos de oferta publicados para el tipo de activo ENT."
+
+msgid "Published offer nodes for asset type LOG."
+msgstr "Nodos de oferta publicados para el tipo de activo LOG."
+
+msgid "Published offer nodes for asset type TER."
+msgstr "Nodos de oferta publicados para el tipo de activo TER."
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Search SEO URL mappings"
+msgstr "Mapeos de URL SEO de busqueda"
+
+msgid "Simple XML sitemap"
+msgstr "Sitemap XML simple"
+
+msgid "Sitemap index"
+msgstr "Indice de sitemap"
+
+msgid "URL redirects"
+msgstr "Redirecciones de URL"
+
+msgid "[current-page:title] | [site:name]"
+msgstr "[current-page:title] | [site:name]"
+
+msgid "[node:field_commercial_title] | [site:name]"
+msgstr "[node:field_commercial_title] | [site:name]"
+
+msgid "[node:summary]"
+msgstr "[node:summary]"
+
+msgid "[site:name]"
+msgstr "[site:name]"
+
+msgid "[site:slogan]"
+msgstr "[site:slogan]"
+
+msgid "for rent"
+msgstr "en alquiler"
+
+msgid "for sale"
+msgstr "en venta"

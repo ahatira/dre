@@ -1,0 +1,42 @@
+title: 'Kontaktéiert eis'
+description: "Sitewäite Kontaktformular fir den Header-Offcanvas."
+category: Immobiliesich
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Är Kontaktdonnéeën'
+    first_name:
+      '#type': textfield
+      '#title': 'Virnumm'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Numm'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-Mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefon
+  message:
+    '#type': textarea
+    '#title': Noriicht
+    '#required': true
+  legal:
+    '#type': checkbox
+    '#title': 'Ech stëmmen der Dateschutzpolitik zou.'
+    '#required': true
+settings:
+  form_submit_label: Schécken
+  confirmation_message: "<p>Merci. Är Noriicht gouf geschéckt.</p>"
+handlers:
+  email_notification:
+    label: "Site-Benoriichtung"
+    subject: 'Kontaktformular vun der Websäit'
+    body: _default
+  email_confirmation:
+    label: Besicherbestätegung
+    subject: 'Merci datt Dir eis kontaktéiert hutt'
+    body: "<p>Merci fir Är Noriicht.</p><p>Mir hunn Är Ufro kritt a mellen eis geschwënn bei Iech.</p>"

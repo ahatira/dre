@@ -1,0 +1,154 @@
+# FR translation for ps_migrate module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_migrate\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "All surface values"
+msgstr "Toutes les valeurs de surface"
+
+msgid "Already published: @count"
+msgstr "Déjà publié : @count"
+
+msgid "Asset Type"
+msgstr "Type d'actif"
+
+msgid "Asset type code"
+msgstr "Code type d'actif"
+
+msgid "Budget Value"
+msgstr "Valeur budget"
+
+msgid "Business ID"
+msgstr "ID métier"
+
+msgid "Business ID (source XML)"
+msgstr "ID métier (XML source)"
+
+msgid "Canonical Drupal source language"
+msgstr "Langue source Drupal canonique"
+
+msgid "Canonical XML source language"
+msgstr "Langue source XML canonique"
+
+msgid "City"
+msgstr "Ville"
+
+msgid "Commercial Title"
+msgstr "Titre commercial"
+
+msgid "Country ISO code"
+msgstr "Code ISO pays"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "External ID"
+msgstr "ID externe"
+
+msgid "Feature code"
+msgstr "Code caractéristique"
+
+msgid "Feature definition ID"
+msgstr "ID définition caractéristique"
+
+msgid "Feature group ID"
+msgstr "ID groupe caractéristique"
+
+msgid "Feature group code"
+msgstr "Code groupe caractéristique"
+
+msgid "Full offer XML node"
+msgstr "Nœud XML offre complet"
+
+msgid "Generated at: @date"
+msgstr "Généré le : @date"
+
+msgid "Import Offers from CRM XML (Example)"
+msgstr "Importer les offres depuis XML CRM (exemple)"
+
+msgid "Import rejections"
+msgstr "Rejets d'import"
+
+msgid "Label"
+msgstr "Libellé"
+
+msgid "Last Post-Import Publication Report"
+msgstr "Dernier rapport de publication post-import"
+
+msgid "No post-import publication report is available yet. Run CRM import fir"
+"st."
+msgstr "Aucun rapport de publication post-import disponible. Lancez d'abord l'"
+"import CRM."
+
+msgid "No rejected offers in the latest report."
+msgstr "Aucune offre rejetée dans le dernier rapport."
+
+msgid "Node ID"
+msgstr "ID nœud"
+
+msgid "Offer Title"
+msgstr "Titre de l'offre"
+
+msgid "Operation Type"
+msgstr "Type d'opération"
+
+msgid "Operation code"
+msgstr "Code opération"
+
+msgid "Payload defaults"
+msgstr "Valeurs par défaut du payload"
+
+msgid "Provides migration support for PS entities with entity protection inte"
+"gration"
+msgstr "Fournit le support de migration pour les entités PS avec intégration d"
+"e protection d'entité."
+
+msgid "Published during post-import: @count"
+msgstr "Publié lors du post-import : @count"
+
+msgid "Reference"
+msgstr "Référence"
+
+msgid "Rejected during publication: @count"
+msgstr "Rejeté lors de la publication : @count"
+
+msgid "Rejection reason"
+msgstr "Motif de rejet"
+
+msgid "Required asset types"
+msgstr "Types d'actifs requis"
+
+msgid "Review post-import publication rejections for source data quality trac"
+"king."
+msgstr "Consulter les rejets de publication post-import pour le suivi qualité "
+"des données source."
+
+msgid "Source index"
+msgstr "Index source"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Target Drupal language"
+msgstr "Langue Drupal cible"
+
+msgid "Target XML language"
+msgstr "Langue XML cible"
+
+msgid "Technical elements node"
+msgstr "Nœud éléments techniques"
+
+msgid "Total offers scanned: @count"
+msgstr "Total offres analysées : @count"
+
+msgid "Type driver"
+msgstr "Driver de type"
+
+msgid "Weight"
+msgstr "Poids"

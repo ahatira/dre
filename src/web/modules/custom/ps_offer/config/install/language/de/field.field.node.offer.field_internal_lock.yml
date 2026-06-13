@@ -1,0 +1,2 @@
+label: Schutzsperre
+description: "⚠️ <strong>Aktivieren Sie diese Sperre, um manuelle Bearbeitungen vor automatisierten CRM-Importen zu schützen.</strong> Wenn gesperrt, wird dieses Angebot bei der Importsynchronisierung nicht überschrieben."

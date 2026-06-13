@@ -1,8 +1,243 @@
+# NL translation for ps_context module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_context\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: nl\n"
+
+msgid "- Select action -"
+msgstr "- Actie selecteren -"
+
+msgid "- Select field -"
+msgstr "- Veld selecteren -"
+
+msgid "- Select tab -"
+msgstr "- Tabblad selecteren -"
+
+msgid "AND — all conditions must match"
+msgstr "EN — alle voorwaarden moeten overeenkomen"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "Action type"
+msgstr "Actietype"
+
+msgid "Action value"
+msgstr "Actiewaarde"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Actions applied when conditions match."
+msgstr "Acties die worden toegepast wanneer de voorwaarden overeenkomen."
+
+msgid "Add action"
+msgstr "Actie toevoegen"
+
+msgid "Add condition"
+msgstr "Voorwaarde toevoegen"
+
+msgid "Add rule"
+msgstr "Regel toevoegen"
+
+msgid "Administer PS Context matrix"
+msgstr "PS Context-matrix beheren"
+
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+msgid "Always applies"
+msgstr "Altijd van toepassing"
+
+msgid "Budget"
+msgstr "Prijs"
+
+msgid "Condition"
+msgstr "Voorwaarde"
+
+msgid "Conditions"
+msgstr "Voorwaarden"
+
+msgid "Conditions logic"
+msgstr "Voorwaardenlogica"
+
+msgid "Conditions logic (AND/OR)"
+msgstr "Voorwaardenlogica (EN/OF)"
+
+msgid "Configure offer form field visibility rules (conditional rules engine)"
+"."
+msgstr "Regels voor veldzichtbaarheid in het aanbiedingsformulier configureren"
+" (engine voor voorwaardelijke regels)."
+
+msgid "Configure the offer form field visibility matrix rules."
+msgstr "De matrixregels voor veldzichtbaarheid in het aanbiedingsformulier con"
+"figureren."
+
+msgid "Context rule"
+msgstr "Contextregel"
+
+msgid "Context rules"
+msgstr "Contextregels"
+
+msgid "Created context rule %label."
+msgstr "Contextregel %label is aangemaakt."
+
+msgid "Disable field"
+msgstr "Veld uitschakelen"
+
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+msgid "E.g. BUR, COW, ENT, ACT, COM, TER (asset type) · LOC, VEN (operation t"
+"ype) · 1 / 0 (checkbox)."
+msgstr "Bijv. BUR, COW, ENT, ACT, COM, TER (objecttype) · LOC, VEN (bewerkings"
+"type) · 1 / 0 (selectievakje)."
+
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgid "Expected value"
+msgstr "Verwachte waarde"
+
+msgid "Field"
+msgstr "Veld"
+
+msgid "Field machine name"
+msgstr "Machinenaam van het veld"
+
+msgid "Fields"
+msgstr "Velden"
+
+msgid "For \"Set default value\": value to fill in. For \"Hide surface row\":"
+" delta index (1 = DISPO, 2 = ETREF)."
+msgstr "Voor \"Standaardwaarde instellen\": in te vullen waarde. Voor \"Opperv"
+"lakterij verbergen\": delta-index (1 = DISPO, 2 = ETREF)."
+
+msgid "Hide field"
+msgstr "Veld verbergen"
+
+msgid "Hide surface row (delta)"
+msgstr "Oppervlakterij verbergen (delta)"
+
+msgid "Hide tab"
+msgstr "Tabblad verbergen"
+
+msgid "Implements the offer form matrix rules engine: conditional field visib"
+"ility driven by asset_type × operation_type × field_divisible."
+msgstr "Implementeert de matrixregel-engine van het aanbiedingsformulier: voor"
+"waardelijke veldzichtbaarheid gestuurd door asset_type × operation_typ"
+"e × field_divisible."
+
+msgid "Label"
+msgstr "Label"
+
+msgid "Leave empty to make this rule always apply (unconditional)."
+msgstr "Leeg laten zodat deze regel altijd geldt (onvoorwaardelijk)."
+
+msgid "Machine name"
+msgstr "Machinenaam"
+
+msgid "Make optional"
+msgstr "Optioneel maken"
+
+msgid "Make required"
+msgstr "Verplicht maken"
+
+msgid "Matrix rules"
+msgstr "Matrixregels"
+
+msgid "Max budget (€)"
+msgstr "Max. prijs (€)"
+
+msgid "Max price (€)"
+msgstr "Max. prijs (€)"
+
+msgid "Max rent (€/m²/year)"
+msgstr "Max. huur (€/m²/jaar)"
+
+msgid "Max rent (€/seat/year)"
+msgstr "Max. huur (€/plek/jaar)"
+
+msgid "Min budget (€)"
+msgstr "Min. prijs (€)"
+
+msgid "Min price (€)"
+msgstr "Min. prijs (€)"
+
+msgid "Min rent (€/m²/year)"
+msgstr "Min. huur (€/m²/jaar)"
+
+msgid "Min rent (€/seat/year)"
+msgstr "Min. huur (€/plek/jaar)"
+
+msgid "OR — at least one condition must match"
+msgstr "OF — minstens één voorwaarde moet overeenkomen"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Price"
+msgstr "Prijs"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "Rent"
+msgstr "Huur"
+
+msgid "Rule %label has no valid actions and will have no effect."
+msgstr "Regel %label heeft geen geldige acties en heeft geen effect."
+
+msgid "Rules with lower weight are evaluated first. When two rules affect the"
+" same element, the last evaluated wins."
+msgstr "Regels met een lager gewicht worden eerst geëvalueerd. Als twee regels"
+" hetzelfde element beïnvloeden, wint de laatst geëvalueerde regel."
+
+msgid "Set default value"
+msgstr "Standaardwaarde instellen"
+
+msgid "Show field"
+msgstr "Veld tonen"
+
+msgid "Show tab"
+msgstr "Tabblad tonen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tab"
+msgstr "Tabblad"
+
+msgid "Tabs"
+msgstr "Tabbladen"
+
+msgid "Target (field or tab machine name)"
+msgstr "Doel (machinenaam van veld of tabblad)"
+
+msgid "The delta value for \"Hide surface row\" must be a positive integer (e"
+".g. 1 for DISPO, 2 for ETREF)."
+msgstr "De deltawaarde voor \"Oppervlakterij verbergen\" moet een positief geh"
+"eel getal zijn (bijv. 1 voor DISPO, 2 voor ETREF)."
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Updated context rule %label."
+msgstr "Contextregel %label is bijgewerkt."
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid "Weight"
+msgstr "Gewicht"
+
+msgid "context rule"
+msgstr "contextregel"
+
+msgid "context rules"
+msgstr "contextregels"

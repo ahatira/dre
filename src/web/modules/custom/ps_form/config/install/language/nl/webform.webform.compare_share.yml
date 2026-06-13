@@ -1,0 +1,44 @@
+title: 'Ontvang mijn vergelijking'
+description: "De vastgoedvergelijking delen via e-mail."
+category: 'Vastgoed zoeken'
+elements: |-
+  intro:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__intro">Voer uw zakelijke e-mailadres in om uw vastgoedvergelijking te ontvangen:</p>'
+  prof_email_address:
+    '#type': email
+    '#title': 'Zakelijk e-mailadres'
+    '#required': true
+  optout_group:
+    '#type': fieldset
+    '#title': 'Commerciële communicatie'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-compare-share-form__optout-intro">Ik maak bezwaar tegen het ontvangen van commerciële communicatie van BNP Paribas Real Estate Transaction France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefoon
+  legal:
+    '#type': checkbox
+    '#title': 'Ik heb de voorwaarden van het beleid inzake bescherming van persoonsgegevens gelezen en accepteer deze.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France verwerkt uw gegevens om u de gevraagde vergelijking te sturen. Bekijk onze <a href="/data-protection">Kennisgeving gegevensbescherming</a> voor uw rechten.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  compare_url:
+    '#type': hidden
+    '#title': 'Vergelijkings-URL'
+settings:
+  form_submit_label: 'Ontvang mijn vergelijking'
+  confirmation_message: "<p>Uw vergelijking is per e-mail verzonden.</p>"
+handlers:

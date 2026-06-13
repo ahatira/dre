@@ -1,0 +1,18 @@
+settings:
+  plugins:
+    ckeditor5_codeBlock:
+      languages:
+        - label: 'Platte tekst'
+          language: plaintext
+        - label: PHP
+          language: php
+        - label: JavaScript
+          language: javascript
+        - label: HTML
+          language: html
+        - label: CSS
+          language: css
+        - label: YAML
+          language: yaml
+        - label: JSON
+          language: json

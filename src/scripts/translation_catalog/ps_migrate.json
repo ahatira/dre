@@ -1,0 +1,1055 @@
+{
+  "Address line 1": {
+    "de": "Adresszeile 1",
+    "es": "Línea de dirección 1",
+    "fr": "Adresse ligne 1",
+    "it": "Riga indirizzo 1",
+    "lb": "Adresszeil 1",
+    "nl": "Adresregel 1",
+    "pl": "Linia adresu 1"
+  },
+  "Agent UID": {
+    "de": "Agent-UID",
+    "es": "UID de agente",
+    "fr": "UID agent",
+    "it": "UID agente",
+    "lb": "Agent-UID",
+    "nl": "Agent-UID",
+    "pl": "UID agenta"
+  },
+  "All surface qualification codes (test multi-extraction)": {
+    "de": "Alle Flächenqualifikationscodes (Test Multi-Extraktion)",
+    "es": "Todos los códigos de calificación de superficie (prueba multi-extracción)",
+    "fr": "Tous les codes de qualification de surface (test multi-extraction)",
+    "it": "Tutti i codici qualificazione superficie (test multi-estrazione)",
+    "lb": "All Flächenqualifikatiounscoden (Test Multi-Extraktioun)",
+    "nl": "Alle oppervlaktekwalificatiecodes (test multi-extractie)",
+    "pl": "Wszystkie kody kwalifikacji powierzchni (test multi-ekstrakcji)"
+  },
+  "All surface values": {
+    "de": "Alle Flächenwerte",
+    "es": "Todos los valores de superficie",
+    "fr": "Toutes les valeurs de surface",
+    "it": "Tutti i valori superficie",
+    "lb": "All Flächenwäerter",
+    "nl": "Alle oppervlaktewaarden",
+    "pl": "Wszystkie wartości powierzchni"
+  },
+  "All surface values (test multi-extraction)": {
+    "de": "Alle Flächenwerte (Test Multi-Extraktion)",
+    "es": "Todos los valores de superficie (prueba multi-extracción)",
+    "fr": "Toutes les valeurs de surface (test multi-extraction)",
+    "it": "Tutti i valori superficie (test multi-estrazione)",
+    "lb": "All Flächenwäerter (Test Multi-Extraktioun)",
+    "nl": "Alle oppervlaktewaarden (test multi-extractie)",
+    "pl": "Wszystkie wartości powierzchni (test multi-ekstrakcji)"
+  },
+  "Already published: @count": {
+    "de": "Bereits veröffentlicht: @count",
+    "es": "Ya publicado: @count",
+    "fr": "Déjà publié : @count",
+    "it": "Già pubblicato: @count",
+    "lb": "Scho publizéiert: @count",
+    "nl": "Al gepubliceerd: @count",
+    "pl": "Już opublikowano: @count"
+  },
+  "Alternative text FR": {
+    "de": "Alternativtext FR",
+    "es": "Texto alternativo FR",
+    "fr": "Texte alternatif FR",
+    "it": "Testo alternativo FR",
+    "lb": "Alternativtext FR",
+    "nl": "Alternatieve tekst FR",
+    "pl": "Tekst alternatywny FR"
+  },
+  "Asset Type": {
+    "de": "Vermögensart",
+    "es": "Tipo de activo",
+    "fr": "Type d'actif",
+    "it": "Tipo di attività",
+    "lb": "Verméigensart",
+    "nl": "Activatype",
+    "pl": "Typ aktywa"
+  },
+  "Asset type code": {
+    "de": "Vermögensart-Code",
+    "es": "Código de tipo de activo",
+    "fr": "Code type d'actif",
+    "it": "Codice tipo attività",
+    "lb": "Verméigensart-Code",
+    "nl": "Activatypecode",
+    "pl": "Kod typu aktywa"
+  },
+  "Availability (FR)": {
+    "de": "Verfügbarkeit (FR)",
+    "es": "Disponibilidad (FR)",
+    "fr": "Disponibilité (FR)",
+    "it": "Disponibilità (FR)",
+    "lb": "Disponibilitéit (FR)",
+    "nl": "Beschikbaarheid (FR)",
+    "pl": "Dostępność (FR)"
+  },
+  "Avatar URL": {
+    "de": "Avatar-URL",
+    "es": "URL de avatar",
+    "fr": "URL avatar",
+    "it": "URL avatar",
+    "lb": "Avatar-URL",
+    "nl": "Avatar-URL",
+    "pl": "URL awatara"
+  },
+  "Budget CC flag": {
+    "de": "Budget-CC-Flag",
+    "es": "Indicador presupuesto CC",
+    "fr": "Indicateur budget CC",
+    "it": "Flag budget CC",
+    "lb": "Budget-CC-Flag",
+    "nl": "Budget-CC-vlag",
+    "pl": "Flaga budżetu CC"
+  },
+  "Budget HT flag": {
+    "de": "Budget-HT-Flag",
+    "es": "Indicador presupuesto HT",
+    "fr": "Indicateur budget HT",
+    "it": "Flag budget HT",
+    "lb": "Budget-HT-Flag",
+    "nl": "Budget-HT-vlag",
+    "pl": "Flaga budżetu netto"
+  },
+  "Budget Value": {
+    "de": "Budgetwert",
+    "es": "Valor de presupuesto",
+    "fr": "Valeur budget",
+    "it": "Valore budget",
+    "lb": "Budgetwäert",
+    "nl": "Budgetwaarde",
+    "pl": "Wartość budżetu"
+  },
+  "Budget period code": {
+    "de": "Budgetperioden-Code",
+    "es": "Código de período de presupuesto",
+    "fr": "Code période budget",
+    "it": "Codice periodo budget",
+    "lb": "Budgetperioden-Code",
+    "nl": "Budgetperiodecode",
+    "pl": "Kod okresu budżetu"
+  },
+  "Budget unit code": {
+    "de": "Budgeteinheiten-Code",
+    "es": "Código de unidad de presupuesto",
+    "fr": "Code unité budget",
+    "it": "Codice unità budget",
+    "lb": "Budgeteenheeten-Code",
+    "nl": "Budgeteenheidcode",
+    "pl": "Kod jednostki budżetu"
+  },
+  "Budget value": {
+    "de": "Budgetwert",
+    "es": "Valor de presupuesto",
+    "fr": "Valeur budget",
+    "it": "Valore budget",
+    "lb": "Budgetwäert",
+    "nl": "Budgetwaarde",
+    "pl": "Wartość budżetu"
+  },
+  "Building name": {
+    "de": "Gebäudename",
+    "es": "Nombre del edificio",
+    "fr": "Nom du bâtiment",
+    "it": "Nome edificio",
+    "lb": "Gebäudenumm",
+    "nl": "Gebouwnaam",
+    "pl": "Nazwa budynku"
+  },
+  "Business ID": {
+    "de": "Business-ID",
+    "es": "ID de negocio",
+    "fr": "ID métier",
+    "it": "ID business",
+    "lb": "Business-ID",
+    "nl": "Business-ID",
+    "pl": "ID biznesowy"
+  },
+  "Business ID (source XML)": {
+    "de": "Business-ID (Quell-XML)",
+    "es": "ID de negocio (XML origen)",
+    "fr": "ID métier (XML source)",
+    "it": "ID business (XML sorgente)",
+    "lb": "Business-ID (Quell-XML)",
+    "nl": "Business-ID (bron-XML)",
+    "pl": "ID biznesowy (XML źródłowy)"
+  },
+  "Canonical Drupal source language": {
+    "de": "Kanonische Drupal-Quellsprache",
+    "es": "Idioma fuente Drupal canónico",
+    "fr": "Langue source Drupal canonique",
+    "it": "Lingua sorgente Drupal canonica",
+    "lb": "Kanonesch Drupal-Quellsprooch",
+    "nl": "Canonieke Drupal-bronstaal",
+    "pl": "Kanoniczny język źródłowy Drupal"
+  },
+  "Canonical XML source language": {
+    "de": "Kanonische XML-Quellsprache",
+    "es": "Idioma fuente XML canónico",
+    "fr": "Langue source XML canonique",
+    "it": "Lingua sorgente XML canonica",
+    "lb": "Kanonesch XML-Quellsprooch",
+    "nl": "Canonieke XML-bronstaal",
+    "pl": "Kanoniczny język źródłowy XML"
+  },
+  "City": {
+    "de": "Stadt",
+    "es": "Ciudad",
+    "fr": "Ville",
+    "it": "Città",
+    "lb": "Stad",
+    "nl": "Stad",
+    "pl": "Miasto"
+  },
+  "Commercial Title": {
+    "de": "Kommerzieller Titel",
+    "es": "Título comercial",
+    "fr": "Titre commercial",
+    "it": "Titolo commerciale",
+    "lb": "Kommerzielle Titel",
+    "nl": "Commerciële titel",
+    "pl": "Tytuł handlowy"
+  },
+  "Country": {
+    "de": "Land",
+    "es": "País",
+    "fr": "Pays",
+    "it": "Paese",
+    "lb": "Land",
+    "nl": "Land",
+    "pl": "Kraj"
+  },
+  "Country ISO code": {
+    "de": "Länder-ISO-Code",
+    "es": "Código ISO de país",
+    "fr": "Code ISO pays",
+    "it": "Codice ISO paese",
+    "lb": "Land-ISO-Code",
+    "nl": "Land-ISO-code",
+    "pl": "Kod ISO kraju"
+  },
+  "Creation date": {
+    "de": "Erstellungsdatum",
+    "es": "Fecha de creación",
+    "fr": "Date de création",
+    "it": "Data di creazione",
+    "lb": "Erstellungsdatum",
+    "nl": "Aanmaakdatum",
+    "pl": "Data utworzenia"
+  },
+  "Definition ID": {
+    "de": "Definitions-ID",
+    "es": "ID de definición",
+    "fr": "ID définition",
+    "it": "ID definizione",
+    "lb": "Definitiouns-ID",
+    "nl": "Definitie-ID",
+    "pl": "ID definicji"
+  },
+  "Description": {
+    "de": "Beschreibung",
+    "es": "Descripción",
+    "fr": "Description",
+    "it": "Descrizione",
+    "lb": "Beschreiwung",
+    "nl": "Beschrijving",
+    "pl": "Opis"
+  },
+  "Diagnostic classes": {
+    "de": "Diagnoseklassen",
+    "es": "Clases de diagnóstico",
+    "fr": "Classes diagnostiques",
+    "it": "Classi diagnostiche",
+    "lb": "Diagnoseklassen",
+    "nl": "Diagnostische klassen",
+    "pl": "Klasy diagnostyczne"
+  },
+  "Diagnostic dates": {
+    "de": "Diagnosedaten",
+    "es": "Fechas de diagnóstico",
+    "fr": "Dates diagnostiques",
+    "it": "Date diagnostiche",
+    "lb": "Diagnosedaten",
+    "nl": "Diagnostische datums",
+    "pl": "Daty diagnostyczne"
+  },
+  "Diagnostic no classification markers": {
+    "de": "Diagnose-Marker ohne Klassifizierung",
+    "es": "Marcadores de diagnóstico sin clasificación",
+    "fr": "Marqueurs diagnostic sans classification",
+    "it": "Marcatori diagnostici senza classificazione",
+    "lb": "Diagnose-Marker ouni Klassifikatioun",
+    "nl": "Diagnostische markers zonder classificatie",
+    "pl": "Znaczniki diagnostyczne bez klasyfikacji"
+  },
+  "Diagnostic non applicable markers": {
+    "de": "Diagnose-Marker nicht anwendbar",
+    "es": "Marcadores de diagnóstico no aplicable",
+    "fr": "Marqueurs diagnostic non applicable",
+    "it": "Marcatori diagnostici non applicabili",
+    "lb": "Diagnose-Marker net applicabel",
+    "nl": "Diagnostische markers niet van toepassing",
+    "pl": "Znaczniki diagnostyczne nie dotyczy"
+  },
+  "Diagnostic types": {
+    "de": "Diagnosetypen",
+    "es": "Tipos de diagnóstico",
+    "fr": "Types diagnostiques",
+    "it": "Tipi diagnostici",
+    "lb": "Diagnosetypen",
+    "nl": "Diagnostische typen",
+    "pl": "Typy diagnostyczne"
+  },
+  "Diagnostic validity end dates": {
+    "de": "Enddaten der Diagnosegültigkeit",
+    "es": "Fechas de fin de validez de diagnóstico",
+    "fr": "Dates de fin de validité diagnostiques",
+    "it": "Date fine validità diagnostiche",
+    "lb": "Enddaten vun der Diagnosegültegkeet",
+    "nl": "Einddata diagnostische geldigheid",
+    "pl": "Daty końca ważności diagnostycznej"
+  },
+  "Diagnostic values": {
+    "de": "Diagnosewerte",
+    "es": "Valores de diagnóstico",
+    "fr": "Valeurs diagnostiques",
+    "it": "Valori diagnostici",
+    "lb": "Diagnosewäerter",
+    "nl": "Diagnostische waarden",
+    "pl": "Wartości diagnostyczne"
+  },
+  "Display order": {
+    "de": "Anzeigereihenfolge",
+    "es": "Orden de visualización",
+    "fr": "Ordre d'affichage",
+    "it": "Ordine visualizzazione",
+    "lb": "Uweisungsreiefolleg",
+    "nl": "Weergavevolgorde",
+    "pl": "Kolejność wyświetlania"
+  },
+  "Division IDs list": {
+    "de": "Liste der Divisions-IDs",
+    "es": "Lista de IDs de división",
+    "fr": "Liste des IDs de division",
+    "it": "Elenco ID divisioni",
+    "lb": "Lëscht vun Divisiouns-IDs",
+    "nl": "Lijst met divisie-ID's",
+    "pl": "Lista ID podziałów"
+  },
+  "Email": {
+    "de": "E-Mail",
+    "es": "Correo electrónico",
+    "fr": "E-mail",
+    "it": "E-mail",
+    "lb": "E-Mail",
+    "nl": "E-mail",
+    "pl": "E-mail"
+  },
+  "External ID": {
+    "de": "Externe ID",
+    "es": "ID externo",
+    "fr": "ID externe",
+    "it": "ID esterno",
+    "lb": "Extern ID",
+    "nl": "Externe ID",
+    "pl": "ID zewnętrzny"
+  },
+  "Feature Code": {
+    "de": "Merkmal-Code",
+    "es": "Código de característica",
+    "fr": "Code caractéristique",
+    "it": "Codice caratteristica",
+    "lb": "Feature-Code",
+    "nl": "Kenmerkcode",
+    "pl": "Kod cechy"
+  },
+  "Feature code": {
+    "de": "Merkmal-Code",
+    "es": "Código de característica",
+    "fr": "Code caractéristique",
+    "it": "Codice caratteristica",
+    "lb": "Feature-Code",
+    "nl": "Kenmerkcode",
+    "pl": "Kod cechy"
+  },
+  "Feature definition ID": {
+    "de": "Merkmaldefinitions-ID",
+    "es": "ID de definición de característica",
+    "fr": "ID définition caractéristique",
+    "it": "ID definizione caratteristica",
+    "lb": "Feature-Definitiouns-ID",
+    "nl": "Kenmerkdefinitie-ID",
+    "pl": "ID definicji cechy"
+  },
+  "Feature group ID": {
+    "de": "Merkmalgruppen-ID",
+    "es": "ID de grupo de características",
+    "fr": "ID groupe caractéristique",
+    "it": "ID gruppo caratteristiche",
+    "lb": "Feature-Gruppen-ID",
+    "nl": "Kenmerkgroep-ID",
+    "pl": "ID grupy cech"
+  },
+  "Feature group code": {
+    "de": "Merkmalgruppen-Code",
+    "es": "Código de grupo de características",
+    "fr": "Code groupe caractéristique",
+    "it": "Codice gruppo caratteristiche",
+    "lb": "Feature-Gruppen-Code",
+    "nl": "Kenmerkgroepcode",
+    "pl": "Kod grupy cech"
+  },
+  "Fees (honoraires)": {
+    "de": "Honorare",
+    "es": "Honorarios",
+    "fr": "Honoraires",
+    "it": "Onorari",
+    "lb": "Honoraren",
+    "nl": "Honoraria",
+    "pl": "Honoraria"
+  },
+  "First name": {
+    "de": "Vorname",
+    "es": "Nombre",
+    "fr": "Prénom",
+    "it": "Nome",
+    "lb": "Virnumm",
+    "nl": "Voornaam",
+    "pl": "Imię"
+  },
+  "Floor": {
+    "de": "Etage",
+    "es": "Planta",
+    "fr": "Étage",
+    "it": "Piano",
+    "lb": "Stack",
+    "nl": "Verdieping",
+    "pl": "Piętro"
+  },
+  "Full offer XML node": {
+    "de": "Vollständiger Angebots-XML-Knoten",
+    "es": "Nodo XML de oferta completo",
+    "fr": "Nœud XML offre complet",
+    "it": "Nodo XML offerta completo",
+    "lb": "Kompletten Offer-XML-Knäppchen",
+    "nl": "Volledig aanbod-XML-knooppunt",
+    "pl": "Pełny węzeł XML oferty"
+  },
+  "Generated at: @date": {
+    "de": "Erstellt am: @date",
+    "es": "Generado el: @date",
+    "fr": "Généré le : @date",
+    "it": "Generato il: @date",
+    "lb": "Generéiert den: @date",
+    "nl": "Gegenereerd op: @date",
+    "pl": "Wygenerowano: @date"
+  },
+  "Group Code": {
+    "de": "Gruppencode",
+    "es": "Código de grupo",
+    "fr": "Code groupe",
+    "it": "Codice gruppo",
+    "lb": "Gruppencode",
+    "nl": "Groepcode",
+    "pl": "Kod grupy"
+  },
+  "Group ID": {
+    "de": "Gruppen-ID",
+    "es": "ID de grupo",
+    "fr": "ID groupe",
+    "it": "ID gruppo",
+    "lb": "Gruppen-ID",
+    "nl": "Groep-ID",
+    "pl": "ID grupy"
+  },
+  "Import Agent Avatar Files from CRM XML (Step 1: Download avatar images)": {
+    "de": "Agenten-Avatar-Dateien aus CRM-XML importieren (Schritt 1: Avatare herunterladen)",
+    "es": "Importar archivos de avatar de agente desde XML CRM (Paso 1: descargar avatares)",
+    "fr": "Importer les fichiers avatar agent depuis XML CRM (Étape 1 : télécharger les avatars)",
+    "it": "Importa file avatar agente da XML CRM (Fase 1: scarica avatar)",
+    "lb": "Agenten-Avatar-Fichieren aus CRM-XML importéieren (Schrëtt 1: Avatare eroflueden)",
+    "nl": "Agentavatarbestanden importeren uit CRM-XML (Stap 1: avatars downloaden)",
+    "pl": "Importuj pliki awatarów agentów z XML CRM (Krok 1: pobierz awatary)"
+  },
+  "Import Agents from CRM XML (Config-First)": {
+    "de": "Agenten aus CRM-XML importieren (Config-First)",
+    "es": "Importar agentes desde XML CRM (Config-First)",
+    "fr": "Importer les agents depuis XML CRM (Config-First)",
+    "it": "Importa agenti da XML CRM (Config-First)",
+    "lb": "Agenten aus CRM-XML importéieren (Config-First)",
+    "nl": "Agenten importeren uit CRM-XML (Config-First)",
+    "pl": "Importuj agentów z XML CRM (Config-First)"
+  },
+  "Import Feature Definitions from CRM XML": {
+    "de": "Merkmaldefinitionen aus CRM-XML importieren",
+    "es": "Importar definiciones de características desde XML CRM",
+    "fr": "Importer les définitions de caractéristiques depuis XML CRM",
+    "it": "Importa definizioni caratteristiche da XML CRM",
+    "lb": "Feature-Definitiounen aus CRM-XML importéieren",
+    "nl": "Kenmerkdefinities importeren uit CRM-XML",
+    "pl": "Importuj definicje cech z XML CRM"
+  },
+  "Import Feature Groups from CRM XML": {
+    "de": "Merkmalgruppen aus CRM-XML importieren",
+    "es": "Importar grupos de características desde XML CRM",
+    "fr": "Importer les groupes de caractéristiques depuis XML CRM",
+    "it": "Importa gruppi caratteristiche da XML CRM",
+    "lb": "Feature-Gruppen aus CRM-XML importéieren",
+    "nl": "Kenmerkgroepen importeren uit CRM-XML",
+    "pl": "Importuj grupy cech z XML CRM"
+  },
+  "Import Files from CRM XML (Step 1: Download images)": {
+    "de": "Dateien aus CRM-XML importieren (Schritt 1: Bilder herunterladen)",
+    "es": "Importar archivos desde XML CRM (Paso 1: descargar imágenes)",
+    "fr": "Importer les fichiers depuis XML CRM (Étape 1 : télécharger les images)",
+    "it": "Importa file da XML CRM (Fase 1: scarica immagini)",
+    "lb": "Fichieren aus CRM-XML importéieren (Schrëtt 1: Biller eroflueden)",
+    "nl": "Bestanden importeren uit CRM-XML (Stap 1: afbeeldingen downloaden)",
+    "pl": "Importuj pliki z XML CRM (Krok 1: pobierz obrazy)"
+  },
+  "Import Media from CRM XML (Step 2: Create media entities)": {
+    "de": "Medien aus CRM-XML importieren (Schritt 2: Medienentitäten erstellen)",
+    "es": "Importar medios desde XML CRM (Paso 2: crear entidades multimedia)",
+    "fr": "Importer les médias depuis XML CRM (Étape 2 : créer les entités média)",
+    "it": "Importa media da XML CRM (Fase 2: crea entità media)",
+    "lb": "Medien aus CRM-XML importéieren (Schrëtt 2: Medien-Entitéiten erstellen)",
+    "nl": "Media importeren uit CRM-XML (Stap 2: media-entiteiten aanmaken)",
+    "pl": "Importuj media z XML CRM (Krok 2: utwórz encje mediów)"
+  },
+  "Import Offer Translations from CRM XML (dynamic)": {
+    "de": "Angebotsübersetzungen aus CRM-XML importieren (dynamisch)",
+    "es": "Importar traducciones de ofertas desde XML CRM (dinámico)",
+    "fr": "Importer les traductions d'offres depuis XML CRM (dynamique)",
+    "it": "Importa traduzioni offerte da XML CRM (dinamico)",
+    "lb": "Offer-Iwwersetzungen aus CRM-XML importéieren (dynamesch)",
+    "nl": "Aanbiedingvertalingen importeren uit CRM-XML (dynamisch)",
+    "pl": "Importuj tłumaczenia ofert z XML CRM (dynamiczny)"
+  },
+  "Import Offers from CRM XML (Config-First - Phase 1)": {
+    "de": "Angebote aus CRM-XML importieren (Config-First – Phase 1)",
+    "es": "Importar ofertas desde XML CRM (Config-First – Fase 1)",
+    "fr": "Importer les offres depuis XML CRM (Config-First – Phase 1)",
+    "it": "Importa offerte da XML CRM (Config-First – Fase 1)",
+    "lb": "Offeren aus CRM-XML importéieren (Config-First – Phase 1)",
+    "nl": "Aanbiedingen importeren uit CRM-XML (Config-First – Fase 1)",
+    "pl": "Importuj oferty z XML CRM (Config-First – Faza 1)"
+  },
+  "Import Offers from CRM XML (Example)": {
+    "de": "Angebote aus CRM-XML importieren (Beispiel)",
+    "es": "Importar ofertas desde XML CRM (ejemplo)",
+    "fr": "Importer les offres depuis XML CRM (exemple)",
+    "it": "Importa offerte da XML CRM (esempio)",
+    "lb": "Offeren aus CRM-XML importéieren (Beispill)",
+    "nl": "Aanbiedingen importeren uit CRM-XML (voorbeeld)",
+    "pl": "Importuj oferty z XML CRM (przykład)"
+  },
+  "Import Virtual Tour Media from CRM XML (TYPE_CODE=VIS)": {
+    "de": "Virtuelle Tour-Medien aus CRM-XML importieren (TYPE_CODE=VIS)",
+    "es": "Importar medios de visita virtual desde XML CRM (TYPE_CODE=VIS)",
+    "fr": "Importer les médias visite virtuelle depuis XML CRM (TYPE_CODE=VIS)",
+    "it": "Importa media visita virtuale da XML CRM (TYPE_CODE=VIS)",
+    "lb": "Virtuell Tour-Medien aus CRM-XML importéieren (TYPE_CODE=VIS)",
+    "nl": "Virtuele tourmedia importeren uit CRM-XML (TYPE_CODE=VIS)",
+    "pl": "Importuj media wirtualnego spaceru z XML CRM (TYPE_CODE=VIS)"
+  },
+  "Import rejections": {
+    "de": "Import-Ablehnungen",
+    "es": "Rechazos de importación",
+    "fr": "Rejets d'import",
+    "it": "Rifiuti importazione",
+    "lb": "Import-Oflehnungen",
+    "nl": "Importafwijzingen",
+    "pl": "Odrzucenia importu"
+  },
+  "Is divisible": {
+    "de": "Ist teilbar",
+    "es": "Es divisible",
+    "fr": "Est divisible",
+    "it": "È divisibile",
+    "lb": "Ass deelbar",
+    "nl": "Is deelbaar",
+    "pl": "Jest podzielny"
+  },
+  "LOT identifier": {
+    "de": "LOT-Kennung",
+    "es": "Identificador LOT",
+    "fr": "Identifiant LOT",
+    "it": "Identificatore LOT",
+    "lb": "LOT-Identifizéierer",
+    "nl": "LOT-identificatie",
+    "pl": "Identyfikator LOT"
+  },
+  "Label": {
+    "de": "Bezeichnung",
+    "es": "Etiqueta",
+    "fr": "Libellé",
+    "it": "Etichetta",
+    "lb": "Bezeechnung",
+    "nl": "Label",
+    "pl": "Etykieta"
+  },
+  "Last Post-Import Publication Report": {
+    "de": "Letzter Bericht zur Veröffentlichung nach Import",
+    "es": "Último informe de publicación post-importación",
+    "fr": "Dernier rapport de publication post-import",
+    "it": "Ultimo report pubblicazione post-import",
+    "lb": "Leschten Post-Import-Publikatiounsbericht",
+    "nl": "Laatste publicatierapport na import",
+    "pl": "Ostatni raport publikacji po imporcie"
+  },
+  "Last name": {
+    "de": "Nachname",
+    "es": "Apellido",
+    "fr": "Nom",
+    "it": "Cognome",
+    "lb": "Familljennumm",
+    "nl": "Achternaam",
+    "pl": "Nazwisko"
+  },
+  "Last update date": {
+    "de": "Datum der letzten Aktualisierung",
+    "es": "Fecha de última actualización",
+    "fr": "Date de dernière mise à jour",
+    "it": "Data ultimo aggiornamento",
+    "lb": "Datum vun der leschter Aktualiséierung",
+    "nl": "Datum laatste update",
+    "pl": "Data ostatniej aktualizacji"
+  },
+  "Latitude": {
+    "de": "Breitengrad",
+    "es": "Latitud",
+    "fr": "Latitude",
+    "it": "Latitudine",
+    "lb": "Breedegrad",
+    "nl": "Breedtegraad",
+    "pl": "Szerokość geograficzna"
+  },
+  "List of media display orders": {
+    "de": "Liste der Medien-Anzeigereihenfolgen",
+    "es": "Lista de órdenes de visualización de medios",
+    "fr": "Liste des ordres d'affichage média",
+    "it": "Elenco ordini visualizzazione media",
+    "lb": "Lëscht vun Medien-Uweisungsreiefollegen",
+    "nl": "Lijst met mediaweergavevolgordes",
+    "pl": "Lista kolejności wyświetlania mediów"
+  },
+  "Longitude": {
+    "de": "Längengrad",
+    "es": "Longitud",
+    "fr": "Longitude",
+    "it": "Longitudine",
+    "lb": "Längtegrad",
+    "nl": "Lengtegraad",
+    "pl": "Długość geograficzna"
+  },
+  "Main business leader UID": {
+    "de": "UID des Haupt-Business-Leaders",
+    "es": "UID del líder de negocio principal",
+    "fr": "UID responsable métier principal",
+    "it": "UID responsabile business principale",
+    "lb": "UID vum Haapt-Business-Leader",
+    "nl": "UID hoofd business leader",
+    "pl": "UID głównego lidera biznesowego"
+  },
+  "Media Type Code": {
+    "de": "Medientyp-Code",
+    "es": "Código de tipo de medio",
+    "fr": "Code type média",
+    "it": "Codice tipo media",
+    "lb": "Medientyp-Code",
+    "nl": "Mediatypecode",
+    "pl": "Kod typu mediów"
+  },
+  "Media URL": {
+    "de": "Medien-URL",
+    "es": "URL de medio",
+    "fr": "URL média",
+    "it": "URL media",
+    "lb": "Medien-URL",
+    "nl": "Media-URL",
+    "pl": "URL mediów"
+  },
+  "Media filename": {
+    "de": "Mediendateiname",
+    "es": "Nombre de archivo multimedia",
+    "fr": "Nom de fichier média",
+    "it": "Nome file media",
+    "lb": "Medien-Dateinumm",
+    "nl": "Mediabestandsnaam",
+    "pl": "Nazwa pliku mediów"
+  },
+  "Migration group for importing data from CRM XML files": {
+    "de": "Migrationsgruppe für den Import von Daten aus CRM-XML-Dateien",
+    "es": "Grupo de migración para importar datos desde archivos XML CRM",
+    "fr": "Groupe de migration pour l'import de données depuis les fichiers XML CRM",
+    "it": "Gruppo di migrazione per l'importazione di dati da file XML CRM",
+    "lb": "Migratiounsgrupp fir den Import vu Daten aus CRM-XML-Fichieren",
+    "nl": "Migratiegroep voor het importeren van gegevens uit CRM-XML-bestanden",
+    "pl": "Grupa migracji do importu danych z plików XML CRM"
+  },
+  "Nature label": {
+    "de": "Naturbezeichnung",
+    "es": "Etiqueta de naturaleza",
+    "fr": "Libellé nature",
+    "it": "Etichetta natura",
+    "lb": "Naturbezeechnung",
+    "nl": "Natuurlabel",
+    "pl": "Etykieta rodzaju"
+  },
+  "No post-import publication report is available yet. Run CRM import first.": {
+    "de": "Noch kein Bericht zur Veröffentlichung nach Import verfügbar. Führen Sie zuerst den CRM-Import aus.",
+    "es": "Aún no hay informe de publicación post-importación. Ejecute primero la importación CRM.",
+    "fr": "Aucun rapport de publication post-import disponible. Lancez d'abord l'import CRM.",
+    "it": "Nessun report pubblicazione post-import ancora disponibile. Esegui prima l'import CRM.",
+    "lb": "Nach Import-Publikatiounsbericht nach net disponibel. CRM-Import als éischt lancéieren.",
+    "nl": "Nog geen publicatierapport na import beschikbaar. Voer eerst CRM-import uit.",
+    "pl": "Brak raportu publikacji po imporcie. Najpierw uruchom import CRM."
+  },
+  "No rejected offers in the latest report.": {
+    "de": "Keine abgelehnten Angebote im letzten Bericht.",
+    "es": "No hay ofertas rechazadas en el último informe.",
+    "fr": "Aucune offre rejetée dans le dernier rapport.",
+    "it": "Nessuna offerta rifiutata nell'ultimo report.",
+    "lb": "Keng ofgeleent Offeren am leschten Bericht.",
+    "nl": "Geen afgewezen aanbiedingen in het laatste rapport.",
+    "pl": "Brak odrzuconych ofert w ostatnim raporcie."
+  },
+  "Node ID": {
+    "de": "Knoten-ID",
+    "es": "ID de nodo",
+    "fr": "ID nœud",
+    "it": "ID nodo",
+    "lb": "Knäppchen-ID",
+    "nl": "Knooppunt-ID",
+    "pl": "ID węzła"
+  },
+  "Offer Title": {
+    "de": "Angebotstitel",
+    "es": "Título de la oferta",
+    "fr": "Titre de l'offre",
+    "it": "Titolo offerta",
+    "lb": "Offertentitel",
+    "nl": "Aanbiedingstitel",
+    "pl": "Tytuł oferty"
+  },
+  "Offer XML node": {
+    "de": "Angebots-XML-Knoten",
+    "es": "Nodo XML de oferta",
+    "fr": "Nœud XML offre",
+    "it": "Nodo XML offerta",
+    "lb": "Offer-XML-Knäppchen",
+    "nl": "Aanbod-XML-knooppunt",
+    "pl": "Węzeł XML oferty"
+  },
+  "Operation Code": {
+    "de": "Operationscode",
+    "es": "Código de operación",
+    "fr": "Code opération",
+    "it": "Codice operazione",
+    "lb": "Operatiounscode",
+    "nl": "Operatiecode",
+    "pl": "Kod operacji"
+  },
+  "Operation Type": {
+    "de": "Operationstyp",
+    "es": "Tipo de operación",
+    "fr": "Type d'opération",
+    "it": "Tipo operazione",
+    "lb": "Operatiounstyp",
+    "nl": "Operatietype",
+    "pl": "Typ operacji"
+  },
+  "Operation code": {
+    "de": "Operationscode",
+    "es": "Código de operación",
+    "fr": "Code opération",
+    "it": "Codice operazione",
+    "lb": "Operatiounscode",
+    "nl": "Operatiecode",
+    "pl": "Kod operacji"
+  },
+  "PS CRM Import": {
+    "de": "PS CRM-Import",
+    "es": "Importación CRM PS",
+    "fr": "Import CRM PS",
+    "it": "Import CRM PS",
+    "lb": "PS CRM-Import",
+    "nl": "PS CRM-import",
+    "pl": "Import CRM PS"
+  },
+  "Parent Offer Business ID": {
+    "de": "Business-ID des übergeordneten Angebots",
+    "es": "ID de negocio de oferta padre",
+    "fr": "ID métier offre parente",
+    "it": "ID business offerta padre",
+    "lb": "Business-ID vun der iwwergeordneter Offer",
+    "nl": "Business-ID bovenliggende aanbieding",
+    "pl": "ID biznesowy oferty nadrzędnej"
+  },
+  "Payload defaults": {
+    "de": "Payload-Standardwerte",
+    "es": "Valores predeterminados del payload",
+    "fr": "Valeurs par défaut du payload",
+    "it": "Valori predefiniti payload",
+    "lb": "Payload-Standardwäerter",
+    "nl": "Payload-standaardwaarden",
+    "pl": "Domyślne wartości payload"
+  },
+  "Phone": {
+    "de": "Telefon",
+    "es": "Teléfono",
+    "fr": "Téléphone",
+    "it": "Telefono",
+    "lb": "Telefon",
+    "nl": "Telefoon",
+    "pl": "Telefon"
+  },
+  "Provides migration support for PS entities with entity protection integration": {
+    "de": "Bietet Migrationsunterstützung für PS-Entitäten mit Entitätsschutz-Integration.",
+    "es": "Proporciona soporte de migración para entidades PS con integración de protección de entidad.",
+    "fr": "Fournit le support de migration pour les entités PS avec intégration de protection d'entité.",
+    "it": "Fornisce supporto migrazione per entità PS con integrazione protezione entità.",
+    "lb": "Bitt Migratiouns-Ënnerstëtzung fir PS-Entitéiten mat Entitéitsschutz-Integratioun.",
+    "nl": "Biedt migratieondersteuning voor PS-entiteiten met entiteitsbeschermingsintegratie.",
+    "pl": "Zapewnia wsparcie migracji dla encji PS z integracją ochrony encji."
+  },
+  "Publication end date": {
+    "de": "Enddatum der Veröffentlichung",
+    "es": "Fecha de fin de publicación",
+    "fr": "Date de fin de publication",
+    "it": "Data fine pubblicazione",
+    "lb": "Enddatum vun der Publikatioun",
+    "nl": "Einddatum publicatie",
+    "pl": "Data zakończenia publikacji"
+  },
+  "Published during post-import: @count": {
+    "de": "Bei Post-Import veröffentlicht: @count",
+    "es": "Publicado durante post-importación: @count",
+    "fr": "Publié lors du post-import : @count",
+    "it": "Pubblicato durante post-import: @count",
+    "lb": "Bei Post-Import publizéiert: @count",
+    "nl": "Gepubliceerd tijdens post-import: @count",
+    "pl": "Opublikowano podczas post-importu: @count"
+  },
+  "Reference": {
+    "de": "Referenz",
+    "es": "Referencia",
+    "fr": "Référence",
+    "it": "Riferimento",
+    "lb": "Referenz",
+    "nl": "Referentie",
+    "pl": "Referencja"
+  },
+  "Rejected during publication: @count": {
+    "de": "Bei Veröffentlichung abgelehnt: @count",
+    "es": "Rechazado durante la publicación: @count",
+    "fr": "Rejeté lors de la publication : @count",
+    "it": "Rifiutato durante la pubblicazione: @count",
+    "lb": "Bei Publikatioun ofgeleent: @count",
+    "nl": "Afgewezen tijdens publicatie: @count",
+    "pl": "Odrzucono podczas publikacji: @count"
+  },
+  "Rejection reason": {
+    "de": "Ablehnungsgrund",
+    "es": "Motivo de rechazo",
+    "fr": "Motif de rejet",
+    "it": "Motivo rifiuto",
+    "lb": "Oflehnungsgrond",
+    "nl": "Afwijzingsreden",
+    "pl": "Powód odrzucenia"
+  },
+  "Required asset types": {
+    "de": "Erforderliche Vermögensarten",
+    "es": "Tipos de activos requeridos",
+    "fr": "Types d'actifs requis",
+    "it": "Tipi di attività richiesti",
+    "lb": "Erfuerderlech Verméigensarten",
+    "nl": "Vereiste activatypen",
+    "pl": "Wymagane typy aktywów"
+  },
+  "Review post-import publication rejections for source data quality tracking.": {
+    "de": "Post-Import-Veröffentlichungsablehnungen zur Quelldatenqualitätsverfolgung prüfen.",
+    "es": "Revisar rechazos de publicación post-importación para seguimiento de calidad de datos fuente.",
+    "fr": "Consulter les rejets de publication post-import pour le suivi qualité des données source.",
+    "it": "Esamina rifiuti pubblicazione post-import per monitoraggio qualità dati sorgente.",
+    "lb": "Post-Import-Publikatiouns-Oflehnungen fir Quelldatenqualitéit iwwerpréiwen.",
+    "nl": "Bekijk publicatieafwijzingen na import voor tracking brondatakwaliteit.",
+    "pl": "Przejrzyj odrzucenia publikacji po imporcie w celu śledzenia jakości danych źródłowych."
+  },
+  "Source Drupal language": {
+    "de": "Drupal-Quellsprache",
+    "es": "Idioma Drupal fuente",
+    "fr": "Langue Drupal source",
+    "it": "Lingua Drupal sorgente",
+    "lb": "Drupal-Quellsprooch",
+    "nl": "Drupal-bronstaal",
+    "pl": "Język źródłowy Drupal"
+  },
+  "Source index": {
+    "de": "Quellindex",
+    "es": "Índice de origen",
+    "fr": "Index source",
+    "it": "Indice sorgente",
+    "lb": "Quellindex",
+    "nl": "Bronindex",
+    "pl": "Indeks źródłowy"
+  },
+  "Status": {
+    "de": "Status",
+    "es": "Estado",
+    "fr": "Statut",
+    "it": "Stato",
+    "lb": "Status",
+    "nl": "Status",
+    "pl": "Status"
+  },
+  "Surface divisions from CRM XML": {
+    "de": "Flächenaufteilungen aus CRM-XML",
+    "es": "Divisiones de superficie desde XML CRM",
+    "fr": "Divisions de surface depuis XML CRM",
+    "it": "Divisioni superficie da XML CRM",
+    "lb": "Flächendivisiounen aus CRM-XML",
+    "nl": "Oppervlakte-indelingen uit CRM-XML",
+    "pl": "Podziały powierzchni z XML CRM"
+  },
+  "Surface qualification code": {
+    "de": "Flächenqualifikationscode",
+    "es": "Código de calificación de superficie",
+    "fr": "Code qualification surface",
+    "it": "Codice qualificazione superficie",
+    "lb": "Flächenqualifikatiounscode",
+    "nl": "Oppervlaktekwalificatiecode",
+    "pl": "Kod kwalifikacji powierzchni"
+  },
+  "Surface value": {
+    "de": "Flächenwert",
+    "es": "Valor de superficie",
+    "fr": "Valeur surface",
+    "it": "Valore superficie",
+    "lb": "Flächenwäert",
+    "nl": "Oppervlaktewaarde",
+    "pl": "Wartość powierzchni"
+  },
+  "Target Drupal language": {
+    "de": "Ziel-Drupal-Sprache",
+    "es": "Idioma Drupal objetivo",
+    "fr": "Langue Drupal cible",
+    "it": "Lingua Drupal target",
+    "lb": "Zil-Drupal-Sprooch",
+    "nl": "Doel-Drupal-taal",
+    "pl": "Docelowy język Drupal"
+  },
+  "Target XML language": {
+    "de": "Ziel-XML-Sprache",
+    "es": "Idioma XML objetivo",
+    "fr": "Langue XML cible",
+    "it": "Lingua XML target",
+    "lb": "Zil-XML-Sprooch",
+    "nl": "Doel-XML-taal",
+    "pl": "Docelowy język XML"
+  },
+  "Technical ID": {
+    "de": "Technische ID",
+    "es": "ID técnico",
+    "fr": "ID technique",
+    "it": "ID tecnico",
+    "lb": "Technesch ID",
+    "nl": "Technische ID",
+    "pl": "ID techniczny"
+  },
+  "Technical elements": {
+    "de": "Technische Elemente",
+    "es": "Elementos técnicos",
+    "fr": "Éléments techniques",
+    "it": "Elementi tecnici",
+    "lb": "Technesch Elementer",
+    "nl": "Technische elementen",
+    "pl": "Elementy techniczne"
+  },
+  "Technical elements node": {
+    "de": "Knoten technische Elemente",
+    "es": "Nodo de elementos técnicos",
+    "fr": "Nœud éléments techniques",
+    "it": "Nodo elementi tecnici",
+    "lb": "Knäppchen technesch Elementer",
+    "nl": "Knooppunt technische elementen",
+    "pl": "Węzeł elementów technicznych"
+  },
+  "Timestamp": {
+    "de": "Zeitstempel",
+    "es": "Marca de tiempo",
+    "fr": "Horodatage",
+    "it": "Timestamp",
+    "lb": "Zäitstempel",
+    "nl": "Tijdstempel",
+    "pl": "Znacznik czasu"
+  },
+  "Total offers scanned: @count": {
+    "de": "Gesamt gescannte Angebote: @count",
+    "es": "Total de ofertas analizadas: @count",
+    "fr": "Total offres analysées : @count",
+    "it": "Totale offerte analizzate: @count",
+    "lb": "Total gescannt Offeren: @count",
+    "nl": "Totaal gescande aanbiedingen: @count",
+    "pl": "Łącznie przeskanowanych ofert: @count"
+  },
+  "Type Code": {
+    "de": "Typcode",
+    "es": "Código de tipo",
+    "fr": "Code type",
+    "it": "Codice tipo",
+    "lb": "Typcode",
+    "nl": "Typecode",
+    "pl": "Kod typu"
+  },
+  "Type driver": {
+    "de": "Typ-Treiber",
+    "es": "Controlador de tipo",
+    "fr": "Driver de type",
+    "it": "Driver tipo",
+    "lb": "Typ-Driver",
+    "nl": "Typedriver",
+    "pl": "Sterownik typu"
+  },
+  "Virtual tour URL": {
+    "de": "URL der virtuellen Tour",
+    "es": "URL de visita virtual",
+    "fr": "URL visite virtuelle",
+    "it": "URL visita virtuale",
+    "lb": "Virtuell Tour URL",
+    "nl": "URL virtuele tour",
+    "pl": "URL wirtualnego spaceru"
+  },
+  "Watermark flag": {
+    "de": "Wasserzeichen-Flag",
+    "es": "Indicador de marca de agua",
+    "fr": "Indicateur filigrane",
+    "it": "Flag filigrana",
+    "lb": "Waasserzeechen-Flag",
+    "nl": "Watermerkvlag",
+    "pl": "Flaga znaku wodnego"
+  },
+  "Weight": {
+    "de": "Gewicht",
+    "es": "Peso",
+    "fr": "Poids",
+    "it": "Peso",
+    "lb": "Gewiicht",
+    "nl": "Gewicht",
+    "pl": "Waga"
+  },
+  "ZIP code": {
+    "de": "Postleitzahl",
+    "es": "Código postal",
+    "fr": "Code postal",
+    "it": "Codice postale",
+    "lb": "Postleitzuel",
+    "nl": "Postcode",
+    "pl": "Kod pocztowy"
+  }
+}

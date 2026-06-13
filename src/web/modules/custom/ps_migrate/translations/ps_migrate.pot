@@ -1,0 +1,151 @@
+# EN translation for ps_migrate module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_migrate\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All surface values"
+msgstr ""
+
+msgid "Already published: @count"
+msgstr ""
+
+msgid "Asset Type"
+msgstr ""
+
+msgid "Asset type code"
+msgstr ""
+
+msgid "Budget Value"
+msgstr ""
+
+msgid "Business ID"
+msgstr ""
+
+msgid "Business ID (source XML)"
+msgstr ""
+
+msgid "Canonical Drupal source language"
+msgstr ""
+
+msgid "Canonical XML source language"
+msgstr ""
+
+msgid "City"
+msgstr ""
+
+msgid "Commercial Title"
+msgstr ""
+
+msgid "Country ISO code"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "External ID"
+msgstr ""
+
+msgid "Feature code"
+msgstr ""
+
+msgid "Feature definition ID"
+msgstr ""
+
+msgid "Feature group ID"
+msgstr ""
+
+msgid "Feature group code"
+msgstr ""
+
+msgid "Full offer XML node"
+msgstr ""
+
+msgid "Generated at: @date"
+msgstr ""
+
+msgid "Import Offers from CRM XML (Example)"
+msgstr ""
+
+msgid "Import rejections"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Last Post-Import Publication Report"
+msgstr ""
+
+msgid "No post-import publication report is available yet. Run CRM import fir"
+"st."
+msgstr ""
+
+msgid "No rejected offers in the latest report."
+msgstr ""
+
+msgid "Node ID"
+msgstr ""
+
+msgid "Offer Title"
+msgstr ""
+
+msgid "Operation Type"
+msgstr ""
+
+msgid "Operation code"
+msgstr ""
+
+msgid "Payload defaults"
+msgstr ""
+
+msgid "Provides migration support for PS entities with entity protection inte"
+"gration"
+msgstr ""
+
+msgid "Published during post-import: @count"
+msgstr ""
+
+msgid "Reference"
+msgstr ""
+
+msgid "Rejected during publication: @count"
+msgstr ""
+
+msgid "Rejection reason"
+msgstr ""
+
+msgid "Required asset types"
+msgstr ""
+
+msgid "Review post-import publication rejections for source data quality trac"
+"king."
+msgstr ""
+
+msgid "Source index"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Target Drupal language"
+msgstr ""
+
+msgid "Target XML language"
+msgstr ""
+
+msgid "Technical elements node"
+msgstr ""
+
+msgid "Total offers scanned: @count"
+msgstr ""
+
+msgid "Type driver"
+msgstr ""
+
+msgid "Weight"
+msgstr ""

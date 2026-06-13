@@ -1,0 +1,45 @@
+# NL translation for ps_block module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_block\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Configurable Stellar blocks for Property Search (footer contact, copyr"
+"ight…)."
+msgstr "Configureerbare Stellar-blokken voor Property Search (footercontact, c"
+"opyright…)."
+
+msgid "Copyright text"
+msgstr "Copyrighttekst"
+
+msgid "Email address"
+msgstr "E-mailadres"
+
+msgid "Email link label"
+msgstr "Label van de e-maillink"
+
+msgid "Footer contact (Stellar)"
+msgstr "Footercontact (Stellar)"
+
+msgid "Footer copyright (Stellar)"
+msgstr "Footercopyright (Stellar)"
+
+msgid "Heading"
+msgstr "Kop"
+
+msgid "My account"
+msgstr "Mijn account"
+
+msgid "One per line: Label|+33…"
+msgstr "Een per regel: Label|+33…"
+
+msgid "Phone lines"
+msgstr "Telefoonregels"
+
+msgid "Property Search"
+msgstr "Vastgoedzoeken"

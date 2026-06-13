@@ -1,2 +1,1 @@
-section_label: 'Energie & Diagnostik'
-fallback_message_single: 'Energieausweis vom Eigentümer nicht bereitgestellt.'
+fallback_message_single: 'Energielabel wurde vom Eigentümer nicht bereitgestellt.'

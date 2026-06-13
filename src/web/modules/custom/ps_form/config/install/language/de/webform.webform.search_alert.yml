@@ -1,0 +1,63 @@
+title: 'Suchalarm erstellen'
+description: 'Anmeldeformular für Immobiliensuchalarme.'
+category: Immobiliensuche
+elements: |-
+  alert_name:
+    '#type': textfield
+    '#title': 'Titel des Suchalarms'
+    '#required': true
+    '#maxlength': 255
+  prof_email_address:
+    '#type': email
+    '#title': 'Geschäftliche E-Mail'
+    '#required': true
+  criteria_display:
+    '#type': webform_markup
+    '#markup': ''
+  frequence:
+    '#type': radios
+    '#title': 'Versandhäufigkeit'
+    '#required': true
+    '#options':
+      daily: Täglich
+      weekly: Wöchentlich
+    '#default_value': weekly
+  optout_group:
+    '#type': fieldset
+    '#title': 'Kommerzielle Kommunikation'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-search-alert-form__optout-intro">Ich widerspreche dem Erhalt kommerzieller Kommunikation von BNP Paribas Real Estate Advisory France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-Mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefon
+  legal:
+    '#type': checkbox
+    '#title': 'Ich habe die Bedingungen der Richtlinie zum Schutz personenbezogener Daten gelesen und akzeptiere sie.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate verarbeitet Ihre Daten, um Immobilienalarme zu senden, die Ihren Suchkriterien entsprechen. Informationen zu Ihren Rechten finden Sie in unserem <a href="/data-protection">Datenschutzhinweis</a>.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  criteria_json:
+    '#type': hidden
+    '#title': 'Suchkriterien'
+  search_url:
+    '#type': hidden
+    '#title': 'Such-URL'
+  search_path:
+    '#type': hidden
+    '#title': 'Suchpfad'
+settings:
+  form_submit_label: Weiter
+  confirmation_message: "<p>Ihr Suchalarm wurde erstellt. Sie erhalten eine E-Mail, sobald neue Immobilien Ihren Kriterien entsprechen.</p>"
+handlers:

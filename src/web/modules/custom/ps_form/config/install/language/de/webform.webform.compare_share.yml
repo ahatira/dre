@@ -1,0 +1,44 @@
+title: 'Meinen Vergleich erhalten'
+description: "Den Immobilienvergleich per E-Mail teilen."
+category: Immobiliensuche
+elements: |-
+  intro:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__intro">Geben Sie Ihre geschäftliche E-Mail ein, um Ihren Immobilienvergleich zu erhalten:</p>'
+  prof_email_address:
+    '#type': email
+    '#title': 'Geschäftliche E-Mail'
+    '#required': true
+  optout_group:
+    '#type': fieldset
+    '#title': 'Kommerzielle Kommunikation'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-compare-share-form__optout-intro">Ich widerspreche dem Erhalt kommerzieller Kommunikation von BNP Paribas Real Estate Transaction France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-Mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefon
+  legal:
+    '#type': checkbox
+    '#title': 'Ich habe die Bedingungen der Richtlinie zum Schutz personenbezogener Daten gelesen und akzeptiere sie.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France verarbeitet Ihre Daten, um Ihnen den angeforderten Vergleich zu senden. Informationen zu Ihren Rechten finden Sie in unserem <a href="/data-protection">Datenschutzhinweis</a>.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  compare_url:
+    '#type': hidden
+    '#title': 'Vergleichs-URL'
+settings:
+  form_submit_label: 'Meinen Vergleich erhalten'
+  confirmation_message: "<p>Ihr Vergleich wurde per E-Mail versendet.</p>"
+handlers:

@@ -1,0 +1,19 @@
+# IT translation for ps_form module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_form\n"
+"PO-Revision-Date: 2026-06-13 04:15+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Contact form is not available."
+msgstr "Il modulo di contatto non è disponibile."
+
+msgid "Contact the consultancy"
+msgstr "Contatta la consulenza"
+
+msgid "Webform definitions and front integrations for Property Search."
+msgstr "Definizioni Webform e integrazioni front-end per Property Search."

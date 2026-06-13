@@ -1,0 +1,191 @@
+{
+  "Administration theme machine name": {
+    "de": "Maschinenname des Administrations-Themes",
+    "es": "Nombre de maquina del tema de administracion",
+    "fr": "Nom machine du theme d'administration",
+    "it": "Nome macchina del tema di amministrazione",
+    "lb": "Machine-Numm vum Administratiouns-Theme",
+    "nl": "Machinenaam van beheerthema",
+    "pl": "Nazwa maszynowa motywu administracyjnego"
+  },
+  "Apply Gin Login branding": {
+    "de": "Gin-Login-Branding anwenden",
+    "es": "Aplicar identidad de Gin Login",
+    "fr": "Appliquer le branding Gin Login",
+    "it": "Applica branding Gin Login",
+    "lb": "Gin-Login-Branding uwenden",
+    "nl": "Gin Login-branding toepassen",
+    "pl": "Zastosuj branding Gin Login"
+  },
+  "Apply Gin branding": {
+    "de": "Gin-Branding anwenden",
+    "es": "Aplicar identidad de Gin",
+    "fr": "Appliquer le branding Gin",
+    "it": "Applica branding Gin",
+    "lb": "Gin-Branding uwenden",
+    "nl": "Gin-branding toepassen",
+    "pl": "Zastosuj branding Gin"
+  },
+  "BNP Admin settings": {
+    "de": "BNP-Admin-Einstellungen",
+    "es": "Configuracion de BNP Admin",
+    "fr": "Parametres BNP Admin",
+    "it": "Impostazioni BNP Admin",
+    "lb": "BNP-Admin-Astellungen",
+    "nl": "BNP Admin-instellingen",
+    "pl": "Ustawienia BNP Admin"
+  },
+  "Content administrator": {
+    "de": "Content-Administrator",
+    "es": "Administrador de contenido",
+    "fr": "Administrateur de contenu",
+    "it": "Amministratore contenuti",
+    "lb": "Inhaltsadministrator",
+    "nl": "Contentbeheerder",
+    "pl": "Administrator tresci"
+  },
+  "Content editor": {
+    "de": "Content-Redakteur",
+    "es": "Editor de contenido",
+    "fr": "Editeur de contenu",
+    "it": "Editor contenuti",
+    "lb": "Inhaltseditor",
+    "nl": "Contentredacteur",
+    "pl": "Edytor tresci"
+  },
+  "Core Drupal baseline": {
+    "de": "Drupal-Core-Baseline",
+    "es": "Linea base de Drupal Core",
+    "fr": "Socle Drupal Core",
+    "it": "Baseline Drupal Core",
+    "lb": "Drupal-Core-Basis",
+    "nl": "Drupal Core-basis",
+    "pl": "Bazowa linia Drupal Core"
+  },
+  "Gin Login branding": {
+    "de": "Gin-Login-Branding",
+    "es": "Identidad de Gin Login",
+    "fr": "Branding Gin Login",
+    "it": "Branding Gin Login",
+    "lb": "Gin-Login-Branding",
+    "nl": "Gin Login-branding",
+    "pl": "Branding Gin Login"
+  },
+  "Gin accent color preset": {
+    "de": "Gin-Akzentfarben-Voreinstellung",
+    "es": "Preajuste de color de acento de Gin",
+    "fr": "Preconfiguration de couleur d'accent Gin",
+    "it": "Preimpostazione colore accento Gin",
+    "lb": "Virastellung vun der Gin-Akzentfaarf",
+    "nl": "Voorinstelling voor Gin-accentkleur",
+    "pl": "Ustawienie koloru akcentu Gin"
+  },
+  "Gin theme branding": {
+    "de": "Gin-Theme-Branding",
+    "es": "Identidad del tema Gin",
+    "fr": "Branding du theme Gin",
+    "it": "Branding del tema Gin",
+    "lb": "Gin-Theme-Branding",
+    "nl": "Gin-thema-branding",
+    "pl": "Branding motywu Gin"
+  },
+  "Gin toolbar variant": {
+    "de": "Gin-Toolbar-Variante",
+    "es": "Variante de barra de herramientas de Gin",
+    "fr": "Variante de barre d'outils Gin",
+    "it": "Variante barra strumenti Gin",
+    "lb": "Gin-Toolbar-Variant",
+    "nl": "Variant van Gin-werkbalk",
+    "pl": "Wariant paska narzedzi Gin"
+  },
+  "Optional recipe mirror of the bnp_admin module dependency set. Prefer enabling the bnp_admin module directly.": {
+    "de": "Optionales Recipe-Spiegelbild der Abhaengigkeiten des Moduls bnp_admin. Aktivieren Sie vorzugsweise direkt das Modul bnp_admin.",
+    "es": "Receta opcional espejo del conjunto de dependencias del modulo bnp_admin. Se recomienda activar directamente el modulo bnp_admin.",
+    "fr": "Recette optionnelle miroir des dependances du module bnp_admin. Preferez activer directement le module bnp_admin.",
+    "it": "Recipe opzionale specchio del set di dipendenze del modulo bnp_admin. Preferire l'abilitazione diretta del modulo bnp_admin.",
+    "lb": "Optional Recipe-Spigel vum Ofhängegkeetsset vum Modul bnp_admin. Aktivéiert léiwer de Modul bnp_admin direkt.",
+    "nl": "Optioneel recept als spiegel van de afhankelijkheden van de module bnp_admin. Activeer bij voorkeur direct de module bnp_admin.",
+    "pl": "Opcjonalny przepis odzwierciedlajacy zestaw zaleznosci modulu bnp_admin. Zalecane jest bezposrednie wlaczenie modulu bnp_admin."
+  },
+  "Provides a reusable administration baseline with module activation, configuration defaults, and role provisioning.": {
+    "de": "Stellt eine wiederverwendbare Administrations-Baseline mit Modulaktivierung, Standardkonfiguration und Rollenbereitstellung bereit.",
+    "es": "Proporciona una base de administracion reutilizable con activacion de modulos, configuracion predeterminada y aprovisionamiento de roles.",
+    "fr": "Fournit un socle d'administration reutilisable avec activation de modules, configuration par defaut et provisionnement des roles.",
+    "it": "Fornisce una base amministrativa riutilizzabile con attivazione moduli, configurazione predefinita e provisioning dei ruoli.",
+    "lb": "Stellt eng widderverwendbar Administratiounsbasis mat Modulaktivatioun, Standardkonfiguratioun a Rollenprovisionéierung bereet.",
+    "nl": "Biedt een herbruikbare beheersbasis met moduleactivatie, standaardconfiguratie en rolvoorziening.",
+    "pl": "Zapewnia wielokrotnego uzytku baze administracyjna z aktywacja modulow, domyslna konfiguracja i nadawaniem rol."
+  },
+  "Restrict registration to administrators": {
+    "de": "Registrierung auf Administratoren beschraenken",
+    "es": "Restringir el registro a administradores",
+    "fr": "Restreindre l'inscription aux administrateurs",
+    "it": "Limitare la registrazione agli amministratori",
+    "lb": "Aschreiwung op Administrateure beschränken",
+    "nl": "Registratie beperken tot beheerders",
+    "pl": "Ogranicz rejestracje do administratorow"
+  },
+  "SEO administrator": {
+    "de": "SEO-Administrator",
+    "es": "Administrador SEO",
+    "fr": "Administrateur SEO",
+    "it": "Amministratore SEO",
+    "lb": "SEO-Administrator",
+    "nl": "SEO-beheerder",
+    "pl": "Administrator SEO"
+  },
+  "Show description toggle in Gin": {
+    "de": "Beschreibungsschalter in Gin anzeigen",
+    "es": "Mostrar interruptor de descripcion en Gin",
+    "fr": "Afficher le commutateur de description dans Gin",
+    "it": "Mostrare l'interruttore descrizione in Gin",
+    "lb": "Beschreiwungs-Toggle am Gin weisen",
+    "nl": "Beschrijving-schakelaar tonen in Gin",
+    "pl": "Pokaz przelacznik opisu w Gin"
+  },
+  "Site administrator": {
+    "de": "Website-Administrator",
+    "es": "Administrador del sitio",
+    "fr": "Administrateur du site",
+    "it": "Amministratore del sito",
+    "lb": "Site-Administrator",
+    "nl": "Sitebeheerder",
+    "pl": "Administrator witryny"
+  },
+  "Translation administrator": {
+    "de": "Uebersetzungsadministrator",
+    "es": "Administrador de traduccion",
+    "fr": "Administrateur de traduction",
+    "it": "Amministratore traduzioni",
+    "lb": "Iwwersetzungsadministrator",
+    "nl": "Vertaalbeheerder",
+    "pl": "Administrator tlumaczen"
+  },
+  "Translation editor": {
+    "de": "Uebersetzungsredakteur",
+    "es": "Editor de traduccion",
+    "fr": "Editeur de traduction",
+    "it": "Editor traduzioni",
+    "lb": "Iwwersetzungseditor",
+    "nl": "Vertaalredacteur",
+    "pl": "Edytor tlumaczen"
+  },
+  "Use admin theme on node forms": {
+    "de": "Admin-Theme in Node-Formularen verwenden",
+    "es": "Usar tema de administracion en formularios de nodo",
+    "fr": "Utiliser le theme d'administration sur les formulaires de noeud",
+    "it": "Usare il tema admin nei moduli del nodo",
+    "lb": "Admin-Theme op Node-Formulairen benotzen",
+    "nl": "Beheerthema gebruiken op nodeformulieren",
+    "pl": "Uzyj motywu administracyjnego w formularzach wezlow"
+  },
+  "Use default Gin Login brand image": {
+    "de": "Standardbild fuer Gin-Login-Branding verwenden",
+    "es": "Usar imagen de marca predeterminada de Gin Login",
+    "fr": "Utiliser l'image de marque par defaut de Gin Login",
+    "it": "Usare l'immagine brand predefinita di Gin Login",
+    "lb": "Standardbild fir Gin-Login-Branding benotzen",
+    "nl": "Standaard Gin Login-merkafbeelding gebruiken",
+    "pl": "Uzyj domyslnego obrazu marki Gin Login"
+  }
+}

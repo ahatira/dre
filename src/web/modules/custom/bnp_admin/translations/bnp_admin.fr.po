@@ -1,0 +1,77 @@
+# FR translation for bnp_admin module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_admin\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Administration theme machine name"
+msgstr "Nom machine du theme d'administration"
+
+msgid "Apply Gin Login branding"
+msgstr "Appliquer le branding Gin Login"
+
+msgid "Apply Gin branding"
+msgstr "Appliquer le branding Gin"
+
+msgid "BNP Admin settings"
+msgstr "Parametres BNP Admin"
+
+msgid "Content administrator"
+msgstr "Administrateur de contenu"
+
+msgid "Content editor"
+msgstr "Editeur de contenu"
+
+msgid "Core Drupal baseline"
+msgstr "Socle Drupal Core"
+
+msgid "Gin Login branding"
+msgstr "Branding Gin Login"
+
+msgid "Gin accent color preset"
+msgstr "Preconfiguration de couleur d'accent Gin"
+
+msgid "Gin theme branding"
+msgstr "Branding du theme Gin"
+
+msgid "Gin toolbar variant"
+msgstr "Variante de barre d'outils Gin"
+
+msgid "Optional recipe mirror of the bnp_admin module dependency set. Prefer "
+"enabling the bnp_admin module directly."
+msgstr "Recette optionnelle miroir des dependances du module bnp_admin. Prefer"
+"ez activer directement le module bnp_admin."
+
+msgid "Provides a reusable administration baseline with module activation, co"
+"nfiguration defaults, and role provisioning."
+msgstr "Fournit un socle d'administration reutilisable avec activation de modu"
+"les, configuration par defaut et provisionnement des roles."
+
+msgid "Restrict registration to administrators"
+msgstr "Restreindre l'inscription aux administrateurs"
+
+msgid "SEO administrator"
+msgstr "Administrateur SEO"
+
+msgid "Show description toggle in Gin"
+msgstr "Afficher le commutateur de description dans Gin"
+
+msgid "Site administrator"
+msgstr "Administrateur du site"
+
+msgid "Translation administrator"
+msgstr "Administrateur de traduction"
+
+msgid "Translation editor"
+msgstr "Editeur de traduction"
+
+msgid "Use admin theme on node forms"
+msgstr "Utiliser le theme d'administration sur les formulaires de noeud"
+
+msgid "Use default Gin Login brand image"
+msgstr "Utiliser l'image de marque par defaut de Gin Login"

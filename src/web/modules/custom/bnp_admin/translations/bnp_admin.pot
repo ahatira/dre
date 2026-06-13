@@ -1,0 +1,75 @@
+# EN translation for bnp_admin module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_admin\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Administration theme machine name"
+msgstr ""
+
+msgid "Apply Gin Login branding"
+msgstr ""
+
+msgid "Apply Gin branding"
+msgstr ""
+
+msgid "BNP Admin settings"
+msgstr ""
+
+msgid "Content administrator"
+msgstr ""
+
+msgid "Content editor"
+msgstr ""
+
+msgid "Core Drupal baseline"
+msgstr ""
+
+msgid "Gin Login branding"
+msgstr ""
+
+msgid "Gin accent color preset"
+msgstr ""
+
+msgid "Gin theme branding"
+msgstr ""
+
+msgid "Gin toolbar variant"
+msgstr ""
+
+msgid "Optional recipe mirror of the bnp_admin module dependency set. Prefer "
+"enabling the bnp_admin module directly."
+msgstr ""
+
+msgid "Provides a reusable administration baseline with module activation, co"
+"nfiguration defaults, and role provisioning."
+msgstr ""
+
+msgid "Restrict registration to administrators"
+msgstr ""
+
+msgid "SEO administrator"
+msgstr ""
+
+msgid "Show description toggle in Gin"
+msgstr ""
+
+msgid "Site administrator"
+msgstr ""
+
+msgid "Translation administrator"
+msgstr ""
+
+msgid "Translation editor"
+msgstr ""
+
+msgid "Use admin theme on node forms"
+msgstr ""
+
+msgid "Use default Gin Login brand image"
+msgstr ""

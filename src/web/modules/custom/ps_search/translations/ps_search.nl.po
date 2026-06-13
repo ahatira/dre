@@ -1,27 +1,19 @@
-# Dutch translation for ps_search module.
+# NL translation for ps_search module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_search\n"
+"PO-Revision-Date: 2026-06-13 04:23+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "10 minutes"
-msgstr "10 minuten"
-
-msgid "15 minutes"
-msgstr "15 minuten"
-
-msgid "20 minutes"
-msgstr "20 minuten"
-
-msgid "30 minutes"
-msgstr "30 minuten"
-
 msgid "5 minutes"
 msgstr "5 minuten"
+
+msgid "<p><a href=\":url\">View your saved search</a></p>"
+msgstr "<p><a href=\":url\">Bekijk uw opgeslagen zoekopdracht</a></p>"
 
 msgid "@asset @in @locality"
 msgstr "@asset @in @locality"
@@ -32,38 +24,70 @@ msgstr "@asset @operation"
 msgid "@asset @operation @in @locality"
 msgstr "@asset @operation @in @locality"
 
+msgid "@count new @properties for your alert “@title”"
+msgstr "@count nieuwe @properties voor uw melding «@title»"
+
 msgid "@label (@group)"
 msgstr "@label (@group)"
+
+msgid "AND — offer must match every active feature filter (recommended, narro"
+"ws results)"
+msgstr "EN — aanbieding moet aan elk actief kenmerkfilter voldoen (aanbevolen,"
+" verfijnt resultaten)"
 
 msgid "API limits and cache"
 msgstr "API-limieten en cache"
 
-msgid "Additional information"
-msgstr "Aanvullende informatie"
+msgid "Active"
+msgstr "Actief"
+
+msgid "Administer search alerts"
+msgstr "Zoekmeldingen beheren"
+
+msgid "Advanced cluster options (JSON)"
+msgstr "Geavanceerde clusteropties (JSON)"
+
+msgid "Advanced cluster options must be valid JSON."
+msgstr "Geavanceerde clusteropties moeten geldige JSON zijn."
+
+msgid "Alert for @path"
+msgstr "Melding voor @path"
+
+msgid "Alert status"
+msgstr "Meldingsstatus"
+
+msgid "Alert title"
+msgstr "Meldingstitel"
+
+msgid "Alerts processed per cron run"
+msgstr "Meldingen per cron-run"
 
 msgid "All"
 msgstr "Alle"
 
-msgid "Apply"
-msgstr "Toepassen"
+msgid "All properties matching your current filters."
+msgstr "Alle panden die overeenkomen met uw huidige filters."
 
-msgid "Apply location filter"
-msgstr "Apply location filter"
+msgid "An active alert already exists for this email and search criteria."
+msgstr "Er bestaat al een actieve melding voor dit e-mailadres en zoekcriteria"
+"."
 
-msgid "Apply mobile filters"
-msgstr "Apply mobile filters"
+msgid "Approximate number of grid cells used to aggregate markers (e.g. 64 ≈ "
+"8×8)."
+msgstr "Geschat aantal rastercellen voor aggregatie van markers (bijv. 64 ≈ 8×"
+"8)."
 
-msgid "Apply property type filter"
-msgstr "Apply property type filter"
+msgid "Approximation (offline circle)"
+msgstr "Benadering (offline cirkel)"
 
-msgid "Apply range filter"
-msgstr "Apply range filter"
+msgid "Asset type slugs"
+msgstr "Activatype-slugs"
 
-msgid "Asc"
-msgstr "Oplopend"
+msgid "Auto"
+msgstr "Auto"
 
-msgid "Availability"
-msgstr "Availability"
+msgid "BCC email"
+msgstr "BCC-e-mail"
 
 msgid "Back"
 msgstr "Terug"
@@ -71,32 +95,63 @@ msgstr "Terug"
 msgid "Back to PS configuration hub"
 msgstr "Terug naar PS-configuratiehub"
 
-msgid "Bike"
-msgstr "Fiets"
+msgid "Body text"
+msgstr "Berichttekst"
 
 msgid "Budget"
 msgstr "Budget"
 
-msgid "Building structure"
-msgstr "Gebouwstructuur"
+msgid "Button URL"
+msgstr "Knop-URL"
 
-msgid "Building type and condition"
-msgstr "Type en staat van het gebouw"
+msgid "Button label"
+msgstr "Knoplabel"
 
 msgid "Buy"
 msgstr "Kopen"
 
-msgid "Bypass PS Search API rate limits"
-msgstr "Bypass PS Search API rate limits"
+msgid "CTA button URL"
+msgstr "CTA-knop-URL"
+
+msgid "CTA button label"
+msgstr "CTA-knoplabel"
+
+msgid "Canonical asset slug"
+msgstr "Canonieke activatype-slug"
 
 msgid "Capacity"
 msgstr "Capaciteit"
 
-msgid "Car"
-msgstr "Auto"
+msgid "Card Push"
+msgstr "Card Push"
+
+msgid "Card Push inserts promotional interstitial cards into listing pages. E"
+"ach placement can use a dedicated SDC (calculator, image, image + link"
+", content block, etc.)."
+msgstr "Card Push voegt promotionele interstitiële kaarten toe aan lijstpagina"
+"'s. Elke plaatsing kan een eigen SDC gebruiken (calculator, afbeelding"
+", afbeelding + link, inhoudsblok, enz.)."
+
+msgid "Card Push placement in the property search results list."
+msgstr "Card Push-plaatsing in de vastgoedzoekresultatenlijst."
+
+msgid "Card body text"
+msgstr "Kaarttekst"
+
+msgid "Card title"
+msgstr "Kaarttitel"
+
+msgid "Ceiling height"
+msgstr "Plafondhoogte"
 
 msgid "Ceiling height (m)"
 msgstr "Ceiling height (m)"
+
+msgid "Ceiling height in meters."
+msgstr "Plafondhoogte in meters."
+
+msgid "Changed"
+msgstr "Gewijzigd"
 
 msgid "City"
 msgstr "Stad"
@@ -104,29 +159,92 @@ msgstr "Stad"
 msgid "City, department, region…"
 msgstr "Stad, departement, regio…"
 
-msgid "City, district or zip code"
-msgstr "Stad, wijk of postcode"
-
 msgid "Clear"
 msgstr "Wissen"
+
+msgid "Client-side MarkerClusterer options (JSON)"
+msgstr "Client-side MarkerClusterer-opties (JSON)"
+
+msgid "Client-side marker cluster max zoom"
+msgstr "Client-side markercluster max-zoom"
+
+msgid "Client-side marker clustering"
+msgstr "Client-side markerclustering"
 
 msgid "Close"
 msgstr "Sluiten"
 
-msgid "Coming soon"
-msgstr "Binnenkort beschikbaar"
+msgid "Cluster max zoom"
+msgstr "Cluster max-zoom"
+
+msgid "Combine active feature filters"
+msgstr "Actieve kenmerkfilters combineren"
+
+msgid "Combine mode for active feature filters"
+msgstr "Combinatiemodus voor actieve kenmerkfilters"
+
+msgid "Comma-separated cities, postal codes or department codes."
+msgstr "Steden, postcodes of departementcodes, kommagescheiden."
+
+msgid "Comparator"
+msgstr "Vergelijker"
 
 msgid "Configuration"
 msgstr "Configuratie"
 
+msgid "Configure search page and filter URL slugs."
+msgstr "Configureer zoekpagina- en filter-URL-slugs."
+
+msgid "Continue"
+msgstr "Doorgaan"
+
+msgid "Controls MarkerClusterer on the search map (price bubbles grouped at l"
+"ow zoom). Server-side grid clusters for dense zones are configured sep"
+"arately below."
+msgstr "Bestuurt MarkerClusterer op de zoekkaart (prijsbellen gegroepeerd bij "
+"lage zoom). Server-side rasterclusters voor dichte zones worden hieron"
+"der apart geconfigureerd."
+
+msgid "Controls how multiple active feature filters are combined in search re"
+"sults and the live count. Within a single multi-value filter (tags), v"
+"alues are always combined with OR."
+msgstr "Bepaalt hoe meerdere actieve kenmerkfilters worden gecombineerd in zoe"
+"kresultaten en live telling. Binnen één multi-waardefilter (tags) word"
+"en waarden altijd met OF gecombineerd."
+
+msgid "Cooperative (Ctrl + scroll to zoom)"
+msgstr "Coöperatief (Ctrl + scrollen om te zoomen)"
+
+msgid "Cooperative is recommended on search pages: the map does not capture t"
+"he mouse wheel until the user holds Ctrl (or ⌘ on macOS) while scrolli"
+"ng."
+msgstr "Coöperatief wordt aanbevolen op zoekpagina's: de kaart vangt het muisw"
+"iel pas op wanneer de gebruiker Ctrl (of ⌘ op macOS) ingedrukt houdt t"
+"ijdens scrollen."
+
+msgid "Count endpoint"
+msgstr "Telling-endpoint"
+
 msgid "Create an alert"
 msgstr "Alert aanmaken"
 
-msgid "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
-msgstr "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "Criteria hash"
+msgstr "Criteria-hash"
+
+msgid "Cron notifications and retention for property search alerts."
+msgstr "Cron-meldingen en retentie voor vastgoedzoekmeldingen."
 
 msgid "Customize area"
 msgstr "Gebied aanpassen"
+
+msgid "Daily"
+msgstr "Dagelijks"
+
+msgid "Decimal places for isochrone cache key coordinates"
+msgstr "Decimalen voor isochroon cache-sleutelcoördinaten"
 
 msgid "Decreasing distance"
 msgstr "Afstand aflopend"
@@ -137,14 +255,67 @@ msgstr "Prijs aflopend"
 msgid "Decreasing surface"
 msgstr "Oppervlakte aflopend"
 
+msgid "Default 86400 (24h). Applies to computed isochrone payloads before ext"
+"ernal provider calls."
+msgstr "Standaard 86400 (24u). Geldt voor berekende isochroon-payloads vóór ex"
+"terne provider-aanroepen."
+
+msgid "Default frequency for new alerts"
+msgstr "Standaardfrequentie voor nieuwe meldingen"
+
+msgid "Default map center latitude"
+msgstr "Standaard kaartcentrum-breedtegraad"
+
+msgid "Default map center longitude"
+msgstr "Standaard kaartcentrum-lengtegraad"
+
+msgid "Default map zone, pager threshold and markers cap."
+msgstr "Standaard kaartzone, pagerdrempel en markerlimiet."
+
+msgid "Default map zoom"
+msgstr "Standaard kaartzoom"
+
+msgid "Default map zoom level"
+msgstr "Standaard kaartzoomniveau"
+
+msgid "Default max requests per window"
+msgstr "Standaard max. verzoeken per venster"
+
+msgid "Default search zone radius (km)"
+msgstr "Standaard zoekzone-radius (km)"
+
 msgid "Delete all"
 msgstr "Alles verwijderen"
 
 msgid "Department"
 msgstr "Departement"
 
-msgid "Desc"
-msgstr "Aflopend"
+msgid "Dictionary label"
+msgstr "Woordenboeklabel"
+
+msgid "Dictionary type"
+msgstr "Woordenboektype"
+
+msgid "Dictionary type machine name, e.g. asset_type or operation_type."
+msgstr "Machinenaam woordenboektype, bijv. asset_type of operation_type."
+
+msgid "Discover all our @asset @locality_suffix and find your ideal space qui"
+"ckly."
+msgstr "Découvrez toutes nos offres de @asset @locality_suffix et trouvez rapi"
+"dement votre espace idéalement situé."
+
+msgid "Discover all our @asset for rent @locality_suffix and find your ideal "
+"space quickly."
+msgstr "Découvrez toutes nos offres de @asset à la location @locality_suffix e"
+"t trouvez rapidement votre espace idéalement situé."
+
+msgid "Discover all our @asset for sale @locality_suffix and find your ideal "
+"space quickly."
+msgstr "Découvrez toutes nos offres de @asset à la vente @locality_suffix et t"
+"rouvez rapidement votre espace idéalement situé."
+
+msgid "Display ps_dictionary entry labels for indexed codes."
+msgstr "Toon ps_dictionary-labels voor geïndexeerde codes."
 
 msgid "Distance zone isochrone"
 msgstr "Distance zone isochrone"
@@ -152,14 +323,61 @@ msgstr "Distance zone isochrone"
 msgid "District"
 msgstr "District"
 
-msgid "Divisible"
-msgstr "Divisible"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Equipments"
-msgstr "Uitrusting"
+msgid "Enable API rate limiting"
+msgstr "API-snelheidslimiet inschakelen"
+
+msgid "Enable Card Push on search results"
+msgstr "Card Push op zoekresultaten inschakelen"
+
+msgid "Enable IP rate limiting on public API routes"
+msgstr "IP-snelheidslimiet op openbare API-routes inschakelen"
+
+msgid "Enable OpenRouteService isochrone provider"
+msgstr "OpenRouteService-isochroonprovider inschakelen"
+
+msgid "Enable OpenRouteService provider"
+msgstr "OpenRouteService-provider inschakelen"
+
+msgid "Enable search alert cron notifications"
+msgstr "Cron-meldingen voor zoekmeldingen inschakelen"
+
+msgid "Enable server-side grid clusters for dense zones"
+msgstr "Server-side rasterclusters voor dichte zones inschakelen"
+
+msgid "Enable server-side grid clusters when zone exceeds markers_max"
+msgstr "Server-side rasterclusters inschakelen wanneer zone markers_max oversc"
+"hrijdt"
+
+msgid "Exposes derived fields for More-filters core criteria."
+msgstr "Stelt afgeleide velden bloot voor Meer-filters kerncriteria."
+
+msgid "Exposes each feature as a separate indexed field."
+msgstr "Stelt elke kenmerk bloot als apart geïndexeerd veld."
+
+msgid "Exposes field_geo_lat and field_geo_lng for map zone filtering."
+msgstr "Stelt field_geo_lat en field_geo_lng bloot voor kaartzonefiltering."
+
+msgid "Exposes surface_total and surface_min as decimal fields from field_sur"
+"faces."
+msgstr "Stelt surface_total en surface_min bloot als decimale velden uit field"
+"_surfaces."
+
+msgid "External providers require API keys. On failure, fallback uses the off"
+"line approximation when enabled."
+msgstr "Externe providers vereisen API-sleutels. Bij falen gebruikt fallback d"
+"e offline benadering indien ingeschakeld."
+
+msgid "Fallback to approximation when external provider fails"
+msgstr "Terugvallen op benadering wanneer externe provider faalt"
 
 msgid "Feature filters"
 msgstr "Feature filters"
+
+msgid "Feature indexer"
+msgstr "Kenmerkindexeerder"
 
 msgid "Feature search filters"
 msgstr "Feature search filters"
@@ -173,17 +391,62 @@ msgstr "Filteren"
 msgid "Find your next property"
 msgstr "Vind uw volgende pand"
 
-msgid "Fittings"
-msgstr "Inrichting"
+msgid "Frequency"
+msgstr "Frequentie"
+
+msgid "From email"
+msgstr "Afzender-e-mail"
+
+msgid "From name"
+msgstr "Afzendernaam"
+
+msgid "Geo latitude"
+msgstr "Geo-breedtegraad"
+
+msgid "Geo longitude"
+msgstr "Geo-lengtegraad"
+
+msgid "Geo point"
+msgstr "Geo-punt"
+
+msgid "Geo point for Solr spatial search and distance sort."
+msgstr "Geo-punt voor Solr ruimtelijk zoeken en sortering op afstand."
+
+msgid "Gesture handling"
+msgstr "Gebaarafhandeling"
+
+msgid "Google Cloud Map ID"
+msgstr "Google Cloud Map-ID"
+
+msgid "Google Cloud Map ID (Advanced Markers, optional)"
+msgstr "Google Cloud Map-ID (Advanced Markers, optioneel)"
+
+msgid "Google Routes (radial sampling)"
+msgstr "Google Routes (radiale sampling)"
+
+msgid "Google Routes API key (optional override)"
+msgstr "Google Routes API-sleutel (optionele override)"
+
+msgid "Google Routes API key override (optional)"
+msgstr "Google Routes API-sleutel override (optioneel)"
+
+msgid "Greedy"
+msgstr "Greedy"
+
+msgid "Grid cluster target cells"
+msgstr "Rastercluster-doelcellen"
+
+msgid "HTMX fragments"
+msgstr "HTMX-fragmenten"
+
+msgid "Has immersive tour"
+msgstr "Heeft immersieve tour"
+
+msgid "Has video"
+msgstr "Heeft video"
 
 msgid "Header search (property)"
 msgstr "Header search (property)"
-
-msgid "Heights"
-msgstr "Hoogtes"
-
-msgid "Hide list"
-msgstr "Lijst verbergen"
 
 msgid "Immersive tour"
 msgstr "Immersieve rondleiding"
@@ -194,8 +457,91 @@ msgstr "Prijs oplopend"
 msgid "Increasing surface"
 msgstr "Oppervlakte oplopend"
 
-msgid "Keywords"
-msgstr "Trefwoorden"
+msgid "Index only when sync changed configuration"
+msgstr "Alleen indexeren wanneer sync-config is gewijzigd"
+
+msgid "Individual price markers are shown above this zoom level. Clusters app"
+"ear at this zoom and below (Google Maps zoom 0–22). Recommended: 16."
+msgstr "Individuele prijsmarkers worden boven dit zoomniveau getoond. Clusters"
+" verschijnen op dit zoomniveau en lager (Google Maps zoom 0–22). Aanbe"
+"volen: 16."
+
+msgid "Insert after result index"
+msgstr "Invoegen na resultaatindex"
+
+msgid "Insert after result number"
+msgstr "Invoegen na resultaatnummer"
+
+msgid "Install the Webform module to create search alerts."
+msgstr "Installeer de Webform-module om zoekmeldingen te maken."
+
+msgid "Internal path (e.g. /calculator) or absolute URL. Required when Card P"
+"ush is enabled."
+msgstr "Intern pad (bijv. /calculator) of absolute URL. Vereist wanneer Card P"
+"ush is ingeschakeld."
+
+msgid "Interstitial push cards for search results and future listing placemen"
+"ts."
+msgstr "Interstitiële pushkaarten voor zoekresultaten en toekomstige lijstplaa"
+"tsingen."
+
+msgid "Isochrone"
+msgstr "Isochroon"
+
+msgid "Isochrone cache coordinate precision (decimal places)"
+msgstr "Precisie isochroon-cachecoördinaten (decimalen)"
+
+msgid "Isochrone endpoint"
+msgstr "Isochroon-endpoint"
+
+msgid "Isochrone provider"
+msgstr "Isochroonprovider"
+
+msgid "Isochrone provider (approximation, ors, google)"
+msgstr "Isochroonprovider (approximation, ors, google)"
+
+msgid "Isochrone server cache TTL (seconds)"
+msgstr "Isochroon server-cache TTL (seconden)"
+
+msgid "Last match count"
+msgstr "Laatste aantal matches"
+
+msgid "Last matches"
+msgstr "Laatste matches"
+
+msgid "Last notification sent"
+msgstr "Laatste melding verzonden"
+
+msgid "Last sent"
+msgstr "Laatst verzonden"
+
+msgid "Lat/lon point for Solr distance sort."
+msgstr "Lat/lon-punt voor Solr-afstandssortering."
+
+msgid "Latitude from field_geo."
+msgstr "Breedtegraad uit field_geo."
+
+msgid "Latitude/Longitude"
+msgstr "Breedtegraad/Lengtegraad"
+
+msgid "Lazy-load map shell"
+msgstr "Map-shell lazy-loaden"
+
+msgid "Lazy-load the map shell (future use)"
+msgstr "Map-shell lazy-loaden (toekomstig gebruik)"
+
+msgid "Leave empty to reuse the Geofield Map Google Maps API key. The Google "
+"Cloud project must enable the Routes API (ComputeRoutes) in addition t"
+"o Maps JavaScript API."
+msgstr "Laat leeg om de Geofield Map Google Maps API-sleutel te hergebruiken. "
+"Het Google Cloud-project moet de Routes API (ComputeRoutes) naast Maps"
+" JavaScript API inschakelen."
+
+msgid "Legacy asset slug aliases"
+msgstr "Legacy activatype-slugaliassen"
+
+msgid "Load-all list threshold"
+msgstr "Drempel laad-alles-lijst"
 
 msgid "Loading…"
 msgstr "Laden…"
@@ -206,17 +552,35 @@ msgstr "Locatie"
 msgid "Location data"
 msgstr "Location data"
 
-msgid "Location structured data"
-msgstr "Location structured data"
+msgid "Location data endpoint"
+msgstr "Locatiegegevens-endpoint"
 
 msgid "Location suggest"
 msgstr "Location suggest"
 
-msgid "Location suggestions"
-msgstr "Location suggestions"
+msgid "Location suggest endpoint"
+msgstr "Locatiesuggestie-endpoint"
+
+msgid "Location tokens"
+msgstr "Locatietokens"
 
 msgid "Location(s)"
 msgstr "Locatie(s)"
+
+msgid "Longitude from field_geo."
+msgstr "Lengtegraad uit field_geo."
+
+msgid "Lowercase letters, digits and hyphens only."
+msgstr "Alleen kleine letters, cijfers en koppeltekens."
+
+msgid "Manage stored property search alert subscriptions."
+msgstr "Beheer opgeslagen vastgoedzoekmelding-abonnementen."
+
+msgid "Map gesture handling mode"
+msgstr "Kaartgebaarafhandelingsmodus"
+
+msgid "Map shell (PS native cartography)"
+msgstr "Map-shell (PS native cartografie)"
 
 msgid "Map zone"
 msgstr "Map zone"
@@ -224,23 +588,69 @@ msgstr "Map zone"
 msgid "Map zone settings"
 msgstr "Kaartzone-instellingen"
 
+msgid "Markers JSON"
+msgstr "Markers JSON"
+
+msgid "Markers JSON HTTP cache max-age (seconds)"
+msgstr "Markers JSON HTTP-cache max-age (seconden)"
+
+msgid "Markers JSON cache TTL (seconds)"
+msgstr "Markers JSON-cache TTL (seconden)"
+
+msgid "Markers endpoint"
+msgstr "Markers-endpoint"
+
 msgid "Max"
 msgstr "Max"
+
+msgid "Max zone results before infinite scroll"
+msgstr "Max. zoneresultaten vóór oneindig scrollen"
 
 msgid "Maximum 10 locations"
 msgstr "Maximaal 10 locaties"
 
-msgid "Means of transport"
-msgstr "Vervoersmiddel"
+msgid "Maximum @label: @value@unit"
+msgstr "Maximum @label: @value@unit"
 
-msgid "Metro, bus, train..."
-msgstr "Metro, bus, train..."
+msgid "Maximum @unit: @value"
+msgstr "Maximum @unit: @value"
+
+msgid "Maximum map zoom level"
+msgstr "Maximum kaartzoomniveau"
+
+msgid "Maximum markers per zone"
+msgstr "Maximum markers per zone"
+
+msgid "Maximum markers returned per zone"
+msgstr "Maximum teruggegeven markers per zone"
+
+msgid "Maximum zoom"
+msgstr "Maximum zoom"
 
 msgid "Min"
 msgstr "Min"
 
-msgid "More criteria group"
-msgstr "More criteria group"
+msgid "Minimum @label: @value@unit"
+msgstr "Minimum @label: @value@unit"
+
+msgid "Minimum @unit: @value"
+msgstr "Minimum @unit: @value"
+
+msgid "Minimum divisible surface from field_surfaces (qualification = MINIM, "
+"or TOTAL if absent)."
+msgstr "Minimum deelbaar oppervlak uit field_surfaces (kwalificatie = MINIM, o"
+"f TOTAL indien afwezig)."
+
+msgid "Minimum map zoom level"
+msgstr "Minimum kaartzoomniveau"
+
+msgid "Minimum zoom"
+msgstr "Minimum zoom"
+
+msgid "Module ps_search 1.0.0 — search engine, filters, map and public API un"
+"der /api/ps/*."
+msgstr "Module ps_search 1.0.0 — zoekmachine, filters, kaart en openbare API o"
+"nder /api/ps/*."
 
 msgid "More filters"
 msgstr "Meer filters"
@@ -248,8 +658,17 @@ msgstr "Meer filters"
 msgid "More filters (@count)"
 msgstr "Meer filters (@count)"
 
+msgid "Nearby public transport information."
+msgstr "Informatie over openbaar vervoer in de buurt."
+
 msgid "Nearby transport"
 msgstr "Openbaar vervoer in de buurt"
+
+msgid "Never"
+msgstr "Nooit"
+
+msgid "New matching properties:"
+msgstr "Nieuwe overeenkomende panden:"
 
 msgid "No"
 msgstr "Nee"
@@ -257,20 +676,58 @@ msgstr "Nee"
 msgid "No location found"
 msgstr "Geen locatie gevonden"
 
-msgid "No offers match your search criteria. Please adjust your filters."
-msgstr "Geen aanbod komt overeen met uw criteria. Pas uw filters aan."
+msgid "None"
+msgstr "Geen"
 
-msgid "No properties in this map area"
-msgstr "Geen panden in dit kaartgebied"
+msgid "OR — offer may match any active feature filter (broadens results)"
+msgstr "OF — aanbieding mag aan elk actief kenmerkfilter voldoen (verbreedt re"
+"sultaten)"
 
-msgid "No results found"
-msgstr "Geen resultaten"
+msgid "Offer derived search fields"
+msgstr "Afgeleide aanbodzoekvelden"
 
-msgid "Offer reference..."
-msgstr "Offer reference..."
+msgid "Offer geo latitude/longitude"
+msgstr "Aanbod geo-breedtegraad/lengtegraad"
 
 msgid "Offices, retail and logistics across France."
 msgstr "Kantoren, retail en logistiek in Frankrijk."
+
+msgid "One alias per line: legacy-slug=canonical-slug (e.g. bureau=bureaux). "
+"Used for inbound URL resolution and 301 redirects to the canonical ass"
+"et slug. Translatable per language via Configuration translation."
+msgstr "Eén alias per regel: legacy-slug=canonical-slug (bijv. bureau=bureaux)"
+". Voor inkomende URL-oplossing en 301-redirects naar canonieke slug. V"
+"ertaalbaar per taal via configuratievertaling."
+
+msgid "OpenRouteService"
+msgstr "OpenRouteService"
+
+msgid "OpenRouteService API key"
+msgstr "OpenRouteService API-sleutel"
+
+msgid "Operation type slugs"
+msgstr "Operatietype-slugs"
+
+msgid "Opt out of SMS communications"
+msgstr "Afmelden voor SMS-communicatie"
+
+msgid "Opt out of email communications"
+msgstr "Afmelden voor e-mailcommunicatie"
+
+msgid "Opt out of phone communications"
+msgstr "Afmelden voor telefooncommunicatie"
+
+msgid "Optional MarkerClusterer overrides (gridSize, styles, minimumClusterSi"
+"ze, …). Max zoom is always taken from the field above. Leave empty for"
+" BNPPRE defaults."
+msgstr "Optionele MarkerClusterer-overrides (gridSize, styles, minimumClusterS"
+"ize, …). Max-zoom komt altijd uit het veld hierboven. Laat leeg voor B"
+"NPPRE-standaarden."
+
+msgid "Optional. Required for Advanced Markers (future migration). Create a M"
+"ap ID in Google Cloud Console."
+msgstr "Optioneel. Vereist voor Advanced Markers (toekomstige migratie). Maak "
+"een Map ID aan in Google Cloud Console."
 
 msgid "Other"
 msgstr "Overig"
@@ -278,17 +735,65 @@ msgstr "Overig"
 msgid "Other criteria"
 msgstr "Overige criteria"
 
-msgid "Outdoors"
-msgstr "Buitenruimtes"
+msgid "Overview"
+msgstr "Overzicht"
 
-msgid "Pan the map or use “Search this area” to explore other regions."
-msgstr "Verschuif de kaart of gebruik «Zoeken in dit gebied»."
+msgid "Owner"
+msgstr "Eigenaar"
+
+msgid "PS Search API cache settings"
+msgstr "PS Search API-cache-instellingen"
+
+msgid "PS Search API rate limit settings"
+msgstr "PS Search API-snelheidslimiet-instellingen"
+
+msgid "PS Search Card Push — search results placement"
+msgstr "PS Search Card Push — plaatsing zoekresultaten"
+
+msgid "PS Search SEO URL mappings"
+msgstr "PS Search SEO-URL-toewijzingen"
+
+msgid "PS Search alert settings"
+msgstr "PS Search-meldingsinstellingen"
+
+msgid "PS Search feature filter sync settings"
+msgstr "PS Search kenmerkfilter-sync-instellingen"
+
+msgid "PS Search location tokens filter"
+msgstr "PS Search locatietokenfilter"
+
+msgid "PS Search location tokens filter value"
+msgstr "PS Search locatietokenfilterwaarde"
+
+msgid "PS Search map zone settings"
+msgstr "PS Search kaartzone-instellingen"
+
+msgid "Paused"
+msgstr "Gepauzeerd"
+
+msgid "Per-route limits"
+msgstr "Limieten per route"
+
+msgid "Per-route limits (requests per window)"
+msgstr "Limieten per route (verzoeken per venster)"
+
+msgid "Placements"
+msgstr "Plaatsingen"
+
+msgid "Please enter at least one location."
+msgstr "Voer minstens één locatie in."
+
+msgid "Please select a property type."
+msgstr "Selecteer een pandtype."
+
+msgid "Please select a transaction type."
+msgstr "Selecteer een transactietype."
 
 msgid "Postal code"
 msgstr "Postcode"
 
-msgid "Price"
-msgstr "Prijs"
+msgid "Professional email"
+msgstr "Professioneel e-mailadres"
 
 msgid "Properties @in @locality"
 msgstr "Properties @in @locality"
@@ -299,11 +804,38 @@ msgstr "Vastgoedzoekopdracht"
 msgid "Property search"
 msgstr "Vastgoedzoekopdracht"
 
+msgid "Property search configuration (filters, map, SEO, API)."
+msgstr "Vastgoedzoekconfiguratie (filters, kaart, SEO, API)."
+
+msgid "Property search domain module (Search API, filters, map, SEO). Clean s"
+"late 1.0.0."
+msgstr "Vastgoedzoekdomeinmodule (Search API, filters, kaart, SEO). Clean slat"
+"e 1.0.0."
+
 msgid "Property search filters"
 msgstr "Vastgoedzoekfilters"
 
 msgid "Property type"
 msgstr "Type pand"
+
+msgid "Public slug for the flexible search page (e.g. find-property). Transla"
+"table per language via Configuration translation."
+msgstr "Openbare slug voor de flexibele zoekpagina (bijv. find-property). Vert"
+"aalbaar per taal via configuratievertaling."
+
+msgid "Radius around the default center or locality centroid for the initial "
+"map zone."
+msgstr "Radius rond het standaardcentrum of locatiecentroid voor de initiële k"
+"aartzone."
+
+msgid "Rate limit window in seconds"
+msgstr "Snelheidslimietvenster in seconden"
+
+msgid "Rate limiting"
+msgstr "Snelheidsbeperking"
+
+msgid "Rate limits and server cache TTLs for /api/ps/* endpoints."
+msgstr "Snelheidslimieten en server-cache TTL's voor /api/ps/*-endpoints."
 
 msgid "Reference"
 msgstr "Referentie"
@@ -314,11 +846,33 @@ msgstr "@value verwijderen"
 msgid "Rent"
 msgstr "Huur"
 
+msgid "Required when provider is OpenRouteService. Get a key at openrouteserv"
+"ice.org."
+msgstr "Vereist wanneer provider OpenRouteService is. Verkrijg een sleutel op "
+"openrouteservice.org."
+
+msgid "Reserved for a future release (IntersectionObserver). Currently ignore"
+"d."
+msgstr "Gereserveerd voor toekomstige release (IntersectionObserver). Momentee"
+"l genegeerd."
+
 msgid "Reset"
 msgstr "Resetten"
 
-msgid "Restricted activities"
-msgstr "Niet-toegestane activiteiten"
+msgid "Result count"
+msgstr "Aantal resultaten"
+
+msgid "Retention for anonymous alerts (days)"
+msgstr "Retentie voor anonieme meldingen (dagen)"
+
+msgid "Run immediate indexing during cron"
+msgstr "Direct indexeren tijdens cron"
+
+msgid "Run immediate indexing during cron sync"
+msgstr "Direct indexeren tijdens cron-sync"
+
+msgid "SEO URL Mappings"
+msgstr "SEO-URL-toewijzingen"
 
 msgid "SEO URL mappings"
 msgstr "SEO-URL-toewijzingen"
@@ -326,11 +880,36 @@ msgstr "SEO-URL-toewijzingen"
 msgid "SEO URLs"
 msgstr "SEO URLs"
 
+msgid "Safety cap for the /api/ps/markers JSON endpoint."
+msgstr "Veiligheidslimiet voor het /api/ps/markers JSON-endpoint."
+
 msgid "Search"
 msgstr "Zoeken"
 
+msgid "Search URL"
+msgstr "Zoek-URL"
+
 msgid "Search actions"
 msgstr "Zoekacties"
+
+msgid "Search alert saved."
+msgstr "Zoekmelding opgeslagen."
+
+msgid "Search alerts"
+msgstr "Zoekmeldingen"
+
+msgid "Search commercial real estate @locality_suffix and find your ideal spa"
+"ce quickly."
+msgstr "Recherchez un bien immobilier d'entreprise @locality_suffix et trouvez"
+" rapidement votre espace idéalement situé."
+
+msgid "Search commercial real estate across France and find your ideal space "
+"quickly."
+msgstr "Recherchez un bien immobilier d'entreprise partout en France et trouve"
+"z rapidement votre espace idéalement situé."
+
+msgid "Search criteria"
+msgstr "Zoekcriteria"
 
 msgid "Search filter bar"
 msgstr "Filterbalk zoeken"
@@ -338,32 +917,40 @@ msgstr "Filterbalk zoeken"
 msgid "Search hero (homepage)"
 msgstr "Search hero (homepage)"
 
-msgid "Search keywords..."
-msgstr "Zoektrefwoorden…"
+msgid "Search page URL slug"
+msgstr "Zoekpagina-URL-slug"
 
-msgid "Search map markers"
-msgstr "Search map markers"
+msgid "Search page URL slug (base config = internal Views route; translations"
+" = public slug per language)"
+msgstr "Zoekpagina-URL-slug (basisconfig = interne Views-route; vertalingen = "
+"openbare slug per taal)"
 
-msgid "Search offers"
-msgstr "Zoekaanbod"
+msgid "Search path"
+msgstr "Zoekpad"
 
-msgid "Search result count"
-msgstr "Search result count"
+msgid "Search results"
+msgstr "Zoekresultaten"
 
-msgid "Search results header"
-msgstr "Search results header"
+msgid "Search results placement — renders the <em>search-push-card</em> SDC a"
+"fter a configurable result index."
+msgstr "Zoekresultatenplaatsing — rendert de <em>search-push-card</em> SDC na "
+"een configureerbare resultaatindex."
 
-msgid "Search this area"
-msgstr "Zoeken in dit gebied"
+msgid "Search zones"
+msgstr "Zoekzones"
 
 msgid "See all filters"
 msgstr "Alle filters bekijken"
 
-msgid "Selected property"
-msgstr "Geselecteerd pand"
+msgid "Server cache"
+msgstr "Servercache"
 
-msgid "Services"
-msgstr "Diensten"
+msgid "Settings for the PS-owned Google Map shell on the search page. The Goo"
+"gle Maps JavaScript API key is read from Geofield Map settings (/admin"
+"/config/system/geofield-map)."
+msgstr "Instellingen voor de PS Google Map-shell op de zoekpagina. De Google M"
+"aps JavaScript API-sleutel wordt gelezen uit Geofield Map-instellingen"
+"."
 
 msgid "Show"
 msgstr "Tonen"
@@ -377,20 +964,53 @@ msgstr "Lijst tonen"
 msgid "Show map"
 msgstr "Kaart tonen"
 
-msgid "Show more results"
-msgstr "Meer resultaten tonen"
-
 msgid "Showing @count in this area"
 msgstr "@count getoond in dit gebied"
+
+msgid "Skip client-side clustering up to this marker count"
+msgstr "Client-side clustering overslaan tot dit aantal markers"
+
+msgid "Skip clustering up to this marker count"
+msgstr "Clustering overslaan tot dit aantal markers"
+
+msgid "Slug for @value"
+msgstr "Slug voor @value"
+
+msgid "Slug for ACT (activity)"
+msgstr "Slug voor ACT (activiteit)"
+
+msgid "Slug for BUR (office)"
+msgstr "Slug voor BUR (kantoor)"
+
+msgid "Slug for COM (retail)"
+msgstr "Slug voor COM (winkel)"
+
+msgid "Slug for COW (coworking)"
+msgstr "Slug voor COW (coworking)"
+
+msgid "Slug for ENT (warehouse)"
+msgstr "Slug voor ENT (magazijn)"
+
+msgid "Slug for LOC (rental)"
+msgstr "Slug voor LOC (huur)"
+
+msgid "Slug for LOG (logistics)"
+msgstr "Slug voor LOG (logistiek)"
+
+msgid "Slug for TER (land)"
+msgstr "Slug voor TER (grond)"
+
+msgid "Slug for VEN (sale)"
+msgstr "Slug voor VEN (verkoop)"
 
 msgid "Sort by"
 msgstr "Sorteren op"
 
-msgid "Standards, certifications and labels"
-msgstr "Normen, certificeringen en labels"
-
 msgid "Start typing a city name or postal code"
 msgstr "Typ een stad of postcode"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Surface"
 msgstr "Oppervlakte"
@@ -398,29 +1018,117 @@ msgstr "Oppervlakte"
 msgid "Surface (m²)"
 msgstr "Oppervlakte (m²)"
 
-msgid "Transaction type"
-msgstr "Transactietype"
+msgid "Surface fields (total & min)"
+msgstr "Oppervlaktevelden (totaal & min)"
 
-msgid "Transport"
-msgstr "Voertuigtoegang"
+msgid "Surface minimum (m²)"
+msgstr "Minimum oppervlak (m²)"
 
-msgid "Transports"
-msgstr "Openbaar vervoer"
+msgid "Surface total (m²)"
+msgstr "Totaal oppervlak (m²)"
 
-msgid "Travel time"
-msgstr "Reistijd"
+msgid "Sync individual feature filters into the search view"
+msgstr "Individuele kenmerkfilters synchroniseren naar de zoekweergave"
 
-msgid "Validate"
-msgstr "Valideren"
+msgid "Sync per-feature filters into the search view"
+msgstr "Kenmerkfilters per kenmerk synchroniseren naar de zoekweergave"
+
+msgid "Sync ps_feature filters into search view and index."
+msgstr "Synchroniseer ps_feature-filters naar zoekweergave en index."
+
+msgid "Target grid cells for server-side marker clusters"
+msgstr "Doelrastercellen voor server-side markerclusters"
+
+msgid "The card appears after this result index when total results exceed thi"
+"s value (default: 1)."
+msgstr "De kaart verschijnt na deze resultaatindex wanneer het totaal dit aant"
+"al overschrijdt (standaard: 1)."
+
+msgid "The search alert webform is not available yet."
+msgstr "Het zoekmelding-webform is nog niet beschikbaar."
+
+msgid "This alert could not be saved. It may already exist for this email and"
+" search."
+msgstr "Deze melding kon niet worden opgeslagen. Mogelijk bestaat deze al voor"
+" dit e-mailadres en deze zoekopdracht."
+
+msgid "This field is required when Card Push is enabled for search results."
+msgstr "Dit veld is verplicht wanneer Card Push is ingeschakeld voor zoekresul"
+"taten."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Total surface area from field_surfaces (qualification = TOTAL)."
+msgstr "Totaal oppervlak uit field_surfaces (kwalificatie = TOTAL)."
+
+msgid "URL slugs for each asset/property type (e.g. BUR → bureau)."
+msgstr "URL-slugs voor elk activa-/pandtype (bijv. BUR → bureau)."
+
+msgid "URL slugs for each transaction type (e.g. LOC → a-louer)."
+msgstr "URL-slugs voor elk transactietype (bijv. LOC → a-louer)."
+
+msgid "Used when no locality is selected and no explicit map bounds are set."
+msgstr "Gebruikt wanneer geen locatie is geselecteerd en geen expliciete kaart"
+"grenzen zijn ingesteld."
 
 msgid "Video"
 msgstr "Video"
 
-msgid "Walking"
-msgstr "Te voet"
+msgid "Weekly"
+msgstr "Wekelijks"
+
+msgid "When a zone has this many results or fewer, the list loads every offer"
+" in one page (no infinite scroll)."
+msgstr "Wanneer een zone dit aantal resultaten of minder heeft, laadt de lijst"
+" alle aanbiedingen op één pagina (geen oneindig scrollen)."
+
+msgid "When disabled, ORS is hidden from the provider list and cannot be used"
+", even if a key is stored."
+msgstr "Wanneer uitgeschakeld, is ORS verborgen in de providerlijst en kan nie"
+"t worden gebruikt, zelfs niet als een sleutel is opgeslagen."
+
+msgid "When enabled, a promotional card is inserted in the search results lis"
+"t (disabled by default)."
+msgstr "Wanneer ingeschakeld, wordt een promotionele kaart ingevoegd in de zoe"
+"kresultatenlijst (standaard uitgeschakeld)."
+
+msgid "When enabled, exposed Search API filters are created for each feature "
+"with “Expose as filter”. Run <code>drush ps:search:features:sync-index"
+"</code> after changes."
+msgstr "Wanneer ingeschakeld, worden blootgestelde Search API-filters aangemaa"
+"kt voor elk kenmerk met «Expose as filter». Voer <code>drush ps:search"
+":features:sync-index</code> uit na wijzigingen."
+
+msgid "When the map displays this many markers or fewer, always show individu"
+"al price markers (no cluster bubble). Set to 0 to always cluster when "
+"zoom allows. Recommended: 10."
+msgstr "Wanneer de kaart dit aantal markers of minder toont, altijd individuel"
+"e prijsmarkers tonen (geen clusterbel). Zet op 0 om altijd te clustere"
+"n wanneer zoom het toestaat. Aanbevolen: 10."
+
+msgid "When zone_count exceeds the markers cap, return grid clusters instead "
+"of silently truncating individual markers."
+msgstr "Wanneer zone_count de markerlimiet overschrijdt, rasterclusters terugg"
+"even in plaats van individuele markers stil af te kappen."
+
+msgid "Whether the offer has a video."
+msgstr "Of de aanbieding een video heeft."
+
+msgid "Whether the offer has an immersive tour/360° view."
+msgstr "Of de aanbieding een immersieve tour/360°-weergave heeft."
+
+msgid "Window (seconds)"
+msgstr "Venster (seconden)"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "across France"
+msgstr "partout en France"
+
+msgid "for"
+msgstr "voor"
 
 msgid "for rent"
 msgstr "te huur"
@@ -430,6 +1138,15 @@ msgstr "te koop"
 
 msgid "in"
 msgstr "in"
+
+msgid "in @locality"
+msgstr "à @locality"
+
+msgid "properties"
+msgstr "panden"
+
+msgid "property"
+msgstr "pand"
 
 msgid "result"
 msgstr "resultaat"

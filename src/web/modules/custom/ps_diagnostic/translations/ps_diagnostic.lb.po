@@ -1,20 +1,31 @@
-# Luxembourgish translation for ps_diagnostic module.
+# LB translation for ps_diagnostic module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_diagnostic\n"
-"POT-Creation-Date: 2026-06-07 00:00+0000\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
 "Language: lb\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Simple and configurable diagnostics module for offers."
-msgstr "Einfache an konfiguréierbar Diagnosemodul fir Offeren."
+msgid "- None -"
+msgstr ""
 
-msgid "Diagnostic fields for offers."
-msgstr "Diagnosefelder fir Offeren."
+msgid "- Select -"
+msgstr "- Auswielen -"
+
+msgid "A"
+msgstr "A"
 
 msgid "Access diagnostic admin pages"
 msgstr "Zougang zu Diagnose-Admin-Säiten"
+
+msgid "Add class"
+msgstr "Klass derbäisetzen"
+
+msgid "Add diagnostic type"
+msgstr "Diagnosetyp derbäisetzen"
 
 msgid "Administer diagnostic settings"
 msgstr "Diagnose-Astellungen verwalten"
@@ -22,65 +33,118 @@ msgstr "Diagnose-Astellungen verwalten"
 msgid "Administer diagnostic types"
 msgstr "Diagnosetypen verwalten"
 
-msgid "Diagnostics"
-msgstr "Diagnosen"
+msgid "Allow empty diagnostic value"
+msgstr "Eidele Diagnosewäert erlaben"
 
-msgid "Configure diagnostics."
-msgstr "Diagnosen konfiguréieren."
+msgid "Allow empty value"
+msgstr ""
 
-msgid "Manage diagnostics structure."
-msgstr "Diagnosestruktur verwalten."
+msgid "Allow manual class"
+msgstr ""
 
-msgid "Diagnostic types"
-msgstr "Diagnosetypen"
-
-msgid "Manage diagnostic types."
-msgstr "Diagnosetypen verwalten."
-
-msgid "Add diagnostic type"
-msgstr "Diagnosetyp derbäisetzen"
-
-msgid "Diagnostic settings"
-msgstr "Diagnose-Astellungen"
-
-msgid "Overview"
-msgstr "Iwwersiicht"
-
-msgid "Types"
-msgstr "Typen"
-
-msgid "Diagnostic item"
-msgstr "Diagnose-Element"
-
-msgid "Stores one diagnostic item based on XML structure."
-msgstr "Späichert ee Diagnose-Element baséiert op der XML-Struktur."
-
-msgid "Diagnostic type"
-msgstr "Diagnosetyp"
-
-msgid "Class"
-msgstr "Klass"
-
-msgid "Value"
-msgstr "Wäert"
-
-msgid "Diagnostic date"
-msgstr "Diagnosedatum"
-
-msgid "Validity end date"
-msgstr "Gültegkeetsenddatum"
-
-msgid "No classification"
-msgstr "Keng Klassifikatioun"
-
-msgid "Non applicable"
-msgstr "Net uwendbar"
+msgid "Allow manual class entry"
+msgstr "Manuell Klass-Aginn erlaben"
 
 msgid "Allowed diagnostic type IDs"
 msgstr "Erlaabt Diagnosetyp-IDs"
 
-msgid "One type ID per line. Leave empty to allow all types."
-msgstr "Eng Typ-ID pro Zeil. Eidel loossen fir all Typen z'erlaben."
+msgid "Allowed diagnostic types"
+msgstr ""
+
+msgid "Auto"
+msgstr ""
+
+msgid "Back to diagnostics structure"
+msgstr "Zréck zur Diagnosestruktur"
+
+msgid "Back to types"
+msgstr "Zréck zu den Typen"
+
+msgid "Badge image style"
+msgstr ""
+
+msgid "Badge image style: @style"
+msgstr ""
+
+msgid "Badge image style: none"
+msgstr ""
+
+msgid "Best class"
+msgstr "Bescht Klass"
+
+msgid "Certification label badge"
+msgstr ""
+
+msgid "Certification labels"
+msgstr ""
+
+msgid "Choose the diagnostic family before entering the class or value."
+msgstr "Diagnose-Famill wielen ier Klass oder Wäert aginn gëtt."
+
+msgid "Class"
+msgstr "Klass"
+
+msgid "Class (auto preview)"
+msgstr "Klass (Auto-Virschau)"
+
+msgid "Class auto-detected: @class"
+msgstr ""
+
+msgid "Class is computed automatically from the value scale."
+msgstr "Klass gëtt automatesch aus der Wäert-Skala berechent."
+
+msgid "Class label is required when a class row is used."
+msgstr "Klass-Bezeechnung ass erfuerderlech wann eng Klass-Zeil benotzt gëtt."
+
+msgid "Class ranges must be strictly increasing."
+msgstr "Klass-Beräicher musse streng opsteigend sinn."
+
+msgid "Class slider preview"
+msgstr ""
+
+msgid "Classes"
+msgstr "Klassen"
+
+msgid "Color"
+msgstr "Faarf"
+
+msgid "Color must be a valid hex value (example: #8BC34A)."
+msgstr "Faarf muss e gültege Hex-Wäert sinn (Beispill: #8BC34A)."
+
+msgid "Configure diagnostics."
+msgstr "Diagnosen konfiguréieren."
+
+msgid "Configure offer section headings"
+msgstr ""
+
+msgid "Dates: hidden"
+msgstr "Daten: verstoppt"
+
+msgid "Dates: shown"
+msgstr "Daten: gewisen"
+
+msgid "Default validity duration (months)"
+msgstr "Standard-Gültegkeetsdauer (Méint)"
+
+msgid "Default validity months"
+msgstr ""
+
+msgid "Define classes in ascending order. The last configured class is open-e"
+"nded and must keep an empty max range."
+msgstr "Klassen an opsteigender Reiefolleg definéieren. Déi lescht Klass ass o"
+"ppen an muss e eidele Max-Beräich hunn."
+
+msgid "Description"
+msgstr "Beschreiwung"
+
+msgid "Detailed message per reason"
+msgstr "Detailléiert Message no Grond"
+
+msgid "Diagnostic - Compare table (badge)"
+msgstr ""
+
+msgid "Diagnostic - Full"
+msgstr "Diagnose - Komplett"
 
 msgid "Diagnostic - Horizontal (default)"
 msgstr "Diagnose - Horizontal (Standard)"
@@ -88,53 +152,32 @@ msgstr "Diagnose - Horizontal (Standard)"
 msgid "Diagnostic - Vertical"
 msgstr "Diagnose - Vertikal"
 
-msgid "Diagnostic - Full"
-msgstr "Diagnose - Komplett"
+msgid "Diagnostic date"
+msgstr "Diagnosedatum"
 
-msgid "Show ranges"
-msgstr "Bereicher weisen"
+msgid "Diagnostic fields for offers."
+msgstr "Diagnosefelder fir Offeren."
 
-msgid "Show dates"
-msgstr "Daten weisen"
+msgid "Diagnostic has expired."
+msgstr "Diagnose ass ofgelaf."
 
-msgid "Show unknown-state banner"
-msgstr "Banner fir onbekannte Status weisen"
+msgid "Diagnostic has no classification."
+msgstr "Diagnose huet keng Klassifikatioun."
 
-msgid "Show reference threshold table"
-msgstr "Referenz-Schwellenwert-Tabelle weisen"
+msgid "Diagnostic item"
+msgstr "Diagnose-Element"
 
-msgid "Used by the Full formatter."
-msgstr "Gëtt vum komplette Formatter benotzt."
+msgid "Diagnostic item editor"
+msgstr ""
 
-msgid "Ranges: shown"
-msgstr "Bereicher: gewisen"
+msgid "Diagnostic item field settings"
+msgstr ""
 
-msgid "Ranges: hidden"
-msgstr "Bereicher: verstoppt"
+msgid "Diagnostic item storage settings"
+msgstr ""
 
-msgid "Dates: shown"
-msgstr "Daten: gewisen"
-
-msgid "Dates: hidden"
-msgstr "Daten: verstoppt"
-
-msgid "Unknown banner: shown"
-msgstr "Onbekannt-Banner: gewisen"
-
-msgid "Unknown banner: hidden"
-msgstr "Onbekannt-Banner: verstoppt"
-
-msgid "Reference table: shown"
-msgstr "Referenztabelle: gewisen"
-
-msgid "Reference table: hidden"
-msgstr "Referenztabelle: verstoppt"
-
-msgid "Energy & diagnostics"
-msgstr "Energie & Diagnostik"
-
-msgid "Energy label not provided by the owner."
-msgstr "Energieetikett net vum Besëtzer geliwwert."
+msgid "Diagnostic item values"
+msgstr ""
 
 msgid "Diagnostic label is not provided by the owner."
 msgstr "Energieetikett net vum Besëtzer geliwwert."
@@ -142,11 +185,47 @@ msgstr "Energieetikett net vum Besëtzer geliwwert."
 msgid "Diagnostic not applicable for this offer."
 msgstr "Diagnose net uwendbar fir dës Offer."
 
-msgid "Diagnostic has no classification."
-msgstr "Diagnose huet keng Klassifikatioun."
+msgid "Diagnostic scale"
+msgstr "Diagnose-Skala"
 
-msgid "Diagnostic has expired."
-msgstr "Diagnose ass ofgelaf."
+msgid "Diagnostic settings"
+msgstr "Diagnose-Astellungen"
+
+msgid "Diagnostic summary"
+msgstr "Diagnose-Iwwersiicht"
+
+msgid "Diagnostic type"
+msgstr "Diagnosetyp"
+
+msgid "Diagnostic type %label has been saved."
+msgstr "Diagnosetyp %label gouf gespäichert."
+
+msgid "Diagnostic types"
+msgstr "Diagnosetypen"
+
+msgid "Diagnostics"
+msgstr "Diagnosen"
+
+msgid "Diagnostics overview"
+msgstr "Diagnose-Iwwersiicht"
+
+msgid "Disabled diagnostic message mode"
+msgstr "Message-Modus fir desaktivéiert Diagnose"
+
+msgid "Enabled"
+msgstr "Aktivéiert"
+
+msgid "End date"
+msgstr "Enddatum"
+
+msgid "Energy & diagnostics"
+msgstr "Energie & Diagnostik"
+
+msgid "Energy classes"
+msgstr "Energieklassen"
+
+msgid "Energy label not provided by the owner."
+msgstr "Energieetikett net vum Besëtzer geliwwert."
 
 msgid "Energy-efficient property"
 msgstr "Energieeffizient Immobilie"
@@ -154,245 +233,208 @@ msgstr "Energieeffizient Immobilie"
 msgid "Energy-intensive property"
 msgstr "Energieintensiv Immobilie"
 
-msgid "Low greenhouse gas emissions"
-msgstr "Niddreg Treibhausgasemissiounen"
+msgid "Enter a value to auto-detect the class."
+msgstr ""
 
-msgid "High greenhouse gas emissions"
-msgstr "Héich Treibhausgasemissiounen"
-
-msgid "Best class"
-msgstr "Bescht Klass"
-
-msgid "Worst class"
-msgstr "Schlechtst Klass"
-
-msgid "Diagnostic"
-msgstr "Diagnose"
-
-msgid "Diagnostic summary"
-msgstr "Diagnose-Iwwersiicht"
-
-msgid "Diagnostic scale"
-msgstr "Diagnose-Skala"
-
-msgid "Threshold"
-msgstr "Schwellenwäert"
-
-msgid "From:"
-msgstr "Vum:"
-
-msgid "Until:"
-msgstr "Bis:"
-
-msgid "Navigation"
-msgstr "Navigatioun"
-
-msgid "Diagnostics overview"
-msgstr "Diagnose-Iwwersiicht"
-
-msgid "Default validity duration (months)"
-msgstr "Standard-Gültegkeetsdauer (Méint)"
-
-msgid "Allow manual class entry"
-msgstr "Manuell Klass-Aginn erlaben"
-
-msgid "Allow empty diagnostic value"
-msgstr "Eidele Diagnosewäert erlaben"
-
-msgid "Offer detail display"
-msgstr "Offer-Detail-Weergab"
-
-msgid "Offer section title"
-msgstr "Titel vun der Offer-Sektioun"
-
-msgid "Heading shown above diagnostics on offer detail pages."
-msgstr "Iwwerschrëft iwwer Diagnosen op Offer-Detail-Säiten."
-
-msgid "Offer section icon"
-msgstr "Offer-Sektiouns-Ikon"
-
-msgid "UI Icon shown next to the section title on offer detail pages."
-msgstr "UI-Ikon niewent dem Sektiounstitel op Offer-Detail-Säiten."
-
-msgid "Disabled diagnostic message mode"
-msgstr "Message-Modus fir desaktivéiert Diagnose"
-
-msgid "Single message (BNPPRE style)"
-msgstr "Eng eenzel Message (BNPPRE-Stil)"
-
-msgid "Detailed message per reason"
-msgstr "Detailléiert Message no Grond"
-
-msgid "When a diagnostic cannot be displayed, choose one shared message or a specific message per status."
-msgstr "Wann eng Diagnose net gewisen ka ginn, eng gemeinsam oder statusspezifesch Message wielen."
-
-msgid "Single fallback message"
-msgstr "Eenzel Fallback-Message"
-
-msgid "Shown for all disabled diagnostics when single message mode is selected."
-msgstr "Gewise fir all desaktivéiert Diagnosen am Eenzel-Message-Modus."
-
-msgid "Back to diagnostics structure"
-msgstr "Zréck zur Diagnosestruktur"
-
-msgid "Label"
-msgstr "Bezeechnung"
-
-msgid "Description"
-msgstr "Beschreiwung"
-
-msgid "Unit"
-msgstr "Eenheet"
+msgid "Enter the measured value first. The widget suggests the class automati"
+"cally from the scale."
+msgstr "Éischt de Moosswäert aginn. De Widget schléit d'Klass automatesch no d"
+"er Skala vir."
 
 msgid "Example: kWh/m2/year, kgCO2/m2/year."
 msgstr "Beispill: kWh/m²/Joer, kgCO₂/m²/Joer."
 
-msgid "Icon"
-msgstr "Ikon"
+msgid "Fallback message mode"
+msgstr ""
 
-msgid "UI Icon shown next to the diagnostic title on offer pages."
-msgstr "UI-Ikon niewent dem Diagnose-Titel op Offer-Säiten."
+msgid "From:"
+msgstr "Vum:"
 
-msgid "Energy classes"
-msgstr "Energieklassen"
-
-msgid "Move"
-msgstr "Réckelen"
-
-msgid "Color"
-msgstr "Faarf"
-
-msgid "Range max"
-msgstr "Max. Beräich"
-
-msgid "Remove"
-msgstr "Ewechhuelen"
-
-msgid "No classes configured yet."
-msgstr "Nach keng Klassen konfiguréiert."
-
-msgid "Define classes in ascending order. The last configured class is open-ended and must keep an empty max range."
-msgstr "Klassen an opsteigender Reiefolleg definéieren. Déi lescht Klass ass oppen an muss e eidele Max-Beräich hunn."
-
-msgid "Order"
-msgstr "Reiefolleg"
-
-msgid "A"
-msgstr "A"
-
-msgid "Add class"
-msgstr "Klass derbäisetzen"
-
-msgid "Remove selected"
-msgstr "Auswiel ewechhuelen"
-
-msgid "Enabled"
-msgstr "Aktivéiert"
-
-msgid "Weight"
-msgstr "Gewiicht"
-
-msgid "Back to types"
-msgstr "Zréck zu den Typen"
-
-msgid "Class label is required when a class row is used."
-msgstr "Klass-Bezeechnung ass erfuerderlech wann eng Klass-Zeil benotzt gëtt."
-
-msgid "Color must be a valid hex value (example: #8BC34A)."
-msgstr "Faarf muss e gültege Hex-Wäert sinn (Beispill: #8BC34A)."
-
-msgid "The last configured class must keep an empty range max."
-msgstr "Déi lescht konfiguréiert Klass muss e eidele Max-Beräich hunn."
-
-msgid "Range max is required for configured classes except the last one."
-msgstr "Max-Beräich ass fir all Klassen ausser der leschter erfuerderlech."
-
-msgid "Class ranges must be strictly increasing."
-msgstr "Klass-Beräicher musse streng opsteigend sinn."
-
-msgid "Diagnostic type %label has been saved."
-msgstr "Diagnosetyp %label gouf gespäichert."
-
-msgid "- Select -"
-msgstr "- Auswielen -"
-
-msgid "Choose the diagnostic family before entering the class or value."
-msgstr "Diagnose-Famill wielen ier Klass oder Wäert aginn gëtt."
+msgid "High greenhouse gas emissions"
+msgstr "Héich Treibhausgasemissiounen"
 
 msgid "How this field works"
 msgstr "Wéi dëst Feld funktionéiert"
 
-msgid "Enter the measured value first. The widget suggests the class automatically from the scale."
-msgstr "Éischt de Moosswäert aginn. De Widget schléit d'Klass automatesch no der Skala vir."
+msgid "ID"
+msgstr "ID"
 
-msgid "Measured value used to calculate the class automatically."
-msgstr "Moosswäert fir d'Klass automatesch ze berechnen."
+msgid "Icon"
+msgstr "Ikon"
 
-msgid "Class (auto preview)"
-msgstr "Klass (Auto-Virschau)"
+msgid "Label"
+msgstr "Bezeechnung"
 
-msgid "Class is computed automatically from the value scale."
-msgstr "Klass gëtt automatesch aus der Wäert-Skala berechent."
+msgid "Low greenhouse gas emissions"
+msgstr "Niddreg Treibhausgasemissiounen"
 
-msgid "Start date"
-msgstr "Ufanksdatum"
-
-msgid "End date"
-msgstr "Enddatum"
-
-msgid "No class scale configured."
-msgstr "Keng Klass-Skala konfiguréiert."
+msgid "Manage diagnostic types."
+msgstr "Diagnosetypen verwalten."
 
 msgid "Manage diagnostics from this simple interface."
 msgstr "Diagnosen iwwer dës einfach Interface verwalten."
 
-msgid "ID"
-msgstr "ID"
+msgid "Manage diagnostics structure."
+msgstr "Diagnosestruktur verwalten."
 
-msgid "Classes"
-msgstr "Klassen"
+msgid "Manual class override: @class"
+msgstr ""
 
-msgid "Yes"
-msgstr "Jo"
+msgid "Measured value used to calculate the class automatically."
+msgstr "Moosswäert fir d'Klass automatesch ze berechnen."
+
+msgid "Move"
+msgstr "Réckelen"
+
+msgid "Navigation"
+msgstr "Navigatioun"
 
 msgid "No"
 msgstr "Nee"
 
-msgid "Icon key"
-msgstr "Ikon-Schlëssel"
+msgid "No automatic class could be inferred from the current value."
+msgstr ""
 
-msgid "Current class"
-msgstr "Aktuell Klass"
+msgid "No class scale configured."
+msgstr "Keng Klass-Skala konfiguréiert."
 
-msgid "Status"
-msgstr "Status"
+msgid "No classes configured yet."
+msgstr "Nach keng Klassen konfiguréiert."
 
-msgid "Visual preset"
-msgstr "Visuellt Preset"
+msgid "No classification"
+msgstr "Keng Klassifikatioun"
 
-msgid "Auto (DPE/GES label style)"
-msgstr "Auto (DPE/GES-Etiketten-Stil)"
+msgid "Non applicable"
+msgstr "Net uwendbar"
 
-msgid "Label style (all diagnostics)"
-msgstr "Etiketten-Stil (all Diagnosen)"
+msgid "Offer detail display"
+msgstr "Offer-Detail-Weergab"
 
-msgid "Simple card style"
-msgstr "Einfache Kaart-Stil"
+msgid "Offer section headings"
+msgstr ""
 
-msgid "Show visual scale"
-msgstr "Visuell Skala weisen"
+msgid "One type ID per line. Leave empty to allow all types."
+msgstr "Eng Typ-ID pro Zeil. Eidel loossen fir all Typen z'erlaben."
 
-msgid "Preset: label style"
-msgstr "Preset: Etiketten-Stil"
+msgid "Order"
+msgstr "Reiefolleg"
 
-msgid "Preset: simple card style"
-msgstr "Preset: Kaart-Stil"
+msgid "Overview"
+msgstr "Iwwersiicht"
 
-msgid "Preset: auto DPE/GES label style"
-msgstr "Preset: Auto DPE/GES-Etiketten-Stil"
+msgid "PS Diagnostic"
+msgstr ""
 
-msgid "Scale: shown"
-msgstr "Skala: gewisen"
+msgid "Range max"
+msgstr "Max. Beräich"
 
-msgid "Scale: hidden"
-msgstr "Skala: verstoppt"
+msgid "Range max is required for configured classes except the last one."
+msgstr "Max-Beräich ass fir all Klassen ausser der leschter erfuerderlech."
+
+msgid "Ranges: hidden"
+msgstr "Bereicher: verstoppt"
+
+msgid "Ranges: shown"
+msgstr "Bereicher: gewisen"
+
+msgid "Reference table: hidden"
+msgstr "Referenztabelle: verstoppt"
+
+msgid "Reference table: shown"
+msgstr "Referenztabelle: gewisen"
+
+msgid "Remove"
+msgstr "Ewechhuelen"
+
+msgid "Remove selected"
+msgstr "Auswiel ewechhuelen"
+
+msgid "Section title and icon"
+msgstr ""
+
+msgid "Show dates"
+msgstr "Daten weisen"
+
+msgid "Show ranges"
+msgstr "Bereicher weisen"
+
+msgid "Show reference threshold table"
+msgstr "Referenz-Schwellenwert-Tabelle weisen"
+
+msgid "Show unknown-state banner"
+msgstr "Banner fir onbekannte Status weisen"
+
+msgid "Shown for all disabled diagnostics when single message mode is selecte"
+"d."
+msgstr "Gewise fir all desaktivéiert Diagnosen am Eenzel-Message-Modus."
+
+msgid "Simple and configurable diagnostics module for offers."
+msgstr "Einfache an konfiguréierbar Diagnosemodul fir Offeren."
+
+msgid "Single fallback message"
+msgstr "Eenzel Fallback-Message"
+
+msgid "Single message (BNPPRE style)"
+msgstr "Eng eenzel Message (BNPPRE-Stil)"
+
+msgid "Start date"
+msgstr "Ufanksdatum"
+
+msgid "Stores one diagnostic item based on XML structure."
+msgstr "Späichert ee Diagnose-Element baséiert op der XML-Struktur."
+
+msgid "The last configured class must keep an empty range max."
+msgstr "Déi lescht konfiguréiert Klass muss e eidele Max-Beräich hunn."
+
+msgid "This diagnostic is marked as having no classification."
+msgstr ""
+
+msgid "This diagnostic is marked as non applicable."
+msgstr ""
+
+msgid "Threshold"
+msgstr "Schwellenwäert"
+
+msgid "Types"
+msgstr "Typen"
+
+msgid "UI Icon shown next to the diagnostic title on offer pages."
+msgstr "UI-Ikon niewent dem Diagnose-Titel op Offer-Säiten."
+
+msgid "UUID"
+msgstr ""
+
+msgid "Unit"
+msgstr "Eenheet"
+
+msgid "Unknown banner: hidden"
+msgstr "Onbekannt-Banner: verstoppt"
+
+msgid "Unknown banner: shown"
+msgstr "Onbekannt-Banner: gewisen"
+
+msgid "Until:"
+msgstr "Bis:"
+
+msgid "Used by the Full formatter."
+msgstr "Gëtt vum komplette Formatter benotzt."
+
+msgid "Validity end date"
+msgstr "Gültegkeetsenddatum"
+
+msgid "Value"
+msgstr "Wäert"
+
+msgid "Weight"
+msgstr "Gewiicht"
+
+msgid "When a diagnostic cannot be displayed, choose one shared message or a "
+"specific message per status."
+msgstr "Wann eng Diagnose net gewisen ka ginn, eng gemeinsam oder statusspezif"
+"esch Message wielen."
+
+msgid "Worst class"
+msgstr "Schlechtst Klass"
+
+msgid "Yes"
+msgstr "Jo"

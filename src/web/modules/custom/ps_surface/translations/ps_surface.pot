@@ -1,142 +1,186 @@
-# POT file for ps_surface
+# EN translation for ps_surface module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_surface\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Available"
+msgid "+ Add division"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Label"
+msgid "Administer PS surface entities"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Partial"
+msgid "Availability"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Reference"
+msgid "Available"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Status"
+msgid "Business identifier for the division."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Surfaces"
+msgid "Changed"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Unavailable"
+msgid "Created"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Unknown"
+msgid "DISPO surface (@dispo m²) exceeds TOTAL surface (@total m²). Available"
+" surface cannot be greater than total."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:division_status"
+msgid "Define the qualified surface values for this division. TOTAL is the to"
+"tal area, DISPO is the available area, and ETREF is the reference surf"
+"ace (ERP regulations)."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:surfaces"
+msgid "Division label"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Availability text"
+msgid "Division reference"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Business identifier for the division."
+msgid "Division status"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Changed"
+msgid "ETREF surface (@etref m²) exceeds TOTAL surface (@total m²). ETREF sho"
+"uld be less than or equal to TOTAL."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Created"
+msgid "Floor"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division label"
+msgid "Floor level for the division (e.g. RDC, R+5)."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division reference"
+msgid "Human readable label for the division."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division status"
+msgid "Label"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Human readable label for the division."
+msgid "Linked offers"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Internal lock"
+msgid "Lot"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Operational status of the division."
+msgid "Manage surface division entities and configuration."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Protects manually curated division data from automated overwrites."
+msgid "Nature"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Qualified surface values attached to this division."
+msgid "Nature or usage label for the division (e.g. Bureaux)."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Raw availability text imported from source systems."
+msgid "Operational status of the division."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Source tracking"
+msgid "PS surface item"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Structured JSON payload used for source traceability."
+msgid "PS surface — Compare table"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Surfaces"
+msgid "PS surface — Contextual (matrix-driven)"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:division_reference"
+msgid "PS surface — Offer (TOTAL / DISPO / ETREF / MINIM)"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldFormatter/SurfaceContextualFormatter.php:field_asset_type"
+msgid "Partial"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldFormatter/SurfaceContextualFormatter.php:field_divisible"
+msgid "Qualification"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Qualification code"
+msgid "Qualification code"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Unit code"
+msgid "Qualified surface values attached to this division."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Value"
+msgid "Raw availability text imported from external systems. This is for refe"
+"rence only."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:qualification"
+msgid "Reference"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:value"
+msgid "Select a qualification code from dictionary entries."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:- Select -"
+msgid "Select the operational status of this division based on its availabili"
+"ty."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:DISPO"
+msgid "Sort by @column, currently @direction."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:ETREF"
+msgid "Sort by @column."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Qualification"
+msgid "Status"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:TOTAL"
+msgid "Stores a qualified physical surface item."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Unit"
+msgid "Surface"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Value"
+msgid "Surface @qual has negative value (@value). Negative surfaces are not a"
+"llowed."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:entity_type.manager"
+msgid "Surface division"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceOfferWidget.php:Unit"
+msgid "Surface division table"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceOfferWidget.php:entity_type.manager"
+msgid "Surface divisions"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:field_divisions"
+msgid "Surface domain foundation for divisions, projections, and governance p"
+"olicies."
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:field_surfaces"
+msgid "Surface table"
 msgstr ""
 
-msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:surfaces"
+msgid "Surfaces"
+msgstr ""
+
+msgid "Unavailable"
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Unit code"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "surface division"
+msgstr ""
+
+msgid "surface divisions"
+msgstr ""
+
+msgid "⚠️ <strong>Enable this lock to prevent automated imports from overwrit"
+"ing manually curated data.</strong> Use this when you have manually co"
+"rrected or customized this division and want to protect it from future"
+" automatic updates."
 msgstr ""

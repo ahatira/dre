@@ -1,0 +1,154 @@
+{
+  "ps_diagnostic.settings.yml": {
+    "de": {
+      "fallback_message_single": "Energielabel wurde vom Eigentümer nicht bereitgestellt."
+    },
+    "es": {
+      "fallback_message_single": "Etiqueta energética no proporcionada por el propietario."
+    },
+    "fr": {
+      "fallback_message_single": "Étiquette énergétique non fournie par le propriétaire"
+    },
+    "it": {
+      "fallback_message_single": "Etichetta energetica non fornita dal proprietario."
+    },
+    "lb": {
+      "fallback_message_single": "Energieetikett gouf net vum Proprietär uginn."
+    },
+    "nl": {
+      "fallback_message_single": "Energielabel niet verstrekt door de eigenaar."
+    },
+    "pl": {
+      "fallback_message_single": "Etykieta energetyczna nie została dostarczona przez właściciela."
+    }
+  },
+  "ps_diagnostic.type.dpe.yml": {
+    "de": {
+      "label": "Energieverbrauch",
+      "description": "Energieausweis (DPE)."
+    },
+    "es": {
+      "label": "Consumo de energía",
+      "description": "Diagnóstico de rendimiento energético (DPE)."
+    },
+    "fr": {
+      "label": "Consommations énergétiques",
+      "description": "Diagnostic de performance énergétique (DPE)."
+    },
+    "it": {
+      "label": "Consumo energetico",
+      "description": "Diagnosi di prestazione energetica (DPE)."
+    },
+    "lb": {
+      "label": "Energieverbrauch",
+      "description": "Diagnos vun der Energieleeschtung (DPE)."
+    },
+    "nl": {
+      "label": "Energieverbruik",
+      "description": "Diagnose van energieprestatie (DPE)."
+    },
+    "pl": {
+      "label": "Zużycie energii",
+      "description": "Diagnoza charakterystyki energetycznej (DPE)."
+    }
+  },
+  "ps_diagnostic.type.ges.yml": {
+    "de": {
+      "label": "Treibhausgasemissionen",
+      "description": "Diagnose der Treibhausgasemissionen (GES)."
+    },
+    "es": {
+      "label": "Emisiones de gases de efecto invernadero",
+      "description": "Diagnóstico de emisiones de gases de efecto invernadero (GES)."
+    },
+    "fr": {
+      "label": "Émissions de gaz à effet de serre",
+      "description": "Diagnostic des émissions de gaz à effet de serre (GES)."
+    },
+    "it": {
+      "label": "Emissioni di gas serra",
+      "description": "Diagnosi delle emissioni di gas serra (GES)."
+    },
+    "lb": {
+      "label": "Treibhausemissiounen",
+      "description": "Diagnos vun Treibhausemissiounen (GES)."
+    },
+    "nl": {
+      "label": "Broeikasgasemissies",
+      "description": "Diagnose van broeikasgasemissies (GES)."
+    },
+    "pl": {
+      "label": "Emisje gazów cieplarnianych",
+      "description": "Diagnoza emisji gazów cieplarnianych (GES)."
+    }
+  },
+  "taxonomy.vocabulary.certification_label.yml": {
+    "de": {
+      "description": "Zertifizierungen und Qualitätslabels (LEED, BREEAM, HQE usw.)."
+    },
+    "es": {
+      "description": "Certificaciones y etiquetas de calidad (LEED, BREEAM, HQE, etc.)."
+    },
+    "fr": {
+      "description": "Certifications et labels de qualité (LEED, BREEAM, HQE, etc.)."
+    },
+    "it": {
+      "description": "Certificazioni ed etichette di qualità (LEED, BREEAM, HQE, ecc.)."
+    },
+    "lb": {
+      "description": "Zertifizéierungen a Qualitéitslabelen (LEED, BREEAM, HQE, asw.)."
+    },
+    "nl": {
+      "description": "Certificeringen en kwaliteitslabels (LEED, BREEAM, HQE, enz.)."
+    },
+    "pl": {
+      "description": "Certyfikaty i etykiety jakości (LEED, BREEAM, HQE itd.)."
+    }
+  },
+  "config_translation.mapper.ps_diagnostic_settings.yml": {
+    "de": {
+      "title": "Diagnose-Einstellungen"
+    },
+    "es": {
+      "title": "Configuración de diagnósticos"
+    },
+    "fr": {
+      "title": "Paramètres des diagnostics"
+    },
+    "it": {
+      "title": "Impostazioni diagnostiche"
+    },
+    "lb": {
+      "title": "Diagnos-Astellungen"
+    },
+    "nl": {
+      "title": "Diagnose-instellingen"
+    },
+    "pl": {
+      "title": "Ustawienia diagnostyki"
+    }
+  },
+  "config_translation.mapper.ps_diagnostic_type.yml": {
+    "de": {
+      "title": "Diagnosetyp"
+    },
+    "es": {
+      "title": "Tipo de diagnóstico"
+    },
+    "fr": {
+      "title": "Type de diagnostic"
+    },
+    "it": {
+      "title": "Tipo di diagnostica"
+    },
+    "lb": {
+      "title": "Diagnostiktyp"
+    },
+    "nl": {
+      "title": "Diagnosetype"
+    },
+    "pl": {
+      "title": "Typ diagnostyczny"
+    }
+  }
+}

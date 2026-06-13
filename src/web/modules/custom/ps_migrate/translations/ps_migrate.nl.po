@@ -1,0 +1,154 @@
+# NL translation for ps_migrate module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_migrate\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All surface values"
+msgstr "Alle oppervlaktewaarden"
+
+msgid "Already published: @count"
+msgstr "Al gepubliceerd: @count"
+
+msgid "Asset Type"
+msgstr "Activatype"
+
+msgid "Asset type code"
+msgstr "Activatypecode"
+
+msgid "Budget Value"
+msgstr "Budgetwaarde"
+
+msgid "Business ID"
+msgstr "Business-ID"
+
+msgid "Business ID (source XML)"
+msgstr "Business-ID (bron-XML)"
+
+msgid "Canonical Drupal source language"
+msgstr "Canonieke Drupal-bronstaal"
+
+msgid "Canonical XML source language"
+msgstr "Canonieke XML-bronstaal"
+
+msgid "City"
+msgstr "Stad"
+
+msgid "Commercial Title"
+msgstr "Commerciële titel"
+
+msgid "Country ISO code"
+msgstr "Land-ISO-code"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "External ID"
+msgstr "Externe ID"
+
+msgid "Feature code"
+msgstr "Kenmerkcode"
+
+msgid "Feature definition ID"
+msgstr "Kenmerkdefinitie-ID"
+
+msgid "Feature group ID"
+msgstr "Kenmerkgroep-ID"
+
+msgid "Feature group code"
+msgstr "Kenmerkgroepcode"
+
+msgid "Full offer XML node"
+msgstr "Volledig aanbod-XML-knooppunt"
+
+msgid "Generated at: @date"
+msgstr "Gegenereerd op: @date"
+
+msgid "Import Offers from CRM XML (Example)"
+msgstr "Aanbiedingen importeren uit CRM-XML (voorbeeld)"
+
+msgid "Import rejections"
+msgstr "Importafwijzingen"
+
+msgid "Label"
+msgstr "Label"
+
+msgid "Last Post-Import Publication Report"
+msgstr "Laatste publicatierapport na import"
+
+msgid "No post-import publication report is available yet. Run CRM import fir"
+"st."
+msgstr "Nog geen publicatierapport na import beschikbaar. Voer eerst CRM-impor"
+"t uit."
+
+msgid "No rejected offers in the latest report."
+msgstr "Geen afgewezen aanbiedingen in het laatste rapport."
+
+msgid "Node ID"
+msgstr "Knooppunt-ID"
+
+msgid "Offer Title"
+msgstr "Aanbiedingstitel"
+
+msgid "Operation Type"
+msgstr "Operatietype"
+
+msgid "Operation code"
+msgstr "Operatiecode"
+
+msgid "Payload defaults"
+msgstr "Payload-standaardwaarden"
+
+msgid "Provides migration support for PS entities with entity protection inte"
+"gration"
+msgstr "Biedt migratieondersteuning voor PS-entiteiten met entiteitsbeschermin"
+"gsintegratie."
+
+msgid "Published during post-import: @count"
+msgstr "Gepubliceerd tijdens post-import: @count"
+
+msgid "Reference"
+msgstr "Referentie"
+
+msgid "Rejected during publication: @count"
+msgstr "Afgewezen tijdens publicatie: @count"
+
+msgid "Rejection reason"
+msgstr "Afwijzingsreden"
+
+msgid "Required asset types"
+msgstr "Vereiste activatypen"
+
+msgid "Review post-import publication rejections for source data quality trac"
+"king."
+msgstr "Bekijk publicatieafwijzingen na import voor tracking brondatakwaliteit"
+"."
+
+msgid "Source index"
+msgstr "Bronindex"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Target Drupal language"
+msgstr "Doel-Drupal-taal"
+
+msgid "Target XML language"
+msgstr "Doel-XML-taal"
+
+msgid "Technical elements node"
+msgstr "Knooppunt technische elementen"
+
+msgid "Total offers scanned: @count"
+msgstr "Totaal gescande aanbiedingen: @count"
+
+msgid "Type driver"
+msgstr "Typedriver"
+
+msgid "Weight"
+msgstr "Gewicht"

@@ -1,0 +1,69 @@
+title: 'Neem contact op met de adviseur'
+description: 'Contactformulier op de detailpagina van het aanbod.'
+category: 'Vastgoed zoeken'
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Wat zijn uw contactgegevens?'
+    first_name:
+      '#type': textfield
+      '#title': 'Voornaam'
+      '#placeholder': Diego
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Achternaam'
+      '#placeholder': Plot
+      '#required': true
+    email:
+      '#type': email
+      '#title': 'Zakelijk e-mailadres'
+      '#placeholder': diego.plot@google.com
+      '#required': true
+    company:
+      '#type': textfield
+      '#title': Bedrijf
+      '#placeholder': 'Voer uw bedrijf in'
+    phone:
+      '#type': tel
+      '#title': 'Zakelijke telefoon'
+      '#placeholder': 'Voer uw zakelijke telefoon in'
+  project:
+    '#type': fieldset
+    '#title': 'Wilt u meer weten over uw project?'
+    message:
+      '#type': textarea
+      '#title': Bericht
+      '#required': true
+      '#default_value': "Hallo, ik wil graag meer informatie over het aanbod met referentie '[webform_submission:source-entity:field_reference]'. Bedankt"
+  legal:
+    '#type': checkbox
+    '#title': 'Ik heb de voorwaarden van het beleid inzake bescherming van persoonsgegevens gelezen en accepteer deze.'
+    '#required': true
+  marketing:
+    '#type': checkbox
+    '#title': 'Ik ga akkoord met het ontvangen van marketingcommunicatie van BNP Paribas Real Estate.'
+  newsletter:
+    '#type': checkbox
+    '#title': 'Ik ga akkoord met het ontvangen van de nieuwsbrief.'
+  similar_offers:
+    '#type': checkbox
+    '#title': 'Ik ga akkoord om gecontacteerd te worden over vergelijkbare panden.'
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p>BNP Paribas Real Estate Transaction France verwerkt uw gegevens om uw verzoek te behandelen en, met uw toestemming, voor commerciële communicatie. Bekijk onze <a href="/data-protection">Kennisgeving gegevensbescherming</a> voor uw rechten.</p>'
+    '#wrapper_attributes':
+      class:
+        - ps-offer-contact-modal__legal
+settings:
+  form_submit_label: Verzenden
+  confirmation_message: "<p>Bedankt. Uw bericht is verzonden.</p>"
+handlers:
+  email_agent:
+    label: 'Melding adviseur'
+    subject: "Contactverzoek — Aanbod [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: 'Bevestiging bezoeker'
+    subject: "Uw contactverzoek — [webform_submission:source-entity:field_reference]"
+    body: "<p>Bedankt voor uw interesse in het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Uw bericht is doorgestuurd naar onze adviseur. We nemen spoedig contact met u op.</p>"

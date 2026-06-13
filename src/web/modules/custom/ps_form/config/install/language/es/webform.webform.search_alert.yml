@@ -1,0 +1,63 @@
+title: 'Crear una alerta de búsqueda'
+description: 'Formulario de suscripción a alertas de búsqueda inmobiliaria.'
+category: 'Búsqueda inmobiliaria'
+elements: |-
+  alert_name:
+    '#type': textfield
+    '#title': 'Título de la alerta'
+    '#required': true
+    '#maxlength': 255
+  prof_email_address:
+    '#type': email
+    '#title': 'Correo electrónico profesional'
+    '#required': true
+  criteria_display:
+    '#type': webform_markup
+    '#markup': ''
+  frequence:
+    '#type': radios
+    '#title': 'Frecuencia de envío'
+    '#required': true
+    '#options':
+      daily: Diario
+      weekly: Semanal
+    '#default_value': weekly
+  optout_group:
+    '#type': fieldset
+    '#title': 'Comunicaciones comerciales'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-search-alert-form__optout-intro">Me opongo a recibir comunicaciones comerciales de BNP Paribas Real Estate Advisory France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': Correo electrónico
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Teléfono
+  legal:
+    '#type': checkbox
+    '#title': 'He leído y acepto los términos de la Política de protección de datos personales.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate procesa sus datos para enviar alertas inmobiliarias que coincidan con sus criterios de búsqueda. Consulte nuestro <a href="/data-protection">Aviso de protección de datos</a> para conocer sus derechos.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  criteria_json:
+    '#type': hidden
+    '#title': 'Criterios de búsqueda'
+  search_url:
+    '#type': hidden
+    '#title': 'URL de búsqueda'
+  search_path:
+    '#type': hidden
+    '#title': 'Ruta de búsqueda'
+settings:
+  form_submit_label: Continuar
+  confirmation_message: "<p>Su alerta de búsqueda ha sido creada. Recibirá un correo electrónico cuando nuevas propiedades coincidan con sus criterios.</p>"
+handlers:

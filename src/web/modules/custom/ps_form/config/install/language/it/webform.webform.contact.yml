@@ -1,0 +1,42 @@
+title: Contattaci
+description: "Modulo di contatto del sito per l'offcanvas dell'header."
+category: 'Ricerca immobiliare'
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'I tuoi dati'
+    first_name:
+      '#type': textfield
+      '#title': 'Nome'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Cognome'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefono
+  message:
+    '#type': textarea
+    '#title': Messaggio
+    '#required': true
+  legal:
+    '#type': checkbox
+    '#title': 'Accetto la politica sulla privacy.'
+    '#required': true
+settings:
+  form_submit_label: Invia
+  confirmation_message: "<p>Grazie. Il tuo messaggio è stato inviato.</p>"
+handlers:
+  email_notification:
+    label: 'Notifica del sito'
+    subject: 'Modulo di contatto del sito'
+    body: _default
+  email_confirmation:
+    label: 'Conferma visitatore'
+    subject: 'Grazie per averci contattato'
+    body: "<p>Grazie per il tuo messaggio.</p><p>Abbiamo ricevuto la tua richiesta e ti ricontatteremo a breve.</p>"

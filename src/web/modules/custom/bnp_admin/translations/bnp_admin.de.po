@@ -1,0 +1,77 @@
+# DE translation for bnp_admin module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_admin\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Administration theme machine name"
+msgstr "Maschinenname des Administrations-Themes"
+
+msgid "Apply Gin Login branding"
+msgstr "Gin-Login-Branding anwenden"
+
+msgid "Apply Gin branding"
+msgstr "Gin-Branding anwenden"
+
+msgid "BNP Admin settings"
+msgstr "BNP-Admin-Einstellungen"
+
+msgid "Content administrator"
+msgstr "Content-Administrator"
+
+msgid "Content editor"
+msgstr "Content-Redakteur"
+
+msgid "Core Drupal baseline"
+msgstr "Drupal-Core-Baseline"
+
+msgid "Gin Login branding"
+msgstr "Gin-Login-Branding"
+
+msgid "Gin accent color preset"
+msgstr "Gin-Akzentfarben-Voreinstellung"
+
+msgid "Gin theme branding"
+msgstr "Gin-Theme-Branding"
+
+msgid "Gin toolbar variant"
+msgstr "Gin-Toolbar-Variante"
+
+msgid "Optional recipe mirror of the bnp_admin module dependency set. Prefer "
+"enabling the bnp_admin module directly."
+msgstr "Optionales Recipe-Spiegelbild der Abhaengigkeiten des Moduls bnp_admin"
+". Aktivieren Sie vorzugsweise direkt das Modul bnp_admin."
+
+msgid "Provides a reusable administration baseline with module activation, co"
+"nfiguration defaults, and role provisioning."
+msgstr "Stellt eine wiederverwendbare Administrations-Baseline mit Modulaktivi"
+"erung, Standardkonfiguration und Rollenbereitstellung bereit."
+
+msgid "Restrict registration to administrators"
+msgstr "Registrierung auf Administratoren beschraenken"
+
+msgid "SEO administrator"
+msgstr "SEO-Administrator"
+
+msgid "Show description toggle in Gin"
+msgstr "Beschreibungsschalter in Gin anzeigen"
+
+msgid "Site administrator"
+msgstr "Website-Administrator"
+
+msgid "Translation administrator"
+msgstr "Uebersetzungsadministrator"
+
+msgid "Translation editor"
+msgstr "Uebersetzungsredakteur"
+
+msgid "Use admin theme on node forms"
+msgstr "Admin-Theme in Node-Formularen verwenden"
+
+msgid "Use default Gin Login brand image"
+msgstr "Standardbild fuer Gin-Login-Branding verwenden"

@@ -1,0 +1,90 @@
+# NL translation for bnp_editor module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_editor\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Access to Basic HTML format with standard editing tools."
+msgstr "Toegang tot Basic HTML-formaat met standaard bewerkingstools."
+
+msgid "Access to Full HTML format with complete CKEditor capabilities."
+msgstr "Toegang tot Full HTML-formaat met volledige CKEditor-mogelijkheden."
+
+msgid "Access to Plain text format (no HTML)."
+msgstr "Toegang tot platte tekst (geen HTML)."
+
+msgid "Access to Restricted HTML format (limited tags)."
+msgstr "Toegang tot beperkt HTML-formaat (beperkte tags)."
+
+msgid "Administer BNP Editor"
+msgstr "BNP Editor beheren"
+
+msgid "Allow embedding media items in rich text content."
+msgstr "Media-items insluiten in rich text-inhoud toestaan."
+
+msgid "Allowed link protocols"
+msgstr "Toegestane linkprotocollen"
+
+msgid "At least one protocol must be allowed."
+msgstr "Ten minste één protocol moet toegestaan zijn."
+
+msgid "BNP Editor"
+msgstr "BNP Editor"
+
+msgid "BNP Editor settings"
+msgstr "BNP Editor-instellingen"
+
+msgid "Configure CKEditor settings and manage editor configurations."
+msgstr "CKEditor-instellingen configureren en editorconfiguraties beheren."
+
+msgid "Configure CKEditor settings and plugins for BNP platform."
+msgstr "CKEditor-instellingen en plug-ins voor BNP-platform configureren."
+
+msgid "Custom Plugin"
+msgstr "Aangepaste plug-in"
+
+msgid "Enable custom CKEditor plugins"
+msgstr "Aangepaste CKEditor-plug-ins inschakelen"
+
+msgid "Enable custom plugins"
+msgstr "Aangepaste plug-ins inschakelen"
+
+msgid "Enable custom plugins developed for BNP platform."
+msgstr "Aangepaste plug-ins voor BNP-platform inschakelen."
+
+msgid "Enable media embed"
+msgstr "Media-integratie inschakelen"
+
+msgid "Enhanced CKEditor 5 configuration with contrib plugins for BNP propert"
+"y search platform."
+msgstr "Uitgebreide CKEditor 5-configuratie met contrib-plug-ins voor het BNP-"
+"vastgoedzoekplatform."
+
+msgid "Enter one protocol per line (e.g., http, https, mailto, tel)."
+msgstr "Voer één protocol per regel in (bijv. http, https, mailto, tel)."
+
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+msgid "Invalid protocol format: @protocol"
+msgstr "Ongeldig protocolformaat: @protocol"
+
+msgid "Plugin Configuration"
+msgstr "Plugin-configuratie"
+
+msgid "Use Basic HTML text format"
+msgstr "Basic HTML-tekstformaat gebruiken"
+
+msgid "Use Full HTML text format"
+msgstr "Full HTML-tekstformaat gebruiken"
+
+msgid "Use Plain text format"
+msgstr "Platte tekst gebruiken"
+
+msgid "Use Restricted HTML text format"
+msgstr "Beperkt HTML-formaat gebruiken"

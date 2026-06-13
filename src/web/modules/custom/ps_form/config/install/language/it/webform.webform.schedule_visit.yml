@@ -1,0 +1,48 @@
+title: 'Pianifica una visita'
+description: "Modulo per pianificare la visita di un'offerta."
+category: 'Ricerca immobiliare'
+elements: |-
+  visitor:
+    '#type': fieldset
+    '#title': 'I tuoi dati'
+    first_name:
+      '#type': textfield
+      '#title': 'Nome'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Cognome'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefono
+  visit:
+    '#type': fieldset
+    '#title': 'Richiesta visita'
+    preferred_date:
+      '#type': date
+      '#title': 'Data preferita'
+    message:
+      '#type': textarea
+      '#title': Messaggio
+      '#default_value': 'Vorrei pianificare una visita per questa offerta.'
+  legal:
+    '#type': checkbox
+    '#title': 'Accetto la politica sulla privacy.'
+    '#required': true
+settings:
+  form_submit_label: Invia
+  confirmation_message: 'Grazie. La tua richiesta di visita è stata inviata.'
+handlers:
+  email_agent:
+    label: 'Notifica al consulente'
+    subject: "Richiesta visita — Offerta [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: 'Conferma visitatore'
+    subject: "La tua richiesta visita — [webform_submission:source-entity:field_reference]"
+    body: "<p>Grazie per la tua richiesta di visita relativa all'offerta <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Il nostro consulente ti contatterà a breve per organizzare la visita.</p>"

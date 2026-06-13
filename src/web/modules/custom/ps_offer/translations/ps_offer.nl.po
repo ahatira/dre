@@ -1,215 +1,735 @@
-# Dutch translation for ps_offer module.
+# NL translation for ps_offer module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_offer\n"
+"PO-Revision-Date: 2026-06-13 04:26+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Description"
-msgstr "Beschrijving"
-
-msgid "Read more"
-msgstr "Lees meer"
-
-msgid "Read less"
-msgstr "Lees minder"
-
-msgid "Available :"
-msgstr "Beschikbaar :"
-
-msgid "Type of mandate :"
-msgstr "Type mandaat :"
+msgid "A source field is required for field mapping segments."
+msgstr "Een bronveld is vereist voor veldtoewijzingssegmenten."
 
 msgid "Access to the surface area table"
 msgstr "Naar het oppervlaktetabel"
 
-msgctxt "Offer budget period short"
-msgid "yr"
-msgstr "jr"
+msgid "Administer offer reference patterns"
+msgstr "Aanbiedingsreferentiepatronen beheren"
 
-msgctxt "Offer budget period short"
-msgid "mo"
-msgstr "mnd"
+msgid "Alias entries"
+msgstr "Aliasvermeldingen"
 
-msgctxt "Offer budget unit"
-msgid "seat"
-msgstr "werkplek"
+msgid "Alias entry"
+msgstr "Aliasvermelding"
 
-msgid "On request"
-msgstr "Prijs op aanvraag"
+msgid "Alias set ID"
+msgstr "Aliasset-ID"
 
-msgid "TTC"
-msgstr "Incl. btw"
+msgid "Alias set IDs"
+msgstr "Aliasset-ID's"
 
-msgid "Offer budget (composed)"
-msgstr "Aanbodbudget (samengesteld)"
+msgid "All patterns"
+msgstr "Alle patronen"
 
-msgid "Budget display"
-msgstr "Budgetweergave"
+msgid "Allow manual override"
+msgstr "Handmatige overschrijving toestaan"
 
-msgid "Configure budget popover labels and default fees text."
-msgstr "Popoverlabels en standaard honorariatext configureren."
+msgid "Allowed"
+msgstr "Toegestaan"
 
-msgid "Configure offer budget, surface and popover display labels."
-msgstr "Budget-, oppervlakte- en popoverweergavelabels configureren."
+msgid "Applies to patterns"
+msgstr "Van toepassing op patronen"
 
-msgid "Budget info popover"
-msgstr "Budget-informatie-popover"
+msgid "Approximate area circle color"
+msgstr "Kleur benaderingsgebiedcirkel"
 
-msgid "Popover title"
-msgstr "Popovertitel"
+msgid "Approximate area circle radius (meters)"
+msgstr "Straal benaderingsgebiedcirkel (meters)"
 
-msgid "HT definition"
-msgstr "HT-definitie"
+msgid "Approximate area circle radius in large cities (meters)"
+msgstr "Straal benaderingsgebiedcirkel in grote steden (meters)"
 
-msgid "HC definition"
-msgstr "HC-definitie"
+msgid "Approximate circle color"
+msgstr "Kleur benaderingscirkel"
 
-msgid "CC definition"
-msgstr "CC-definitie"
+msgid "Approximate circle radius"
+msgstr "Straal benaderingscirkel"
 
-msgid "HD definition"
-msgstr "HD-definitie"
+msgid "Approximate circle radius in large cities"
+msgstr "Straal benaderingscirkel in grote steden"
 
-msgid "Fees line prefix"
-msgstr "Prefix honorariaregel"
+msgid "At least one segment is required."
+msgstr "Minstens één segment is vereist."
 
-msgid "Prepended to the offer fees field or the default fees text."
-msgstr "Voorafgegaan aan het honorariaveld of de standaardtekst."
+msgid "At least one target bundle is required."
+msgstr "Minstens één doelbundle is vereist."
 
-msgid "Default rental fees text"
-msgstr "Standaard honorariatext huur"
-
-msgid "Used when the offer fees field is empty (rental)."
-msgstr "Gebruikt wanneer het honorariaveld leeg is (huur)."
-
-msgid "Default sale fees text"
-msgstr "Standaard honorariatext verkoop"
-
-msgid "Used when the offer fees field is empty (sale)."
-msgstr "Gebruikt wanneer het honorariaveld leeg is (verkoop)."
+msgid "Available :"
+msgstr "Beschikbaar :"
 
 msgid "Budget display labels"
 msgstr "Budgetweergavelabels"
 
-msgid "On request label"
-msgstr "Label prijs op aanvraag"
+msgid "Budget from prefix"
+msgstr "Budget-vanaf-voorvoegsel"
 
-msgid "TTC label"
-msgstr "Label incl. btw"
+msgid "Budget info popover"
+msgstr "Budget-informatie-popover"
 
-msgid "Info icon aria-label"
-msgstr "Aria-label info-icoon"
+msgid "Bundle"
+msgstr "Bundle"
 
-msgid "Offer budget display"
-msgstr "Aanbodbudgetweergave"
+msgid "Bundles"
+msgstr "Bundles"
 
-msgid "Fees (honoraires)"
-msgstr "Honoraria"
+msgid "CC definition"
+msgstr "CC-definitie"
 
-msgid "Fees payable by the tenant or buyer. Shown in the budget info popover when set."
-msgstr "Honoraria ten laste van huurder of koper. Getoond in de budgetpopover indien ingevuld."
+msgid "CSS color value, for example #0072CE."
+msgstr "CSS-kleurwaarde, bijv. #0072CE."
 
-msgid "Download the brochure"
-msgstr "Download de brochure"
-
-msgid "Surface display labels"
-msgstr "Weergavelabels oppervlakte"
-
-msgid "Divisible surface template"
-msgstr "Sjabloon deelbare oppervlakte"
-
-msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from @surface\")."
-msgstr "Gebruik @surface als placeholder voor het minimum perceel (bijv. «Deelbaar vanaf @surface»)."
+msgid "CSS color value, for example #00915A."
+msgstr "CSS-kleurwaarde, bijv. #00915A."
 
 msgid "Capacity unit label"
 msgstr "Label capaciteitseenheid"
 
-msgid "Used for coworking offers (e.g. seats, postes)."
-msgstr "Gebruikt voor coworking-aanbiedingen (bijv. werkplekken, postes)."
-
-msgid "Surface KPI separator"
-msgstr "KPI-scheidingsteken oppervlakte"
-
-msgid "Separator between total surface and divisibility suffix."
-msgstr "Scheidingsteken tussen totale oppervlakte en deelbaarheidssuffix."
-
-msgid "Offer display settings"
-msgstr "Weergave-instellingen aanbod"
-
-msgid "Show points of interest :"
-msgstr "Toon bezienswaardigheden :"
-
-msgid "Transports"
-msgstr "Vervoer"
-
-msgid "Parkings"
-msgstr "Parkeerplaatsen"
-
-msgid "Restaurants"
-msgstr "Restaurants"
-
-msgid "Hotels"
-msgstr "Hotels"
-
-msgid "Property location"
-msgstr "Locatie van het pand"
-
-msgid "Calculate your travel time :"
-msgstr "Bereken uw reistijd :"
-
-msgid "Departure address :"
-msgstr "Vertrekadres :"
-
-msgid "Enter an address"
-msgstr "Voer een adres in"
-
-msgid "Clear departure address"
-msgstr "Vertrekadres wissen"
-
-msgid "Travel mode :"
-msgstr "Vervoerswijze :"
-
-msgid "Travel mode"
-msgstr "Vervoerswijze"
-
 msgid "Car"
 msgstr "Auto"
 
-msgid "Public transport"
-msgstr "Openbaar vervoer"
+msgid "Comma-separated pattern IDs. Leave empty to apply to all patterns."
+msgstr "Kommagescheiden patroon-ID's. Laat leeg voor alle patronen."
 
-msgid "Walking"
-msgstr "Te voet"
+msgid "Configure headings and icons for offer detail page sections. Sections "
+"are registered by modules; only installed sections appear below."
+msgstr "Configureer koppen en pictogrammen voor aanbiedingsdetailsecties. Sect"
+"ies worden door modules geregistreerd; alleen geïnstalleerde verschijn"
+"en hieronder."
+
+msgid "Configure offer budget, surface and popover display labels."
+msgstr "Budget-, oppervlakte- en popoverweergavelabels configureren."
+
+msgid "Configure offer detail section titles and icons."
+msgstr "Configureer titels en pictogrammen van aanbiedingsdetailsecties."
+
+msgid "Configure offer reference generation."
+msgstr "Configureer generatie van aanbiedingsreferentie."
+
+msgid "Configure the offer detail interactive map."
+msgstr "Configureer interactieve kaart op aanbiedingsdetailpagina."
+
+msgid "Consultant label"
+msgstr "Consultantlabel"
+
+msgid "Consultant label: @label"
+msgstr "Consultantlabel: @label"
+
+msgid "Contact button label"
+msgstr "Contactknoplabel"
+
+msgid "Contact label: @label"
+msgstr "Contactlabel: @label"
+
+msgid "Contact modal dialog options (JSON)"
+msgstr "Contactmodaldialoogopties (JSON)"
+
+msgid "Counter scope mode"
+msgstr "Tellerbereikmodus"
 
 msgid "Cycling"
 msgstr "Fiets"
 
-msgid "Via"
-msgstr "Via"
+msgid "Default rental fees text"
+msgstr "Standaard honorariatext huur"
 
-msgid "This route may include several connections."
-msgstr "Deze route kan meerdere overstappen bevatten."
+msgid "Default sale fees text"
+msgstr "Standaard honorariatext verkoop"
 
-msgid "Please select an address from the suggestions."
-msgstr "Selecteer een adres uit de suggesties."
+msgid "Default zoom (approximate location)"
+msgstr "Standaard zoom (benaderde locatie)"
 
-msgid "No public transport route found for this journey."
-msgstr "Geen route met openbaar vervoer gevonden voor deze reis."
+msgid "Default zoom (approximate location, large city)"
+msgstr "Standaard zoom (benaderde locatie, grote stad)"
 
-msgid "No walking route found for this journey."
-msgstr "Geen wandelroute gevonden voor deze reis."
+msgid "Default zoom (exact address)"
+msgstr "Standaard zoom (exact adres)"
 
-msgid "No cycling route found for this journey."
-msgstr "Geen fietsroute gevonden voor deze reis."
+msgid "Default zoom for approximate large city location"
+msgstr "Standaard zoom voor benaderde locatie in grote stad"
 
-msgid "No route found for this journey."
-msgstr "Geen route gevonden voor deze reis."
+msgid "Default zoom for approximate location"
+msgstr "Standaard zoom voor benaderde locatie"
 
-msgid "Departure or destination address could not be found."
-msgstr "Vertrek- of bestemmingsadres niet gevonden."
+msgid "Default zoom for exact address"
+msgstr "Standaard zoom voor exact adres"
 
-msgid "Unable to calculate travel time."
-msgstr "Kan de reistijd niet berekenen."
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+msgid "Divisible surface template"
+msgstr "Sjabloon deelbare oppervlakte"
+
+msgid "Download the brochure"
+msgstr "Download de brochure"
+
+msgid "Each alias entry must define source field, source value, and reference"
+" code."
+msgstr "Elke aliasvermelding moet bronveld, bronwaarde en referentiecode defin"
+"iëren."
+
+msgid "Enable Auto to generate the value from the active pattern, or disable "
+"it to edit manually."
+msgstr "Schakel Auto in om de waarde uit het actieve patroon te genereren, of "
+"uit voor handmatige bewerking."
+
+msgid "Enable POI filters"
+msgstr "POI-filters inschakelen"
+
+msgid "Enable offer detail map"
+msgstr "Aanbiedingsdetailkaart inschakelen"
+
+msgid "Enable travel time tools"
+msgstr "Reistijd-tools inschakelen"
+
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgid "Entries"
+msgstr "Vermeldingen"
+
+msgid "Fallback value"
+msgstr "Fallbackwaarde"
+
+msgid "Features from this group are shown under the transport line in the loc"
+"ation section."
+msgstr "Kenmerken van deze groep worden getoond onder de transportregel in de "
+"locatiesectie."
+
+msgid "Fees line prefix"
+msgstr "Prefix honorariaregel"
+
+msgid "Gallery must contain at least one media item before publishing the off"
+"er."
+msgstr "Galerij moet minstens één media-item bevatten vóór publicatie van de a"
+"anbieding."
+
+msgid "General"
+msgstr "Algemeen"
+
+msgid "Generate automatically on create"
+msgstr "Automatisch genereren bij aanmaken"
+
+msgid "Generate on create"
+msgstr "Genereren bij aanmaken"
+
+msgid "Generation settings"
+msgstr "Generatie-instellingen"
+
+msgid "Global"
+msgstr "Globaal"
+
+msgid "HC definition"
+msgstr "HC-definitie"
+
+msgid "HD definition"
+msgstr "HD-definitie"
+
+msgid "HT definition"
+msgstr "HT-definitie"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Hotels"
+msgstr "Hotels"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Icons displayed next to POI filter checkboxes on the offer map."
+msgstr "Pictogrammen naast POI-filtercheckboxen op de aanbiedingskaart."
+
+msgid "Icons displayed on the travel mode selector when the offer shows its p"
+"recise address."
+msgstr "Pictogrammen op de reismodusselector wanneer de aanbieding het exacte "
+"adres toont."
+
+msgid "Info icon aria-label"
+msgstr "Aria-label info-icoon"
+
+msgid "Label"
+msgstr "Label"
+
+msgid "Large city localities"
+msgstr "Grote-stad-locaties"
+
+msgid "Length"
+msgstr "Lengte"
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid "Machine name"
+msgstr "Machinenaam"
+
+msgid "Manage configurable offer reference generation patterns."
+msgstr "Beheer configureerbare patronen voor generatie van aanbiedingsreferent"
+"ie."
+
+msgid "Manage reference alias sets."
+msgstr "Beheer referentie-aliassets."
+
+msgid "Manage reference patterns."
+msgstr "Beheer referentiepatronen."
+
+msgid "Manual override"
+msgstr "Handmatige overschrijving"
+
+msgid "Manual preview message"
+msgstr "Handmatig voorbeeldbericht"
+
+msgid "Map display"
+msgstr "Kaartweergave"
+
+msgid "Mapped value"
+msgstr "Toegewezen waarde"
+
+msgid "Mapping"
+msgstr "Toewijzing"
+
+msgid "No preview available yet. Fill operation type and asset type."
+msgstr "Nog geen voorbeeld beschikbaar. Vul transactietype en activatype in."
+
+msgid "Number of text lines shown before the read-more control."
+msgstr "Aantal tekstregels vóór de lees-meer-knop."
+
+msgid "Offer"
+msgstr "Aanbieding"
+
+msgid "Offer Reference"
+msgstr "Aanbiedingsreferentie"
+
+msgid "Offer agent card"
+msgstr "Aanbiedingsagentkaart"
+
+msgid "Offer budget (compare table)"
+msgstr "Aanbiedingsbudget (vergelijkingstabel)"
+
+msgid "Offer budget (composed)"
+msgstr "Aanbodbudget (samengesteld)"
+
+msgid "Offer content model and business validations."
+msgstr "Aanbiedingsinhoudsmodel en bedrijfsvalidaties."
+
+msgid "Offer description (read more)"
+msgstr "Aanbiedingsbeschrijving (lees meer)"
+
+msgid "Offer detail actions"
+msgstr "Aanbiedingsdetailacties"
+
+msgid "Offer detail header"
+msgstr "Aanbiedingsdetailkop"
+
+msgid "Offer detail location"
+msgstr "Aanbiedingsdetaillocatie"
+
+msgid "Offer display settings"
+msgstr "Weergave-instellingen aanbod"
+
+msgid "Offer interactive map"
+msgstr "Interactieve aanbiedingskaart"
+
+msgid "Offer location (compare table)"
+msgstr "Aanbiedingslocatie (vergelijkingstabel)"
+
+msgid "Offer location summary"
+msgstr "Samenvatting aanbiedingslocatie"
+
+msgid "Offer map settings"
+msgstr "Aanbiedingskaartinstellingen"
+
+msgid "Offer reference (auto/manual)"
+msgstr "Aanbiedingsreferentie (auto/handmatig)"
+
+msgid "Offer reference alias set"
+msgstr "Aanbiedingsreferentie-aliasset"
+
+msgid "Offer reference alias set %label has been saved."
+msgstr "Aanbiedingsreferentie-aliasset %label is opgeslagen."
+
+msgid "Offer reference alias sets"
+msgstr "Aanbiedingsreferentie-aliassets"
+
+msgid "Offer reference pattern"
+msgstr "Aanbiedingsreferentiepatroon"
+
+msgid "Offer reference pattern %label has been saved."
+msgstr "Aanbiedingsreferentiepatroon %label is opgeslagen."
+
+msgid "Offer reference patterns"
+msgstr "Aanbiedingsreferentiepatronen"
+
+msgid "Offer section headings"
+msgstr "Aanbiedingssectiekoppen"
+
+msgid "On request label"
+msgstr "Label prijs op aanvraag"
+
+msgid "One KEY=VALUE pair per line. Example: RENT=L"
+msgstr "Eén KEY=VALUE-paar per regel. Voorbeeld: RENT=L"
+
+msgid "One alias per line: source_field|source_value|reference_code|weight|de"
+"scription. Example: field_asset_type|ENT|LOG|0|Warehouse alias"
+msgstr "Eén alias per regel: source_field|source_value|reference_code|weight|d"
+"escription. Voorbeeld: field_asset_type|ENT|LOG|0|Magazijnalias"
+
+msgid "One city per line. Used for approximate map zoom and circle radius."
+msgstr "Eén stad per regel. Voor benaderde kaartzoom en cirkelradius."
+
+msgid "Only shown when the offer displays its precise address."
+msgstr "Alleen getoond wanneer de aanbieding het exacte adres toont."
+
+msgid "Optional JSON settings for advanced segment behavior."
+msgstr "Optionele JSON-instellingen voor geavanceerd segmentgedrag."
+
+msgid "Optional comma-separated alias set IDs. Leave empty to use all applica"
+"ble enabled alias sets."
+msgstr "Optionele kommagescheiden aliasset-ID's. Leeg = alle toepasselijke ing"
+"eschakelde aliassets."
+
+msgid "Optional. Leave empty to hide the icon on offer detail pages."
+msgstr "Optioneel. Laat leeg om het pictogram op aanbiedingsdetailpagina's te "
+"verbergen."
+
+msgid "POI filter icon (hotels)"
+msgstr "POI-filterpictogram (hotels)"
+
+msgid "POI filter icon (parkings)"
+msgstr "POI-filterpictogram (parkeren)"
+
+msgid "POI filter icon (restaurants)"
+msgstr "POI-filterpictogram (restaurants)"
+
+msgid "POI filter icon (transports)"
+msgstr "POI-filterpictogram (vervoer)"
+
+msgid "POI filter icons"
+msgstr "POI-filterpictogrammen"
+
+msgid "POI map marker color (hotels)"
+msgstr "POI-kaartmarkerkleur (hotels)"
+
+msgid "POI map marker color (parkings)"
+msgstr "POI-kaartmarkerkleur (parkeren)"
+
+msgid "POI map marker color (restaurants)"
+msgstr "POI-kaartmarkerkleur (restaurants)"
+
+msgid "POI map marker color (transports)"
+msgstr "POI-kaartmarkerkleur (vervoer)"
+
+msgid "POI map marker colors"
+msgstr "POI-kaartmarkerkleuren"
+
+msgid "POI map marker icon (hotels)"
+msgstr "POI-kaartmarkerpictogram (hotels)"
+
+msgid "POI map marker icon (parkings)"
+msgstr "POI-kaartmarkerpictogram (parkeren)"
+
+msgid "POI map marker icon (restaurants)"
+msgstr "POI-kaartmarkerpictogram (restaurants)"
+
+msgid "POI map marker icon (transports)"
+msgstr "POI-kaartmarkerpictogram (vervoer)"
+
+msgid "POI map marker icons"
+msgstr "POI-kaartmarkerpictogrammen"
+
+msgid "POI search radius"
+msgstr "POI-zoekradius"
+
+msgid "POI search radius (meters)"
+msgstr "POI-zoekradius (meters)"
+
+msgid "Parkings"
+msgstr "Parkeren"
+
+msgid "Pattern"
+msgstr "Patroon"
+
+msgid "Pattern ID"
+msgstr "Patroon-ID"
+
+msgid "Pattern IDs"
+msgstr "Patroon-ID's"
+
+msgid "Patterns"
+msgstr "Patronen"
+
+msgid "Pin colors applied to each POI category on the map."
+msgstr "Pinkleuren per POI-categorie op de kaart."
+
+msgid "Pin icons displayed on the map for each POI category."
+msgstr "Pinpictogrammen op de kaart voor elke POI-categorie."
+
+msgid "Points of interest"
+msgstr "Bezienswaardigheden"
+
+msgid "Popover title"
+msgstr "Popovertitel"
+
+msgid "Prefix"
+msgstr "Voorvoegsel"
+
+msgid "Prepended to the offer fees field or the default fees text."
+msgstr "Voorafgegaan aan het honorariaveld of de standaardtekst."
+
+msgid "Price information"
+msgstr "Prijsinformatie"
+
+msgid "Property Search"
+msgstr "Property Search"
+
+msgid "Public transport"
+msgstr "Openbaar vervoer"
+
+msgid "Read less"
+msgstr "Lees minder"
+
+msgid "Read less label"
+msgstr "Lees-minder-label"
+
+msgid "Read less: @label"
+msgstr "Lees minder: @label"
+
+msgid "Read more"
+msgstr "Lees meer"
+
+msgid "Read more label"
+msgstr "Lees-meer-label"
+
+msgid "Read more: @label"
+msgstr "Lees meer: @label"
+
+msgid "Reference : @ref"
+msgstr "Referentie: @ref"
+
+msgid "Reference aliases"
+msgstr "Referentiealiassen"
+
+msgid "Reference code"
+msgstr "Referentiecode"
+
+msgid "Reference patterns"
+msgstr "Referentiepatronen"
+
+msgid "Reference preview"
+msgstr "Referentievoorbeeld"
+
+msgid "Regenerate on source change"
+msgstr "Opnieuw genereren bij bronwijziging"
+
+msgid "Regenerate when source values change"
+msgstr "Opnieuw genereren wanneer bronwaarden wijzigen"
+
+msgid "Require uniqueness"
+msgstr "Uniciteit vereisen"
+
+msgid "Resolution mode"
+msgstr "Resolutiemodus"
+
+msgid "Restaurants"
+msgstr "Restaurants"
+
+msgid "Results page"
+msgstr "Resultatenpagina"
+
+msgid "Section headings"
+msgstr "Sectiekoppen"
+
+msgid "Section icon"
+msgstr "Sectiepictogram"
+
+msgid "Section title"
+msgstr "Sectietitel"
+
+msgid "Segment"
+msgstr "Segment"
+
+msgid "Segment @number"
+msgstr "Segment @number"
+
+msgid "Segment length must be greater than 0."
+msgstr "Segmentlengte moet groter zijn dan 0."
+
+msgid "Segments"
+msgstr "Segmenten"
+
+msgid "Segments are evaluated in weight order. Length is enforced by the gene"
+"rator service."
+msgstr "Segmenten worden beoordeeld op gewichtsvolgorde. Lengte wordt afgedwon"
+"gen door de generatorservice."
+
+msgid "Separator between total surface and divisibility suffix."
+msgstr "Scheidingsteken tussen totale oppervlakte en deelbaarheidssuffix."
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Settings (JSON)"
+msgstr "Instellingen (JSON)"
+
+msgid "Source field"
+msgstr "Bronveld"
+
+msgid "Source value"
+msgstr "Bronwaarde"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Surface KPI separator"
+msgstr "KPI-scheidingsteken oppervlakte"
+
+msgid "Surface display labels"
+msgstr "Weergavelabels oppervlakte"
+
+msgid "TTC label"
+msgstr "Label incl. btw"
+
+msgid "Target bundles"
+msgstr "Doelbundles"
+
+msgid "The offer has been saved as a draft because no primary agent is set."
+msgstr "De aanbieding is als concept opgeslagen omdat geen primaire agent is i"
+"ngesteld."
+
+msgid "The offer is marked as non-divisible, but available surface (@dispo m²"
+") is less than total surface (@total m²). Consider marking it as divis"
+"ible."
+msgstr "De aanbieding is als niet-deelbaar gemarkeerd, maar beschikbaar opperv"
+"lak (@dispo m²) is kleiner dan totaal (@total m²). Overweeg deelbaar t"
+"e markeren."
+
+msgid "Toggle button text"
+msgstr "Schakelknoptekst"
+
+msgid "Toggle button text: @label"
+msgstr "Schakelknoptekst: @label"
+
+msgid "Transport :"
+msgstr "Vervoer:"
+
+msgid "Transport feature group"
+msgstr "Transportkenmerkgroep"
+
+msgid "Transports"
+msgstr "Vervoer"
+
+msgid "Travel mode icon (car)"
+msgstr "Reismodus-pictogram (auto)"
+
+msgid "Travel mode icon (cycling)"
+msgstr "Reismodus-pictogram (fiets)"
+
+msgid "Travel mode icon (public transport)"
+msgstr "Reismodus-pictogram (openbaar vervoer)"
+
+msgid "Travel mode icon (walking)"
+msgstr "Reismodus-pictogram (lopen)"
+
+msgid "Travel mode icons"
+msgstr "Reismodus-pictogrammen"
+
+msgid "Travel time"
+msgstr "Reistijd"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Type of mandate :"
+msgstr "Type mandaat :"
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Unknown asset type code: <strong>@code</strong>. <a href=\"@url\">Crea"
+"te this asset type</a>."
+msgstr "Onbekende activatypecode: <strong>@code</strong>. <a href=\"@url\">Maa"
+"k dit activatype aan</a>."
+
+msgid "Unknown operation type code: <strong>@code</strong>. <a href=\"@url\">"
+"Create this operation type</a>."
+msgstr "Onbekende operatietypecode: <strong>@code</strong>. <a href=\"@url\">M"
+"aak dit operatietype aan</a>."
+
+msgid "Use @surface as placeholder for the minimum lot (e.g. \"Divisible from"
+" @surface\")."
+msgstr "Gebruik @surface als placeholder voor het minimum perceel (bijv. «Deel"
+"baar vanaf @surface»)."
+
+msgid "Used by field mapping segments, for example field_operation_type."
+msgstr "Gebruikt door veldtoewijzingssegmenten, bijv. field_operation_type."
+
+msgid "Used for coworking offers (e.g. seats, postes)."
+msgstr "Gebruikt voor coworking-aanbiedingen (bijv. werkplekken, postes)."
+
+msgid "Used when the offer fees field is empty (rental)."
+msgstr "Gebruikt wanneer het honorariaveld leeg is (huur)."
+
+msgid "Used when the offer fees field is empty (sale)."
+msgstr "Gebruikt wanneer het honorariaveld leeg is (verkoop)."
+
+msgid "Validate manual value against pattern"
+msgstr "Handmatige waarde valideren tegen patroon"
+
+msgid "Visible lines when collapsed"
+msgstr "Zichtbare regels ingeklapt"
+
+msgid "Visible lines: @lines"
+msgstr "Zichtbare regels: @lines"
+
+msgid "Visit button label"
+msgstr "Bezoekknoplabel"
+
+msgid "Visit section title"
+msgstr "Bezoeksectietitel"
+
+msgid "Visit title: @label"
+msgstr "Bezoektitel: @label"
+
+msgid "Walking"
+msgstr "Te voet"
+
+msgid "Warning message"
+msgstr "Waarschuwingsbericht"
+
+msgid "Weight"
+msgstr "Gewicht"
+
+msgid "mo"
+msgstr "mnd"
+
+msgid "offer reference alias set"
+msgstr "aanbiedingsreferentie-aliasset"
+
+msgid "offer reference alias sets"
+msgstr "aanbiedingsreferentie-aliassets"
+
+msgid "offer reference pattern"
+msgstr "aanbiedingsreferentiepatroon"
+
+msgid "offer reference patterns"
+msgstr "aanbiedingsreferentiepatronen"
+
+msgid "seat"
+msgstr "werkplek"
+
+msgid "yr"
+msgstr "jr"

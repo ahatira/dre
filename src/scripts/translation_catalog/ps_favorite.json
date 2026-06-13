@@ -1,0 +1,578 @@
+{
+  "@entity_type: @bundle": {
+    "de": "@entity_type: @bundle",
+    "es": "@entity_type: @bundle",
+    "fr": "@entity_type : @bundle",
+    "it": "@entity_type: @bundle",
+    "lb": "@entity_type: @bundle",
+    "nl": "@entity_type: @bundle",
+    "pl": "@entity_type: @bundle"
+  },
+  "Add to favorites": {
+    "de": "Add to favorites",
+    "es": "Add to favorites",
+    "fr": "Ajouter aux favoris",
+    "it": "Add to favorites",
+    "lb": "Add to favorites",
+    "nl": "Add to favorites",
+    "pl": "Add to favorites"
+  },
+  "Added to favorites.": {
+    "de": "Added to favorites.",
+    "es": "Added to favorites.",
+    "fr": "Ajouté aux favoris.",
+    "it": "Added to favorites.",
+    "lb": "Added to favorites.",
+    "nl": "Added to favorites.",
+    "pl": "Added to favorites."
+  },
+  "All items": {
+    "de": "All items",
+    "es": "All items",
+    "fr": "Tous les éléments",
+    "it": "All items",
+    "lb": "All items",
+    "nl": "All items",
+    "pl": "All items"
+  },
+  "Automatic fallback": {
+    "de": "Automatic fallback",
+    "es": "Automatic fallback",
+    "fr": "Repli automatique",
+    "it": "Automatic fallback",
+    "lb": "Automatic fallback",
+    "nl": "Automatic fallback",
+    "pl": "Automatic fallback"
+  },
+  "Bundle": {
+    "de": "Bundle",
+    "es": "Bundle",
+    "fr": "Type de contenu",
+    "it": "Bundle",
+    "lb": "Bundle",
+    "nl": "Bundle",
+    "pl": "Bundle"
+  },
+  "Card favorite view mode when available.": {
+    "de": "Favoriten-Karten-Ansichtsmodus wenn verfügbar.",
+    "es": "Modo de vista tarjeta favorito cuando esté disponible.",
+    "fr": "Mode d'affichage carte favori lorsque disponible.",
+    "it": "Modalità visualizzazione scheda preferito quando disponibile.",
+    "lb": "Favoritten-Kaart-Uweisungsmodus wann disponibel.",
+    "nl": "Favorietkaart-weergavemodus indien beschikbaar.",
+    "pl": "Tryb widoku karty ulubionych, gdy dostępny."
+  },
+  "Configure which entity targets can be favorited and how favorite cards should be rendered.": {
+    "de": "Configure which entity targets can be favorited and how favorite cards should be rendered.",
+    "es": "Configure which entity targets can be favorited and how favorite cards should be rendered.",
+    "fr": "Configure quelles cibles d'entité peuvent être ajoutées aux favoris et comment les cartes de favoris doivent être rendues.",
+    "it": "Configure which entity targets can be favorited and how favorite cards should be rendered.",
+    "lb": "Configure which entity targets can be favorited and how favorite cards should be rendered.",
+    "nl": "Configure which entity targets can be favorited and how favorite cards should be rendered.",
+    "pl": "Configure which entity targets can be favorited and how favorite cards should be rendered."
+  },
+  "Configured view mode for the matching entity target.": {
+    "de": "Configured view mode for the matching entity target.",
+    "es": "Configured view mode for the matching entity target.",
+    "fr": "Mode d'affichage configuré pour la cible d'entité correspondante.",
+    "it": "Configured view mode for the matching entity target.",
+    "lb": "Configured view mode for the matching entity target.",
+    "nl": "Configured view mode for the matching entity target.",
+    "pl": "Configured view mode for the matching entity target."
+  },
+  "Enable": {
+    "de": "Enable",
+    "es": "Enable",
+    "fr": "Activer",
+    "it": "Enable",
+    "lb": "Enable",
+    "nl": "Enable",
+    "pl": "Enable"
+  },
+  "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum.": {
+    "de": "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum.",
+    "es": "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum.",
+    "fr": "Activez les favoris par cible d'entité, puis choisissez si la cible est sans limite ou avec un maximum fixe.",
+    "it": "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum.",
+    "lb": "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum.",
+    "nl": "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum.",
+    "pl": "Enable favorites per entity target, then choose whether the target has no limit or a fixed maximum."
+  },
+  "Enabled": {
+    "de": "Aktiviert",
+    "es": "Activado",
+    "fr": "Activé",
+    "it": "Abilitato",
+    "lb": "Aktivéiert",
+    "nl": "Ingeschakeld",
+    "pl": "Włączone"
+  },
+  "Entity type ID": {
+    "de": "Entitätstyp-ID",
+    "es": "ID de tipo de entidad",
+    "fr": "ID du type d'entité",
+    "it": "ID tipo entità",
+    "lb": "Entitéitstyp-ID",
+    "nl": "Entiteitstype-ID",
+    "pl": "ID typu encji"
+  },
+  "Fallback title with canonical link.": {
+    "de": "Fallback title with canonical link.",
+    "es": "Fallback title with canonical link.",
+    "fr": "Titre de repli avec lien canonique.",
+    "it": "Fallback title with canonical link.",
+    "lb": "Fallback title with canonical link.",
+    "nl": "Fallback title with canonical link.",
+    "pl": "Fallback title with canonical link."
+  },
+  "Favorite card rendering": {
+    "de": "Favorite card rendering",
+    "es": "Favorite card rendering",
+    "fr": "Rendu des cartes de favoris",
+    "it": "Favorite card rendering",
+    "lb": "Favorite card rendering",
+    "nl": "Favorite card rendering",
+    "pl": "Favorite card rendering"
+  },
+  "Favorite card view mode mapping": {
+    "de": "Zuordnung Favoriten-Karten-Ansichtsmodus",
+    "es": "Mapeo de modo de vista tarjeta favorito",
+    "fr": "Mapping du mode d'affichage carte favori",
+    "it": "Mapping modalità visualizzazione scheda preferito",
+    "lb": "Favoritten-Kaart-Uweisungsmodus-Mapping",
+    "nl": "Toewijzing favorietkaart-weergavemodus",
+    "pl": "Mapowanie trybu widoku karty ulubionych"
+  },
+  "Favorite limit reached (@limit).": {
+    "de": "Favorite limit reached (@limit).",
+    "es": "Favorite limit reached (@limit).",
+    "fr": "Limite de favoris atteinte (@limit).",
+    "it": "Favorite limit reached (@limit).",
+    "lb": "Favorite limit reached (@limit).",
+    "nl": "Favorite limit reached (@limit).",
+    "pl": "Favorite limit reached (@limit)."
+  },
+  "Favorite system for offers with authenticated and anonymous persistence.": {
+    "de": "Favoritensystem für Angebote mit authentifizierter und anonymer Persistenz.",
+    "es": "Sistema de favoritos para ofertas con persistencia autenticada y anónima.",
+    "fr": "Système de favoris pour les offres avec persistance authentifiée et anonyme.",
+    "it": "Sistema preferiti per offerte con persistenza autenticata e anonima.",
+    "lb": "Favorittensystem fir Offeren mat authentifizéierter an anonymer Persistenz.",
+    "nl": "Favorietensysteem voor aanbiedingen met geauthenticeerde en anonieme persistentie.",
+    "pl": "System ulubionych dla ofert z trwałością uwierzytelnioną i anonimową."
+  },
+  "Favorite target": {
+    "de": "Favoritenziel",
+    "es": "Objetivo favorito",
+    "fr": "Cible favori",
+    "it": "Target preferito",
+    "lb": "Favoritten-Zil",
+    "nl": "Favorietdoel",
+    "pl": "Cel ulubionych"
+  },
+  "Favorite targets": {
+    "de": "Favorite targets",
+    "es": "Favorite targets",
+    "fr": "Cibles de favoris",
+    "it": "Favorite targets",
+    "lb": "Favorite targets",
+    "nl": "Favorite targets",
+    "pl": "Favorite targets"
+  },
+  "Favorites": {
+    "de": "Favorites",
+    "es": "Favorites",
+    "fr": "Favoris",
+    "it": "Favorites",
+    "lb": "Favorites",
+    "nl": "Favorites",
+    "pl": "Favorites"
+  },
+  "Fixed limit": {
+    "de": "Fixed limit",
+    "es": "Fixed limit",
+    "fr": "Limite fixe",
+    "it": "Fixed limit",
+    "lb": "Fixed limit",
+    "nl": "Fixed limit",
+    "pl": "Fixed limit"
+  },
+  "ID": {
+    "de": "ID",
+    "es": "ID",
+    "fr": "ID",
+    "it": "ID",
+    "lb": "ID",
+    "nl": "ID",
+    "pl": "ID"
+  },
+  "Invalid CSRF token.": {
+    "de": "Invalid CSRF token.",
+    "es": "Invalid CSRF token.",
+    "fr": "Jeton CSRF invalide.",
+    "it": "Invalid CSRF token.",
+    "lb": "Invalid CSRF token.",
+    "nl": "Invalid CSRF token.",
+    "pl": "Invalid CSRF token."
+  },
+  "Label": {
+    "de": "Bezeichnung",
+    "es": "Etiqueta",
+    "fr": "Libellé",
+    "it": "Etichetta",
+    "lb": "Bezeechnung",
+    "nl": "Label",
+    "pl": "Etykieta"
+  },
+  "Limit mode": {
+    "de": "Limit mode",
+    "es": "Limit mode",
+    "fr": "Mode de limite",
+    "it": "Limit mode",
+    "lb": "Limit mode",
+    "nl": "Limit mode",
+    "pl": "Limit mode"
+  },
+  "Manage Property Search favorites": {
+    "de": "Property Search-Favoriten verwalten",
+    "es": "Gestionar favoritos de Property Search",
+    "fr": "Gérer les favoris Property Search",
+    "it": "Gestisci preferiti Property Search",
+    "lb": "Property Search-Favoritten verwalten",
+    "nl": "Property Search-favorieten beheren",
+    "pl": "Zarządzaj ulubionymi Property Search"
+  },
+  "Manage favorite system integrations and settings.": {
+    "de": "Favoritensystem-Integrationen und -Einstellungen verwalten.",
+    "es": "Gestionar integraciones y ajustes del sistema de favoritos.",
+    "fr": "Gérer les intégrations et paramètres du système de favoris.",
+    "it": "Gestisci integrazioni e impostazioni del sistema preferiti.",
+    "lb": "Favorittensystem-Integratiounen an -Astellungen verwalten.",
+    "nl": "Favorietensysteemintegraties en -instellingen beheren.",
+    "pl": "Zarządzaj integracjami i ustawieniami systemu ulubionych."
+  },
+  "Max favorites": {
+    "de": "Max favorites",
+    "es": "Max favorites",
+    "fr": "Maximum de favoris",
+    "it": "Max favorites",
+    "lb": "Max favorites",
+    "nl": "Max favorites",
+    "pl": "Max favorites"
+  },
+  "Maximum favorites": {
+    "de": "Maximale Favoriten",
+    "es": "Máximo de favoritos",
+    "fr": "Nombre maximum de favoris",
+    "it": "Massimo preferiti",
+    "lb": "Maximum Favoritten",
+    "nl": "Maximum favorieten",
+    "pl": "Maksymalna liczba ulubionych"
+  },
+  "Maximum favorites mapping": {
+    "de": "Zuordnung maximale Favoriten",
+    "es": "Mapeo de máximo de favoritos",
+    "fr": "Mapping du nombre maximum de favoris",
+    "it": "Mapping massimo preferiti",
+    "lb": "Maximum-Favoritten-Mapping",
+    "nl": "Toewijzing maximum favorieten",
+    "pl": "Mapowanie maksymalnej liczby ulubionych"
+  },
+  "My favorites": {
+    "de": "My favorites",
+    "es": "My favorites",
+    "fr": "Mes favoris",
+    "it": "My favorites",
+    "lb": "My favorites",
+    "nl": "My favorites",
+    "pl": "My favorites"
+  },
+  "No eligible bundle found for this entity type.": {
+    "de": "No eligible bundle found for this entity type.",
+    "es": "No eligible bundle found for this entity type.",
+    "fr": "Aucun bundle éligible trouvé pour ce type d'entité.",
+    "it": "No eligible bundle found for this entity type.",
+    "lb": "No eligible bundle found for this entity type.",
+    "nl": "No eligible bundle found for this entity type.",
+    "pl": "No eligible bundle found for this entity type."
+  },
+  "No favorites yet": {
+    "de": "No favorites yet",
+    "es": "No favorites yet",
+    "fr": "Aucun favori pour le moment",
+    "it": "No favorites yet",
+    "lb": "No favorites yet",
+    "nl": "No favorites yet",
+    "pl": "No favorites yet"
+  },
+  "No limit": {
+    "de": "No limit",
+    "es": "No limit",
+    "fr": "Aucune limite",
+    "it": "No limit",
+    "lb": "No limit",
+    "nl": "No limit",
+    "pl": "No limit"
+  },
+  "Open favorites panel": {
+    "de": "Open favorites panel",
+    "es": "Open favorites panel",
+    "fr": "Ouvrir le panneau des favoris",
+    "it": "Open favorites panel",
+    "lb": "Open favorites panel",
+    "nl": "Open favorites panel",
+    "pl": "Open favorites panel"
+  },
+  "PS Favorite settings": {
+    "de": "PS Favorite-Einstellungen",
+    "es": "Ajustes de PS Favorite",
+    "fr": "Paramètres PS Favorite",
+    "it": "Impostazioni PS Favorite",
+    "lb": "PS Favorite-Astellungen",
+    "nl": "PS Favorite-instellingen",
+    "pl": "Ustawienia PS Favorite"
+  },
+  "Preferred view mode": {
+    "de": "Preferred view mode",
+    "es": "Preferred view mode",
+    "fr": "Mode d'affichage préféré",
+    "it": "Preferred view mode",
+    "lb": "Preferred view mode",
+    "nl": "Preferred view mode",
+    "pl": "Preferred view mode"
+  },
+  "Remove from favorites": {
+    "de": "Remove from favorites",
+    "es": "Remove from favorites",
+    "fr": "Retirer des favoris",
+    "it": "Remove from favorites",
+    "lb": "Remove from favorites",
+    "nl": "Remove from favorites",
+    "pl": "Remove from favorites"
+  },
+  "Removed from favorites.": {
+    "de": "Removed from favorites.",
+    "es": "Removed from favorites.",
+    "fr": "Retiré des favoris.",
+    "it": "Removed from favorites.",
+    "lb": "Removed from favorites.",
+    "nl": "Removed from favorites.",
+    "pl": "Removed from favorites."
+  },
+  "Rendering fallback order": {
+    "de": "Rendering fallback order",
+    "es": "Rendering fallback order",
+    "fr": "Ordre de repli du rendu",
+    "it": "Rendering fallback order",
+    "lb": "Rendering fallback order",
+    "nl": "Rendering fallback order",
+    "pl": "Rendering fallback order"
+  },
+  "Save": {
+    "de": "Save",
+    "es": "Save",
+    "fr": "Enregistrer",
+    "it": "Save",
+    "lb": "Save",
+    "nl": "Save",
+    "pl": "Save"
+  },
+  "Saved": {
+    "de": "Saved",
+    "es": "Saved",
+    "fr": "Enregistré",
+    "it": "Saved",
+    "lb": "Saved",
+    "nl": "Saved",
+    "pl": "Saved"
+  },
+  "Selected view mode is invalid for @target.": {
+    "de": "Selected view mode is invalid for @target.",
+    "es": "Selected view mode is invalid for @target.",
+    "fr": "Le mode d'affichage sélectionné est invalide pour @target.",
+    "it": "Selected view mode is invalid for @target.",
+    "lb": "Selected view mode is invalid for @target.",
+    "nl": "Selected view mode is invalid for @target.",
+    "pl": "Selected view mode is invalid for @target."
+  },
+  "Set a positive maximum for @target when using a fixed limit.": {
+    "de": "Set a positive maximum for @target when using a fixed limit.",
+    "es": "Set a positive maximum for @target when using a fixed limit.",
+    "fr": "Définissez un maximum positif pour @target lors de l'utilisation d'une limite fixe.",
+    "it": "Set a positive maximum for @target when using a fixed limit.",
+    "lb": "Set a positive maximum for @target when using a fixed limit.",
+    "nl": "Set a positive maximum for @target when using a fixed limit.",
+    "pl": "Set a positive maximum for @target when using a fixed limit."
+  },
+  "Teaser view mode when available.": {
+    "de": "Teaser view mode when available.",
+    "es": "Teaser view mode when available.",
+    "fr": "Mode d'affichage teaser quand il est disponible.",
+    "it": "Teaser view mode when available.",
+    "lb": "Teaser view mode when available.",
+    "nl": "Teaser view mode when available.",
+    "pl": "Teaser view mode when available."
+  },
+  "UUID": {
+    "de": "UUID",
+    "es": "UUID",
+    "fr": "UUID",
+    "it": "UUID",
+    "lb": "UUID",
+    "nl": "UUID",
+    "pl": "UUID"
+  },
+  "Unable to add this favorite right now.": {
+    "de": "Unable to add this favorite right now.",
+    "es": "Unable to add this favorite right now.",
+    "fr": "Impossible d'ajouter ce favori pour le moment.",
+    "it": "Unable to add this favorite right now.",
+    "lb": "Unable to add this favorite right now.",
+    "nl": "Unable to add this favorite right now.",
+    "pl": "Unable to add this favorite right now."
+  },
+  "Unable to update favorite.": {
+    "de": "Favorit konnte nicht aktualisiert werden.",
+    "es": "No se pudo actualizar el favorito.",
+    "fr": "Impossible de mettre à jour le favori.",
+    "it": "Impossibile aggiornare il preferito.",
+    "lb": "Favorit konnt net aktualiséiert ginn.",
+    "nl": "Kan favoriet niet bijwerken.",
+    "pl": "Nie można zaktualizować ulubionego."
+  },
+  "Unsupported entity target.": {
+    "de": "Unsupported entity target.",
+    "es": "Unsupported entity target.",
+    "fr": "Cible d'entité non prise en charge.",
+    "it": "Unsupported entity target.",
+    "lb": "Unsupported entity target.",
+    "nl": "Unsupported entity target.",
+    "pl": "Unsupported entity target."
+  },
+  "Use the favorite button on a supported entity to keep it close at hand.": {
+    "de": "Use the favorite button on a supported entity to keep it close at hand.",
+    "es": "Use the favorite button on a supported entity to keep it close at hand.",
+    "fr": "Utilisez le bouton favori sur une entité prise en charge pour la garder à portée de main.",
+    "it": "Use the favorite button on a supported entity to keep it close at hand.",
+    "lb": "Use the favorite button on a supported entity to keep it close at hand.",
+    "nl": "Use the favorite button on a supported entity to keep it close at hand.",
+    "pl": "Use the favorite button on a supported entity to keep it close at hand."
+  },
+  "View all favorites": {
+    "de": "View all favorites",
+    "es": "View all favorites",
+    "fr": "Voir tous les favoris",
+    "it": "View all favorites",
+    "lb": "View all favorites",
+    "nl": "View all favorites",
+    "pl": "View all favorites"
+  },
+  "favorite target": {
+    "de": "Favoritenziel",
+    "es": "objetivo favorito",
+    "fr": "cible favori",
+    "it": "target preferito",
+    "lb": "Favoritten-Zil",
+    "nl": "favorietdoel",
+    "pl": "cel ulubionych"
+  },
+  "favorite targets": {
+    "de": "Favoritenziele",
+    "es": "objetivos favorito",
+    "fr": "cibles favori",
+    "it": "target preferiti",
+    "lb": "Favoritten-Ziler",
+    "nl": "favorietdoelen",
+    "pl": "cele ulubionych"
+  },
+  "No preview available": {
+    "fr": "Aucun aperçu disponible"
+  },
+  "Favorites settings": {
+    "fr": "Paramètres des favoris"
+  },
+  "Current configuration summary": {
+    "fr": "Résumé de la configuration actuelle"
+  },
+  "Configured favorite targets": {
+    "fr": "Cibles de favoris configurées"
+  },
+  "Configured card view modes": {
+    "fr": "Modes d'affichage de carte configurés"
+  },
+  "No target configured. Favorite buttons remain hidden until at least one target is declared.": {
+    "fr": "Aucune cible n'est configurée. Les boutons favoris restent masqués tant qu'au moins une cible n'est pas déclarée."
+  },
+  "No custom view mode configured. The module will try teaser, then fall back to a title link.": {
+    "fr": "Aucun mode d'affichage personnalisé n'est configuré. Le module essaiera teaser, puis un lien sur le titre."
+  },
+  "Favorite-enabled entity targets and limits": {
+    "fr": "Cibles d'entité favorables et limites"
+  },
+  "Use one rule per line. Only configured targets are favoritable.": {
+    "fr": "Utilisez une règle par ligne. Seules les cibles configurées peuvent être ajoutées aux favoris."
+  },
+  "Expected format": {
+    "fr": "Format attendu"
+  },
+  "Examples": {
+    "fr": "Exemples"
+  },
+  "<code>node.offer:0</code> enables favorites for all offer nodes with no limit.": {
+    "fr": "<code>node.offer:0</code> active les favoris pour tous les nœuds offer sans limite."
+  },
+  "<code>node.article:10</code> enables favorites for article nodes with a limit of 10 items.": {
+    "fr": "<code>node.article:10</code> active les favoris pour les nœuds article avec une limite de 10 éléments."
+  },
+  "<code>media.*:5</code> enables favorites for all media bundles with a shared limit of 5 items per bundle rule.": {
+    "fr": "<code>media.*:5</code> active les favoris pour tous les bundles media avec une limite partagée de 5 éléments par règle de bundle."
+  },
+  "Use one rule per line, for example: <code>node.offer:20</code>. Format: <code>entity_type.bundle:max</code>. You may also use <code>entity_type.*:max</code>. Only configured targets are favoritable. Use <code>:0</code> for no limit.": {
+    "fr": "Utilisez une règle par ligne, par exemple : <code>node.offer:20</code>. Format : <code>entity_type.bundle:max</code>. Vous pouvez aussi utiliser <code>entity_type.*:max</code>. Seules les cibles configurées peuvent être ajoutées aux favoris. Utilisez <code>:0</code> pour ne pas fixer de limite."
+  },
+  "Favorite card view modes": {
+    "fr": "Modes d'affichage des cartes de favoris"
+  },
+  "Optional. Use one rule per line to force a preferred view mode for favorite cards.": {
+    "fr": "Optionnel. Utilisez une règle par ligne pour forcer un mode d'affichage préféré pour les cartes de favoris."
+  },
+  "Optional. Use one rule per line, for example: <code>node.offer:favorite_card</code>. Format: <code>entity_type.bundle:view_mode</code>. You may also use <code>entity_type.*:view_mode</code>. If no configured view mode exists, the module tries <code>teaser</code>, then falls back to a title link.": {
+    "fr": "Optionnel. Utilisez une règle par ligne, par exemple : <code>node.offer:favorite_card</code>. Format : <code>entity_type.bundle:view_mode</code>. Vous pouvez aussi utiliser <code>entity_type.*:view_mode</code>. Si aucun mode d'affichage configuré n'existe, le module essaie <code>teaser</code>, puis bascule vers un lien sur le titre."
+  },
+  "Line @line has an invalid format: @value": {
+    "fr": "La ligne @line a un format invalide : @value"
+  },
+  "Line @line duplicates an existing target rule: @value": {
+    "fr": "La ligne @line duplique une règle de cible existante : @value"
+  },
+  "Line @line has an invalid view mode format: @value": {
+    "fr": "La ligne @line a un format de mode d'affichage invalide : @value"
+  },
+  "Line @line duplicates an existing view mode rule: @value": {
+    "fr": "La ligne @line duplique une règle de mode d'affichage existante : @value"
+  },
+  "@target: enabled with no limit": {
+    "fr": "@target : activé sans limite"
+  },
+  "@target: enabled with limit @limit": {
+    "fr": "@target : activé avec une limite de @limit"
+  },
+  "@target: @view_mode": {
+    "fr": "@target : @view_mode"
+  },
+  "Saved 1 favorite target rule.": {
+    "fr": "1 règle de cible favorite enregistrée."
+  },
+  "Saved @count favorite target rules.": {
+    "fr": "@count règles de cible favorite enregistrées."
+  },
+  "Saved 1 view mode rule.": {
+    "fr": "1 règle de mode d'affichage enregistrée."
+  },
+  "Saved @count view mode rules.": {
+    "fr": "@count règles de mode d'affichage enregistrées."
+  },
+  "Configure favorites behavior.": {
+    "fr": "Configurer le comportement des favoris."
+  }
+}

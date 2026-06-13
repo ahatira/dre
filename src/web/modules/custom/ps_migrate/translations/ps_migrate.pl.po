@@ -1,0 +1,152 @@
+# PL translation for ps_migrate module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_migrate\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All surface values"
+msgstr "Wszystkie wartości powierzchni"
+
+msgid "Already published: @count"
+msgstr "Już opublikowano: @count"
+
+msgid "Asset Type"
+msgstr "Typ aktywa"
+
+msgid "Asset type code"
+msgstr "Kod typu aktywa"
+
+msgid "Budget Value"
+msgstr "Wartość budżetu"
+
+msgid "Business ID"
+msgstr "ID biznesowy"
+
+msgid "Business ID (source XML)"
+msgstr "ID biznesowy (XML źródłowy)"
+
+msgid "Canonical Drupal source language"
+msgstr "Kanoniczny język źródłowy Drupal"
+
+msgid "Canonical XML source language"
+msgstr "Kanoniczny język źródłowy XML"
+
+msgid "City"
+msgstr "Miasto"
+
+msgid "Commercial Title"
+msgstr "Tytuł handlowy"
+
+msgid "Country ISO code"
+msgstr "Kod ISO kraju"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "External ID"
+msgstr "ID zewnętrzny"
+
+msgid "Feature code"
+msgstr "Kod cechy"
+
+msgid "Feature definition ID"
+msgstr "ID definicji cechy"
+
+msgid "Feature group ID"
+msgstr "ID grupy cech"
+
+msgid "Feature group code"
+msgstr "Kod grupy cech"
+
+msgid "Full offer XML node"
+msgstr "Pełny węzeł XML oferty"
+
+msgid "Generated at: @date"
+msgstr "Wygenerowano: @date"
+
+msgid "Import Offers from CRM XML (Example)"
+msgstr "Importuj oferty z XML CRM (przykład)"
+
+msgid "Import rejections"
+msgstr "Odrzucenia importu"
+
+msgid "Label"
+msgstr "Etykieta"
+
+msgid "Last Post-Import Publication Report"
+msgstr "Ostatni raport publikacji po imporcie"
+
+msgid "No post-import publication report is available yet. Run CRM import fir"
+"st."
+msgstr "Brak raportu publikacji po imporcie. Najpierw uruchom import CRM."
+
+msgid "No rejected offers in the latest report."
+msgstr "Brak odrzuconych ofert w ostatnim raporcie."
+
+msgid "Node ID"
+msgstr "ID węzła"
+
+msgid "Offer Title"
+msgstr "Tytuł oferty"
+
+msgid "Operation Type"
+msgstr "Typ operacji"
+
+msgid "Operation code"
+msgstr "Kod operacji"
+
+msgid "Payload defaults"
+msgstr "Domyślne wartości payload"
+
+msgid "Provides migration support for PS entities with entity protection inte"
+"gration"
+msgstr "Zapewnia wsparcie migracji dla encji PS z integracją ochrony encji."
+
+msgid "Published during post-import: @count"
+msgstr "Opublikowano podczas post-importu: @count"
+
+msgid "Reference"
+msgstr "Referencja"
+
+msgid "Rejected during publication: @count"
+msgstr "Odrzucono podczas publikacji: @count"
+
+msgid "Rejection reason"
+msgstr "Powód odrzucenia"
+
+msgid "Required asset types"
+msgstr "Wymagane typy aktywów"
+
+msgid "Review post-import publication rejections for source data quality trac"
+"king."
+msgstr "Przejrzyj odrzucenia publikacji po imporcie w celu śledzenia jakości d"
+"anych źródłowych."
+
+msgid "Source index"
+msgstr "Indeks źródłowy"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Target Drupal language"
+msgstr "Docelowy język Drupal"
+
+msgid "Target XML language"
+msgstr "Docelowy język XML"
+
+msgid "Technical elements node"
+msgstr "Węzeł elementów technicznych"
+
+msgid "Total offers scanned: @count"
+msgstr "Łącznie przeskanowanych ofert: @count"
+
+msgid "Type driver"
+msgstr "Sterownik typu"
+
+msgid "Weight"
+msgstr "Waga"

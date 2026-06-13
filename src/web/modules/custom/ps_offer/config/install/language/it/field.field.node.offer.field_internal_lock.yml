@@ -1,0 +1,2 @@
+label: 'Blocco protezione'
+description: "⚠️ <strong>Attiva questo blocco per proteggere le modifiche manuali dagli import CRM automatici.</strong> Quando bloccata, questa offerta non verrà sovrascritta durante la sincronizzazione import."

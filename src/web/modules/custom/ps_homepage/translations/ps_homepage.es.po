@@ -1,0 +1,104 @@
+# ES translation for ps_homepage module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_homepage\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background images"
+msgstr "Imagenes de fondo"
+
+msgid "Business univers (homepage)"
+msgstr "Universo de negocio (inicio)"
+
+msgid "Contact us"
+msgstr "Contactenos"
+
+msgid "Content (@language)"
+msgstr "Contenido (@language)"
+
+msgid "Delegate my search — URL"
+msgstr "Delegar mi busqueda - URL"
+
+msgid "Discover our service offers — URL"
+msgstr "Descubra nuestras ofertas de servicios - URL"
+
+msgid "Editorial promo (homepage)"
+msgstr "Promo editorial (inicio)"
+
+msgid "English"
+msgstr "Ingles"
+
+msgid "Featured offers (homepage)"
+msgstr "Ofertas destacadas (inicio)"
+
+msgid "French"
+msgstr "Frances"
+
+msgid "Full-width blurred hero background. Leave empty for the demo default."
+msgstr "Fondo hero desenfocado de ancho completo. Dejar vacio para el valor pr"
+"edeterminado de demo."
+
+msgid "Hero background alt"
+msgstr "Alt del fondo hero"
+
+msgid "Hero background alternative text"
+msgstr "Texto alternativo del fondo hero"
+
+msgid "Hero background file ID"
+msgstr "ID de archivo del fondo hero"
+
+msgid "Hero background image"
+msgstr "Imagen de fondo hero"
+
+msgid "Install Webform and create a \"contact\" webform to display the contac"
+"t form here."
+msgstr "Instale Webform y cree un webform \"contact\" para mostrar aqui el for"
+"mulario de contacto."
+
+msgid "Language switcher (Stellar)"
+msgstr "Selector de idioma (Stellar)"
+
+msgid "Layout Builder blocks for the Stellar homepage."
+msgstr "Bloques de Layout Builder para la pagina de inicio Stellar."
+
+msgid "Mega menu — tools (Property Search)"
+msgstr "Mega menu - herramientas (Property Search)"
+
+msgid "No featured properties yet."
+msgstr "Aun no hay propiedades destacadas."
+
+msgid "Promo background alt"
+msgstr "Alt del fondo promo"
+
+msgid "Promo background alternative text"
+msgstr "Texto alternativo del fondo promo"
+
+msgid "Promo background file ID"
+msgstr "ID de archivo del fondo promo"
+
+msgid "Promo panel background image"
+msgstr "Imagen de fondo del panel promocional"
+
+msgid "Promotional panel"
+msgstr "Panel promocional"
+
+msgid "Property Search"
+msgstr "Busqueda inmobiliaria"
+
+msgid "Right column promotional panel. Leave empty for the demo default."
+msgstr "Panel promocional de la columna derecha. Dejar vacio para el valor pre"
+"determinado de demo."
+
+msgid "Search form"
+msgstr "Formulario de busqueda"
+
+msgid "Search hero (homepage)"
+msgstr "Hero de busqueda (inicio)"
+
+msgid "Search hero (homepage) block"
+msgstr "Bloque hero de busqueda (inicio)"

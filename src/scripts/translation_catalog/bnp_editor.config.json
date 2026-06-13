@@ -1,0 +1,362 @@
+{
+  "optional:filter.format.basic_html.yml": {
+    "de": {
+      "name": "Basis HTML"
+    },
+    "es": {
+      "name": "HTML básico"
+    },
+    "fr": {
+      "name": "HTML de base"
+    },
+    "it": {
+      "name": "HTML di base"
+    },
+    "lb": {
+      "name": "Basis HTML"
+    },
+    "nl": {
+      "name": "Basis HTML"
+    },
+    "pl": {
+      "name": "Podstawowy HTML"
+    }
+  },
+  "optional:filter.format.full_html.yml": {
+    "de": {
+      "name": "Vollständiges HTML"
+    },
+    "es": {
+      "name": "HTML completo"
+    },
+    "fr": {
+      "name": "HTML complet"
+    },
+    "it": {
+      "name": "HTML completo"
+    },
+    "lb": {
+      "name": "Komplett HTML"
+    },
+    "nl": {
+      "name": "Volledige HTML"
+    },
+    "pl": {
+      "name": "Pełny HTML"
+    }
+  },
+  "optional:filter.format.restricted_html.yml": {
+    "de": {
+      "name": "Eingeschränktes HTML"
+    },
+    "es": {
+      "name": "HTML restringido"
+    },
+    "fr": {
+      "name": "HTML restreint"
+    },
+    "it": {
+      "name": "HTML limitato"
+    },
+    "lb": {
+      "name": "Begrenzt HTML"
+    },
+    "nl": {
+      "name": "Beperkte HTML"
+    },
+    "pl": {
+      "name": "Ograniczony HTML"
+    }
+  },
+  "optional:filter.format.plain_text.yml": {
+    "de": {
+      "name": "Klartext"
+    },
+    "es": {
+      "name": "Texto sin formato"
+    },
+    "fr": {
+      "name": "Texte brut"
+    },
+    "it": {
+      "name": "Testo semplice"
+    },
+    "lb": {
+      "name": "Einfach Text"
+    },
+    "nl": {
+      "name": "Platte tekst"
+    },
+    "pl": {
+      "name": "Zwykły tekst"
+    }
+  },
+  "optional:editor.editor.full_html.yml": {
+    "de": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Klartext",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "es": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Texto sin formato",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "fr": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Texte brut",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "it": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Testo semplice",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "lb": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Einfach Text",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nl": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Platte tekst",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pl": {
+      "settings": {
+        "plugins": {
+          "ckeditor5_codeBlock": {
+            "languages": [
+              {
+                "label": "Zwykły tekst",
+                "language": "plaintext"
+              },
+              {
+                "label": "PHP",
+                "language": "php"
+              },
+              {
+                "label": "JavaScript",
+                "language": "javascript"
+              },
+              {
+                "label": "HTML",
+                "language": "html"
+              },
+              {
+                "label": "CSS",
+                "language": "css"
+              },
+              {
+                "label": "YAML",
+                "language": "yaml"
+              },
+              {
+                "label": "JSON",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,142 +1,197 @@
-# POT file for ps_surface
-
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Available"
+# LB translation for ps_surface module.
+msgid ""
 msgstr ""
+"Project-Id-Version: ps_surface\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Label"
-msgstr ""
+msgid "+ Add division"
+msgstr "+ Divisioun derbäisetzen"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Partial"
-msgstr ""
+msgid "Administer PS surface entities"
+msgstr "PS-Surface-Entitéiten geréieren"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Reference"
-msgstr ""
+msgid "Availability"
+msgstr "Disponibilitéit"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Status"
-msgstr ""
+msgid "Available"
+msgstr "Disponibel"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Surfaces"
-msgstr ""
+msgid "Business identifier for the division."
+msgstr "Geschäftlech Kennung fir d'Divisioun."
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Unavailable"
-msgstr ""
+msgid "Changed"
+msgstr "Geännert"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:Unknown"
-msgstr ""
+msgid "Created"
+msgstr "Erstallt"
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:division_status"
-msgstr ""
+msgid "DISPO surface (@dispo m²) exceeds TOTAL surface (@total m²). Available"
+" surface cannot be greater than total."
+msgstr "D'DISPO-Fläch (@dispo m²) ass méi grouss wéi d'TOTAL-Fläch (@total m²)"
+". Déi disponibel Fläch däerf net méi grouss sinn ewéi d'Gesamtfläch."
 
-msgid "src/web/modules/custom/ps_surface/src/Controller/SurfaceDivisionListBuilder.php:surfaces"
-msgstr ""
+msgid "Define the qualified surface values for this division. TOTAL is the to"
+"tal area, DISPO is the available area, and ETREF is the reference surf"
+"ace (ERP regulations)."
+msgstr "Definéiert d'qualifizéiert Flächwäerter fir dës Divisioun. TOTAL ass d"
+"'Gesamtfläch, DISPO ass d'disponibel Fläch an ETREF ass d'Referenzfläc"
+"h (ERP-Reglementatioun)."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Availability text"
-msgstr ""
+msgid "Division label"
+msgstr "Bezeechnung vun der Divisioun"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Business identifier for the division."
-msgstr ""
+msgid "Division reference"
+msgstr "Referenz vun der Divisioun"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Changed"
-msgstr ""
+msgid "Division status"
+msgstr "Status vun der Divisioun"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Created"
-msgstr ""
+msgid "ETREF surface (@etref m²) exceeds TOTAL surface (@total m²). ETREF sho"
+"uld be less than or equal to TOTAL."
+msgstr "D'ETREF-Fläch (@etref m²) ass méi grouss wéi d'TOTAL-Fläch (@total m²)"
+". ETREF muss méi kleng oder gläich TOTAL sinn."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division label"
-msgstr ""
+msgid "Floor"
+msgstr "Stack"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division reference"
-msgstr ""
+msgid "Floor level for the division (e.g. RDC, R+5)."
+msgstr "Stackniveau fir d'Divisioun (z. B. RDC, R+5)."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Division status"
-msgstr ""
+msgid "Human readable label for the division."
+msgstr "Mënscheliesbar Bezeechnung fir d'Divisioun."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Human readable label for the division."
-msgstr ""
+msgid "Label"
+msgstr "Bezeechnung"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Internal lock"
-msgstr ""
+msgid "Linked offers"
+msgstr "Verknëppt Offeren"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Operational status of the division."
-msgstr ""
+msgid "Lot"
+msgstr "Lot"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Protects manually curated division data from automated overwrites."
-msgstr ""
+msgid "Manage surface division entities and configuration."
+msgstr "Surface-Divisiounen a Configuratioun geréieren."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Qualified surface values attached to this division."
-msgstr ""
+msgid "Nature"
+msgstr "Natur"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Raw availability text imported from source systems."
-msgstr ""
+msgid "Nature or usage label for the division (e.g. Bureaux)."
+msgstr "Bezeechnung vun der Natur oder Notzung fir d'Divisioun (z. B. Büroen)."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Source tracking"
-msgstr ""
+msgid "Operational status of the division."
+msgstr "Operative Status vun der Divisioun."
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Structured JSON payload used for source traceability."
-msgstr ""
+msgid "PS surface item"
+msgstr "PS-Flächenelement"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:Surfaces"
-msgstr ""
+msgid "PS surface — Compare table"
+msgstr "PS-Fläch — Vergläichstabel"
 
-msgid "src/web/modules/custom/ps_surface/src/Entity/SurfaceDivision.php:division_reference"
-msgstr ""
+msgid "PS surface — Contextual (matrix-driven)"
+msgstr "PS-Fläch — Kontextuell (matrix-gesteiert)"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldFormatter/SurfaceContextualFormatter.php:field_asset_type"
-msgstr ""
+msgid "PS surface — Offer (TOTAL / DISPO / ETREF / MINIM)"
+msgstr "PS-Fläch — Offer (TOTAL / DISPO / ETREF / MINIM)"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldFormatter/SurfaceContextualFormatter.php:field_divisible"
-msgstr ""
+msgid "Partial"
+msgstr "Deelweis"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Qualification code"
-msgstr ""
+msgid "Qualification"
+msgstr "Qualifikatioun"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Unit code"
-msgstr ""
+msgid "Qualification code"
+msgstr "Qualifikatiounscode"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:Value"
-msgstr ""
+msgid "Qualified surface values attached to this division."
+msgstr "Qualifizéiert Flächwäerter, déi un dës Divisioun gebonne sinn."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:qualification"
-msgstr ""
+msgid "Raw availability text imported from external systems. This is for refe"
+"rence only."
+msgstr "Rohtext zur Disponibilitéit aus externe Systemer importéiert. Nëmme fi"
+"r Referenz."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldType/SurfaceItemFieldType.php:value"
-msgstr ""
+msgid "Reference"
+msgstr "Referenz"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:- Select -"
-msgstr ""
+msgid "Select a qualification code from dictionary entries."
+msgstr "Wielt e Qualifikatiounscode aus den Dictionnaire-Entréen."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:DISPO"
-msgstr ""
+msgid "Select the operational status of this division based on its availabili"
+"ty."
+msgstr "Wielt den operative Status vun dëser Divisioun op Basis vun hirer Disp"
+"onibilitéit."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:ETREF"
-msgstr ""
+msgid "Sort by @column, currently @direction."
+msgstr "No @column sortéieren, aktuell @direction."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Qualification"
-msgstr ""
+msgid "Sort by @column."
+msgstr "No @column sortéieren."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:TOTAL"
-msgstr ""
+msgid "Status"
+msgstr "Status"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Unit"
-msgstr ""
+msgid "Stores a qualified physical surface item."
+msgstr "Späichert e qualifizéiert physescht Flächenelement."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:Value"
-msgstr ""
+msgid "Surface"
+msgstr "Fläch"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceItemDefaultWidget.php:entity_type.manager"
-msgstr ""
+msgid "Surface @qual has negative value (@value). Negative surfaces are not a"
+"llowed."
+msgstr "D'Fläch @qual huet en negative Wäert (@value). Negativ Flächen sinn ne"
+"t erlaabt."
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceOfferWidget.php:Unit"
-msgstr ""
+msgid "Surface division"
+msgstr "Flächenopdeelung"
 
-msgid "src/web/modules/custom/ps_surface/src/Plugin/Field/FieldWidget/SurfaceOfferWidget.php:entity_type.manager"
-msgstr ""
+msgid "Surface division table"
+msgstr "Tabell vun de Flächenopdeelungen"
 
-msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:field_divisions"
-msgstr ""
+msgid "Surface divisions"
+msgstr "Flächenopdeelungen"
 
-msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:field_surfaces"
-msgstr ""
+msgid "Surface domain foundation for divisions, projections, and governance p"
+"olicies."
+msgstr "Surface-Domain-Fondatioun fir Divisiounen, Projektiounen a Governance-"
+"Regelen."
 
-msgid "src/web/modules/custom/ps_surface/src/Service/SurfaceProjectionManager.php:surfaces"
-msgstr ""
+msgid "Surface table"
+msgstr "Flächentabel"
+
+msgid "Surfaces"
+msgstr "Flächen"
+
+msgid "Unavailable"
+msgstr "Net disponibel"
+
+msgid "Unit"
+msgstr "Eenheet"
+
+msgid "Unit code"
+msgstr "Eenheetscode"
+
+msgid "Unknown"
+msgstr "Onbekannt"
+
+msgid "Value"
+msgstr "Wäert"
+
+msgid "surface division"
+msgstr "flächenopdeelung"
+
+msgid "surface divisions"
+msgstr "flächenopdeelungen"
+
+msgid "⚠️ <strong>Enable this lock to prevent automated imports from overwrit"
+"ing manually curated data.</strong> Use this when you have manually co"
+"rrected or customized this division and want to protect it from future"
+" automatic updates."
+msgstr "⚠️ <strong>Aktivéiert dës Spär, fir ze verhënneren, datt automatiséier"
+"t Importer manuell kuréiert Donnéeën iwwerschreiwen.</strong> Benotzt "
+"dat, wann Dir dës Divisioun manuell korrigéiert oder personaliséiert h"
+"utt an se géint zukünfteg automatesch Updates schütze wëllt."

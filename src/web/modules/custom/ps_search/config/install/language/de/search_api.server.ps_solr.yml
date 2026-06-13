@@ -1,0 +1,2 @@
+name: "PS Solr-Server"
+description: "Solr-Suchserver für Property Search (Docker-Dienst: solr, Core: ps_project)"

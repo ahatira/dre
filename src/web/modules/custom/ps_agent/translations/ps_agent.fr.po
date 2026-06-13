@@ -1,0 +1,224 @@
+# FR translation for ps_agent module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_agent\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "<strong>Internal:</strong> Employee of the company. <strong>External:<"
+"/strong> Third-party agent or partner."
+msgstr "<strong>Interne :</strong> Employé de l'entreprise. <strong>Externe :<"
+"/strong> Agent ou partenaire tiers."
+
+msgid "Add agent"
+msgstr "Ajouter un agent"
+
+msgid "Add agent type"
+msgstr "Ajouter un type d'agent"
+
+msgid "Administer PS agent entities"
+msgstr "Administrer les entités agent PS"
+
+msgid "Administer PS agent fallback settings"
+msgstr "Administrer les paramètres d'avatar de secours des agents"
+
+msgid "Administer PS agent types"
+msgstr "Administrer les types d'agent PS"
+
+msgid "Agent directory entity with contact validation and admin UI."
+msgstr "Entité annuaire d'agents avec validation des contacts et interface d'a"
+"dministration."
+
+msgid "Agent fallback avatars"
+msgstr "Avatars de secours des agents"
+
+msgid "Agent type"
+msgstr "Type d'agent"
+
+msgid "Agent types"
+msgstr "Types d'agent"
+
+msgid "Agents"
+msgstr "Agents"
+
+msgid "Authored by"
+msgstr "Créé par"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Changed"
+msgstr "Modifié"
+
+msgid "Civility"
+msgstr "Civilité"
+
+msgid "Configure fallback avatar files for agents."
+msgstr "Configurer les fichiers d'avatar de secours pour les agents."
+
+msgid "Configure fallback avatars by civility and default."
+msgstr "Configurer les avatars de secours par civilité et par défaut."
+
+msgid "Create, edit, and delete PS agent entities."
+msgstr "Créer, modifier et supprimer des entités agent PS."
+
+msgid "Create, edit, and delete PS agent types, and manage their fields and d"
+"isplay settings."
+msgstr "Créer, modifier et supprimer les types d'agent PS, et gérer leurs cham"
+"ps et affichages."
+
+msgid "Created"
+msgstr "Créé"
+
+msgid "Created agent %label."
+msgstr "Agent %label créé."
+
+msgid "Default fallback avatar"
+msgstr "Avatar de secours par défaut"
+
+msgid "Default fallback file ID"
+msgstr "ID fichier de secours par défaut"
+
+msgid "Delete agent"
+msgstr "Supprimer l'agent"
+
+msgid "Display name"
+msgstr "Nom affiché"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Fallback avatar for MR"
+msgstr "Avatar de secours pour M."
+
+msgid "Fallback avatar for MRS"
+msgstr "Avatar de secours pour Mme"
+
+msgid "Fallback avatar for MS"
+msgstr "Avatar de secours pour Mlle"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Full Name"
+msgstr "Nom complet"
+
+msgid "Has avatar"
+msgstr "A un avatar"
+
+msgid "Internal or external"
+msgstr "Interne ou externe"
+
+msgid "Job title"
+msgstr "Fonction"
+
+msgid "Label"
+msgstr "Libellé"
+
+msgid "Last name"
+msgstr "Nom"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "MR fallback file ID"
+msgstr "ID fichier de secours M."
+
+msgid "MRS fallback file ID"
+msgstr "ID fichier de secours Mme"
+
+msgid "MS fallback file ID"
+msgstr "ID fichier de secours Mlle"
+
+msgid "Machine name"
+msgstr "Nom machine"
+
+msgid "Manage agent types and their fields and display settings."
+msgstr "Gérer les types d'agent et leurs champs et affichages."
+
+msgid "Manage agents"
+msgstr "Gérer les agents"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "No"
+msgstr "Non"
+
+msgid "One file only. Recommended: square image for best result."
+msgstr "Un seul fichier. Recommandé : image carrée pour un meilleur rendu."
+
+msgid "PS Agent fallback settings"
+msgstr "Paramètres d'avatar de secours des agents PS"
+
+msgid "Phone"
+msgstr "Téléphone"
+
+msgid "Publish agent"
+msgstr "Publier l'agent"
+
+msgid "Published"
+msgstr "Publié"
+
+msgid "The agent type %label has been created."
+msgstr "Le type d'agent %label a été créé."
+
+msgid "The agent type %label has been updated."
+msgstr "Le type d'agent %label a été mis à jour."
+
+msgid "The user ID of the author of the Agent entity."
+msgstr "Identifiant utilisateur de l'auteur de l'entité agent."
+
+msgid "Unpublish agent"
+msgstr "Dépublier l'agent"
+
+msgid "Updated agent %label."
+msgstr "Agent %label mis à jour."
+
+msgid "Upload fallback avatar files used when agent avatar is missing or inac"
+"cessible. Allowed formats: png jpg jpeg webp svg."
+msgstr "Téléversez les avatars de secours utilisés lorsque l'avatar de l'agent"
+" est absent ou inaccessible. Formats autorisés : png, jpg, jpeg, webp,"
+" svg."
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "e.g., +33 1 23 45 67 89"
+msgstr "ex. +33 1 23 45 67 89"
+
+msgid "e.g., Doe"
+msgstr "ex. Dupont"
+
+msgid "e.g., John"
+msgstr "ex. Jean"
+
+msgid "e.g., Sales Manager"
+msgstr "ex. Responsable commercial"
+
+msgid "e.g., john.doe@example.com"
+msgstr "ex. jean.dupont@exemple.com"
+
+msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CRM"
+" imports.</strong> When locked, this agent will not be overwritten dur"
+"ing CRM synchronization."
+msgstr "⚠️ <strong>Activez ce verrou pour protéger les modifications manuelles"
+" des imports CRM automatisés.</strong> Une fois verrouillé, cet agent "
+"ne sera pas écrasé lors de la synchronisation CRM."
+
+msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CRM"
+" imports.</strong> When locked, this agent will not be overwritten dur"
+"ing CRM synchronization. Use this when you've made important manual ch"
+"anges that should be preserved."
+msgstr "⚠️ <strong>Activez ce verrou pour protéger les modifications manuelles"
+" des imports CRM automatisés.</strong> Une fois verrouillé, cet agent "
+"ne sera pas écrasé lors de la synchronisation CRM. Utilisez-le lorsque"
+" vous avez effectué des modifications manuelles importantes à conserve"
+"r."

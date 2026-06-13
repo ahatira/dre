@@ -1,0 +1,48 @@
+title: 'Eng Visitt plangen'
+description: 'Formulaire fir eng Besichtegung vun enger Offer ze plangen.'
+category: Immobiliesich
+elements: |-
+  visitor:
+    '#type': fieldset
+    '#title': 'Är Kontaktdonnéeën'
+    first_name:
+      '#type': textfield
+      '#title': 'Virnumm'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Numm'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-Mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Telefon
+  visit:
+    '#type': fieldset
+    '#title': 'Ufro fir eng Visitt'
+    preferred_date:
+      '#type': date
+      '#title': 'Gewënschten Datum'
+    message:
+      '#type': textarea
+      '#title': Noriicht
+      '#default_value': 'Ech géif gär eng Visitt fir dës Offer plangen.'
+  legal:
+    '#type': checkbox
+    '#title': 'Ech stëmmen der Dateschutzpolitik zou.'
+    '#required': true
+settings:
+  form_submit_label: Schécken
+  confirmation_message: 'Merci. Är Ufro fir eng Visitt gouf geschéckt.'
+handlers:
+  email_agent:
+    label: "Beroder-Benoriichtung"
+    subject: "Ufro fir eng Visitt — Offer [webform_submission:source-entity:field_reference]"
+    body: _default
+  email_confirmation:
+    label: Besicherbestätegung
+    subject: "Är Ufro fir eng Visitt — [webform_submission:source-entity:field_reference]"
+    body: "<p>Merci fir Är Ufro fir eng Visitt betreffend d'Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>"

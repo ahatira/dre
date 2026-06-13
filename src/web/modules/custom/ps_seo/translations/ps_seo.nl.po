@@ -1,0 +1,148 @@
+# NL translation for ps_seo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_seo\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@city (@postal_code)"
+msgstr "@city (@postal_code)"
+
+msgid "@lead in @location"
+msgstr "@lead in @location"
+
+msgid "@lead. Ref. @reference."
+msgstr "@lead. Ref. @reference."
+
+msgid "@location, @region"
+msgstr "@location, @region"
+
+msgid "Access Property Search SEO admin"
+msgstr "Toegang tot Property Search SEO-beheer"
+
+msgid "Access the PS SEO configuration hub and related links."
+msgstr "Geeft toegang tot de PS SEO-configuratiehub en gerelateerde links."
+
+msgid "Administer Property Search SEO settings"
+msgstr "Property Search SEO-instellingen beheren"
+
+msgid "Back to PS configuration hub"
+msgstr "Terug naar de PS-configuratiehub"
+
+msgid "Centralizes Property Search SEO: Metatag defaults, Schema.org, sitemap"
+" and search head tags."
+msgstr "Centraliseert Property Search SEO: standaard metatags, Schema.org, sit"
+"emap en zoek-headtags."
+
+msgid "Configuration"
+msgstr "Configuratie"
+
+msgid "Front page"
+msgstr "Voorpagina"
+
+msgid "Legacy default sitemap — disabled in favour of per-asset-type offer si"
+"temaps."
+msgstr "Verouderde standaard-sitemap - uitgeschakeld ten gunste van aanbodsite"
+"maps per activatype."
+
+msgid "Lists all offer sitemaps by asset type (BNPPRE-style)."
+msgstr "Toont alle aanbod-sitemaps per activatype (BNPPRE-stijl)."
+
+msgid "Manage PS SEO module settings."
+msgstr "Instellingen van de module PS SEO beheren."
+
+msgid "Metatag defaults"
+msgstr "Standaard metatags"
+
+msgid "Metatags, Schema.org, sitemap and search SEO settings."
+msgstr "Instellingen voor metatags, Schema.org, sitemap en zoek-SEO."
+
+msgid "Module ps_seo — Metatag defaults, Schema.org, sitemap and search listi"
+"ng head tags."
+msgstr "Module ps_seo - standaard metatags, Schema.org, sitemap en headtags va"
+"n zoekresultaten."
+
+msgid "Offers — Activity (ACT)"
+msgstr "Aanbiedingen - Activiteit (ACT)"
+
+msgid "Offers — Coworking (COW)"
+msgstr "Aanbiedingen - Coworking (COW)"
+
+msgid "Offers — Land (TER)"
+msgstr "Aanbiedingen - Terrein (TER)"
+
+msgid "Offers — Logistics (LOG)"
+msgstr "Aanbiedingen - Logistiek (LOG)"
+
+msgid "Offers — Offices (BUR)"
+msgstr "Aanbiedingen - Kantoren (BUR)"
+
+msgid "Offers — Retail (COM)"
+msgstr "Aanbiedingen - Retail (COM)"
+
+msgid "Offers — Warehouse (ENT)"
+msgstr "Aanbiedingen - Magazijn (ENT)"
+
+msgid "Pathauto patterns"
+msgstr "Pathauto-patronen"
+
+msgid "Published offer nodes for asset type ACT."
+msgstr "Gepubliceerde aanbodnodes voor activatype ACT."
+
+msgid "Published offer nodes for asset type BUR."
+msgstr "Gepubliceerde aanbodnodes voor activatype BUR."
+
+msgid "Published offer nodes for asset type COM."
+msgstr "Gepubliceerde aanbodnodes voor activatype COM."
+
+msgid "Published offer nodes for asset type COW."
+msgstr "Gepubliceerde aanbodnodes voor activatype COW."
+
+msgid "Published offer nodes for asset type ENT."
+msgstr "Gepubliceerde aanbodnodes voor activatype ENT."
+
+msgid "Published offer nodes for asset type LOG."
+msgstr "Gepubliceerde aanbodnodes voor activatype LOG."
+
+msgid "Published offer nodes for asset type TER."
+msgstr "Gepubliceerde aanbodnodes voor activatype TER."
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Search SEO URL mappings"
+msgstr "Zoek-SEO-URL-koppelingen"
+
+msgid "Simple XML sitemap"
+msgstr "Eenvoudige XML-sitemap"
+
+msgid "Sitemap index"
+msgstr "Sitemap-index"
+
+msgid "URL redirects"
+msgstr "URL-omleidingen"
+
+msgid "[current-page:title] | [site:name]"
+msgstr "[current-page:title] | [site:name]"
+
+msgid "[node:field_commercial_title] | [site:name]"
+msgstr "[node:field_commercial_title] | [site:name]"
+
+msgid "[node:summary]"
+msgstr "[node:summary]"
+
+msgid "[site:name]"
+msgstr "[site:name]"
+
+msgid "[site:slogan]"
+msgstr "[site:slogan]"
+
+msgid "for rent"
+msgstr "te huur"
+
+msgid "for sale"
+msgstr "te koop"

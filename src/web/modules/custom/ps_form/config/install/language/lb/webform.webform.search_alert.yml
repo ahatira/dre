@@ -1,0 +1,63 @@
+title: "Eng Sich-Alarm erstellen"
+description: "Abonnementsformular fir Immobiliesich-Alarmer."
+category: Immobiliesich
+elements: |-
+  alert_name:
+    '#type': textfield
+    '#title': 'Titel vum Alarm'
+    '#required': true
+    '#maxlength': 255
+  prof_email_address:
+    '#type': email
+    '#title': 'Berufflech E-Mail'
+    '#required': true
+  criteria_display:
+    '#type': webform_markup
+    '#markup': ''
+  frequence:
+    '#type': radios
+    '#title': 'Schéckfrequenz'
+    '#required': true
+    '#options':
+      daily: Deeglech
+      weekly: Wöchentlech
+    '#default_value': weekly
+  optout_group:
+    '#type': fieldset
+    '#title': 'Kommerziell Kommunikatiounen'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-search-alert-form__optout-intro">Ech widdersprieche kommerziell Kommunikatiounen vu BNP Paribas Real Estate Advisory France ze kréien:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-Mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefon
+  legal:
+    '#type': checkbox
+    '#title': 'Ech hunn d'Konditioune vun der Politik zum Schutz vu perséinlechen Donnéeën gelies an acceptéieren se.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate veraarbecht Är Donnéeë fir Immobilie-Alarmer ze schécken, déi Äre Sichkrittären entspriechen. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  criteria_json:
+    '#type': hidden
+    '#title': 'Sichkrittären'
+  search_url:
+    '#type': hidden
+    '#title': 'Sich-URL'
+  search_path:
+    '#type': hidden
+    '#title': 'Sich-Pfad'
+settings:
+  form_submit_label: Weider
+  confirmation_message: "<p>Äre Sich-Alarm gouf erstallt. Dir kritt eng E-Mail wann nei Objeten Äre Krittären entspriechen.</p>"
+handlers:

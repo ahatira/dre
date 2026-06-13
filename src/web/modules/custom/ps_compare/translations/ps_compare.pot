@@ -1,0 +1,349 @@
+# EN translation for ps_compare module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_compare\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@site — Property comparison"
+msgstr ""
+
+msgid "Add a short note for the recipient (optional)."
+msgstr ""
+
+msgid "Add at least one more listing to be able to compare."
+msgstr ""
+
+msgid "Added to comparison."
+msgstr ""
+
+msgid "Area"
+msgstr ""
+
+msgid "Availability"
+msgstr ""
+
+msgid "Back to search"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Collapsible feature groups only"
+msgstr ""
+
+msgid "Comparator"
+msgstr ""
+
+msgid "Comparator (@count ads)"
+msgstr ""
+
+msgid "Compare"
+msgstr ""
+
+msgid "Compare page display"
+msgstr ""
+
+msgid "Compare properties"
+msgstr ""
+
+msgid "Compare selection"
+msgstr ""
+
+msgid "Compare table columns"
+msgstr ""
+
+msgid "Comparison"
+msgstr ""
+
+msgid "Comparison limits"
+msgstr ""
+
+msgid "Comparison sent to @email."
+msgstr ""
+
+msgid "Configure UX options for the comparison table and modal."
+msgstr ""
+
+msgid "Configure property comparison limits and targets."
+msgstr ""
+
+msgid "DPE"
+msgstr ""
+
+msgid "Deprecated — use display_share_button"
+msgstr ""
+
+msgid "Divisible"
+msgstr ""
+
+msgid "Empty comparison slot"
+msgstr ""
+
+msgid "Enable collapsible sections"
+msgstr ""
+
+msgid "Enabled entity targets"
+msgstr ""
+
+msgid "Enabled targets"
+msgstr ""
+
+msgid "Energy performance"
+msgstr ""
+
+msgid "Exclusivity"
+msgstr ""
+
+msgid "Feature definition IDs or codes shown in comparison table (empty = all"
+" applicable features)"
+msgstr ""
+
+msgid "GES"
+msgstr ""
+
+msgid "I have read and accept the terms of the Personal Data Protection Polic"
+"y."
+msgstr ""
+
+msgid "If the button does not work, copy the following URL into your browser:"
+msgstr ""
+
+msgid "Install the Webform module to share a comparison by email."
+msgstr ""
+
+msgid "Invalid CSRF token."
+msgstr ""
+
+msgid "Invalid request."
+msgstr ""
+
+msgid "Layout"
+msgstr ""
+
+msgid "Loading…"
+msgstr ""
+
+msgid "Manage Property Search comparison"
+msgstr ""
+
+msgid "Manage comparison settings and integrations."
+msgstr ""
+
+msgid "Maximum compared items"
+msgstr ""
+
+msgid "Merge DPE and GES on one row"
+msgstr ""
+
+msgid "Minimum items required to open comparison page"
+msgstr ""
+
+msgid "Minimum items to open comparison page"
+msgstr ""
+
+msgid "Mobile card layout"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Next image"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Not enough properties in the comparison list."
+msgstr ""
+
+msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
+msgstr ""
+
+msgid "Optional message"
+msgstr ""
+
+msgid "Other features"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "PS Compare SEO URL mappings"
+msgstr ""
+
+msgid "PS Compare settings"
+msgstr ""
+
+msgid "Photos"
+msgstr ""
+
+msgid "Please enter a valid email address."
+msgstr ""
+
+msgid "Prev"
+msgstr ""
+
+msgid "Previous image"
+msgstr ""
+
+msgid "Price"
+msgstr ""
+
+msgid "Property comparison"
+msgstr ""
+
+msgid "Property offer comparison list with anonymous and authenticated persis"
+"tence."
+msgstr ""
+
+msgid "Property type"
+msgstr ""
+
+msgid "Public compare page slug"
+msgstr ""
+
+msgid "Receive my comparison"
+msgstr ""
+
+msgid "Recipient email"
+msgstr ""
+
+msgid "Ref. @ref"
+msgstr ""
+
+msgid "Reference"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Remove from comparison"
+msgstr ""
+
+msgid "Remove this property from comparison?"
+msgstr ""
+
+msgid "Remove “@title” from comparison?"
+msgstr ""
+
+msgid "Removed from comparison."
+msgstr ""
+
+msgid "Select at least @min properties to compare."
+msgstr ""
+
+msgid "Select at least @min properties to share a comparison."
+msgstr ""
+
+msgid "Select listings from the search results to compare."
+msgstr ""
+
+msgid "Send comparison"
+msgstr ""
+
+msgid "Send my selection"
+msgstr ""
+
+msgid "Share comparison"
+msgstr ""
+
+msgid "Share offcanvas footer"
+msgstr ""
+
+msgid "Show comparison summary banner"
+msgstr ""
+
+msgid "Show price info popover"
+msgstr ""
+
+msgid "Show price info popover in compare table"
+msgstr ""
+
+msgid "Show section navigation"
+msgstr ""
+
+msgid "Show share comparison button"
+msgstr ""
+
+msgid "Show summary banner"
+msgstr ""
+
+msgid "Show undo toast when removing a property"
+msgstr ""
+
+msgid "Show “Send my selection” share button"
+msgstr ""
+
+msgid "Sticky view-property bar"
+msgstr ""
+
+msgid "Terms & availability"
+msgstr ""
+
+msgid "The comparison share form is not available yet."
+msgstr ""
+
+msgid "The consultant phone and opening hours in the share offcanvas are mana"
+"ged under <a href=\":url\">PS Core settings</a>."
+msgstr ""
+
+msgid "This comparison link is invalid or has expired. At least @min valid pr"
+"operty references are required."
+msgstr ""
+
+msgid "Transaction type"
+msgstr ""
+
+msgid "Unable to add this property to the comparison right now."
+msgstr ""
+
+msgid "Unable to send the comparison. Check the email address and try again."
+msgstr ""
+
+msgid "Unable to send the comparison. Please try again."
+msgstr ""
+
+msgid "Unable to update comparison right now."
+msgstr ""
+
+msgid "Undo"
+msgstr ""
+
+msgid "Unsupported entity target."
+msgstr ""
+
+msgid "View full comparison online"
+msgstr ""
+
+msgid "View property"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "You can't compare more than @max ads at the same time. Delete one to a"
+"dd this one."
+msgstr ""
+
+msgid "You have not selected any properties to compare yet."
+msgstr ""
+
+msgid "mo"
+msgstr ""
+
+msgid "seat"
+msgstr ""
+
+msgid "yr"
+msgstr ""
+
+msgid "—"
+msgstr ""

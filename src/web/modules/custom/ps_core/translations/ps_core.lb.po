@@ -1,0 +1,270 @@
+# LB translation for ps_core module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_core\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@description"
+msgstr "@description"
+
+msgid "Access /admin/ps/config and related section links."
+msgstr "Zougang op /admin/ps/config an op verbonnen Sektiounslinks."
+
+msgid "Access /admin/ps/content and related section links."
+msgstr "Zougang op /admin/ps/content an op verbonnen Sektiounslinks."
+
+msgid "Access /admin/ps/structure and related section links."
+msgstr "Zougang op /admin/ps/structure an op verbonnen Sektiounslinks."
+
+msgid "Access Property Search config section"
+msgstr "Op d'Property Search-Konfiguratiounssektioun zougräifen"
+
+msgid "Access Property Search content section"
+msgstr "Op d'Property Search-Inhaltssektioun zougräifen"
+
+msgid "Access Property Search hub"
+msgstr "Op de Property Search-Hub zougräifen"
+
+msgid "Access Property Search structure section"
+msgstr "Op d'Property Search-Struktursektioun zougräifen"
+
+msgid "Access the Property Search admin hub pages."
+msgstr "Op d'Säite vun der Property Search-Admin-Hub zougräifen."
+
+msgid "Administer Property Search core settings"
+msgstr "D'Kärastellunge vu Property Search verwalten"
+
+msgid "Audit retention (days)"
+msgstr "Audit-Retention (Deeg)"
+
+msgid "Audit settings"
+msgstr "Audit-Astellungen"
+
+msgid "Availability text"
+msgstr "Disponibilitéitstext"
+
+msgid "Cache settings"
+msgstr "Cache-Astellungen"
+
+msgid "Central access to Property Search content operations."
+msgstr "Zentralen Zougang zu Inhaltsoperatioune vu Property Search."
+
+msgid "Change icon"
+msgstr "Ikon änneren"
+
+msgid "Checksum"
+msgstr "Checksum"
+
+msgid "Configuration"
+msgstr "Konfiguratioun"
+
+msgid "Configuration hub"
+msgstr "Konfiguratiouns-Hub"
+
+msgid "Configuration transverse Property Search"
+msgstr "Transversal Property Search-Konfiguratioun"
+
+msgid "Configure cross-cutting Property Search settings."
+msgstr "Iwwergräifend Property Search-Astellungen astellen."
+
+msgid "Conflict detection settings"
+msgstr "Astellunge fir Konflikterkennung"
+
+msgid "Conflict detection window (seconds)"
+msgstr "Fënster fir Konflikterkennung (Sekonnen)"
+
+msgid "Content hub"
+msgstr "Inhalts-Hub"
+
+msgid "Contenu"
+msgstr "Inhalt"
+
+msgid "Core settings"
+msgstr "Kärastellungen"
+
+msgid "Create, update and manage offers."
+msgstr "Offeren erstellen, aktualiséieren a verwalten."
+
+msgid "Default cache TTL (seconds)"
+msgstr "Standard-Cache-TTL (Sekonnen)"
+
+msgid "Display urgency help block"
+msgstr "Noutfall-Hëllefsblock weisen"
+
+msgid "Enable audit logging"
+msgstr "Audit-Logging aktivéieren"
+
+msgid "Enable site-wide urgency help block"
+msgstr "Sitebreeten Noutfall-Hëllefsblock aktivéieren"
+
+msgid "Foundation infrastructure for Property Search ecosystem."
+msgstr "Grondlag-Infrastruktur fir de Property Search-Ecosystem."
+
+msgid "Gestion du contenu Property Search"
+msgstr "Property Search-Inhaltsverwaltung"
+
+msgid "Health"
+msgstr "Gesondheet"
+
+msgid "In a hurry? Call us at"
+msgstr "Presséiert? Rufft eis un op"
+
+msgid "Internal lock"
+msgstr "Intern Spär"
+
+msgid "Lead text"
+msgstr "Aféierungstext"
+
+msgid "Manage Property Search agents"
+msgstr "Property Search-Agenten verwalten"
+
+msgid "Manage Property Search context rules"
+msgstr "Property Search-Kontextreegele verwalten"
+
+msgid "Manage Property Search core settings and diagnostics."
+msgstr "D'Kärastellungen an Diagnostik vu Property Search verwalten."
+
+msgid "Manage Property Search diagnostics"
+msgstr "Property Search-Diagnostik verwalten"
+
+msgid "Manage Property Search dictionary"
+msgstr "Property Search-Dictionnaire verwalten"
+
+msgid "Manage Property Search features"
+msgstr "Property Search-Features verwalten"
+
+msgid "Manage Property Search migration"
+msgstr "Property Search-Migratioun verwalten"
+
+msgid "Manage Property Search offers"
+msgstr "Property Search-Offeren verwalten"
+
+msgid "Manage agent profiles and assignments."
+msgstr "Agentenprofiler an Zouuerdnunge verwalten."
+
+msgid "Manage business dictionaries and entries."
+msgstr "Business-Dictionnairen an Entréeën verwalten."
+
+msgid "Manage context rules and orchestration."
+msgstr "Kontextreegelen an Orchestratioun verwalten."
+
+msgid "Manage diagnostics and energy data."
+msgstr "Diagnostik- an Energiedonnéeë verwalten."
+
+msgid "Manage feature definitions and values."
+msgstr "Feature-Definitiounen a Wäerter verwalten."
+
+msgid "Manage import and migration workflows."
+msgstr "Import- a Migratiouns-Workflows verwalten."
+
+msgid "Manage structural entities and dictionaries."
+msgstr "Strukturell Entitéiten an Dictionnairen verwalten."
+
+msgid "No actions are currently available for your permissions."
+msgstr "Aktuell si keng Aktiounen fir Är Berechtegungen disponibel."
+
+msgid "Offer detail sections"
+msgstr "Sektioune vun den Offer-Detailer"
+
+msgid "Offer section settings"
+msgstr "Astellunge vun den Offer-Sektiounen"
+
+msgid "Opening hours"
+msgstr "Ëffnungszäiten"
+
+msgid "Optional. Leave empty to derive from the display number (FR numbers st"
+"arting with 0)."
+msgstr "Optional. Eidel loossen, fir en aus der ugewisener Nummer ofzeleeden ("
+"FR-Nummeren déi mat 0 ufänken)."
+
+msgid "Parametres transverses ps_core"
+msgstr "Transversal Parameteren ps_core"
+
+msgid "Phone and opening hours shown in offcanvas forms (search alert, contac"
+"t, etc.)."
+msgstr "Telefon an Ëffnungszäiten, déi an Offcanvas-Formulairen ugewise ginn ("
+"Sich-Alarm, Kontakt, asw.)."
+
+msgid "Phone link (tel: URI)"
+msgstr "Telefonlink (tel:-URI)"
+
+msgid "Phone number (display)"
+msgstr "Telefonsnummer (Affichage)"
+
+msgid "Property Search"
+msgstr "Immobilie Sich"
+
+msgid "Property Search Core settings"
+msgstr "Property Search-Kärastellungen"
+
+msgid "Property Search admin hub"
+msgstr "Property Search-Admin-Hub"
+
+msgid "Property Search health checks"
+msgstr "Property Search-Gesondheetskontrollen"
+
+msgid "Protects manually curated data from automated overwrites."
+msgstr "Schützt manuell kuratéiert Donnéeë virun automateschen Iwwerschreiwung"
+"en."
+
+msgid "Raw availability text imported from source systems."
+msgstr "Ro Disponibilitéitstext importéiert aus Quellsystemer."
+
+msgid "SHA256 hash of entity data for import idempotence."
+msgstr "SHA256-Hash vun den Entitéitsdaten fir import-idempotent Behandlung."
+
+msgid "Section"
+msgstr "Sektioun"
+
+msgid "Section icon"
+msgstr "Sektiounsikon"
+
+msgid "Section title"
+msgstr "Sektiounstitel"
+
+msgid "Select icon"
+msgstr "Ikon auswielen"
+
+msgid "Site contact — urgency help"
+msgstr "Site-Kontakt — Noutfall-Hëllef"
+
+msgid "Source tracking"
+msgstr "Source-Tracking"
+
+msgid "Structure"
+msgstr "Struktur"
+
+msgid "Structure et modeles de donnees"
+msgstr "Struktur a Date-Modeller"
+
+msgid "Structure hub"
+msgstr "Struktur-Hub"
+
+msgid "Structured JSON payload used for source traceability."
+msgstr "Strukturéiert JSON-Payload fir Source-Noverfollegbarkeet."
+
+msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
+msgstr "Text virun der Telefonsnummer, z. B. \"Presséiert? Rufft eis un op\"."
+
+msgid "The @team team"
+msgstr "D'Team @team"
+
+msgid "Transport feature group"
+msgstr "Transport-Featuregrupp"
+
+msgid "Urgency help lead text"
+msgstr "Aféierungstext fir Noutfall-Hëllef"
+
+msgid "Urgency help opening hours"
+msgstr "Ëffnungszäite vun der Noutfall-Hëllef"
+
+msgid "Urgency help phone (display)"
+msgstr "Telefon fir Noutfall-Hëllef (Affichage)"
+
+msgid "Urgency help phone link (tel: URI, optional)"
+msgstr "Telefonlink fir Noutfall-Hëllef (tel:-URI, optional)"

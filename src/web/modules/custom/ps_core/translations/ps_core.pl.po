@@ -1,0 +1,270 @@
+# PL translation for ps_core module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_core\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@description"
+msgstr "@description"
+
+msgid "Access /admin/ps/config and related section links."
+msgstr "Dostęp do /admin/ps/config i powiązanych linków sekcji."
+
+msgid "Access /admin/ps/content and related section links."
+msgstr "Dostęp do /admin/ps/content i powiązanych linków sekcji."
+
+msgid "Access /admin/ps/structure and related section links."
+msgstr "Dostęp do /admin/ps/structure i powiązanych linków sekcji."
+
+msgid "Access Property Search config section"
+msgstr "Uzyskaj dostęp do sekcji konfiguracji Property Search"
+
+msgid "Access Property Search content section"
+msgstr "Uzyskaj dostęp do sekcji treści Property Search"
+
+msgid "Access Property Search hub"
+msgstr "Uzyskaj dostęp do huba Property Search"
+
+msgid "Access Property Search structure section"
+msgstr "Uzyskaj dostęp do sekcji struktury Property Search"
+
+msgid "Access the Property Search admin hub pages."
+msgstr "Uzyskaj dostęp do stron huba administracyjnego Property Search."
+
+msgid "Administer Property Search core settings"
+msgstr "Zarządzaj ustawieniami podstawowymi Property Search"
+
+msgid "Audit retention (days)"
+msgstr "Okres przechowywania audytu (dni)"
+
+msgid "Audit settings"
+msgstr "Ustawienia audytu"
+
+msgid "Availability text"
+msgstr "Tekst dostępności"
+
+msgid "Cache settings"
+msgstr "Ustawienia pamięci podręcznej"
+
+msgid "Central access to Property Search content operations."
+msgstr "Centralny dostęp do operacji na treściach Property Search."
+
+msgid "Change icon"
+msgstr "Zmień ikonę"
+
+msgid "Checksum"
+msgstr "Suma kontrolna"
+
+msgid "Configuration"
+msgstr "Konfiguracja"
+
+msgid "Configuration hub"
+msgstr "Hub konfiguracji"
+
+msgid "Configuration transverse Property Search"
+msgstr "Konfiguracja poprzeczna Property Search"
+
+msgid "Configure cross-cutting Property Search settings."
+msgstr "Skonfiguruj przekrojowe ustawienia Property Search."
+
+msgid "Conflict detection settings"
+msgstr "Ustawienia wykrywania konfliktów"
+
+msgid "Conflict detection window (seconds)"
+msgstr "Okno wykrywania konfliktów (sekundy)"
+
+msgid "Content hub"
+msgstr "Hub treści"
+
+msgid "Contenu"
+msgstr "Treść"
+
+msgid "Core settings"
+msgstr "Ustawienia podstawowe"
+
+msgid "Create, update and manage offers."
+msgstr "Twórz, aktualizuj i zarządzaj ofertami."
+
+msgid "Default cache TTL (seconds)"
+msgstr "Domyślne TTL pamięci podręcznej (sekundy)"
+
+msgid "Display urgency help block"
+msgstr "Wyświetl blok pomocy pilnej"
+
+msgid "Enable audit logging"
+msgstr "Włącz logowanie audytu"
+
+msgid "Enable site-wide urgency help block"
+msgstr "Włącz globalny blok pomocy pilnej"
+
+msgid "Foundation infrastructure for Property Search ecosystem."
+msgstr "Infrastruktura bazowa dla ekosystemu Property Search."
+
+msgid "Gestion du contenu Property Search"
+msgstr "Zarządzanie treścią Property Search"
+
+msgid "Health"
+msgstr "Stan"
+
+msgid "In a hurry? Call us at"
+msgstr "Spieszysz się? Zadzwoń do nas pod numer"
+
+msgid "Internal lock"
+msgstr "Blokada wewnętrzna"
+
+msgid "Lead text"
+msgstr "Tekst wprowadzający"
+
+msgid "Manage Property Search agents"
+msgstr "Zarządzaj agentami Property Search"
+
+msgid "Manage Property Search context rules"
+msgstr "Zarządzaj regułami kontekstu Property Search"
+
+msgid "Manage Property Search core settings and diagnostics."
+msgstr "Zarządzaj ustawieniami podstawowymi i diagnostyką Property Search."
+
+msgid "Manage Property Search diagnostics"
+msgstr "Zarządzaj diagnostyką Property Search"
+
+msgid "Manage Property Search dictionary"
+msgstr "Zarządzaj słownikiem Property Search"
+
+msgid "Manage Property Search features"
+msgstr "Zarządzaj funkcjami Property Search"
+
+msgid "Manage Property Search migration"
+msgstr "Zarządzaj migracją Property Search"
+
+msgid "Manage Property Search offers"
+msgstr "Zarządzaj ofertami Property Search"
+
+msgid "Manage agent profiles and assignments."
+msgstr "Zarządzaj profilami agentów i przypisaniami."
+
+msgid "Manage business dictionaries and entries."
+msgstr "Zarządzaj słownikami biznesowymi i wpisami."
+
+msgid "Manage context rules and orchestration."
+msgstr "Zarządzaj regułami kontekstu i orkiestracją."
+
+msgid "Manage diagnostics and energy data."
+msgstr "Zarządzaj diagnostyką i danymi energetycznymi."
+
+msgid "Manage feature definitions and values."
+msgstr "Zarządzaj definicjami i wartościami cech."
+
+msgid "Manage import and migration workflows."
+msgstr "Zarządzaj przepływami importu i migracji."
+
+msgid "Manage structural entities and dictionaries."
+msgstr "Zarządzaj encjami strukturalnymi i słownikami."
+
+msgid "No actions are currently available for your permissions."
+msgstr "Obecnie brak dostępnych działań dla Twoich uprawnień."
+
+msgid "Offer detail sections"
+msgstr "Sekcje szczegółów oferty"
+
+msgid "Offer section settings"
+msgstr "Ustawienia sekcji oferty"
+
+msgid "Opening hours"
+msgstr "Godziny otwarcia"
+
+msgid "Optional. Leave empty to derive from the display number (FR numbers st"
+"arting with 0)."
+msgstr "Opcjonalne. Pozostaw puste, aby wyliczyć z numeru wyświetlanego (numer"
+"y FR zaczynające się od 0)."
+
+msgid "Parametres transverses ps_core"
+msgstr "Parametry przekrojowe ps_core"
+
+msgid "Phone and opening hours shown in offcanvas forms (search alert, contac"
+"t, etc.)."
+msgstr "Telefon i godziny otwarcia wyświetlane w formularzach offcanvas (alert"
+" wyszukiwania, kontakt itp.)."
+
+msgid "Phone link (tel: URI)"
+msgstr "Link telefonu (URI tel:)"
+
+msgid "Phone number (display)"
+msgstr "Numer telefonu (wyświetlanie)"
+
+msgid "Property Search"
+msgstr "Wyszukiwanie nieruchomości"
+
+msgid "Property Search Core settings"
+msgstr "Ustawienia podstawowe Property Search"
+
+msgid "Property Search admin hub"
+msgstr "Hub administracyjny Property Search"
+
+msgid "Property Search health checks"
+msgstr "Kontrole stanu Property Search"
+
+msgid "Protects manually curated data from automated overwrites."
+msgstr "Chroni ręcznie kuratorowane dane przed automatycznym nadpisaniem."
+
+msgid "Raw availability text imported from source systems."
+msgstr "Surowy tekst dostępności importowany z systemów źródłowych."
+
+msgid "SHA256 hash of entity data for import idempotence."
+msgstr "Hash SHA256 danych encji dla idempotentnego importu."
+
+msgid "Section"
+msgstr "Sekcja"
+
+msgid "Section icon"
+msgstr "Ikona sekcji"
+
+msgid "Section title"
+msgstr "Tytuł sekcji"
+
+msgid "Select icon"
+msgstr "Wybierz ikonę"
+
+msgid "Site contact — urgency help"
+msgstr "Kontakt witryny — pomoc pilna"
+
+msgid "Source tracking"
+msgstr "Śledzenie źródła"
+
+msgid "Structure"
+msgstr "Struktura"
+
+msgid "Structure et modeles de donnees"
+msgstr "Struktura i modele danych"
+
+msgid "Structure hub"
+msgstr "Hub struktury"
+
+msgid "Structured JSON payload used for source traceability."
+msgstr "Ustrukturyzowany ładunek JSON używany do śledzenia źródła."
+
+msgid "Text before the phone number, e.g. “In a hurry? Call us at”."
+msgstr "Tekst przed numerem telefonu, np. \"Spieszysz się? Zadzwoń do nas pod "
+"numer\"."
+
+msgid "The @team team"
+msgstr "Zespół @team"
+
+msgid "Transport feature group"
+msgstr "Grupa cech transportu"
+
+msgid "Urgency help lead text"
+msgstr "Tekst wprowadzający pomocy pilnej"
+
+msgid "Urgency help opening hours"
+msgstr "Godziny pomocy pilnej"
+
+msgid "Urgency help phone (display)"
+msgstr "Telefon pomocy pilnej (wyświetlanie)"
+
+msgid "Urgency help phone link (tel: URI, optional)"
+msgstr "Link telefonu pomocy pilnej (URI tel:, opcjonalne)"

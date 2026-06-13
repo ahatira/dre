@@ -1,25 +1,142 @@
+# LB translation for ps_favorite module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_favorite\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
 "Language: lb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "My favorites"
-msgstr "My favorites"
-
-msgid "Favorites"
-msgstr "Favorites"
-
-msgid "Open favorites panel"
-msgstr "Open favorites panel"
+msgid "@entity_type: @bundle"
+msgstr "@entity_type: @bundle"
 
 msgid "Add to favorites"
 msgstr "Add to favorites"
 
+msgid "Added to favorites."
+msgstr "Added to favorites."
+
+msgid "All items"
+msgstr "All items"
+
+msgid "Automatic fallback"
+msgstr "Automatic fallback"
+
+msgid "Bundle"
+msgstr "Bundle"
+
+msgid "Card favorite view mode when available."
+msgstr "Favoritten-Kaart-Uweisungsmodus wann disponibel."
+
+msgid "Configure which entity targets can be favorited and how favorite cards"
+" should be rendered."
+msgstr "Configure which entity targets can be favorited and how favorite cards"
+" should be rendered."
+
+msgid "Configured view mode for the matching entity target."
+msgstr "Configured view mode for the matching entity target."
+
+msgid "Enable"
+msgstr "Enable"
+
+msgid "Enable favorites per entity target, then choose whether the target has"
+" no limit or a fixed maximum."
+msgstr "Enable favorites per entity target, then choose whether the target has"
+" no limit or a fixed maximum."
+
+msgid "Enabled"
+msgstr "Aktivéiert"
+
+msgid "Entity type ID"
+msgstr "Entitéitstyp-ID"
+
+msgid "Fallback title with canonical link."
+msgstr "Fallback title with canonical link."
+
+msgid "Favorite card rendering"
+msgstr "Favorite card rendering"
+
+msgid "Favorite card view mode mapping"
+msgstr "Favoritten-Kaart-Uweisungsmodus-Mapping"
+
+msgid "Favorite limit reached (@limit)."
+msgstr "Favorite limit reached (@limit)."
+
+msgid "Favorite system for offers with authenticated and anonymous persistenc"
+"e."
+msgstr "Favorittensystem fir Offeren mat authentifizéierter an anonymer Persis"
+"tenz."
+
+msgid "Favorite target"
+msgstr "Favoritten-Zil"
+
+msgid "Favorite targets"
+msgstr "Favorite targets"
+
+msgid "Favorites"
+msgstr "Favorites"
+
+msgid "Fixed limit"
+msgstr "Fixed limit"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Invalid CSRF token."
+msgstr "Invalid CSRF token."
+
+msgid "Label"
+msgstr "Bezeechnung"
+
+msgid "Limit mode"
+msgstr "Limit mode"
+
+msgid "Manage Property Search favorites"
+msgstr "Property Search-Favoritten verwalten"
+
+msgid "Manage favorite system integrations and settings."
+msgstr "Favorittensystem-Integratiounen an -Astellungen verwalten."
+
+msgid "Max favorites"
+msgstr "Max favorites"
+
+msgid "Maximum favorites"
+msgstr "Maximum Favoritten"
+
+msgid "Maximum favorites mapping"
+msgstr "Maximum-Favoritten-Mapping"
+
+msgid "My favorites"
+msgstr "My favorites"
+
+msgid "No eligible bundle found for this entity type."
+msgstr "No eligible bundle found for this entity type."
+
+msgid "No favorites yet"
+msgstr "No favorites yet"
+
+msgid "No limit"
+msgstr "No limit"
+
+msgid "Open favorites panel"
+msgstr "Open favorites panel"
+
+msgid "PS Favorite settings"
+msgstr "PS Favorite-Astellungen"
+
+msgid "Preferred view mode"
+msgstr "Preferred view mode"
+
 msgid "Remove from favorites"
 msgstr "Remove from favorites"
+
+msgid "Removed from favorites."
+msgstr "Removed from favorites."
+
+msgid "Rendering fallback order"
+msgstr "Rendering fallback order"
 
 msgid "Save"
 msgstr "Save"
@@ -27,48 +144,37 @@ msgstr "Save"
 msgid "Saved"
 msgstr "Saved"
 
-msgid "No favorites yet"
-msgstr "No favorites yet"
+msgid "Selected view mode is invalid for @target."
+msgstr "Selected view mode is invalid for @target."
 
-msgid "Use the favorite button on an offer to keep it close at hand."
-msgstr "Use the favorite button on an offer to keep it close at hand."
+msgid "Set a positive maximum for @target when using a fixed limit."
+msgstr "Set a positive maximum for @target when using a fixed limit."
 
-msgid "View all favorites"
-msgstr "View all favorites"
+msgid "Teaser view mode when available."
+msgstr "Teaser view mode when available."
 
-msgid "No image"
-msgstr "No image"
-
-msgid "Added to favorites."
-msgstr "Added to favorites."
-
-msgid "Removed from favorites."
-msgstr "Removed from favorites."
-
-msgid "Invalid CSRF token."
-msgstr "Invalid CSRF token."
-
-msgid "Unsupported entity bundle."
-msgstr "Unsupported entity bundle."
+msgid "UUID"
+msgstr "UUID"
 
 msgid "Unable to add this favorite right now."
 msgstr "Unable to add this favorite right now."
 
-msgid "Favorite limit reached (@limit)."
-msgstr "Favorite limit reached (@limit)."
+msgid "Unable to update favorite."
+msgstr "Favorit konnt net aktualiséiert ginn."
 
-msgid "Favorites settings"
-msgstr "Favorites settings"
+msgid "Unsupported entity target."
+msgstr "Unsupported entity target."
 
-msgid "Maximum favorites per content type"
-msgstr "Maximum favorites per content type"
+msgid "Use the favorite button on a supported entity to keep it close at hand"
+"."
+msgstr "Use the favorite button on a supported entity to keep it close at hand"
+"."
 
-msgid "Use one rule per line, for example: <code>node.offer:20</code>. Format: <code>entity_type.bundle:max</code>. You may also use <code>entity_type.*:max</code>."
-msgstr "Use one rule per line, for example: <code>node.offer:20</code>. Format: <code>entity_type.bundle:max</code>. You may also use <code>entity_type.*:max</code>."
+msgid "View all favorites"
+msgstr "View all favorites"
 
-msgid "Line @line has an invalid format: @value"
-msgstr "Line @line has an invalid format: @value"
+msgid "favorite target"
+msgstr "Favoritten-Zil"
 
-msgid "Configure favorites behavior."
-msgstr "Configure favorites behavior."
-
+msgid "favorite targets"
+msgstr "Favoritten-Ziler"

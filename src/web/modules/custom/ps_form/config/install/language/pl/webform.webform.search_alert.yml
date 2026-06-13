@@ -1,0 +1,63 @@
+title: 'Utwórz alert wyszukiwania'
+description: 'Formularz zapisu na alerty wyszukiwania nieruchomości.'
+category: 'Wyszukiwanie nieruchomości'
+elements: |-
+  alert_name:
+    '#type': textfield
+    '#title': 'Tytuł alertu'
+    '#required': true
+    '#maxlength': 255
+  prof_email_address:
+    '#type': email
+    '#title': 'Służbowy e-mail'
+    '#required': true
+  criteria_display:
+    '#type': webform_markup
+    '#markup': ''
+  frequence:
+    '#type': radios
+    '#title': 'Częstotliwość wysyłki'
+    '#required': true
+    '#options':
+      daily: Codziennie
+      weekly: Co tydzień
+    '#default_value': weekly
+  optout_group:
+    '#type': fieldset
+    '#title': 'Komunikacja handlowa'
+    '#title_display': invisible
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p class="ps-search-alert-form__optout-intro">Sprzeciwiam się otrzymywaniu komunikacji handlowej od BNP Paribas Real Estate Advisory France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telefon
+  legal:
+    '#type': checkbox
+    '#title': 'Przeczytałem(-am) i akceptuję warunki Polityki ochrony danych osobowych.'
+    '#required': true
+  legal_notice:
+    '#type': webform_markup
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate przetwarza Twoje dane, aby wysyłać alerty nieruchomości zgodne z Twoimi kryteriami wyszukiwania. Zapoznaj się z naszą <a href="/data-protection">Informacją o ochronie danych</a>, aby poznać swoje prawa.</p>'
+  help_footer:
+    '#type': webform_markup
+    '#markup': ''
+  criteria_json:
+    '#type': hidden
+    '#title': 'Kryteria wyszukiwania'
+  search_url:
+    '#type': hidden
+    '#title': 'URL wyszukiwania'
+  search_path:
+    '#type': hidden
+    '#title': 'Ścieżka wyszukiwania'
+settings:
+  form_submit_label: Kontynuuj
+  confirmation_message: "<p>Twój alert wyszukiwania został utworzony. Otrzymasz e-mail, gdy nowe nieruchomości będą pasować do Twoich kryteriów.</p>"
+handlers:

@@ -1,0 +1,194 @@
+# ES translation for bnp_media module.
+msgid ""
+msgstr ""
+"Project-Id-Version: bnp_media\n"
+"PO-Revision-Date: 2026-06-13 04:19+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A locally hosted image file."
+msgstr "Archivo de imagen alojado localmente."
+
+msgid "Allowed providers"
+msgstr "Proveedores permitidos"
+
+msgid "Autocomplete placeholder"
+msgstr "Marcador de posición de autocompletado"
+
+msgid "BNP Audio file"
+msgstr "Archivo de audio BNP"
+
+msgid "BNP External video URL"
+msgstr "URL de vídeo externa BNP"
+
+msgid "BNP File"
+msgstr "Archivo BNP"
+
+msgid "BNP Gallery"
+msgstr "Galería BNP"
+
+msgid "BNP Image"
+msgstr "Imagen BNP"
+
+msgid "BNP Remote video"
+msgstr "Vídeo remoto BNP"
+
+msgid "BNP Video file"
+msgstr "Archivo de vídeo BNP"
+
+msgid "BNP external video source configuration"
+msgstr "Configuración de fuente de vídeo externa BNP"
+
+msgid "BNP oEmbed formatter settings"
+msgstr "Ajustes del formateador oEmbed BNP"
+
+msgid "BNP oEmbed iframe"
+msgstr "Iframe oEmbed BNP"
+
+msgid "BNP remote video source configuration"
+msgstr "Configuración de fuente de vídeo remota BNP"
+
+msgid "Bulk input"
+msgstr "Entrada masiva"
+
+msgid "Create and select media"
+msgstr "Crear y seleccionar medios"
+
+msgid "Creates or reuses media entities from embed URLs."
+msgstr "Crea o reutiliza entidades multimedia desde URLs de inserción."
+
+msgid "Default name"
+msgstr "Nombre predeterminado"
+
+msgid "Embed URLs"
+msgstr "URLs de inserción"
+
+msgid "Embed code"
+msgstr "Código de inserción"
+
+msgid "Enabled"
+msgstr "Habilitado"
+
+msgid "Enter one URL per line. Existing media will be reused when deduplicati"
+"on is enabled."
+msgstr "Introduzca una URL por línea. Los medios existentes se reutilizarán si"
+" la deduplicación está activada."
+
+msgid "Entities"
+msgstr "Entidades"
+
+msgid "Entity Browser Generic Embed settings"
+msgstr "Ajustes de inserción genérica de Entity Browser"
+
+msgid "Entity browser generic embed dialog placeholder."
+msgstr "Marcador de posición del diálogo de inserción genérica de Entity Brows"
+"er."
+
+msgid "Entity form proxy"
+msgstr "Proxy de formulario de entidad"
+
+msgid "Generic entity browser and entity embed bridge for media workflows."
+msgstr "Navegador de entidades genérico y puente de inserción para flujos de t"
+"rabajo multimedia."
+
+msgid "Generic media foundation with Entity Browser and Dropzone upload workf"
+"lows."
+msgstr "Base multimedia genérica con Entity Browser y flujos de carga Dropzone"
+"."
+
+msgid "Invalid URL(s): @urls"
+msgstr "URL no válidas: @urls"
+
+msgid "Max height"
+msgstr "Altura máx."
+
+msgid "Max height: @value"
+msgstr "Altura máx.: @value"
+
+msgid "Max width"
+msgstr "Ancho máx."
+
+msgid "Max width: @value"
+msgstr "Ancho máx.: @value"
+
+msgid "Media bundle"
+msgstr "Bundle de medios"
+
+msgid "Name field machine name"
+msgstr "Nombre de máquina del campo nombre"
+
+msgid "One bundle machine name per line. Leave empty to allow all bundles."
+msgstr "Un nombre de máquina de bundle por línea. Dejar vacío para permitir to"
+"dos los bundles."
+
+msgid "Please provide at least one valid URL."
+msgstr "Proporcione al menos una URL válida."
+
+msgid "Please select at least one entity."
+msgstr "Seleccione al menos una entidad."
+
+msgid "Process"
+msgstr "Procesar"
+
+msgid "Render remote video URLs via media.oembed_iframe."
+msgstr "Renderizar URLs de vídeo remoto mediante media.oembed_iframe."
+
+msgid "Reuse existing media when URL already exists"
+msgstr "Reutilizar medios existentes cuando la URL ya existe"
+
+msgid "Select entities"
+msgstr "Seleccionar entidades"
+
+msgid "Selected entities must belong to configured bundles only."
+msgstr "Las entidades seleccionadas deben pertenecer solo a los bundles config"
+"urados."
+
+msgid "Selects existing entities through a configurable autocomplete proxy fo"
+"rm."
+msgstr "Selecciona entidades existentes mediante un formulario proxy de autoco"
+"mpletado configurable."
+
+msgid "Source URL"
+msgstr "URL de origen"
+
+msgid "Source field"
+msgstr "Campo de origen"
+
+msgid "Start typing to search entities"
+msgstr "Empiece a escribir para buscar entidades"
+
+msgid "Target bundles"
+msgstr "Bundles objetivo"
+
+msgid "Target entity type"
+msgstr "Tipo de entidad objetivo"
+
+msgid "Thumbnail local URI"
+msgstr "URI local de miniatura"
+
+msgid "Thumbnails directory"
+msgstr "Directorio de miniaturas"
+
+msgid "URL field machine name"
+msgstr "Nombre de máquina del campo URL"
+
+msgid "Use a local image collection for reusable galleries."
+msgstr "Usar una colección de imágenes local para galerías reutilizables."
+
+msgid "Use audio files for reusable media."
+msgstr "Usar archivos de audio para medios reutilizables."
+
+msgid "Use direct external video URLs (for example MediaHub AssetLink)."
+msgstr "Usar URLs de vídeo externas directas (por ejemplo MediaHub AssetLink)."
+
+msgid "Use local files for reusable media."
+msgstr "Usar archivos locales para medios reutilizables."
+
+msgid "Use remote video URLs for reusable media."
+msgstr "Usar URLs de vídeo remoto para medios reutilizables."
+
+msgid "Use video files for reusable media."
+msgstr "Usar archivos de vídeo para medios reutilizables."

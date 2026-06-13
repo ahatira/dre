@@ -1,27 +1,19 @@
-# Spanish translation for ps_search module.
+# ES translation for ps_search module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_search\n"
+"PO-Revision-Date: 2026-06-13 04:23+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "10 minutes"
-msgstr "10 minutos"
-
-msgid "15 minutes"
-msgstr "15 minutos"
-
-msgid "20 minutes"
-msgstr "20 minutos"
-
-msgid "30 minutes"
-msgstr "30 minutos"
-
 msgid "5 minutes"
 msgstr "5 minutos"
+
+msgid "<p><a href=\":url\">View your saved search</a></p>"
+msgstr "<p><a href=\":url\">Ver su búsqueda guardada</a></p>"
 
 msgid "@asset @in @locality"
 msgstr "@asset @in @locality"
@@ -32,38 +24,69 @@ msgstr "@asset @operation"
 msgid "@asset @operation @in @locality"
 msgstr "@asset @operation @in @locality"
 
+msgid "@count new @properties for your alert “@title”"
+msgstr "@count nuevas @properties para su alerta «@title»"
+
 msgid "@label (@group)"
 msgstr "@label (@group)"
+
+msgid "AND — offer must match every active feature filter (recommended, narro"
+"ws results)"
+msgstr "Y — la oferta debe coincidir con cada filtro de característica activo "
+"(recomendado, reduce resultados)"
 
 msgid "API limits and cache"
 msgstr "Límites API y caché"
 
-msgid "Additional information"
-msgstr "Información adicional"
+msgid "Active"
+msgstr "Activo"
+
+msgid "Administer search alerts"
+msgstr "Administrar alertas de búsqueda"
+
+msgid "Advanced cluster options (JSON)"
+msgstr "Opciones avanzadas de clúster (JSON)"
+
+msgid "Advanced cluster options must be valid JSON."
+msgstr "Las opciones avanzadas de clúster deben ser JSON válido."
+
+msgid "Alert for @path"
+msgstr "Alerta para @path"
+
+msgid "Alert status"
+msgstr "Estado de la alerta"
+
+msgid "Alert title"
+msgstr "Título de la alerta"
+
+msgid "Alerts processed per cron run"
+msgstr "Alertas procesadas por ejecución cron"
 
 msgid "All"
 msgstr "Todos"
 
-msgid "Apply"
-msgstr "Aplicar"
+msgid "All properties matching your current filters."
+msgstr "Todas las propiedades que coinciden con sus filtros actuales."
 
-msgid "Apply location filter"
-msgstr "Apply location filter"
+msgid "An active alert already exists for this email and search criteria."
+msgstr "Ya existe una alerta activa para este correo y criterios de búsqueda."
 
-msgid "Apply mobile filters"
-msgstr "Apply mobile filters"
+msgid "Approximate number of grid cells used to aggregate markers (e.g. 64 ≈ "
+"8×8)."
+msgstr "Número aproximado de celdas de cuadrícula para agregar marcadores (p. "
+"ej. 64 ≈ 8×8)."
 
-msgid "Apply property type filter"
-msgstr "Apply property type filter"
+msgid "Approximation (offline circle)"
+msgstr "Aproximación (círculo sin conexión)"
 
-msgid "Apply range filter"
-msgstr "Apply range filter"
+msgid "Asset type slugs"
+msgstr "Slugs de tipo de activo"
 
-msgid "Asc"
-msgstr "Ascendente"
+msgid "Auto"
+msgstr "Auto"
 
-msgid "Availability"
-msgstr "Availability"
+msgid "BCC email"
+msgstr "Correo CCO"
 
 msgid "Back"
 msgstr "Volver"
@@ -71,32 +94,64 @@ msgstr "Volver"
 msgid "Back to PS configuration hub"
 msgstr "Volver al hub de configuración PS"
 
-msgid "Bike"
-msgstr "Bicicleta"
+msgid "Body text"
+msgstr "Texto del cuerpo"
 
 msgid "Budget"
 msgstr "Presupuesto"
 
-msgid "Building structure"
-msgstr "Estructura del edificio"
+msgid "Button URL"
+msgstr "URL del botón"
 
-msgid "Building type and condition"
-msgstr "Tipo y estado del edificio"
+msgid "Button label"
+msgstr "Etiqueta del botón"
 
 msgid "Buy"
 msgstr "Comprar"
 
-msgid "Bypass PS Search API rate limits"
-msgstr "Bypass PS Search API rate limits"
+msgid "CTA button URL"
+msgstr "URL del botón CTA"
+
+msgid "CTA button label"
+msgstr "Etiqueta del botón CTA"
+
+msgid "Canonical asset slug"
+msgstr "Slug canónico de tipo de activo"
 
 msgid "Capacity"
 msgstr "Capacidad"
 
-msgid "Car"
-msgstr "Coche"
+msgid "Card Push"
+msgstr "Card Push"
+
+msgid "Card Push inserts promotional interstitial cards into listing pages. E"
+"ach placement can use a dedicated SDC (calculator, image, image + link"
+", content block, etc.)."
+msgstr "Card Push inserta tarjetas promocionales intersticiales en páginas de "
+"listado. Cada ubicación puede usar un SDC dedicado (calculadora, image"
+"n, imagen + enlace, bloque de contenido, etc.)."
+
+msgid "Card Push placement in the property search results list."
+msgstr "Ubicación Card Push en la lista de resultados de búsqueda inmobiliaria"
+"."
+
+msgid "Card body text"
+msgstr "Texto del cuerpo de la tarjeta"
+
+msgid "Card title"
+msgstr "Título de la tarjeta"
+
+msgid "Ceiling height"
+msgstr "Altura de techo"
 
 msgid "Ceiling height (m)"
 msgstr "Ceiling height (m)"
+
+msgid "Ceiling height in meters."
+msgstr "Altura de techo en metros."
+
+msgid "Changed"
+msgstr "Modificado"
 
 msgid "City"
 msgstr "Ciudad"
@@ -104,29 +159,93 @@ msgstr "Ciudad"
 msgid "City, department, region…"
 msgstr "Ciudad, departamento, región…"
 
-msgid "City, district or zip code"
-msgstr "Ciudad, barrio o código postal"
-
 msgid "Clear"
 msgstr "Borrar"
+
+msgid "Client-side MarkerClusterer options (JSON)"
+msgstr "Opciones MarkerClusterer del lado cliente (JSON)"
+
+msgid "Client-side marker cluster max zoom"
+msgstr "Zoom máx. de clúster de marcadores del lado cliente"
+
+msgid "Client-side marker clustering"
+msgstr "Agrupación de marcadores del lado cliente"
 
 msgid "Close"
 msgstr "Cerrar"
 
-msgid "Coming soon"
-msgstr "Próximamente"
+msgid "Cluster max zoom"
+msgstr "Zoom máx. de clúster"
+
+msgid "Combine active feature filters"
+msgstr "Combinar filtros de características activos"
+
+msgid "Combine mode for active feature filters"
+msgstr "Modo de combinación de filtros de características activos"
+
+msgid "Comma-separated cities, postal codes or department codes."
+msgstr "Ciudades, códigos postales o códigos de departamento separados por com"
+"as."
+
+msgid "Comparator"
+msgstr "Comparador"
 
 msgid "Configuration"
 msgstr "Configuración"
 
+msgid "Configure search page and filter URL slugs."
+msgstr "Configurar slugs URL de la página de búsqueda y filtros."
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Controls MarkerClusterer on the search map (price bubbles grouped at l"
+"ow zoom). Server-side grid clusters for dense zones are configured sep"
+"arately below."
+msgstr "Controla MarkerClusterer en el mapa de búsqueda (burbujas de precio ag"
+"rupadas a bajo zoom). Los clústeres de cuadrícula del servidor para zo"
+"nas densas se configuran por separado abajo."
+
+msgid "Controls how multiple active feature filters are combined in search re"
+"sults and the live count. Within a single multi-value filter (tags), v"
+"alues are always combined with OR."
+msgstr "Controla cómo se combinan múltiples filtros de características activos"
+" en resultados y conteo en vivo. En un filtro multi-valor (etiquetas),"
+" los valores siempre se combinan con O."
+
+msgid "Cooperative (Ctrl + scroll to zoom)"
+msgstr "Cooperativo (Ctrl + desplazamiento para zoom)"
+
+msgid "Cooperative is recommended on search pages: the map does not capture t"
+"he mouse wheel until the user holds Ctrl (or ⌘ on macOS) while scrolli"
+"ng."
+msgstr "Cooperativo se recomienda en páginas de búsqueda: el mapa no captura l"
+"a rueda del ratón hasta que el usuario mantiene Ctrl (o ⌘ en macOS) al"
+" desplazarse."
+
+msgid "Count endpoint"
+msgstr "Endpoint de conteo"
+
 msgid "Create an alert"
 msgstr "Crear una alerta"
 
-msgid "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
-msgstr "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk."
+msgid "Created"
+msgstr "Creado"
+
+msgid "Criteria hash"
+msgstr "Hash de criterios"
+
+msgid "Cron notifications and retention for property search alerts."
+msgstr "Notificaciones cron y retención para alertas de búsqueda inmobiliaria."
 
 msgid "Customize area"
 msgstr "Personalizar zona"
+
+msgid "Daily"
+msgstr "Diario"
+
+msgid "Decimal places for isochrone cache key coordinates"
+msgstr "Decimales para coordenadas de clave caché isocrona"
 
 msgid "Decreasing distance"
 msgstr "Distancia decreciente"
@@ -137,14 +256,69 @@ msgstr "Precio decreciente"
 msgid "Decreasing surface"
 msgstr "Superficie decreciente"
 
+msgid "Default 86400 (24h). Applies to computed isochrone payloads before ext"
+"ernal provider calls."
+msgstr "Predeterminado 86400 (24h). Se aplica a cargas isocronas calculadas an"
+"tes de llamadas a proveedor externo."
+
+msgid "Default frequency for new alerts"
+msgstr "Frecuencia predeterminada para nuevas alertas"
+
+msgid "Default map center latitude"
+msgstr "Latitud del centro del mapa predeterminado"
+
+msgid "Default map center longitude"
+msgstr "Longitud del centro del mapa predeterminado"
+
+msgid "Default map zone, pager threshold and markers cap."
+msgstr "Zona de mapa predeterminada, umbral de paginación y límite de marcador"
+"es."
+
+msgid "Default map zoom"
+msgstr "Zoom de mapa predeterminado"
+
+msgid "Default map zoom level"
+msgstr "Nivel de zoom de mapa predeterminado"
+
+msgid "Default max requests per window"
+msgstr "Máximo de solicitudes por ventana predeterminado"
+
+msgid "Default search zone radius (km)"
+msgstr "Radio de zona de búsqueda predeterminado (km)"
+
 msgid "Delete all"
 msgstr "Eliminar todo"
 
 msgid "Department"
 msgstr "Departamento"
 
-msgid "Desc"
-msgstr "Descendente"
+msgid "Dictionary label"
+msgstr "Etiqueta de diccionario"
+
+msgid "Dictionary type"
+msgstr "Tipo de diccionario"
+
+msgid "Dictionary type machine name, e.g. asset_type or operation_type."
+msgstr "Nombre de máquina del tipo de diccionario, p. ej. asset_type u operati"
+"on_type."
+
+msgid "Discover all our @asset @locality_suffix and find your ideal space qui"
+"ckly."
+msgstr "Découvrez toutes nos offres de @asset @locality_suffix et trouvez rapi"
+"dement votre espace idéalement situé."
+
+msgid "Discover all our @asset for rent @locality_suffix and find your ideal "
+"space quickly."
+msgstr "Découvrez toutes nos offres de @asset à la location @locality_suffix e"
+"t trouvez rapidement votre espace idéalement situé."
+
+msgid "Discover all our @asset for sale @locality_suffix and find your ideal "
+"space quickly."
+msgstr "Découvrez toutes nos offres de @asset à la vente @locality_suffix et t"
+"rouvez rapidement votre espace idéalement situé."
+
+msgid "Display ps_dictionary entry labels for indexed codes."
+msgstr "Mostrar etiquetas ps_dictionary para códigos indexados."
 
 msgid "Distance zone isochrone"
 msgstr "Distance zone isochrone"
@@ -152,14 +326,61 @@ msgstr "Distance zone isochrone"
 msgid "District"
 msgstr "Distrito"
 
-msgid "Divisible"
-msgstr "Divisible"
+msgid "Email"
+msgstr "Correo electrónico"
 
-msgid "Equipments"
-msgstr "Equipamientos"
+msgid "Enable API rate limiting"
+msgstr "Habilitar limitación de velocidad API"
+
+msgid "Enable Card Push on search results"
+msgstr "Habilitar Card Push en resultados de búsqueda"
+
+msgid "Enable IP rate limiting on public API routes"
+msgstr "Habilitar limitación de velocidad IP en rutas API públicas"
+
+msgid "Enable OpenRouteService isochrone provider"
+msgstr "Habilitar proveedor isocrona OpenRouteService"
+
+msgid "Enable OpenRouteService provider"
+msgstr "Habilitar proveedor OpenRouteService"
+
+msgid "Enable search alert cron notifications"
+msgstr "Habilitar notificaciones cron de alertas de búsqueda"
+
+msgid "Enable server-side grid clusters for dense zones"
+msgstr "Habilitar clústeres de cuadrícula del servidor para zonas densas"
+
+msgid "Enable server-side grid clusters when zone exceeds markers_max"
+msgstr "Habilitar clústeres de cuadrícula del servidor cuando la zona supera m"
+"arkers_max"
+
+msgid "Exposes derived fields for More-filters core criteria."
+msgstr "Expone campos derivados para criterios principales de Más filtros."
+
+msgid "Exposes each feature as a separate indexed field."
+msgstr "Expone cada característica como campo indexado separado."
+
+msgid "Exposes field_geo_lat and field_geo_lng for map zone filtering."
+msgstr "Expone field_geo_lat y field_geo_lng para filtrado por zona de mapa."
+
+msgid "Exposes surface_total and surface_min as decimal fields from field_sur"
+"faces."
+msgstr "Expone surface_total y surface_min como campos decimales desde field_s"
+"urfaces."
+
+msgid "External providers require API keys. On failure, fallback uses the off"
+"line approximation when enabled."
+msgstr "Los proveedores externos requieren claves API. En caso de fallo, el re"
+"spaldo usa la aproximación sin conexión si está habilitada."
+
+msgid "Fallback to approximation when external provider fails"
+msgstr "Recurrir a aproximación si falla el proveedor externo"
 
 msgid "Feature filters"
 msgstr "Feature filters"
+
+msgid "Feature indexer"
+msgstr "Indexador de características"
 
 msgid "Feature search filters"
 msgstr "Feature search filters"
@@ -173,17 +394,62 @@ msgstr "Filtrar"
 msgid "Find your next property"
 msgstr "Encuentre su próximo inmueble"
 
-msgid "Fittings"
-msgstr "Acabados"
+msgid "Frequency"
+msgstr "Frecuencia"
+
+msgid "From email"
+msgstr "Correo remitente"
+
+msgid "From name"
+msgstr "Nombre remitente"
+
+msgid "Geo latitude"
+msgstr "Latitud geo"
+
+msgid "Geo longitude"
+msgstr "Longitud geo"
+
+msgid "Geo point"
+msgstr "Punto geo"
+
+msgid "Geo point for Solr spatial search and distance sort."
+msgstr "Punto geo para búsqueda espacial Solr y orden por distancia."
+
+msgid "Gesture handling"
+msgstr "Manejo de gestos"
+
+msgid "Google Cloud Map ID"
+msgstr "ID de mapa Google Cloud"
+
+msgid "Google Cloud Map ID (Advanced Markers, optional)"
+msgstr "ID de mapa Google Cloud (Advanced Markers, opcional)"
+
+msgid "Google Routes (radial sampling)"
+msgstr "Google Routes (muestreo radial)"
+
+msgid "Google Routes API key (optional override)"
+msgstr "Clave API Google Routes (anulación opcional)"
+
+msgid "Google Routes API key override (optional)"
+msgstr "Anulación de clave API Google Routes (opcional)"
+
+msgid "Greedy"
+msgstr "Codicioso"
+
+msgid "Grid cluster target cells"
+msgstr "Celdas objetivo de clúster de cuadrícula"
+
+msgid "HTMX fragments"
+msgstr "Fragmentos HTMX"
+
+msgid "Has immersive tour"
+msgstr "Tiene visita inmersiva"
+
+msgid "Has video"
+msgstr "Tiene vídeo"
 
 msgid "Header search (property)"
 msgstr "Header search (property)"
-
-msgid "Heights"
-msgstr "Alturas"
-
-msgid "Hide list"
-msgstr "Ocultar lista"
 
 msgid "Immersive tour"
 msgstr "Visita inmersiva"
@@ -194,8 +460,91 @@ msgstr "Precio creciente"
 msgid "Increasing surface"
 msgstr "Superficie creciente"
 
-msgid "Keywords"
-msgstr "Palabras clave"
+msgid "Index only when sync changed configuration"
+msgstr "Indexar solo cuando la configuración de sync cambió"
+
+msgid "Individual price markers are shown above this zoom level. Clusters app"
+"ear at this zoom and below (Google Maps zoom 0–22). Recommended: 16."
+msgstr "Los marcadores de precio individuales se muestran por encima de este n"
+"ivel de zoom. Los clústeres aparecen en este zoom y por debajo (zoom G"
+"oogle Maps 0–22). Recomendado: 16."
+
+msgid "Insert after result index"
+msgstr "Insertar después del índice de resultado"
+
+msgid "Insert after result number"
+msgstr "Insertar después del número de resultado"
+
+msgid "Install the Webform module to create search alerts."
+msgstr "Instale el módulo Webform para crear alertas de búsqueda."
+
+msgid "Internal path (e.g. /calculator) or absolute URL. Required when Card P"
+"ush is enabled."
+msgstr "Ruta interna (p. ej. /calculator) o URL absoluta. Requerido cuando Car"
+"d Push está habilitado."
+
+msgid "Interstitial push cards for search results and future listing placemen"
+"ts."
+msgstr "Tarjetas push intersticiales para resultados de búsqueda y futuras ubi"
+"caciones de listado."
+
+msgid "Isochrone"
+msgstr "Isocrona"
+
+msgid "Isochrone cache coordinate precision (decimal places)"
+msgstr "Precisión de coordenadas caché isocrona (decimales)"
+
+msgid "Isochrone endpoint"
+msgstr "Endpoint isocrona"
+
+msgid "Isochrone provider"
+msgstr "Proveedor isocrona"
+
+msgid "Isochrone provider (approximation, ors, google)"
+msgstr "Proveedor isocrona (approximation, ors, google)"
+
+msgid "Isochrone server cache TTL (seconds)"
+msgstr "TTL caché servidor isocrona (segundos)"
+
+msgid "Last match count"
+msgstr "Último conteo de coincidencias"
+
+msgid "Last matches"
+msgstr "Últimas coincidencias"
+
+msgid "Last notification sent"
+msgstr "Última notificación enviada"
+
+msgid "Last sent"
+msgstr "Último envío"
+
+msgid "Lat/lon point for Solr distance sort."
+msgstr "Punto lat/lon para orden por distancia Solr."
+
+msgid "Latitude from field_geo."
+msgstr "Latitud desde field_geo."
+
+msgid "Latitude/Longitude"
+msgstr "Latitud/Longitud"
+
+msgid "Lazy-load map shell"
+msgstr "Carga diferida del shell del mapa"
+
+msgid "Lazy-load the map shell (future use)"
+msgstr "Carga diferida del shell del mapa (uso futuro)"
+
+msgid "Leave empty to reuse the Geofield Map Google Maps API key. The Google "
+"Cloud project must enable the Routes API (ComputeRoutes) in addition t"
+"o Maps JavaScript API."
+msgstr "Dejar vacío para reutilizar la clave API Google Maps de Geofield Map. "
+"El proyecto Google Cloud debe habilitar la API Routes (ComputeRoutes) "
+"además de Maps JavaScript API."
+
+msgid "Legacy asset slug aliases"
+msgstr "Alias de slugs de tipo de activo heredados"
+
+msgid "Load-all list threshold"
+msgstr "Umbral de lista cargar todo"
 
 msgid "Loading…"
 msgstr "Cargando…"
@@ -206,17 +555,36 @@ msgstr "Ubicación"
 msgid "Location data"
 msgstr "Location data"
 
-msgid "Location structured data"
-msgstr "Location structured data"
+msgid "Location data endpoint"
+msgstr "Endpoint de datos de ubicación"
 
 msgid "Location suggest"
 msgstr "Location suggest"
 
-msgid "Location suggestions"
-msgstr "Location suggestions"
+msgid "Location suggest endpoint"
+msgstr "Endpoint de sugerencia de ubicación"
+
+msgid "Location tokens"
+msgstr "Tokens de ubicación"
 
 msgid "Location(s)"
 msgstr "Ubicación(es)"
+
+msgid "Longitude from field_geo."
+msgstr "Longitud desde field_geo."
+
+msgid "Lowercase letters, digits and hyphens only."
+msgstr "Solo letras minúsculas, dígitos y guiones."
+
+msgid "Manage stored property search alert subscriptions."
+msgstr "Gestionar suscripciones de alertas de búsqueda inmobiliaria almacenada"
+"s."
+
+msgid "Map gesture handling mode"
+msgstr "Modo de manejo de gestos del mapa"
+
+msgid "Map shell (PS native cartography)"
+msgstr "Shell del mapa (cartografía nativa PS)"
 
 msgid "Map zone"
 msgstr "Map zone"
@@ -224,23 +592,69 @@ msgstr "Map zone"
 msgid "Map zone settings"
 msgstr "Ajustes de zona del mapa"
 
+msgid "Markers JSON"
+msgstr "JSON de marcadores"
+
+msgid "Markers JSON HTTP cache max-age (seconds)"
+msgstr "Max-age caché HTTP JSON marcadores (segundos)"
+
+msgid "Markers JSON cache TTL (seconds)"
+msgstr "TTL caché JSON marcadores (segundos)"
+
+msgid "Markers endpoint"
+msgstr "Endpoint de marcadores"
+
 msgid "Max"
 msgstr "Máx"
+
+msgid "Max zone results before infinite scroll"
+msgstr "Máx. resultados de zona antes de scroll infinito"
 
 msgid "Maximum 10 locations"
 msgstr "Máximo 10 ubicaciones"
 
-msgid "Means of transport"
-msgstr "Medio de transporte"
+msgid "Maximum @label: @value@unit"
+msgstr "Máximo @label: @value@unit"
 
-msgid "Metro, bus, train..."
-msgstr "Metro, bus, train..."
+msgid "Maximum @unit: @value"
+msgstr "Máximo @unit: @value"
+
+msgid "Maximum map zoom level"
+msgstr "Nivel de zoom de mapa máximo"
+
+msgid "Maximum markers per zone"
+msgstr "Máximo de marcadores por zona"
+
+msgid "Maximum markers returned per zone"
+msgstr "Máximo de marcadores devueltos por zona"
+
+msgid "Maximum zoom"
+msgstr "Zoom máximo"
 
 msgid "Min"
 msgstr "Mín"
 
-msgid "More criteria group"
-msgstr "More criteria group"
+msgid "Minimum @label: @value@unit"
+msgstr "Mínimo @label: @value@unit"
+
+msgid "Minimum @unit: @value"
+msgstr "Mínimo @unit: @value"
+
+msgid "Minimum divisible surface from field_surfaces (qualification = MINIM, "
+"or TOTAL if absent)."
+msgstr "Superficie divisible mínima desde field_surfaces (calificación = MINIM"
+", o TOTAL si ausente)."
+
+msgid "Minimum map zoom level"
+msgstr "Nivel de zoom de mapa mínimo"
+
+msgid "Minimum zoom"
+msgstr "Zoom mínimo"
+
+msgid "Module ps_search 1.0.0 — search engine, filters, map and public API un"
+"der /api/ps/*."
+msgstr "Módulo ps_search 1.0.0 — motor de búsqueda, filtros, mapa y API públic"
+"a en /api/ps/*."
 
 msgid "More filters"
 msgstr "Más filtros"
@@ -248,8 +662,17 @@ msgstr "Más filtros"
 msgid "More filters (@count)"
 msgstr "Más filtros (@count)"
 
+msgid "Nearby public transport information."
+msgstr "Información de transporte público cercano."
+
 msgid "Nearby transport"
 msgstr "Transporte cercano"
+
+msgid "Never"
+msgstr "Nunca"
+
+msgid "New matching properties:"
+msgstr "Nuevas propiedades coincidentes:"
 
 msgid "No"
 msgstr "No"
@@ -257,20 +680,58 @@ msgstr "No"
 msgid "No location found"
 msgstr "Ubicación no encontrada"
 
-msgid "No offers match your search criteria. Please adjust your filters."
-msgstr "Ninguna oferta coincide con sus criterios. Ajuste sus filtros."
+msgid "None"
+msgstr "Ninguno"
 
-msgid "No properties in this map area"
-msgstr "Ningún inmueble en esta zona del mapa"
+msgid "OR — offer may match any active feature filter (broadens results)"
+msgstr "O — la oferta puede coincidir con cualquier filtro de característica a"
+"ctivo (amplía resultados)"
 
-msgid "No results found"
-msgstr "Sin resultados"
+msgid "Offer derived search fields"
+msgstr "Campos de búsqueda derivados de oferta"
 
-msgid "Offer reference..."
-msgstr "Offer reference..."
+msgid "Offer geo latitude/longitude"
+msgstr "Latitud/longitud geo de oferta"
 
 msgid "Offices, retail and logistics across France."
 msgstr "Oficinas, comercio y logística en Francia."
+
+msgid "One alias per line: legacy-slug=canonical-slug (e.g. bureau=bureaux). "
+"Used for inbound URL resolution and 301 redirects to the canonical ass"
+"et slug. Translatable per language via Configuration translation."
+msgstr "Un alias por línea: legacy-slug=canonical-slug (p. ej. bureau=bureaux)"
+". Para resolución URL entrante y redirecciones 301 al slug canónico. T"
+"raducible por idioma vía traducción de configuración."
+
+msgid "OpenRouteService"
+msgstr "OpenRouteService"
+
+msgid "OpenRouteService API key"
+msgstr "Clave API OpenRouteService"
+
+msgid "Operation type slugs"
+msgstr "Slugs de tipo de operación"
+
+msgid "Opt out of SMS communications"
+msgstr "Optar por no recibir comunicaciones SMS"
+
+msgid "Opt out of email communications"
+msgstr "Optar por no recibir comunicaciones por correo"
+
+msgid "Opt out of phone communications"
+msgstr "Optar por no recibir comunicaciones telefónicas"
+
+msgid "Optional MarkerClusterer overrides (gridSize, styles, minimumClusterSi"
+"ze, …). Max zoom is always taken from the field above. Leave empty for"
+" BNPPRE defaults."
+msgstr "Anulaciones opcionales de MarkerClusterer (gridSize, styles, minimumCl"
+"usterSize, …). El zoom máx. siempre se toma del campo anterior. Dejar "
+"vacío para valores BNPPRE predeterminados."
+
+msgid "Optional. Required for Advanced Markers (future migration). Create a M"
+"ap ID in Google Cloud Console."
+msgstr "Opcional. Requerido para Advanced Markers (migración futura). Cree un "
+"Map ID en Google Cloud Console."
 
 msgid "Other"
 msgstr "Otros"
@@ -278,17 +739,65 @@ msgstr "Otros"
 msgid "Other criteria"
 msgstr "Otros criterios"
 
-msgid "Outdoors"
-msgstr "Exteriores"
+msgid "Overview"
+msgstr "Resumen"
 
-msgid "Pan the map or use “Search this area” to explore other regions."
-msgstr "Desplace el mapa o use «Buscar en esta zona»."
+msgid "Owner"
+msgstr "Propietario"
+
+msgid "PS Search API cache settings"
+msgstr "Ajustes de caché API PS Search"
+
+msgid "PS Search API rate limit settings"
+msgstr "Ajustes de límite de velocidad API PS Search"
+
+msgid "PS Search Card Push — search results placement"
+msgstr "PS Search Card Push — ubicación resultados de búsqueda"
+
+msgid "PS Search SEO URL mappings"
+msgstr "Mapeos URL SEO PS Search"
+
+msgid "PS Search alert settings"
+msgstr "Ajustes de alertas PS Search"
+
+msgid "PS Search feature filter sync settings"
+msgstr "Ajustes de sincronización filtros características PS Search"
+
+msgid "PS Search location tokens filter"
+msgstr "Filtro tokens ubicación PS Search"
+
+msgid "PS Search location tokens filter value"
+msgstr "Valor filtro tokens ubicación PS Search"
+
+msgid "PS Search map zone settings"
+msgstr "Ajustes de zona de mapa PS Search"
+
+msgid "Paused"
+msgstr "En pausa"
+
+msgid "Per-route limits"
+msgstr "Límites por ruta"
+
+msgid "Per-route limits (requests per window)"
+msgstr "Límites por ruta (solicitudes por ventana)"
+
+msgid "Placements"
+msgstr "Ubicaciones"
+
+msgid "Please enter at least one location."
+msgstr "Introduzca al menos una ubicación."
+
+msgid "Please select a property type."
+msgstr "Seleccione un tipo de propiedad."
+
+msgid "Please select a transaction type."
+msgstr "Seleccione un tipo de transacción."
 
 msgid "Postal code"
 msgstr "Código postal"
 
-msgid "Price"
-msgstr "Precio"
+msgid "Professional email"
+msgstr "Correo profesional"
 
 msgid "Properties @in @locality"
 msgstr "Properties @in @locality"
@@ -299,11 +808,39 @@ msgstr "Búsqueda inmobiliaria"
 msgid "Property search"
 msgstr "Búsqueda inmobiliaria"
 
+msgid "Property search configuration (filters, map, SEO, API)."
+msgstr "Configuración de búsqueda inmobiliaria (filtros, mapa, SEO, API)."
+
+msgid "Property search domain module (Search API, filters, map, SEO). Clean s"
+"late 1.0.0."
+msgstr "Módulo de dominio búsqueda inmobiliaria (Search API, filtros, mapa, SE"
+"O). Clean slate 1.0.0."
+
 msgid "Property search filters"
 msgstr "Filtros de búsqueda inmobiliaria"
 
 msgid "Property type"
 msgstr "Tipo de inmueble"
+
+msgid "Public slug for the flexible search page (e.g. find-property). Transla"
+"table per language via Configuration translation."
+msgstr "Slug público de la página de búsqueda flexible (p. ej. find-property)."
+" Traducible por idioma vía traducción de configuración."
+
+msgid "Radius around the default center or locality centroid for the initial "
+"map zone."
+msgstr "Radio alrededor del centro predeterminado o centroide de localidad par"
+"a la zona de mapa inicial."
+
+msgid "Rate limit window in seconds"
+msgstr "Ventana de límite de velocidad en segundos"
+
+msgid "Rate limiting"
+msgstr "Limitación de velocidad"
+
+msgid "Rate limits and server cache TTLs for /api/ps/* endpoints."
+msgstr "Límites de velocidad y TTL de caché del servidor para endpoints /api/p"
+"s/*."
 
 msgid "Reference"
 msgstr "Referencia"
@@ -314,11 +851,33 @@ msgstr "Eliminar @value"
 msgid "Rent"
 msgstr "Alquiler"
 
+msgid "Required when provider is OpenRouteService. Get a key at openrouteserv"
+"ice.org."
+msgstr "Requerido cuando el proveedor es OpenRouteService. Obtenga una clave e"
+"n openrouteservice.org."
+
+msgid "Reserved for a future release (IntersectionObserver). Currently ignore"
+"d."
+msgstr "Reservado para versión futura (IntersectionObserver). Actualmente igno"
+"rado."
+
 msgid "Reset"
 msgstr "Restablecer"
 
-msgid "Restricted activities"
-msgstr "Actividades no autorizadas"
+msgid "Result count"
+msgstr "Conteo de resultados"
+
+msgid "Retention for anonymous alerts (days)"
+msgstr "Retención de alertas anónimas (días)"
+
+msgid "Run immediate indexing during cron"
+msgstr "Indexar inmediatamente durante cron"
+
+msgid "Run immediate indexing during cron sync"
+msgstr "Indexar inmediatamente durante sync cron"
+
+msgid "SEO URL Mappings"
+msgstr "Mapeos URL SEO"
 
 msgid "SEO URL mappings"
 msgstr "Asignaciones URL SEO"
@@ -326,11 +885,36 @@ msgstr "Asignaciones URL SEO"
 msgid "SEO URLs"
 msgstr "SEO URLs"
 
+msgid "Safety cap for the /api/ps/markers JSON endpoint."
+msgstr "Límite de seguridad para el endpoint JSON /api/ps/markers."
+
 msgid "Search"
 msgstr "Buscar"
 
+msgid "Search URL"
+msgstr "URL de búsqueda"
+
 msgid "Search actions"
 msgstr "Acciones de búsqueda"
+
+msgid "Search alert saved."
+msgstr "Alerta de búsqueda guardada."
+
+msgid "Search alerts"
+msgstr "Alertas de búsqueda"
+
+msgid "Search commercial real estate @locality_suffix and find your ideal spa"
+"ce quickly."
+msgstr "Recherchez un bien immobilier d'entreprise @locality_suffix et trouvez"
+" rapidement votre espace idéalement situé."
+
+msgid "Search commercial real estate across France and find your ideal space "
+"quickly."
+msgstr "Recherchez un bien immobilier d'entreprise partout en France et trouve"
+"z rapidement votre espace idéalement situé."
+
+msgid "Search criteria"
+msgstr "Criterios de búsqueda"
 
 msgid "Search filter bar"
 msgstr "Barra de filtros de búsqueda"
@@ -338,32 +922,39 @@ msgstr "Barra de filtros de búsqueda"
 msgid "Search hero (homepage)"
 msgstr "Search hero (homepage)"
 
-msgid "Search keywords..."
-msgstr "Palabras clave de búsqueda…"
+msgid "Search page URL slug"
+msgstr "Slug URL página de búsqueda"
 
-msgid "Search map markers"
-msgstr "Search map markers"
+msgid "Search page URL slug (base config = internal Views route; translations"
+" = public slug per language)"
+msgstr "Slug URL página de búsqueda (config base = ruta Views interna; traducc"
+"iones = slug público por idioma)"
 
-msgid "Search offers"
-msgstr "Ofertas de búsqueda"
+msgid "Search path"
+msgstr "Ruta de búsqueda"
 
-msgid "Search result count"
-msgstr "Search result count"
+msgid "Search results"
+msgstr "Resultados de búsqueda"
 
-msgid "Search results header"
-msgstr "Search results header"
+msgid "Search results placement — renders the <em>search-push-card</em> SDC a"
+"fter a configurable result index."
+msgstr "Ubicación resultados de búsqueda — renderiza el SDC <em>search-push-ca"
+"rd</em> tras un índice de resultado configurable."
 
-msgid "Search this area"
-msgstr "Buscar en esta zona"
+msgid "Search zones"
+msgstr "Zonas de búsqueda"
 
 msgid "See all filters"
 msgstr "Ver todos los filtros"
 
-msgid "Selected property"
-msgstr "Inmueble seleccionado"
+msgid "Server cache"
+msgstr "Caché del servidor"
 
-msgid "Services"
-msgstr "Servicios"
+msgid "Settings for the PS-owned Google Map shell on the search page. The Goo"
+"gle Maps JavaScript API key is read from Geofield Map settings (/admin"
+"/config/system/geofield-map)."
+msgstr "Ajustes del shell Google Map de PS en la página de búsqueda. La clave "
+"API Google Maps JavaScript se lee desde ajustes Geofield Map."
 
 msgid "Show"
 msgstr "Mostrar"
@@ -377,20 +968,53 @@ msgstr "Mostrar lista"
 msgid "Show map"
 msgstr "Mostrar mapa"
 
-msgid "Show more results"
-msgstr "Mostrar más resultados"
-
 msgid "Showing @count in this area"
 msgstr "@count mostrados en esta zona"
+
+msgid "Skip client-side clustering up to this marker count"
+msgstr "Omitir agrupación del lado cliente hasta este número de marcadores"
+
+msgid "Skip clustering up to this marker count"
+msgstr "Omitir agrupación hasta este número de marcadores"
+
+msgid "Slug for @value"
+msgstr "Slug para @value"
+
+msgid "Slug for ACT (activity)"
+msgstr "Slug para ACT (actividad)"
+
+msgid "Slug for BUR (office)"
+msgstr "Slug para BUR (oficina)"
+
+msgid "Slug for COM (retail)"
+msgstr "Slug para COM (comercio)"
+
+msgid "Slug for COW (coworking)"
+msgstr "Slug para COW (coworking)"
+
+msgid "Slug for ENT (warehouse)"
+msgstr "Slug para ENT (almacén)"
+
+msgid "Slug for LOC (rental)"
+msgstr "Slug para LOC (alquiler)"
+
+msgid "Slug for LOG (logistics)"
+msgstr "Slug para LOG (logística)"
+
+msgid "Slug for TER (land)"
+msgstr "Slug para TER (terreno)"
+
+msgid "Slug for VEN (sale)"
+msgstr "Slug para VEN (venta)"
 
 msgid "Sort by"
 msgstr "Ordenar por"
 
-msgid "Standards, certifications and labels"
-msgstr "Normas, certificaciones y etiquetas"
-
 msgid "Start typing a city name or postal code"
 msgstr "Escriba una ciudad o código postal"
+
+msgid "Status"
+msgstr "Estado"
 
 msgid "Surface"
 msgstr "Superficie"
@@ -398,29 +1022,120 @@ msgstr "Superficie"
 msgid "Surface (m²)"
 msgstr "Superficie (m²)"
 
-msgid "Transaction type"
-msgstr "Tipo de transacción"
+msgid "Surface fields (total & min)"
+msgstr "Campos de superficie (total y mín)"
 
-msgid "Transport"
-msgstr "Acceso de vehículos"
+msgid "Surface minimum (m²)"
+msgstr "Superficie mínima (m²)"
 
-msgid "Transports"
-msgstr "Transporte público"
+msgid "Surface total (m²)"
+msgstr "Superficie total (m²)"
 
-msgid "Travel time"
-msgstr "Tiempo de desplazamiento"
+msgid "Sync individual feature filters into the search view"
+msgstr "Sincronizar filtros de características individuales en la vista de bús"
+"queda"
 
-msgid "Validate"
-msgstr "Validar"
+msgid "Sync per-feature filters into the search view"
+msgstr "Sincronizar filtros por característica en la vista de búsqueda"
+
+msgid "Sync ps_feature filters into search view and index."
+msgstr "Sincronizar filtros ps_feature en la vista de búsqueda y el índice."
+
+msgid "Target grid cells for server-side marker clusters"
+msgstr "Celdas de cuadrícula objetivo para clústeres de marcadores del servido"
+"r"
+
+msgid "The card appears after this result index when total results exceed thi"
+"s value (default: 1)."
+msgstr "La tarjeta aparece después de este índice de resultado cuando el total"
+" supera este valor (predeterminado: 1)."
+
+msgid "The search alert webform is not available yet."
+msgstr "El webform de alerta de búsqueda aún no está disponible."
+
+msgid "This alert could not be saved. It may already exist for this email and"
+" search."
+msgstr "Esta alerta no pudo guardarse. Puede que ya exista para este correo y "
+"búsqueda."
+
+msgid "This field is required when Card Push is enabled for search results."
+msgstr "Este campo es obligatorio cuando Card Push está habilitado para result"
+"ados de búsqueda."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Total surface area from field_surfaces (qualification = TOTAL)."
+msgstr "Superficie total desde field_surfaces (calificación = TOTAL)."
+
+msgid "URL slugs for each asset/property type (e.g. BUR → bureau)."
+msgstr "Slugs URL para cada tipo de activo/propiedad (p. ej. BUR → bureau)."
+
+msgid "URL slugs for each transaction type (e.g. LOC → a-louer)."
+msgstr "Slugs URL para cada tipo de transacción (p. ej. LOC → a-louer)."
+
+msgid "Used when no locality is selected and no explicit map bounds are set."
+msgstr "Usado cuando no se selecciona localidad y no hay límites de mapa explí"
+"citos."
 
 msgid "Video"
 msgstr "Vídeo"
 
-msgid "Walking"
-msgstr "A pie"
+msgid "Weekly"
+msgstr "Semanal"
+
+msgid "When a zone has this many results or fewer, the list loads every offer"
+" in one page (no infinite scroll)."
+msgstr "Cuando una zona tiene esta cantidad de resultados o menos, la lista ca"
+"rga todas las ofertas en una página (sin scroll infinito)."
+
+msgid "When disabled, ORS is hidden from the provider list and cannot be used"
+", even if a key is stored."
+msgstr "Cuando está deshabilitado, ORS se oculta de la lista de proveedores y "
+"no puede usarse, aunque haya una clave almacenada."
+
+msgid "When enabled, a promotional card is inserted in the search results lis"
+"t (disabled by default)."
+msgstr "Cuando está habilitado, se inserta una tarjeta promocional en la lista"
+" de resultados (deshabilitado por defecto)."
+
+msgid "When enabled, exposed Search API filters are created for each feature "
+"with “Expose as filter”. Run <code>drush ps:search:features:sync-index"
+"</code> after changes."
+msgstr "Cuando está habilitado, se crean filtros Search API expuestos para cad"
+"a característica con «Exponer como filtro». Ejecute <code>drush ps:sea"
+"rch:features:sync-index</code> tras los cambios."
+
+msgid "When the map displays this many markers or fewer, always show individu"
+"al price markers (no cluster bubble). Set to 0 to always cluster when "
+"zoom allows. Recommended: 10."
+msgstr "Cuando el mapa muestra esta cantidad de marcadores o menos, mostrar si"
+"empre marcadores de precio individuales (sin burbuja de clúster). Pone"
+"r 0 para agrupar siempre cuando el zoom lo permita. Recomendado: 10."
+
+msgid "When zone_count exceeds the markers cap, return grid clusters instead "
+"of silently truncating individual markers."
+msgstr "Cuando zone_count supera el límite de marcadores, devolver clústeres d"
+"e cuadrícula en lugar de truncar silenciosamente marcadores individual"
+"es."
+
+msgid "Whether the offer has a video."
+msgstr "Si la oferta tiene un vídeo."
+
+msgid "Whether the offer has an immersive tour/360° view."
+msgstr "Si la oferta tiene visita inmersiva/vista 360°."
+
+msgid "Window (seconds)"
+msgstr "Ventana (segundos)"
 
 msgid "Yes"
 msgstr "Sí"
+
+msgid "across France"
+msgstr "partout en France"
+
+msgid "for"
+msgstr "para"
 
 msgid "for rent"
 msgstr "en alquiler"
@@ -430,6 +1145,15 @@ msgstr "en venta"
 
 msgid "in"
 msgstr "en"
+
+msgid "in @locality"
+msgstr "à @locality"
+
+msgid "properties"
+msgstr "propiedades"
+
+msgid "property"
+msgstr "propiedad"
 
 msgid "result"
 msgstr "resultado"

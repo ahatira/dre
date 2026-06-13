@@ -1,0 +1,42 @@
+title: Contáctenos
+description: 'Formulario de contacto global para el offcanvas del encabezado.'
+category: 'Búsqueda inmobiliaria'
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Sus datos de contacto'
+    first_name:
+      '#type': textfield
+      '#title': 'Nombre'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Apellidos'
+      '#required': true
+    email:
+      '#type': email
+      '#title': Correo electrónico
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Teléfono
+  message:
+    '#type': textarea
+    '#title': Mensaje
+    '#required': true
+  legal:
+    '#type': checkbox
+    '#title': 'Acepto la política de privacidad.'
+    '#required': true
+settings:
+  form_submit_label: Enviar
+  confirmation_message: "<p>Gracias. Su mensaje ha sido enviado.</p>"
+handlers:
+  email_notification:
+    label: 'Notificación del sitio'
+    subject: 'Formulario de contacto del sitio web'
+    body: _default
+  email_confirmation:
+    label: 'Confirmación al visitante'
+    subject: 'Gracias por contactarnos'
+    body: "<p>Gracias por su mensaje.</p><p>Hemos recibido su solicitud y nos pondremos en contacto con usted en breve.</p>"

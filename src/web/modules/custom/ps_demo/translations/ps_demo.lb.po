@@ -1,0 +1,96 @@
+# LB translation for ps_demo module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_demo\n"
+"PO-Revision-Date: 2026-06-13 04:14+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background image path (theme-relative)"
+msgstr "Hannergrondbild-Pfad (theme-relativ)"
+
+msgid "Business univers"
+msgstr "Business-Universum"
+
+msgid "Default demo content and configuration for Property Search (export hub"
+")."
+msgstr "Standard-Demo-Inhalt a Konfiguratioun fir Property Search (Export-Hub)"
+"."
+
+msgid "Editorial promo"
+msgstr "Redaktionell Promo"
+
+msgid "English alias"
+msgstr "Engleschen Alias"
+
+msgid "English body"
+msgstr "Engleschen Inhalt"
+
+msgid "English label"
+msgstr "Englescht Label"
+
+msgid "English path"
+msgstr "Englesche Pfad"
+
+msgid "English subtitle"
+msgstr "Engleschen Ënnertitel"
+
+msgid "English title"
+msgstr "Engleschen Titel"
+
+msgid "Featured offers"
+msgstr "Virgehuewen Offeren"
+
+msgid "French alias"
+msgstr "Franséischen Alias"
+
+msgid "French body"
+msgstr "Franséischen Inhalt"
+
+msgid "French label"
+msgstr "Franséischt Label"
+
+msgid "French path"
+msgstr "Franséische Pfad"
+
+msgid "French subtitle"
+msgstr "Franséischen Ënnertitel"
+
+msgid "French title"
+msgstr "Franséischen Titel"
+
+msgid "Front page internal path"
+msgstr "Internen Startsäit-Pfad"
+
+msgid "Hero promo panel copy"
+msgstr "Text vum Hero-Promo-Panel"
+
+msgid "Hero search form copy"
+msgstr "Text vum Hero-Sichformular"
+
+msgid "Homepage URL aliases per language"
+msgstr "Homepage-URL-Aliasen pro Sprooch"
+
+msgid "Homepage node UUID (export reference)"
+msgstr "Homepage-Node-UUID (Export-Referenz)"
+
+msgid "Image path (theme-relative)"
+msgstr "Bildpfad (theme-relativ)"
+
+msgid "PS Demo homepage block copy"
+msgstr "Text vum PS-Demo-Homepage-Block"
+
+msgid "PS Demo settings"
+msgstr "PS Demo Astellungen"
+
+msgid "Promo panel background (theme-relative)"
+msgstr "Hannergrond vum Promo-Panel (theme-relativ)"
+
+msgid "Search hero"
+msgstr "Sich-Hero"
+
+msgid "Search query string"
+msgstr "Sichufro-String"

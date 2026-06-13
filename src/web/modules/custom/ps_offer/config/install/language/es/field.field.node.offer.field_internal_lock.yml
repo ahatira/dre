@@ -1,0 +1,2 @@
+label: 'Bloqueo de protección'
+description: "⚠️ <strong>Active este bloqueo para proteger las ediciones manuales de las importaciones CRM automáticas.</strong> Cuando esté bloqueada, esta oferta no se sobrescribirá durante la sincronización de importación."

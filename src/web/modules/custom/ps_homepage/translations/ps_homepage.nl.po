@@ -1,0 +1,104 @@
+# NL translation for ps_homepage module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_homepage\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Background images"
+msgstr "Achtergrondafbeeldingen"
+
+msgid "Business univers (homepage)"
+msgstr "Business-universum (homepage)"
+
+msgid "Contact us"
+msgstr "Neem contact met ons op"
+
+msgid "Content (@language)"
+msgstr "Inhoud (@language)"
+
+msgid "Delegate my search — URL"
+msgstr "Mijn zoekopdracht delegeren - URL"
+
+msgid "Discover our service offers — URL"
+msgstr "Ontdek onze serviceaanbiedingen - URL"
+
+msgid "Editorial promo (homepage)"
+msgstr "Redactionele promo (homepage)"
+
+msgid "English"
+msgstr "Engels"
+
+msgid "Featured offers (homepage)"
+msgstr "Uitgelichte aanbiedingen (homepage)"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "Full-width blurred hero background. Leave empty for the demo default."
+msgstr "Volledige breedte wazige hero-achtergrond. Leeg laten voor de standaar"
+"d demowaarde."
+
+msgid "Hero background alt"
+msgstr "Alt van hero-achtergrond"
+
+msgid "Hero background alternative text"
+msgstr "Alternatieve tekst van hero-achtergrond"
+
+msgid "Hero background file ID"
+msgstr "Bestands-ID van hero-achtergrond"
+
+msgid "Hero background image"
+msgstr "Hero-achtergrondafbeelding"
+
+msgid "Install Webform and create a \"contact\" webform to display the contac"
+"t form here."
+msgstr "Installeer Webform en maak een \"contact\" webform om hier het contact"
+"formulier te tonen."
+
+msgid "Language switcher (Stellar)"
+msgstr "Taalschakelaar (Stellar)"
+
+msgid "Layout Builder blocks for the Stellar homepage."
+msgstr "Layout Builder-blokken voor de Stellar-homepage."
+
+msgid "Mega menu — tools (Property Search)"
+msgstr "Mega-menu - tools (Property Search)"
+
+msgid "No featured properties yet."
+msgstr "Nog geen uitgelichte panden."
+
+msgid "Promo background alt"
+msgstr "Alt van promo-achtergrond"
+
+msgid "Promo background alternative text"
+msgstr "Alternatieve tekst van promo-achtergrond"
+
+msgid "Promo background file ID"
+msgstr "Bestands-ID van promo-achtergrond"
+
+msgid "Promo panel background image"
+msgstr "Achtergrondafbeelding van promotiepaneel"
+
+msgid "Promotional panel"
+msgstr "Promotiepaneel"
+
+msgid "Property Search"
+msgstr "Vastgoedzoeken"
+
+msgid "Right column promotional panel. Leave empty for the demo default."
+msgstr "Promotiepaneel in de rechterkolom. Leeg laten voor de standaard demowa"
+"arde."
+
+msgid "Search form"
+msgstr "Zoekformulier"
+
+msgid "Search hero (homepage)"
+msgstr "Zoek-hero (homepage)"
+
+msgid "Search hero (homepage) block"
+msgstr "Blok zoek-hero (homepage)"

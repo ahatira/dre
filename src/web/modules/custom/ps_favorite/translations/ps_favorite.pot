@@ -1,0 +1,176 @@
+# EN translation for ps_favorite module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_favorite\n"
+"PO-Revision-Date: 2026-06-13 04:17+0000\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@entity_type: @bundle"
+msgstr ""
+
+msgid "Add to favorites"
+msgstr ""
+
+msgid "Added to favorites."
+msgstr ""
+
+msgid "All items"
+msgstr ""
+
+msgid "Automatic fallback"
+msgstr ""
+
+msgid "Bundle"
+msgstr ""
+
+msgid "Card favorite view mode when available."
+msgstr ""
+
+msgid "Configure which entity targets can be favorited and how favorite cards"
+" should be rendered."
+msgstr ""
+
+msgid "Configured view mode for the matching entity target."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Enable favorites per entity target, then choose whether the target has"
+" no limit or a fixed maximum."
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Entity type ID"
+msgstr ""
+
+msgid "Fallback title with canonical link."
+msgstr ""
+
+msgid "Favorite card rendering"
+msgstr ""
+
+msgid "Favorite card view mode mapping"
+msgstr ""
+
+msgid "Favorite limit reached (@limit)."
+msgstr ""
+
+msgid "Favorite system for offers with authenticated and anonymous persistenc"
+"e."
+msgstr ""
+
+msgid "Favorite target"
+msgstr ""
+
+msgid "Favorite targets"
+msgstr ""
+
+msgid "Favorites"
+msgstr ""
+
+msgid "Fixed limit"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Invalid CSRF token."
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Limit mode"
+msgstr ""
+
+msgid "Manage Property Search favorites"
+msgstr ""
+
+msgid "Manage favorite system integrations and settings."
+msgstr ""
+
+msgid "Max favorites"
+msgstr ""
+
+msgid "Maximum favorites"
+msgstr ""
+
+msgid "Maximum favorites mapping"
+msgstr ""
+
+msgid "My favorites"
+msgstr ""
+
+msgid "No eligible bundle found for this entity type."
+msgstr ""
+
+msgid "No favorites yet"
+msgstr ""
+
+msgid "No limit"
+msgstr ""
+
+msgid "Open favorites panel"
+msgstr ""
+
+msgid "PS Favorite settings"
+msgstr ""
+
+msgid "Preferred view mode"
+msgstr ""
+
+msgid "Remove from favorites"
+msgstr ""
+
+msgid "Removed from favorites."
+msgstr ""
+
+msgid "Rendering fallback order"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Saved"
+msgstr ""
+
+msgid "Selected view mode is invalid for @target."
+msgstr ""
+
+msgid "Set a positive maximum for @target when using a fixed limit."
+msgstr ""
+
+msgid "Teaser view mode when available."
+msgstr ""
+
+msgid "UUID"
+msgstr ""
+
+msgid "Unable to add this favorite right now."
+msgstr ""
+
+msgid "Unable to update favorite."
+msgstr ""
+
+msgid "Unsupported entity target."
+msgstr ""
+
+msgid "Use the favorite button on a supported entity to keep it close at hand"
+"."
+msgstr ""
+
+msgid "View all favorites"
+msgstr ""
+
+msgid "favorite target"
+msgstr ""
+
+msgid "favorite targets"
+msgstr ""

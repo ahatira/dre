@@ -1,0 +1,2 @@
+label: Beschermingsslot
+description: "⚠️ <strong>Schakel dit slot in om handmatige wijzigingen te beschermen tegen geautomatiseerde CRM-imports.</strong> Wanneer vergrendeld, wordt deze aanbieding niet overschreven tijdens importsynchronisatie."

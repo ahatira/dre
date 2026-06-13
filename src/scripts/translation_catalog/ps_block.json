@@ -1,0 +1,101 @@
+{
+  "Configurable Stellar blocks for Property Search (footer contact, copyright…).": {
+    "de": "Konfigurierbare Stellar-Bloecke fuer Property Search (Footer-Kontakt, Urheberrecht…).",
+    "es": "Bloques Stellar configurables para Property Search (contacto del pie de pagina, copyright…).",
+    "fr": "Blocs Stellar configurables pour Property Search (contact de pied de page, copyright…).",
+    "it": "Blocchi Stellar configurabili per Property Search (contatto footer, copyright…).",
+    "lb": "Konfiguréierbar Stellar-Bléck fir Property Search (Footer-Kontakt, Copyright…).",
+    "nl": "Configureerbare Stellar-blokken voor Property Search (footercontact, copyright…).",
+    "pl": "Konfigurowalne bloki Stellar dla Property Search (kontakt w stopce, prawa autorskie…)."
+  },
+  "Copyright text": {
+    "de": "Copyright-Text",
+    "es": "Texto de derechos de autor",
+    "fr": "Texte de copyright",
+    "it": "Testo copyright",
+    "lb": "Copyright-Text",
+    "nl": "Copyrighttekst",
+    "pl": "Tekst praw autorskich"
+  },
+  "Email address": {
+    "de": "E-Mail-Adresse",
+    "es": "Direccion de correo electronico",
+    "fr": "Adresse e-mail",
+    "it": "Indirizzo e-mail",
+    "lb": "E-Mail-Adress",
+    "nl": "E-mailadres",
+    "pl": "Adres e-mail"
+  },
+  "Email link label": {
+    "de": "Bezeichnung des E-Mail-Links",
+    "es": "Etiqueta del enlace de correo electronico",
+    "fr": "Libelle du lien e-mail",
+    "it": "Etichetta del link e-mail",
+    "lb": "Label vum E-Mail-Link",
+    "nl": "Label van de e-maillink",
+    "pl": "Etykieta linku e-mail"
+  },
+  "Footer contact (Stellar)": {
+    "de": "Footer-Kontakt (Stellar)",
+    "es": "Contacto de pie de pagina (Stellar)",
+    "fr": "Contact de pied de page (Stellar)",
+    "it": "Contatto footer (Stellar)",
+    "lb": "Footer-Kontakt (Stellar)",
+    "nl": "Footercontact (Stellar)",
+    "pl": "Kontakt w stopce (Stellar)"
+  },
+  "Footer copyright (Stellar)": {
+    "de": "Footer-Copyright (Stellar)",
+    "es": "Copyright de pie de pagina (Stellar)",
+    "fr": "Copyright de pied de page (Stellar)",
+    "it": "Copyright footer (Stellar)",
+    "lb": "Footer-Copyright (Stellar)",
+    "nl": "Footercopyright (Stellar)",
+    "pl": "Prawa autorskie stopki (Stellar)"
+  },
+  "Heading": {
+    "de": "Ueberschrift",
+    "es": "Encabezado",
+    "fr": "Titre",
+    "it": "Intestazione",
+    "lb": "Iwwerschrëft",
+    "nl": "Kop",
+    "pl": "Naglowek"
+  },
+  "My account": {
+    "de": "Mein Konto",
+    "es": "Mi cuenta",
+    "fr": "Mon compte",
+    "it": "Il mio account",
+    "lb": "Mäi Kont",
+    "nl": "Mijn account",
+    "pl": "Moje konto"
+  },
+  "One per line: Label|+33…": {
+    "de": "Eine pro Zeile: Bezeichnung|+33…",
+    "es": "Uno por linea: Etiqueta|+33…",
+    "fr": "Une par ligne : Libelle|+33…",
+    "it": "Uno per riga: Etichetta|+33…",
+    "lb": "Eng pro Linn: Label|+33…",
+    "nl": "Een per regel: Label|+33…",
+    "pl": "Jedna na linie: Etykieta|+33…"
+  },
+  "Phone lines": {
+    "de": "Telefonzeilen",
+    "es": "Lineas telefonicas",
+    "fr": "Lignes telephoniques",
+    "it": "Righe telefoniche",
+    "lb": "Telefonslinnen",
+    "nl": "Telefoonregels",
+    "pl": "Linie telefoniczne"
+  },
+  "Property Search": {
+    "de": "Immobiliensuche",
+    "es": "Busqueda inmobiliaria",
+    "fr": "Recherche immobiliere",
+    "it": "Ricerca immobiliare",
+    "lb": "Immobilie Sich",
+    "nl": "Vastgoedzoeken",
+    "pl": "Wyszukiwanie nieruchomosci"
+  }
+}

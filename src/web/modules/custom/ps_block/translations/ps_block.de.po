@@ -1,0 +1,45 @@
+# DE translation for ps_block module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_block\n"
+"PO-Revision-Date: 2026-06-13 04:06+0000\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Configurable Stellar blocks for Property Search (footer contact, copyr"
+"ight…)."
+msgstr "Konfigurierbare Stellar-Bloecke fuer Property Search (Footer-Kontakt, "
+"Urheberrecht…)."
+
+msgid "Copyright text"
+msgstr "Copyright-Text"
+
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+msgid "Email link label"
+msgstr "Bezeichnung des E-Mail-Links"
+
+msgid "Footer contact (Stellar)"
+msgstr "Footer-Kontakt (Stellar)"
+
+msgid "Footer copyright (Stellar)"
+msgstr "Footer-Copyright (Stellar)"
+
+msgid "Heading"
+msgstr "Ueberschrift"
+
+msgid "My account"
+msgstr "Mein Konto"
+
+msgid "One per line: Label|+33…"
+msgstr "Eine pro Zeile: Bezeichnung|+33…"
+
+msgid "Phone lines"
+msgstr "Telefonzeilen"
+
+msgid "Property Search"
+msgstr "Immobiliensuche"

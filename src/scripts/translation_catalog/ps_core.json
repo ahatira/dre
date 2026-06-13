@@ -1,0 +1,821 @@
+{
+  "@description": {
+    "de": "@description",
+    "es": "@description",
+    "fr": "@description",
+    "it": "@description",
+    "lb": "@description",
+    "nl": "@description",
+    "pl": "@description"
+  },
+  "Access /admin/ps/config and related section links.": {
+    "de": "Zugriff auf /admin/ps/config und zugehörige Bereichslinks.",
+    "es": "Acceso a /admin/ps/config y a los enlaces de secciones relacionadas.",
+    "fr": "Accès à /admin/ps/config et aux liens de sections associés.",
+    "it": "Accesso a /admin/ps/config e ai link delle sezioni correlate.",
+    "lb": "Zougang op /admin/ps/config an op verbonnen Sektiounslinks.",
+    "nl": "Toegang tot /admin/ps/config en gerelateerde sectielinks.",
+    "pl": "Dostęp do /admin/ps/config i powiązanych linków sekcji."
+  },
+  "Access /admin/ps/content and related section links.": {
+    "de": "Zugriff auf /admin/ps/content und zugehörige Bereichslinks.",
+    "es": "Acceso a /admin/ps/content y a los enlaces de secciones relacionadas.",
+    "fr": "Accès à /admin/ps/content et aux liens de sections associés.",
+    "it": "Accesso a /admin/ps/content e ai link delle sezioni correlate.",
+    "lb": "Zougang op /admin/ps/content an op verbonnen Sektiounslinks.",
+    "nl": "Toegang tot /admin/ps/content en gerelateerde sectielinks.",
+    "pl": "Dostęp do /admin/ps/content i powiązanych linków sekcji."
+  },
+  "Access /admin/ps/structure and related section links.": {
+    "de": "Zugriff auf /admin/ps/structure und zugehörige Bereichslinks.",
+    "es": "Acceso a /admin/ps/structure y a los enlaces de secciones relacionadas.",
+    "fr": "Accès à /admin/ps/structure et aux liens de sections associés.",
+    "it": "Accesso a /admin/ps/structure e ai link delle sezioni correlate.",
+    "lb": "Zougang op /admin/ps/structure an op verbonnen Sektiounslinks.",
+    "nl": "Toegang tot /admin/ps/structure en gerelateerde sectielinks.",
+    "pl": "Dostęp do /admin/ps/structure i powiązanych linków sekcji."
+  },
+  "Access Property Search config section": {
+    "de": "Auf Bereich Property Search-Konfiguration zugreifen",
+    "es": "Acceder a la sección de configuración de Property Search",
+    "fr": "Accéder à la section configuration de Property Search",
+    "it": "Accedere alla sezione configurazione di Property Search",
+    "lb": "Op d'Property Search-Konfiguratiounssektioun zougräifen",
+    "nl": "Toegang tot de configuratiesectie van Property Search",
+    "pl": "Uzyskaj dostęp do sekcji konfiguracji Property Search"
+  },
+  "Access Property Search content section": {
+    "de": "Auf Bereich Property Search-Inhalte zugreifen",
+    "es": "Acceder a la sección de contenido de Property Search",
+    "fr": "Accéder à la section contenu de Property Search",
+    "it": "Accedere alla sezione contenuti di Property Search",
+    "lb": "Op d'Property Search-Inhaltssektioun zougräifen",
+    "nl": "Toegang tot de inhoudssectie van Property Search",
+    "pl": "Uzyskaj dostęp do sekcji treści Property Search"
+  },
+  "Access Property Search hub": {
+    "de": "Auf Property Search-Hub zugreifen",
+    "es": "Acceder al hub de Property Search",
+    "fr": "Accéder au hub Property Search",
+    "it": "Accedere all'hub Property Search",
+    "lb": "Op de Property Search-Hub zougräifen",
+    "nl": "Toegang tot de Property Search-hub",
+    "pl": "Uzyskaj dostęp do huba Property Search"
+  },
+  "Access Property Search structure section": {
+    "de": "Auf Bereich Property Search-Struktur zugreifen",
+    "es": "Acceder a la sección de estructura de Property Search",
+    "fr": "Accéder à la section structure de Property Search",
+    "it": "Accedere alla sezione struttura di Property Search",
+    "lb": "Op d'Property Search-Struktursektioun zougräifen",
+    "nl": "Toegang tot de structuursectie van Property Search",
+    "pl": "Uzyskaj dostęp do sekcji struktury Property Search"
+  },
+  "Access the Property Search admin hub pages.": {
+    "de": "Auf die Seiten des Property Search-Admin-Hubs zugreifen.",
+    "es": "Acceder a las páginas del hub de administración de Property Search.",
+    "fr": "Accéder aux pages du hub d'administration Property Search.",
+    "it": "Accedere alle pagine dell'hub di amministrazione Property Search.",
+    "lb": "Op d'Säite vun der Property Search-Admin-Hub zougräifen.",
+    "nl": "Toegang tot de pagina's van de Property Search-beheerhub.",
+    "pl": "Uzyskaj dostęp do stron huba administracyjnego Property Search."
+  },
+  "Administer Property Search core settings": {
+    "de": "Zentrale Property Search-Einstellungen verwalten",
+    "es": "Administrar la configuración principal de Property Search",
+    "fr": "Administrer les paramètres cœur de Property Search",
+    "it": "Amministrare le impostazioni core di Property Search",
+    "lb": "D'Kärastellunge vu Property Search verwalten",
+    "nl": "Kerninstellingen van Property Search beheren",
+    "pl": "Zarządzaj ustawieniami podstawowymi Property Search"
+  },
+  "Audit retention (days)": {
+    "de": "Aufbewahrung von Auditprotokollen (Tage)",
+    "es": "Retención de auditoría (días)",
+    "fr": "Rétention des audits (jours)",
+    "it": "Conservazione audit (giorni)",
+    "lb": "Audit-Retention (Deeg)",
+    "nl": "Bewaartermijn audit (dagen)",
+    "pl": "Okres przechowywania audytu (dni)"
+  },
+  "Audit settings": {
+    "de": "Audit-Einstellungen",
+    "es": "Configuración de auditoría",
+    "fr": "Paramètres d'audit",
+    "it": "Impostazioni audit",
+    "lb": "Audit-Astellungen",
+    "nl": "Auditinstellingen",
+    "pl": "Ustawienia audytu"
+  },
+  "Availability text": {
+    "de": "Verfügbarkeitstext",
+    "es": "Texto de disponibilidad",
+    "fr": "Texte de disponibilité",
+    "it": "Testo disponibilità",
+    "lb": "Disponibilitéitstext",
+    "nl": "Beschikbaarheidstekst",
+    "pl": "Tekst dostępności"
+  },
+  "Cache settings": {
+    "de": "Cache-Einstellungen",
+    "es": "Configuración de caché",
+    "fr": "Paramètres du cache",
+    "it": "Impostazioni cache",
+    "lb": "Cache-Astellungen",
+    "nl": "Cache-instellingen",
+    "pl": "Ustawienia pamięci podręcznej"
+  },
+  "Central access to Property Search content operations.": {
+    "de": "Zentraler Zugang zu Property Search-Inhaltsoperationen.",
+    "es": "Acceso central a las operaciones de contenido de Property Search.",
+    "fr": "Accès central aux opérations de contenu de Property Search.",
+    "it": "Accesso centrale alle operazioni contenuto di Property Search.",
+    "lb": "Zentralen Zougang zu Inhaltsoperatioune vu Property Search.",
+    "nl": "Centrale toegang tot inhoudsbewerkingen van Property Search.",
+    "pl": "Centralny dostęp do operacji na treściach Property Search."
+  },
+  "Change icon": {
+    "de": "Icon ändern",
+    "es": "Cambiar icono",
+    "fr": "Changer l'icône",
+    "it": "Cambia icona",
+    "lb": "Ikon änneren",
+    "nl": "Pictogram wijzigen",
+    "pl": "Zmień ikonę"
+  },
+  "Checksum": {
+    "de": "Prüfsumme",
+    "es": "Suma de verificación",
+    "fr": "Somme de contrôle",
+    "it": "Checksum",
+    "lb": "Checksum",
+    "nl": "Checksum",
+    "pl": "Suma kontrolna"
+  },
+  "Configuration": {
+    "de": "Konfiguration",
+    "es": "Configuración",
+    "fr": "Configuration",
+    "it": "Configurazione",
+    "lb": "Konfiguratioun",
+    "nl": "Configuratie",
+    "pl": "Konfiguracja"
+  },
+  "Configuration hub": {
+    "de": "Konfigurations-Hub",
+    "es": "Hub de configuración",
+    "fr": "Hub de configuration",
+    "it": "Hub configurazione",
+    "lb": "Konfiguratiouns-Hub",
+    "nl": "Configuratiehub",
+    "pl": "Hub konfiguracji"
+  },
+  "Configuration transverse Property Search": {
+    "de": "Übergreifende Property Search-Konfiguration",
+    "es": "Configuración transversal de Property Search",
+    "fr": "Configuration transverse Property Search",
+    "it": "Configurazione trasversale Property Search",
+    "lb": "Transversal Property Search-Konfiguratioun",
+    "nl": "Transversale Property Search-configuratie",
+    "pl": "Konfiguracja poprzeczna Property Search"
+  },
+  "Configure cross-cutting Property Search settings.": {
+    "de": "Übergreifende Property Search-Einstellungen konfigurieren.",
+    "es": "Configurar ajustes transversales de Property Search.",
+    "fr": "Configurer les paramètres transverses de Property Search.",
+    "it": "Configurare le impostazioni trasversali di Property Search.",
+    "lb": "Iwwergräifend Property Search-Astellungen astellen.",
+    "nl": "Overkoepelende instellingen van Property Search configureren.",
+    "pl": "Skonfiguruj przekrojowe ustawienia Property Search."
+  },
+  "Conflict detection settings": {
+    "de": "Einstellungen zur Konflikterkennung",
+    "es": "Configuración de detección de conflictos",
+    "fr": "Paramètres de détection des conflits",
+    "it": "Impostazioni rilevamento conflitti",
+    "lb": "Astellunge fir Konflikterkennung",
+    "nl": "Instellingen voor conflictdetectie",
+    "pl": "Ustawienia wykrywania konfliktów"
+  },
+  "Conflict detection window (seconds)": {
+    "de": "Zeitfenster für Konflikterkennung (Sekunden)",
+    "es": "Ventana de detección de conflictos (segundos)",
+    "fr": "Fenêtre de détection des conflits (secondes)",
+    "it": "Finestra rilevamento conflitti (secondi)",
+    "lb": "Fënster fir Konflikterkennung (Sekonnen)",
+    "nl": "Venster voor conflictdetectie (seconden)",
+    "pl": "Okno wykrywania konfliktów (sekundy)"
+  },
+  "Content hub": {
+    "de": "Inhalts-Hub",
+    "es": "Hub de contenido",
+    "fr": "Hub contenu",
+    "it": "Hub contenuti",
+    "lb": "Inhalts-Hub",
+    "nl": "Inhoudshub",
+    "pl": "Hub treści"
+  },
+  "Contenu": {
+    "de": "Inhalt",
+    "es": "Contenido",
+    "fr": "Contenu",
+    "it": "Contenuto",
+    "lb": "Inhalt",
+    "nl": "Inhoud",
+    "pl": "Treść"
+  },
+  "Core settings": {
+    "de": "Core-Einstellungen",
+    "es": "Configuración principal",
+    "fr": "Paramètres cœur",
+    "it": "Impostazioni core",
+    "lb": "Kärastellungen",
+    "nl": "Kerninstellingen",
+    "pl": "Ustawienia podstawowe"
+  },
+  "Create, update and manage offers.": {
+    "de": "Angebote erstellen, aktualisieren und verwalten.",
+    "es": "Crear, actualizar y gestionar ofertas.",
+    "fr": "Créer, mettre à jour et gérer les offres.",
+    "it": "Creare, aggiornare e gestire le offerte.",
+    "lb": "Offeren erstellen, aktualiséieren a verwalten.",
+    "nl": "Aanbiedingen aanmaken, bijwerken en beheren.",
+    "pl": "Twórz, aktualizuj i zarządzaj ofertami."
+  },
+  "Default cache TTL (seconds)": {
+    "de": "Standard-Cache-TTL (Sekunden)",
+    "es": "TTL de caché por defecto (segundos)",
+    "fr": "TTL de cache par défaut (secondes)",
+    "it": "TTL cache predefinita (secondi)",
+    "lb": "Standard-Cache-TTL (Sekonnen)",
+    "nl": "Standaard cache-TTL (seconden)",
+    "pl": "Domyślne TTL pamięci podręcznej (sekundy)"
+  },
+  "Description": {
+    "de": "Beschreibung",
+    "es": "Descripción",
+    "fr": "Description",
+    "it": "Descrizione",
+    "lb": "Beschreiwung",
+    "nl": "Beschrijving",
+    "pl": "Opis"
+  },
+  "Display urgency help block": {
+    "de": "Dringlichkeitshilfe-Block anzeigen",
+    "es": "Mostrar bloque de ayuda urgente",
+    "fr": "Afficher le bloc d'aide urgence",
+    "it": "Mostra blocco aiuto urgenza",
+    "lb": "Noutfall-Hëllefsblock weisen",
+    "nl": "Urgentiehulpblok weergeven",
+    "pl": "Wyświetl blok pomocy pilnej"
+  },
+  "Enable audit logging": {
+    "de": "Audit-Protokollierung aktivieren",
+    "es": "Habilitar registro de auditoría",
+    "fr": "Activer la journalisation d'audit",
+    "it": "Abilita log di audit",
+    "lb": "Audit-Logging aktivéieren",
+    "nl": "Auditlogboek inschakelen",
+    "pl": "Włącz logowanie audytu"
+  },
+  "Enable site-wide urgency help block": {
+    "de": "Websiteweiten Dringlichkeitshilfe-Block aktivieren",
+    "es": "Habilitar bloque global de ayuda urgente",
+    "fr": "Activer le bloc d'aide urgence sur tout le site",
+    "it": "Abilita blocco aiuto urgenza su tutto il sito",
+    "lb": "Sitebreeten Noutfall-Hëllefsblock aktivéieren",
+    "nl": "Sitebreed urgentiehulpblok inschakelen",
+    "pl": "Włącz globalny blok pomocy pilnej"
+  },
+  "Energy & diagnostics": {
+    "de": "Energie & Diagnostik",
+    "es": "Energía y diagnósticos",
+    "fr": "Énergie et diagnostics",
+    "it": "Energia e diagnostica",
+    "lb": "Energie & Diagnostik",
+    "nl": "Energie en diagnostiek",
+    "pl": "Energia i diagnostyka"
+  },
+  "Foundation infrastructure for Property Search ecosystem.": {
+    "de": "Basisinfrastruktur für das Property Search-Ökosystem.",
+    "es": "Infraestructura base del ecosistema Property Search.",
+    "fr": "Infrastructure socle pour l'écosystème Property Search.",
+    "it": "Infrastruttura di base per l'ecosistema Property Search.",
+    "lb": "Grondlag-Infrastruktur fir de Property Search-Ecosystem.",
+    "nl": "Fundamentele infrastructuur voor het Property Search-ecosysteem.",
+    "pl": "Infrastruktura bazowa dla ekosystemu Property Search."
+  },
+  "Gestion du contenu Property Search": {
+    "de": "Property Search-Inhaltsverwaltung",
+    "es": "Gestión de contenido de Property Search",
+    "fr": "Gestion du contenu Property Search",
+    "it": "Gestione contenuti Property Search",
+    "lb": "Property Search-Inhaltsverwaltung",
+    "nl": "Property Search-inhoudsbeheer",
+    "pl": "Zarządzanie treścią Property Search"
+  },
+  "Health": {
+    "de": "Systemzustand",
+    "es": "Estado",
+    "fr": "Santé",
+    "it": "Stato",
+    "lb": "Gesondheet",
+    "nl": "Status",
+    "pl": "Stan"
+  },
+  "In a hurry? Call us at": {
+    "de": "In Eile? Rufen Sie uns an unter",
+    "es": "¿Tiene prisa? Llámenos al",
+    "fr": "Pressé(e) ? Appelez-nous au",
+    "it": "Di fretta? Chiamaci al",
+    "lb": "Presséiert? Rufft eis un op",
+    "nl": "Haast? Bel ons op",
+    "pl": "Spieszysz się? Zadzwoń do nas pod numer"
+  },
+  "Internal lock": {
+    "de": "Interne Sperre",
+    "es": "Bloqueo interno",
+    "fr": "Verrou interne",
+    "it": "Blocco interno",
+    "lb": "Intern Spär",
+    "nl": "Interne vergrendeling",
+    "pl": "Blokada wewnętrzna"
+  },
+  "Lead text": {
+    "de": "Einleitungstext",
+    "es": "Texto introductorio",
+    "fr": "Texte d'accroche",
+    "it": "Testo introduttivo",
+    "lb": "Aféierungstext",
+    "nl": "Inleidende tekst",
+    "pl": "Tekst wprowadzający"
+  },
+  "Location": {
+    "de": "Standort",
+    "es": "Ubicación",
+    "fr": "Localisation",
+    "it": "Posizione",
+    "lb": "Standuert",
+    "nl": "Locatie",
+    "pl": "Lokalizacja"
+  },
+  "Manage Property Search agents": {
+    "de": "Property Search-Agenten verwalten",
+    "es": "Gestionar agentes de Property Search",
+    "fr": "Gérer les agents Property Search",
+    "it": "Gestire gli agenti Property Search",
+    "lb": "Property Search-Agenten verwalten",
+    "nl": "Property Search-makelaars beheren",
+    "pl": "Zarządzaj agentami Property Search"
+  },
+  "Manage Property Search context rules": {
+    "de": "Property Search-Kontextregeln verwalten",
+    "es": "Gestionar reglas de contexto de Property Search",
+    "fr": "Gérer les règles de contexte Property Search",
+    "it": "Gestire le regole di contesto Property Search",
+    "lb": "Property Search-Kontextreegele verwalten",
+    "nl": "Property Search-contextregels beheren",
+    "pl": "Zarządzaj regułami kontekstu Property Search"
+  },
+  "Manage Property Search core settings and diagnostics.": {
+    "de": "Core-Einstellungen und Diagnostik von Property Search verwalten.",
+    "es": "Gestionar la configuración principal y los diagnósticos de Property Search.",
+    "fr": "Gérer les paramètres cœur et les diagnostics de Property Search.",
+    "it": "Gestire impostazioni core e diagnostica di Property Search.",
+    "lb": "D'Kärastellungen an Diagnostik vu Property Search verwalten.",
+    "nl": "Kerninstellingen en diagnostiek van Property Search beheren.",
+    "pl": "Zarządzaj ustawieniami podstawowymi i diagnostyką Property Search."
+  },
+  "Manage Property Search diagnostics": {
+    "de": "Property Search-Diagnostik verwalten",
+    "es": "Gestionar diagnósticos de Property Search",
+    "fr": "Gérer les diagnostics Property Search",
+    "it": "Gestire la diagnostica Property Search",
+    "lb": "Property Search-Diagnostik verwalten",
+    "nl": "Property Search-diagnostiek beheren",
+    "pl": "Zarządzaj diagnostyką Property Search"
+  },
+  "Manage Property Search dictionary": {
+    "de": "Property Search-Wörterbuch verwalten",
+    "es": "Gestionar diccionario de Property Search",
+    "fr": "Gérer le dictionnaire Property Search",
+    "it": "Gestire il dizionario Property Search",
+    "lb": "Property Search-Dictionnaire verwalten",
+    "nl": "Property Search-woordenboek beheren",
+    "pl": "Zarządzaj słownikiem Property Search"
+  },
+  "Manage Property Search features": {
+    "de": "Property Search-Merkmale verwalten",
+    "es": "Gestionar características de Property Search",
+    "fr": "Gérer les fonctionnalités Property Search",
+    "it": "Gestire le funzionalità Property Search",
+    "lb": "Property Search-Features verwalten",
+    "nl": "Property Search-functies beheren",
+    "pl": "Zarządzaj funkcjami Property Search"
+  },
+  "Manage Property Search migration": {
+    "de": "Property Search-Migration verwalten",
+    "es": "Gestionar migración de Property Search",
+    "fr": "Gérer la migration Property Search",
+    "it": "Gestire la migrazione Property Search",
+    "lb": "Property Search-Migratioun verwalten",
+    "nl": "Property Search-migratie beheren",
+    "pl": "Zarządzaj migracją Property Search"
+  },
+  "Manage Property Search offers": {
+    "de": "Property Search-Angebote verwalten",
+    "es": "Gestionar ofertas de Property Search",
+    "fr": "Gérer les offres Property Search",
+    "it": "Gestire le offerte Property Search",
+    "lb": "Property Search-Offeren verwalten",
+    "nl": "Property Search-aanbiedingen beheren",
+    "pl": "Zarządzaj ofertami Property Search"
+  },
+  "Manage agent profiles and assignments.": {
+    "de": "Agentenprofile und Zuweisungen verwalten.",
+    "es": "Gestionar perfiles y asignaciones de agentes.",
+    "fr": "Gérer les profils agents et les affectations.",
+    "it": "Gestire profili agenti e assegnazioni.",
+    "lb": "Agentenprofiler an Zouuerdnunge verwalten.",
+    "nl": "Makelaarprofielen en toewijzingen beheren.",
+    "pl": "Zarządzaj profilami agentów i przypisaniami."
+  },
+  "Manage business dictionaries and entries.": {
+    "de": "Geschäftswörterbücher und Einträge verwalten.",
+    "es": "Gestionar diccionarios de negocio y sus entradas.",
+    "fr": "Gérer les dictionnaires métier et leurs entrées.",
+    "it": "Gestire dizionari di business e voci.",
+    "lb": "Business-Dictionnairen an Entréeën verwalten.",
+    "nl": "Bedrijfswoordenboeken en items beheren.",
+    "pl": "Zarządzaj słownikami biznesowymi i wpisami."
+  },
+  "Manage context rules and orchestration.": {
+    "de": "Kontextregeln und Orchestrierung verwalten.",
+    "es": "Gestionar reglas de contexto y orquestación.",
+    "fr": "Gérer les règles de contexte et l'orchestration.",
+    "it": "Gestire regole di contesto e orchestrazione.",
+    "lb": "Kontextreegelen an Orchestratioun verwalten.",
+    "nl": "Contextregels en orkestratie beheren.",
+    "pl": "Zarządzaj regułami kontekstu i orkiestracją."
+  },
+  "Manage diagnostics and energy data.": {
+    "de": "Diagnostik- und Energiedaten verwalten.",
+    "es": "Gestionar diagnósticos y datos energéticos.",
+    "fr": "Gérer les diagnostics et les données énergétiques.",
+    "it": "Gestire diagnostica e dati energetici.",
+    "lb": "Diagnostik- an Energiedonnéeë verwalten.",
+    "nl": "Diagnostiek en energiedata beheren.",
+    "pl": "Zarządzaj diagnostyką i danymi energetycznymi."
+  },
+  "Manage feature definitions and values.": {
+    "de": "Merkmalsdefinitionen und -werte verwalten.",
+    "es": "Gestionar definiciones y valores de características.",
+    "fr": "Gérer les définitions et valeurs de fonctionnalités.",
+    "it": "Gestire definizioni e valori delle funzionalità.",
+    "lb": "Feature-Definitiounen a Wäerter verwalten.",
+    "nl": "Functiedefinities en waarden beheren.",
+    "pl": "Zarządzaj definicjami i wartościami cech."
+  },
+  "Manage import and migration workflows.": {
+    "de": "Import- und Migrations-Workflows verwalten.",
+    "es": "Gestionar flujos de trabajo de importación y migración.",
+    "fr": "Gérer les workflows d'import et de migration.",
+    "it": "Gestire i workflow di importazione e migrazione.",
+    "lb": "Import- a Migratiouns-Workflows verwalten.",
+    "nl": "Import- en migratieworkflows beheren.",
+    "pl": "Zarządzaj przepływami importu i migracji."
+  },
+  "Manage structural entities and dictionaries.": {
+    "de": "Strukturelle Entitäten und Wörterbücher verwalten.",
+    "es": "Gestionar entidades estructurales y diccionarios.",
+    "fr": "Gérer les entités structurelles et les dictionnaires.",
+    "it": "Gestire entità strutturali e dizionari.",
+    "lb": "Strukturell Entitéiten an Dictionnairen verwalten.",
+    "nl": "Structurele entiteiten en woordenboeken beheren.",
+    "pl": "Zarządzaj encjami strukturalnymi i słownikami."
+  },
+  "No actions are currently available for your permissions.": {
+    "de": "Für Ihre Berechtigungen sind derzeit keine Aktionen verfügbar.",
+    "es": "Actualmente no hay acciones disponibles para sus permisos.",
+    "fr": "Aucune action n'est actuellement disponible pour vos permissions.",
+    "it": "Nessuna azione è attualmente disponibile per i tuoi permessi.",
+    "lb": "Aktuell si keng Aktiounen fir Är Berechtegungen disponibel.",
+    "nl": "Er zijn momenteel geen acties beschikbaar voor uw rechten.",
+    "pl": "Obecnie brak dostępnych działań dla Twoich uprawnień."
+  },
+  "Offer detail sections": {
+    "de": "Abschnitte der Angebotsdetailseite",
+    "es": "Secciones de detalle de la oferta",
+    "fr": "Sections de détail de l'offre",
+    "it": "Sezioni dettaglio offerta",
+    "lb": "Sektioune vun den Offer-Detailer",
+    "nl": "Secties van aanbiedingsdetails",
+    "pl": "Sekcje szczegółów oferty"
+  },
+  "Offer section settings": {
+    "de": "Einstellungen der Angebotssektionen",
+    "es": "Configuración de secciones de la oferta",
+    "fr": "Paramètres des sections de l'offre",
+    "it": "Impostazioni sezioni dell'offerta",
+    "lb": "Astellunge vun den Offer-Sektiounen",
+    "nl": "Instellingen van aanbodsecties",
+    "pl": "Ustawienia sekcji oferty"
+  },
+  "Opening hours": {
+    "de": "Öffnungszeiten",
+    "es": "Horario de apertura",
+    "fr": "Horaires d'ouverture",
+    "it": "Orari di apertura",
+    "lb": "Ëffnungszäiten",
+    "nl": "Openingstijden",
+    "pl": "Godziny otwarcia"
+  },
+  "Optional. Leave empty to derive from the display number (FR numbers starting with 0).": {
+    "de": "Optional. Leer lassen, um ihn aus der angezeigten Nummer abzuleiten (FR-Nummern, die mit 0 beginnen).",
+    "es": "Opcional. Dejar vacío para derivarlo del número mostrado (números FR que empiezan por 0).",
+    "fr": "Optionnel. Laisser vide pour le déduire du numéro affiché (numéros FR commençant par 0).",
+    "it": "Facoltativo. Lasciare vuoto per derivarlo dal numero visualizzato (numeri FR che iniziano con 0).",
+    "lb": "Optional. Eidel loossen, fir en aus der ugewisener Nummer ofzeleeden (FR-Nummeren déi mat 0 ufänken).",
+    "nl": "Optioneel. Laat leeg om af te leiden uit het weergegeven nummer (FR-nummers die met 0 beginnen).",
+    "pl": "Opcjonalne. Pozostaw puste, aby wyliczyć z numeru wyświetlanego (numery FR zaczynające się od 0)."
+  },
+  "Parametres transverses ps_core": {
+    "de": "Übergreifende Parameter ps_core",
+    "es": "Parámetros transversales ps_core",
+    "fr": "Paramètres transverses ps_core",
+    "it": "Parametri trasversali ps_core",
+    "lb": "Transversal Parameteren ps_core",
+    "nl": "Transversale parameters ps_core",
+    "pl": "Parametry przekrojowe ps_core"
+  },
+  "Phone and opening hours shown in offcanvas forms (search alert, contact, etc.).": {
+    "de": "Telefon und Öffnungszeiten, die in Offcanvas-Formularen angezeigt werden (Suchalarm, Kontakt usw.).",
+    "es": "Teléfono y horario mostrados en formularios offcanvas (alerta de búsqueda, contacto, etc.).",
+    "fr": "Téléphone et horaires affichés dans les formulaires offcanvas (alerte de recherche, contact, etc.).",
+    "it": "Telefono e orari mostrati nei form offcanvas (alert ricerca, contatto, ecc.).",
+    "lb": "Telefon an Ëffnungszäiten, déi an Offcanvas-Formulairen ugewise ginn (Sich-Alarm, Kontakt, asw.).",
+    "nl": "Telefoon en openingstijden die in offcanvas-formulieren worden getoond (zoekalert, contact, enz.).",
+    "pl": "Telefon i godziny otwarcia wyświetlane w formularzach offcanvas (alert wyszukiwania, kontakt itp.)."
+  },
+  "Phone link (tel: URI)": {
+    "de": "Telefonlink (tel:-URI)",
+    "es": "Enlace de teléfono (URI tel:)",
+    "fr": "Lien téléphone (URI tel:)",
+    "it": "Link telefono (URI tel:)",
+    "lb": "Telefonlink (tel:-URI)",
+    "nl": "Telefoonlink (tel:-URI)",
+    "pl": "Link telefonu (URI tel:)"
+  },
+  "Phone number (display)": {
+    "de": "Telefonnummer (Anzeige)",
+    "es": "Número de teléfono (visualización)",
+    "fr": "Numéro de téléphone (affichage)",
+    "it": "Numero di telefono (visualizzazione)",
+    "lb": "Telefonsnummer (Affichage)",
+    "nl": "Telefoonnummer (weergave)",
+    "pl": "Numer telefonu (wyświetlanie)"
+  },
+  "Property Search": {
+    "de": "Immobiliensuche",
+    "es": "Búsqueda inmobiliaria",
+    "fr": "Recherche immobilière",
+    "it": "Ricerca immobiliare",
+    "lb": "Immobilie Sich",
+    "nl": "Vastgoedzoeken",
+    "pl": "Wyszukiwanie nieruchomości"
+  },
+  "Property Search Administrator": {
+    "de": "Property Search-Administrator",
+    "es": "Administrador de Property Search",
+    "fr": "Administrateur Property Search",
+    "it": "Amministratore Property Search",
+    "lb": "Property Search-Administrator",
+    "nl": "Property Search-beheerder",
+    "pl": "Administrator Property Search"
+  },
+  "Property Search Content Editor": {
+    "de": "Property Search-Content-Editor",
+    "es": "Editor de contenido de Property Search",
+    "fr": "Éditeur de contenu Property Search",
+    "it": "Editor contenuti Property Search",
+    "lb": "Property Search-Inhaltseditor",
+    "nl": "Property Search-contenteditor",
+    "pl": "Edytor treści Property Search"
+  },
+  "Property Search Core settings": {
+    "de": "Property Search Core-Einstellungen",
+    "es": "Configuración principal de Property Search",
+    "fr": "Paramètres cœur de Property Search",
+    "it": "Impostazioni core di Property Search",
+    "lb": "Property Search-Kärastellungen",
+    "nl": "Property Search-kerninstellingen",
+    "pl": "Ustawienia podstawowe Property Search"
+  },
+  "Property Search admin hub": {
+    "de": "Property Search-Admin-Hub",
+    "es": "Hub de administración de Property Search",
+    "fr": "Hub d'administration Property Search",
+    "it": "Hub amministrazione Property Search",
+    "lb": "Property Search-Admin-Hub",
+    "nl": "Property Search-beheerhub",
+    "pl": "Hub administracyjny Property Search"
+  },
+  "Property Search health checks": {
+    "de": "Property Search-Systemprüfungen",
+    "es": "Comprobaciones de estado de Property Search",
+    "fr": "Contrôles de santé Property Search",
+    "it": "Controlli salute Property Search",
+    "lb": "Property Search-Gesondheetskontrollen",
+    "nl": "Property Search-statuscontroles",
+    "pl": "Kontrole stanu Property Search"
+  },
+  "Protects manually curated data from automated overwrites.": {
+    "de": "Schützt manuell kuratierte Daten vor automatischem Überschreiben.",
+    "es": "Protege los datos curados manualmente de sobrescrituras automáticas.",
+    "fr": "Protège les données curées manuellement des écrasements automatiques.",
+    "it": "Protegge i dati curati manualmente da sovrascritture automatiche.",
+    "lb": "Schützt manuell kuratéiert Donnéeë virun automateschen Iwwerschreiwungen.",
+    "nl": "Beschermt handmatig samengestelde gegevens tegen automatische overschrijvingen.",
+    "pl": "Chroni ręcznie kuratorowane dane przed automatycznym nadpisaniem."
+  },
+  "Raw availability text imported from source systems.": {
+    "de": "Rohtext zur Verfügbarkeit, importiert aus Quellsystemen.",
+    "es": "Texto bruto de disponibilidad importado desde sistemas fuente.",
+    "fr": "Texte brut de disponibilité importé depuis les systèmes sources.",
+    "it": "Testo disponibilità grezzo importato dai sistemi sorgente.",
+    "lb": "Ro Disponibilitéitstext importéiert aus Quellsystemer.",
+    "nl": "Ruwe beschikbaarheidstekst geïmporteerd uit bronsystemen.",
+    "pl": "Surowy tekst dostępności importowany z systemów źródłowych."
+  },
+  "SHA256 hash of entity data for import idempotence.": {
+    "de": "SHA256-Hash der Entitätsdaten für idempotenten Import.",
+    "es": "Hash SHA256 de los datos de la entidad para idempotencia de importación.",
+    "fr": "Hash SHA256 des données d'entité pour l'idempotence d'import.",
+    "it": "Hash SHA256 dei dati entità per l'idempotenza di import.",
+    "lb": "SHA256-Hash vun den Entitéitsdaten fir import-idempotent Behandlung.",
+    "nl": "SHA256-hash van entiteitsgegevens voor idempotente import.",
+    "pl": "Hash SHA256 danych encji dla idempotentnego importu."
+  },
+  "Section": {
+    "de": "Abschnitt",
+    "es": "Sección",
+    "fr": "Section",
+    "it": "Sezione",
+    "lb": "Sektioun",
+    "nl": "Sectie",
+    "pl": "Sekcja"
+  },
+  "Section icon": {
+    "de": "Abschnittssymbol",
+    "es": "Icono de sección",
+    "fr": "Icône de section",
+    "it": "Icona sezione",
+    "lb": "Sektiounsikon",
+    "nl": "Sectiepictogram",
+    "pl": "Ikona sekcji"
+  },
+  "Section title": {
+    "de": "Abschnittstitel",
+    "es": "Título de sección",
+    "fr": "Titre de section",
+    "it": "Titolo sezione",
+    "lb": "Sektiounstitel",
+    "nl": "Sectietitel",
+    "pl": "Tytuł sekcji"
+  },
+  "Select icon": {
+    "de": "Symbol auswählen",
+    "es": "Seleccionar icono",
+    "fr": "Sélectionner une icône",
+    "it": "Seleziona icona",
+    "lb": "Ikon auswielen",
+    "nl": "Pictogram selecteren",
+    "pl": "Wybierz ikonę"
+  },
+  "Site contact — urgency help": {
+    "de": "Website-Kontakt — Dringlichkeitshilfe",
+    "es": "Contacto del sitio — ayuda urgente",
+    "fr": "Contact du site — aide urgence",
+    "it": "Contatto sito — aiuto urgenza",
+    "lb": "Site-Kontakt — Noutfall-Hëllef",
+    "nl": "Sitecontact — urgentiehulp",
+    "pl": "Kontakt witryny — pomoc pilna"
+  },
+  "Source tracking": {
+    "de": "Quellenverfolgung",
+    "es": "Seguimiento de origen",
+    "fr": "Traçabilité source",
+    "it": "Tracciamento origine",
+    "lb": "Source-Tracking",
+    "nl": "Brontracering",
+    "pl": "Śledzenie źródła"
+  },
+  "Structure": {
+    "de": "Struktur",
+    "es": "Estructura",
+    "fr": "Structure",
+    "it": "Struttura",
+    "lb": "Struktur",
+    "nl": "Structuur",
+    "pl": "Struktura"
+  },
+  "Structure et modeles de donnees": {
+    "de": "Struktur und Datenmodelle",
+    "es": "Estructura y modelos de datos",
+    "fr": "Structure et modèles de données",
+    "it": "Struttura e modelli dati",
+    "lb": "Struktur a Date-Modeller",
+    "nl": "Structuur en datamodellen",
+    "pl": "Struktura i modele danych"
+  },
+  "Structure hub": {
+    "de": "Struktur-Hub",
+    "es": "Hub de estructura",
+    "fr": "Hub structure",
+    "it": "Hub struttura",
+    "lb": "Struktur-Hub",
+    "nl": "Structuurhub",
+    "pl": "Hub struktury"
+  },
+  "Structured JSON payload used for source traceability.": {
+    "de": "Strukturierte JSON-Nutzlast für die Quellenrückverfolgbarkeit.",
+    "es": "Carga JSON estructurada usada para trazabilidad de origen.",
+    "fr": "Payload JSON structuré utilisé pour la traçabilité de la source.",
+    "it": "Payload JSON strutturato usato per la tracciabilità della fonte.",
+    "lb": "Strukturéiert JSON-Payload fir Source-Noverfollegbarkeet.",
+    "nl": "Gestructureerde JSON-payload gebruikt voor brontraceerbaarheid.",
+    "pl": "Ustrukturyzowany ładunek JSON używany do śledzenia źródła."
+  },
+  "Surface table": {
+    "de": "Flächentabelle",
+    "es": "Tabla de superficies",
+    "fr": "Tableau des surfaces",
+    "it": "Tabella superfici",
+    "lb": "Flächetabel",
+    "nl": "Oppervlaktetabel",
+    "pl": "Tabela powierzchni"
+  },
+  "Text before the phone number, e.g. “In a hurry? Call us at”.": {
+    "de": "Text vor der Telefonnummer, z. B. „In Eile? Rufen Sie uns an unter“.",
+    "es": "Texto antes del número de teléfono, p. ej., \"¿Tiene prisa? Llámenos al\".",
+    "fr": "Texte avant le numéro de téléphone, p. ex. \"Pressé(e) ? Appelez-nous au\".",
+    "it": "Testo prima del numero di telefono, ad es. \"Di fretta? Chiamaci al\".",
+    "lb": "Text virun der Telefonsnummer, z. B. \"Presséiert? Rufft eis un op\".",
+    "nl": "Tekst vóór het telefoonnummer, bijv. \"Haast? Bel ons op\".",
+    "pl": "Tekst przed numerem telefonu, np. \"Spieszysz się? Zadzwoń do nas pod numer\"."
+  },
+  "The @team team": {
+    "de": "Das Team @team",
+    "es": "El equipo de @team",
+    "fr": "L'équipe @team",
+    "it": "Il team @team",
+    "lb": "D'Team @team",
+    "nl": "Het @team-team",
+    "pl": "Zespół @team"
+  },
+  "Transport feature group": {
+    "de": "Merkmalsgruppe Verkehr",
+    "es": "Grupo de características de transporte",
+    "fr": "Groupe de fonctionnalités transport",
+    "it": "Gruppo funzionalità trasporti",
+    "lb": "Transport-Featuregrupp",
+    "nl": "Kenmerkengroep vervoer",
+    "pl": "Grupa cech transportu"
+  },
+  "Urgency help lead text": {
+    "de": "Einleitungstext für Dringlichkeitshilfe",
+    "es": "Texto principal de ayuda urgente",
+    "fr": "Texte d'accroche aide urgence",
+    "it": "Testo introduttivo aiuto urgenza",
+    "lb": "Aféierungstext fir Noutfall-Hëllef",
+    "nl": "Inleidende tekst voor urgentiehulp",
+    "pl": "Tekst wprowadzający pomocy pilnej"
+  },
+  "Urgency help opening hours": {
+    "de": "Öffnungszeiten der Dringlichkeitshilfe",
+    "es": "Horario de ayuda urgente",
+    "fr": "Horaires aide urgence",
+    "it": "Orari aiuto urgenza",
+    "lb": "Ëffnungszäite vun der Noutfall-Hëllef",
+    "nl": "Openingstijden voor urgentiehulp",
+    "pl": "Godziny pomocy pilnej"
+  },
+  "Urgency help phone (display)": {
+    "de": "Telefon Dringlichkeitshilfe (Anzeige)",
+    "es": "Teléfono de ayuda urgente (visualización)",
+    "fr": "Téléphone aide urgence (affichage)",
+    "it": "Telefono aiuto urgenza (visualizzazione)",
+    "lb": "Telefon fir Noutfall-Hëllef (Affichage)",
+    "nl": "Telefoon voor urgentiehulp (weergave)",
+    "pl": "Telefon pomocy pilnej (wyświetlanie)"
+  },
+  "Urgency help phone link (tel: URI, optional)": {
+    "de": "Telefonlink Dringlichkeitshilfe (tel:-URI, optional)",
+    "es": "Enlace telefónico de ayuda urgente (URI tel:, opcional)",
+    "fr": "Lien téléphone aide urgence (URI tel:, optionnel)",
+    "it": "Link telefono aiuto urgenza (URI tel:, opzionale)",
+    "lb": "Telefonlink fir Noutfall-Hëllef (tel:-URI, optional)",
+    "nl": "Telefoonlink voor urgentiehulp (tel:-URI, optioneel)",
+    "pl": "Link telefonu pomocy pilnej (URI tel:, opcjonalne)"
+  }
+}

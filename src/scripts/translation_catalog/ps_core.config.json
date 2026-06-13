@@ -1,0 +1,71 @@
+{
+  "config_translation.mapper.ps_core_offer_section_settings.yml": {
+    "de": {
+      "label": "Einstellungen der Angebotssektionen"
+    },
+    "es": {
+      "label": "Configuración de secciones de la oferta"
+    },
+    "fr": {
+      "label": "Paramètres des sections de l'offre"
+    },
+    "it": {
+      "label": "Impostazioni sezioni dell'offerta"
+    },
+    "lb": {
+      "label": "Astellunge vun den Offer-Sektiounen"
+    },
+    "nl": {
+      "label": "Instellingen van aanbodsecties"
+    },
+    "pl": {
+      "label": "Ustawienia sekcji oferty"
+    }
+  },
+  "user.role.ps_admin.yml": {
+    "de": {
+      "label": "Property Search-Administrator"
+    },
+    "es": {
+      "label": "Administrador de Property Search"
+    },
+    "fr": {
+      "label": "Administrateur Property Search"
+    },
+    "it": {
+      "label": "Amministratore Property Search"
+    },
+    "lb": {
+      "label": "Property Search-Administrator"
+    },
+    "nl": {
+      "label": "Property Search-beheerder"
+    },
+    "pl": {
+      "label": "Administrator Property Search"
+    }
+  },
+  "user.role.ps_content_editor.yml": {
+    "de": {
+      "label": "Property Search-Content-Editor"
+    },
+    "es": {
+      "label": "Editor de contenido de Property Search"
+    },
+    "fr": {
+      "label": "Éditeur de contenu Property Search"
+    },
+    "it": {
+      "label": "Editor contenuti Property Search"
+    },
+    "lb": {
+      "label": "Property Search-Inhaltseditor"
+    },
+    "nl": {
+      "label": "Property Search-contenteditor"
+    },
+    "pl": {
+      "label": "Edytor treści Property Search"
+    }
+  }
+}
