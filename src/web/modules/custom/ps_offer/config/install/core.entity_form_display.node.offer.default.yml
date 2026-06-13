@@ -45,6 +45,8 @@ dependencies:
     - field.field.node.offer.field_surfaces
     - field.field.node.offer.field_certification_labels
     - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_diagnostics_dpe
+    - field.field.node.offer.field_diagnostics_ges
     - field.field.node.offer.field_technical_id
     - node.type.offer
   module:
@@ -432,6 +434,8 @@ hidden:
   field_source_tracking: true
   field_last_imported_at: true
   field_import_id: true
+  field_diagnostics_dpe: true
+  field_diagnostics_ges: true
 third_party_settings:
   field_group:
     group_tabs:
@@ -441,8 +445,10 @@ third_party_settings:
         - group_budget
         - group_capacity
         - group_surface
+        - group_lots
         - group_location
         - group_features
+        - group_diagnostics
         - group_gallery
         - group_contacts
       label: 'Offer'
@@ -618,6 +624,24 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
+    group_diagnostics:
+      children:
+        - field_diagnostics
+        - field_certification_labels
+      label: Diagnostics
+      parent_name: group_tabs
+      region: content
+      weight: 8
+      format_type: tab
+      format_settings:
+        label: Diagnostics
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
     group_gallery:
       children:
         - field_media_gallery
@@ -625,7 +649,7 @@ third_party_settings:
       label: Media
       parent_name: group_tabs
       region: content
-      weight: 8
+      weight: 9
       format_type: tab
       format_settings:
         label: Media
@@ -643,7 +667,7 @@ third_party_settings:
       label: Contacts
       parent_name: group_tabs
       region: content
-      weight: 9
+      weight: 10
       format_type: tab
       format_settings:
         label: Contacts
