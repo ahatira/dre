@@ -305,9 +305,30 @@
       });
     }
 
+    function syncInputWidth() {
+      const hasChips = !!(chipsContainer && chipsContainer.querySelector('.ps-location-chip'));
+      const value = input.value || '';
+      if (hasChips && !value) {
+        input.style.flex = '0 0 auto';
+        input.style.width = '0.5rem';
+        input.style.minWidth = '0.5rem';
+        return;
+      }
+      if (value) {
+        input.style.flex = '0 1 auto';
+        input.style.width = Math.max(2, value.length + 1) + 'ch';
+        input.style.minWidth = '2ch';
+        return;
+      }
+      input.style.flex = '';
+      input.style.width = '';
+      input.style.minWidth = '';
+    }
+
     function renderAllChips() {
       renderChipList(chipsContainer);
       renderChipList(popinChipsContainer);
+      syncInputWidth();
     }
 
     function updateSelectedPanelVisibility() {
@@ -622,6 +643,7 @@
     });
 
     input.addEventListener('input', function () {
+      syncInputWidth();
       updateClearInputButton();
       updateLocationActiveState();
       if (isDropdown) {

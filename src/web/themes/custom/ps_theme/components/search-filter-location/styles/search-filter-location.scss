@@ -4,7 +4,6 @@
  */
 
 :root {
-  --ps-filter-pin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='black'%3E%3Cpath d='M10 1.667c-2.761 0-5 2.239-5 5 0 3.75 5 11.666 5 11.666s5-7.916 5-11.666c0-2.761-2.239-5-5-5Zm0 6.666a1.667 1.667 0 1 1 0-3.334 1.667 1.667 0 0 1 0 3.334Z'/%3E%3C/svg%3E");
   --ps-location-popin-min-width: 420px;
   --ps-location-suggest-max-height: 280px;
   --ps-location-suggest-indent: 28px;
@@ -58,16 +57,6 @@
   gap: clamp(4px, 0.5vw, 8px);
   min-height: var(--ps-filter-field-height);
   position: relative;
-}
-
-.ps-filter-bar__location-icon {
-  background-color: var(--re-color-text-strong, #333);
-  flex-shrink: 0;
-  height: 20px;
-  mask: var(--ps-filter-pin) no-repeat center / contain;
-  -webkit-mask: var(--ps-filter-pin) no-repeat center / contain;
-  opacity: 0.85;
-  width: 20px;
 }
 
 .ps-filter-bar__location-editor {
@@ -127,8 +116,11 @@
 }
 
 .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {
-  flex: 1 1 32px;
-  min-width: 32px;
+  field-sizing: content;
+  flex: 0 0 auto;
+  max-width: 100%;
+  min-width: 0.5rem;
+  width: 0.5rem;
 }
 
 .ps-filter-bar__location-clear {
