@@ -1,0 +1,325 @@
+# LB translation for ps_compare module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_compare\n"
+"PO-Revision-Date: 2026-06-12 00:00+0000\n"
+"Language: lb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "@site — Property comparison"
+msgstr "@site — Immobilievergläich"
+
+msgid "Add a short note for the recipient (optional)."
+msgstr "Setzt eng kuerz Notiz fir de Empfänger derbäi (optional)."
+
+msgid "Add at least one more listing to be able to compare."
+msgstr "Setzt mindestens eng zousätzlech Annonce derbäi fir vergläichen ze kënnen."
+
+msgid "Added to comparison."
+msgstr "Beim Vergläicher derbäigesat."
+
+msgid "Area"
+msgstr "Fläch"
+
+msgid "Availability"
+msgstr "Disponibilitéit"
+
+msgid "Back to search"
+msgstr "Zréck zur Sich"
+
+msgid "Cancel"
+msgstr "Ofbriechen"
+
+msgid "Close"
+msgstr "Zoumaachen"
+
+msgid "Collapsible feature groups only"
+msgstr "Nëmmen zesummeklappbar Eegeschaftsgruppe"
+
+msgid "Comparator"
+msgstr "Vergläicher"
+
+msgid "Comparator (@count ads)"
+msgstr "Vergläicher (@count Annoncen)"
+
+msgid "Compare"
+msgstr "Vergläichen"
+
+msgid "Compare page display"
+msgstr "Uweisung vun der Vergläichs-Säit"
+
+msgid "Compare properties"
+msgstr "Immobilie vergläichen"
+
+msgid "Compare selection"
+msgstr "Auswiel vergläichen"
+
+msgid "Compare table columns"
+msgstr "Kolonnen vun der Vergläichstabel"
+
+msgid "Comparison"
+msgstr "Vergläich"
+
+msgid "Comparison limits"
+msgstr "Vergläichsgrenzen"
+
+msgid "Comparison sent to @email."
+msgstr "Vergläich un @email geschéckt."
+
+msgid "Comparison settings"
+msgstr "Vergläichsastellungen"
+
+msgid "Configure property comparison limits and targets."
+msgstr "Vergläichsgrenzen a Ziler astellen."
+
+msgid "Configure UX options for the comparison table and modal."
+msgstr "UX-Optioune fir d'Vergläichstabel an de Modal astellen."
+
+msgid "Divisible"
+msgstr "Deelbar"
+
+msgid "DPE"
+msgstr "DPE"
+
+msgid "Empty comparison slot"
+msgstr "Eide Vergläichsplaz"
+
+msgid "Enable collapsible sections"
+msgstr "Zesummeklappbar Sektiounen aktivéieren"
+
+msgid "Enabled targets"
+msgstr "Aktivéiert Ziler"
+
+msgid "Energy performance"
+msgstr "Energieleeschtung"
+
+msgid "Exclusivity"
+msgstr "Exklusivitéit"
+
+msgid "GES"
+msgstr "GES"
+
+msgid "I have read and accept the terms of the Personal Data Protection Policy."
+msgstr "Ech hunn d'Konditioune vun der Politik zum Schutz vu perséinlechen Donnéeën gelies an acceptéieren se."
+
+msgid "If the button does not work, copy the following URL into your browser:"
+msgstr "Wann de Knäppchen net funktionéiert, kopéiert déi folgend URL an Äre Browser:"
+
+msgid "Install the Webform module to share a comparison by email."
+msgstr "Installéiert de Webform-Modul fir e Vergläich per E-Mail ze deelen."
+
+msgid "Invalid CSRF token."
+msgstr "Ongültegt CSRF-Token."
+
+msgid "Invalid request."
+msgstr "Ongülteg Ufro."
+
+msgid "Layout"
+msgstr "Aménagement"
+
+msgid "Loading…"
+msgstr "Gëtt gelueden…"
+
+msgid "Location"
+msgstr "Standuert"
+
+msgid "Manage comparison settings and integrations."
+msgstr "Vergläichsastellungen an Integratiounen geréieren."
+
+msgid "Manage Property Search comparison"
+msgstr "Property Search-Vergläich geréieren"
+
+msgid "Maximum compared items"
+msgstr "Maximal Zuel vergläichter Objeten"
+
+msgid "Merge DPE and GES on one row"
+msgstr "DPE a GES an engem Reih zesummeféieren"
+
+msgid "Minimum items to open comparison page"
+msgstr "Minimum un Vergläichs-Säit opzemaachen"
+
+msgid "Mobile card layout"
+msgstr "Mobile Kaartelayout"
+
+msgid "Next"
+msgstr "Weider"
+
+msgid "Next image"
+msgstr "Nächst Bild"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Not enough properties in the comparison list."
+msgstr "Net genuch Objeten an der Vergläichslëscht."
+
+msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
+msgstr "Een Zil pro Zeil am Format entity_type.bundle (z. B. node.offer)."
+
+msgid "Open full page"
+msgstr "Voll Säit opmaachen"
+
+msgid "Optional message"
+msgstr "Optional Noriicht"
+
+msgid "Other features"
+msgstr "Aner Eegeschaften"
+
+msgid "Overview"
+msgstr "Iwwersiicht"
+
+msgid "Photos"
+msgstr "Fotoen"
+
+msgid "Please enter a valid email address."
+msgstr "Gitt w.e.g. eng gülteg E-Mail-Adress an."
+
+msgid "Prev"
+msgstr "Zréck"
+
+msgid "Previous image"
+msgstr "Viregt Bild"
+
+msgid "Price"
+msgstr "Präis"
+
+msgid "Property comparison"
+msgstr "Immobilievergläich"
+
+msgid "Property type"
+msgstr "Objettyp"
+
+msgid "Receive my comparison"
+msgstr "Mäi Vergläich kréien"
+
+msgid "Recipient email"
+msgstr "E-Mail vum Empfänger"
+
+msgid "Ref. @ref"
+msgstr "Ref. @ref"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Remove"
+msgstr "Ewechhuelen"
+
+msgid "Remove from comparison"
+msgstr "Aus dem Vergläicher ewechhuelen"
+
+msgid "Remove this property from comparison?"
+msgstr "Dëst Objet aus dem Vergläicher ewechhuelen?"
+
+msgid "Remove “@title” from comparison?"
+msgstr "« @title » aus dem Vergläicher ewechhuelen?"
+
+msgid "Removed from comparison."
+msgstr "Aus dem Vergläicher ewechgeholl."
+
+msgid "Select at least @min properties to compare."
+msgstr "Wielt mindestens @min Objeten fir ze vergläichen."
+
+msgid "Select at least @min properties to share a comparison."
+msgstr "Wielt mindestens @min Objeten fir e Vergläich ze deelen."
+
+msgid "Select listings from the search results to compare."
+msgstr "Wielt Annoncen aus de Sichresultater fir ze vergläichen."
+
+msgid "Send comparison"
+msgstr "Vergläich schécken"
+
+msgid "Send my selection"
+msgstr "Meng Auswiel schécken"
+
+msgid "Share comparison"
+msgstr "Vergläich deelen"
+
+msgid "Share offcanvas footer"
+msgstr "Offcanvas-Fouss Deelen"
+
+msgid "Show price info popover"
+msgstr "Präis-Infopopover weisen"
+
+msgid "Show section navigation"
+msgstr "Sektiounsnavigatioun weisen"
+
+msgid "Show summary banner"
+msgstr "Resumé-Banner weisen"
+
+msgid "Show undo toast when removing a property"
+msgstr "Undo-Toast beim Ewechhuelen weisen"
+
+msgid "Show “Send my selection” share button"
+msgstr "Knäppchen « Meng Auswiel schécken » weisen"
+
+msgid "Sticky view-property bar"
+msgstr "Fix Bar « Objet kucken »"
+
+msgid "Summary"
+msgstr "Resumé"
+
+msgid "Terms & availability"
+msgstr "Konditiounen a Disponibilitéit"
+
+msgid "The comparison share form is not available yet."
+msgstr "De Formulaire fir de Vergläich ze deelen ass nach net disponibel."
+
+msgid "The consultant phone and opening hours in the share offcanvas are managed under <a href=\":url\">PS Core settings</a>."
+msgstr "Telefon an Ouvertureszäiten vum Beroder am Deelen-Offcanvas ginn ënner <a href=\":url\">PS Core-Astellungen</a> geréiert."
+
+msgid "This comparison link is invalid or has expired. At least @min valid property references are required."
+msgstr "Dëse Vergläichslink ass ongülteg oder ofgelaf. Mindestens @min gülteg Referenzen sinn néideg."
+
+msgid "Transaction type"
+msgstr "Transaktiounstyp"
+
+msgid "Unable to add this property to the comparison right now."
+msgstr "Dëst Objet kann de Moment net beim Vergläicher derbäigesat ginn."
+
+msgid "Unable to send the comparison. Check the email address and try again."
+msgstr "De Vergläich konnt net geschéckt ginn. Kontrolléiert d'E-Mail-Adress a probéiert nach eng Kéier."
+
+msgid "Unable to send the comparison. Please try again."
+msgstr "De Vergläich konnt net geschéckt ginn. Probéiert w.e.g. nach eng Kéier."
+
+msgid "Unable to update comparison right now."
+msgstr "De Vergläicher kann de Moment net aktualiséiert ginn."
+
+msgid "Undo"
+msgstr "Réckgängeg"
+
+msgid "Unsupported entity target."
+msgstr "Net ënnerstëtzt Entitéitsziel."
+
+msgid "View full comparison online"
+msgstr "De komplette Vergläich online kucken"
+
+msgid "View property"
+msgstr "Objet kucken"
+
+msgid "Yes"
+msgstr "Jo"
+
+msgid "You can't compare more than @max ads at the same time. Delete one to add this one."
+msgstr "Dir kënnt net méi wéi @max Annoncen gläichzäiteg vergläichen. Ewechhuelen eng fir dës derbäizesetzen."
+
+msgid "You have not selected any properties to compare yet."
+msgstr "Dir hutt nach keng Objeten fir ze vergläichen ausgewielt."
+
+msgid "—"
+msgstr "—"
+
+msgctxt "Offer budget period short"
+msgid "mo"
+msgstr "Mo."
+
+msgctxt "Offer budget period short"
+msgid "yr"
+msgstr "Jo."
+
+msgctxt "Offer budget unit"
+msgid "seat"
+msgstr "Aarbechtsplaz"

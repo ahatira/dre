@@ -1,0 +1,325 @@
+# PL translation for ps_compare module.
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_compare\n"
+"PO-Revision-Date: 2026-06-12 00:00+0000\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "@site — Property comparison"
+msgstr "@site — Porównanie nieruchomości"
+
+msgid "Add a short note for the recipient (optional)."
+msgstr "Dodaj krótką notatkę dla odbiorcy (opcjonalnie)."
+
+msgid "Add at least one more listing to be able to compare."
+msgstr "Dodaj co najmniej jeszcze jedną ofertę, aby móc porównać."
+
+msgid "Added to comparison."
+msgstr "Dodano do porównania."
+
+msgid "Area"
+msgstr "Powierzchnia"
+
+msgid "Availability"
+msgstr "Dostępność"
+
+msgid "Back to search"
+msgstr "Powrót do wyszukiwania"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "Collapsible feature groups only"
+msgstr "Tylko zwijane grupy cech"
+
+msgid "Comparator"
+msgstr "Porównywarka"
+
+msgid "Comparator (@count ads)"
+msgstr "Porównywarka (@count ogłoszeń)"
+
+msgid "Compare"
+msgstr "Porównaj"
+
+msgid "Compare page display"
+msgstr "Wyświetlanie strony porównania"
+
+msgid "Compare properties"
+msgstr "Porównaj nieruchomości"
+
+msgid "Compare selection"
+msgstr "Porównaj wybór"
+
+msgid "Compare table columns"
+msgstr "Kolumny tabeli porównania"
+
+msgid "Comparison"
+msgstr "Porównanie"
+
+msgid "Comparison limits"
+msgstr "Limity porównania"
+
+msgid "Comparison sent to @email."
+msgstr "Porównanie wysłano na @email."
+
+msgid "Comparison settings"
+msgstr "Ustawienia porównania"
+
+msgid "Configure property comparison limits and targets."
+msgstr "Skonfiguruj limity i cele porównania."
+
+msgid "Configure UX options for the comparison table and modal."
+msgstr "Skonfiguruj opcje UX tabeli porównania i modala."
+
+msgid "Divisible"
+msgstr "Podzielny"
+
+msgid "DPE"
+msgstr "DPE"
+
+msgid "Empty comparison slot"
+msgstr "Puste miejsce porównania"
+
+msgid "Enable collapsible sections"
+msgstr "Włącz zwijane sekcje"
+
+msgid "Enabled targets"
+msgstr "Włączone cele"
+
+msgid "Energy performance"
+msgstr "Charakterystyka energetyczna"
+
+msgid "Exclusivity"
+msgstr "Wyłączność"
+
+msgid "GES"
+msgstr "GES"
+
+msgid "I have read and accept the terms of the Personal Data Protection Policy."
+msgstr "Przeczytałem/am i akceptuję warunki Polityki ochrony danych osobowych."
+
+msgid "If the button does not work, copy the following URL into your browser:"
+msgstr "Jeśli przycisk nie działa, skopiuj poniższy adres URL do przeglądarki:"
+
+msgid "Install the Webform module to share a comparison by email."
+msgstr "Zainstaluj moduł Webform, aby udostępnić porównanie e-mailem."
+
+msgid "Invalid CSRF token."
+msgstr "Nieprawidłowy token CSRF."
+
+msgid "Invalid request."
+msgstr "Nieprawidłowe żądanie."
+
+msgid "Layout"
+msgstr "Układ"
+
+msgid "Loading…"
+msgstr "Ładowanie…"
+
+msgid "Location"
+msgstr "Lokalizacja"
+
+msgid "Manage comparison settings and integrations."
+msgstr "Zarządzaj ustawieniami i integracjami porównania."
+
+msgid "Manage Property Search comparison"
+msgstr "Zarządzaj porównaniem Property Search"
+
+msgid "Maximum compared items"
+msgstr "Maksymalna liczba porównywanych ofert"
+
+msgid "Merge DPE and GES on one row"
+msgstr "Połącz DPE i GES w jednym wierszu"
+
+msgid "Minimum items to open comparison page"
+msgstr "Minimalna liczba ofert do otwarcia strony porównania"
+
+msgid "Mobile card layout"
+msgstr "Układ kart na mobile"
+
+msgid "Next"
+msgstr "Nast."
+
+msgid "Next image"
+msgstr "Następne zdjęcie"
+
+msgid "No"
+msgstr "Nie"
+
+msgid "Not enough properties in the comparison list."
+msgstr "Za mało nieruchomości na liście porównania."
+
+msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
+msgstr "Jeden cel na linię w formacie entity_type.bundle (np. node.offer)."
+
+msgid "Open full page"
+msgstr "Otwórz pełną stronę"
+
+msgid "Optional message"
+msgstr "Opcjonalna wiadomość"
+
+msgid "Other features"
+msgstr "Inne cechy"
+
+msgid "Overview"
+msgstr "Przegląd"
+
+msgid "Photos"
+msgstr "Zdjęcia"
+
+msgid "Please enter a valid email address."
+msgstr "Wprowadź prawidłowy adres e-mail."
+
+msgid "Prev"
+msgstr "Poprz."
+
+msgid "Previous image"
+msgstr "Poprzednie zdjęcie"
+
+msgid "Price"
+msgstr "Cena"
+
+msgid "Property comparison"
+msgstr "Porównanie nieruchomości"
+
+msgid "Property type"
+msgstr "Typ nieruchomości"
+
+msgid "Receive my comparison"
+msgstr "Otrzymaj moje porównanie"
+
+msgid "Recipient email"
+msgstr "E-mail odbiorcy"
+
+msgid "Ref. @ref"
+msgstr "Ref. @ref"
+
+msgid "Reference"
+msgstr "Referencja"
+
+msgid "Remove"
+msgstr "Usuń"
+
+msgid "Remove from comparison"
+msgstr "Usuń z porównania"
+
+msgid "Remove this property from comparison?"
+msgstr "Usunąć tę nieruchomość z porównania?"
+
+msgid "Remove “@title” from comparison?"
+msgstr "Usunąć « @title » z porównania?"
+
+msgid "Removed from comparison."
+msgstr "Usunięto z porównania."
+
+msgid "Select at least @min properties to compare."
+msgstr "Wybierz co najmniej @min nieruchomości do porównania."
+
+msgid "Select at least @min properties to share a comparison."
+msgstr "Wybierz co najmniej @min nieruchomości, aby udostępnić porównanie."
+
+msgid "Select listings from the search results to compare."
+msgstr "Wybierz oferty z wyników wyszukiwania do porównania."
+
+msgid "Send comparison"
+msgstr "Wyślij porównanie"
+
+msgid "Send my selection"
+msgstr "Wyślij mój wybór"
+
+msgid "Share comparison"
+msgstr "Udostępnij porównanie"
+
+msgid "Share offcanvas footer"
+msgstr "Stopka offcanvas udostępniania"
+
+msgid "Show price info popover"
+msgstr "Pokaż popover informacji o cenie"
+
+msgid "Show section navigation"
+msgstr "Pokaż nawigację sekcji"
+
+msgid "Show summary banner"
+msgstr "Pokaż baner podsumowania"
+
+msgid "Show undo toast when removing a property"
+msgstr "Pokaż toast cofnięcia przy usuwaniu nieruchomości"
+
+msgid "Show “Send my selection” share button"
+msgstr "Pokaż przycisk « Wyślij mój wybór »"
+
+msgid "Sticky view-property bar"
+msgstr "Przyklejony pasek « Zobacz nieruchomość »"
+
+msgid "Summary"
+msgstr "Podsumowanie"
+
+msgid "Terms & availability"
+msgstr "Warunki i dostępność"
+
+msgid "The comparison share form is not available yet."
+msgstr "Formularz udostępniania porównania nie jest jeszcze dostępny."
+
+msgid "The consultant phone and opening hours in the share offcanvas are managed under <a href=\":url\">PS Core settings</a>."
+msgstr "Telefon doradcy i godziny otwarcia w offcanvas udostępniania są zarządzane w <a href=\":url\">ustawieniach PS Core</a>."
+
+msgid "This comparison link is invalid or has expired. At least @min valid property references are required."
+msgstr "Ten link porównania jest nieprawidłowy lub wygasł. Wymagane co najmniej @min prawidłowych referencji."
+
+msgid "Transaction type"
+msgstr "Typ transakcji"
+
+msgid "Unable to add this property to the comparison right now."
+msgstr "Nie można teraz dodać tej nieruchomości do porównania."
+
+msgid "Unable to send the comparison. Check the email address and try again."
+msgstr "Nie udało się wysłać porównania. Sprawdź adres e-mail i spróbuj ponownie."
+
+msgid "Unable to send the comparison. Please try again."
+msgstr "Nie udało się wysłać porównania. Spróbuj ponownie."
+
+msgid "Unable to update comparison right now."
+msgstr "Nie można teraz zaktualizować porównania."
+
+msgid "Undo"
+msgstr "Cofnij"
+
+msgid "Unsupported entity target."
+msgstr "Nieobsługiwany cel encji."
+
+msgid "View full comparison online"
+msgstr "Zobacz pełne porównanie online"
+
+msgid "View property"
+msgstr "Zobacz nieruchomość"
+
+msgid "Yes"
+msgstr "Tak"
+
+msgid "You can't compare more than @max ads at the same time. Delete one to add this one."
+msgstr "Nie możesz porównać więcej niż @max ogłoszeń jednocześnie. Usuń jedno, aby dodać to."
+
+msgid "You have not selected any properties to compare yet."
+msgstr "Nie wybrano jeszcze nieruchomości do porównania."
+
+msgid "—"
+msgstr "—"
+
+msgctxt "Offer budget period short"
+msgid "mo"
+msgstr "mies."
+
+msgctxt "Offer budget period short"
+msgid "yr"
+msgstr "rok"
+
+msgctxt "Offer budget unit"
+msgid "seat"
+msgstr "stanowisko"
