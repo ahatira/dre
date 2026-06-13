@@ -194,7 +194,13 @@
       }
       return;
     }
-    if (eventDetail?.isCompared === false || (typeof eventDetail?.count === 'number' && eventDetail.count < 2)) {
+    const minItems = settings().minItems || 2;
+    const count = typeof eventDetail?.count === 'number' ? eventDetail.count : null;
+    if (eventDetail?.isCompared === false || (count !== null && count < minItems)) {
+      if (count !== null && count >= minItems) {
+        await loadCompareModalContent();
+        return;
+      }
       if (Drupal.psCompareUndo?.shouldDeferModalClose?.()) {
         return;
       }
@@ -214,6 +220,11 @@
       return;
     }
     instance.show();
+  };
+
+  Drupal.psComparePanel = {
+    loadCompareModalContent,
+    refreshCompareModalIfOpen,
   };
 
   const fetchPanel = async() => {

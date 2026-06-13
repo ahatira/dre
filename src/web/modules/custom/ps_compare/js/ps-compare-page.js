@@ -78,6 +78,26 @@
 
   document.addEventListener('psCompare:changed', (event) => {
     if (document.querySelector('[data-ps-compare-modal-body] .ps-compare-page')) {
+      const detail = event.detail || {};
+      if (detail.restored) {
+        const minItems = (drupalSettings.psCompare || {}).minItems || 2;
+        if (typeof detail.count === 'number' && detail.count >= minItems) {
+          Drupal.psComparePanel?.loadCompareModalContent?.();
+        }
+        return;
+      }
+
+      if (detail.isCompared === false) {
+        const minItems = (drupalSettings.psCompare || {}).minItems || 2;
+        const count = typeof detail.count === 'number' ? detail.count : 0;
+        if (count >= minItems && Drupal.psCompareUndo?.shouldDeferReload?.()) {
+          return;
+        }
+        if (count >= minItems) {
+          Drupal.psComparePanel?.loadCompareModalContent?.();
+          return;
+        }
+      }
       return;
     }
 
@@ -98,6 +118,18 @@
     }
 
     if (detail.isCompared === false || (typeof detail.count === 'number' && detail.count < 2)) {
+      const minItems = (drupalSettings.psCompare || {}).minItems || 2;
+      const count = typeof detail.count === 'number' ? detail.count : 0;
+
+      if (count >= minItems && Drupal.psCompareUndo?.shouldDeferReload?.()) {
+        return;
+      }
+
+      if (count >= minItems) {
+        Drupal.psCompareUndo?.refreshComparePage?.();
+        return;
+      }
+
       if (Drupal.psCompareUndo?.shouldDeferReload?.()) {
         Drupal.psCompareUndo.scheduleDeferredReload(() => {
           window.location.reload();

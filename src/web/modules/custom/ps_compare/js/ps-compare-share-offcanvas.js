@@ -150,6 +150,39 @@
     window.setTimeout(onShareOffcanvasOpen, 300);
   };
 
+  const focusShareConfirmation = () => {
+    const offcanvasEl = getShareOffcanvasElement();
+    if (!offcanvasEl) {
+      return;
+    }
+
+    const confirmation = offcanvasEl.querySelector('.webform-confirmation, [data-ps-compare-share-success]');
+    if (!confirmation) {
+      return;
+    }
+
+    const scrollHost = offcanvasEl.querySelector('.offcanvas-body, .ui-dialog-content, .ps-compare-share-offcanvas__content')
+      || offcanvasEl;
+    scrollHost.scrollTop = 0;
+    confirmation.scrollIntoView({ block: 'nearest' });
+    confirmation.setAttribute('tabindex', '-1');
+    confirmation.focus({ preventScroll: true });
+  };
+
+  const bindShareFormAjax = () => {
+    if (typeof $ === 'undefined') {
+      return;
+    }
+
+    $(document).off('ajaxComplete.psCompareShareForm').on('ajaxComplete.psCompareShareForm', (_event, _xhr, settings) => {
+      const payload = typeof settings?.data === 'string' ? settings.data : '';
+      if (!payload.includes('compare_share') && !String(settings?.url || '').includes('compare_share')) {
+        return;
+      }
+      window.requestAnimationFrame(focusShareConfirmation);
+    });
+  };
+
   const bindOffcanvasStack = (offcanvasEl) => {
     offcanvasEl.addEventListener('show.bs.offcanvas', onShareOffcanvasOpen);
     offcanvasEl.addEventListener('shown.bs.offcanvas', onShareOffcanvasOpen);
@@ -193,6 +226,7 @@
       once('ps-compare-share-stack', 'body', context).forEach(() => {
         $(document).on('dialogopen.psCompareShare', '#drupal-off-canvas', onShareOffcanvasOpen);
         $(document).on('dialogclose.psCompareShare', '#drupal-off-canvas', onShareOffcanvasClose);
+        bindShareFormAjax();
       });
 
       once('ps-compare-share-offcanvas-stack', '#drupal-off-canvas.ps-compare-share-offcanvas, .offcanvas.ps-compare-share-offcanvas', context).forEach((offcanvasEl) => {

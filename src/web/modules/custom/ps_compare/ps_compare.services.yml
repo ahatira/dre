@@ -175,11 +175,8 @@ services:
   Drupal\ps_compare\Hook\CompareWebformHooks:
     class: Drupal\ps_compare\Hook\CompareWebformHooks
     arguments:
-      - '@ps_compare.manager'
-      - '@ps_compare.email_sender'
       - '@ps_compare.path_resolver'
       - '@request_stack'
-      - '@messenger'
       - '@current_user'
       - '@ps_core.site_urgency_contact'
 

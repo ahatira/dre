@@ -104,11 +104,6 @@ final class ComparePageBuilder {
       ];
     }
 
-    $leadingRows = [];
-    $photosRow = $this->buildPhotosRow($offers);
-    if ($photosRow !== NULL) {
-      $leadingRows[] = $photosRow;
-    }
     $sections = array_merge($this->buildStaticSections($offers), $this->buildFeatureSections($offers));
     $sections = array_values(array_filter($sections, static fn (array $section): bool => ($section['rows'] ?? []) !== []));
 
@@ -121,7 +116,7 @@ final class ComparePageBuilder {
       '#context' => $context,
       '#columns' => $columns,
       '#sections' => $sections,
-      '#leading_rows' => $leadingRows,
+      '#photos_label' => $this->t('Photos'),
       '#display' => $display,
       '#toolbar' => $this->buildToolbar($display),
       '#compare_url' => $shareUrl,
@@ -231,31 +226,6 @@ final class ComparePageBuilder {
     }
 
     return $sections;
-  }
-
-  /**
-   * Gallery row — first row in the comparison table body (no section header).
-   *
-   * @param \Drupal\node\NodeInterface[] $offers
-   *
-   * @return array<string, mixed>|null
-   */
-  private function buildPhotosRow(array $offers): ?array {
-    $cells = [];
-    foreach ($offers as $offer) {
-      assert($offer instanceof NodeInterface);
-      $cells[] = $this->wrapCell($this->buildGalleryCarouselCell($offer));
-    }
-
-    if ($this->areAllCellsEmpty($cells)) {
-      return NULL;
-    }
-
-    return [
-      'id' => 'photos',
-      'label' => $this->t('Photos'),
-      'cells' => $cells,
-    ];
   }
 
   /**
@@ -460,17 +430,28 @@ final class ComparePageBuilder {
 
     $showActions = !$this->sharedView && $this->renderContext !== CompareRenderContext::EMAIL;
     $address = trim((string) ($summary['location'] ?? ''));
+    $gallery = $this->buildGalleryCarouselCell($offer);
+    if ($this->isEmptyRenderable($gallery)) {
+      $gallery = NULL;
+    }
 
     return [
       '#theme' => 'ps_compare_table_column_header',
       '#title' => $title,
       '#url' => $offer->toUrl()->toString(),
       '#address' => $address,
-      '#gallery' => NULL,
+      '#gallery' => $gallery,
       '#favorite' => $showActions ? $this->favoriteLazyBuilder->buildButtonRenderable($offer, 'search') : NULL,
-      '#remove' => $showActions ? $this->lazyBuilder->buildButtonRenderable($offer, 'search') : NULL,
+      '#remove' => $showActions ? $this->lazyBuilder->buildButtonRenderable($offer, 'compare-table') : NULL,
       '#show_actions' => $showActions,
     ];
+  }
+
+  /**
+   * Whether a render array represents an intentionally empty compare cell.
+   */
+  private function isEmptyRenderable(array $build): bool {
+    return isset($build['#markup']) && trim(strip_tags((string) $build['#markup'])) === '';
   }
 
   /**

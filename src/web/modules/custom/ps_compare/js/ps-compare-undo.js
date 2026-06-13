@@ -215,6 +215,58 @@
     return true;
   };
 
+  const animateColumnRemoval = (detail) => {
+    if (!detail?.entityTypeId || !detail?.entityId) {
+      return false;
+    }
+
+    const button = document.querySelector(
+      `[data-ps-compare-table] [data-ps-compare-toggle][data-entity-type-id="${detail.entityTypeId}"][data-entity-id="${detail.entityId}"]`,
+    );
+    const cell = button?.closest('.ps-compare-table__cell, .ps-compare-table__cell--photos');
+    if (!cell) {
+      return false;
+    }
+
+    const table = cell.closest('[data-ps-compare-table]');
+    if (!table) {
+      return false;
+    }
+
+    const columnIndex = cell.cellIndex;
+    if (columnIndex < 1) {
+      return false;
+    }
+
+    table.querySelectorAll('tr').forEach((row) => {
+      const target = row.cells[columnIndex];
+      if (target) {
+        target.classList.add('is-removing');
+      }
+    });
+    return true;
+  };
+
+  const refreshOpenCompareTable = async (detail) => {
+    const minItems = getMinItems();
+    const count = typeof detail?.count === 'number' ? detail.count : null;
+
+    if (document.querySelector('[data-ps-compare-modal].show')) {
+      if (count !== null && count >= minItems) {
+        await Drupal.psComparePanel?.loadCompareModalContent?.();
+      }
+      return;
+    }
+
+    if (
+      document.querySelector('[data-ps-compare-page]')
+      && count !== null
+      && count >= minItems
+    ) {
+      await refreshComparePage();
+    }
+  };
+
   Drupal.psCompareUndo = {
     shouldDeferReload: () => getSavedRemoved() !== null,
     shouldDeferModalClose: () => getSavedRemoved() !== null,
@@ -257,13 +309,7 @@
       restoreRemoved,
     );
 
-    const minItems = getMinItems();
-    if (
-      document.querySelector('[data-ps-compare-page]')
-      && typeof detail.count === 'number'
-      && detail.count >= minItems
-    ) {
-      refreshComparePage();
-    }
+    animateColumnRemoval(detail);
+    refreshOpenCompareTable(detail);
   });
 })(Drupal);

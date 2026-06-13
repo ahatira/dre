@@ -8,12 +8,15 @@
   data-ps-compare-context="{{ context }}"
   data-label-add="{{ label_add }}"
   data-label-remove="{{ label_remove }}"
+  {% if context == 'compare-table' %}
+    data-ps-compare-remove-confirm
+  {% endif %}
   aria-pressed="{{ is_compared ? 'true' : 'false' }}"
   aria-label="{{ is_compared ? label_remove : label_add }}"
   title="{{ is_compared ? label_remove : label_add }}"
 >
   <span class="ps-compare-button__icon" aria-hidden="true">
-    {% if context == 'compare-page' %}
+    {% if context == 'compare-page' or context == 'compare-table' %}
       <span class="ps-compare-button__icon-close">&times;</span>
     {% else %}
       <span class="ps-compare-button__icon-state ps-compare-button__icon-state--inactive">

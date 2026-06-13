@@ -60,8 +60,54 @@
   white-space: nowrap;
 }
 
-.ps-compare-button__icon-filled {
-  color: #c03a78;
+.ps-compare-button__icon-close {
+  color: #434f57;
+  display: inline-flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  height: 1.5rem;
+  line-height: 1;
+  width: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-compare-button--compare-table.is-active {
+  color: #434f57;
+}
+
+.ps-compare-remove-confirm-popover {
+  --bs-popover-max-width: 16rem;
+  z-index: 1100;
+}
+
+.ps-compare-remove-confirm__text {
+  color: #333;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ps-compare-remove-confirm__actions .btn {
+  flex: 1 1 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  min-height: 2rem;
+}
+
+.ps-compare-table__cell.is-removing,
+.ps-compare-table__cell--photos.is-removing {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-compare-table__cell.is-removing,
+  .ps-compare-table__cell--photos.is-removing {
+    transform: none;
+    transition: opacity 0.15s ease;
+  }
 }
 
 .ps-compare-button__icon .bnp-icon {

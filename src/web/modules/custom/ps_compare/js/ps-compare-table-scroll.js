@@ -12,75 +12,55 @@
    * Horizontal scroll + column navigation (CodyHouse-style).
    *
    * @param {HTMLElement} control
-   *   Wrapper with head pin, scroll container and navigation buttons.
+   *   Wrapper with scroll container and navigation buttons.
    */
   function initTableScroll(control) {
     const page = control.closest('[data-ps-compare-page]');
     const scrollEl = control.querySelector('[data-ps-compare-table-scroll]');
-    const headScrollEl = control.querySelector('[data-ps-compare-table-head-scroll]');
-    const headTable = control.querySelector('[data-ps-compare-table-head-table]');
-    const table = control.querySelector('[data-ps-compare-table-body]')
-      || control.querySelector('[data-ps-compare-table]');
+    const table = control.querySelector('[data-ps-compare-table]');
     const prev = control.querySelector('[data-ps-compare-table-prev]');
     const next = control.querySelector('[data-ps-compare-table-next]');
     if (!scrollEl || !table || !prev || !next) {
       return;
     }
 
-    let syncingScroll = false;
-
-    const syncHeadScroll = (scrollLeft) => {
-      if (!headScrollEl || syncingScroll) {
-        return;
-      }
-      syncingScroll = true;
-      headScrollEl.scrollLeft = scrollLeft;
-      syncingScroll = false;
-    };
-
     const syncTableLayout = () => {
-      if (!headTable || !table || !page) {
+      if (!table || !page) {
         return;
       }
 
-      const headRow = headTable.querySelector('tr');
-      const bodyRow = table.querySelector('.ps-compare-table__row');
-      if (!headRow || !bodyRow) {
+      const photosRow = table.querySelector('.ps-compare-table__row--photos');
+      if (!photosRow) {
         return;
       }
 
       const styles = window.getComputedStyle(page);
       const labelWidth = parseFloat(styles.getPropertyValue('--ps-compare-table-label-width')) || 220;
       const columnWidth = parseFloat(styles.getPropertyValue('--ps-compare-table-column-width')) || 280;
-      const columnCount = Math.max(0, headRow.children.length - 1);
+      const columnCount = Math.max(0, photosRow.children.length - 1);
       const totalWidth = labelWidth + (columnWidth * columnCount);
       const tableWidth = `${totalWidth}px`;
-      const headCols = headTable.querySelectorAll('col');
-      const bodyCols = table.querySelectorAll('col');
+      const cols = table.querySelectorAll('col');
 
-      headTable.style.width = tableWidth;
       table.style.width = tableWidth;
 
-      Array.from(headRow.children).forEach((headCell, index) => {
+      Array.from(photosRow.children).forEach((cell, index) => {
         const width = index === 0 ? labelWidth : columnWidth;
         const widthPx = `${width}px`;
 
-        if (headCols[index] instanceof HTMLElement) {
-          headCols[index].style.width = widthPx;
+        if (cols[index] instanceof HTMLElement) {
+          cols[index].style.width = widthPx;
         }
-        if (bodyCols[index] instanceof HTMLElement) {
-          bodyCols[index].style.width = widthPx;
-        }
-        if (headCell instanceof HTMLElement) {
-          headCell.style.width = widthPx;
-          headCell.style.minWidth = widthPx;
-          headCell.style.maxWidth = widthPx;
+        if (cell instanceof HTMLElement) {
+          cell.style.width = widthPx;
+          cell.style.minWidth = widthPx;
+          cell.style.maxWidth = widthPx;
         }
       });
     };
 
     const getStep = () => {
-      const column = table.querySelector('.ps-compare-table__column')
+      const column = table.querySelector('.ps-compare-table__cell--photos')
         || table.querySelector('.ps-compare-table__cell');
       if (!column) {
         return Math.max(scrollEl.clientWidth * 0.75, 240);
@@ -122,11 +102,6 @@
       });
     };
 
-    const onBodyScroll = () => {
-      syncHeadScroll(scrollEl.scrollLeft);
-      updateScrollState();
-    };
-
     prev.addEventListener('click', (event) => {
       event.preventDefault();
       scrollByStep(-1);
@@ -137,7 +112,7 @@
       scrollByStep(1);
     });
 
-    scrollEl.addEventListener('scroll', onBodyScroll, { passive: true });
+    scrollEl.addEventListener('scroll', updateScrollState, { passive: true });
     window.addEventListener('resize', updateScrollState, { passive: true });
 
     if (typeof ResizeObserver !== 'undefined') {
@@ -147,7 +122,6 @@
     }
 
     syncTableLayout();
-    syncHeadScroll(scrollEl.scrollLeft);
     updateScrollState();
   }
 

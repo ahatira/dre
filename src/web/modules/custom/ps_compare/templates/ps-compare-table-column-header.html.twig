@@ -1,38 +1,43 @@
 {#
 /**
  * @file
- * Column header card for the comparison table (page + modal).
+ * Property card for the Photos row in the comparison table (page + modal).
  */
 #}
 <div class="ps-compare-table__column-header">
-  <div class="ps-compare-table__column-top">
-    {% if show_actions and (favorite or remove) %}
-      <div class="ps-compare-table__column-actions">
-        {% if remove %}
-          <div class="ps-compare-table__column-action ps-compare-table__column-action--compare">
-            {{ remove }}
-          </div>
-        {% endif %}
-        {% if favorite %}
-          <div class="ps-compare-table__column-action ps-compare-table__column-action--favorite">
-            {{ favorite }}
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
+  {% if gallery %}
+    <div class="ps-compare-table__column-media">
+      {% if show_actions and (favorite or remove) %}
+        <div class="ps-compare-table__column-actions">
+          {% if remove %}
+            <div class="ps-compare-table__column-action ps-compare-table__column-action--compare">
+              {{ remove }}
+            </div>
+          {% endif %}
+          {% if favorite %}
+            <div class="ps-compare-table__column-action ps-compare-table__column-action--favorite">
+              {{ favorite }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {{ gallery }}
+    </div>
+  {% endif %}
+  <div class="ps-compare-table__column-info">
     {% if title %}
       <a href="{{ url }}" class="ps-compare-table__column-title fw-semibold link-body-emphasis text-decoration-none d-block">{{ title }}</a>
     {% endif %}
     {% if address %}
-      <p class="ps-compare-table__column-address mb-0">{{ address }}</p>
+      <p class="ps-compare-table__column-address mb-0">
+        <span class="ps-compare-table__column-address-icon" aria-hidden="true">
+          {{ icon('bnp_custom', 'pin-map', {'size': '16px'}) }}
+        </span>
+        <span class="ps-compare-table__column-address-text">{{ address }}</span>
+      </p>
     {% endif %}
   </div>
   <div class="ps-compare-table__column-body">
-    <a href="{{ url }}" class="btn btn-primary btn-sm w-100 ps-compare-table__column-cta">{{ 'View property'|t }}</a>
+    <a href="{{ url }}" class="btn btn-primary w-100 ps-compare-table__column-cta">{{ 'View property'|t }}</a>
   </div>
-  {% if gallery %}
-    <div class="ps-compare-table__column-media">
-      {{ gallery }}
-    </div>
-  {% endif %}
 </div>

@@ -1,16 +1,5 @@
 /* Compare formatters and mobile layout — page styles live in ps_theme. */
 
-/* Column headers scroll with the table (no pinned/sticky head — avoids modal scroll jank). */
-.ps-compare-table__sentinel {
-  display: none;
-}
-
-.ps-compare-table__head-pin {
-  position: relative !important;
-  top: auto !important;
-  z-index: 1;
-}
-
 .ps-compare-energy-combined__item {
   min-width: 0;
 }

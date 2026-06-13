@@ -116,16 +116,39 @@ body:has([data-ps-compare-modal].show) .ui-dialog.ps-compare-share-offcanvas {
 }
 
 .ps-compare-share-offcanvas .webform-confirmation,
-.ps-compare-share-offcanvas .webform-confirmation__message,
-.ps-compare-share__success {
-  background: var(--bnp-color-primary-soft, #e6f4ee);
-  border: 1px solid rgba(0, 145, 90, 0.2);
-  border-radius: 4px;
+.ps-compare-share-confirmation {
   color: var(--re-color-text-strong, #333);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
-  padding: 1rem;
+}
+
+.ps-compare-share-offcanvas .webform-confirmation__message,
+.ps-compare-share-confirmation .webform-confirmation__message,
+.ps-compare-share__success-message {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  margin: 0;
+}
+
+.ps-compare-share-offcanvas .webform-confirmation__message p:last-child,
+.ps-compare-share-confirmation .webform-confirmation__message p:last-child {
+  margin-bottom: 0;
+}
+
+.ps-compare-share-offcanvas .webform-confirmation__back {
+  display: none;
+}
+
+.ps-compare-share-offcanvas:has(.webform-confirmation) .webform-submission-form,
+.ps-compare-share-offcanvas:has(.ps-compare-share-confirmation) .webform-submission-form {
+  display: none;
+}
+
+.ps-compare-share__success {
+  margin: 0;
 }
 
 .ps-compare-share__success-message {

@@ -56,6 +56,7 @@ settings:
   form_submit_label: 'Receive my comparison'
   confirmation_type: inline
   confirmation_message: '<p>Your comparison has been sent by email.</p>'
+  confirmation_back: false
 access:
   create:
     roles:

@@ -57,7 +57,11 @@ final class CompareShareOffcanvasController extends ControllerBase {
       '#theme' => 'ps_compare_share_offcanvas',
       '#webform' => $this->entityTypeManager()->getViewBuilder('webform')->view($webform, 'default'),
       '#attached' => [
-        'library' => ['ps_compare/compare-share-offcanvas', 'ps_theme/form'],
+        'library' => [
+          'ps_compare/compare-share-offcanvas',
+          'ps_theme/form',
+          'webform/webform.ajax',
+        ],
       ],
       '#cache' => [
         'max-age' => 0,

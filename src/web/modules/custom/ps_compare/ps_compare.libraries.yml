@@ -1,5 +1,5 @@
 compare-toggle:
-  version: 1.8
+  version: 1.9
   js:
     js/ps-compare-toggle.js: {}
     js/ps-compare-toast.js: {}
@@ -14,7 +14,7 @@ compare-toggle:
     - ui_suite_bnp/bootstrap
 
 compare-panel:
-  version: 1.15
+  version: 1.16
   js:
     js/ps-compare-panel.js: {}
   css:
@@ -32,11 +32,12 @@ compare-panel:
     - ui_suite_bnp/bootstrap
 
 compare-page:
-  version: 1.15
+  version: 1.18
   js:
     js/ps-compare-page.js: {}
     js/ps-compare-gallery.js: {}
     js/ps-compare-table-scroll.js: {}
+    js/ps-compare-remove-confirm.js: {}
   css:
     theme:
       css/ps-compare-page.css: {}
@@ -51,7 +52,7 @@ compare-page:
     - ui_suite_bnp/bootstrap
 
 compare-share-offcanvas:
-  version: 1.6
+  version: 1.9
   js:
     js/ps-compare-share-offcanvas.js: {}
   css:
