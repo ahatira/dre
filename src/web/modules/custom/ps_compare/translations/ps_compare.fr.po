@@ -1,18 +1,55 @@
+# FR translation for ps_compare module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"POT-Creation-Date: 2026-06-12 00:00+0000\n"
 "PO-Revision-Date: 2026-06-12 00:00+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "@site — Property comparison"
+msgstr "@site — Comparateur immobilier"
+
+msgid "Add a short note for the recipient (optional)."
+msgstr "Ajoutez une courte note pour le destinataire (facultatif)."
 
 msgid "Add at least one more listing to be able to compare."
-msgstr "Ajouter au moins une deuxième annonce pour pouvoir comparer."
+msgstr "Ajoutez au moins une deuxième annonce pour pouvoir comparer."
+
+msgid "Added to comparison."
+msgstr "Ajouté au comparateur."
+
+msgid "Area"
+msgstr "Surface"
+
+msgid "Availability"
+msgstr "Disponibilité"
+
+msgid "Back to search"
+msgstr "Retour à la recherche"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Collapsible feature groups only"
+msgstr "Groupes de caractéristiques repliables uniquement"
 
 msgid "Comparator"
 msgstr "Comparateur"
+
+msgid "Comparator (@count ads)"
+msgstr "Comparateur (@count annonces)"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Compare page display"
+msgstr "Affichage de la page comparateur"
 
 msgid "Compare properties"
 msgstr "Comparateur"
@@ -20,98 +57,269 @@ msgstr "Comparateur"
 msgid "Compare selection"
 msgstr "Comparer la sélection"
 
-msgid "Send my selection"
-msgstr "Envoyer ma sélection"
+msgid "Compare table columns"
+msgstr "Colonnes du tableau comparateur"
 
-msgid "View property"
-msgstr "Voir l'annonce"
+msgid "Comparison"
+msgstr "Comparateur"
 
-msgid "Share comparison"
-msgstr "Envoyer ma sélection"
+msgid "Comparison limits"
+msgstr "Limites du comparateur"
 
-msgid "Receive my comparison"
-msgstr "Recevoir mon comparatif"
+msgid "Comparison sent to @email."
+msgstr "Comparatif envoyé à @email."
 
-msgid "Open full page"
-msgstr "Ouvrir en pleine page"
+msgid "Comparison settings"
+msgstr "Paramètres du comparateur"
 
-msgid "Close"
-msgstr "Fermer"
+msgid "Configure property comparison limits and targets."
+msgstr "Configurer les limites et les cibles du comparateur."
 
-msgid "Loading…"
-msgstr "Chargement…"
-
-msgid "Layout"
-msgstr "Aménagement"
-
-msgid "Area"
-msgstr "Surface"
-
-msgid "Price"
-msgstr "Prix"
-
-msgid "Overview"
-msgstr "Informations générales"
-
-msgid "Undo"
-msgstr "Annuler"
-
-msgid "Removed from comparison."
-msgstr "Retiré du comparateur."
-
-msgid "Added to comparison."
-msgstr "Ajouté au comparateur."
-
-msgid "Remove from comparison"
-msgstr "Retirer du comparateur"
-
-msgid "Compare"
-msgstr "Comparer"
-
-msgid "Terms & availability"
-msgstr "Conditions et disponibilité"
-
-msgid "Energy performance"
-msgstr "Performance énergétique"
-
-msgid "Transaction type"
-msgstr "Type de transaction"
-
-msgid "Property type"
-msgstr "Type de bien"
-
-msgid "Reference"
-msgstr "Référence"
-
-msgid "Location"
-msgstr "Localisation"
-
-msgid "Availability"
-msgstr "Disponibilité"
-
-msgid "Exclusivity"
-msgstr "Exclusivité"
+msgid "Configure UX options for the comparison table and modal."
+msgstr "Configurer les options UX du tableau comparateur et de la modale."
 
 msgid "Divisible"
 msgstr "Divisible"
 
-msgid "Summary"
-msgstr "Synthèse"
+msgid "DPE"
+msgstr "DPE"
 
-msgid "Photos"
-msgstr "Photos"
+msgid "Empty comparison slot"
+msgstr "Emplacement de comparaison vide"
+
+msgid "Enable collapsible sections"
+msgstr "Activer les sections repliables"
+
+msgid "Enabled targets"
+msgstr "Cibles activées"
+
+msgid "Energy performance"
+msgstr "Performance énergétique"
+
+msgid "Exclusivity"
+msgstr "Exclusivité"
+
+msgid "GES"
+msgstr "GES"
+
+msgid "I have read and accept the terms of the Personal Data Protection Policy."
+msgstr "J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles."
+
+msgid "If the button does not work, copy the following URL into your browser:"
+msgstr "Si le bouton ne fonctionne pas, copiez l'URL suivante dans votre navigateur :"
+
+msgid "Install the Webform module to share a comparison by email."
+msgstr "Installez le module Webform pour partager un comparatif par e-mail."
+
+msgid "Invalid CSRF token."
+msgstr "Jeton CSRF invalide."
+
+msgid "Invalid request."
+msgstr "Requête invalide."
+
+msgid "Layout"
+msgstr "Aménagement"
+
+msgid "Loading…"
+msgstr "Chargement…"
+
+msgid "Location"
+msgstr "Localisation"
+
+msgid "Manage comparison settings and integrations."
+msgstr "Gérer les paramètres et intégrations du comparateur."
+
+msgid "Manage Property Search comparison"
+msgstr "Gérer le comparateur Property Search"
+
+msgid "Maximum compared items"
+msgstr "Nombre maximum d'annonces comparées"
+
+msgid "Merge DPE and GES on one row"
+msgstr "Fusionner DPE et GES sur une seule ligne"
+
+msgid "Minimum items to open comparison page"
+msgstr "Minimum d'annonces pour ouvrir la page comparateur"
+
+msgid "Mobile card layout"
+msgstr "Mise en page cartes mobile"
+
+msgid "Next"
+msgstr "Suiv."
+
+msgid "Next image"
+msgstr "Image suivante"
 
 msgid "No"
 msgstr "Non"
 
-msgid "Yes"
-msgstr "Oui"
+msgid "Not enough properties in the comparison list."
+msgstr "Pas assez d'annonces dans la liste de comparaison."
+
+msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
+msgstr "Une cible par ligne au format entity_type.bundle (ex. node.offer)."
+
+msgid "Open full page"
+msgstr "Ouvrir en pleine page"
+
+msgid "Optional message"
+msgstr "Message facultatif"
+
+msgid "Other features"
+msgstr "Autres caractéristiques"
+
+msgid "Overview"
+msgstr "Informations générales"
+
+msgid "Photos"
+msgstr "Photos"
+
+msgid "Please enter a valid email address."
+msgstr "Veuillez saisir une adresse e-mail valide."
+
+msgid "Prev"
+msgstr "Préc."
+
+msgid "Previous image"
+msgstr "Image précédente"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "Property comparison"
+msgstr "Comparateur immobilier"
+
+msgid "Property type"
+msgstr "Type de bien"
+
+msgid "Receive my comparison"
+msgstr "Recevoir mon comparatif"
+
+msgid "Recipient email"
+msgstr "E-mail du destinataire"
 
 msgid "Ref. @ref"
 msgstr "Réf. @ref"
 
+msgid "Reference"
+msgstr "Référence"
+
+msgid "Remove"
+msgstr "Retirer"
+
+msgid "Remove from comparison"
+msgstr "Retirer du comparateur"
+
+msgid "Remove this property from comparison?"
+msgstr "Retirer cette annonce du comparateur ?"
+
+msgid "Remove “@title” from comparison?"
+msgstr "Retirer « @title » du comparateur ?"
+
+msgid "Removed from comparison."
+msgstr "Retiré du comparateur."
+
 msgid "Select at least @min properties to compare."
 msgstr "Sélectionnez au moins @min annonces pour comparer."
 
+msgid "Select at least @min properties to share a comparison."
+msgstr "Sélectionnez au moins @min annonces pour partager un comparatif."
+
+msgid "Select listings from the search results to compare."
+msgstr "Sélectionnez des annonces dans les résultats de recherche pour comparer."
+
+msgid "Send comparison"
+msgstr "Envoyer le comparatif"
+
+msgid "Send my selection"
+msgstr "Envoyer ma sélection"
+
+msgid "Share comparison"
+msgstr "Envoyer ma sélection"
+
+msgid "Share offcanvas footer"
+msgstr "Pied de page offcanvas partage"
+
+msgid "Show price info popover"
+msgstr "Afficher l'infobulle prix"
+
+msgid "Show section navigation"
+msgstr "Afficher la navigation par sections"
+
+msgid "Show summary banner"
+msgstr "Afficher la bannière de synthèse"
+
+msgid "Show undo toast when removing a property"
+msgstr "Afficher le toast d'annulation lors du retrait d'une annonce"
+
+msgid "Show “Send my selection” share button"
+msgstr "Afficher le bouton de partage « Envoyer ma sélection »"
+
+msgid "Sticky view-property bar"
+msgstr "Barre fixe « Voir l'annonce »"
+
+msgid "Summary"
+msgstr "Synthèse"
+
+msgid "Terms & availability"
+msgstr "Conditions et disponibilité"
+
+msgid "The comparison share form is not available yet."
+msgstr "Le formulaire de partage du comparatif n'est pas encore disponible."
+
+msgid "The consultant phone and opening hours in the share offcanvas are managed under <a href=\":url\">PS Core settings</a>."
+msgstr "Le téléphone du conseiller et les horaires d'ouverture dans l'offcanvas de partage sont gérés dans les <a href=\":url\">paramètres PS Core</a>."
+
+msgid "This comparison link is invalid or has expired. At least @min valid property references are required."
+msgstr "Ce lien de comparatif est invalide ou a expiré. Au moins @min références d'annonces valides sont requises."
+
+msgid "Transaction type"
+msgstr "Type de transaction"
+
+msgid "Unable to add this property to the comparison right now."
+msgstr "Impossible d'ajouter cette annonce au comparateur pour le moment."
+
+msgid "Unable to send the comparison. Check the email address and try again."
+msgstr "Impossible d'envoyer le comparatif. Vérifiez l'adresse e-mail et réessayez."
+
+msgid "Unable to send the comparison. Please try again."
+msgstr "Impossible d'envoyer le comparatif. Veuillez réessayer."
+
+msgid "Unable to update comparison right now."
+msgstr "Impossible de mettre à jour le comparateur pour le moment."
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Unsupported entity target."
+msgstr "Cible d'entité non prise en charge."
+
+msgid "View full comparison online"
+msgstr "Voir le comparatif en ligne"
+
+msgid "View property"
+msgstr "Voir l'annonce"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "You can't compare more than @max ads at the same time. Delete one to add this one."
+msgstr "Vous ne pouvez pas comparer plus de @max annonces en même temps. Supprimez-en une pour ajouter celle-ci."
+
 msgid "You have not selected any properties to compare yet."
 msgstr "Vous n'avez pas encore sélectionné d'annonces à comparer."
+
+msgid "—"
+msgstr "—"
+
+msgctxt "Offer budget period short"
+msgid "mo"
+msgstr "mo"
+
+msgctxt "Offer budget period short"
+msgid "yr"
+msgstr "an"
+
+msgctxt "Offer budget unit"
+msgid "seat"
+msgstr "poste"
