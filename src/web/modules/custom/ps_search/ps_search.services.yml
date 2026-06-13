@@ -39,6 +39,22 @@ services:
     tags:
       - { name: event_subscriber }
 
+  ps_search.cross_language_slug_redirect_subscriber:
+    class: Drupal\ps_search\EventSubscriber\SearchCrossLanguageSlugRedirectSubscriber
+    arguments:
+      - '@language_manager'
+      - '@ps_search.search_path_resolver'
+      - '@config.factory'
+    tags:
+      - { name: event_subscriber }
+
+  ps_search.content_language_resolver:
+    class: Drupal\ps_search\Service\SearchContentLanguageResolver
+    arguments:
+      - '@database'
+      - '@language_manager'
+      - '@cache.default'
+
   ps_search.location_filter:
     class: Drupal\ps_search\Service\LocationSearchFilter
     arguments:
@@ -138,7 +154,7 @@ services:
     arguments:
       - '@ps_search.location_filter'
       - '@ps_search.more_criteria_applier'
-      - '@language_manager'
+      - '@ps_search.content_language_resolver'
       - '@ps_search.list_sort_applier'
 
   Drupal\ps_search\Contract\SearchQueryFactoryInterface: '@ps_search.query_factory'

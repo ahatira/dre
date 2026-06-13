@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Search\Query;
 
-use Drupal\Core\Language\LanguageInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\ps_search\Contract\SearchQueryFactoryInterface;
 use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\ps_search\Service\MoreCriteriaConditionApplier;
+use Drupal\ps_search\Service\SearchContentLanguageResolver;
 use Drupal\ps_search\ValueObject\MapBounds;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Query\QueryInterface;
@@ -38,7 +37,7 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
   public function __construct(
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
-    private readonly LanguageManagerInterface $languageManager,
+    private readonly SearchContentLanguageResolver $contentLanguageResolver,
     private readonly SearchListSortApplier $sortApplier,
   ) {}
 
@@ -132,28 +131,27 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
   }
 
   /**
-   * Restricts results to the resolved content language (one row per offer).
+   * Restricts results to resolved content language(s), with indexed fallback.
    *
    * Public API routes (/api/ps/*) have no language prefix; callers pass ?lang=
    * from drupalSettings.path.currentLanguage so markers match the search page.
    */
   private function applyContentLanguageFilter(QueryInterface $query, Request $request): void {
-    $langcode = $this->resolveContentLangcode($request);
-    if ($langcode !== '') {
-      $query->addCondition('langcode', $langcode);
-    }
-  }
-
-  /**
-   * Resolves the content language for Search API business-filter queries.
-   */
-  private function resolveContentLangcode(Request $request): string {
-    $langParam = strtolower(trim((string) $request->query->get('lang', '')));
-    if ($langParam !== '' && $this->languageManager->getLanguage($langParam) !== NULL) {
-      return $langParam;
+    $langcodes = $this->contentLanguageResolver->resolveSearchLangcodes($request);
+    if ($langcodes === []) {
+      return;
     }
 
-    return $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+    if (count($langcodes) === 1) {
+      $query->addCondition('langcode', $langcodes[0]);
+      return;
+    }
+
+    $group = $query->createConditionGroup('OR');
+    foreach ($langcodes as $langcode) {
+      $group->addCondition('langcode', $langcode);
+    }
+    $query->addConditionGroup($group);
   }
 
   /**

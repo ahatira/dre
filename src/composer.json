@@ -117,6 +117,7 @@
         "test:offer-ref-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_reference.sh 1",
         "test:offer-sections-e2e": "bash web/modules/custom/ps_offer/tests/e2e_offer_sections.sh 7",
         "test:search-urls-e2e": "bash web/modules/custom/ps_search/tests/b2b_search_urls_security.sh",
+        "test:search-seo-e2e": "bash web/modules/custom/ps_search/tests/e2e_seo_urls.sh",
         "test:search-zone-e2e": "bash web/modules/custom/ps_search/tests/b2b_map_zone.sh",
         "test:search-sync-e2e": "bash web/modules/custom/ps_search/tests/b2b_map_list_count_sync.sh",
         "test:search-budget-e2e": "bash web/modules/custom/ps_search/tests/b2b_budget_filter.sh && bash web/modules/custom/ps_search/tests/b2b_budget_apply.sh",
