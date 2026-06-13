@@ -182,8 +182,10 @@
   border: 0;
   border-radius: 0;
   font-size: 1rem;
-  font-weight: 700;
-  min-height: 3rem;
+  font-weight: 400;
+  height: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0 1rem;
   width: 100%;
 
   &:hover,
@@ -251,16 +253,94 @@
   }
 }
 
-@media (max-width: 575.98px) {
-  .ps-homepage-search-entry__row {
-    grid-template-columns: 1fr;
+@media (max-width: 991.98px) {
+  .ps-homepage-search-form {
+    padding: 1rem 1rem 0;
   }
 
-  .ps-homepage-search-form {
-    padding: 1.25rem 1.25rem 1rem;
+  .ps-homepage-search-entry__section {
+    margin-bottom: 1.5rem;
+  }
+
+  .ps-homepage-search-entry__section-title,
+  .ps-homepage-search-entry__label {
+    margin-bottom: 0.25rem;
+  }
+
+  .ps-homepage-search-entry__label-row {
+    margin-bottom: 0.25rem;
+  }
+
+  .ps-homepage-search-entry__op-group {
+    gap: 1rem;
+  }
+
+  .ps-homepage-search-entry__op-group .ps-op-btn {
+    flex: 0 0 auto;
+    font-size: 1rem;
+    height: 2.25rem;
+    line-height: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .ps-homepage-search-entry__row {
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 1.5rem;
+  }
+
+  .ps-homepage-search-entry .form-select,
+  .ps-homepage-search-entry .form-control,
+  .ps-homepage-search-entry__location-wrap .ps-filter-bar__toggle--stacked {
+    height: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .ps-homepage-search-entry .form-select:invalid,
+  .ps-homepage-search-entry .form-control::placeholder {
+    color: #b4babe;
+  }
+
+  .ps-homepage-search-entry__submit {
+    padding-top: 0;
+  }
+
+  .ps-homepage-search-entry__submit .btn {
+    font-size: 1rem;
+    font-weight: 400;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0 1rem;
   }
 
   .ps-homepage-search-entry__delegate {
-    padding: 1rem 1.25rem;
+    align-items: center;
+    background: #f9f9fb;
+    flex-direction: column;
+    gap: 0.875rem;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .ps-homepage-search-entry__delegate-text {
+    align-items: center;
+    display: flex;
+    font-size: 1rem;
+    gap: 0.25rem;
+    justify-content: center;
+    line-height: 1.5rem;
+  }
+
+  .ps-homepage-search-entry__delegate-btn {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 400;
+    height: 2.25rem;
+    justify-content: center;
+    padding: 0 1rem;
+    width: 100%;
   }
 }

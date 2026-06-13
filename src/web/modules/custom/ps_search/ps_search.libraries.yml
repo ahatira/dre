@@ -39,7 +39,7 @@ header.search:
     - ps_theme/header
 
 homepage.search:
-  version: 1.0.4
+  version: 1.0.5
   js:
     js/homepage-search.js: {}
   css:
