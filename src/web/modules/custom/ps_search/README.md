@@ -100,6 +100,16 @@ On fresh install, `src/scripts/drupal/install.sh` imports all `ps_*.*.po` files 
 
 Validation manuelle navigateur : checklist §12 dans [`docs/SEARCH_L11_VALIDATION.md`](../../../../docs/SEARCH_L11_VALIDATION.md).
 
+## Filtres et matrix Context
+
+La visibilité des filtres **surface / capacité / budget** (barre recherche, hero homepage) est dérivée des règles actives `ps_context` via le service `ps_context.search_filter_visibility` (`SearchFilterVisibilityResolver`).
+
+- Sans actif sélectionné : surface visible, capacité masquée
+- Actif COW : capacité visible, surface masquée
+- Libellés budget (loyer, €/m²/an, €/poste) : combinaison opération × actif
+
+Scénarios recette : `ps_context/docs/RECETTE.md` (CTX-SEARCH-01 à 08).
+
 ## Architecture (résumé)
 
 ```

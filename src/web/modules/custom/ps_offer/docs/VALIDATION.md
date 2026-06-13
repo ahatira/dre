@@ -1,129 +1,91 @@
-# Hooks OOP et validation des offres — Documentation technique
+# Hooks OOP et validation des offres
 
 ## Vue d'ensemble
 
-`ps_offer` implémente la validation métier à la pré-sauvegarde via le pattern **Hook OOP Drupal 11** (`#[Hook()]` attribute), sans aucun code procédural dans `.module`.
+`ps_offer` valide à la pré-sauvegarde via **Hook OOP Drupal 11** (`#[Hook]`) et le service `OfferValidationManager`.
 
 ```
-OfferHooks (src/Hook/)
-    ↓ appelle
-OfferValidationManager (service)
-  ↓ délègue à 2 méthodes privées
-validateBudget | validatePrimaryAgent
+OfferHooks::nodePresave()
+    → OfferValidationManager::apply()
+        → validateBudget()
+        → validateCapacity()      ← matrix : requis si group_capacity visible
+        → validateSurface()       ← matrix : skip si group_surface masqué
+        → validateDivisibility()  ← matrix : skip si group_surface masqué
+        → validatePrimaryAgent()
+        → validateManualReferenceUniqueness()
 ```
 
----
+Form validate séparé : `OfferHooks::validateGallery()` — galerie obligatoire à la publication.
 
-## Pattern Hook OOP (Drupal 11)
+## Pattern Hook OOP
 
-### Classe de hook
+Voir `src/Hook/OfferHooks.php` — logique métier dans le service, pas dans le hook.
 
-```php
-// src/Hook/OfferHooks.php
-final class OfferHooks {
-  public function __construct(
-    private readonly OfferValidationManagerInterface $offerValidationManager,
-  ) {}
+## Pont Context (optionnel)
 
-  #[Hook('node_presave')]
-  public function nodePresave(NodeInterface $node): void {
-    $this->offerValidationManager->apply($node);
-  }
-}
+Si `ps_context` est actif, `OfferContextResolverInterface` est injecté. Détail : [CONTEXT_INTEGRATION.md](CONTEXT_INTEGRATION.md).
+
+## Règles de validation
+
+### `validateBudget()`
+
+- Valeur ≤ 0 ou vide → `field_budget_value` = NULL, reset period/unit
+- Pas de message utilisateur (normalisation import)
+
+### `validateCapacity()`
+
+- Mode `SEAT_BASED` : total > 0
+- `available` ≤ `total`, non négatif
+- Unité `PER_POSTE` : total > 0
+- **Matrix** : si `group_capacity` visible → total > 0 obligatoire (warning brouillon / blocant publication)
+
+### `validateSurface()`
+
+- Au moins une qualification `TOTAL` > 0
+- **Matrix** : ignoré si onglet `group_surface` masqué (COW, etc.)
+
+### `validateDivisibility()`
+
+- Non divisible + DISPO < TOTAL → warning UX
+- **Matrix** : ignoré si `group_surface` masqué
+
+### `validatePrimaryAgent()`
+
+- Publication sans agent → `setUnpublished()` + warning (pas d'exception)
+
+### `validateManualReferenceUniqueness()`
+
+- Mode manuel + doublon `field_reference` → blocant (brouillon et publication)
+
+### `validateGallery()` (form)
+
+- Publication sans `field_media_gallery` → erreur formulaire
+
+## Comportement brouillon vs publication
+
+| Mode | Incohérence bloquante |
+|------|----------------------|
+| Brouillon | `Messenger::addWarning()` |
+| Publication | `addError()` + `EntityStorageException` |
+
+Exception : agent absent → dépublication silencieuse + warning.
+
+## Skip traduction
+
+`apply()` retourne immédiatement si la langue courante ≠ langue par défaut (évite faux positifs sur champs non traduisibles).
+
+## Tests
+
+```bash
+cd src && vendor/bin/phpunit web/modules/custom/ps_offer/tests/src/Unit/OfferValidationManagerTest.php
+cd src && composer test:manual-offer-val
 ```
 
-**Règles** :
-- La classe est dans `src/Hook/`, nommée `*Hooks.php`
-- Le service est déclaré avec la classe elle-même comme ID (autowiring)
-- L'attribut `#[Hook('hook_name')]` remplace la fonction procédurale `hook_*()` du `.module`
-- La logique métier est dans le service, pas dans le hook
+Recette complète : [RECETTE.md](RECETTE.md).
 
-### Pourquoi ce pattern ?
+## Ajouter une règle
 
-| Critère | Hook procédural | Hook OOP |
-|---|---|---|
-| Testabilité | Difficile (fonctions globales) | Facile (mock via interface) |
-| DI | Impossible directement | Natif via constructeur |
-| Cohérence | `.module` gonflé | Classe dédiée, découplée |
-| Drupal 11 | Compatible | Recommandé |
-
----
-
-## Service de validation
-
-### Interface
-
-```php
-interface OfferValidationManagerInterface {
-  public function apply(NodeInterface $node): void;
-}
-```
-
-L'interface permet de mocker le service dans les tests unitaires du hook.
-
-### Orchestration
-
-`apply()` appelle séquentiellement les validateurs métier actifs.
-
-- En **publication** (`isPublished() = true`), les incohérences bloquantes lèvent une `EntityStorageException`.
-- En **publication** (`isPublished() = true`), un message métier explicite est ajouté via `MessengerInterface::addError()` puis une `EntityStorageException` est levée.
-- En **brouillon** (`isPublished() = false`), ces mêmes incohérences remontent en `addWarning()` pour permettre une saisie progressive.
-- Le node peut être modifié directement (ex : dépublication forcée si agent principal absent).
-
----
-
-## Règles de validation détaillées
-
-### 1. `validateBudget()`
-
-- **Condition** : `field_budget_period` défini mais `field_budget_value` absent ou ≤ 0
-- **Action (publication)** : exception bloquante
-- **Action (brouillon)** : warning non bloquant (message courant: `Price value must be greater than 0 when a price period is set.`)
-
-### 2. `validatePrimaryAgent()`
-
-- **Condition** : `field_primary_agent` vide au moment de la sauvegarde
-- **Action** : `$node->setUnpublished()` + `addWarning()` (pas d'exception — l'offre est sauvée en brouillon)
-
----
-
-## Lecture des champs (helper interne)
-
-```php
-private function fieldValue(FieldItemListInterface $list): ?string {
-    $item = $list->first();
-    if ($item === NULL) {
-        return NULL;
-    }
-    return $item->getValue()['value'] ?? NULL;
-}
-```
-
-Retourne `NULL` si le champ est vide, sinon la valeur scalaire. Utilisé par tous les validateurs.
-
----
-
-## Tests unitaires
-
-Les tests utilisent des mocks PHPUnit sur `FieldItemListInterface` pour simuler les états de champs sans base de données.
-
-Helpers de test :
-- `fieldListWithValue(string $value)` — Retourne un mock de liste avec une valeur
-- `emptyFieldList()` — Retourne un mock de liste vide
-
-Cas couverts :
-1. Budget invalide (period sans value) en publication → exception
-2. Budget invalide (period sans value) en brouillon → warning
-3. Offre publiée sans agent → dépublication + warning
-4. No-op pour un node hors bundle `offer`
-
-Voir [`tests/src/Unit/OfferValidationManagerTest.php`](../tests/src/Unit/OfferValidationManagerTest.php).
-
----
-
-## Ajouter une règle de validation
-
-1. Ajouter une méthode privée `validate*()` dans `OfferValidationManager`
-2. L'appeler dans `apply()`
-3. Ajouter un test unitaire dans `OfferValidationManagerTest`
-4. Ne pas modifier `OfferHooks` ni `OfferValidationManagerInterface`
+1. Méthode privée `validate*()` dans `OfferValidationManager`
+2. Appel dans `apply()`
+3. Test unitaire dans `OfferValidationManagerTest`
+4. Si matrix-driven : consulter `OfferContextResolverInterface` comme `validateSurface()`

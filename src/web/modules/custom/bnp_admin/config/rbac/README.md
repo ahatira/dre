@@ -44,4 +44,4 @@ bash src/scripts/main.sh drupal rbac-sync --export
 | `user.role.translate_admin.yml` | `translate_admin` | Admin traduction |
 | `user.role.translate_editor.yml` | `translate_editor` | Traducteur |
 
-Voir `docs/RBAC.md` pour la matrice détaillée et les personas de test.
+Voir `bnp_admin/docs/RBAC.md` pour la matrice détaillée et les personas de test.

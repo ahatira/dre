@@ -17,12 +17,18 @@ Ce module **ne contient aucune configuration métier projet** (pas de `ps_*`, pa
 
 ```
 bnp_admin/
-├── config/install/           # Config owned by bnp_admin
+├── config/install/           # Config owned by bnp_admin (baseline portable)
 │   ├── bnp_admin.settings.yml
-│   └── user.role.*.yml       # 7 rôles baseline BNP
+│   └── user.role.*.yml       # 7 rôles BNP sans permissions ps_*
+├── config/rbac/              # Rôles complets PS (import post-install)
+│   └── user.role.*.yml
+├── docs/
+│   ├── RBAC.md               # Personas, permissions, migration ps_admin
+│   └── RECETTE.md            # Scripts E2E cross-modules
 ├── config/schema/
 ├── images/                   # Logos et favicon BNP
 ├── recipes/bnp_admin_base/   # Recipe optionnelle (miroir des dépendances)
+├── tests/                    # Scripts E2E recette (bash + evaluate PHP)
 └── src/BnpAdminConfigurator.php
 ```
 
@@ -45,6 +51,19 @@ Paramètres portables décrivant le baseline (core + Gin). Les chemins logo/favi
 | `administrator` | Super administrateur (`is_admin: true`) + masquerade super user |
 
 Les permissions ne référencent **que** des modules activés comme dépendances de `bnp_admin`.
+
+### RBAC Property Search (`config/rbac/`)
+
+Après activation des modules `ps_*`, importer les rôles avec permissions complètes :
+
+```bash
+make rbac-sync
+make create-test-users   # Comptes QA (content.editor, site.admin, …)
+```
+
+Les anciens rôles `ps_admin` / `ps_content_editor` (ex-`ps_core`) sont migrés vers les rôles BNP via `bnp_admin_update_9003`.
+
+Documentation : [`docs/RBAC.md`](docs/RBAC.md), [`config/rbac/README.md`](config/rbac/README.md).
 
 ### Contrib configuré à l'install
 
@@ -74,11 +93,19 @@ Dans ce projet PS, l'install est aussi orchestrée par `scripts/drupal/install.s
 ```bash
 cd src
 ./vendor/bin/phpunit web/modules/custom/bnp_admin/tests
+
+# Recette E2E (nécessite stack Docker + make rbac-sync)
+composer test:rbac-sec-e2e
+composer test:manual-recette-ctx
+composer test:manual-offer-val
+composer test:manual-offer-full
 ```
+
+Voir [`docs/RECETTE.md`](docs/RECETTE.md).
 
 ## Frontières
 
-- ❌ Pas de config PS (`ps_admin`, `ps_core`, etc.)
+- ❌ Pas de config métier PS dans `config/install/` (uniquement baseline BNP)
 - ❌ Pas de thème front (`ui_suite_bnp`)
 - ❌ Pas de content types / vues métier
 - ✅ Baseline admin BNP portable cross-projets

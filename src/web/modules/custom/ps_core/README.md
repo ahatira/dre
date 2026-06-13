@@ -6,7 +6,9 @@ Socle transversal de l'écosystème Property Search : hub d'administration, RBAC
 
 ## Responsabilité
 
-`ps_core` fournit l'infrastructure commune à tous les modules `ps_*` : le hub d'administration `/admin/ps`, le système de permissions sectorielles, deux rôles prédéfinis, et cinq services utilitaires (audit, mapping de champs, résolution de config, détection de conflits, gestion de permissions).
+`ps_core` fournit l'infrastructure commune à tous les modules `ps_*` : le hub d'administration `/admin/ps`, le système de permissions sectorielles, et cinq services utilitaires (audit, mapping de champs, résolution de config, détection de conflits, gestion de permissions).
+
+Les **rôles Drupal** (personas BNP) sont gérés par `bnp_admin` — voir `bnp_admin/docs/RBAC.md`. `ps_core` ne livre plus de rôles `ps_admin` / `ps_content_editor`.
 
 Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de champs custom, ni de logique métier spécifique à un domaine. Les nodes restent sous `/admin/content`.
 
@@ -14,7 +16,6 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 
 - Hub admin `/admin/ps` avec 4 sections : Contenu, Structure, Configuration, Health
 - 15 permissions granulaires dont 4 sectorielles (hub, content, structure, config)
-- 2 rôles Drupal prédéfinis : `ps_admin` (15 permissions) et `ps_content_editor` (10 permissions)
 - Formulaire de paramètres globaux `/admin/ps/config/settings`
 - Page de santé `/admin/ps/health`
 - 5 services utilitaires réutilisables par les modules PS
@@ -75,26 +76,28 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `manage ps_context` | Gestion du module context |
 | `manage ps_migrate` | Gestion du module migrate |
 
-## Rôles prédéfinis
+## Rôles et RBAC
 
-| Rôle | Machine name | Permissions accordées |
-|---|---|---|
-| PS Administrator | `ps_admin` | 13 permissions (toutes PS actives) |
-| PS Content Editor | `ps_content_editor` | 8 permissions (hub, content, structure, manage ps_offer, ps_dictionary, ps_feature, ps_agent, ps_context) |
+Les rôles éditeurs/admin PS sont définis dans **`bnp_admin`** (`content_editor`, `content_admin`, `site_admin`, …).
+
+```bash
+make rbac-sync
+make create-test-users
+```
+
+Référence : `bnp_admin/docs/RBAC.md`.
 
 ## Configuration initiale (`config/install/`)
 
 | Fichier | Contenu |
 |---|---|
 | `ps_core.settings.yml` | Paramètres par défaut (TTL cache : 3600s, audit : activé, rétention : 365j, fenêtre conflits : 300s) |
-| `user.role.ps_admin.yml` | Rôle PS Administrator avec 13 permissions |
-| `user.role.ps_content_editor.yml` | Rôle PS Content Editor avec 8 permissions |
 
 ## Tests
 
 | Classe | Type | Scénarios couverts |
 |---|---|---|
-| `PsCoreHubAccessKernelTest` | Kernel | Routes de section, permissions content editor, permissions admin (3 tests, 28 assertions) |
+| `PsCoreHubAccessKernelTest` | Kernel | Routes de section, permissions `content_editor` / `content_admin` (3 tests) |
 | `AuditLoggerTest` | Unit | Journalisation avec et sans contexte |
 | `ConflictDetectorTest` | Unit | Détection de conflit par checksum identique et différent |
 | `ConfigResolverTest` | Unit | Résolution de config avec valeur par défaut |
@@ -115,4 +118,4 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 drush pm:enable ps_core -y
 ```
 
-Le module installe automatiquement les paramètres par défaut et les deux rôles via `config/install/`.
+Le module installe automatiquement les paramètres par défaut via `config/install/`. Les rôles BNP sont importés séparément via `make rbac-sync`.

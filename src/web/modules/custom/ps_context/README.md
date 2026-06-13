@@ -22,6 +22,8 @@ Référence métier complète : `.ai/PROJECT_MATRIX.md` (DEC-0020).
 
 - Config entity `ps_context_rule` avec CRUD BO
 - **15 règles seed** livrées en `config/install/`
+- **`ContextRuleEvaluator`** : moteur PHP canonique (même algorithme que le JS formulaire)
+- **`OfferMatrixContextResolver`** : pont `OfferContextResolverInterface` vers `ps_offer` / `ps_surface`
 - Service `OfferMatrixRules` : chargement, tri par weight, sérialisation vers `drupalSettings.psContext.rules`
 - JS `ps-context-offer-form.js` : réévaluation dynamique à chaque changement de champ discriminant
 - Hooks OOP sur formulaires offer add/edit
@@ -63,9 +65,26 @@ Référence métier complète : `.ai/PROJECT_MATRIX.md` (DEC-0020).
 
 Aucun (pas de field type, migrate, block).
 
+### Value objects
+
+| Classe | Rôle |
+|---|---|
+| `OfferContextState` | État résolu : onglets/champs visibles, défauts, `isCapacityDriven()` |
+| `ContextSeedRules` | Liste des 15 règles seed (avertissement à la suppression) |
+
 ### Commandes Drush
 
 Aucune.
+
+## Consommateurs matrix
+
+| Module | Usage |
+|---|---|
+| `ps_offer` | `OfferValidationManager`, `OfferSurfaceKpiBuilder` |
+| `ps_surface` | Formatters `ps_surface_contextual`, compare, division table |
+| `ps_search` | `SearchFilterVisibilityResolver` |
+
+Voir [`docs/MATRIX_ARCHITECTURE.md`](docs/MATRIX_ARCHITECTURE.md).
 
 ## Routes & Accès
 
@@ -110,7 +129,17 @@ Note : `manage ps_context` (déclarée dans `ps_core`) n'est pas utilisée dans 
 
 ## Tests
 
-Aucun test automatisé dans le module (à ajouter : kernel test sur évaluation conditions + form alter).
+| Classe | Type | Scénarios |
+|---|---|---|
+| `ContextRuleEvaluatorTest` | Unit | Évaluation conditions, onglets COW/BUR, défauts budget |
+| `SearchFilterVisibilityResolverTest` | Unit | Filtres recherche dérivés matrix |
+
+```bash
+cd src && vendor/bin/phpunit web/modules/custom/ps_context/tests/
+cd src && composer test:manual-recette-ctx   # CTX-* (script bnp_admin)
+```
+
+Recette QA : [`docs/RECETTE.md`](docs/RECETTE.md).
 
 ## Dépendances
 
@@ -129,9 +158,17 @@ drush cr
 
 Les 15 règles seed sont importées via `config/install/`. Désactiver une règle depuis `/admin/ps/config/matrix` sans la supprimer.
 
+## Documentation
+
+| Fichier | Contenu |
+|---|---|
+| [`docs/MATRIX_ARCHITECTURE.md`](docs/MATRIX_ARCHITECTURE.md) | Source de vérité, services, consommateurs |
+| [`docs/RECETTE.md`](docs/RECETTE.md) | Scénarios CTX-* et scripts E2E |
+
 ## Notes techniques
 
 - Library : `ps_context/offer.form` (JS + CSS)
 - Settings JS : `drupalSettings.psContext.rules` (tableau des règles actives triées par weight)
+- Suppression règle seed : `PsContextRuleDeleteForm` affiche un avertissement
 - Document central métier : `.ai/PROJECT_MATRIX.md`
 - Décision architecture : DEC-0020 dans `.ai/PROJECT_DECISIONS.md`

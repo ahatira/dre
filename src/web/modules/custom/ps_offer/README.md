@@ -138,7 +138,9 @@ Configuration site : `/admin/ps/config/offer-budget` (`ps_offer.settings`) — l
 
 | Service ID | Classe | Rôle |
 |---|---|---|
-| `Drupal\ps_offer\Service\OfferValidationManager` | `OfferValidationManager` | Règles validation presave |
+| `Drupal\ps_offer\Service\OfferValidationManager` | `OfferValidationManager` | Règles validation presave (matrix-aware via `OfferContextResolverInterface`) |
+| `ps_offer.surface_kpi_builder` | `OfferSurfaceKpiBuilder` | KPI surface/capacité FO (matrix-driven) |
+| `Drupal\ps_offer\OfferContextResolverInterface` | *(interface)* | Pont optionnel vers `ps_context` |
 | `Drupal\ps_offer\Service\OfferReferenceManager` | `OfferReferenceManager` | Mode auto/manuel + génération |
 | `Drupal\ps_offer\Service\OfferReferenceGenerator` | `OfferReferenceGenerator` | Construction référence par segments |
 | `Drupal\ps_offer\Service\OfferReferencePatternResolver` | `OfferReferencePatternResolver` | Pattern actif par bundle |
@@ -168,9 +170,9 @@ Fichier tokens : `ps_offer.tokens.inc` (`ps-offer-operation`, `ps-offer-asset`, 
 | Méthode | Règle | Brouillon | Publication |
 |---|---|---|---|
 | `validateBudget()` | Normalise budget : valeur ≤ 0 ou vide → NULL + reset period/unit | Silencieux | Silencieux |
-| `validateCapacity()` | SEAT_BASED → total > 0 ; available ≤ total ; PER_POSTE → total > 0 | Warning | **Blocant** |
-| `validateSurface()` | Au moins une surface TOTAL > 0 | Warning | **Blocant** |
-| `validateDivisibility()` | Non divisible + DISPO < TOTAL → warning UX | Warning | Warning |
+| `validateCapacity()` | SEAT_BASED / PER_POSTE ; requis si onglet Capacity visible (matrix) | Warning | **Blocant** |
+| `validateSurface()` | Au moins une surface TOTAL > 0 ; **skip si matrix masque Surface** | Warning | **Blocant** |
+| `validateDivisibility()` | Non divisible + DISPO < TOTAL → warning UX ; skip si Surface masquée | Warning | Warning |
 | `validatePrimaryAgent()` | Pas d'agent principal → dépublication | N/A | Dépublication auto |
 | `validateManualReferenceUniqueness()` | Mode manuel + doublon `field_reference` | **Blocant** | **Blocant** |
 
@@ -221,6 +223,13 @@ Fichier tokens : `ps_offer.tokens.inc` (`ps-offer-operation`, `ps-offer-asset`, 
 | `e2e_offer_reference.sh` | E2E bash | Régression références |
 | `e2e_offer_reference_uniqueness.sh` | E2E bash | Unicité / collision |
 | `e2e_offer_validation.sh` | E2E bash | Scénarios validation contrôlés |
+
+Scripts recette QA (hébergés dans `bnp_admin`) :
+
+```bash
+cd src && composer test:manual-offer-val    # OFF-01→18, VAL-01→10
+cd src && composer test:manual-offer-full   # Publication matrix §5.3
+```
 
 ```bash
 # Unit tests
@@ -274,7 +283,9 @@ Activer aussi (selon besoin) : `ps_context`, `ps_migrate`, `ps_search`.
 
 Voir [`docs/`](docs/) :
 
-- [VALIDATION.md](docs/VALIDATION.md) — Hook OOP et règles de validation
+- [VALIDATION.md](docs/VALIDATION.md) — Hook OOP et règles de validation (matrix-aware)
+- [CONTEXT_INTEGRATION.md](docs/CONTEXT_INTEGRATION.md) — Pont `ps_context`, publication UI
+- [RECETTE.md](docs/RECETTE.md) — Scénarios OFF-* / VAL-* et scripts
 - [FEATURE_VIEWS.md](docs/FEATURE_VIEWS.md) — Vue admin filtre par feature (itération 1)
 - [OFFER_REFERENCE_ARCHITECTURE.md](docs/OFFER_REFERENCE_ARCHITECTURE.md) — Architecture références LOT 1/2/3
 
