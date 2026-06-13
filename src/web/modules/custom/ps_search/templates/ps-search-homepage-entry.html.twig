@@ -52,13 +52,15 @@
         {{ l.location_label }} <span class="ps-homepage-search-entry__required" aria-hidden="true">*</span>
       </label>
       <div class="ps-homepage-search-entry__location-wrap">
-        {% include '@ps_search/ps-search-filter-section-location-fields.twig' with {
-          id_suffix: '-homepage',
-          layout: 'stacked',
-          placeholder: l.location_placeholder,
-          aria_label: l.location_label,
-        } only %}
-        <div id="ps-location-suggest-homepage" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+        <div class="ps-filter-bar__item ps-filter-bar__item--location ps-filter-bar__item--location-inline">
+          {% include '@ps_search/ps-search-filter-section-location-fields.twig' with {
+            id_suffix: '-homepage',
+            layout: 'stacked',
+            placeholder: l.location_placeholder,
+            aria_label: l.location_label,
+          } only %}
+          <div id="ps-location-suggest-homepage" class="ps-filter-bar__location-suggest js-ps-location-suggest" role="listbox" hidden></div>
+        </div>
       </div>
       <div class="js-ps-homepage-locality-hidden" hidden aria-hidden="true"></div>
     </div>

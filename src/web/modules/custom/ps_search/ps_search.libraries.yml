@@ -9,8 +9,9 @@ filter.htmx:
     - core/once
 
 filter.bar:
-  version: 1.0.63
+  version: 1.0.64
   js:
+    js/search-location-editor.js: {}
     js/search-filter-bar.js: {}
   css:
     component:
@@ -38,7 +39,7 @@ header.search:
     - ps_theme/header
 
 homepage.search:
-  version: 1.0.3
+  version: 1.0.4
   js:
     js/homepage-search.js: {}
   css:
