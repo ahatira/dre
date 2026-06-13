@@ -308,10 +308,10 @@
     function syncInputWidth() {
       const hasChips = !!(chipsContainer && chipsContainer.querySelector('.ps-location-chip'));
       const value = input.value || '';
-      if (hasChips && !value) {
-        input.style.flex = '0 0 auto';
-        input.style.width = '0.5rem';
-        input.style.minWidth = '0.5rem';
+      if (hasChips) {
+        input.style.flex = '';
+        input.style.width = '';
+        input.style.minWidth = '';
         return;
       }
       if (value) {
@@ -624,6 +624,24 @@
         closeOtherPanels(rootEl);
         input.focus();
         openDropdown(rootEl);
+      });
+    }
+
+    if (editorEl) {
+      editorEl.addEventListener('click', function (e) {
+        if (e.target.closest('.ps-location-chip__clear')) {
+          return;
+        }
+        if (e.target === input) {
+          return;
+        }
+        e.preventDefault();
+        input.focus();
+        if (isDropdown) {
+          closeOtherPanels(rootEl);
+          openDropdown(rootEl);
+        }
+        fetchLocationSuggestions(input.value.trim());
       });
     }
 

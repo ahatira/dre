@@ -70,13 +70,7 @@
 }
 
 .ps-filter-bar__location-chips {
-  display: inline-flex;
-  flex: 0 1 auto;
-  flex-wrap: nowrap;
-  gap: 4px;
-  max-width: 100%;
-  min-width: 0;
-  overflow: hidden;
+  display: contents;
 }
 
 .ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-chips {
@@ -116,11 +110,9 @@
 }
 
 .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {
-  field-sizing: content;
-  flex: 0 0 auto;
-  max-width: 100%;
-  min-width: 0.5rem;
-  width: 0.5rem;
+  flex: 1 1 auto;
+  min-width: 2ch;
+  width: auto;
 }
 
 .ps-filter-bar__location-clear {
