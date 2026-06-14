@@ -43,7 +43,10 @@ final class ThemeHooks {
           'message' => NULL,
         ],
       ],
-      'ps_mega_menu_tools' => [],
+      'ps_mega_menu_tools' => [
+        'variables' => [],
+        'template' => 'ps-mega-menu-tools',
+      ],
     ];
   }
 

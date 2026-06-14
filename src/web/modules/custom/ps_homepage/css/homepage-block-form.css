@@ -15,6 +15,54 @@
   gap: 0.75rem;
 }
 
+#drupal-off-canvas .ps-homepage-repeater-order {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+#drupal-off-canvas .ps-homepage-repeater-order .tabledrag-cell-content__item {
+  display: flex;
+  align-items: center;
+}
+
+#drupal-off-canvas .ps-homepage-repeater-order__label {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+#drupal-off-canvas .ps-homepage-repeater-order .tabledrag-toggle-weight-wrapper {
+  margin-bottom: 0.5rem;
+}
+
+#drupal-off-canvas .ps-outils-accordion-form .ps-outils-accordion-form__item {
+  margin-bottom: 0.75rem;
+}
+
+#drupal-off-canvas .ps-outils-accordion-form .ps-outils-accordion-form__item > .claro-details__wrapper {
+  display: grid;
+  gap: 0.75rem;
+}
+
+#drupal-off-canvas .ps-services-grid-form .ps-services-grid-form__card,
+#drupal-off-canvas .ps-search-shortcuts-form .ps-search-shortcuts-form__item,
+#drupal-off-canvas .ps-faq-block-form .ps-faq-block-form__item,
+#drupal-off-canvas .ps-market-studies-form .ps-market-studies-form__item {
+  margin-bottom: 0.75rem;
+}
+
+#drupal-off-canvas .ps-offers-carousel-form .ps-offers-carousel-form__item {
+  margin-bottom: 0.75rem;
+}
+
+#drupal-off-canvas .ps-services-grid-form .ps-services-grid-form__card > .claro-details__wrapper,
+#drupal-off-canvas .ps-search-shortcuts-form .ps-search-shortcuts-form__item > .claro-details__wrapper,
+#drupal-off-canvas .ps-faq-block-form .ps-faq-block-form__item > .claro-details__wrapper,
+#drupal-off-canvas .ps-market-studies-form .ps-market-studies-form__item > .claro-details__wrapper,
+#drupal-off-canvas .ps-offers-carousel-form .ps-offers-carousel-form__item > .claro-details__wrapper {
+  display: grid;
+  gap: 0.75rem;
+}
+
 #drupal-off-canvas .ps-homepage-media-field {
   display: grid;
   gap: 0.75rem;

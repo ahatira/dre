@@ -16,98 +16,132 @@ final class OutilsAccordionBlockFormBuilder {
 
   private const MAX_ITEMS = 8;
 
+  private const MIN_VISIBLE_SLOTS = 3;
+
   /**
    * @param array<string, mixed> $config
    *
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
+    $items = $this->sortItemsByWeight($config['items'] ?? []);
+    $slotCount = $this->computeRepeaterSlotCount(
+      $items,
+      static fn (array $item): bool => trim((string) ($item['question'] ?? '')) !== '',
+      self::MAX_ITEMS,
+      self::MIN_VISIBLE_SLOTS,
+    );
+    $defaultOpenDelta = $this->defaultOpenDelta($items, $slotCount);
+
     $form = [
       'editing_language' => $this->buildContentEditingLanguageNotice(),
-      'section_header' => $this->buildSectionHeaderFields($config),
+      'items_intro' => $this->buildBodyBlockSectionHeaderNotice(),
+      'items' => [
+        '#type' => 'container',
+        '#tree' => TRUE,
+        '#attributes' => ['class' => ['ps-outils-accordion-form__items']],
+      ],
     ];
 
-    $items = $this->sortItemsByWeight($config['items'] ?? []);
+    $form['items']['order'] = $this->buildRepeaterOrderTable(
+      $slotCount,
+      $items,
+      static fn (array $item): string => trim((string) ($item['question'] ?? '')),
+      'ps-outils-accordion-weight',
+    );
 
-    $form['items'] = [
-      '#type' => 'table',
-      '#header' => [
-        $this->t('Weight'),
-        $this->t('Illustration'),
-        $this->t('Question'),
-        $this->t('Answer'),
-        $this->t('Link label'),
-        $this->t('URL'),
-        $this->t('Open'),
-        $this->t('Remove'),
-      ],
-      '#tree' => TRUE,
-      '#tabledrag' => [
-        [
-          'action' => 'order',
-          'relationship' => 'sibling',
-          'group' => 'tools-weight',
-        ],
-      ],
-      '#description' => $this->t('Up to @max accordion items. Only one may be opened by default.', ['@max' => self::MAX_ITEMS]),
-    ];
-
-    for ($delta = 0; $delta < self::MAX_ITEMS; $delta++) {
+    for ($delta = 0; $delta < $slotCount; $delta++) {
       $item = $items[$delta] ?? ['weight' => $delta];
-      $form['items'][$delta]['#attributes']['class'][] = 'draggable';
-      $form['items'][$delta]['weight'] = [
-        '#type' => 'weight',
-        '#title' => $this->t('Weight'),
-        '#title_display' => 'invisible',
-        '#default_value' => (int) ($item['weight'] ?? $delta),
-        '#attributes' => ['class' => ['tools-weight']],
+      $question = trim((string) ($item['question'] ?? ''));
+
+      $form['items'][$delta] = [
+        '#type' => 'details',
+        '#title' => $question !== ''
+          ? $question
+          : $this->t('Accordion item @number', ['@number' => $delta + 1]),
+        '#open' => $question !== '' && $delta < 2,
+        '#attributes' => ['class' => ['ps-outils-accordion-form__item']],
       ];
-      $form['items'][$delta]['illustration'] = $this->buildMediaLibraryElement(
-        $this->t('Illustration'),
-        $item['illustration'] ?? ($delta === 0 ? ($config['illustration'] ?? NULL) : NULL),
-      );
-      $form['items'][$delta]['question'] = [
+
+      $form['items'][$delta]['content'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Accordion content'),
+        '#description' => $this->t('Question shown in the accordion header and answer revealed when opened.'),
+      ];
+      $form['items'][$delta]['content']['question'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Question'),
-        '#title_display' => 'invisible',
         '#default_value' => $item['question'] ?? '',
         '#maxlength' => 255,
       ];
-      $form['items'][$delta]['answer'] = [
+      $form['items'][$delta]['content']['answer'] = [
         '#type' => 'text_format',
         '#title' => $this->t('Answer'),
-        '#title_display' => 'invisible',
         '#format' => 'basic_html',
         '#default_value' => $this->textFormatDefault($item['answer'] ?? ''),
+        '#rows' => 4,
+        '#description' => $this->t('Rich text shown inside the open panel.'),
       ];
-      $form['items'][$delta]['link_label'] = [
+
+      $form['items'][$delta]['illustration'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Illustration'),
+        '#description' => $this->t('Optional image or SVG displayed on desktop (side panel) and inside the open panel on mobile.'),
+      ];
+      $form['items'][$delta]['illustration']['media'] = $this->buildMediaLibraryElement(
+        $this->t('Illustration'),
+        $item['illustration'] ?? ($delta === 0 ? ($config['illustration'] ?? NULL) : NULL),
+      );
+
+      $form['items'][$delta]['cta'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Call to action'),
+        '#description' => $this->t('Optional button at the bottom of the open panel.'),
+      ];
+      $form['items'][$delta]['cta']['link_label'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Link label'),
-        '#title_display' => 'invisible',
+        '#title' => $this->t('Button label'),
         '#default_value' => $item['link_label'] ?? '',
         '#maxlength' => 255,
       ];
-      $form['items'][$delta]['link_url'] = [
+      $form['items'][$delta]['cta']['link_url'] = [
         '#type' => 'textfield',
         '#title' => $this->t('URL'),
-        '#title_display' => 'invisible',
         '#default_value' => $item['link_url'] ?? '',
         '#maxlength' => 512,
+        '#description' => $this->t('Internal path (e.g. /outils/simulateur) or absolute URL.'),
+        '#states' => [
+          'visible' => [
+            ':input[name="settings[items][' . $delta . '][cta][link_label]"]' => ['!empty' => TRUE],
+          ],
+        ],
       ];
-      $form['items'][$delta]['opened_by_default'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Open by default'),
-        '#title_display' => 'invisible',
-        '#return_value' => 1,
-        '#default_value' => !empty($item['opened_by_default']),
+      $form['items'][$delta]['cta']['button_style'] = $this->buildButtonStyleElement(
+        (string) ($item['button_style'] ?? 'outline'),
+      ) + [
+        '#states' => [
+          'visible' => [
+            ':input[name="settings[items][' . $delta . '][cta][link_label]"]' => ['!empty' => TRUE],
+          ],
+        ],
       ];
-      $form['items'][$delta]['remove'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Remove'),
-        '#title_display' => 'invisible',
-        '#return_value' => 1,
-      ];
+
+      $form['items'][$delta]['remove'] = $this->buildRemoveItemCheckbox(
+        (string) $this->t('Remove this item'),
+      );
     }
+
+    $form['default_open'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Item opened by default'),
+      '#options' => $this->defaultOpenOptions($items, $slotCount),
+      '#default_value' => (string) $defaultOpenDelta,
+      '#description' => $this->t('Controls which panel is expanded initially and which illustration shows on desktop.'),
+    ];
+
+    $form['items_help'] = $this->buildRepeaterOrderHelp(self::MAX_ITEMS);
+
+    $form['#attributes']['class'][] = 'ps-outils-accordion-form';
 
     return $form;
   }
@@ -116,9 +150,7 @@ final class OutilsAccordionBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
-    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
-    unset($config['illustration'], $config['illustration_alt']);
+    unset($config['title'], $config['subtitle'], $config['illustration'], $config['illustration_alt'], $config['ui_mode']);
 
     $rows = $form_state->getValue('items');
     if (!is_array($rows)) {
@@ -126,49 +158,77 @@ final class OutilsAccordionBlockFormBuilder {
       return;
     }
 
+    $defaultOpenDelta = (int) $form_state->getValue('default_open');
+    $weights = $this->extractRepeaterOrderWeights($rows);
     $items = [];
-    $openedDelta = NULL;
+
     foreach ($rows as $delta => $row) {
-      if (!is_array($row) || !empty($row['remove'])) {
+      if ($delta === 'order' || !is_array($row) || !empty($row['remove'])) {
         continue;
       }
 
-      $question = trim((string) ($row['question'] ?? ''));
+      $content = is_array($row['content'] ?? NULL) ? $row['content'] : [];
+      $cta = is_array($row['cta'] ?? NULL) ? $row['cta'] : [];
+      $illustration = is_array($row['illustration'] ?? NULL) ? $row['illustration'] : [];
+
+      $question = trim((string) ($content['question'] ?? ''));
       if ($question === '') {
         continue;
       }
 
-      $opened = !empty($row['opened_by_default']);
-      if ($opened && $openedDelta === NULL) {
-        $openedDelta = $delta;
+      $buttonStyle = (string) ($cta['button_style'] ?? 'outline');
+      if (!in_array($buttonStyle, ['outline', 'primary'], TRUE)) {
+        $buttonStyle = 'outline';
       }
 
       $items[] = [
-        'weight' => (int) ($row['weight'] ?? $delta),
-        'illustration' => $this->persistMediaReference($row['illustration'] ?? NULL),
+        'weight' => $weights[(int) $delta] ?? (int) $delta,
+        'illustration' => $this->persistMediaReference($illustration['media'] ?? NULL),
         'question' => $question,
-        'answer' => $this->textFormatValue($row['answer'] ?? ''),
-        'link_label' => trim((string) ($row['link_label'] ?? '')),
-        'link_url' => trim((string) ($row['link_url'] ?? '')),
-        'opened_by_default' => $opened && $openedDelta === $delta,
+        'answer' => $this->textFormatValue($content['answer'] ?? ''),
+        'link_label' => trim((string) ($cta['link_label'] ?? '')),
+        'link_url' => trim((string) ($cta['link_url'] ?? '')),
+        'button_style' => $buttonStyle,
+        'opened_by_default' => ((int) $delta === $defaultOpenDelta),
       ];
+    }
+
+    if ($items !== [] && !array_filter($items, static fn (array $item): bool => !empty($item['opened_by_default']))) {
+      $items[0]['opened_by_default'] = TRUE;
     }
 
     $config['items'] = $this->sortItemsByWeight($items);
   }
 
-  private function textFormatDefault(mixed $value): string {
-    if (is_array($value)) {
-      return (string) ($value['value'] ?? '');
+  /**
+   * @param array<int, array<string, mixed>> $items
+   *
+   * @return array<string, string>
+   */
+  private function defaultOpenOptions(array $items, int $slotCount): array {
+    $options = [];
+    for ($delta = 0; $delta < $slotCount; $delta++) {
+      $item = $items[$delta] ?? [];
+      $question = trim((string) ($item['question'] ?? ''));
+      $options[(string) $delta] = $question !== ''
+        ? $question
+        : (string) $this->t('Accordion item @number', ['@number' => $delta + 1]);
     }
-    return (string) $value;
+
+    return $options;
   }
 
-  private function textFormatValue(mixed $value): string {
-    if (!is_array($value)) {
-      return trim((string) $value);
+  /**
+   * @param array<int, array<string, mixed>> $items
+   */
+  private function defaultOpenDelta(array $items, int $slotCount): int {
+    for ($delta = 0; $delta < $slotCount; $delta++) {
+      if (!empty($items[$delta]['opened_by_default'])) {
+        return $delta;
+      }
     }
-    return trim((string) ($value['value'] ?? ''));
+
+    return 0;
   }
 
 }

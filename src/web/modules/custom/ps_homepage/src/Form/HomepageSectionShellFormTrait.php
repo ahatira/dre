@@ -13,6 +13,14 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 trait HomepageSectionShellFormTrait {
 
   use StringTranslationTrait;
+  use HomepageBlockFormTrait;
+
+  /**
+   * @return array<string, mixed>
+   */
+  protected function buildShellEditingLanguageNotice(): array {
+    return $this->buildEditingLanguageNotice();
+  }
 
   /**
    * @return array<string, mixed>

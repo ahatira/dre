@@ -70,7 +70,7 @@ final class MarketStudyTeaserBuilder {
     if ($timestamp === FALSE) {
       return $value;
     }
-    return $this->dateFormatter->format($timestamp, 'medium', [], $langcode);
+    return $this->dateFormatter->format($timestamp, 'medium', '', NULL, $langcode);
   }
 
   private function defaultThemeImageUrl(): string {

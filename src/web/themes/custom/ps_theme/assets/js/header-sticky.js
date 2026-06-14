@@ -5,7 +5,7 @@
 (function (Drupal) {
   'use strict';
 
-  const DESKTOP_QUERY = '(min-width: 992px)';
+  const DESKTOP_QUERY = '(min-width: 1200px)';
 
   /**
    * Sync header top offset below Gin navigation top bar (editor preview).

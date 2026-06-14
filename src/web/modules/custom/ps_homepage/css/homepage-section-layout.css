@@ -46,6 +46,28 @@
   max-width: 49.25rem;
 }
 
+.ps-homepage-section--tools .ps-homepage-section-header {
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-homepage-section--tools .ps-homepage-section-header__title {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  max-width: 49.1875rem;
+}
+
+.ps-homepage-section--tools .ps-homepage-section-header__separator {
+  height: 0.5rem;
+  width: 7.0625rem;
+}
+
+.ps-homepage-section--tools .ps-homepage-section-header__subtitle {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  max-width: 49.25rem;
+}
+
 @media (max-width: 767.98px) {
   .ps-homepage-section--expert .ps-homepage-section-header {
     align-items: flex-start;
@@ -78,6 +100,28 @@
   }
 
   .ps-homepage-section--services .ps-homepage-section-header__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    max-width: 100%;
+  }
+
+  .ps-homepage-section--tools .ps-homepage-section-header {
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-inline: 1rem;
+  }
+
+  .ps-homepage-section--tools .ps-homepage-section-header__title {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    max-width: 100%;
+  }
+
+  .ps-homepage-section--tools .ps-homepage-section-header__separator {
+    width: 5rem;
+  }
+
+  .ps-homepage-section--tools .ps-homepage-section-header__subtitle {
     font-size: 1.125rem;
     line-height: 1.5rem;
     max-width: 100%;

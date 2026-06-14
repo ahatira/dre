@@ -1,4 +1,8 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
   ps_content.content_cta_link_builder:
     class: Drupal\ps_content\Service\ContentCtaLinkBuilder
     arguments:
@@ -22,11 +26,17 @@ services:
       - '@ps_content.content_cta_link_builder'
       - '@language_manager'
 
+  ps_content.tools_default_assets:
+    class: Drupal\ps_content\Service\ToolsDefaultAssets
+    arguments:
+      - '@extension.path.resolver'
+
   ps_content.outils_accordion_builder:
     class: Drupal\ps_content\Service\OutilsAccordionBuilder
     arguments:
       - '@ps_content.content_media_resolver'
       - '@language_manager'
+      - '@ps_content.tools_default_assets'
 
   ps_content.experts_accompagnement_builder:
     class: Drupal\ps_content\Service\ExpertsAccompagnementBuilder

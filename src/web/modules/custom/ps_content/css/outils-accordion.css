@@ -1,30 +1,140 @@
+/**
+ * §3 Tools accordion — Figma Frame 62/63 (desktop + mobile).
+ */
+
+.ps-homepage-section--tools .ps-homepage-section__body {
+  width: 100%;
+}
+
+.ps-homepage-tools__layout {
+  align-items: center;
+  gap: 2rem;
+  margin-inline: auto;
+  max-width: 74.75rem;
+  width: 100%;
+}
+
 .ps-homepage-tools__layout--with-image .ps-homepage-tools__accordion {
-  flex: 1 1 50%;
+  flex: 1 1 auto;
+  max-width: 30.125rem;
+  min-width: 0;
+  width: 100%;
 }
+
 .ps-homepage-tools__illustration {
-  flex: 1 1 50%;
+  flex: 1 1 auto;
+  max-width: 28.1875rem;
+  min-width: 0;
+  width: 100%;
 }
+
 .ps-homepage-tools__illustration .image-copyright-wrapper {
   display: block;
   height: 100%;
   max-width: 100%;
-  min-height: 280px;
+  min-height: 17.5rem;
   width: 100%;
 }
 
 .ps-homepage-tools__illustration .image-copyright-wrapper img {
   display: block;
-  height: 100%;
-  min-height: 280px;
-  object-fit: cover;
+  height: auto;
+  max-height: 100%;
+  min-height: 0;
+  object-fit: contain;
   width: 100%;
 }
-.ps-homepage-tools__item-link {
-  display: inline-block;
-  margin-top: 0.75rem;
+
+.ps-homepage-tools__illustration-mobile {
+  margin-top: 1rem;
+  text-align: center;
 }
+
+.ps-homepage-tools__illustration-mobile img {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+
+.ps-homepage-tools__item-link {
+  display: inline-flex;
+  margin-top: 1rem;
+}
+
+/* Accordion — Figma list rows (border #D6DBDE, Heading 4). */
+.ps-homepage-section--tools .ps-homepage-tools__accordion .accordion {
+  --bs-accordion-border-color: #d6dbde;
+  --bs-accordion-border-width: 1.5px;
+}
+
+.ps-homepage-section--tools .ps-homepage-tools__accordion .accordion-item {
+  padding: 1.5rem 0;
+}
+
+.ps-homepage-section--tools .ps-homepage-tools__accordion .accordion-button {
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 2.5625rem;
+  line-height: 1.875rem;
+  min-height: 0;
+  text-align: start;
+  white-space: normal;
+}
+
+.ps-homepage-section--tools .ps-homepage-tools__accordion .accordion-button:not(.collapsed) {
+  font-size: 1.5rem;
+  line-height: 1.875rem;
+}
+
+.ps-homepage-section--tools .ps-homepage-tools__accordion .accordion-body {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding-top: 1rem;
+  text-align: start;
+}
+
+@media (min-width: 992px) {
+  .ps-homepage-tools__layout--with-image {
+    gap: 8.25rem;
+  }
+
+  .ps-homepage-tools__illustration .image-copyright-wrapper,
+  .ps-homepage-tools__illustration .image-copyright-wrapper img {
+    min-height: 27.3125rem;
+  }
+
+  .ps-homepage-tools__illustration .image-copyright-wrapper img {
+    object-fit: contain;
+  }
+}
+
 @media (max-width: 991.98px) {
+  .ps-homepage-tools__layout {
+    gap: 2rem;
+  }
+
+  .ps-homepage-tools__layout--with-image .ps-homepage-tools__accordion {
+    max-width: none;
+    padding-inline: 1rem;
+  }
+
+  .ps-homepage-tools__accordion .accordion {
+    padding-inline: 1rem;
+  }
+
   .ps-homepage-tools__illustration {
-    margin-top: 1.5rem;
+    display: none;
+  }
+
+  .ps-homepage-section--tools .ps-homepage-tools__accordion .accordion-button {
+    align-items: flex-start;
+    font-size: 1.125rem;
+    gap: 2.5625rem;
+    line-height: 1.5rem;
+  }
+
+  .ps-homepage-section--tools .ps-homepage-tools__accordion .accordion-button:not(.collapsed) {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
   }
 }

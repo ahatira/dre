@@ -66,9 +66,6 @@ final class HomepageInstaller {
   public function prepareLayoutBuilder(): void {
     $this->ensureFullViewMode();
     $this->ensureLayoutBuilderField();
-    if (\Drupal::moduleHandler()->moduleExists('ps_homepage')) {
-      \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
-    }
   }
 
   private function ensureHomepageModule(): void {

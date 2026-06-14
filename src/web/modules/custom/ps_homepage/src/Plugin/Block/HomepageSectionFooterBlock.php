@@ -39,7 +39,10 @@ final class HomepageSectionFooterBlock extends BlockBase {
    */
   public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
-    return $form + $this->buildSectionFooterForm($this->configuration);
+    $form['#attached']['library'][] = 'ps_homepage/homepage_block_form';
+    return [
+      'editing_language' => $this->buildShellEditingLanguageNotice(),
+    ] + $form + $this->buildSectionFooterForm($this->configuration);
   }
 
   /**

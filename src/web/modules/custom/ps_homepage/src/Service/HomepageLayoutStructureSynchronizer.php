@@ -13,7 +13,11 @@ use Drupal\node\NodeInterface;
 use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 
 /**
- * Keeps homepage layout structure aligned across node translations.
+ * Propagates neutral LB block values from the default translation to others.
+ *
+ * Works with layout_builder_at: structure and language-neutral settings (media,
+ * nids, weights, presets) stay aligned when the default-language page is saved;
+ * translatable text in each translation layout is preserved.
  */
 final class HomepageLayoutStructureSynchronizer {
 

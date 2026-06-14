@@ -17,6 +17,7 @@ final class OutilsAccordionBuilder {
   public function __construct(
     private readonly ContentMediaResolver $mediaResolver,
     private readonly LanguageManagerInterface $languageManager,
+    private readonly ToolsDefaultAssets $defaultAssets,
   ) {}
 
   /**
@@ -54,32 +55,64 @@ final class OutilsAccordionBuilder {
         ];
       }
       if ($linkLabel !== '' && $linkUrl !== '') {
+        $buttonStyle = (string) ($item['button_style'] ?? 'outline');
+        $buttonClass = $buttonStyle === 'primary' ? 'btn-primary' : 'btn-outline-primary';
         $content['link'] = [
           '#type' => 'link',
           '#title' => $linkLabel,
           '#url' => Url::fromUserInput($linkUrl),
-          '#attributes' => ['class' => ['ps-homepage-tools__item-link']],
+          '#attributes' => ['class' => ['btn', $buttonClass, 'ps-homepage-tools__item-link']],
         ];
       }
 
       $itemId = 'ps-homepage-tools-' . $index;
+      $slideUrl = NULL;
+      $slideAlt = '';
+      $slideCredit = '';
+      $slideAdded = FALSE;
       if (!empty($item['illustration'])) {
         $media = $this->mediaResolver->resolve($item['illustration'], $langcode);
         if ($media->url !== NULL) {
-          $illustrationSlides[] = [
-            'item_id' => $itemId,
-            'url' => $media->url,
-            'alt' => $media->alt,
-            'credit' => $media->credit,
-          ];
+          $slideUrl = $media->url;
+          $slideAlt = $media->alt;
+          $slideCredit = $media->credit;
           $cacheTags = array_merge($cacheTags, $media->cacheTags);
-          if (!empty($item['opened_by_default'])) {
-            $activeIllustrationIndex = $itemId;
-          }
-          elseif ($activeIllustrationIndex === NULL) {
-            $activeIllustrationIndex = $itemId;
-          }
+          $slideAdded = TRUE;
         }
+      }
+      if (!$slideAdded) {
+        $slideUrl = $this->defaultAssets->imageUrl($index);
+        $slideAlt = $this->defaultAssets->imageAlt($index);
+        $slideCredit = $this->defaultAssets->imageCredit($index);
+      }
+
+      if ($slideUrl !== NULL) {
+        $illustrationSlides[] = [
+          'item_id' => $itemId,
+          'url' => $slideUrl,
+          'alt' => $slideAlt,
+          'credit' => $slideCredit,
+        ];
+        $content['illustration_mobile'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['ps-homepage-tools__illustration-mobile', 'd-lg-none']],
+          'image' => [
+            '#type' => 'html_tag',
+            '#tag' => 'img',
+            '#attributes' => [
+              'src' => $slideUrl,
+              'alt' => $slideAlt,
+              'class' => ['img-fluid'],
+              'loading' => 'lazy',
+            ],
+          ],
+        ];
+      }
+      if (!empty($item['opened_by_default'])) {
+        $activeIllustrationIndex = $itemId;
+      }
+      elseif ($activeIllustrationIndex === NULL) {
+        $activeIllustrationIndex = $itemId;
       }
 
       $accordionItems[] = [
@@ -114,7 +147,7 @@ final class OutilsAccordionBuilder {
     }
     $activeSlide ??= $illustrationSlides[0] ?? NULL;
 
-    $layoutClasses = ['ps-homepage-tools__layout', 'd-flex', 'flex-column', 'flex-lg-row', 'gap-4'];
+    $layoutClasses = ['ps-homepage-tools__layout', 'd-flex', 'flex-column', 'flex-lg-row'];
     if ($activeSlide !== NULL) {
       $layoutClasses[] = 'ps-homepage-tools__layout--with-image';
     }

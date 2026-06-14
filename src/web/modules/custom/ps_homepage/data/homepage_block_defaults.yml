@@ -170,55 +170,59 @@ ps_content_services_grid_block:
 
 ps_content_outils_accordion_block:
   en:
-    title: 'Tools & resources'
-    subtitle: 'Guides and calculators to support your search'
+    title: 'The best way to approach your real estate project'
+    subtitle: 'All the decision-making tools developed by BNP Paribas Real Estate share a common goal: helping you refine your criteria and optimise your search. These simulators help you clarify your actual needs and make informed decisions before you even start viewings.'
     items:
       - weight: 0
         illustration: null
-        question: 'How do I estimate my office space needs?'
-        answer: '<p>Use our surface calculator to estimate the space required for your teams.</p>'
-        link_label: 'Calculate my surface'
-        link_url: /tools/surface-calculator
+        question: 'Classic offices or coworking? Take the test!'
+        answer: '<p>Answer our 10-question simulator for a personalised recommendation.</p><p>This tool analyses your working patterns, your needs and your profile to guide you towards the most suitable solution.</p>'
+        link_label: 'Open the simulator'
+        link_url: /outils/simulateur-location-bureaux-coworking
+        button_style: outline
         opened_by_default: true
       - weight: 1
         illustration: null
-        question: 'Office or coworking: which is right for me?'
-        answer: '<p>Take our quick test to find the best workspace model for your business.</p>'
-        link_label: 'Take the test'
-        link_url: /tools/workspace-test
+        question: 'Office space calculator'
+        answer: '<p>Simple and quick to use, the surface calculator helps you define in a few clicks the m² that precisely matches your needs based on headcount, shared spaces and how your teams work.</p>'
+        link_label: 'Launch the calculator'
+        link_url: /outils/calculateur-de-surface-bureaux
+        button_style: outline
         opened_by_default: false
       - weight: 2
         illustration: null
-        question: 'How do I delegate my property search?'
-        answer: '<p>Our experts can manage your search end-to-end and shortlist the best opportunities.</p>'
-        link_label: 'Contact an expert'
-        link_url: /contact
-        opened_by_default: false
+        question: 'Guides and tips'
+        answer: '<p>Discover all our practical guides to optimise your property search!</p><p>From understanding commercial leases to market trends, our resources give you the keys to succeed with your project.</p>'
+        link_label: 'Browse the collection'
+        link_url: /guides/guides-conseils
+        button_style: outline
   fr:
-    title: 'Outils & ressources'
-    subtitle: 'Guides et calculateurs pour accompagner votre recherche'
+    title: 'Abordez au mieux votre projet immobilier'
+    subtitle: "Tous les outils d'aide à la décision développés par BNP Paribas Real Estate ont un objectif commun : vous permettre d'affiner vos critères et d'optimiser vos recherches. Ces simulateurs vous aident à clarifier vos besoins réels et à prendre des décisions éclairées avant même de démarrer vos visites."
     items:
       - weight: 0
         illustration: null
-        question: 'Comment estimer mes besoins en surface de bureaux ?'
-        answer: "<p>Utilisez notre calculateur de surface pour estimer l'espace nécessaire à vos équipes.</p>"
-        link_label: 'Calculer ma surface'
-        link_url: /outils/calculateur-surface
+        question: 'Bureaux classiques ou coworking ? Faites le test !'
+        answer: '<p>Répondez aux 10 questions du simulateur pour obtenir un diagnostic personnalisé.</p><p>Cet outil analyse vos modes de travail, votre besoin et votre profil pour vous orienter vers la solution la plus adaptée.</p>'
+        link_label: 'Ouvrir le simulateur'
+        link_url: /outils/simulateur-location-bureaux-coworking
+        button_style: outline
         opened_by_default: true
       - weight: 1
         illustration: null
-        question: 'Bureaux ou coworking : que choisir ?'
-        answer: "<p>Faites notre test rapide pour identifier le modèle d'espace le plus adapté.</p>"
-        link_label: 'Faire le test'
-        link_url: /outils/test-espaces
+        question: 'Calculateur de surface de bureaux'
+        answer: "<p>Simple et rapide d'utilisation, l'outil calculateur de surface vous permet de définir en quelques clics la surface en m² qui correspond précisément à vos besoins en fonction de vos effectifs, de vos espaces communs et de votre organisation du travail.</p>"
+        link_label: 'Lancer le calculateur'
+        link_url: /outils/calculateur-de-surface-bureaux
+        button_style: outline
         opened_by_default: false
       - weight: 2
         illustration: null
-        question: 'Comment déléguer ma recherche immobilière ?'
-        answer: '<p>Nos experts peuvent piloter votre recherche et présélectionner les meilleures opportunités.</p>'
-        link_label: 'Contacter un expert'
-        link_url: /contact
-        opened_by_default: false
+        question: 'Guides et conseils'
+        answer: '<p>Découvrez tous les guides pratiques pour optimiser votre recherche immobilière !</p><p>De la compréhension des baux commerciaux aux tendances du marché, nos ressources vous donnent les clés pour réussir votre projet.</p>'
+        link_label: 'Découvrir la collection'
+        link_url: /guides/guides-conseils
+        button_style: outline
 
 ps_offer_offers_carousel_block:
   en:

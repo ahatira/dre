@@ -31,6 +31,29 @@ final class HomepageSectionLibraryInstaller {
   }
 
   /**
+   * Removes legacy monolithic section library templates (pre S-D migration).
+   */
+  public function removeLegacyTemplates(): int {
+    $storage = $this->entityTypeManager->getStorage('section_library_template');
+    $removed = 0;
+
+    foreach ($storage->loadMultiple() as $entity) {
+      $label = (string) $entity->label();
+      if (!preg_match('/^Homepage §\d+ —/', $label)) {
+        continue;
+      }
+      if (str_starts_with($label, 'Homepage SD')) {
+        continue;
+      }
+
+      $entity->delete();
+      $removed++;
+    }
+
+    return $removed;
+  }
+
+  /**
    * Refreshes existing S-D section library templates (upsert by label).
    *
    * @param list<int> $sectionNumbers

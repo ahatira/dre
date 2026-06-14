@@ -10,7 +10,7 @@ use Drupal\node\NodeInterface;
 use Drupal\ps_homepage\Service\HomepageLayoutStructureSynchronizer;
 
 /**
- * Entity hooks for homepage layout translation synchronization.
+ * Entity hooks for page layout translation synchronization.
  */
 final class HomepageLayoutEntityHooks {
 

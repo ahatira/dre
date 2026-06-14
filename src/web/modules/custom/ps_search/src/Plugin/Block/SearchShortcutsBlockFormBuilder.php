@@ -17,6 +17,8 @@ final class SearchShortcutsBlockFormBuilder {
 
   private const MAX_ITEMS = 8;
 
+  private const MIN_VISIBLE_SLOTS = 4;
+
   public function __construct(
     private readonly SearchPresetOptionsProvider $presetOptionsProvider,
   ) {}
@@ -27,75 +29,81 @@ final class SearchShortcutsBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
+    $items = $this->sortItemsByWeight($config['items'] ?? []);
+    $slotCount = $this->computeRepeaterSlotCount(
+      $items,
+      static fn (array $item): bool => trim((string) ($item['title'] ?? '')) !== '',
+      self::MAX_ITEMS,
+      self::MIN_VISIBLE_SLOTS,
+    );
+
     $form = [
       'editing_language' => $this->buildEditingLanguageNotice(['ps_homepage/homepage_block_form']),
-      'section_header' => $this->buildSectionHeaderFields($config),
+      'shortcuts_intro' => $this->buildBodyBlockSectionHeaderNotice(),
     ];
-
-    $items = $this->sortItemsByWeight($config['items'] ?? []);
 
     $form['items'] = [
-      '#type' => 'table',
-      '#header' => [
-        $this->t('Weight'),
-        $this->t('Icon'),
-        $this->t('Title'),
-        $this->t('Link label'),
-        $this->t('Link'),
-        $this->t('Actions'),
-      ],
-      '#empty' => $this->t('No shortcuts yet.'),
+      '#type' => 'container',
       '#tree' => TRUE,
-      '#tabledrag' => [
-        [
-          'action' => 'order',
-          'relationship' => 'sibling',
-          'group' => 'shortcuts-weight',
-        ],
-      ],
-      '#description' => $this->t('Up to @max shortcuts. Leave unused rows empty or check Remove.', ['@max' => self::MAX_ITEMS]),
+      '#attributes' => ['class' => ['ps-search-shortcuts-form__items']],
     ];
 
-    for ($delta = 0; $delta < self::MAX_ITEMS; $delta++) {
-      $item = $items[$delta] ?? ['weight' => $delta];
-      $parents = ['items', (string) $delta];
+    $form['items']['order'] = $this->buildRepeaterOrderTable(
+      $slotCount,
+      $items,
+      static fn (array $item): string => trim((string) ($item['title'] ?? '')),
+      'ps-search-shortcuts-weight',
+    );
 
-      $form['items'][$delta]['#attributes']['class'][] = 'draggable';
-      $form['items'][$delta]['weight'] = [
-        '#type' => 'weight',
-        '#title' => $this->t('Weight'),
-        '#title_display' => 'invisible',
-        '#default_value' => (int) ($item['weight'] ?? $delta),
-        '#attributes' => ['class' => ['shortcuts-weight']],
+    for ($delta = 0; $delta < $slotCount; $delta++) {
+      $item = $items[$delta] ?? ['weight' => $delta];
+      $title = trim((string) ($item['title'] ?? ''));
+      $parents = ['items', (string) $delta, 'link'];
+
+      $form['items'][$delta] = [
+        '#type' => 'details',
+        '#title' => $title !== ''
+          ? $title
+          : $this->t('Shortcut @number', ['@number' => $delta + 1]),
+        '#open' => $title !== '' && $delta < 2,
+        '#attributes' => ['class' => ['ps-search-shortcuts-form__item']],
       ];
-      $form['items'][$delta]['icon'] = $this->buildIconPickerElement(
+
+      $form['items'][$delta]['content'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Shortcut content'),
+      ];
+      $form['items'][$delta]['content']['icon'] = $this->buildIconPickerElement(
         $this->t('Icon'),
         (string) ($item['icon'] ?? 'bnp_custom:offices'),
       );
-      $form['items'][$delta]['title'] = [
+      $form['items'][$delta]['content']['title'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Title'),
-        '#title_display' => 'invisible',
         '#default_value' => $item['title'] ?? '',
         '#maxlength' => 255,
       ];
-      $form['items'][$delta]['link_label'] = [
+
+      $form['items'][$delta]['link'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Link'),
+        '#description' => $this->t('Search preset builds a filtered search URL. Custom URL accepts an internal path or absolute URL.'),
+      ];
+      $form['items'][$delta]['link']['link_label'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Link label'),
-        '#title_display' => 'invisible',
         '#default_value' => $item['link_label'] ?? 'View listings',
         '#maxlength' => 255,
       ];
-      $form['items'][$delta]['link_type'] = $this->buildLinkTypeElement(
+      $form['items'][$delta]['link']['link_type'] = $this->buildLinkTypeElement(
         'link_type',
         $item['link_type'] ?? 'search_preset',
         $this->shortcutLinkTypeOptions(),
-      ) + ['#title_display' => 'invisible'];
-      $form['items'][$delta] += $this->buildPresetFields($parents, $item, $this->presetOptionsProvider);
-      $form['items'][$delta]['url'] = [
+      );
+      $form['items'][$delta]['link'] += $this->buildPresetFields($parents, $item, $this->presetOptionsProvider);
+      $form['items'][$delta]['link']['url'] = [
         '#type' => 'textfield',
         '#title' => $this->t('URL'),
-        '#title_display' => 'invisible',
         '#default_value' => $item['url'] ?? '',
         '#maxlength' => 512,
         '#states' => [
@@ -104,13 +112,15 @@ final class SearchShortcutsBlockFormBuilder {
           ],
         ],
       ];
-      $form['items'][$delta]['remove'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Remove'),
-        '#title_display' => 'invisible',
-        '#return_value' => 1,
-      ];
+
+      $form['items'][$delta]['remove'] = $this->buildRemoveItemCheckbox(
+        (string) $this->t('Remove this shortcut'),
+      );
     }
+
+    $form['items_help'] = $this->buildRepeaterOrderHelp(self::MAX_ITEMS);
+
+    $form['#attributes']['class'][] = 'ps-search-shortcuts-form';
 
     return $form;
   }
@@ -119,8 +129,7 @@ final class SearchShortcutsBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
-    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
+    unset($config['title'], $config['subtitle']);
 
     $rows = $form_state->getValue('items');
     if (!is_array($rows)) {
@@ -128,27 +137,31 @@ final class SearchShortcutsBlockFormBuilder {
       return;
     }
 
+    $weights = $this->extractRepeaterOrderWeights($rows);
     $items = [];
     foreach ($rows as $delta => $row) {
-      if (!is_array($row) || !empty($row['remove'])) {
+      if ($delta === 'order' || !is_array($row) || !empty($row['remove'])) {
         continue;
       }
 
-      $title = trim((string) ($row['title'] ?? ''));
+      $content = is_array($row['content'] ?? NULL) ? $row['content'] : [];
+      $link = is_array($row['link'] ?? NULL) ? $row['link'] : [];
+
+      $title = trim((string) ($content['title'] ?? ''));
       if ($title === '') {
         continue;
       }
 
       $items[] = [
-        'weight' => (int) ($row['weight'] ?? $delta),
-        'icon' => $this->extractShortcutIconValue($row),
+        'weight' => $weights[(int) $delta] ?? (int) $delta,
+        'icon' => $this->extractShortcutIconValue($content),
         'title' => $title,
-        'link_label' => trim((string) ($row['link_label'] ?? '')),
-        'link_type' => (string) ($row['link_type'] ?? 'search_preset'),
-        'preset_operation' => (string) ($row['preset_operation'] ?? ''),
-        'preset_asset' => (string) ($row['preset_asset'] ?? ''),
-        'preset_locality' => trim((string) ($row['preset_locality'] ?? '')),
-        'url' => trim((string) ($row['url'] ?? '')),
+        'link_label' => trim((string) ($link['link_label'] ?? '')),
+        'link_type' => (string) ($link['link_type'] ?? 'search_preset'),
+        'preset_operation' => (string) ($link['preset_operation'] ?? ''),
+        'preset_asset' => (string) ($link['preset_asset'] ?? ''),
+        'preset_locality' => trim((string) ($link['preset_locality'] ?? '')),
+        'url' => trim((string) ($link['url'] ?? '')),
       ];
     }
 

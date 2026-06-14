@@ -18,6 +18,8 @@ final class FaqBlockFormBuilder {
 
   private const MAX_ITEMS = 15;
 
+  private const MIN_VISIBLE_SLOTS = 3;
+
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
@@ -28,63 +30,66 @@ final class FaqBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
+    $items = $this->sortItemsByWeight($config['faq_items'] ?? []);
+    $slotCount = $this->computeRepeaterSlotCount(
+      $items,
+      static fn (array $item): bool => (int) ($item['nid'] ?? 0) > 0,
+      self::MAX_ITEMS,
+      self::MIN_VISIBLE_SLOTS,
+    );
+
     $form = [
       'editing_language' => $this->buildEditingLanguageNotice(['ps_homepage/homepage_block_form']),
-      'section_header' => $this->buildSectionHeaderFields($config, FALSE),
-      'section_footer' => $this->buildSectionFooterFields($config),
+      'section_intro' => $this->buildBodyBlockSectionHeaderNotice(),
+      'footer_intro' => $this->buildBodyBlockSectionFooterNotice(),
     ];
-
-    $items = $this->sortItemsByWeight($config['faq_items'] ?? []);
 
     $form['faq_items'] = [
-      '#type' => 'table',
-      '#header' => [
-        $this->t('Weight'),
-        $this->t('FAQ item'),
-        $this->t('Remove'),
-      ],
-      '#empty' => $this->t('No FAQ items selected.'),
+      '#type' => 'container',
       '#tree' => TRUE,
-      '#tabledrag' => [
-        [
-          'action' => 'order',
-          'relationship' => 'sibling',
-          'group' => 'faq-weight',
-        ],
-      ],
-      '#description' => $this->t('Select between 1 and @max published FAQ items. Drag to reorder.', ['@max' => self::MAX_ITEMS]),
+      '#attributes' => ['class' => ['ps-faq-block-form__items']],
     ];
 
-    for ($delta = 0; $delta < self::MAX_ITEMS; $delta++) {
+    $form['faq_items']['order'] = $this->buildRepeaterOrderTable(
+      $slotCount,
+      $items,
+      fn (array $item): string => $this->faqItemLabel($item),
+      'ps-faq-block-weight',
+    );
+
+    for ($delta = 0; $delta < $slotCount; $delta++) {
       $item = $items[$delta] ?? ['weight' => $delta];
       $defaultNid = (int) ($item['nid'] ?? 0);
       $defaultNode = $defaultNid > 0 ? $this->entityTypeManager->getStorage('node')->load($defaultNid) : NULL;
+      $label = $defaultNode instanceof NodeInterface ? $defaultNode->label() : '';
 
-      $form['faq_items'][$delta]['#attributes']['class'][] = 'draggable';
-      $form['faq_items'][$delta]['weight'] = [
-        '#type' => 'weight',
-        '#title' => $this->t('Weight'),
-        '#title_display' => 'invisible',
-        '#default_value' => (int) ($item['weight'] ?? $delta),
-        '#attributes' => ['class' => ['faq-weight']],
+      $form['faq_items'][$delta] = [
+        '#type' => 'details',
+        '#title' => $label !== ''
+          ? $label
+          : $this->t('FAQ item @number', ['@number' => $delta + 1]),
+        '#open' => $label !== '' && $delta < 2,
+        '#attributes' => ['class' => ['ps-faq-block-form__item']],
       ];
+
       $form['faq_items'][$delta]['nid'] = [
         '#type' => 'entity_autocomplete',
         '#title' => $this->t('FAQ item'),
-        '#title_display' => 'invisible',
         '#target_type' => 'node',
         '#selection_settings' => [
           'target_bundles' => ['faq_item'],
         ],
         '#default_value' => $defaultNode instanceof NodeInterface ? $defaultNode : NULL,
+        '#description' => $this->t('Published FAQ item to display in the accordion.'),
       ];
-      $form['faq_items'][$delta]['remove'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Remove'),
-        '#title_display' => 'invisible',
-        '#return_value' => 1,
-      ];
+      $form['faq_items'][$delta]['remove'] = $this->buildRemoveItemCheckbox(
+        (string) $this->t('Remove this item'),
+      );
     }
+
+    $form['items_help'] = $this->buildRepeaterOrderHelp(self::MAX_ITEMS);
+
+    $form['#attributes']['class'][] = 'ps-faq-block-form';
 
     return $form;
   }
@@ -93,9 +98,7 @@ final class FaqBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
-    $config['see_more_label'] = trim((string) $form_state->getValue(['section_footer', 'see_more_label']));
-    $config['see_more_url'] = trim((string) $form_state->getValue(['section_footer', 'see_more_url']));
+    unset($config['title'], $config['see_more_label'], $config['see_more_url']);
 
     $rows = $form_state->getValue('faq_items');
     if (!is_array($rows)) {
@@ -103,9 +106,10 @@ final class FaqBlockFormBuilder {
       return;
     }
 
+    $weights = $this->extractRepeaterOrderWeights($rows);
     $items = [];
     foreach ($rows as $delta => $row) {
-      if (!is_array($row) || !empty($row['remove'])) {
+      if ($delta === 'order' || !is_array($row) || !empty($row['remove'])) {
         continue;
       }
 
@@ -115,12 +119,24 @@ final class FaqBlockFormBuilder {
       }
 
       $items[] = [
-        'weight' => (int) ($row['weight'] ?? $delta),
+        'weight' => $weights[(int) $delta] ?? (int) $delta,
         'nid' => $nid,
       ];
     }
 
     $config['faq_items'] = $this->sortItemsByWeight($items);
+  }
+
+  /**
+   * @param array<string, mixed> $item
+   */
+  private function faqItemLabel(array $item): string {
+    $nid = (int) ($item['nid'] ?? 0);
+    if ($nid <= 0) {
+      return '';
+    }
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+    return $node instanceof NodeInterface ? $node->label() : '';
   }
 
 }

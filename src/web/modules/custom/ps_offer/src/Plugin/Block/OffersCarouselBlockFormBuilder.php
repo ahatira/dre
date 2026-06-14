@@ -18,6 +18,8 @@ final class OffersCarouselBlockFormBuilder {
 
   private const MAX_OFFERS = 12;
 
+  private const MIN_VISIBLE_SLOTS = 4;
+
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
@@ -28,88 +30,96 @@ final class OffersCarouselBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
+    $offers = $this->sortItemsByWeight($config['offers'] ?? []);
+    $slotCount = $this->computeRepeaterSlotCount(
+      $offers,
+      static fn (array $item): bool => (int) ($item['nid'] ?? 0) > 0,
+      self::MAX_OFFERS,
+      self::MIN_VISIBLE_SLOTS,
+    );
+
     $form = [
       'editing_language' => $this->buildEditingLanguageNotice(['ps_homepage/homepage_block_form']),
-      'section_header' => $this->buildSectionHeaderFields($config),
-      'section_footer' => $this->buildSectionFooterFields($config, FALSE),
+      'section_intro' => $this->buildBodyBlockSectionHeaderNotice(),
+      'footer_intro' => $this->buildBodyBlockSectionFooterNotice(),
     ];
 
     $form['options'] = [
       '#type' => 'details',
       '#title' => $this->t('Carousel options'),
       '#open' => TRUE,
-    ];
-    $form['options']['max_visible'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Visible cards'),
-      '#options' => [
-        3 => '3',
-        4 => '4',
-        6 => '6',
+      'max_visible' => [
+        '#type' => 'select',
+        '#title' => $this->t('Visible cards'),
+        '#options' => [
+          3 => '3',
+          4 => '4',
+          6 => '6',
+        ],
+        '#default_value' => (int) ($config['max_visible'] ?? 4),
+        '#description' => $this->t('Maximum number of cards shown in the carousel at once.'),
       ],
-      '#default_value' => (int) ($config['max_visible'] ?? 4),
+      'show_favorite' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Show favorite action'),
+        '#default_value' => $config['show_favorite'] ?? TRUE,
+      ],
+      'show_compare' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Show compare action'),
+        '#default_value' => $config['show_compare'] ?? TRUE,
+      ],
+      'autoplay' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Autoplay'),
+        '#default_value' => $config['autoplay'] ?? FALSE,
+      ],
     ];
-    $form['options']['show_favorite'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show favorite action'),
-      '#default_value' => $config['show_favorite'] ?? TRUE,
-    ];
-    $form['options']['show_compare'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show compare action'),
-      '#default_value' => $config['show_compare'] ?? TRUE,
-    ];
-    $form['options']['autoplay'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Autoplay'),
-      '#default_value' => $config['autoplay'] ?? FALSE,
-    ];
-
-    $offers = $this->sortItemsByWeight($config['offers'] ?? []);
 
     $form['offers'] = [
-      '#type' => 'table',
-      '#header' => [
-        $this->t('Weight'),
-        $this->t('Offer'),
-        $this->t('Remove'),
-      ],
+      '#type' => 'container',
       '#tree' => TRUE,
-      '#tabledrag' => [
-        [
-          'action' => 'order',
-          'relationship' => 'sibling',
-          'group' => 'offers-weight',
-        ],
-      ],
-      '#description' => $this->t('Select up to @max published offers. Drag to reorder.', ['@max' => self::MAX_OFFERS]),
+      '#attributes' => ['class' => ['ps-offers-carousel-form__items']],
     ];
 
-    for ($delta = 0; $delta < self::MAX_OFFERS; $delta++) {
+    $form['offers']['order'] = $this->buildRepeaterOrderTable(
+      $slotCount,
+      $offers,
+      fn (array $item): string => $this->offerItemLabel($item),
+      'ps-offers-carousel-weight',
+    );
+
+    for ($delta = 0; $delta < $slotCount; $delta++) {
       $item = $offers[$delta] ?? ['weight' => $delta];
       $nid = (int) ($item['nid'] ?? 0);
       $node = $nid > 0 ? $this->entityTypeManager->getStorage('node')->load($nid) : NULL;
+      $label = $node instanceof NodeInterface ? $node->label() : '';
 
-      $form['offers'][$delta]['#attributes']['class'][] = 'draggable';
-      $form['offers'][$delta]['weight'] = [
-        '#type' => 'weight',
-        '#title_display' => 'invisible',
-        '#default_value' => (int) ($item['weight'] ?? $delta),
-        '#attributes' => ['class' => ['offers-weight']],
+      $form['offers'][$delta] = [
+        '#type' => 'details',
+        '#title' => $label !== ''
+          ? $label
+          : $this->t('Offer @number', ['@number' => $delta + 1]),
+        '#open' => $label !== '' && $delta < 2,
+        '#attributes' => ['class' => ['ps-offers-carousel-form__item']],
       ];
+
       $form['offers'][$delta]['nid'] = [
         '#type' => 'entity_autocomplete',
-        '#title_display' => 'invisible',
+        '#title' => $this->t('Offer'),
         '#target_type' => 'node',
         '#selection_settings' => ['target_bundles' => ['offer']],
         '#default_value' => $node instanceof NodeInterface ? $node : NULL,
+        '#description' => $this->t('Published offer to feature. Leave empty for dynamic Solr results when no manual selection is set.'),
       ];
-      $form['offers'][$delta]['remove'] = [
-        '#type' => 'checkbox',
-        '#title_display' => 'invisible',
-        '#return_value' => 1,
-      ];
+      $form['offers'][$delta]['remove'] = $this->buildRemoveItemCheckbox(
+        (string) $this->t('Remove this offer'),
+      );
     }
+
+    $form['items_help'] = $this->buildRepeaterOrderHelp(self::MAX_OFFERS);
+
+    $form['#attributes']['class'][] = 'ps-offers-carousel-form';
 
     return $form;
   }
@@ -118,9 +128,7 @@ final class OffersCarouselBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
-    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
-    $config['see_more_label'] = trim((string) $form_state->getValue(['section_footer', 'see_more_label']));
+    unset($config['title'], $config['subtitle'], $config['see_more_label']);
 
     $config['max_visible'] = (int) $form_state->getValue(['options', 'max_visible']);
     $config['show_favorite'] = (bool) $form_state->getValue(['options', 'show_favorite']);
@@ -129,9 +137,10 @@ final class OffersCarouselBlockFormBuilder {
 
     $rows = $form_state->getValue('offers');
     $offers = [];
+    $weights = is_array($rows) ? $this->extractRepeaterOrderWeights($rows) : [];
     if (is_array($rows)) {
       foreach ($rows as $delta => $row) {
-        if (!is_array($row) || !empty($row['remove'])) {
+        if ($delta === 'order' || !is_array($row) || !empty($row['remove'])) {
           continue;
         }
         $nid = (int) ($row['nid'] ?? 0);
@@ -139,12 +148,24 @@ final class OffersCarouselBlockFormBuilder {
           continue;
         }
         $offers[] = [
-          'weight' => (int) ($row['weight'] ?? $delta),
+          'weight' => $weights[(int) $delta] ?? (int) $delta,
           'nid' => $nid,
         ];
       }
     }
     $config['offers'] = $this->sortItemsByWeight($offers);
+  }
+
+  /**
+   * @param array<string, mixed> $item
+   */
+  private function offerItemLabel(array $item): string {
+    $nid = (int) ($item['nid'] ?? 0);
+    if ($nid <= 0) {
+      return '';
+    }
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+    return $node instanceof NodeInterface ? $node->label() : '';
   }
 
 }

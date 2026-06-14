@@ -66,6 +66,14 @@ services:
       - '@config.factory'
       - '@ps_homepage.layout_persister'
 
+  ps_homepage.tools_config_refresher:
+    class: Drupal\ps_homepage\Service\HomepageToolsConfigRefresher
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_homepage.block_defaults_loader'
+      - '@config.factory'
+      - '@ps_homepage.layout_persister'
+
   ps_homepage.expert_journey_config_refresher:
     class: Drupal\ps_homepage\Service\HomepageExpertJourneyConfigRefresher
     arguments:
@@ -93,11 +101,6 @@ services:
       - '@ps_homepage.section_library_template_builder'
       - '@config.factory'
 
-  ps_homepage.layout_field_configurer:
-    class: Drupal\ps_homepage\Service\HomepageLayoutFieldConfigurer
-    arguments:
-      - '@entity_field.manager'
-
   ps_homepage.layout_config_migrator:
     class: Drupal\ps_homepage\Service\HomepageLayoutConfigMigrator
     arguments:
@@ -120,6 +123,13 @@ services:
     arguments:
       - '@ps_homepage.section_library_template_builder'
       - '@entity_type.manager'
+
+  ps_homepage.layout_tempstore_cleaner:
+    class: Drupal\ps_homepage\Service\HomepageLayoutTempstoreCleaner
+    arguments:
+      - '@tempstore.shared'
+      - '@entity_type.manager'
+      - '@config.factory'
 
   ps_homepage.section_library_template_builder:
     class: Drupal\ps_homepage\Service\HomepageSectionLibraryTemplateBuilder

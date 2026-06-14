@@ -17,6 +17,8 @@ final class ServicesGridBlockFormBuilder {
 
   private const MAX_ITEMS = 6;
 
+  private const MIN_VISIBLE_SLOTS = 4;
+
   /**
    * Builds the block configuration form.
    *
@@ -27,16 +29,18 @@ final class ServicesGridBlockFormBuilder {
    *   Form elements.
    */
   public function buildForm(array $config): array {
+    $items = $this->sortItemsByWeight($config['items'] ?? []);
+    $slotCount = $this->computeRepeaterSlotCount(
+      $items,
+      static fn (array $item): bool => trim((string) ($item['card_title'] ?? '')) !== '',
+      self::MAX_ITEMS,
+      self::MIN_VISIBLE_SLOTS,
+    );
+
     $form = [
       'editing_language' => $this->buildContentEditingLanguageNotice(),
-      'cards_intro' => [
-        '#type' => 'item',
-        '#markup' => '<p>' . $this->t('Section title and subtitle are configured in the <strong>Section header</strong> block above this body block in Layout Builder.') . '</p>',
-        '#wrapper_attributes' => ['class' => ['messages', 'messages--info', 'ps-section-block-lang-notice']],
-      ],
+      'cards_intro' => $this->buildBodyBlockSectionHeaderNotice(),
     ];
-
-    $items = $this->sortItemsByWeight($config['items'] ?? []);
 
     $form['items'] = [
       '#type' => 'container',
@@ -44,7 +48,14 @@ final class ServicesGridBlockFormBuilder {
       '#attributes' => ['class' => ['ps-services-grid-form__items']],
     ];
 
-    for ($delta = 0; $delta < self::MAX_ITEMS; $delta++) {
+    $form['items']['order'] = $this->buildRepeaterOrderTable(
+      $slotCount,
+      $items,
+      static fn (array $item): string => trim((string) ($item['card_title'] ?? '')),
+      'ps-services-grid-weight',
+    );
+
+    for ($delta = 0; $delta < $slotCount; $delta++) {
       $item = $items[$delta] ?? ['weight' => $delta];
       $cardTitle = trim((string) ($item['card_title'] ?? ''));
       $ctaParents = ['items', (string) $delta, 'cta'];
@@ -54,15 +65,8 @@ final class ServicesGridBlockFormBuilder {
         '#title' => $cardTitle !== ''
           ? $cardTitle
           : $this->t('Service card @number', ['@number' => $delta + 1]),
-        '#open' => $delta < 4,
+        '#open' => $cardTitle !== '' && $delta < 2,
         '#attributes' => ['class' => ['ps-services-grid-form__card']],
-      ];
-
-      $form['items'][$delta]['weight'] = [
-        '#type' => 'weight',
-        '#title' => $this->t('Weight'),
-        '#default_value' => (int) ($item['weight'] ?? $delta),
-        '#delta' => self::MAX_ITEMS - 1,
       ];
 
       $form['items'][$delta]['content'] = [
@@ -116,27 +120,24 @@ final class ServicesGridBlockFormBuilder {
           ],
         ],
       ];
-      $form['items'][$delta]['cta']['button_style'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Button style'),
-        '#options' => [
-          'primary' => (string) $this->t('Primary (filled)'),
-          'outline' => (string) $this->t('Outline'),
+      $form['items'][$delta]['cta']['button_style'] = $this->buildButtonStyleElement(
+        (string) ($item['button_style'] ?? 'primary'),
+      ) + [
+        '#states' => [
+          'visible' => [
+            ':input[name="settings[items][' . $delta . '][cta][button_label]"]' => ['!empty' => TRUE],
+          ],
         ],
-        '#default_value' => $item['button_style'] ?? 'primary',
       ];
 
-      $form['items'][$delta]['remove'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Remove this card'),
-        '#return_value' => 1,
-      ];
+      $form['items'][$delta]['remove'] = $this->buildRemoveItemCheckbox(
+        (string) $this->t('Remove this card'),
+      );
     }
 
-    $form['items_help'] = [
-      '#type' => 'item',
-      '#markup' => '<p>' . $this->t('Configure up to @max service lines. Cards are sorted by weight (lowest first).', ['@max' => self::MAX_ITEMS]) . '</p>',
-    ];
+    $form['items_help'] = $this->buildRepeaterOrderHelp(self::MAX_ITEMS);
+
+    $form['#attributes']['class'][] = 'ps-services-grid-form';
 
     return $form;
   }
@@ -159,8 +160,9 @@ final class ServicesGridBlockFormBuilder {
     }
 
     $items = [];
+    $weights = $this->extractRepeaterOrderWeights($rows);
     foreach ($rows as $delta => $row) {
-      if (!is_array($row) || !empty($row['remove'])) {
+      if ($delta === 'order' || !is_array($row) || !empty($row['remove'])) {
         continue;
       }
 
@@ -177,14 +179,19 @@ final class ServicesGridBlockFormBuilder {
         $linkType = 'url';
       }
 
+      $buttonStyle = (string) ($cta['button_style'] ?? 'primary');
+      if (!in_array($buttonStyle, ['outline', 'primary'], TRUE)) {
+        $buttonStyle = 'primary';
+      }
+
       $items[] = [
-        'weight' => (int) ($row['weight'] ?? $delta),
+        'weight' => $weights[(int) $delta] ?? (int) $delta,
         'icon' => IconIdUtility::extractFromSubmission($content['icon'] ?? NULL, 'bnp_custom:entrusting-a-property'),
         'card_title' => $title,
         'body' => trim((string) ($content['body'] ?? '')),
         'button_label' => trim((string) ($cta['button_label'] ?? '')),
         'link_type' => $linkType,
-        'button_style' => (string) ($cta['button_style'] ?? 'primary'),
+        'button_style' => $buttonStyle,
         'button_url' => trim((string) ($cta['button_url'] ?? '')),
         'modal_id' => '',
         'preset_operation' => '',

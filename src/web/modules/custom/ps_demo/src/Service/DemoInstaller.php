@@ -234,8 +234,6 @@ final class DemoInstaller {
       return;
     }
 
-    \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
-
     $layoutBuilder = \Drupal::service('ps_homepage.default_layout_builder');
     $layoutPersister = \Drupal::service('ps_homepage.layout_persister');
     $layoutPersister->saveAllTranslationLayouts(

@@ -1,9 +1,13 @@
 // Stellar header — ISO maquette (2 rows: branding|lang + nav|actions).
 // Full-page shell: static padding-top reserves header slot; header is fixed.
 // Mobile menu open: header in document flow so the page scrolls normally (no nested scroll).
+// Inline mega menu needs ≥1200px; 992–1199 uses burger + slide panel (actions stay in main bar).
+$ps-header-nav-inline-min: 1200px;
+$ps-header-nav-panel-max: 1199.98px;
+
 html.ps-mobile-menu-open,
 body.ps-mobile-menu-open {
-  @media (max-width: 991.98px) {
+  @media (max-width: $ps-header-nav-panel-max) {
     height: auto;
     max-height: none;
     overflow: visible;
@@ -11,7 +15,7 @@ body.ps-mobile-menu-open {
 }
 
 body.ps-mobile-menu-open {
-  @media (max-width: 991.98px) {
+  @media (max-width: $ps-header-nav-panel-max) {
     .ps-page-layout--with-header {
       padding-top: 0;
     }
@@ -474,7 +478,7 @@ body.ps-mobile-menu-open {
         min-inline-size: var(--ps-header-mobile-toggler-size);
       }
 
-      @media (min-width: 992px) {
+      @media (min-width: $ps-header-nav-inline-min) {
         display: none;
       }
     }
@@ -555,7 +559,7 @@ body.ps-mobile-menu-open {
       visibility: hidden;
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: $ps-header-nav-inline-min) {
       display: none !important;
     }
 
@@ -1018,7 +1022,7 @@ body.ps-mobile-menu-open {
 
   // Sticky desktop — synchronized motion on compact / expand.
   &--is-compact {
-    @media (min-width: 992px) {
+    @media (min-width: $ps-header-nav-inline-min) {
       box-shadow: 0 1px 0 var(--re-color-border-soft, #ebedef);
       transition: box-shadow var(--ps-header-motion);
 
@@ -1820,6 +1824,71 @@ body.ps-mobile-menu-open {
     .ps-site-header__sticky-bar,
     .ps-site-header__main-bar {
       border-bottom-color: transparent;
+    }
+  }
+
+  // 992–1199px: not enough width for inline mega menu — burger + panel, actions in main bar.
+  @media (min-width: 992px) and (max-width: $ps-header-nav-panel-max) {
+    &__toggler--mobile {
+      block-size: var(--ps-header-mobile-toggler-size);
+      display: inline-flex !important;
+      inline-size: var(--ps-header-mobile-toggler-size);
+      min-block-size: var(--ps-header-mobile-toggler-size);
+      min-inline-size: var(--ps-header-mobile-toggler-size);
+    }
+
+    &__toggler--compact {
+      display: none !important;
+    }
+
+    &__slogan {
+      display: none !important;
+    }
+
+    &__row--top {
+      gap: var(--re-space-16, 16px);
+    }
+
+    &__main-bar {
+      display: block !important;
+    }
+
+    &__main-bar .ps-site-header__navigation {
+      display: none !important;
+    }
+
+    &__row--main {
+      justify-content: flex-end;
+    }
+
+    &__mobile-panel {
+      display: block !important;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition:
+        max-height var(--ps-header-motion),
+        opacity var(--ps-header-motion),
+        visibility 0s linear var(--ps-header-motion-duration);
+      visibility: hidden;
+    }
+
+    &.ps-site-header--is-menu-open {
+      .ps-site-header__mobile-panel {
+        max-height: none;
+        opacity: 1;
+        overflow: visible;
+        pointer-events: auto;
+        transition:
+          opacity var(--ps-header-motion),
+          visibility 0s linear 0s;
+        visibility: visible;
+      }
+    }
+
+    .ps-header-actions__link {
+      display: none;
     }
   }
 }

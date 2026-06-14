@@ -60,6 +60,7 @@ class OutilsAccordionBlock extends BlockBase implements ContainerFactoryPluginIn
   public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
     $form['#attached']['library'][] = 'ps_homepage/homepage_block_form';
+
     return $form + $this->formBuilder->buildForm($this->configuration);
   }
 

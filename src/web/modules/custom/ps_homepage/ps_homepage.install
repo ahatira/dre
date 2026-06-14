@@ -11,7 +11,6 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function ps_homepage_install(): void {
-  \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
   \Drupal::service('ps_homepage.section_library_installer')->install();
 }
 
@@ -72,7 +71,16 @@ function ps_homepage_update_11007(): void {
  * Enables translatable Layout Builder overrides and rebuilds homepage layouts.
  */
 function ps_homepage_update_11008(): void {
-  \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
+  if (!\Drupal::moduleHandler()->moduleExists('layout_builder_at')) {
+    $field = \Drupal\field\Entity\FieldConfig::load('node.page.layout_builder__layout');
+    $storage = \Drupal\field\Entity\FieldStorageConfig::load('node.layout_builder__layout');
+    if ($storage && !$storage->isTranslatable()) {
+      $storage->setTranslatable(TRUE)->save();
+    }
+    if ($field && !$field->isTranslatable()) {
+      $field->setTranslatable(TRUE)->save();
+    }
+  }
   \Drupal::service('ps_homepage.expert_journey_config_refresher')->rebuildFrontPageLayout();
 }
 
@@ -208,4 +216,88 @@ function ps_homepage_update_11022(): void {
  */
 function ps_homepage_update_11023(): void {
   \Drupal::service('ps_homepage.services_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Aligns §3 tools with Figma desktop/mobile specs (content + styles).
+ */
+function ps_homepage_update_11024(): void {
+  \Drupal::service('ps_homepage.tools_config_refresher')->refreshFrontPage();
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([3]);
+}
+
+/**
+ * Aligns §3 tools with bnppre.fr content, SVG illustrations and behaviour.
+ */
+function ps_homepage_update_11025(): void {
+  \Drupal::service('ps_homepage.tools_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Clears stale LB tempstore and legacy Section Library templates.
+ */
+function ps_homepage_update_11026(): void {
+  \Drupal::service('ps_homepage.layout_tempstore_cleaner')->clearFrontPageOverrides();
+  \Drupal::service('ps_homepage.section_library_installer')->removeLegacyTemplates();
+}
+
+/**
+ * Enables SVG uploads on the Image media bundle (svg_image + field extension).
+ */
+function ps_homepage_update_11027(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('svg_image')) {
+    $moduleInstaller->install(['svg_image']);
+  }
+
+  $field = \Drupal::configFactory()->getEditable('field.field.media.image.field_media_image');
+  $extensions = (string) $field->get('settings.file_extensions');
+  if (!str_contains($extensions, 'svg')) {
+    $field->set('settings.file_extensions', trim($extensions . ' svg'));
+    $field->save(TRUE);
+  }
+}
+
+/**
+ * Refreshes §3 tools defaults (outline CTA buttons + improved block form fields).
+ */
+function ps_homepage_update_11028(): void {
+  \Drupal::service('ps_homepage.tools_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Enables Layout Builder Asymmetric Translation for page layout UI on translations.
+ */
+function ps_homepage_update_11029(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('layout_builder_at')) {
+    $moduleInstaller->install(['layout_builder_at']);
+  }
+}
+
+/**
+ * Exposes layout_builder_at copy widget on page edit forms.
+ */
+function ps_homepage_update_11030(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('layout_builder_at')) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $displayRepository */
+  $displayRepository = \Drupal::service('entity_display.repository');
+  $display = $displayRepository->getFormDisplay('node', 'page');
+  $component = $display->getComponent('layout_builder__layout');
+  if ($component !== NULL && ($component['type'] ?? '') === 'layout_builder_at_copy') {
+    return;
+  }
+
+  $display->removeComponent('layout_builder__layout');
+  $display->setComponent('layout_builder__layout', [
+    'type' => 'layout_builder_at_copy',
+    'weight' => 25,
+    'settings' => [
+      'appearance' => 'unchecked',
+    ],
+  ]);
+  $display->save();
 }

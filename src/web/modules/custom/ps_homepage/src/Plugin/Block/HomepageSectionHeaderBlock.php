@@ -39,7 +39,10 @@ final class HomepageSectionHeaderBlock extends BlockBase {
    */
   public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
-    return $form + $this->buildSectionHeaderForm($this->configuration);
+    $form['#attached']['library'][] = 'ps_homepage/homepage_block_form';
+    return [
+      'editing_language' => $this->buildShellEditingLanguageNotice(),
+    ] + $form + $this->buildSectionHeaderForm($this->configuration);
   }
 
   /**
