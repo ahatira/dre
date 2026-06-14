@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Media with optional copyright overlay — bnppre.fr credit-tooltip pattern.
+ */
+#}
+{% set wrapper_classes = ['image-copyright-wrapper'] %}
+{% if wrapper_class %}
+  {% set wrapper_classes = wrapper_classes|merge([wrapper_class]) %}
+{% endif %}
+
+{% set image_classes = [] %}
+{% if image_class %}
+  {% set image_classes = image_classes|merge([image_class]) %}
+{% endif %}
+
+<div class="{{ wrapper_classes|join(' ') }}">
+  {% if image_url %}
+    <img
+      src="{{ image_url }}"
+      alt="{{ image_alt|default('') }}"
+      {% if image_classes %}class="{{ image_classes|join(' ') }}"{% endif %}
+      {% if width %}width="{{ width }}"{% endif %}
+      {% if height %}height="{{ height }}"{% endif %}
+      {% if loading %}loading="{{ loading }}"{% endif %}
+    />
+  {% endif %}
+  {% if credit %}
+    <div
+      class="credit-tooltip"
+      role="button"
+      tabindex="0"
+      aria-expanded="false"
+      aria-label="{{ 'Photo credits'|t }}"
+    >
+      <span class="credit-tooltip-text">
+        <span class="credit-tooltip-copyright">&copy;</span>
+        {{ credit }}
+      </span>
+    </div>
+  {% endif %}
+</div>

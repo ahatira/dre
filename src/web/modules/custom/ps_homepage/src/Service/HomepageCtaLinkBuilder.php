@@ -71,7 +71,7 @@ final class HomepageCtaLinkBuilder {
    */
   private function resolveLocalizedUrl(array $item, ?string $langcode): string {
     $langcode ??= $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
-    $url = $item['button_url_' . $langcode] ?? $item['url_' . $langcode] ?? $item['button_url_en'] ?? $item['url_en'] ?? '';
+    $url = $item['button_url'] ?? $item['url'] ?? '';
     $url = trim((string) $url);
     if ($url === '') {
       return '';

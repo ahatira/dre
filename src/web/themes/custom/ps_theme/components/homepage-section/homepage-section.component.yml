@@ -1,0 +1,55 @@
+name: Homepage section
+description: 'Full-width homepage band shell — background, Bootstrap spacing, container and body slots.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    background:
+      type: string
+      title: Background
+      enum:
+        - default
+        - white
+        - muted
+        - dark
+        - primary
+      default: default
+    container:
+      type: string
+      title: Inner container
+      enum:
+        - container
+        - container-fluid
+        - none
+      default: container
+    spacing:
+      type: string
+      title: Vertical spacing (Bootstrap)
+      enum:
+        - none
+        - sm
+        - md
+        - lg
+        - xl
+      default: lg
+    modifier:
+      type: string
+      title: BEM modifier suffix (e.g. services)
+    section_class:
+      type: string
+      title: Additional section CSS classes (space-separated)
+slots:
+  header:
+    title: Section header
+    description: Optional homepage-section-header slot
+  body:
+    title: Section body
+    description: Main section content
+  footer:
+    title: Section footer
+    description: Optional homepage-section-footer slot
+libraryOverrides:
+  css:
+    component:
+      styles/homepage-section.css: {}

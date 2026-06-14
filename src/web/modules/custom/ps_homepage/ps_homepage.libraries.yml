@@ -19,10 +19,35 @@ homepage_tools:
   css:
     theme:
       css/homepage-tools.css: {}
+  js:
+    js/media-credit-toggle.js: {}
   dependencies:
+    - core/drupal
+    - core/once
     - ui_suite_bnp/accordion
+    - ui_suite_bnp/media-credit
+
+homepage_media_credit:
+  js:
+    js/media-credit-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - ui_suite_bnp/media-credit
 
 homepage_news:
   css:
     theme:
       css/homepage-news.css: {}
+
+homepage_block_form:
+  css:
+    theme:
+      css/homepage-block-form.css: {}
+  js:
+    js/homepage-block-form.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupal.dialog.ajax
+    - media_library/widget

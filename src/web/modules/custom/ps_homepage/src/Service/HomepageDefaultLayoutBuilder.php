@@ -49,18 +49,20 @@ final class HomepageDefaultLayoutBuilder {
   public function __construct(
     private readonly BlockManagerInterface $blockManager,
     private readonly UuidInterface $uuid,
+    private readonly HomepageBlockDefaultsLoader $defaultsLoader,
   ) {}
 
   /**
    * @return list<\Drupal\layout_builder\Section>
    */
-  public function buildSections(): array {
+  public function buildSections(string $langcode = 'en'): array {
     $sections = [];
 
     foreach (self::SECTIONS as $definition) {
       $pluginId = $definition['plugin_id'];
       $plugin = $this->blockManager->createInstance($pluginId, []);
-      $configuration = $plugin->getConfiguration();
+      $configuration = $this->defaultsLoader->forPlugin($pluginId, $langcode);
+      $configuration += $plugin->defaultConfiguration();
       $configuration['id'] = $pluginId;
       $configuration['provider'] = 'ps_homepage';
       $configuration['label'] = '';

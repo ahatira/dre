@@ -11,6 +11,7 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function ps_homepage_install(): void {
+  \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
   \Drupal::service('ps_homepage.section_library_installer')->install();
 }
 
@@ -30,4 +31,55 @@ function ps_homepage_modules_installed(array $modules): void {
  */
 function ps_homepage_update_11001(): void {
   \Drupal::service('ps_homepage.section_library_installer')->install();
+}
+
+/**
+ * Refreshes expert journey block content to match bnppre.fr defaults.
+ */
+function ps_homepage_update_11002(): void {
+  \Drupal::service('ps_homepage.expert_journey_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Re-applies expert journey defaults after SectionList API fix.
+ */
+function ps_homepage_update_11003(): void {
+  \Drupal::service('ps_homepage.expert_journey_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Re-applies expert journey defaults after section rebuild fix.
+ */
+function ps_homepage_update_11004(): void {
+  \Drupal::service('ps_homepage.expert_journey_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Re-applies expert journey defaults using setValue on layout field.
+ */
+function ps_homepage_update_11005(): void {
+  \Drupal::service('ps_homepage.expert_journey_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Migrates homepage LB blocks from legacy *_en/*_fr config to monolingual layouts.
+ */
+function ps_homepage_update_11007(): void {
+  \Drupal::service('ps_homepage.layout_config_migrator')->migrateAllPageLayouts();
+}
+
+/**
+ * Enables translatable Layout Builder overrides and rebuilds homepage layouts.
+ */
+function ps_homepage_update_11008(): void {
+  \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
+  \Drupal::service('ps_homepage.expert_journey_config_refresher')->rebuildFrontPageLayout();
+}
+
+/**
+ * Migrates homepage block images from file IDs to media references.
+ */
+function ps_homepage_update_11009(): string {
+  $count = \Drupal::service('ps_homepage.media_migrator')->migrateAllPageLayouts();
+  return (string) t('Migrated homepage media references on @count page(s).', ['@count' => $count]);
 }

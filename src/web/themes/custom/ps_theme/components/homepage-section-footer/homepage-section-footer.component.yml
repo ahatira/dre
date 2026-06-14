@@ -1,0 +1,24 @@
+name: Homepage section footer
+description: 'Homepage section footer CTA button.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    cta_label:
+      type: string
+      title: CTA label
+    cta_url:
+      type: string
+      title: CTA URL
+    cta_style:
+      type: string
+      title: Button style
+      enum:
+        - outline
+        - primary
+      default: outline
+libraryOverrides:
+  css:
+    component:
+      styles/homepage-section-footer.css: {}

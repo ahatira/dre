@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000004-0000-4000-8000-000000000002
+  bundle: faq_item
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo FAQ item'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Can I save my favorite properties?'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  field_question:
+    -
+      value: 'Can I save my favorite properties?'
+  field_answer:
+    -
+      value: '<p>Yes. Click the favorite icon on any listing card to save it to your favorites list and compare opportunities later.</p>'
+      format: basic_html
+  field_weight:
+    -
+      value: '1'
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'FAQ démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Puis-je enregistrer mes biens favoris ?'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    field_question:
+      -
+        value: 'Puis-je enregistrer mes biens favoris ?'
+    field_answer:
+      -
+        value: '<p>Oui. Cliquez sur l''icône favori sur une carte annonce pour l''enregistrer dans votre liste de favoris et comparer les opportunités plus tard.</p>'
+        format: basic_html

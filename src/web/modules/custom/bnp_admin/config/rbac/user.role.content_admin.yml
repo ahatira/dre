@@ -1,3 +1,4 @@
+uuid: 39ba5a48-20ec-4bff-863f-b7d54fc3a8f4
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,7 @@ dependencies:
     - block
     - bnp_editor
     - coffee
+    - layout_builder
     - node
     - ps_agent
     - ps_compare
@@ -48,10 +50,12 @@ permissions:
   - 'administer ps_core'
   - 'administer ps_media'
   - 'administer search alerts'
+  - 'configure editable page node layout overrides'
   - 'create offer content'
   - 'delete any offer content'
   - 'delete sitewide alert entities'
   - 'edit any offer content'
+  - 'edit any page content'
   - 'edit sitewide alert entities'
   - 'manage ps_agent'
   - 'manage ps_compare'
@@ -66,4 +70,6 @@ permissions:
   - 'view any unpublished content'
   - 'view deleted entities'
   - 'view published sitewide alert entities'
+  - 'view the administration theme'
   - 'view unpublished sitewide alert entities'
+

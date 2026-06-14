@@ -28,32 +28,20 @@ final class SearchShortcutsBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
-    $form = [];
-
-    $form += $this->buildLanguageTabs($config, function (string $langcode, array $config): array {
-      return [
-        'header_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section header'),
-          '#open' => TRUE,
-        ] + $this->buildHeadingFields($langcode, $config),
-      ];
-    });
+    $form = [
+      'editing_language' => $this->buildEditingLanguageNotice(),
+      'section_header' => $this->buildSectionHeaderFields($config),
+    ];
 
     $items = $this->sortItemsByWeight($config['items'] ?? []);
-    if ($items === []) {
-      $items = self::defaultItems();
-    }
 
     $form['items'] = [
       '#type' => 'table',
       '#header' => [
         $this->t('Weight'),
         $this->t('Icon'),
-        $this->t('Title (EN)'),
-        $this->t('Title (FR)'),
-        $this->t('Link label (EN)'),
-        $this->t('Link label (FR)'),
+        $this->t('Title'),
+        $this->t('Link label'),
         $this->t('Link'),
         $this->t('Actions'),
       ],
@@ -85,32 +73,18 @@ final class SearchShortcutsBlockFormBuilder {
         $this->t('Icon'),
         (string) ($item['icon'] ?? 'bnp_custom:offices'),
       );
-      $form['items'][$delta]['title_en'] = [
+      $form['items'][$delta]['title'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Title (EN)'),
+        '#title' => $this->t('Title'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['title_en'] ?? '',
+        '#default_value' => $item['title'] ?? '',
         '#maxlength' => 255,
       ];
-      $form['items'][$delta]['title_fr'] = [
+      $form['items'][$delta]['link_label'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Title (FR)'),
+        '#title' => $this->t('Link label'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['title_fr'] ?? '',
-        '#maxlength' => 255,
-      ];
-      $form['items'][$delta]['link_label_en'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Link label (EN)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['link_label_en'] ?? 'View listings',
-        '#maxlength' => 255,
-      ];
-      $form['items'][$delta]['link_label_fr'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Link label (FR)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['link_label_fr'] ?? 'Voir les annonces',
+        '#default_value' => $item['link_label'] ?? 'View listings',
         '#maxlength' => 255,
       ];
       $form['items'][$delta]['link_type'] = $this->buildLinkTypeElement(
@@ -119,23 +93,11 @@ final class SearchShortcutsBlockFormBuilder {
         $this->shortcutLinkTypeOptions(),
       ) + ['#title_display' => 'invisible'];
       $form['items'][$delta] += $this->buildPresetFields($parents, $item, $this->presetOptionsProvider);
-      $form['items'][$delta]['url_en'] = [
+      $form['items'][$delta]['url'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('URL (EN)'),
+        '#title' => $this->t('URL'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['url_en'] ?? '',
-        '#maxlength' => 512,
-        '#states' => [
-          'visible' => [
-            $this->buildStateSelector($parents, 'link_type') => ['value' => 'custom_url'],
-          ],
-        ],
-      ];
-      $form['items'][$delta]['url_fr'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('URL (FR)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['url_fr'] ?? '',
+        '#default_value' => $item['url'] ?? '',
         '#maxlength' => 512,
         '#states' => [
           'visible' => [
@@ -158,18 +120,8 @@ final class SearchShortcutsBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    foreach (['en', 'fr'] as $langcode) {
-      $config['title_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'title_' . $langcode,
-      ]));
-      $config['subtitle_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'subtitle_' . $langcode,
-      ]));
-    }
+    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
+    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
 
     $rows = $form_state->getValue('items');
     if (!is_array($rows)) {
@@ -183,61 +135,25 @@ final class SearchShortcutsBlockFormBuilder {
         continue;
       }
 
-      $titleEn = trim((string) ($row['title_en'] ?? ''));
-      $titleFr = trim((string) ($row['title_fr'] ?? ''));
-      if ($titleEn === '' && $titleFr === '') {
+      $title = trim((string) ($row['title'] ?? ''));
+      if ($title === '') {
         continue;
       }
 
       $items[] = [
         'weight' => (int) ($row['weight'] ?? $delta),
         'icon' => IconIdUtility::extractFromSubmission($row['icon'] ?? NULL, 'bnp_custom:offices'),
-        'title_en' => $titleEn,
-        'title_fr' => $titleFr,
-        'link_label_en' => trim((string) ($row['link_label_en'] ?? '')),
-        'link_label_fr' => trim((string) ($row['link_label_fr'] ?? '')),
+        'title' => $title,
+        'link_label' => trim((string) ($row['link_label'] ?? '')),
         'link_type' => (string) ($row['link_type'] ?? 'search_preset'),
         'preset_operation' => (string) ($row['preset_operation'] ?? ''),
         'preset_asset' => (string) ($row['preset_asset'] ?? ''),
         'preset_locality' => trim((string) ($row['preset_locality'] ?? '')),
-        'url_en' => trim((string) ($row['url_en'] ?? '')),
-        'url_fr' => trim((string) ($row['url_fr'] ?? '')),
+        'url' => trim((string) ($row['url'] ?? '')),
       ];
     }
 
     $config['items'] = $this->sortItemsByWeight($items);
-  }
-
-  /**
-   * @return list<array<string, mixed>>
-   */
-  public static function defaultItems(): array {
-    $cards = [
-      ['icon' => 'bnp_custom:offices', 'en' => 'Offices for rent', 'fr' => 'Bureaux à louer', 'asset' => 'BUR'],
-      ['icon' => 'bnp_custom:logistic-warehouses', 'en' => 'Logistics', 'fr' => 'Logistique', 'asset' => 'LOG'],
-      ['icon' => 'bnp_custom:shops', 'en' => 'Retail', 'fr' => 'Commerce', 'asset' => 'COM'],
-      ['icon' => 'bnp_custom:coworking', 'en' => 'Coworking', 'fr' => 'Coworking', 'asset' => 'COW'],
-    ];
-
-    $items = [];
-    foreach ($cards as $index => $card) {
-      $items[] = [
-        'weight' => $index,
-        'icon' => $card['icon'],
-        'title_en' => $card['en'],
-        'title_fr' => $card['fr'],
-        'link_label_en' => 'View listings',
-        'link_label_fr' => 'Voir les annonces',
-        'link_type' => 'search_preset',
-        'preset_operation' => 'LOC',
-        'preset_asset' => $card['asset'],
-        'preset_locality' => '',
-        'url_en' => '',
-        'url_fr' => '',
-      ];
-    }
-
-    return $items;
   }
 
 }

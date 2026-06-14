@@ -28,34 +28,21 @@ final class ServicesBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
-    $form = [];
-
-    $form += $this->buildLanguageTabs($config, function (string $langcode, array $config): array {
-      return [
-        'header_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section header'),
-          '#open' => TRUE,
-        ] + $this->buildHeadingFields($langcode, $config),
-      ];
-    });
+    $form = [
+      'editing_language' => $this->buildEditingLanguageNotice(),
+      'section_header' => $this->buildSectionHeaderFields($config),
+    ];
 
     $items = $this->sortItemsByWeight($config['items'] ?? []);
-    if ($items === []) {
-      $items = ServicesBlockFormBuilder::defaultItems();
-    }
 
     $form['items'] = [
       '#type' => 'table',
       '#header' => [
         $this->t('Weight'),
         $this->t('Icon'),
-        $this->t('Title (EN)'),
-        $this->t('Title (FR)'),
-        $this->t('Body (EN)'),
-        $this->t('Body (FR)'),
-        $this->t('Button (EN)'),
-        $this->t('Button (FR)'),
+        $this->t('Title'),
+        $this->t('Body'),
+        $this->t('Button label'),
         $this->t('Link'),
         $this->t('Style'),
         $this->t('Actions'),
@@ -69,9 +56,9 @@ final class ServicesBlockFormBuilder {
           'group' => 'services-weight',
         ],
       ],
+      '#description' => $this->t('Up to @max cards. Leave unused rows empty or check Remove. Drag to reorder.', ['@max' => self::MAX_ITEMS]),
     ];
 
-    $itemCount = count($items);
     for ($delta = 0; $delta < self::MAX_ITEMS; $delta++) {
       $item = $items[$delta] ?? ['weight' => $delta];
       $parents = ['items', (string) $delta];
@@ -88,46 +75,25 @@ final class ServicesBlockFormBuilder {
         $this->t('Icon'),
         (string) ($item['icon'] ?? 'bnp_custom:offices'),
       );
-      $form['items'][$delta]['card_title_en'] = [
+      $form['items'][$delta]['card_title'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Title (EN)'),
+        '#title' => $this->t('Title'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['card_title_en'] ?? '',
+        '#default_value' => $item['card_title'] ?? '',
         '#maxlength' => 255,
       ];
-      $form['items'][$delta]['card_title_fr'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Title (FR)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['card_title_fr'] ?? '',
-        '#maxlength' => 255,
-      ];
-      $form['items'][$delta]['body_en'] = [
+      $form['items'][$delta]['body'] = [
         '#type' => 'textarea',
-        '#title' => $this->t('Body (EN)'),
+        '#title' => $this->t('Body'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['body_en'] ?? '',
+        '#default_value' => $item['body'] ?? '',
         '#rows' => 2,
       ];
-      $form['items'][$delta]['body_fr'] = [
-        '#type' => 'textarea',
-        '#title' => $this->t('Body (FR)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['body_fr'] ?? '',
-        '#rows' => 2,
-      ];
-      $form['items'][$delta]['button_label_en'] = [
+      $form['items'][$delta]['button_label'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Button (EN)'),
+        '#title' => $this->t('Button label'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['button_label_en'] ?? '',
-        '#maxlength' => 255,
-      ];
-      $form['items'][$delta]['button_label_fr'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Button (FR)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['button_label_fr'] ?? '',
+        '#default_value' => $item['button_label'] ?? '',
         '#maxlength' => 255,
       ];
       $form['items'][$delta]['link_type'] = $this->buildLinkTypeElement(
@@ -146,23 +112,11 @@ final class ServicesBlockFormBuilder {
         '#default_value' => $item['button_style'] ?? 'outline',
       ];
       $form['items'][$delta] += $this->buildPresetFields($parents, $item, $this->presetOptionsProvider);
-      $form['items'][$delta]['button_url_en'] = [
+      $form['items'][$delta]['button_url'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('URL (EN)'),
+        '#title' => $this->t('URL'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['button_url_en'] ?? '',
-        '#maxlength' => 512,
-        '#states' => [
-          'visible' => [
-            $this->buildStateSelector($parents, 'link_type') => ['value' => 'url'],
-          ],
-        ],
-      ];
-      $form['items'][$delta]['button_url_fr'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('URL (FR)'),
-        '#title_display' => 'invisible',
-        '#default_value' => $item['button_url_fr'] ?? '',
+        '#default_value' => $item['button_url'] ?? '',
         '#maxlength' => 512,
         '#states' => [
           'visible' => [
@@ -187,11 +141,8 @@ final class ServicesBlockFormBuilder {
         '#title' => $this->t('Remove'),
         '#title_display' => 'invisible',
         '#return_value' => 1,
-        '#default_value' => empty($item['card_title_en']) && empty($item['card_title_fr']) ? 0 : 0,
       ];
     }
-
-    $form['items']['#description'] = $this->t('Up to @max cards. Leave unused rows empty or check Remove. Drag to reorder.', ['@max' => self::MAX_ITEMS]);
 
     return $form;
   }
@@ -200,18 +151,8 @@ final class ServicesBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    foreach (['en', 'fr'] as $langcode) {
-      $config['title_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'title_' . $langcode,
-      ]));
-      $config['subtitle_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'subtitle_' . $langcode,
-      ]));
-    }
+    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
+    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
 
     $rows = $form_state->getValue('items');
     if (!is_array($rows)) {
@@ -225,69 +166,28 @@ final class ServicesBlockFormBuilder {
         continue;
       }
 
-      $titleEn = trim((string) ($row['card_title_en'] ?? ''));
-      $titleFr = trim((string) ($row['card_title_fr'] ?? ''));
-      if ($titleEn === '' && $titleFr === '') {
+      $title = trim((string) ($row['card_title'] ?? ''));
+      if ($title === '') {
         continue;
       }
 
       $items[] = [
         'weight' => (int) ($row['weight'] ?? $delta),
         'icon' => IconIdUtility::extractFromSubmission($row['icon'] ?? NULL, 'bnp_custom:offices'),
-        'card_title_en' => $titleEn,
-        'card_title_fr' => $titleFr,
-        'body_en' => trim((string) ($row['body_en'] ?? '')),
-        'body_fr' => trim((string) ($row['body_fr'] ?? '')),
-        'button_label_en' => trim((string) ($row['button_label_en'] ?? '')),
-        'button_label_fr' => trim((string) ($row['button_label_fr'] ?? '')),
+        'card_title' => $title,
+        'body' => trim((string) ($row['body'] ?? '')),
+        'button_label' => trim((string) ($row['button_label'] ?? '')),
         'link_type' => (string) ($row['link_type'] ?? 'url'),
         'button_style' => (string) ($row['button_style'] ?? 'outline'),
         'preset_operation' => (string) ($row['preset_operation'] ?? ''),
         'preset_asset' => (string) ($row['preset_asset'] ?? ''),
         'preset_locality' => trim((string) ($row['preset_locality'] ?? '')),
-        'button_url_en' => trim((string) ($row['button_url_en'] ?? '')),
-        'button_url_fr' => trim((string) ($row['button_url_fr'] ?? '')),
+        'button_url' => trim((string) ($row['button_url'] ?? '')),
         'modal_id' => trim((string) ($row['modal_id'] ?? '')),
       ];
     }
 
     $config['items'] = $this->sortItemsByWeight($items);
-  }
-
-  /**
-   * @return list<array<string, mixed>>
-   */
-  public static function defaultItems(): array {
-    $cards = [
-      ['icon' => 'bnp_custom:offices', 'en' => 'Offices', 'fr' => 'Bureaux', 'asset' => 'BUR'],
-      ['icon' => 'bnp_custom:logistic-warehouses', 'en' => 'Logistics', 'fr' => 'Logistique', 'asset' => 'LOG'],
-      ['icon' => 'bnp_custom:shops', 'en' => 'Retail', 'fr' => 'Commerce', 'asset' => 'COM'],
-      ['icon' => 'bnp_custom:coworking', 'en' => 'Coworking', 'fr' => 'Coworking', 'asset' => 'COW'],
-    ];
-
-    $items = [];
-    foreach ($cards as $index => $card) {
-      $items[] = [
-        'weight' => $index,
-        'icon' => $card['icon'],
-        'card_title_en' => $card['en'],
-        'card_title_fr' => $card['fr'],
-        'body_en' => '',
-        'body_fr' => '',
-        'button_label_en' => 'Discover',
-        'button_label_fr' => 'Découvrir',
-        'link_type' => 'search_preset',
-        'button_style' => 'outline',
-        'preset_operation' => 'LOC',
-        'preset_asset' => $card['asset'],
-        'preset_locality' => '',
-        'button_url_en' => '',
-        'button_url_fr' => '',
-        'modal_id' => '',
-      ];
-    }
-
-    return $items;
   }
 
 }

@@ -1,0 +1,76 @@
+/**
+ * Homepage section header — Figma Frame 29 (BNPPRE news heading pattern).
+ */
+
+.ps-homepage-section-header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  padding: 0;
+  width: 100%;
+}
+
+.ps-homepage-section-header--align-left {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.ps-homepage-section-header__title {
+  color: #333;
+  font-family: var(--re-font-family-heading, 'BNPP Sans', 'BNP Sans', 'Open Sans', sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+  max-width: 49.25rem;
+  text-align: center;
+}
+
+.ps-homepage-section-header--align-left .ps-homepage-section-header__title {
+  text-align: start;
+}
+
+.ps-homepage-section-header__separator {
+  background-color: var(--re-color-primary, #00915a);
+  border: 0;
+  display: block;
+  flex: none;
+  height: 0.5rem;
+  width: 7.0625rem;
+}
+
+.ps-homepage-section-header__subtitle {
+  color: #333;
+  font-family: var(--re-font-family-body, 'BNPP Sans', 'BNP Sans', 'Open Sans', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 49.25rem;
+  text-align: center;
+}
+
+.ps-homepage-section-header--align-left .ps-homepage-section-header__subtitle {
+  text-align: start;
+}
+
+@media (max-width: 767.98px) {
+  .ps-homepage-section-header {
+    gap: 1.5rem;
+  }
+
+  .ps-homepage-section-header__title {
+    font-size: 1.5rem;
+    line-height: 1.333;
+    max-width: 100%;
+  }
+
+  .ps-homepage-section-header__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,31 @@
+name: Homepage section header
+description: 'Homepage section title, optional subtitle and alignment variants.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+    subtitle:
+      type: string
+      title: Subtitle
+    align:
+      type: string
+      title: Text alignment
+      enum:
+        - center
+        - left
+      default: center
+    accent:
+      type: string
+      title: Accent decoration
+      enum:
+        - none
+        - bar
+      default: bar
+libraryOverrides:
+  css:
+    component:
+      styles/homepage-section-header.css: {}

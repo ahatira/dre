@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Homepage section header — title, green separator, optional subtitle.
+ */
+#}
+{% if title or subtitle %}
+  {% set align_value = align|default('center') %}
+  {% set accent_variant = accent|default('bar') %}
+  <header class="ps-homepage-section-header ps-homepage-section-header--align-{{ align_value }}{% if accent_variant == 'bar' %} ps-homepage-section-header--has-separator{% endif %}">
+    {% if title %}
+      <h2 class="ps-homepage-section-header__title">{{ title }}</h2>
+    {% endif %}
+    {% if accent_variant == 'bar' %}
+      <span class="ps-homepage-section-header__separator" aria-hidden="true"></span>
+    {% endif %}
+    {% if subtitle %}
+      <p class="ps-homepage-section-header__subtitle">{{ subtitle }}</p>
+    {% endif %}
+  </header>
+{% endif %}

@@ -1,0 +1,465 @@
+ps_homepage_search_hero_block:
+  en:
+    background_image: null
+    promo_background_image: null
+    background_alt: ''
+    promo_background_alt: ''
+    promo_offers_use_dynamic: true
+    title: 'What are you looking for?'
+    transaction_type_label: 'Transaction type'
+    op_buy_label: Buy
+    op_rent_label: Rent
+    op_flexible_label: "I'm flexible"
+    location_label: 'Location(s)'
+    location_placeholder: 'City, district or zip code'
+    property_type_label: 'Property type'
+    property_type_placeholder: 'Type of property'
+    surface_min_label: 'Minimum surface (m²)'
+    surface_min_placeholder: '200 m²'
+    price_max_label: 'Maximum price'
+    price_max_placeholder: '10 000'
+    optional_label: Optional
+    search_button_label: Search
+    delegate_prompt: 'Would you like to delegate your search?'
+    delegate_tooltip: 'To find your next business premises, contact our BNP Paribas Real Estate experts and delegate your search.'
+    delegate_button_label: 'Delegate my search'
+    delegate_url: /contact
+    promo_title: 'Commercial real estate: find your future business premises'
+    promo_offers_template: '@count offers currently available'
+    promo_offers_line: '5990 offers currently available'
+    promo_description: "Offices, coworking spaces, logistics warehouses, business premises or retail premises: BNP Paribas Real Estate's commercial real estate offer covers all the assets on the market to better meet your expectations."
+    promo_cta_label: 'Discover our service offers'
+    promo_cta_url: /find-property
+  fr:
+    background_image: null
+    promo_background_image: null
+    background_alt: ''
+    promo_background_alt: ''
+    promo_offers_use_dynamic: true
+    title: 'Que recherchez-vous ?'
+    transaction_type_label: 'Type de transaction'
+    op_buy_label: Acheter
+    op_rent_label: Louer
+    op_flexible_label: Indifférent
+    location_label: 'Localisation(s)'
+    location_placeholder: 'Ville, quartier ou code postal'
+    property_type_label: 'Type de bien'
+    property_type_placeholder: 'Type de bien'
+    surface_min_label: 'Surface minimum (m²)'
+    surface_min_placeholder: '200 m²'
+    price_max_label: 'Prix maximum'
+    price_max_placeholder: '10 000'
+    optional_label: Facultatif
+    search_button_label: Rechercher
+    delegate_prompt: 'Souhaitez-vous déléguer votre recherche ?'
+    delegate_tooltip: 'Pour trouver votre prochain local professionnel, contactez nos experts BNP Paribas Real Estate et déléguez votre recherche.'
+    delegate_button_label: 'Déléguer ma recherche'
+    delegate_url: /contact
+    promo_title: "Immobilier d'entreprise : trouvez vos futurs locaux professionnels"
+    promo_offers_template: '@count offres actuellement disponibles'
+    promo_offers_line: '5990 offres actuellement disponibles'
+    promo_description: "Bureaux, espaces de coworking, entrepôts logistiques, locaux d'activité ou commerces : l'offre immobilière d'entreprise de BNP Paribas Real Estate couvre l'ensemble des actifs du marché pour mieux répondre à vos attentes."
+    promo_cta_label: 'Découvrir nos offres de services'
+    promo_cta_url: /recherche-immobiliere
+
+ps_homepage_services_block:
+  en:
+    title: 'Our services'
+    subtitle: 'Tailored support for every asset class'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:offices'
+        card_title: Offices
+        body: ''
+        button_label: Discover
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: BUR
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+      - weight: 1
+        icon: 'bnp_custom:logistic-warehouses'
+        card_title: Logistics
+        body: ''
+        button_label: Discover
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: LOG
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+      - weight: 2
+        icon: 'bnp_custom:shops'
+        card_title: Retail
+        body: ''
+        button_label: Discover
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: COM
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+      - weight: 3
+        icon: 'bnp_custom:coworking'
+        card_title: Coworking
+        body: ''
+        button_label: Discover
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: COW
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+  fr:
+    title: 'Nos services'
+    subtitle: 'Un accompagnement sur mesure pour chaque univers'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:offices'
+        card_title: Bureaux
+        body: ''
+        button_label: Découvrir
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: BUR
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+      - weight: 1
+        icon: 'bnp_custom:logistic-warehouses'
+        card_title: Logistique
+        body: ''
+        button_label: Découvrir
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: LOG
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+      - weight: 2
+        icon: 'bnp_custom:shops'
+        card_title: Commerce
+        body: ''
+        button_label: Découvrir
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: COM
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+      - weight: 3
+        icon: 'bnp_custom:coworking'
+        card_title: Coworking
+        body: ''
+        button_label: Découvrir
+        link_type: search_preset
+        button_style: outline
+        preset_operation: LOC
+        preset_asset: COW
+        preset_locality: ''
+        button_url: ''
+        modal_id: ''
+
+ps_homepage_tools_block:
+  en:
+    title: 'Tools & resources'
+    subtitle: 'Guides and calculators to support your search'
+    illustration: null
+    illustration_alt: ''
+    items:
+      - weight: 0
+        question: 'How do I estimate my office space needs?'
+        answer: '<p>Use our surface calculator to estimate the space required for your teams.</p>'
+        link_label: 'Calculate my surface'
+        link_url: /tools/surface-calculator
+        opened_by_default: true
+      - weight: 1
+        question: 'Office or coworking: which is right for me?'
+        answer: '<p>Take our quick test to find the best workspace model for your business.</p>'
+        link_label: 'Take the test'
+        link_url: /tools/workspace-test
+        opened_by_default: false
+      - weight: 2
+        question: 'How do I delegate my property search?'
+        answer: '<p>Our experts can manage your search end-to-end and shortlist the best opportunities.</p>'
+        link_label: 'Contact an expert'
+        link_url: /contact
+        opened_by_default: false
+  fr:
+    title: 'Outils & ressources'
+    subtitle: 'Guides et calculateurs pour accompagner votre recherche'
+    illustration: null
+    illustration_alt: ''
+    items:
+      - weight: 0
+        question: 'Comment estimer mes besoins en surface de bureaux ?'
+        answer: "<p>Utilisez notre calculateur de surface pour estimer l'espace nécessaire à vos équipes.</p>"
+        link_label: 'Calculer ma surface'
+        link_url: /outils/calculateur-surface
+        opened_by_default: true
+      - weight: 1
+        question: 'Bureaux ou coworking : que choisir ?'
+        answer: "<p>Faites notre test rapide pour identifier le modèle d'espace le plus adapté.</p>"
+        link_label: 'Faire le test'
+        link_url: /outils/test-espaces
+        opened_by_default: false
+      - weight: 2
+        question: 'Comment déléguer ma recherche immobilière ?'
+        answer: '<p>Nos experts peuvent piloter votre recherche et présélectionner les meilleures opportunités.</p>'
+        link_label: 'Contacter un expert'
+        link_url: /contact
+        opened_by_default: false
+
+ps_homepage_offers_carousel_block:
+  en:
+    title: 'Featured properties'
+    subtitle: 'Hand-picked opportunities across France'
+    see_more_label: 'View all listings'
+    max_visible: 4
+    show_favorite: true
+    show_compare: true
+    autoplay: false
+    offers: []
+  fr:
+    title: 'Offres à la une'
+    subtitle: "Une sélection d'opportunités partout en France"
+    see_more_label: 'Voir toutes les annonces'
+    max_visible: 4
+    show_favorite: true
+    show_compare: true
+    autoplay: false
+    offers: []
+
+ps_homepage_search_shortcuts_block:
+  en:
+    title: 'Start your search'
+    subtitle: 'Quick access to the most popular asset types'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:offices'
+        title: 'Offices for rent'
+        link_label: 'View listings'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: BUR
+        preset_locality: ''
+        url: ''
+      - weight: 1
+        icon: 'bnp_custom:logistic-warehouses'
+        title: Logistics
+        link_label: 'View listings'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: LOG
+        preset_locality: ''
+        url: ''
+      - weight: 2
+        icon: 'bnp_custom:shops'
+        title: Retail
+        link_label: 'View listings'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COM
+        preset_locality: ''
+        url: ''
+      - weight: 3
+        icon: 'bnp_custom:coworking'
+        title: Coworking
+        link_label: 'View listings'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COW
+        preset_locality: ''
+        url: ''
+  fr:
+    title: 'Lancez votre recherche'
+    subtitle: 'Accès rapide aux univers les plus recherchés'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:offices'
+        title: 'Bureaux à louer'
+        link_label: 'Voir les annonces'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: BUR
+        preset_locality: ''
+        url: ''
+      - weight: 1
+        icon: 'bnp_custom:logistic-warehouses'
+        title: Logistique
+        link_label: 'Voir les annonces'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: LOG
+        preset_locality: ''
+        url: ''
+      - weight: 2
+        icon: 'bnp_custom:shops'
+        title: Commerce
+        link_label: 'Voir les annonces'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COM
+        preset_locality: ''
+        url: ''
+      - weight: 3
+        icon: 'bnp_custom:coworking'
+        title: Coworking
+        link_label: 'Voir les annonces'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COW
+        preset_locality: ''
+        url: ''
+
+ps_homepage_expert_journey_block:
+  en:
+    title: 'Our experts support you'
+    subtitle: 'Whatever your corporate real estate project, a dedicated BNP Paribas Real Estate expert will accompany you every step of the way. This proven methodology ensures that every dimension of your project is taken into account, from defining your requirements through to your move-in and beyond.'
+    steps:
+      - weight: 0
+        image: null
+        image_alt: 'BNP PRE real estate project'
+        image_credit: 'nenetus - Adobe Stock'
+        step_label: 'Need definition'
+        step_title: 'Tell us about your project'
+        step_body: 'Together we draw up a clear and precise specification. Every variable is reviewed to clarify your needs and prioritise your requirements: floor area, location, accessibility, budget, timelines, technical constraints and future developments. We then send you listings matched to this specification.'
+      - weight: 1
+        image: null
+        image_alt: 'Property visit BNP Paribas Real Estate'
+        image_credit: 'tsyhun - Shutterstock'
+        step_label: 'Property visit'
+        step_title: "Let's schedule a visit!"
+        step_body: 'Two types of visit are available: an on-site property visit with a consultant who answers all your questions, or an immersive visit for some of our listings, allowing you to explore remotely and shortlist your favourite properties before travelling.'
+      - weight: 2
+        image: null
+        image_alt: 'Contracting BNP Paribas Real Estate'
+        image_credit: 'Andrey_Popov - Shutterstock'
+        step_label: Contracting
+        step_title: 'We safeguard your interests'
+        step_body: 'Lease negotiation, sale price, contracting… At every stage, we support you so you can make informed decisions. Our teams analyse clauses, identify points of attention and negotiate the best terms to secure your commitment.'
+      - weight: 3
+        image: null
+        image_alt: 'Fitting out business premises'
+        image_credit: 'Who is Danny - Adobe Stock'
+        step_label: 'Premises fitting out'
+        step_title: 'We advise you on fitting out your premises'
+        step_body: 'Implement new ways of working and spaces dedicated to employee wellbeing and gain competitiveness while attracting the best talent. From flex office to collaboration spaces, we help you design an environment that supports your performance.'
+      - weight: 4
+        image: null
+        image_alt: 'Ongoing support BNP Paribas Real Estate'
+        image_credit: 'marvent - Shutterstock'
+        step_label: Move-in
+        step_title: 'Support continues…'
+        step_body: "You now have solid foundations to build your company's future. BNP Paribas Real Estate support does not stop there. Present across all real estate businesses, we will always have a solution for your future projects, whether rethinking your workspaces or optimising your property portfolio."
+  fr:
+    title: 'Nos experts vous accompagnent'
+    subtitle: "Quel que soit votre projet immobilier d'entreprise, un expert BNP Paribas Real Estate dédié vous accompagne étape par étape. Cette méthodologie éprouvée garantit que chaque dimension de votre projet est prise en compte, de la définition de vos besoins jusqu'à votre installation et au-delà."
+    steps:
+      - weight: 0
+        image: null
+        image_alt: 'Projet Immobilier BNPPRE'
+        image_credit: 'nenetus - Adobe Stock'
+        step_label: 'Définition du besoin'
+        step_title: 'Parlez-nous de votre projet'
+        step_body: 'Nous formalisons ensemble un cahier des charges clair et précis. Toutes les variables sont passées en revue pour clarifier vos besoins et prioriser vos impératifs : surface, localisation, accessibilité, budget, délais, contraintes techniques et évolutions futures. Nous vous envoyons ensuite les annonces adaptées à ce cahier des charges.'
+      - weight: 1
+        image: null
+        image_alt: 'Visite du bien BNP Paribas Real Estate'
+        image_credit: 'tsyhun - Shutterstock'
+        step_label: 'Visite du bien'
+        step_title: 'Programmons une visite !'
+        step_body: "Deux types de visite s'offrent à vous : la visite du bien sur place, avec un consultant qui répond à toutes vos questions, ou bien la visite immersive pour certaines de nos annonces, qui vous permet d'explorer les lieux à distance et de présélectionner vos biens favoris avant de vous déplacer."
+      - weight: 2
+        image: null
+        image_alt: 'Contractualisation BNP Paribas Real Estate'
+        image_credit: 'Andrey_Popov - Shutterstock'
+        step_label: Contractualisation
+        step_title: 'Nous veillons à préserver vos intérêts'
+        step_body: 'Négociation du bail, du prix de vente, contractualisation… À chaque étape, nous vous accompagnons pour vous permettre de prendre des décisions éclairées. Nos équipes analysent les clauses, identifient les points de vigilance et négocient les meilleures conditions pour sécuriser votre engagement.'
+      - weight: 3
+        image: null
+        image_alt: 'Aménagement des locaux professionnels'
+        image_credit: 'Who is Danny - Adobe Stock'
+        step_label: 'Aménagement des locaux'
+        step_title: "Nous vous conseillons dans l'aménagement de vos locaux."
+        step_body: 'Mettez en place de nouveaux modes de travail et des espaces dédiés au bien-être de vos collaborateurs et gagnez ainsi en compétitivité tout en attirant les meilleurs talents. Du flex office aux espaces de collaboration, nous vous aidons à concevoir un environnement qui soutient votre performance.'
+      - weight: 4
+        image: null
+        image_alt: 'Accompagnement continu BNP Paribas Real Estate'
+        image_credit: 'marvent - Shutterstock'
+        step_label: "L'installation"
+        step_title: "L'accompagnement continue…"
+        step_body: "Vous voilà avec des fondations solides pour construire le futur de votre entreprise. L'accompagnement BNP Paribas Real Estate ne s'arrête pas là pour autant. Présents sur l'ensemble des métiers de l'immobilier, nous aurons toujours une solution à vos projets futurs, qu'il s'agisse de repenser vos espaces de travail ou d'optimiser votre parc immobilier."
+
+ps_homepage_news_block:
+  en:
+    title: 'News & insights'
+    subtitle: 'Market trends and expert perspectives'
+    see_more_label: 'View all news'
+    items_count: 3
+  fr:
+    title: 'Actualités & analyses'
+    subtitle: 'Tendances marché et regards d’experts'
+    see_more_label: 'Voir toutes les actualités'
+    items_count: 3
+
+ps_homepage_market_studies_block:
+  en:
+    title: 'Market studies'
+    subtitle: 'Insights to guide your real estate decisions'
+    see_more_label: 'View all studies'
+    see_more_url: /research
+    items:
+      - weight: 0
+        image: null
+        image_alt: ''
+        category: 'Market study'
+        title: 'Office market trends 2026'
+        date: '2026-06-14'
+        url: /research
+      - weight: 1
+        image: null
+        image_alt: ''
+        category: Insight
+        title: 'Logistics outlook in France'
+        date: '2026-05-14'
+        url: /research
+  fr:
+    title: 'Études de marché'
+    subtitle: 'Des analyses pour éclairer vos décisions immobilières'
+    see_more_label: 'Voir toutes les études'
+    see_more_url: /recherche
+    items:
+      - weight: 0
+        image: null
+        image_alt: ''
+        category: 'Étude de marché'
+        title: 'Tendances du marché des bureaux 2026'
+        date: '2026-06-14'
+        url: /recherche
+      - weight: 1
+        image: null
+        image_alt: ''
+        category: Analyse
+        title: 'Perspectives logistique en France'
+        date: '2026-05-14'
+        url: /recherche
+
+ps_homepage_faq_block:
+  en:
+    title: 'Frequently asked questions'
+    see_more_label: 'View all questions'
+    see_more_url: /faq
+  fr:
+    title: 'Questions fréquentes'
+    see_more_label: 'Voir toutes les questions'
+    see_more_url: /faq

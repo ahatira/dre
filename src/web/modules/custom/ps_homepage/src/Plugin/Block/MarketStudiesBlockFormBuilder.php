@@ -27,41 +27,23 @@ final class MarketStudiesBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
-    $form = [];
-
-    $form += $this->buildLanguageTabs($config, function (string $langcode, array $config): array {
-      return [
-        'header_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section header'),
-          '#open' => TRUE,
-        ] + $this->buildHeadingFields($langcode, $config),
-        'footer_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section footer'),
-          '#open' => FALSE,
-        ] + $this->buildFooterCtaFields($langcode, $config),
-      ];
-    });
+    $form = [
+      'editing_language' => $this->buildEditingLanguageNotice(),
+      'section_header' => $this->buildSectionHeaderFields($config),
+      'section_footer' => $this->buildSectionFooterFields($config),
+    ];
 
     $items = $this->sortItemsByWeight($config['items'] ?? []);
-    if ($items === []) {
-      $items = self::defaultItems();
-    }
 
     $form['items'] = [
       '#type' => 'table',
       '#header' => [
         $this->t('Weight'),
         $this->t('Image'),
-        $this->t('Alt'),
-        $this->t('Category EN'),
-        $this->t('Category FR'),
-        $this->t('Title EN'),
-        $this->t('Title FR'),
+        $this->t('Category'),
+        $this->t('Title'),
         $this->t('Date'),
-        $this->t('URL EN'),
-        $this->t('URL FR'),
+        $this->t('URL'),
         $this->t('Remove'),
       ],
       '#tree' => TRUE,
@@ -83,57 +65,36 @@ final class MarketStudiesBlockFormBuilder {
         '#default_value' => (int) ($item['weight'] ?? $delta),
         '#attributes' => ['class' => ['studies-weight']],
       ];
-      $form['items'][$delta]['image'] = $this->buildManagedFileElement(
+      $form['items'][$delta]['image'] = $this->buildMediaLibraryElement(
         $this->t('Image'),
         $item['image'] ?? NULL,
-        'public://homepage/market-studies/',
         FALSE,
       );
-      $form['items'][$delta]['image_alt'] = [
+      $form['items'][$delta]['category'] = [
         '#type' => 'textfield',
+        '#title' => $this->t('Category'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['image_alt'] ?? '',
-        '#maxlength' => 255,
-      ];
-      $form['items'][$delta]['category_en'] = [
-        '#type' => 'textfield',
-        '#title_display' => 'invisible',
-        '#default_value' => $item['category_en'] ?? '',
+        '#default_value' => $item['category'] ?? '',
         '#maxlength' => 128,
       ];
-      $form['items'][$delta]['category_fr'] = [
+      $form['items'][$delta]['title'] = [
         '#type' => 'textfield',
+        '#title' => $this->t('Title'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['category_fr'] ?? '',
-        '#maxlength' => 128,
-      ];
-      $form['items'][$delta]['title_en'] = [
-        '#type' => 'textfield',
-        '#title_display' => 'invisible',
-        '#default_value' => $item['title_en'] ?? '',
-        '#maxlength' => 255,
-      ];
-      $form['items'][$delta]['title_fr'] = [
-        '#type' => 'textfield',
-        '#title_display' => 'invisible',
-        '#default_value' => $item['title_fr'] ?? '',
+        '#default_value' => $item['title'] ?? '',
         '#maxlength' => 255,
       ];
       $form['items'][$delta]['date'] = [
         '#type' => 'date',
+        '#title' => $this->t('Date'),
         '#title_display' => 'invisible',
         '#default_value' => $item['date'] ?? '',
       ];
-      $form['items'][$delta]['url_en'] = [
+      $form['items'][$delta]['url'] = [
         '#type' => 'textfield',
+        '#title' => $this->t('URL'),
         '#title_display' => 'invisible',
-        '#default_value' => $item['url_en'] ?? '',
-        '#maxlength' => 512,
-      ];
-      $form['items'][$delta]['url_fr'] = [
-        '#type' => 'textfield',
-        '#title_display' => 'invisible',
-        '#default_value' => $item['url_fr'] ?? '',
+        '#default_value' => $item['url'] ?? '',
         '#maxlength' => 512,
       ];
       $form['items'][$delta]['remove'] = [
@@ -150,28 +111,10 @@ final class MarketStudiesBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    foreach (['en', 'fr'] as $langcode) {
-      $config['title_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'title_' . $langcode,
-      ]));
-      $config['subtitle_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'subtitle_' . $langcode,
-      ]));
-      $config['see_more_label_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'footer_' . $langcode,
-        'see_more_label_' . $langcode,
-      ]));
-      $config['see_more_url_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'footer_' . $langcode,
-        'see_more_url_' . $langcode,
-      ]));
-    }
+    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
+    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
+    $config['see_more_label'] = trim((string) $form_state->getValue(['section_footer', 'see_more_label']));
+    $config['see_more_url'] = trim((string) $form_state->getValue(['section_footer', 'see_more_url']));
 
     $rows = $form_state->getValue('items');
     $items = [];
@@ -181,24 +124,19 @@ final class MarketStudiesBlockFormBuilder {
           continue;
         }
 
-        $titleEn = trim((string) ($row['title_en'] ?? ''));
-        $titleFr = trim((string) ($row['title_fr'] ?? ''));
-        $imageFid = $this->persistManagedFile($row['image'] ?? NULL);
-        if ($imageFid === NULL || ($titleEn === '' && $titleFr === '')) {
+        $title = trim((string) ($row['title'] ?? ''));
+        $mediaMid = $this->persistMediaReference($row['image'] ?? NULL);
+        if ($mediaMid === NULL || $title === '') {
           continue;
         }
 
         $items[] = [
           'weight' => (int) ($row['weight'] ?? $delta),
-          'image' => $imageFid,
-          'image_alt' => trim((string) ($row['image_alt'] ?? '')),
-          'category_en' => trim((string) ($row['category_en'] ?? '')),
-          'category_fr' => trim((string) ($row['category_fr'] ?? '')),
-          'title_en' => $titleEn,
-          'title_fr' => $titleFr,
+          'image' => $mediaMid,
+          'category' => trim((string) ($row['category'] ?? '')),
+          'title' => $title,
           'date' => trim((string) ($row['date'] ?? '')),
-          'url_en' => trim((string) ($row['url_en'] ?? '')),
-          'url_fr' => trim((string) ($row['url_fr'] ?? '')),
+          'url' => trim((string) ($row['url'] ?? '')),
         ];
       }
     }
@@ -218,38 +156,6 @@ final class MarketStudiesBlockFormBuilder {
       return $date;
     }
     return $this->dateFormatter->format($timestamp, 'medium', [], $langcode);
-  }
-
-  /**
-   * @return list<array<string, mixed>>
-   */
-  public static function defaultItems(): array {
-    return [
-      [
-        'weight' => 0,
-        'image' => NULL,
-        'image_alt' => '',
-        'category_en' => 'Market study',
-        'category_fr' => 'Étude de marché',
-        'title_en' => 'Office market trends 2026',
-        'title_fr' => 'Tendances du marché des bureaux 2026',
-        'date' => date('Y-m-d'),
-        'url_en' => '/research',
-        'url_fr' => '/recherche',
-      ],
-      [
-        'weight' => 1,
-        'image' => NULL,
-        'image_alt' => '',
-        'category_en' => 'Insight',
-        'category_fr' => 'Analyse',
-        'title_en' => 'Logistics outlook in France',
-        'title_fr' => 'Perspectives logistique en France',
-        'date' => date('Y-m-d', strtotime('-1 month')),
-        'url_en' => '/research',
-        'url_fr' => '/recherche',
-      ],
-    ];
   }
 
 }

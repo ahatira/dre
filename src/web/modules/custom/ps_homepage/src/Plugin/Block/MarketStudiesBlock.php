@@ -6,14 +6,14 @@ namespace Drupal\ps_homepage\Plugin\Block;
 
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Drupal\ps_homepage\Utility\HomepageMediaResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -33,6 +33,7 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
     mixed $plugin_definition,
     private readonly HomepageMediaResolver $mediaResolver,
     private readonly ExtensionPathResolver $extensionPathResolver,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly MarketStudiesBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -48,6 +49,7 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
       $plugin_definition,
       $container->get('ps_homepage.media_resolver'),
       $container->get('extension.path.resolver'),
+      $container->get('ps_homepage.section_builder'),
       new MarketStudiesBlockFormBuilder(
         $container->get('date.formatter'),
       ),
@@ -58,17 +60,7 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return [
-      'title_en' => 'Market studies',
-      'title_fr' => 'Études de marché',
-      'subtitle_en' => 'Insights to guide your real estate decisions',
-      'subtitle_fr' => 'Des analyses pour éclairer vos décisions immobilières',
-      'see_more_label_en' => 'View all studies',
-      'see_more_label_fr' => 'Voir toutes les études',
-      'see_more_url_en' => '/research',
-      'see_more_url_fr' => '/recherche',
-      'items' => MarketStudiesBlockFormBuilder::defaultItems(),
-    ] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
   }
 
   /**
@@ -91,8 +83,8 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
-    $footer = HomepageLocalizedFieldResolver::resolveFooterCta($this->configuration, $langcode);
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
+    $footer = HomepageBlockConfiguration::footerCta($this->configuration);
 
     $columns = [];
     foreach ($this->configuration['items'] ?? [] as $item) {
@@ -100,10 +92,10 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
         continue;
       }
 
-      $title = trim((string) ($item['title_' . $langcode] ?? $item['title_en'] ?? ''));
-      $imageUrl = $this->mediaResolver->resolveUrl($item['image'] ?? NULL)
-        ?? $this->defaultThemeImageUrl();
-      $url = trim((string) ($item['url_' . $langcode] ?? $item['url_en'] ?? ''));
+      $title = trim((string) ($item['title'] ?? ''));
+      $media = $this->mediaResolver->resolve($item['image'] ?? NULL, $langcode);
+      $imageUrl = $media->url ?? $this->defaultThemeImageUrl();
+      $url = trim((string) ($item['url'] ?? ''));
 
       if ($title === '' || $url === '') {
         continue;
@@ -117,12 +109,16 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
           '#component' => 'ps_theme:market-study-card',
           '#props' => [
             'image' => $imageUrl,
-            'image_alt' => (string) ($item['image_alt'] ?? $title),
-            'category' => trim((string) ($item['category_' . $langcode] ?? $item['category_en'] ?? '')),
+            'image_alt' => $media->alt !== '' ? $media->alt : $title,
+            'image_credit' => $media->credit,
+            'category' => trim((string) ($item['category'] ?? '')),
             'title' => $title,
             'date' => $this->formBuilder->formatDate((string) ($item['date'] ?? ''), $langcode),
             'url' => Url::fromUserInput($url)->toString(),
           ],
+        ],
+        '#cache' => [
+          'tags' => $media->cacheTags,
         ],
       ];
     }
@@ -133,31 +129,26 @@ final class MarketStudiesBlock extends BlockBase implements ContainerFactoryPlug
 
     $footerUrl = $footer['url'] !== '' ? Url::fromUserInput($footer['url'])->toString() : '';
 
-    return [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-homepage-market-studies', 'container', 'py-5']],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
-      ],
-      'grid' => [
+    return $this->sectionBuilder->build([
+      'modifier' => 'market-studies',
+      'section_class' => 'ps-homepage-market-studies',
+      'header' => $heading,
+      'body' => [
         '#type' => 'container',
         '#attributes' => ['class' => ['row', 'g-4']],
       ] + $columns,
       'footer' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-footer-cta',
-        '#props' => [
-          'label' => $footer['label'],
-          'url' => $footerUrl,
-        ],
+        'label' => $footer['label'],
+        'url' => $footerUrl,
       ],
-      '#cache' => [
+      'attached' => [
+        'library' => ['ps_homepage/homepage_media_credit'],
+      ],
+      'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => ['config:block.block'],
       ],
-    ];
+    ]);
   }
 
   private function defaultThemeImageUrl(): string {

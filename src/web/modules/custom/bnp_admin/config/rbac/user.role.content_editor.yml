@@ -1,3 +1,4 @@
+uuid: ef7cfc31-1ce6-4ef7-bc34-1beeb7205ba4
 langcode: en
 status: true
 dependencies:
@@ -38,3 +39,4 @@ permissions:
   - 'view own unpublished content'
   - 'view published sitewide alert entities'
   - 'view the administration theme'
+

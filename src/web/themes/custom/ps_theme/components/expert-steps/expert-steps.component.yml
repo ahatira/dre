@@ -1,5 +1,5 @@
 name: Expert steps
-description: 'Homepage expert journey — numbered steps and image with CTA overlay.'
+description: 'Homepage expert journey — desktop stepper with per-step images and mobile stacked cards.'
 group: Property Search
 status: stable
 props:
@@ -9,34 +9,27 @@ props:
       type: array
       title: Steps
       items:
-        type: string
-    image:
-      type: string
-      title: Image URL
-    image_alt:
-      type: string
-      title: Image alt text
-    cta_title:
-      type: string
-      title: CTA title
-    cta_body:
-      type: string
-      title: CTA body
-    cta_button_label:
-      type: string
-      title: CTA button label
-    cta_button_url:
-      type: string
-      title: CTA button URL
-    cta_link_type:
-      type: string
-      title: CTA link type
-    cta_modal_id:
-      type: string
-      title: CTA modal ID
+        type: object
+        properties:
+          label:
+            type: string
+          title:
+            type: string
+          body:
+            type: string
+          image:
+            type: string
+          image_alt:
+            type: string
+          image_credit:
+            type: string
 libraryOverrides:
   css:
     component:
       styles/expert-steps.css: {}
+  js:
+    expert-steps.js: {}
   dependencies:
-    - ps_theme/component_offcanvas
+    - core/drupal
+    - core/once
+    - ps_homepage/homepage_media_credit

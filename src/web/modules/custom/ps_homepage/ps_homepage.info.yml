@@ -4,7 +4,7 @@ description: 'Layout Builder blocks for the Stellar homepage.'
 core_version_requirement: ^11.3
 package: 'Property Search'
 dependencies:
-  - drupal:datetime
+  - drupal:content_translation
   - drupal:field
   - drupal:language
   - drupal:layout_builder

@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000004-0000-4000-8000-000000000004
+  bundle: faq_item
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo FAQ item'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Where can I find market studies?'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  field_question:
+    -
+      value: 'Where can I find market studies?'
+  field_answer:
+    -
+      value: '<p>Market studies are highlighted on the homepage and available on the research section. They provide insights on offices, logistics, retail and other asset classes.</p>'
+      format: basic_html
+  field_weight:
+    -
+      value: '3'
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'FAQ démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Où trouver les études de marché ?'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    field_question:
+      -
+        value: 'Où trouver les études de marché ?'
+    field_answer:
+      -
+        value: '<p>Les études de marché sont mises en avant sur la page d''accueil et disponibles dans la rubrique recherche. Elles apportent des analyses sur les bureaux, la logistique, le commerce et les autres univers.</p>'
+        format: basic_html

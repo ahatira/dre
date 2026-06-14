@@ -1,56 +1,86 @@
 {#
 /**
  * @file
- * Homepage expert journey steps + image CTA overlay.
+ * Homepage expert journey — desktop stepper + mobile stacked cards.
+ *
+ * Mirrors bnppre.fr slice-accompagnement layout and fade transitions.
  */
 #}
+{% macro step_card(step, index) %}
+  <div class="ps-expert-steps__card-header">
+    <span class="ps-expert-steps__badge" aria-hidden="true">{{ index }}</span>
+    <span class="ps-expert-steps__card-label">{{ step.label }}</span>
+  </div>
+  {% if step.title %}
+    <h3 class="ps-expert-steps__card-title">{{ step.title }}</h3>
+  {% endif %}
+  {% if step.body %}
+    <div class="ps-expert-steps__card-body">{{ step.body }}</div>
+  {% endif %}
+{% endmacro %}
+
+{% import _self as expert_steps %}
+
 <section class="ps-expert-steps">
-  <div class="row g-4 g-lg-5 align-items-stretch">
-    <div class="col-lg-6">
-      {% if steps %}
-        <ol class="ps-expert-steps__list list-unstyled mb-0">
+  {% if steps %}
+    <div class="ps-expert-steps__desktop">
+      <nav class="ps-expert-steps__nav" aria-label="{{ 'Expert journey steps'|t }}">
+        <ul class="ps-expert-steps__nav-list list-unstyled mb-0">
           {% for step in steps %}
-            <li class="ps-expert-steps__item">
-              <span class="ps-expert-steps__number" aria-hidden="true">{{ loop.index }}</span>
-              <span class="ps-expert-steps__label">{{ step }}</span>
+            <li class="ps-expert-steps__nav-item-wrap">
+              <button
+                type="button"
+                class="ps-expert-steps__nav-item{% if loop.first %} is-active{% endif %}"
+                data-step-index="{{ loop.index0 }}"
+                aria-controls="ps-expert-step-panel-{{ loop.index }}"
+                {% if loop.first %}aria-current="step"{% endif %}
+              >
+                <span class="ps-expert-steps__nav-marker" aria-hidden="true"></span>
+                <span class="ps-expert-steps__nav-label">{{ loop.index }} - {{ step.label }}</span>
+              </button>
             </li>
           {% endfor %}
-        </ol>
-      {% endif %}
-    </div>
-    <div class="col-lg-6">
-      <div class="ps-expert-steps__media position-relative">
-        {% if image %}
-          <img src="{{ image }}" alt="{{ image_alt|default('') }}" class="ps-expert-steps__image w-100" loading="lazy" />
-        {% endif %}
-        {% if cta_title or cta_body or cta_button_label %}
-          <aside class="ps-expert-steps__cta">
-            {% if cta_title %}
-              <h3 class="ps-expert-steps__cta-title">{{ cta_title }}</h3>
+        </ul>
+      </nav>
+
+      <div class="ps-expert-steps__stage">
+        {% for step in steps %}
+          <div
+            id="ps-expert-step-panel-{{ loop.index }}"
+            class="ps-expert-steps__panel{% if loop.first %} is-active{% endif %}"
+            role="region"
+            aria-label="{{ step.label }}"
+            {% if not loop.first %}aria-hidden="true"{% endif %}
+          >
+            {% if step.image %}
+              <div class="ps-expert-steps__image-wrap">
+                {{ include('ui_suite_bnp:media-credit', {
+                  image_url: step.image,
+                  image_alt: step.image_alt|default(''),
+                  credit: step.image_credit|default(''),
+                  image_class: 'ps-expert-steps__image',
+                  width: 805,
+                  height: 500,
+                  loading: 'lazy',
+                }) }}
+              </div>
             {% endif %}
-            {% if cta_body %}
-              <p class="ps-expert-steps__cta-body">{{ cta_body }}</p>
-            {% endif %}
-            {% if cta_button_label %}
-              {% if cta_link_type == 'modal' and cta_modal_id %}
-                <button type="button" class="btn btn-primary ps-expert-steps__cta-button" data-bs-toggle="modal" data-bs-target="#{{ cta_modal_id }}">
-                  {{ cta_button_label }}
-                </button>
-              {% elseif cta_link_type == 'offcanvas' and cta_button_url %}
-                <a href="{{ cta_button_url }}"
-                   class="btn btn-primary ps-expert-steps__cta-button use-ajax"
-                   data-dialog-type="dialog"
-                   data-dialog-renderer="off_canvas"
-                   data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
-                  {{ cta_button_label }}
-                </a>
-              {% elseif cta_button_url %}
-                <a href="{{ cta_button_url }}" class="btn btn-primary ps-expert-steps__cta-button">{{ cta_button_label }}</a>
-              {% endif %}
-            {% endif %}
-          </aside>
-        {% endif %}
+            <div class="ps-expert-steps__card">
+              {{ expert_steps.step_card(step, loop.index) }}
+            </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
-  </div>
+
+    <div class="ps-expert-steps__mobile">
+      {% for step in steps %}
+        <article class="ps-expert-steps__mobile-card">
+          <div class="ps-expert-steps__mobile-content">
+            {{ expert_steps.step_card(step, loop.index) }}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
 </section>

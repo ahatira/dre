@@ -24,13 +24,28 @@ class ElementPreRenderLink implements TrustedCallbackInterface {
     /** @var string|null $icon */
     $icon = &$element_object->getProperty('icon');
     if ($icon) {
-      $element_object->addClass('icon-link');
-      // Also add the class in the options if it exists as it takes precedence.
-      /** @var array $options */
-      $options = $element_object->getProperty('options', []);
-      if (isset($options['attributes'])) {
-        $options['attributes']['class'][] = 'icon-link';
-        $element_object->setProperty('options', $options);
+      // icon-link is for plain links; it breaks Bootstrap .btn styling.
+      if ($element_object->hasClass('btn')) {
+        $element_object->addClass(['d-inline-flex', 'align-items-center', 'gap-1']);
+        /** @var array $options */
+        $options = $element_object->getProperty('options', []);
+        if (isset($options['attributes']['class'])) {
+          $options['attributes']['class'] = array_values(array_unique(array_merge(
+            $options['attributes']['class'],
+            ['d-inline-flex', 'align-items-center', 'gap-1'],
+          )));
+          $element_object->setProperty('options', $options);
+        }
+      }
+      else {
+        $element_object->addClass('icon-link');
+        // Also add the class in the options if it exists as it takes precedence.
+        /** @var array $options */
+        $options = $element_object->getProperty('options', []);
+        if (isset($options['attributes'])) {
+          $options['attributes']['class'][] = 'icon-link';
+          $element_object->setProperty('options', $options);
+        }
       }
 
       /** @var string $title */

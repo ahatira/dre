@@ -8,3 +8,15 @@
 .ps-market-study-card__category {
   letter-spacing: 0.04em;
 }
+
+.ps-market-study-card .image-copyright-wrapper {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.ps-market-study-card .credit-tooltip {
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 4;
+}

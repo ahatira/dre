@@ -1,3 +1,4 @@
+uuid: 6ab9e6bb-215f-4840-b4c6-3471a89fbe15
 langcode: en
 status: true
 dependencies:
@@ -11,3 +12,4 @@ is_admin: true
 permissions:
   - 'masquerade as any user'
   - 'masquerade as super user'
+

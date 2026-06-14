@@ -1,0 +1,99 @@
+/**
+ * Media credit overlay — bnppre.fr credit-tooltip pattern.
+ */
+
+.image-copyright-wrapper {
+  display: block;
+  max-width: 100%;
+  position: relative;
+}
+
+.image-copyright-wrapper img {
+  display: block;
+  margin-left: auto;
+  max-width: 100%;
+}
+
+.credit-tooltip {
+  align-items: center;
+  background-color: #142026;
+  border-radius: 40px;
+  bottom: 15px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  height: auto !important;
+  line-height: 1;
+  max-width: 24px;
+  overflow: hidden;
+  padding-right: 10px;
+  position: absolute;
+  right: 15px;
+  transition: max-width 0.5s ease-in-out;
+  z-index: 4;
+}
+
+.credit-tooltip::before {
+  align-items: center;
+  border-radius: 100%;
+  box-shadow: #fff 0 0 0 1px inset;
+  content: "i";
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  height: 24px;
+  justify-content: center;
+  margin-right: 10px;
+  width: 24px;
+}
+
+.credit-tooltip::after {
+  align-items: center;
+  content: "x";
+  display: flex;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: 0;
+  opacity: 0;
+  padding-top: 1px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.credit-tooltip .credit-tooltip-text {
+  flex: 1 1 0;
+  max-width: calc(100% - 30px);
+  opacity: 0;
+  padding: 4px 15px 3px 0;
+  pointer-events: none;
+  text-align: left;
+  text-wrap: nowrap;
+  transition: opacity 0.5s ease-in-out;
+  white-space: nowrap;
+}
+
+.credit-tooltip-copyright {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.credit-tooltip.is-open {
+  max-width: calc(100% - 30px);
+}
+
+.credit-tooltip.is-open .credit-tooltip-text,
+.credit-tooltip.is-open::after {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out 0.2s;
+}
+
+.credit-tooltip.is-open.is-done .credit-tooltip-text {
+  flex: 1 1 0;
+  max-width: calc(100% - 30px);
+}
+
+.credit-tooltip:focus-visible {
+  outline: 2px solid #008859;
+  outline-offset: 2px;
+}

@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.mediahub_video.field_credit
     - field.field.media.mediahub_video.field_media_video_url
     - media.type.mediahub_video
   module:
@@ -19,6 +20,14 @@ content:
       size: 100
       placeholder: 'https://my.mediahub.bnpparibas/.../asset.mp4'
     third_party_settings: { }
+  field_credit:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
   name:
     type: string_textfield
     weight: 0
@@ -29,7 +38,7 @@ content:
     third_party_settings: { }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -39,13 +48,13 @@ content:
     third_party_settings: { }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: content
     settings: { }
     third_party_settings: { }
   status:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true

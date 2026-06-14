@@ -28,29 +28,11 @@ final class OffersCarouselBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
-    $form = [];
-
-    $form += $this->buildLanguageTabs($config, function (string $langcode, array $config): array {
-      return [
-        'header_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section header'),
-          '#open' => TRUE,
-        ] + $this->buildHeadingFields($langcode, $config),
-        'footer_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section footer'),
-          '#open' => FALSE,
-        ] + [
-          'see_more_label_' . $langcode => [
-            '#type' => 'textfield',
-            '#title' => $this->t('Footer CTA label'),
-            '#default_value' => $config['see_more_label_' . $langcode] ?? '',
-            '#maxlength' => 255,
-          ],
-        ],
-      ];
-    });
+    $form = [
+      'editing_language' => $this->buildEditingLanguageNotice(),
+      'section_header' => $this->buildSectionHeaderFields($config),
+      'section_footer' => $this->buildSectionFooterFields($config, FALSE),
+    ];
 
     $form['options'] = [
       '#type' => 'details',
@@ -136,23 +118,9 @@ final class OffersCarouselBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    foreach (['en', 'fr'] as $langcode) {
-      $config['title_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'title_' . $langcode,
-      ]));
-      $config['subtitle_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'subtitle_' . $langcode,
-      ]));
-      $config['see_more_label_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'footer_' . $langcode,
-        'see_more_label_' . $langcode,
-      ]));
-    }
+    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
+    $config['subtitle'] = trim((string) $form_state->getValue(['section_header', 'subtitle']));
+    $config['see_more_label'] = trim((string) $form_state->getValue(['section_footer', 'see_more_label']));
 
     $config['max_visible'] = (int) $form_state->getValue(['options', 'max_visible']);
     $config['show_favorite'] = (bool) $form_state->getValue(['options', 'show_favorite']);

@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Homepage section footer — outline or primary CTA.
+ */
+#}
+{% if cta_label and cta_url %}
+  {% set button_class = cta_style|default('outline') == 'primary' ? 'btn-primary' : 'btn-outline-primary' %}
+  <div class="ps-homepage-section-footer text-center">
+    <a class="btn {{ button_class }} ps-homepage-section-footer__button" href="{{ cta_url }}">{{ cta_label }}</a>
+  </div>
+{% endif %}

@@ -7,7 +7,16 @@
 <article class="ps-market-study-card position-relative h-100">
   <div class="card border-0 h-100">
     {% if image %}
-      <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="card-img h-100 object-fit-cover" loading="lazy" />
+      <div class="ps-market-study-card__image h-100">
+        {{ include('ui_suite_bnp:media-credit', {
+          image_url: image,
+          image_alt: image_alt|default(title),
+          credit: image_credit|default(''),
+          image_class: 'card-img h-100 object-fit-cover',
+          loading: 'lazy',
+          wrapper_class: 'h-100',
+        }) }}
+      </div>
     {% endif %}
     <div class="card-img-overlay d-flex flex-column justify-content-end">
       {% if category %}

@@ -234,21 +234,19 @@ final class DemoInstaller {
       return;
     }
 
-    /** @var \Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder $layoutBuilder */
-    $layoutBuilder = \Drupal::service('ps_homepage.default_layout_builder');
-    $sections = $layoutBuilder->buildSections();
-    $homepage->get('layout_builder__layout')->setValue($sections);
-    $homepage->save();
+    \Drupal::service('ps_homepage.layout_field_configurer')->ensureTranslatable();
 
-    foreach ($homepage->getTranslationLanguages(FALSE) as $langcode => $_language) {
-      $translation = $homepage->getTranslation($langcode);
-      $translation->get('layout_builder__layout')->setValue($sections);
-      $translation->save();
-    }
+    $layoutBuilder = \Drupal::service('ps_homepage.default_layout_builder');
+    $layoutPersister = \Drupal::service('ps_homepage.layout_persister');
+    $layoutPersister->saveAllTranslationLayouts(
+      $homepage,
+      static fn (string $langcode): array => $layoutBuilder->buildSections($langcode),
+    );
 
     $this->logger->notice('ps_demo: applied default 9-section homepage layout.');
 
     \Drupal::service('ps_homepage.section_library_installer')->install();
+    \Drupal::service('ps_homepage.faq_config_refresher')->refreshFrontPage();
   }
 
   /**

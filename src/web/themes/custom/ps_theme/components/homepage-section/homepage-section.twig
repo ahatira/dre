@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Homepage section shell — full-width band with containerized content.
+ */
+#}
+{% set spacing_map = {
+  'none': '',
+  'sm': 'py-3',
+  'md': 'py-4',
+  'lg': 'py-5',
+  'xl': 'py-5',
+} %}
+{% set spacing_class = spacing_map[spacing|default('lg')] ?? 'py-5' %}
+{% set bg_variant = background|default('default') %}
+{% set container_class = container|default('container') %}
+{% set section_classes = [
+  'ps-homepage-section',
+  'ps-homepage-section--bg-' ~ bg_variant,
+  spacing_class,
+] %}
+{% if modifier %}
+  {% set section_classes = section_classes|merge(['ps-homepage-section--' ~ modifier]) %}
+{% endif %}
+{% if section_class %}
+  {% for extra_class in section_class|split(' ') %}
+    {% if extra_class %}
+      {% set section_classes = section_classes|merge([extra_class]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<section{{ attributes.addClass(section_classes) }}>
+  <div class="ps-homepage-section__inner{{ container_class != 'none' ? ' ' ~ container_class : '' }}">
+    {% if header %}
+      <div class="ps-homepage-section__header">
+        {{ header }}
+      </div>
+    {% endif %}
+    {% if body %}
+      <div class="ps-homepage-section__body">
+        {{ body }}
+      </div>
+    {% endif %}
+    {% if footer %}
+      <div class="ps-homepage-section__footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+</section>

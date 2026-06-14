@@ -1,0 +1,275 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\ps_homepage\Utility;
+
+/**
+ * Reads and migrates monolingual homepage LB block configuration.
+ */
+final class HomepageBlockConfiguration {
+
+  /**
+   * Homepage block plugin IDs managed by this utility.
+   *
+   * @var list<string>
+   */
+  public const HOMEPAGE_PLUGIN_IDS = [
+    'ps_homepage_search_hero_block',
+    'ps_homepage_services_block',
+    'ps_homepage_tools_block',
+    'ps_homepage_offers_carousel_block',
+    'ps_homepage_search_shortcuts_block',
+    'ps_homepage_expert_journey_block',
+    'ps_homepage_news_block',
+    'ps_homepage_market_studies_block',
+    'ps_homepage_faq_block',
+  ];
+
+  /**
+   * Repeatable item list keys per plugin.
+   *
+   * @var array<string, string>
+   */
+  private const ITEM_LIST_KEYS = [
+    'ps_homepage_services_block' => 'items',
+    'ps_homepage_tools_block' => 'items',
+    'ps_homepage_search_shortcuts_block' => 'items',
+    'ps_homepage_market_studies_block' => 'items',
+    'ps_homepage_expert_journey_block' => 'steps',
+    'ps_homepage_offers_carousel_block' => 'offers',
+    'ps_homepage_faq_block' => 'faq_items',
+  ];
+
+  /**
+   * Top-level keys that stay identical across translations.
+   *
+   * @var list<string>
+   */
+  private const NEUTRAL_TOP_LEVEL_KEYS = [
+    'id',
+    'provider',
+    'label',
+    'label_display',
+    'uuid',
+    'background_image',
+    'promo_background_image',
+    'promo_offers_use_dynamic',
+    'illustration',
+    'max_visible',
+    'show_favorite',
+    'show_compare',
+    'autoplay',
+    'items_count',
+  ];
+
+  /**
+   * Item-level keys that stay identical across translations.
+   *
+   * @var list<string>
+   */
+  private const NEUTRAL_ITEM_KEYS = [
+    'weight',
+    'image',
+    'icon',
+    'link_type',
+    'button_style',
+    'modal_id',
+    'preset_operation',
+    'preset_asset',
+    'preset_locality',
+    'opened_by_default',
+    'date',
+    'nid',
+    'remove',
+  ];
+
+  /**
+   * @return array{title: string, subtitle: string}
+   */
+  public static function heading(array $config): array {
+    return [
+      'title' => self::string($config, 'title'),
+      'subtitle' => self::string($config, 'subtitle'),
+    ];
+  }
+
+  /**
+   * @return array{label: string, url: string}
+   */
+  public static function footerCta(array $config): array {
+    return [
+      'label' => self::string($config, 'see_more_label'),
+      'url' => self::string($config, 'see_more_url'),
+    ];
+  }
+
+  public static function string(array $config, string $key): string {
+    return trim((string) ($config[$key] ?? ''));
+  }
+
+  /**
+   * Converts legacy bilingual config to monolingual config for a layout.
+   *
+   * @param array<string, mixed> $config
+   *
+   * @return array<string, mixed>
+   */
+  public static function migrateForLanguage(array $config, string $langcode, ?string $pluginId = NULL): array {
+    if (!self::usesLegacyLocalizedKeys($config)) {
+      return $config;
+    }
+
+    $pluginId ??= (string) ($config['id'] ?? '');
+    $suffix = '_' . $langcode;
+    $migrated = [];
+
+    foreach ($config as $key => $value) {
+      if (self::isLocalizedKey($key)) {
+        $base = self::baseKey($key);
+        if (str_ends_with($key, $suffix)) {
+          $migrated[$base] = $value;
+        }
+        continue;
+      }
+
+      if (is_array($value) && self::isItemListKey($key)) {
+        $migrated[$key] = array_values(array_map(
+          static fn (mixed $item): mixed => is_array($item)
+            ? self::migrateItemForLanguage($item, $langcode)
+            : $item,
+          $value,
+        ));
+        continue;
+      }
+
+      $migrated[$key] = $value;
+    }
+
+    return $migrated;
+  }
+
+  /**
+   * Merges language-neutral values from source into target configuration.
+   *
+   * @param array<string, mixed> $target
+   * @param array<string, mixed> $source
+   *
+   * @return array<string, mixed>
+   */
+  public static function applyNeutralValues(array $target, array $source, ?string $pluginId = NULL): array {
+    $pluginId ??= (string) ($target['id'] ?? $source['id'] ?? '');
+
+    foreach (self::NEUTRAL_TOP_LEVEL_KEYS as $key) {
+      if (array_key_exists($key, $source)) {
+        $target[$key] = $source[$key];
+      }
+    }
+
+    $listKey = self::ITEM_LIST_KEYS[$pluginId] ?? NULL;
+    if ($listKey === NULL || !isset($source[$listKey]) || !is_array($source[$listKey])) {
+      return $target;
+    }
+
+    $targetItems = isset($target[$listKey]) && is_array($target[$listKey]) ? $target[$listKey] : [];
+    $sourceItems = $source[$listKey];
+    $mergedItems = [];
+
+    foreach ($sourceItems as $index => $sourceItem) {
+      if (!is_array($sourceItem)) {
+        continue;
+      }
+      $targetItem = isset($targetItems[$index]) && is_array($targetItems[$index])
+        ? $targetItems[$index]
+        : [];
+      $mergedItems[] = self::applyNeutralItemValues($targetItem, $sourceItem);
+    }
+
+    $target[$listKey] = $mergedItems;
+    return $target;
+  }
+
+  public static function isHomepagePlugin(string $pluginId): bool {
+    return in_array($pluginId, self::HOMEPAGE_PLUGIN_IDS, TRUE);
+  }
+
+  /**
+   * @param array<string, mixed> $config
+   */
+  public static function usesLegacyLocalizedKeys(array $config): bool {
+    foreach (array_keys($config) as $key) {
+      if (self::isLocalizedKey((string) $key)) {
+        return TRUE;
+      }
+    }
+
+    foreach (self::ITEM_LIST_KEYS as $listKey) {
+      if (!isset($config[$listKey]) || !is_array($config[$listKey])) {
+        continue;
+      }
+      foreach ($config[$listKey] as $item) {
+        if (!is_array($item)) {
+          continue;
+        }
+        foreach (array_keys($item) as $itemKey) {
+          if (self::isLocalizedKey((string) $itemKey)) {
+            return TRUE;
+          }
+        }
+      }
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * @param array<string, mixed> $item
+   *
+   * @return array<string, mixed>
+   */
+  private static function migrateItemForLanguage(array $item, string $langcode): array {
+    $suffix = '_' . $langcode;
+    $migrated = [];
+
+    foreach ($item as $key => $value) {
+      if (self::isLocalizedKey((string) $key)) {
+        $base = self::baseKey((string) $key);
+        if (str_ends_with((string) $key, $suffix)) {
+          $migrated[$base] = $value;
+        }
+        continue;
+      }
+      $migrated[$key] = $value;
+    }
+
+    return $migrated;
+  }
+
+  /**
+   * @param array<string, mixed> $target
+   * @param array<string, mixed> $source
+   *
+   * @return array<string, mixed>
+   */
+  private static function applyNeutralItemValues(array $target, array $source): array {
+    foreach (self::NEUTRAL_ITEM_KEYS as $key) {
+      if (array_key_exists($key, $source)) {
+        $target[$key] = $source[$key];
+      }
+    }
+    return $target;
+  }
+
+  private static function isItemListKey(string $key): bool {
+    return in_array($key, self::ITEM_LIST_KEYS, TRUE);
+  }
+
+  private static function isLocalizedKey(string $key): bool {
+    return str_ends_with($key, '_en') || str_ends_with($key, '_fr');
+  }
+
+  private static function baseKey(string $key): string {
+    return (string) preg_replace('/_(en|fr)$/', '', $key);
+  }
+
+}

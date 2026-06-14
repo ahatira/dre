@@ -18,11 +18,11 @@
 #}
 {% extends "input.html.twig" %}
 {% block input %}
-  {%
+    {%
     set classes = [
       'btn',
       type == 'submit' ? 'js-form-submit',
-      icon ? 'icon-link',
+      icon ? 'd-inline-flex align-items-center gap-1' : '',
     ]
   %}
   {% apply spaceless %}

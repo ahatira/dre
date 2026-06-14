@@ -1,3 +1,4 @@
+uuid: 74c41371-3b56-47c6-ac5c-6db8ab4dcb42
 langcode: en
 status: true
 dependencies:
@@ -25,9 +26,9 @@ permissions:
   - 'access administration pages'
   - 'access coffee'
   - 'access content'
-  - 'access ps_seo admin'
   - 'access ps_core config section'
   - 'access ps_core hub'
+  - 'access ps_seo admin'
   - 'administer bnp editor'
   - 'administer coffee'
   - 'administer config permissions'
@@ -35,8 +36,8 @@ permissions:
   - 'administer entity clone'
   - 'administer permissions'
   - 'administer ps_context matrix'
-  - 'administer ps_seo'
   - 'administer ps_core'
+  - 'administer ps_seo'
   - 'administer redirect_after_login settings'
   - 'administer site configuration'
   - 'administer sitewide alert'
@@ -49,3 +50,4 @@ permissions:
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use text format restricted_html'
+

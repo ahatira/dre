@@ -11,8 +11,9 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\ps_core\Utility\IconIdUtility;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Drupal\ps_search\Service\SearchPresetQueryBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -31,6 +32,7 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
     string $plugin_id,
     mixed $plugin_definition,
     private readonly SearchPresetQueryBuilder $presetQueryBuilder,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly SearchShortcutsBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -45,6 +47,7 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
       $plugin_id,
       $plugin_definition,
       $container->get('ps_search.preset_query_builder'),
+      $container->get('ps_homepage.section_builder'),
       new SearchShortcutsBlockFormBuilder(
         $container->get('ps_search.preset_options_provider'),
       ),
@@ -55,13 +58,7 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return [
-      'title_en' => 'Start your search',
-      'title_fr' => 'Lancez votre recherche',
-      'subtitle_en' => 'Quick access to the most popular asset types',
-      'subtitle_fr' => 'Accès rapide aux univers les plus recherchés',
-      'items' => SearchShortcutsBlockFormBuilder::defaultItems(),
-    ] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
   }
 
   /**
@@ -84,7 +81,7 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
 
     $columns = [];
     foreach ($this->configuration['items'] ?? [] as $item) {
@@ -92,12 +89,12 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
         continue;
       }
 
-      $title = trim((string) ($item['title_' . $langcode] ?? $item['title_en'] ?? ''));
+      $title = trim((string) ($item['title'] ?? ''));
       if ($title === '') {
         continue;
       }
 
-      $linkLabel = trim((string) ($item['link_label_' . $langcode] ?? $item['link_label_en'] ?? ''));
+      $linkLabel = trim((string) ($item['link_label'] ?? ''));
       $linkUrl = $this->resolveShortcutUrl($item, $langcode);
       if ($linkLabel === '' || $linkUrl === '') {
         continue;
@@ -125,23 +122,19 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
       return ['#markup' => ''];
     }
 
-    return [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-homepage-shortcuts', 'container', 'py-5']],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
-      ],
-      'grid' => [
+    return $this->sectionBuilder->build([
+      'modifier' => 'shortcuts',
+      'section_class' => 'ps-homepage-shortcuts',
+      'header' => $heading,
+      'body' => [
         '#type' => 'container',
         '#attributes' => ['class' => ['row', 'g-4', 'ps-homepage-shortcuts__grid']],
       ] + $columns,
-      '#cache' => [
+      'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => ['config:block.block'],
       ],
-    ];
+    ]);
   }
 
   /**
@@ -150,7 +143,7 @@ final class SearchShortcutsBlock extends BlockBase implements ContainerFactoryPl
   private function resolveShortcutUrl(array $item, string $langcode): string {
     $linkType = (string) ($item['link_type'] ?? 'search_preset');
     if ($linkType === 'custom_url') {
-      $url = trim((string) ($item['url_' . $langcode] ?? $item['url_en'] ?? ''));
+      $url = trim((string) ($item['url'] ?? ''));
       return $url !== '' ? Url::fromUserInput($url)->toString() : '';
     }
 

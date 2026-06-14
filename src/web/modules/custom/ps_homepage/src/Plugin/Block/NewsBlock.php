@@ -9,9 +9,10 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
 use Drupal\ps_homepage\Service\NewsListPathResolver;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,6 +31,7 @@ final class NewsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     string $plugin_id,
     mixed $plugin_definition,
     private readonly NewsListPathResolver $newsListPathResolver,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly NewsBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -44,6 +46,7 @@ final class NewsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       $plugin_id,
       $plugin_definition,
       $container->get('ps_homepage.news_list_path_resolver'),
+      $container->get('ps_homepage.section_builder'),
       new NewsBlockFormBuilder(),
     );
   }
@@ -53,12 +56,6 @@ final class NewsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   public function defaultConfiguration(): array {
     return [
-      'title_en' => 'News & insights',
-      'title_fr' => 'Actualités & analyses',
-      'subtitle_en' => 'Market trends and expert perspectives',
-      'subtitle_fr' => 'Tendances marché et regards d’experts',
-      'see_more_label_en' => 'View all news',
-      'see_more_label_fr' => 'Voir toutes les actualités',
       'items_count' => 3,
     ] + parent::defaultConfiguration();
   }
@@ -83,8 +80,8 @@ final class NewsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
-    $footerLabel = HomepageLocalizedFieldResolver::resolve($this->configuration, 'see_more_label', $langcode);
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
+    $footerLabel = HomepageBlockConfiguration::string($this->configuration, 'see_more_label');
     $footerUrl = $this->newsListPathResolver->getPublicPath($langcode);
     $itemsCount = $this->normalizeItemsCount((int) ($this->configuration['items_count'] ?? 3));
 
@@ -108,39 +105,25 @@ final class NewsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
     $viewRender['#attributes']['class'][] = 'ps-homepage-news__view';
 
-    return [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'ps-homepage-news',
-          'container',
-          'py-5',
-          'ps-homepage-news--cols-' . $itemsCount,
-        ],
-        'data-cols' => (string) $itemsCount,
+    return $this->sectionBuilder->build([
+      'modifier' => 'news',
+      'section_class' => 'ps-homepage-news ps-homepage-news--cols-' . $itemsCount,
+      'header' => $heading,
+      'body' => [
+        'view' => $viewRender,
       ],
-      '#attached' => [
+      'footer' => [
+        'cta_label' => $footerLabel,
+        'cta_url' => $footerUrl,
+      ],
+      'attached' => [
         'library' => ['ps_homepage/homepage_news'],
       ],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
-      ],
-      'view' => $viewRender,
-      'footer' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-footer-cta',
-        '#props' => [
-          'label' => $footerLabel,
-          'url' => $footerUrl,
-        ],
-      ],
-      '#cache' => [
+      'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => ['config:views.view.ps_homepage_news', 'node_list:article'],
       ],
-    ];
+    ]);
   }
 
   private function normalizeItemsCount(int $count): int {

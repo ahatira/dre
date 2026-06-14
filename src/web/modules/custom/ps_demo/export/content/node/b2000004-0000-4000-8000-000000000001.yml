@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000004-0000-4000-8000-000000000001
+  bundle: faq_item
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo FAQ item'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'How do I search for offices?'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  field_question:
+    -
+      value: 'How do I search for offices?'
+  field_answer:
+    -
+      value: '<p>Use the search form on the homepage to filter by transaction type, location, asset type and surface. You can also browse quick shortcuts for the most popular asset classes.</p>'
+      format: basic_html
+  field_weight:
+    -
+      value: '0'
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'FAQ démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Comment rechercher des bureaux ?'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    field_question:
+      -
+        value: 'Comment rechercher des bureaux ?'
+    field_answer:
+      -
+        value: '<p>Utilisez le formulaire de recherche en page d''accueil pour filtrer par type de transaction, localisation, type de bien et surface. Vous pouvez aussi utiliser les raccourcis vers les univers les plus recherchés.</p>'
+        format: basic_html

@@ -6,7 +6,7 @@ namespace Drupal\ps_homepage\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\file\Entity\File;
+use Drupal\node\NodeInterface;
 use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
 use Drupal\ps_core\Utility\IconIdUtility;
 use Drupal\ps_search\Service\SearchPresetOptionsProvider;
@@ -22,38 +22,52 @@ trait HomepageBlockFormTrait {
   /**
    * @return array<string, mixed>
    */
-  protected function buildLanguageTabs(array $config, callable $fieldsCallback): array {
-    $form = [];
-    foreach (['en' => $this->t('English'), 'fr' => $this->t('French')] as $langcode => $langLabel) {
-      $form['lang_' . $langcode] = [
-        '#type' => 'details',
-        '#title' => $this->t('Content (@language)', ['@language' => $langLabel]),
-        '#open' => $langcode === 'en',
-      ];
-      $form['lang_' . $langcode] += $fieldsCallback($langcode, $config);
-    }
-    return $form;
+  protected function buildEditingLanguageNotice(): array {
+    $langcode = $this->editingLangcode();
+    $language = \Drupal::languageManager()->getLanguage($langcode);
+    $label = $language ? $language->getName() : strtoupper($langcode);
+
+    return [
+      '#type' => 'item',
+      '#markup' => (string) $this->t(
+        'You are editing content in <strong>@language</strong>. Switch the page translation to edit another language.',
+        ['@language' => $label],
+      ),
+      '#wrapper_attributes' => ['class' => ['messages', 'messages--status', 'ps-homepage-block-lang-notice']],
+      '#attached' => [
+        'library' => [
+          'ps_homepage/homepage_block_form',
+          'media_library/widget',
+          'media_library/ui',
+          'core/drupal.dialog.ajax',
+        ],
+      ],
+    ];
   }
 
   /**
    * @return array<string, mixed>
    */
-  protected function buildHeadingFields(string $langcode, array $config, bool $includeSubtitle = TRUE): array {
+  protected function buildSectionHeaderFields(array $config, bool $includeSubtitle = TRUE): array {
     $fields = [
-      'title_' . $langcode => [
+      '#type' => 'details',
+      '#title' => $this->t('Section header'),
+      '#open' => TRUE,
+      'title' => [
         '#type' => 'textfield',
         '#title' => $this->t('Section title'),
-        '#default_value' => $config['title_' . $langcode] ?? '',
+        '#default_value' => $config['title'] ?? '',
         '#maxlength' => 255,
-        '#required' => $langcode === 'en',
+        '#required' => TRUE,
       ],
     ];
 
     if ($includeSubtitle) {
-      $fields['subtitle_' . $langcode] = [
-        '#type' => 'textfield',
+      $fields['subtitle'] = [
+        '#type' => 'textarea',
         '#title' => $this->t('Section subtitle'),
-        '#default_value' => $config['subtitle_' . $langcode] ?? '',
+        '#default_value' => $config['subtitle'] ?? '',
+        '#rows' => 3,
         '#maxlength' => 512,
       ];
     }
@@ -64,21 +78,29 @@ trait HomepageBlockFormTrait {
   /**
    * @return array<string, mixed>
    */
-  protected function buildFooterCtaFields(string $langcode, array $config): array {
-    return [
-      'see_more_label_' . $langcode => [
+  protected function buildSectionFooterFields(array $config, bool $includeUrl = TRUE): array {
+    $fields = [
+      '#type' => 'details',
+      '#title' => $this->t('Section footer'),
+      '#open' => FALSE,
+      'see_more_label' => [
         '#type' => 'textfield',
         '#title' => $this->t('Footer CTA label'),
-        '#default_value' => $config['see_more_label_' . $langcode] ?? '',
+        '#default_value' => $config['see_more_label'] ?? '',
         '#maxlength' => 255,
       ],
-      'see_more_url_' . $langcode => [
+    ];
+
+    if ($includeUrl) {
+      $fields['see_more_url'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Footer CTA URL'),
-        '#default_value' => $config['see_more_url_' . $langcode] ?? '',
+        '#default_value' => $config['see_more_url'] ?? '',
         '#maxlength' => 512,
-      ],
-    ];
+      ];
+    }
+
+    return $fields;
   }
 
   /**
@@ -129,40 +151,54 @@ trait HomepageBlockFormTrait {
   /**
    * @return array<string, mixed>
    */
-  protected function buildManagedFileElement(
-    string $title,
-    mixed $defaultFid,
-    string $uploadLocation,
+  protected function buildMediaLibraryElement(
+    \Stringable|string $title,
+    mixed $defaultMid,
     bool $required = FALSE,
+    ?string $description = NULL,
   ): array {
-    return [
-      '#type' => 'managed_file',
-      '#title' => $title,
-      '#upload_location' => $uploadLocation,
-      '#upload_validators' => [
-        'FileExtension' => ['extensions' => 'png jpg jpeg webp'],
-      ],
-      '#default_value' => !empty($defaultFid) ? [(int) $defaultFid] : [],
-      '#required' => $required,
-    ];
+    $element = \Drupal::service('ps_homepage.media_library_form_element_builder')->build(
+      $title,
+      $defaultMid,
+      $required,
+    );
+
+    if ($description !== NULL) {
+      $element['#description'] = $description;
+    }
+
+    return $element;
   }
 
   /**
-   * Persists a managed file upload and returns the file ID.
+   * Persists a media library selection and returns the media ID.
    */
-  protected function persistManagedFile(mixed $value): ?int {
-    if (!is_array($value) || empty($value[0])) {
+  protected function persistMediaReference(mixed $value): ?int {
+    if (!is_array($value) || $value === []) {
       return NULL;
     }
 
-    $fid = (int) $value[0];
-    $file = File::load($fid);
-    if ($file !== NULL) {
-      $file->setPermanent();
-      $file->save();
+    if (isset($value['target_id']) && is_numeric($value['target_id']) && (int) $value['target_id'] > 0) {
+      return (int) $value['target_id'];
     }
 
-    return $fid;
+    if (isset($value['selection']) && is_array($value['selection'])) {
+      $value = $value['selection'];
+    }
+
+    foreach ($value as $key => $item) {
+      if (in_array($key, ['add_button', 'open_button', 'media_library_selection', 'media_library_update_widget', 'preview', 'remove_button', 'meta'], TRUE)) {
+        continue;
+      }
+      if (is_numeric($item) && (int) $item > 0) {
+        return (int) $item;
+      }
+      if (is_array($item) && !empty($item['target_id'])) {
+        return (int) $item['target_id'];
+      }
+    }
+
+    return NULL;
   }
 
   /**
@@ -245,6 +281,15 @@ trait HomepageBlockFormTrait {
       return $fallback;
     }
     return IconIdUtility::extractFromSubmission($value[$field] ?? NULL, $fallback);
+  }
+
+  protected function editingLangcode(): string {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof NodeInterface) {
+      return $node->language()->getId();
+    }
+
+    return \Drupal::languageManager()->getCurrentLanguage()->getId();
   }
 
 }

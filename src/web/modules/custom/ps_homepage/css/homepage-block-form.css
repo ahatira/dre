@@ -1,0 +1,78 @@
+/**
+ * Homepage block forms inside Layout Builder off-canvas.
+ */
+
+#drupal-off-canvas .ps-homepage-block-lang-notice {
+  margin-bottom: 1rem;
+}
+
+#drupal-off-canvas .ps-homepage-expert-steps-form .ps-homepage-step-card {
+  margin-bottom: 0.75rem;
+}
+
+#drupal-off-canvas .ps-homepage-expert-steps-form .ps-homepage-step-card > .claro-details__wrapper {
+  display: grid;
+  gap: 0.75rem;
+}
+
+#drupal-off-canvas .ps-homepage-media-field {
+  display: grid;
+  gap: 0.75rem;
+}
+
+#drupal-off-canvas .ps-homepage-media-preview {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.75rem;
+  border: 1px solid var(--input-border-color, #d3d4d9);
+  border-radius: 0.25rem;
+  background: var(--input-bg-color, #fff);
+}
+
+#drupal-off-canvas .ps-homepage-media-preview__image img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+#drupal-off-canvas .ps-homepage-media-preview__label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+#drupal-off-canvas .ps-homepage-media-preview__credit {
+  color: var(--color-text-neutral-soft, #555);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+#drupal-off-canvas .ps-homepage-media-preview__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#drupal-off-canvas .js-media-library-widget fieldset {
+  margin: 0;
+}
+
+#drupal-off-canvas .js-media-library-widget .fieldset__legend {
+  font-size: 0.95rem;
+}
+
+#drupal-off-canvas .js-media-library-open-button {
+  width: 100%;
+}
+
+/* Media Library modal must sit above the LB off-canvas tray. */
+.ui-dialog.media-library-widget-modal {
+  z-index: 1305 !important;
+}
+
+.ui-widget-overlay {
+  z-index: 1300 !important;
+}

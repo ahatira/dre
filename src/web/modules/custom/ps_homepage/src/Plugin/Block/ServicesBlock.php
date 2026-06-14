@@ -11,9 +11,9 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ps_core\Utility\IconIdUtility;
 use Drupal\ps_homepage\Service\HomepageCtaLinkBuilder;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
-use Drupal\ps_search\Service\SearchPresetOptionsProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,6 +31,7 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
     string $plugin_id,
     mixed $plugin_definition,
     private readonly HomepageCtaLinkBuilder $ctaLinkBuilder,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly ServicesBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -45,6 +46,7 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_id,
       $plugin_definition,
       $container->get('ps_homepage.cta_link_builder'),
+      $container->get('ps_homepage.section_builder'),
       new ServicesBlockFormBuilder(
         $container->get('ps_search.preset_options_provider'),
       ),
@@ -55,13 +57,7 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return [
-      'title_en' => 'Our services',
-      'title_fr' => 'Nos services',
-      'subtitle_en' => 'Tailored support for every asset class',
-      'subtitle_fr' => 'Un accompagnement sur mesure pour chaque univers',
-      'items' => ServicesBlockFormBuilder::defaultItems(),
-    ] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
   }
 
   /**
@@ -84,7 +80,7 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
     $items = $this->configuration['items'] ?? [];
 
     $columns = [];
@@ -93,7 +89,7 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
         continue;
       }
 
-      $title = trim((string) ($item['card_title_' . $langcode] ?? $item['card_title_en'] ?? ''));
+      $title = trim((string) ($item['card_title'] ?? ''));
       if ($title === '') {
         continue;
       }
@@ -111,8 +107,8 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
             'icon_pack' => $iconParts['pack'],
             'icon_id' => $iconParts['id'],
             'title' => $title,
-            'body' => trim((string) ($item['body_' . $langcode] ?? $item['body_en'] ?? '')),
-            'button_label' => trim((string) ($item['button_label_' . $langcode] ?? $item['button_label_en'] ?? '')),
+            'body' => trim((string) ($item['body'] ?? '')),
+            'button_label' => trim((string) ($item['button_label'] ?? '')),
             'button_url' => $cta['url'],
             'button_style' => (string) ($item['button_style'] ?? 'outline'),
             'link_type' => $cta['link_type'],
@@ -126,23 +122,18 @@ final class ServicesBlock extends BlockBase implements ContainerFactoryPluginInt
       return ['#markup' => ''];
     }
 
-    return [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-homepage-services', 'container', 'py-5']],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
-      ],
-      'grid' => [
+    return $this->sectionBuilder->build([
+      'modifier' => 'services',
+      'header' => $heading,
+      'body' => [
         '#type' => 'container',
         '#attributes' => ['class' => ['row', 'g-4', 'ps-homepage-services__grid']],
       ] + $columns,
-      '#cache' => [
+      'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => ['config:block.block'],
       ],
-    ];
+    ]);
   }
 
 }

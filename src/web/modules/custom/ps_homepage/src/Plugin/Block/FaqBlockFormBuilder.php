@@ -28,24 +28,11 @@ final class FaqBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
-    $form = [];
-
-    $form += $this->buildLanguageTabs($config, function (string $langcode, array $config): array {
-      $fields = $this->buildHeadingFields($langcode, $config, FALSE);
-      unset($fields['subtitle_' . $langcode]);
-      return [
-        'header_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section header'),
-          '#open' => TRUE,
-        ] + $fields,
-        'footer_' . $langcode => [
-          '#type' => 'details',
-          '#title' => $this->t('Section footer'),
-          '#open' => FALSE,
-        ] + $this->buildFooterCtaFields($langcode, $config),
-      ];
-    });
+    $form = [
+      'editing_language' => $this->buildEditingLanguageNotice(),
+      'section_header' => $this->buildSectionHeaderFields($config, FALSE),
+      'section_footer' => $this->buildSectionFooterFields($config),
+    ];
 
     $items = $this->sortItemsByWeight($config['faq_items'] ?? []);
 
@@ -106,23 +93,9 @@ final class FaqBlockFormBuilder {
    * @param array<string, mixed> $config
    */
   public function submitForm(array &$config, FormStateInterface $form_state): void {
-    foreach (['en', 'fr'] as $langcode) {
-      $config['title_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'header_' . $langcode,
-        'title_' . $langcode,
-      ]));
-      $config['see_more_label_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'footer_' . $langcode,
-        'see_more_label_' . $langcode,
-      ]));
-      $config['see_more_url_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'footer_' . $langcode,
-        'see_more_url_' . $langcode,
-      ]));
-    }
+    $config['title'] = trim((string) $form_state->getValue(['section_header', 'title']));
+    $config['see_more_label'] = trim((string) $form_state->getValue(['section_footer', 'see_more_label']));
+    $config['see_more_url'] = trim((string) $form_state->getValue(['section_footer', 'see_more_url']));
 
     $rows = $form_state->getValue('faq_items');
     if (!is_array($rows)) {

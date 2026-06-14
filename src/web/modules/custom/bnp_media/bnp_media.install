@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for bnp_media.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Adds optional credit field to all media bundles.
+ */
+function bnp_media_update_9001(): string {
+  $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'bnp_media');
+  $source = new FileStorage($module_path . '/config/install');
+  $storage = \Drupal::service('config.storage');
+
+  $config_names = [
+    'field.storage.media.field_credit',
+    'field.field.media.image.field_credit',
+    'field.field.media.audio.field_credit',
+    'field.field.media.file.field_credit',
+    'field.field.media.gallery.field_credit',
+    'field.field.media.mediahub_video.field_credit',
+    'field.field.media.remote_video.field_credit',
+    'field.field.media.video.field_credit',
+    'field.field.media.visite_guided.field_credit',
+    'core.entity_form_display.media.image.default',
+    'core.entity_form_display.media.audio.default',
+    'core.entity_form_display.media.file.default',
+    'core.entity_form_display.media.gallery.default',
+    'core.entity_form_display.media.mediahub_video.default',
+    'core.entity_form_display.media.remote_video.default',
+    'core.entity_form_display.media.video.default',
+    'core.entity_form_display.media.visite_guided.default',
+  ];
+
+  $installed = 0;
+  foreach ($config_names as $config_name) {
+    $data = $source->read($config_name);
+    if ($data === FALSE) {
+      continue;
+    }
+    $storage->write($config_name, $data);
+    $installed++;
+  }
+
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+  \Drupal::service('entity_type.manager')->clearCachedDefinitions();
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage_definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('media');
+  if (isset($field_storage_definitions['field_credit']) && $update_manager->getFieldStorageDefinition('field_credit', 'media') === NULL) {
+    $update_manager->installFieldStorageDefinition('field_credit', 'media', 'media', $field_storage_definitions['field_credit']);
+  }
+
+  return (string) t('Installed @count media credit configuration items.', ['@count' => $installed]);
+}
+
+/**
+ * Ensures field_credit storage table exists when config was imported earlier.
+ */
+function bnp_media_update_9002(): string {
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+  \Drupal::service('entity_type.manager')->clearCachedDefinitions();
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage_definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('media');
+  if (!isset($field_storage_definitions['field_credit'])) {
+    return (string) t('field_credit storage definition not found.');
+  }
+
+  if ($update_manager->getFieldStorageDefinition('field_credit', 'media') !== NULL) {
+    return (string) t('field_credit storage already installed.');
+  }
+
+  $update_manager->installFieldStorageDefinition('field_credit', 'media', 'media', $field_storage_definitions['field_credit']);
+  return (string) t('Installed field_credit storage table.');
+}

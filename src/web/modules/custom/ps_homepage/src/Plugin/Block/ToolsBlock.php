@@ -11,8 +11,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Drupal\ps_homepage\Utility\HomepageMediaResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -31,6 +32,7 @@ final class ToolsBlock extends BlockBase implements ContainerFactoryPluginInterf
     string $plugin_id,
     mixed $plugin_definition,
     private readonly HomepageMediaResolver $mediaResolver,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly ToolsBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -45,6 +47,7 @@ final class ToolsBlock extends BlockBase implements ContainerFactoryPluginInterf
       $plugin_id,
       $plugin_definition,
       $container->get('ps_homepage.media_resolver'),
+      $container->get('ps_homepage.section_builder'),
       new ToolsBlockFormBuilder(),
     );
   }
@@ -54,13 +57,7 @@ final class ToolsBlock extends BlockBase implements ContainerFactoryPluginInterf
    */
   public function defaultConfiguration(): array {
     return [
-      'title_en' => 'Tools & resources',
-      'title_fr' => 'Outils & ressources',
-      'subtitle_en' => 'Guides and calculators to support your search',
-      'subtitle_fr' => 'Guides et calculateurs pour accompagner votre recherche',
       'illustration' => NULL,
-      'illustration_alt' => '',
-      'items' => ToolsBlockFormBuilder::defaultItems(),
     ] + parent::defaultConfiguration();
   }
 
@@ -84,8 +81,9 @@ final class ToolsBlock extends BlockBase implements ContainerFactoryPluginInterf
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
-    $illustrationUrl = $this->mediaResolver->resolveUrl($this->configuration['illustration'] ?? NULL);
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
+    $illustration = $this->mediaResolver->resolve($this->configuration['illustration'] ?? NULL, $langcode);
+    $illustrationUrl = $illustration->url;
 
     $accordionItems = [];
     foreach ($this->configuration['items'] ?? [] as $index => $item) {
@@ -93,14 +91,14 @@ final class ToolsBlock extends BlockBase implements ContainerFactoryPluginInterf
         continue;
       }
 
-      $question = trim((string) ($item['question_' . $langcode] ?? $item['question_en'] ?? ''));
+      $question = trim((string) ($item['question'] ?? ''));
       if ($question === '') {
         continue;
       }
 
-      $answer = trim((string) ($item['answer_' . $langcode] ?? $item['answer_en'] ?? ''));
-      $linkLabel = trim((string) ($item['link_label_' . $langcode] ?? $item['link_label_en'] ?? ''));
-      $linkUrl = trim((string) ($item['link_url_' . $langcode] ?? $item['link_url_en'] ?? ''));
+      $answer = trim((string) ($item['answer'] ?? ''));
+      $linkLabel = trim((string) ($item['link_label'] ?? ''));
+      $linkUrl = trim((string) ($item['link_url'] ?? ''));
 
       $content = [];
       if ($answer !== '') {
@@ -141,58 +139,59 @@ final class ToolsBlock extends BlockBase implements ContainerFactoryPluginInterf
       $layoutClasses[] = 'ps-homepage-tools__layout--with-image';
     }
 
-    $build = [
+    $layout = [
       '#type' => 'container',
-      '#attributes' => ['class' => ['ps-homepage-tools', 'container', 'py-5']],
-      '#attached' => ['library' => ['ps_homepage/homepage_tools']],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
-      ],
-      'layout' => [
+      '#attributes' => ['class' => $layoutClasses],
+      'accordion' => [
         '#type' => 'container',
-        '#attributes' => ['class' => $layoutClasses],
-        'accordion' => [
-          '#type' => 'container',
-          '#attributes' => ['class' => ['ps-homepage-tools__accordion']],
-          'widget' => [
-            '#type' => 'component',
-            '#component' => 'ui_suite_bnp:accordion',
-            '#props' => [
-              'keep_open' => FALSE,
-              'accordion_id' => Html::getUniqueId('ps-homepage-tools'),
-            ],
-            '#slots' => [
-              'content' => $accordionItems,
-            ],
+        '#attributes' => ['class' => ['ps-homepage-tools__accordion']],
+        'widget' => [
+          '#type' => 'component',
+          '#component' => 'ui_suite_bnp:accordion',
+          '#props' => [
+            'keep_open' => FALSE,
+            'accordion_id' => Html::getUniqueId('ps-homepage-tools'),
+          ],
+          '#slots' => [
+            'content' => $accordionItems,
           ],
         ],
-      ],
-      '#cache' => [
-        'contexts' => ['languages:language_interface'],
-        'tags' => ['config:block.block'],
       ],
     ];
 
     if ($illustrationUrl !== NULL) {
-      $build['layout']['illustration'] = [
+      $layout['illustration'] = [
         '#type' => 'container',
         '#attributes' => ['class' => ['ps-homepage-tools__illustration']],
         'image' => [
-          '#type' => 'html_tag',
-          '#tag' => 'img',
-          '#attributes' => [
-            'src' => $illustrationUrl,
-            'alt' => (string) ($this->configuration['illustration_alt'] ?? ''),
-            'class' => ['img-fluid'],
+          '#type' => 'component',
+          '#component' => 'ui_suite_bnp:media-credit',
+          '#props' => [
+            'image_url' => $illustrationUrl,
+            'image_alt' => $illustration->alt,
+            'credit' => $illustration->credit,
+            'image_class' => 'img-fluid',
             'loading' => 'lazy',
           ],
         ],
       ];
     }
 
-    return $build;
+    return $this->sectionBuilder->build([
+      'modifier' => 'tools',
+      'section_class' => 'ps-homepage-tools',
+      'header' => $heading,
+      'body' => [
+        'layout' => $layout,
+      ],
+      'attached' => [
+        'library' => ['ps_homepage/homepage_tools'],
+      ],
+      'cache' => [
+        'contexts' => ['languages:language_interface'],
+        'tags' => array_values(array_unique(array_merge(['config:block.block'], $illustration->cacheTags))),
+      ],
+    ]);
   }
 
 }

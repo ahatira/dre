@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.file.field_credit
     - field.field.media.file.field_media_file
     - media.type.file
   module:
@@ -25,6 +26,14 @@ content:
     region: content
     settings:
       progress_indicator: throbber
+    third_party_settings: { }
+  field_credit:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: { }
 hidden:
   created: true

@@ -6,14 +6,13 @@ namespace Drupal\ps_homepage\Plugin\Block;
 
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
-use Drupal\ps_homepage\Service\HomepageCtaLinkBuilder;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\ExpertJourneyDefaultAssets;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Drupal\ps_homepage\Utility\HomepageMediaResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,11 +31,17 @@ final class ExpertJourneyBlock extends BlockBase implements ContainerFactoryPlug
     string $plugin_id,
     mixed $plugin_definition,
     private readonly HomepageMediaResolver $mediaResolver,
-    private readonly HomepageCtaLinkBuilder $ctaLinkBuilder,
-    private readonly ExtensionPathResolver $extensionPathResolver,
-    private readonly ExpertJourneyBlockFormBuilder $formBuilder,
+    private readonly ExpertJourneyDefaultAssets $defaultAssets,
+    private readonly HomepageSectionBuilder $sectionBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * Form builder is stateless; instantiate on demand for LB submit/rebuild paths.
+   */
+  private function formBuilder(): ExpertJourneyBlockFormBuilder {
+    return new ExpertJourneyBlockFormBuilder();
   }
 
   /**
@@ -48,9 +53,8 @@ final class ExpertJourneyBlock extends BlockBase implements ContainerFactoryPlug
       $plugin_id,
       $plugin_definition,
       $container->get('ps_homepage.media_resolver'),
-      $container->get('ps_homepage.cta_link_builder'),
-      $container->get('extension.path.resolver'),
-      new ExpertJourneyBlockFormBuilder(),
+      $container->get('ps_homepage.expert_journey_default_assets'),
+      $container->get('ps_homepage.section_builder'),
     );
   }
 
@@ -58,40 +62,50 @@ final class ExpertJourneyBlock extends BlockBase implements ContainerFactoryPlug
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return [
-      'title_en' => 'Your expert journey',
-      'title_fr' => 'Votre parcours expert',
-      'subtitle_en' => 'BNP Paribas Real Estate supports you at every step',
-      'subtitle_fr' => 'BNP Paribas Real Estate vous accompagne à chaque étape',
-      'cta_title_en' => 'Need personalised support?',
-      'cta_title_fr' => 'Besoin d\'un accompagnement personnalisé ?',
-      'cta_body_en' => 'Our consultants help you secure the right property faster.',
-      'cta_body_fr' => 'Nos consultants vous aident à sécuriser le bon local plus rapidement.',
-      'cta_button_label_en' => 'Talk to an expert',
-      'cta_button_label_fr' => 'Parler à un expert',
-      'cta_button_url_en' => '/contact',
-      'cta_button_url_fr' => '/contact',
-      'cta_link_type' => 'offcanvas',
-      'modal_id' => '',
-      'image' => NULL,
-      'image_alt' => '',
-      'steps' => ExpertJourneyBlockFormBuilder::defaultSteps(),
-    ] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(array $configuration) {
+    $steps = $configuration['steps'] ?? NULL;
+    parent::setConfiguration($configuration);
+    if (is_array($steps)) {
+      $this->configuration['steps'] = array_values($steps);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form['provider'] = [
+      '#type' => 'value',
+      '#value' => $this->getPluginDefinition()['provider'],
+    ];
+
+    $form += $this->formBuilder()->buildForm($this->configuration);
+    $form['#attached']['library'][] = 'ps_homepage/homepage_block_form';
+    $form['#attached']['library'][] = 'media_library/widget';
+    $form['#attached']['library'][] = 'media_library/ui';
+    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
+
+    return $form;
   }
 
   /**
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state): array {
-    $form = parent::blockForm($form, $form_state);
-    return $form + $this->formBuilder->buildForm($this->configuration);
+    return $this->formBuilder()->buildForm($this->configuration);
   }
 
   /**
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
-    $this->formBuilder->submitForm($this->configuration, $form_state);
+    $this->formBuilder()->submitForm($this->configuration, $form_state);
   }
 
   /**
@@ -99,65 +113,64 @@ final class ExpertJourneyBlock extends BlockBase implements ContainerFactoryPlug
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
-    $imageUrl = $this->mediaResolver->resolveUrl($this->configuration['image'] ?? NULL)
-      ?? $this->defaultThemeImageUrl();
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
 
     $steps = [];
+    $cacheTags = [];
+    $index = 0;
     foreach ($this->configuration['steps'] ?? [] as $item) {
       if (!is_array($item)) {
         continue;
       }
-      $label = trim((string) ($item['step_label_' . $langcode] ?? $item['step_label_en'] ?? ''));
-      if ($label !== '') {
-        $steps[] = $label;
+      $label = trim((string) ($item['step_label'] ?? ''));
+      if ($label === '') {
+        continue;
       }
+
+      $media = $this->mediaResolver->resolve($item['image'] ?? NULL, $langcode);
+      $imageUrl = $media->url ?? $this->defaultAssets->imageUrl($index);
+      $imageAlt = $media->alt !== '' ? $media->alt : $this->defaultAssets->imageAlt($index);
+      $imageCredit = $media->credit !== '' ? $media->credit : $this->defaultAssets->imageCredit($index);
+      $cacheTags = array_merge($cacheTags, $media->cacheTags);
+
+      $steps[] = [
+        'label' => $label,
+        'title' => trim((string) ($item['step_title'] ?? '')),
+        'body' => trim((string) ($item['step_body'] ?? '')),
+        'image' => $imageUrl,
+        'image_alt' => $imageAlt,
+        'image_credit' => $imageCredit,
+      ];
+      $index++;
     }
 
     if ($steps === []) {
       return ['#markup' => ''];
     }
 
-    $cta = $this->ctaLinkBuilder->resolve([
-      'link_type' => $this->configuration['cta_link_type'] ?? 'url',
-      'modal_id' => $this->configuration['modal_id'] ?? '',
-      'button_url_en' => $this->configuration['cta_button_url_en'] ?? '',
-      'button_url_fr' => $this->configuration['cta_button_url_fr'] ?? '',
-    ], $langcode);
-
-    return [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-homepage-expert', 'container', 'py-5']],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
+    return $this->sectionBuilder->build([
+      'modifier' => 'expert',
+      'section_class' => 'ps-homepage-expert',
+      'header' => $heading + [
+        'align' => 'center',
       ],
-      'content' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:expert-steps',
-        '#props' => [
-          'steps' => $steps,
-          'image' => $imageUrl ?? '',
-          'image_alt' => (string) ($this->configuration['image_alt'] ?? ''),
-          'cta_title' => HomepageLocalizedFieldResolver::resolve($this->configuration, 'cta_title', $langcode),
-          'cta_body' => HomepageLocalizedFieldResolver::resolve($this->configuration, 'cta_body', $langcode),
-          'cta_button_label' => HomepageLocalizedFieldResolver::resolve($this->configuration, 'cta_button_label', $langcode),
-          'cta_button_url' => $cta['url'],
-          'cta_link_type' => $cta['link_type'],
-          'cta_modal_id' => $cta['modal_id'],
+      'body' => [
+        'content' => [
+          '#type' => 'component',
+          '#component' => 'ps_theme:expert-steps',
+          '#props' => [
+            'steps' => $steps,
+          ],
         ],
       ],
-      '#cache' => [
+      'cache' => [
         'contexts' => ['languages:language_interface'],
-        'tags' => ['config:block.block'],
+        'tags' => array_values(array_unique(array_merge(['config:block.block'], $cacheTags))),
       ],
-    ];
-  }
-
-  private function defaultThemeImageUrl(): string {
-    $themePath = $this->extensionPathResolver->getPath('theme', 'ps_theme');
-    return Url::fromUri('base:' . $themePath . '/assets/images/hero/hero-profile.png')->toString();
+      'attached' => [
+        'library' => ['ps_homepage/homepage_media_credit'],
+      ],
+    ]);
   }
 
 }

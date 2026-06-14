@@ -11,6 +11,9 @@ props:
     image_alt:
       type: string
       title: Image alt text
+    image_credit:
+      type: string
+      title: Image credit
     category:
       type: string
       title: Category label
@@ -27,3 +30,5 @@ libraryOverrides:
   css:
     component:
       styles/market-study-card.css: {}
+  dependencies:
+    - ps_homepage/homepage_media_credit

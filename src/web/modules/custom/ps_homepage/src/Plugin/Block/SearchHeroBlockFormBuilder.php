@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Drupal\ps_homepage\Plugin\Block;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\file\Entity\File;
-use Drupal\ps_homepage\Utility\HomepageSearchHeroEditorial;
+use Drupal\ps_homepage\Form\HomepageBlockFormTrait;
 
 /**
  * Block form builder for the homepage search hero editorial fields.
  */
 final class SearchHeroBlockFormBuilder {
 
-  use StringTranslationTrait;
+  use HomepageBlockFormTrait;
 
   /**
    * @param array<string, mixed> $config
@@ -22,7 +20,9 @@ final class SearchHeroBlockFormBuilder {
    * @return array<string, mixed>
    */
   public function buildForm(array $config): array {
-    $form = [];
+    $form = [
+      'editing_language' => $this->buildEditingLanguageNotice(),
+    ];
 
     $form['media'] = [
       '#type' => 'details',
@@ -30,41 +30,17 @@ final class SearchHeroBlockFormBuilder {
       '#open' => TRUE,
     ];
 
-    $form['media']['background_image'] = [
-      '#type' => 'managed_file',
-      '#title' => $this->t('Hero background image'),
-      '#description' => $this->t('Full-width blurred hero background. Leave empty for the theme default.'),
-      '#upload_location' => 'public://homepage/hero/',
-      '#upload_validators' => [
-        'FileExtension' => ['extensions' => 'png jpg jpeg webp'],
-      ],
-      '#default_value' => !empty($config['background_image']) ? [(int) $config['background_image']] : [],
-    ];
+    $form['media']['background_image'] = $this->buildMediaLibraryElement(
+      $this->t('Hero background image'),
+      $config['background_image'] ?? NULL,
+    );
+    $form['media']['background_image']['#description'] = $this->t('Full-width blurred hero background. Leave empty for the theme default.');
 
-    $form['media']['background_alt'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Hero background alternative text'),
-      '#default_value' => $config['background_alt'] ?? '',
-      '#maxlength' => 255,
-    ];
-
-    $form['media']['promo_background_image'] = [
-      '#type' => 'managed_file',
-      '#title' => $this->t('Promo panel background image'),
-      '#description' => $this->t('Right column promotional panel. Leave empty to reuse the hero background.'),
-      '#upload_location' => 'public://homepage/hero/',
-      '#upload_validators' => [
-        'FileExtension' => ['extensions' => 'png jpg jpeg webp'],
-      ],
-      '#default_value' => !empty($config['promo_background_image']) ? [(int) $config['promo_background_image']] : [],
-    ];
-
-    $form['media']['promo_background_alt'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Promo background alternative text'),
-      '#default_value' => $config['promo_background_alt'] ?? '',
-      '#maxlength' => 255,
-    ];
+    $form['media']['promo_background_image'] = $this->buildMediaLibraryElement(
+      $this->t('Promo panel background image'),
+      $config['promo_background_image'] ?? NULL,
+    );
+    $form['media']['promo_background_image']['#description'] = $this->t('Right column promotional panel. Leave empty to reuse the hero background.');
 
     $form['promo_offers'] = [
       '#type' => 'details',
@@ -78,100 +54,87 @@ final class SearchHeroBlockFormBuilder {
       '#default_value' => $config['promo_offers_use_dynamic'] ?? TRUE,
     ];
 
-    foreach (['en' => $this->t('English'), 'fr' => $this->t('French')] as $langcode => $langLabel) {
-      $form['lang_' . $langcode] = [
-        '#type' => 'details',
-        '#title' => $this->t('Content (@language)', ['@language' => $langLabel]),
-        '#open' => $langcode === 'en',
-      ];
+    $form['hero'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Hero title'),
+      '#open' => TRUE,
+    ];
+    $form['hero']['title'] = $this->textElement(
+      ['title' => 'Main title', 'max_length' => 255],
+      $config['title'] ?? '',
+    );
 
-      $group = &$form['lang_' . $langcode];
-
-      $group['hero_' . $langcode] = [
-        '#type' => 'details',
-        '#title' => $this->t('Hero title'),
-        '#open' => TRUE,
-      ];
-      $group['hero_' . $langcode]['title_' . $langcode] = $this->textElement(
-        ['title' => 'Main title', 'max_length' => 255],
-        $config['title_' . $langcode] ?? '',
-      );
-
-      $group['form_' . $langcode] = [
-        '#type' => 'details',
-        '#title' => $this->t('Search form'),
-        '#open' => TRUE,
-      ];
-      foreach ($this->searchFormFieldDefinitions() as $key => $definition) {
-        $field = $key . '_' . $langcode;
-        $group['form_' . $langcode][$field] = $this->textElement($definition, $config[$field] ?? '');
-      }
-
-      $group['delegate_' . $langcode] = [
-        '#type' => 'details',
-        '#title' => $this->t('Delegate bar'),
-        '#open' => TRUE,
-      ];
-      foreach ($this->delegateFieldDefinitions() as $key => $definition) {
-        $field = $key . '_' . $langcode;
-        $group['delegate_' . $langcode][$field] = $this->textElement($definition, $config[$field] ?? '');
-      }
-      $group['delegate_' . $langcode]['delegate_url_' . $langcode] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Delegate my search — URL'),
-        '#default_value' => $config['delegate_url_' . $langcode] ?? '',
-        '#maxlength' => 512,
-      ];
-
-      $group['promo_' . $langcode] = [
-        '#type' => 'details',
-        '#title' => $this->t('Promotional panel'),
-        '#open' => TRUE,
-      ];
-      foreach ($this->promoTextFieldDefinitions() as $key => $definition) {
-        $field = $key . '_' . $langcode;
-        $group['promo_' . $langcode][$field] = $this->textElement($definition, $config[$field] ?? '');
-      }
-
-      $group['promo_' . $langcode]['promo_offers_template_' . $langcode] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Offers line template (@count placeholder)'),
-        '#default_value' => $config['promo_offers_template_' . $langcode] ?? '',
-        '#description' => $this->t('Used when dynamic count is enabled. Example: @count offers currently available'),
-        '#maxlength' => 255,
-        '#states' => [
-          'visible' => [
-            ':input[name="settings[promo_offers][promo_offers_use_dynamic]"]' => ['checked' => TRUE],
-          ],
-        ],
-      ];
-
-      $group['promo_' . $langcode]['promo_offers_line_' . $langcode] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Offers line (manual)'),
-        '#default_value' => $config['promo_offers_line_' . $langcode] ?? '',
-        '#maxlength' => 255,
-        '#states' => [
-          'visible' => [
-            ':input[name="settings[promo_offers][promo_offers_use_dynamic]"]' => ['checked' => FALSE],
-          ],
-        ],
-      ];
-
-      $group['promo_' . $langcode]['promo_description_' . $langcode] = [
-        '#type' => 'text_format',
-        '#title' => $this->t('Promo panel — description'),
-        '#format' => 'basic_html',
-        '#default_value' => $this->textFormatDefault($config['promo_description_' . $langcode] ?? ''),
-      ];
-
-      $group['promo_' . $langcode]['promo_cta_url_' . $langcode] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Discover our service offers — URL'),
-        '#default_value' => $config['promo_cta_url_' . $langcode] ?? '',
-        '#maxlength' => 512,
-      ];
+    $form['search_form'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Search form'),
+      '#open' => TRUE,
+    ];
+    foreach ($this->searchFormFieldDefinitions() as $key => $definition) {
+      $form['search_form'][$key] = $this->textElement($definition, $config[$key] ?? '');
     }
+
+    $form['delegate'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Delegate bar'),
+      '#open' => TRUE,
+    ];
+    foreach ($this->delegateFieldDefinitions() as $key => $definition) {
+      $form['delegate'][$key] = $this->textElement($definition, $config[$key] ?? '');
+    }
+    $form['delegate']['delegate_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Delegate my search — URL'),
+      '#default_value' => $config['delegate_url'] ?? '',
+      '#maxlength' => 512,
+    ];
+
+    $form['promo'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Promotional panel'),
+      '#open' => TRUE,
+    ];
+    foreach ($this->promoTextFieldDefinitions() as $key => $definition) {
+      $form['promo'][$key] = $this->textElement($definition, $config[$key] ?? '');
+    }
+
+    $form['promo']['promo_offers_template'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Offers line template (@count placeholder)'),
+      '#default_value' => $config['promo_offers_template'] ?? '',
+      '#description' => $this->t('Used when dynamic count is enabled. Example: @count offers currently available'),
+      '#maxlength' => 255,
+      '#states' => [
+        'visible' => [
+          ':input[name="settings[promo_offers][promo_offers_use_dynamic]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['promo']['promo_offers_line'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Offers line (manual)'),
+      '#default_value' => $config['promo_offers_line'] ?? '',
+      '#maxlength' => 255,
+      '#states' => [
+        'visible' => [
+          ':input[name="settings[promo_offers][promo_offers_use_dynamic]"]' => ['checked' => FALSE],
+        ],
+      ],
+    ];
+
+    $form['promo']['promo_description'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Promo panel — description'),
+      '#format' => 'basic_html',
+      '#default_value' => $this->textFormatDefault($config['promo_description'] ?? ''),
+    ];
+
+    $form['promo']['promo_cta_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Discover our service offers — URL'),
+      '#default_value' => $config['promo_cta_url'] ?? '',
+      '#maxlength' => 512,
+    ];
 
     return $form;
   }
@@ -185,78 +148,34 @@ final class SearchHeroBlockFormBuilder {
       'promo_offers_use_dynamic',
     ]);
 
-    foreach (['en', 'fr'] as $langcode) {
-      $configuration['title_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'hero_' . $langcode,
-        'title_' . $langcode,
-      ]));
+    $configuration['title'] = trim((string) $form_state->getValue(['hero', 'title']));
 
-      foreach (array_keys($this->searchFormFieldDefinitions()) as $key) {
-        $field = $key . '_' . $langcode;
-        $configuration[$field] = trim((string) $form_state->getValue([
-          'lang_' . $langcode,
-          'form_' . $langcode,
-          $field,
-        ]));
-      }
-
-      foreach (array_keys($this->delegateFieldDefinitions()) as $key) {
-        $field = $key . '_' . $langcode;
-        $configuration[$field] = trim((string) $form_state->getValue([
-          'lang_' . $langcode,
-          'delegate_' . $langcode,
-          $field,
-        ]));
-      }
-
-      $configuration['delegate_url_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'delegate_' . $langcode,
-        'delegate_url_' . $langcode,
-      ]));
-
-      foreach (array_keys($this->promoTextFieldDefinitions()) as $key) {
-        $field = $key . '_' . $langcode;
-        $configuration[$field] = trim((string) $form_state->getValue([
-          'lang_' . $langcode,
-          'promo_' . $langcode,
-          $field,
-        ]));
-      }
-
-      $configuration['promo_offers_template_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'promo_' . $langcode,
-        'promo_offers_template_' . $langcode,
-      ]));
-
-      $configuration['promo_offers_line_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'promo_' . $langcode,
-        'promo_offers_line_' . $langcode,
-      ]));
-
-      $description = $form_state->getValue([
-        'lang_' . $langcode,
-        'promo_' . $langcode,
-        'promo_description_' . $langcode,
-      ]);
-      $configuration['promo_description_' . $langcode] = is_array($description)
-        ? trim((string) ($description['value'] ?? ''))
-        : trim((string) $description);
-
-      $configuration['promo_cta_url_' . $langcode] = trim((string) $form_state->getValue([
-        'lang_' . $langcode,
-        'promo_' . $langcode,
-        'promo_cta_url_' . $langcode,
-      ]));
+    foreach (array_keys($this->searchFormFieldDefinitions()) as $key) {
+      $configuration[$key] = trim((string) $form_state->getValue(['search_form', $key]));
     }
 
-    $configuration['background_alt'] = trim((string) $form_state->getValue(['media', 'background_alt']));
-    $configuration['promo_background_alt'] = trim((string) $form_state->getValue(['media', 'promo_background_alt']));
-    $configuration['background_image'] = $this->persistManagedFile($form_state->getValue(['media', 'background_image']));
-    $configuration['promo_background_image'] = $this->persistManagedFile($form_state->getValue(['media', 'promo_background_image']));
+    foreach (array_keys($this->delegateFieldDefinitions()) as $key) {
+      $configuration[$key] = trim((string) $form_state->getValue(['delegate', $key]));
+    }
+
+    $configuration['delegate_url'] = trim((string) $form_state->getValue(['delegate', 'delegate_url']));
+
+    foreach (array_keys($this->promoTextFieldDefinitions()) as $key) {
+      $configuration[$key] = trim((string) $form_state->getValue(['promo', $key]));
+    }
+
+    $configuration['promo_offers_template'] = trim((string) $form_state->getValue(['promo', 'promo_offers_template']));
+    $configuration['promo_offers_line'] = trim((string) $form_state->getValue(['promo', 'promo_offers_line']));
+
+    $description = $form_state->getValue(['promo', 'promo_description']);
+    $configuration['promo_description'] = is_array($description)
+      ? trim((string) ($description['value'] ?? ''))
+      : trim((string) $description);
+
+    $configuration['promo_cta_url'] = trim((string) $form_state->getValue(['promo', 'promo_cta_url']));
+
+    $configuration['background_image'] = $this->persistMediaReference($form_state->getValue(['media', 'background_image']));
+    $configuration['promo_background_image'] = $this->persistMediaReference($form_state->getValue(['media', 'promo_background_image']));
   }
 
   /**
@@ -331,24 +250,6 @@ final class SearchHeroBlockFormBuilder {
     }
 
     return (string) $value;
-  }
-
-  /**
-   * @param mixed $value
-   */
-  private function persistManagedFile(mixed $value): ?int {
-    if (!is_array($value) || empty($value[0])) {
-      return NULL;
-    }
-
-    $fid = (int) $value[0];
-    $file = File::load($fid);
-    if ($file !== NULL) {
-      $file->setPermanent();
-      $file->save();
-    }
-
-    return $fid;
   }
 
 }

@@ -1,3 +1,4 @@
+uuid: 6bd18ce8-0fbe-4be9-a79a-e75853aa40f6
 langcode: en
 status: true
 dependencies:
@@ -20,3 +21,4 @@ permissions:
   - 'administer url aliases'
   - 'create url aliases'
   - 'use text format restricted_html'
+

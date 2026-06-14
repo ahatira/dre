@@ -227,3 +227,14 @@ framework_css_re:
       assets/css/framework/framework_css_re.css: {}
   dependencies:
     - ui_suite_bnp/framework_css_bootstrap
+
+media-credit:
+  version: 1.x
+  css:
+    component:
+      components/media-credit/css/media-credit.css: {}
+  js:
+    components/media-credit/js/media-credit.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

@@ -4,7 +4,15 @@
 .ps-homepage-tools__illustration {
   flex: 1 1 50%;
 }
-.ps-homepage-tools__illustration img {
+.ps-homepage-tools__illustration .image-copyright-wrapper {
+  display: block;
+  height: 100%;
+  max-width: 100%;
+  min-height: 280px;
+  width: 100%;
+}
+
+.ps-homepage-tools__illustration .image-copyright-wrapper img {
   display: block;
   height: 100%;
   min-height: 280px;

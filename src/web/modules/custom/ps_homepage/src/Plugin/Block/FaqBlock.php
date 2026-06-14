@@ -13,8 +13,9 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -32,6 +33,7 @@ final class FaqBlock extends BlockBase implements ContainerFactoryPluginInterfac
     string $plugin_id,
     mixed $plugin_definition,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly FaqBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -46,6 +48,7 @@ final class FaqBlock extends BlockBase implements ContainerFactoryPluginInterfac
       $plugin_id,
       $plugin_definition,
       $container->get('entity_type.manager'),
+      $container->get('ps_homepage.section_builder'),
       new FaqBlockFormBuilder(
         $container->get('entity_type.manager'),
       ),
@@ -56,15 +59,7 @@ final class FaqBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return [
-      'title_en' => 'Frequently asked questions',
-      'title_fr' => 'Questions fréquentes',
-      'see_more_label_en' => 'View all questions',
-      'see_more_label_fr' => 'Voir toutes les questions',
-      'see_more_url_en' => '/faq',
-      'see_more_url_fr' => '/faq',
-      'faq_items' => [],
-    ] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
   }
 
   /**
@@ -87,8 +82,8 @@ final class FaqBlock extends BlockBase implements ContainerFactoryPluginInterfac
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $title = HomepageLocalizedFieldResolver::resolve($this->configuration, 'title', $langcode);
-    $footer = HomepageLocalizedFieldResolver::resolveFooterCta($this->configuration, $langcode);
+    $title = HomepageBlockConfiguration::string($this->configuration, 'title');
+    $footer = HomepageBlockConfiguration::footerCta($this->configuration);
 
     $nids = [];
     foreach ($this->configuration['faq_items'] ?? [] as $item) {
@@ -148,51 +143,46 @@ final class FaqBlock extends BlockBase implements ContainerFactoryPluginInterfac
 
     $footerUrl = $footer['url'] !== '' ? Url::fromUserInput($footer['url'])->toString() : '';
 
-    return [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-homepage-faq', 'container', 'py-5']],
-      '#attached' => [
-        'library' => ['ps_homepage/homepage_faq'],
+    return $this->sectionBuilder->build([
+      'modifier' => 'faq',
+      'section_class' => 'ps-homepage-faq',
+      'header' => [
+        'title' => $title,
+        'subtitle' => '',
+        'align' => 'center',
       ],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => [
-          'title' => $title,
-          'subtitle' => '',
-        ],
-      ],
-      'accordion_wrapper' => [
-        '#type' => 'container',
-        '#attributes' => ['class' => ['ps-homepage-faq__accordion']],
-        'accordion' => [
-          '#type' => 'component',
-          '#component' => 'ui_suite_bnp:accordion',
-          '#props' => [
-            'keep_open' => FALSE,
-            'accordion_id' => Html::getUniqueId('ps-homepage-faq'),
-          ],
-          '#slots' => [
-            'content' => $accordionItems,
+      'body' => [
+        'accordion_wrapper' => [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['ps-homepage-faq__accordion']],
+          'accordion' => [
+            '#type' => 'component',
+            '#component' => 'ui_suite_bnp:accordion',
+            '#props' => [
+              'keep_open' => FALSE,
+              'accordion_id' => Html::getUniqueId('ps-homepage-faq'),
+            ],
+            '#slots' => [
+              'content' => $accordionItems,
+            ],
           ],
         ],
       ],
       'footer' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-footer-cta',
-        '#props' => [
-          'label' => $footer['label'],
-          'url' => $footerUrl,
-        ],
+        'label' => $footer['label'],
+        'url' => $footerUrl,
       ],
-      '#cache' => [
+      'attached' => [
+        'library' => ['ps_homepage/homepage_faq'],
+      ],
+      'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => array_merge(
           ['config:block.block'],
           array_map(static fn (int $nid): string => 'node:' . $nid, $nids),
         ),
       ],
-    ];
+    ]);
   }
 
 }

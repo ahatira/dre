@@ -13,8 +13,9 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\ps_homepage\Service\HomepageOfferTeaserBuilder;
+use Drupal\ps_homepage\Service\HomepageSectionBuilder;
+use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageLocalizedFieldResolver;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -35,6 +36,7 @@ final class OffersCarouselBlock extends BlockBase implements ContainerFactoryPlu
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly HomepageOfferTeaserBuilder $offerTeaserBuilder,
     private readonly SearchPathResolver $searchPathResolver,
+    private readonly HomepageSectionBuilder $sectionBuilder,
     private readonly OffersCarouselBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -51,6 +53,7 @@ final class OffersCarouselBlock extends BlockBase implements ContainerFactoryPlu
       $container->get('entity_type.manager'),
       $container->get('ps_homepage.offer_teaser_builder'),
       $container->get('ps_search.search_path_resolver'),
+      $container->get('ps_homepage.section_builder'),
       new OffersCarouselBlockFormBuilder(
         $container->get('entity_type.manager'),
       ),
@@ -62,12 +65,6 @@ final class OffersCarouselBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function defaultConfiguration(): array {
     return [
-      'title_en' => 'Featured properties',
-      'title_fr' => 'Offres à la une',
-      'subtitle_en' => 'Hand-picked opportunities across France',
-      'subtitle_fr' => 'Une sélection d\'opportunités partout en France',
-      'see_more_label_en' => 'View all listings',
-      'see_more_label_fr' => 'Voir toutes les annonces',
       'max_visible' => 4,
       'show_favorite' => TRUE,
       'show_compare' => TRUE,
@@ -96,8 +93,8 @@ final class OffersCarouselBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $heading = HomepageLocalizedFieldResolver::resolveHeading($this->configuration, $langcode);
-    $footerLabel = HomepageLocalizedFieldResolver::resolve($this->configuration, 'see_more_label', $langcode);
+    $heading = HomepageBlockConfiguration::heading($this->configuration);
+    $footerLabel = HomepageBlockConfiguration::string($this->configuration, 'see_more_label');
     $footerUrl = Url::fromUserInput(
       $this->searchPathResolver->getPublicPath($langcode),
     )->toString();
@@ -157,68 +154,54 @@ final class OffersCarouselBlock extends BlockBase implements ContainerFactoryPlu
       return ['#markup' => ''];
     }
 
-    return [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'ps-homepage-offers-carousel',
-          'container',
-          'py-5',
-          'ps-homepage-offers-carousel--visible-' . $maxVisible,
-        ],
-        'data-visible' => (string) $maxVisible,
-      ],
-      '#attached' => [
-        'library' => ['ps_homepage/homepage_offers_carousel'],
-      ],
-      'heading' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-heading',
-        '#props' => $heading,
-      ],
-      'viewport' => [
-        '#type' => 'container',
-        '#attributes' => ['class' => ['ps-homepage-offers-carousel__viewport']],
-        'prev' => [
-          '#type' => 'html_tag',
-          '#tag' => 'button',
-          '#value' => '‹',
-          '#attributes' => [
-            'type' => 'button',
-            'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--prev'],
-            'data-carousel-prev' => 'true',
-            'aria-label' => (string) $this->t('Previous offers'),
-          ],
-        ],
-        'track' => [
+    return $this->sectionBuilder->build([
+      'modifier' => 'offers-carousel',
+      'section_class' => 'ps-homepage-offers-carousel ps-homepage-offers-carousel--visible-' . $maxVisible,
+      'header' => $heading,
+      'body' => [
+        'viewport' => [
           '#type' => 'container',
-          '#attributes' => ['class' => ['ps-homepage-offers-carousel__track']],
-        ] + $items,
-        'next' => [
-          '#type' => 'html_tag',
-          '#tag' => 'button',
-          '#value' => '›',
-          '#attributes' => [
-            'type' => 'button',
-            'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--next'],
-            'data-carousel-next' => 'true',
-            'aria-label' => (string) $this->t('Next offers'),
+          '#attributes' => ['class' => ['ps-homepage-offers-carousel__viewport']],
+          'prev' => [
+            '#type' => 'html_tag',
+            '#tag' => 'button',
+            '#value' => '‹',
+            '#attributes' => [
+              'type' => 'button',
+              'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--prev'],
+              'data-carousel-prev' => 'true',
+              'aria-label' => (string) $this->t('Previous offers'),
+            ],
+          ],
+          'track' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['ps-homepage-offers-carousel__track']],
+          ] + $items,
+          'next' => [
+            '#type' => 'html_tag',
+            '#tag' => 'button',
+            '#value' => '›',
+            '#attributes' => [
+              'type' => 'button',
+              'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--next'],
+              'data-carousel-next' => 'true',
+              'aria-label' => (string) $this->t('Next offers'),
+            ],
           ],
         ],
       ],
       'footer' => [
-        '#type' => 'component',
-        '#component' => 'ps_theme:section-footer-cta',
-        '#props' => [
-          'label' => $footerLabel,
-          'url' => $footerUrl,
-        ],
+        'cta_label' => $footerLabel,
+        'cta_url' => $footerUrl,
       ],
-      '#cache' => [
+      'attached' => [
+        'library' => ['ps_homepage/homepage_offers_carousel'],
+      ],
+      'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => array_values(array_unique($cacheTags)),
       ],
-    ];
+    ]);
   }
 
 }

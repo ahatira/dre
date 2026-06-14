@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000004-0000-4000-8000-000000000003
+  bundle: faq_item
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo FAQ item'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'How can I delegate my property search?'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  field_question:
+    -
+      value: 'How can I delegate my property search?'
+  field_answer:
+    -
+      value: '<p>Our experts can run the search for you. Use the delegate search option in the hero or contact us to define your requirements and receive a shortlist of matching properties.</p>'
+      format: basic_html
+  field_weight:
+    -
+      value: '2'
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'FAQ démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Comment déléguer ma recherche immobilière ?'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    field_question:
+      -
+        value: 'Comment déléguer ma recherche immobilière ?'
+    field_answer:
+      -
+        value: '<p>Nos experts peuvent piloter votre recherche. Utilisez l''option de délégation dans le hero ou contactez-nous pour définir vos besoins et recevoir une présélection de biens adaptés.</p>'
+        format: basic_html

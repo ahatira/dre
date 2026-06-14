@@ -6,14 +6,13 @@ namespace Drupal\ps_homepage\Plugin\Block;
 
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
-use Drupal\file\Entity\File;
 use Drupal\ps_homepage\Service\HomepageOfferCountProvider;
 use Drupal\ps_homepage\Utility\HomepageContent;
+use Drupal\ps_homepage\Utility\HomepageMediaResolver;
 use Drupal\ps_homepage\Utility\HomepageSearchHeroEditorial;
 use Drupal\ps_search\Search\Hero\HeroSearchBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,7 +32,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
     string $plugin_id,
     mixed $plugin_definition,
     private readonly HeroSearchBuilder $heroSearchBuilder,
-    private readonly FileUrlGeneratorInterface $fileUrlGenerator,
+    private readonly HomepageMediaResolver $mediaResolver,
     private readonly HomepageOfferCountProvider $offerCountProvider,
     private readonly SearchHeroBlockFormBuilder $formBuilder,
   ) {
@@ -49,7 +48,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_id,
       $plugin_definition,
       $container->get('ps_search.hero_search_builder'),
-      $container->get('file_url_generator'),
+      $container->get('ps_homepage.media_resolver'),
       $container->get('ps_homepage.offer_count_provider'),
       new SearchHeroBlockFormBuilder(),
     );
@@ -87,41 +86,26 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
       $offerCount = $this->offerCountProvider->countPublishedOffers();
     }
 
-    $editorial = HomepageSearchHeroEditorial::resolve($this->configuration, $langcode, $offerCount);
+    $editorial = HomepageSearchHeroEditorial::resolve($this->configuration, $offerCount);
     $defaultBackground = $this->heroSearchBuilder->defaultHeroBackgroundUrl();
+    $backgroundMedia = $this->mediaResolver->resolve($this->configuration['background_image'] ?? NULL, $langcode);
+    $promoMedia = $this->mediaResolver->resolve($this->configuration['promo_background_image'] ?? NULL, $langcode);
 
     return $this->heroSearchBuilder->build([
       'title' => $editorial['title'],
-      'background_image' => $this->resolveBackgroundUrl('background_image', $defaultBackground),
-      'background_alt' => $editorial['background_alt'],
+      'background_image' => $backgroundMedia->url ?? $defaultBackground,
+      'background_alt' => $backgroundMedia->alt !== '' ? $backgroundMedia->alt : $editorial['title'],
       'promo_title' => $editorial['promo_title'],
       'promo_offers_line' => $editorial['promo_offers_line'],
       'promo_description' => $editorial['promo_description'],
       'promo_cta_label' => $editorial['promo_cta_label'],
       'promo_cta_url' => $editorial['promo_cta_url'] ?: '/find-property',
-      'promo_background_image' => $this->resolveBackgroundUrl('promo_background_image', $defaultBackground),
-      'promo_background_alt' => $editorial['promo_background_alt'],
+      'promo_background_image' => $promoMedia->url ?? ($backgroundMedia->url ?? $defaultBackground),
+      'promo_background_alt' => $promoMedia->alt !== '' ? $promoMedia->alt : $editorial['promo_title'],
       'labels' => $editorial + [
         'delegate_url' => Url::fromUserInput($editorial['delegate_url'] ?: '/contact')->toString(),
       ],
     ]);
-  }
-
-  /**
-   * Resolves a managed file URL or falls back to the theme default.
-   */
-  private function resolveBackgroundUrl(string $configKey, string $fallback): string {
-    $fid = (int) ($this->configuration[$configKey] ?? 0);
-    if ($fid <= 0) {
-      return $fallback;
-    }
-
-    $file = File::load($fid);
-    if ($file === NULL) {
-      return $fallback;
-    }
-
-    return $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
   }
 
 }
