@@ -125,7 +125,7 @@ final class HomepageLayoutStructureSynchronizer {
         $targetConfig = $targetByUuid[$uuid] ?? [];
         $pluginId = is_array($sourceConfig) ? (string) ($sourceConfig['id'] ?? '') : '';
 
-        if (HomepageBlockConfiguration::isHomepagePlugin($pluginId)) {
+        if (HomepageBlockConfiguration::shouldSynchronizeBlockConfiguration($pluginId)) {
           $mergedConfig = HomepageBlockConfiguration::applyNeutralValues(
             is_array($targetConfig) ? $targetConfig : [],
             is_array($sourceConfig) ? $sourceConfig : [],

@@ -1,0 +1,16 @@
+ps_homepage_section:
+  label: 'Homepage section (header / body / footer)'
+  category: 'Property Search'
+  path: layouts/ps_homepage_section
+  template: ps-homepage-section
+  library: ps_homepage/homepage_section_layout
+  default_region: body
+  icon_map:
+    - [header, body, footer]
+  regions:
+    header:
+      label: 'Section header'
+    body:
+      label: 'Section body'
+    footer:
+      label: 'Section footer'

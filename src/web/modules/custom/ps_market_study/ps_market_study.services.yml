@@ -1,0 +1,30 @@
+services:
+  ps_market_study.market_study_teaser_builder:
+    class: Drupal\ps_market_study\Service\MarketStudyTeaserBuilder
+    arguments:
+      - '@ps_content.content_media_resolver'
+      - '@date.formatter'
+      - '@entity.repository'
+      - '@extension.path.resolver'
+      - '@language_manager'
+
+  ps_market_study.market_study_list_path_resolver:
+    class: Drupal\ps_market_study\Service\MarketStudyListPathResolver
+    arguments:
+      - '@language_manager'
+
+  ps_market_study.market_study_default_items:
+    class: Drupal\ps_market_study\Service\MarketStudyDefaultItems
+    arguments:
+      - '@entity_type.manager'
+      - '@entity.repository'
+
+  ps_market_study.market_studies_grid_builder:
+    class: Drupal\ps_market_study\Service\MarketStudiesGridBuilder
+    arguments:
+      - '@ps_content.content_media_resolver'
+      - '@date.formatter'
+      - '@extension.path.resolver'
+      - '@language_manager'
+      - '@entity_type.manager'
+      - '@ps_market_study.market_study_teaser_builder'

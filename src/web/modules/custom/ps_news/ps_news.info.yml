@@ -1,0 +1,15 @@
+name: 'Property Search - News'
+type: module
+description: 'News content model, listing view, and homepage news block.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_core:ps_core
+  - drupal:node
+  - drupal:field
+  - drupal:text
+  - drupal:taxonomy
+  - drupal:views
+  - drupal:media
+  - drupal:datetime

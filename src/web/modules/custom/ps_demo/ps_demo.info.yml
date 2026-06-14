@@ -16,6 +16,10 @@ dependencies:
   - drupal:path_alias
   - ps_block:ps_block
   - ps_core:ps_core
+  - ps_content:ps_content
+  - ps_faq:ps_faq
+  - ps_news:ps_news
+  - ps_market_study:ps_market_study
   - ps_favorite:ps_favorite
   - ps_homepage:ps_homepage
   - social_media_links:social_media_links

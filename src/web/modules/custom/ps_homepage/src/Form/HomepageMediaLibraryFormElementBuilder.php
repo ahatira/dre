@@ -16,7 +16,7 @@ use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media_library\MediaLibraryState;
 use Drupal\media_library\MediaLibraryUiBuilder;
-use Drupal\ps_homepage\Utility\HomepageMediaResolver;
+use Drupal\ps_content\Service\ContentMediaResolver;
 
 /**
  * Builds Media Library pickers for homepage block configuration forms.
@@ -29,7 +29,7 @@ final class HomepageMediaLibraryFormElementBuilder {
 
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly HomepageMediaResolver $mediaResolver,
+    private readonly ContentMediaResolver $mediaResolver,
     private readonly MediaLibraryUiBuilder $mediaLibraryUiBuilder,
   ) {}
 

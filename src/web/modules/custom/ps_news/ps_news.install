@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the ps_news module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Renames the legacy homepage news view to ps_news.
+ */
+function ps_news_update_9001(): void {
+  $configFactory = \Drupal::configFactory();
+  $oldName = 'views.view.ps_homepage_news';
+  $newName = 'views.view.ps_news';
+
+  if ($configFactory->get($oldName)->isNew()) {
+    return;
+  }
+
+  if ($configFactory->get($newName)->isNew()) {
+    $data = $configFactory->get($oldName)->getRawData();
+    $data['id'] = 'ps_news';
+    $data['label'] = 'News';
+    $configFactory->getEditable($newName)->setData($data)->save(TRUE);
+  }
+
+  $configFactory->getEditable($oldName)->delete();
+
+  if (\Drupal::hasService('router.builder')) {
+    \Drupal::service('router.builder')->rebuild();
+  }
+}
+
+/**
+ * Removes legacy ps_homepage_news view if ps_news is already active.
+ */
+function ps_news_update_9002(): void {
+  ps_news_update_9001();
+}

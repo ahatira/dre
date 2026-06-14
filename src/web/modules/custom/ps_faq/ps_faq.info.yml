@@ -1,0 +1,13 @@
+name: 'Property Search - FAQ'
+type: module
+description: 'FAQ content model, listing view, and accordion block.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_core:ps_core
+  - drupal:node
+  - drupal:field
+  - drupal:text
+  - drupal:taxonomy
+  - drupal:views

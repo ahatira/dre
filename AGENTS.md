@@ -76,7 +76,7 @@ bash src/scripts/main.sh tools build   # Build complet
 | `ps_form` | Formulaires custom |
 | `ps_media` | Médias |
 | `ps_favorite` | Favoris |
-| `ps_homepage` | Homepage |
+| `ps_homepage` | Homepage LB orchestration, Section Library, §1 hero, shell header/footer — voir `docs/HOMEPAGE_ARCHITECTURE.md` |
 | `ps_demo` | Contenu démo |
 
 ## Conventions code

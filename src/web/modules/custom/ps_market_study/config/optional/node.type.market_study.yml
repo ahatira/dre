@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Market study'
+type: market_study
+description: 'Market research publications for homepage and listing pages.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

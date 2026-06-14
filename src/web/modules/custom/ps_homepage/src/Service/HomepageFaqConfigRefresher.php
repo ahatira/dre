@@ -10,19 +10,22 @@ use Drupal\layout_builder\Section;
 use Drupal\layout_builder\SectionComponent;
 use Drupal\layout_builder\SectionListInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_faq\Service\FaqDefaultItems;
 
 /**
  * Refreshes the FAQ block configuration on the homepage layout.
  */
 final class HomepageFaqConfigRefresher {
 
-  private const PLUGIN_ID = 'ps_homepage_faq_block';
+  private const PLUGIN_ID = 'ps_faq_faq_block';
+
+  private const PLUGIN_PROVIDER = 'ps_faq';
 
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly HomepageBlockDefaultsLoader $defaultsLoader,
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly HomepageFaqDefaultItems $faqDefaultItems,
+    private readonly FaqDefaultItems $faqDefaultItems,
     private readonly HomepageLayoutPersister $layoutPersister,
   ) {}
 
@@ -41,7 +44,7 @@ final class HomepageFaqConfigRefresher {
     }
 
     $updated = FALSE;
-    foreach ($node->getTranslationLanguages(FALSE) as $langcode => $_language) {
+    foreach ($node->getTranslationLanguages() as $langcode => $_language) {
       $nextSections = $this->buildRefreshedSections($node->getTranslation($langcode), $langcode, $faqItems);
       if ($nextSections === NULL) {
         continue;
@@ -95,7 +98,7 @@ final class HomepageFaqConfigRefresher {
         $configuration = $defaultConfig + $configuration;
         $configuration['faq_items'] = $faqItems;
         $configuration['id'] = self::PLUGIN_ID;
-        $configuration['provider'] = 'ps_homepage';
+        $configuration['provider'] = self::PLUGIN_PROVIDER;
         $configuration['label'] = '';
         $configuration['label_display'] = FALSE;
         $componentData['configuration'] = $configuration;

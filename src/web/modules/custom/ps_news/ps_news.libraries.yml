@@ -1,0 +1,4 @@
+news_grid:
+  css:
+    theme:
+      css/news-grid.css: {}

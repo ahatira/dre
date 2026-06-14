@@ -16,7 +16,9 @@ use Drupal\node\NodeInterface;
  */
 final class HomepageExpertJourneyConfigRefresher {
 
-  private const PLUGIN_ID = 'ps_homepage_expert_journey_block';
+  private const PLUGIN_ID = 'ps_content_experts_accompagnement_block';
+
+  private const PLUGIN_PROVIDER = 'ps_content';
 
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -36,7 +38,7 @@ final class HomepageExpertJourneyConfigRefresher {
     }
 
     $updated = FALSE;
-    foreach ($node->getTranslationLanguages(FALSE) as $langcode => $_language) {
+    foreach ($node->getTranslationLanguages() as $langcode => $_language) {
       $nextSections = $this->buildRefreshedSections($node->getTranslation($langcode), $langcode);
       if ($nextSections === NULL) {
         continue;
@@ -111,7 +113,7 @@ final class HomepageExpertJourneyConfigRefresher {
         $configuration = $defaultConfig + $configuration;
         $configuration['steps'] = $defaultConfig['steps'] ?? [];
         $configuration['id'] = self::PLUGIN_ID;
-        $configuration['provider'] = 'ps_homepage';
+        $configuration['provider'] = self::PLUGIN_PROVIDER;
         $configuration['label'] = '';
         $configuration['label_display'] = FALSE;
         $componentData['configuration'] = $configuration;

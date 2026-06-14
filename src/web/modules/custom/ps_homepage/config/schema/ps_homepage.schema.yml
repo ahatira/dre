@@ -25,3 +25,34 @@ block.settings.ps_homepage_search_hero_block:
     promo_offers_template:
       type: string
       label: 'Offers line template'
+
+block.settings.ps_homepage_section_header_block:
+  type: mapping
+  label: 'Homepage section header block'
+  mapping:
+    title:
+      type: string
+      label: 'Title'
+    subtitle:
+      type: string
+      label: 'Subtitle'
+    align:
+      type: string
+      label: 'Alignment'
+    accent:
+      type: string
+      label: 'Accent'
+
+block.settings.ps_homepage_section_footer_block:
+  type: mapping
+  label: 'Homepage section footer block'
+  mapping:
+    cta_label:
+      type: string
+      label: 'CTA label'
+    cta_url:
+      type: string
+      label: 'CTA URL'
+    cta_style:
+      type: string
+      label: 'CTA style'

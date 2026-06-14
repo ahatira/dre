@@ -1,41 +1,41 @@
 {#
 /**
  * @file
- * Homepage service icon card.
+ * Homepage service icon card — Figma Frame 38/39 (§2 Services).
+ *
+ * Flat structure (icon, title, body, actions) for equal-height subgrid rows.
  */
 #}
 {% set button_class = button_style == 'primary' ? 'btn-primary' : 'btn-outline-primary' %}
-<article class="ps-icon-card card h-100">
-  <div class="ps-icon-card__body card-body d-flex flex-column">
-    {% if icon_pack and icon_id %}
-      <div class="ps-icon-card__icon" aria-hidden="true">
-        {{ icon(icon_pack, icon_id, {size: '32px'}) }}
-      </div>
-    {% endif %}
-    {% if title %}
-      <h3 class="ps-icon-card__title">{{ title }}</h3>
-    {% endif %}
-    {% if body %}
-      <p class="ps-icon-card__text flex-grow-1">{{ body }}</p>
-    {% endif %}
-    {% if button_label %}
-      <div class="ps-icon-card__actions mt-auto">
-        {% if link_type == 'modal' and modal_id %}
-          <button type="button" class="btn {{ button_class }} ps-icon-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
-            {{ button_label }}
-          </button>
-        {% elseif link_type == 'offcanvas' and button_url %}
-          <a href="{{ button_url }}"
-             class="btn {{ button_class }} ps-icon-card__button use-ajax"
-             data-dialog-type="dialog"
-             data-dialog-renderer="off_canvas"
-             data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
-            {{ button_label }}
-          </a>
-        {% elseif button_url %}
-          <a href="{{ button_url }}" class="btn {{ button_class }} ps-icon-card__button">{{ button_label }}</a>
-        {% endif %}
-      </div>
-    {% endif %}
-  </div>
+<article class="ps-icon-card">
+  {% if icon_pack and icon_id %}
+    <div class="ps-icon-card__icon" aria-hidden="true">
+      {{ icon(icon_pack, icon_id, {size: '32px'}) }}
+    </div>
+  {% endif %}
+  {% if title %}
+    <h3 class="ps-icon-card__title">{{ title }}</h3>
+  {% endif %}
+  {% if body %}
+    <p class="ps-icon-card__text">{{ body }}</p>
+  {% endif %}
+  {% if button_label %}
+    <div class="ps-icon-card__actions">
+      {% if link_type == 'modal' and modal_id %}
+        <button type="button" class="btn {{ button_class }} w-100 ps-icon-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+          {{ button_label }}
+        </button>
+      {% elseif link_type == 'offcanvas' %}
+        <a href="{{ button_url }}"
+           class="btn {{ button_class }} w-100 ps-icon-card__button use-ajax"
+           data-dialog-type="dialog"
+           data-dialog-renderer="off_canvas"
+           data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
+          {{ button_label }}
+        </a>
+      {% elseif button_url %}
+        <a href="{{ button_url }}" class="btn {{ button_class }} w-100 ps-icon-card__button">{{ button_label }}</a>
+      {% endif %}
+    </div>
+  {% endif %}
 </article>

@@ -1,0 +1,12 @@
+name: 'Property Search - Content'
+type: module
+description: 'Homepage content sections — services grid, tools accordion, expert journey.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - ps_core:ps_core
+  - ps_search:ps_search
+  - drupal:media
+  - drupal:media_library
+  - drupal:filter

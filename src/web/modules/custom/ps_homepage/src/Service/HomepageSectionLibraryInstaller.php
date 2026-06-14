@@ -14,11 +14,29 @@ use Drupal\node\NodeInterface;
 final class HomepageSectionLibraryInstaller {
 
   public function __construct(
-    private readonly HomepageDefaultLayoutBuilder $layoutBuilder,
+    private readonly HomepageSectionLibraryTemplateBuilder $templateBuilder,
     private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
+  /**
+   * Installs S-D shell section library templates.
+   */
   public function install(): void {
+    $homepage = $this->loadHomepageNode();
+    if (!$homepage instanceof NodeInterface) {
+      return;
+    }
+
+    $this->installSdTemplates($homepage);
+  }
+
+  /**
+   * Refreshes existing S-D section library templates (upsert by label).
+   *
+   * @param list<int> $sectionNumbers
+   *   Optional § numbers to limit refresh (empty = all SD templates).
+   */
+  public function refreshSdTemplates(array $sectionNumbers = []): void {
     $homepage = $this->loadHomepageNode();
     if (!$homepage instanceof NodeInterface) {
       return;
@@ -26,29 +44,60 @@ final class HomepageSectionLibraryInstaller {
 
     $storage = $this->entityTypeManager->getStorage('section_library_template');
 
-    foreach ($this->layoutBuilder->buildSections() as $index => $section) {
-      if (!$section instanceof Section) {
-        continue;
+    foreach ($this->templateBuilder->buildTemplateSections() as $template) {
+      $label = $template['label'];
+      if ($sectionNumbers !== []) {
+        if (!preg_match('/^Homepage SD §(\d+) —/', $label, $matches)) {
+          continue;
+        }
+        if (!in_array((int) $matches[1], $sectionNumbers, TRUE)) {
+          continue;
+        }
       }
 
-      $label = (string) ($section->getLayoutSettings()['label'] ?? '');
-      $templateLabel = 'Homepage §' . ($index + 1) . ' — ' . $label;
-
-      $existing = $storage->loadByProperties(['label' => $templateLabel]);
+      $existing = $storage->loadByProperties(['label' => $label]);
       if ($existing !== []) {
+        $entity = reset($existing);
+        $entity->set('layout_section', $template['section']);
+        $entity->save();
         continue;
       }
 
-      $entity = $storage->create([
-        'label' => $templateLabel,
-        'type' => 'section',
-        'layout_section' => $section,
-        'entity_type' => 'node',
-        'entity_id' => $homepage->id(),
-      ]);
-
-      $entity->save();
+      $this->createTemplateIfMissing($storage, $label, $template['section'], $homepage);
     }
+  }
+
+  private function installSdTemplates(NodeInterface $homepage): void {
+    $storage = $this->entityTypeManager->getStorage('section_library_template');
+
+    foreach ($this->templateBuilder->buildTemplateSections() as $template) {
+      $this->createTemplateIfMissing(
+        $storage,
+        $template['label'],
+        $template['section'],
+        $homepage,
+      );
+    }
+  }
+
+  /**
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   */
+  private function createTemplateIfMissing($storage, string $templateLabel, Section $section, NodeInterface $homepage): void {
+    $existing = $storage->loadByProperties(['label' => $templateLabel]);
+    if ($existing !== []) {
+      return;
+    }
+
+    $entity = $storage->create([
+      'label' => $templateLabel,
+      'type' => 'section',
+      'layout_section' => $section,
+      'entity_type' => 'node',
+      'entity_id' => $homepage->id(),
+    ]);
+
+    $entity->save();
   }
 
   private function loadHomepageNode(): ?NodeInterface {

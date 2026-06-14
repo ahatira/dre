@@ -1,45 +1,3 @@
-homepage_faq:
-  css:
-    theme:
-      css/homepage-faq.css: {}
-  dependencies:
-    - ui_suite_bnp/accordion
-
-homepage_offers_carousel:
-  css:
-    theme:
-      css/homepage-offers-carousel.css: {}
-  js:
-    js/homepage-offers-carousel.js: {}
-  dependencies:
-    - core/drupal
-    - core/once
-
-homepage_tools:
-  css:
-    theme:
-      css/homepage-tools.css: {}
-  js:
-    js/media-credit-toggle.js: {}
-  dependencies:
-    - core/drupal
-    - core/once
-    - ui_suite_bnp/accordion
-    - ui_suite_bnp/media-credit
-
-homepage_media_credit:
-  js:
-    js/media-credit-toggle.js: {}
-  dependencies:
-    - core/drupal
-    - core/once
-    - ui_suite_bnp/media-credit
-
-homepage_news:
-  css:
-    theme:
-      css/homepage-news.css: {}
-
 homepage_block_form:
   css:
     theme:
@@ -51,3 +9,8 @@ homepage_block_form:
     - core/once
     - core/drupal.dialog.ajax
     - media_library/widget
+
+homepage_section_layout:
+  css:
+    theme:
+      css/homepage-section-layout.css: {}

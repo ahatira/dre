@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\ps_homepage\Service\HomepageOfferCountProvider;
 use Drupal\ps_homepage\Utility\HomepageContent;
-use Drupal\ps_homepage\Utility\HomepageMediaResolver;
+use Drupal\ps_content\Service\ContentMediaResolver;
 use Drupal\ps_homepage\Utility\HomepageSearchHeroEditorial;
 use Drupal\ps_search\Search\Hero\HeroSearchBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,7 +32,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
     string $plugin_id,
     mixed $plugin_definition,
     private readonly HeroSearchBuilder $heroSearchBuilder,
-    private readonly HomepageMediaResolver $mediaResolver,
+    private readonly ContentMediaResolver $mediaResolver,
     private readonly HomepageOfferCountProvider $offerCountProvider,
     private readonly SearchHeroBlockFormBuilder $formBuilder,
   ) {

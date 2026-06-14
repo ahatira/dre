@@ -454,3 +454,9 @@ services:
       - '@ps_search.alert_mailer'
       - '@config.factory'
       - '@logger.factory'
+
+  ps_search.search_shortcuts_builder:
+    class: Drupal\ps_search\Service\SearchShortcutsBuilder
+    arguments:
+      - '@ps_search.preset_query_builder'
+      - '@language_manager'

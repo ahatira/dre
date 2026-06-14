@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Market study category'
+vid: market_study_category
+description: 'Categories for market study publications.'
+weight: 0
+new_revision: false

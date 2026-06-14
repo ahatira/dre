@@ -16,14 +16,24 @@ final class HomepageBlockConfiguration {
    */
   public const HOMEPAGE_PLUGIN_IDS = [
     'ps_homepage_search_hero_block',
-    'ps_homepage_services_block',
-    'ps_homepage_tools_block',
-    'ps_homepage_offers_carousel_block',
-    'ps_homepage_search_shortcuts_block',
-    'ps_homepage_expert_journey_block',
-    'ps_homepage_news_block',
-    'ps_homepage_market_studies_block',
-    'ps_homepage_faq_block',
+    'ps_homepage_section_header_block',
+    'ps_homepage_section_footer_block',
+  ];
+
+  /**
+   * Domain body blocks placed in homepage S-D section layouts.
+   *
+   * @var list<string>
+   */
+  public const DOMAIN_BODY_PLUGIN_IDS = [
+    'ps_content_services_grid_block',
+    'ps_content_outils_accordion_block',
+    'ps_offer_offers_carousel_block',
+    'ps_search_search_shortcuts_block',
+    'ps_content_experts_accompagnement_block',
+    'ps_news_news_block',
+    'ps_market_study_market_studies_block',
+    'ps_faq_faq_block',
   ];
 
   /**
@@ -32,13 +42,13 @@ final class HomepageBlockConfiguration {
    * @var array<string, string>
    */
   private const ITEM_LIST_KEYS = [
-    'ps_homepage_services_block' => 'items',
-    'ps_homepage_tools_block' => 'items',
-    'ps_homepage_search_shortcuts_block' => 'items',
-    'ps_homepage_market_studies_block' => 'items',
-    'ps_homepage_expert_journey_block' => 'steps',
-    'ps_homepage_offers_carousel_block' => 'offers',
-    'ps_homepage_faq_block' => 'faq_items',
+    'ps_content_services_grid_block' => 'items',
+    'ps_content_outils_accordion_block' => 'items',
+    'ps_search_search_shortcuts_block' => 'items',
+    'ps_market_study_market_studies_block' => 'studies',
+    'ps_content_experts_accompagnement_block' => 'steps',
+    'ps_offer_offers_carousel_block' => 'offers',
+    'ps_faq_faq_block' => 'faq_items',
   ];
 
   /**
@@ -72,6 +82,7 @@ final class HomepageBlockConfiguration {
     'weight',
     'image',
     'icon',
+    'illustration',
     'link_type',
     'button_style',
     'modal_id',
@@ -191,6 +202,14 @@ final class HomepageBlockConfiguration {
 
   public static function isHomepagePlugin(string $pluginId): bool {
     return in_array($pluginId, self::HOMEPAGE_PLUGIN_IDS, TRUE);
+  }
+
+  public static function isDomainBodyPlugin(string $pluginId): bool {
+    return in_array($pluginId, self::DOMAIN_BODY_PLUGIN_IDS, TRUE);
+  }
+
+  public static function shouldSynchronizeBlockConfiguration(string $pluginId): bool {
+    return self::isHomepagePlugin($pluginId) || self::isDomainBodyPlugin($pluginId);
   }
 
   /**

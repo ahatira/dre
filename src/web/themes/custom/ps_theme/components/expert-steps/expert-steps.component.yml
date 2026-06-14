@@ -32,4 +32,4 @@ libraryOverrides:
   dependencies:
     - core/drupal
     - core/once
-    - ps_homepage/homepage_media_credit
+    - ps_content/media_credit

@@ -1,11 +1,9 @@
-reference_widget:
-  version: 1.x
+offers_carousel:
   css:
-    component:
-      css/offer-reference-widget.css: {}
-
-surface_kpi:
-  version: 1.x
-  css:
-    component:
-      css/ps-surface-kpi.css: {}
+    theme:
+      css/offers-carousel.css: {}
+  js:
+    js/offers-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

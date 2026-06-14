@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ps_news.news_list_path_resolver:
+    class: Drupal\ps_news\Service\NewsListPathResolver
+    arguments:
+      - '@language_manager'
+
+  ps_news.news_teaser_builder:
+    class: Drupal\ps_news\Service\NewsTeaserBuilder
+    arguments:
+      - '@date.formatter'
+      - '@entity.repository'
+      - '@file_url_generator'
+
+  ps_news.news_grid_builder:
+    class: Drupal\ps_news\Service\NewsGridBuilder
+
+  Drupal\ps_news\Hook\NewsViewsHooks: ~

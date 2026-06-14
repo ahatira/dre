@@ -8,7 +8,6 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
-use Drupal\ps_theme\Utility\NewsTeaserPropsBuilder;
 use Drupal\ps_theme\Utility\OfferCardPropsBuilder;
 use Drupal\ps_theme\Utility\OfferSearchCardPropsBuilder;
 
@@ -33,7 +32,7 @@ final class Offer {
       $variables['news_teaser_card_component'] = [
         '#type' => 'component',
         '#component' => 'ps_theme:news-teaser-card',
-        '#props' => NewsTeaserPropsBuilder::build($node),
+        '#props' => \Drupal::service('ps_news.news_teaser_builder')->build($node),
       ];
       return;
     }

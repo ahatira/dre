@@ -1,0 +1,34 @@
+name: Market study card
+description: 'Market study card with image overlay and stretched link.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    image:
+      type: string
+      title: Image URL
+    image_alt:
+      type: string
+      title: Image alt text
+    image_credit:
+      type: string
+      title: Image credit
+    category:
+      type: string
+      title: Category label
+    title:
+      type: string
+      title: Card title
+    date:
+      type: string
+      title: Formatted date
+    url:
+      type: string
+      title: Card URL
+libraryOverrides:
+  css:
+    component:
+      styles/market-study-card.css: {}
+  dependencies:
+    - ps_content/media_credit

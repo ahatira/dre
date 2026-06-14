@@ -80,17 +80,19 @@ Enchaînement manuel (équivalent) :
 
 ## Homepage (node/1, Layout Builder)
 
-Le node homepage est exporté puis **réécrit à l'import** avec **9 sections LB** peuplées (EN+FR) via `HomepageDefaultLayoutBuilder` :
+Le node homepage est exporté puis **réécrit à l'import** avec **9 sections LB S-D** (EN+FR) via `HomepageDefaultLayoutBuilder` → `HomepageSectionLibraryTemplateBuilder` :
 
-1. Search hero (`ps_homepage_search_hero_block`)
-2. Services (`ps_homepage_services_block`)
-3. Tools (`ps_homepage_tools_block`)
-4. Offers carousel (`ps_homepage_offers_carousel_block`)
-5. Search shortcuts (`ps_homepage_search_shortcuts_block`)
-6. Expert journey (`ps_homepage_expert_journey_block`)
-7. News (`ps_homepage_news_block`)
-8. Market studies (`ps_homepage_market_studies_block`)
-9. FAQ (`ps_homepage_faq_block`)
+1. Hero — `layout_onecol` + `ps_homepage_search_hero_block`
+2. Services — shell `ps_homepage_section` + `ps_content_services_grid_block` (body)
+3. Tools — shell + `ps_content_outils_accordion_block`
+4. Offers — shell + `ps_offer_offers_carousel_block` + footer CTA
+5. Search shortcuts — shell + `ps_search_search_shortcuts_block`
+6. Expert journey — shell + `ps_content_experts_accompagnement_block`
+7. News — shell + `ps_news_news_block` + footer CTA
+8. Market studies — shell + `ps_market_study_market_studies_block` + footer CTA
+9. FAQ — shell + `ps_faq_faq_block` + footer CTA
+
+Titre / sous-titre / footer « Voir plus » = blocs shell LB (`ps_homepage_section_header_block`, `ps_homepage_section_footer_block`).
 
 UUID stable : `b2000001-0000-4000-8000-000000000001` — doit rester le **premier** node importé (nid 1).
 

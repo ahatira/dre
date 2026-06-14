@@ -1,0 +1,36 @@
+services:
+  ps_content.content_cta_link_builder:
+    class: Drupal\ps_content\Service\ContentCtaLinkBuilder
+    arguments:
+      - '@ps_search.preset_query_builder'
+      - '@language_manager'
+
+  ps_content.content_media_resolver:
+    class: Drupal\ps_content\Service\ContentMediaResolver
+    arguments:
+      - '@entity_type.manager'
+      - '@file_url_generator'
+
+  ps_content.expert_journey_default_assets:
+    class: Drupal\ps_content\Service\ExpertJourneyDefaultAssets
+    arguments:
+      - '@extension.path.resolver'
+
+  ps_content.services_grid_builder:
+    class: Drupal\ps_content\Service\ServicesGridBuilder
+    arguments:
+      - '@ps_content.content_cta_link_builder'
+      - '@language_manager'
+
+  ps_content.outils_accordion_builder:
+    class: Drupal\ps_content\Service\OutilsAccordionBuilder
+    arguments:
+      - '@ps_content.content_media_resolver'
+      - '@language_manager'
+
+  ps_content.experts_accompagnement_builder:
+    class: Drupal\ps_content\Service\ExpertsAccompagnementBuilder
+    arguments:
+      - '@ps_content.content_media_resolver'
+      - '@ps_content.expert_journey_default_assets'
+      - '@language_manager'

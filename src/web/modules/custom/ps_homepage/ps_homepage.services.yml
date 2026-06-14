@@ -7,30 +7,22 @@ services:
     arguments:
       - '@ps_homepage.layout_structure_synchronizer'
 
-  Drupal\ps_homepage\Hook\HomepageViewsHooks: ~
-
   Drupal\ps_homepage\Hook\HomepageLayoutBuilderFormHooks: ~
 
   ps_homepage.offer_count_provider:
     class: Drupal\ps_homepage\Service\HomepageOfferCountProvider
 
   ps_homepage.cta_link_builder:
-    class: Drupal\ps_homepage\Service\HomepageCtaLinkBuilder
-    arguments:
-      - '@ps_search.preset_query_builder'
-      - '@language_manager'
+    alias: ps_content.content_cta_link_builder
 
   ps_homepage.media_resolver:
-    class: Drupal\ps_homepage\Utility\HomepageMediaResolver
-    arguments:
-      - '@entity_type.manager'
-      - '@file_url_generator'
+    alias: ps_content.content_media_resolver
 
   ps_homepage.media_library_form_element_builder:
     class: Drupal\ps_homepage\Form\HomepageMediaLibraryFormElementBuilder
     arguments:
       - '@entity_type.manager'
-      - '@ps_homepage.media_resolver'
+      - '@ps_content.content_media_resolver'
       - '@media_library.ui_builder'
 
   ps_homepage.media_library_opener.homepage_block:
@@ -45,15 +37,7 @@ services:
       - '@ps_homepage.layout_persister'
 
   ps_homepage.expert_journey_default_assets:
-    class: Drupal\ps_homepage\Utility\ExpertJourneyDefaultAssets
-    arguments:
-      - '@extension.path.resolver'
-
-  ps_homepage.faq_default_items:
-    class: Drupal\ps_homepage\Service\HomepageFaqDefaultItems
-    arguments:
-      - '@entity.repository'
-      - '@entity_type.manager'
+    alias: ps_content.expert_journey_default_assets
 
   ps_homepage.faq_config_refresher:
     class: Drupal\ps_homepage\Service\HomepageFaqConfigRefresher
@@ -61,7 +45,25 @@ services:
       - '@entity_type.manager'
       - '@ps_homepage.block_defaults_loader'
       - '@config.factory'
-      - '@ps_homepage.faq_default_items'
+      - '@ps_faq.faq_default_items'
+      - '@ps_homepage.layout_persister'
+
+  ps_homepage.market_study_config_refresher:
+    class: Drupal\ps_homepage\Service\HomepageMarketStudyConfigRefresher
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_homepage.block_defaults_loader'
+      - '@config.factory'
+      - '@ps_market_study.market_study_default_items'
+      - '@ps_market_study.market_study_list_path_resolver'
+      - '@ps_homepage.layout_persister'
+
+  ps_homepage.services_config_refresher:
+    class: Drupal\ps_homepage\Service\HomepageServicesConfigRefresher
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_homepage.block_defaults_loader'
+      - '@config.factory'
       - '@ps_homepage.layout_persister'
 
   ps_homepage.expert_journey_config_refresher:
@@ -73,14 +75,6 @@ services:
       - '@ps_homepage.layout_persister'
       - '@config.factory'
 
-  ps_homepage.offer_teaser_builder:
-    class: Drupal\ps_homepage\Service\HomepageOfferTeaserBuilder
-
-  ps_homepage.news_list_path_resolver:
-    class: Drupal\ps_homepage\Service\NewsListPathResolver
-    arguments:
-      - '@language_manager'
-
   ps_homepage.block_defaults_loader:
     class: Drupal\ps_homepage\Service\HomepageBlockDefaultsLoader
     arguments:
@@ -89,9 +83,15 @@ services:
   ps_homepage.default_layout_builder:
     class: Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder
     arguments:
-      - '@plugin.manager.block'
-      - '@uuid'
-      - '@ps_homepage.block_defaults_loader'
+      - '@ps_homepage.section_library_template_builder'
+
+  ps_homepage.sd_layout_migrator:
+    class: Drupal\ps_homepage\Service\HomepageSdLayoutMigrator
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_homepage.layout_persister'
+      - '@ps_homepage.section_library_template_builder'
+      - '@config.factory'
 
   ps_homepage.layout_field_configurer:
     class: Drupal\ps_homepage\Service\HomepageLayoutFieldConfigurer
@@ -115,11 +115,17 @@ services:
       - '@language_manager'
       - '@entity_type.manager'
 
-  ps_homepage.section_builder:
-    class: Drupal\ps_homepage\Service\HomepageSectionBuilder
-
   ps_homepage.section_library_installer:
     class: Drupal\ps_homepage\Service\HomepageSectionLibraryInstaller
     arguments:
-      - '@ps_homepage.default_layout_builder'
+      - '@ps_homepage.section_library_template_builder'
       - '@entity_type.manager'
+
+  ps_homepage.section_library_template_builder:
+    class: Drupal\ps_homepage\Service\HomepageSectionLibraryTemplateBuilder
+    arguments:
+      - '@plugin.manager.block'
+      - '@uuid'
+      - '@ps_homepage.block_defaults_loader'
+      - '@ps_news.news_list_path_resolver'
+      - '@ps_market_study.market_study_list_path_resolver'

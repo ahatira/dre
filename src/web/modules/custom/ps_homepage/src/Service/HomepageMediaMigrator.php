@@ -26,9 +26,9 @@ final class HomepageMediaMigrator {
    * @var list<string>
    */
   private const HOMEPAGE_BLOCK_IDS = [
-    'ps_homepage_expert_journey_block',
-    'ps_homepage_tools_block',
-    'ps_homepage_market_studies_block',
+    'ps_content_experts_accompagnement_block',
+    'ps_content_outils_accordion_block',
+    'ps_market_study_market_studies_block',
     'ps_homepage_search_hero_block',
   ];
 
@@ -140,9 +140,9 @@ final class HomepageMediaMigrator {
     $changed = FALSE;
 
     match ($blockId) {
-      'ps_homepage_expert_journey_block' => $changed = $this->migrateExpertJourney($settings),
-      'ps_homepage_tools_block' => $changed = $this->migrateTools($settings),
-      'ps_homepage_market_studies_block' => $changed = $this->migrateMarketStudies($settings),
+      'ps_content_experts_accompagnement_block' => $changed = $this->migrateExpertJourney($settings),
+      'ps_content_outils_accordion_block' => $changed = $this->migrateTools($settings),
+      'ps_market_study_market_studies_block' => $changed = $this->migrateMarketStudies($settings),
       'ps_homepage_search_hero_block' => $changed = $this->migrateSearchHero($settings),
       default => NULL,
     };
@@ -192,13 +192,39 @@ final class HomepageMediaMigrator {
    */
   private function migrateTools(array &$settings): bool {
     $changed = FALSE;
-    $alt = trim((string) ($settings['illustration_alt'] ?? ''));
-    $mid = $this->resolveMediaId($settings['illustration'] ?? NULL, $alt, '');
-    if ($mid !== NULL) {
-      $settings['illustration'] = $mid;
-      $changed = TRUE;
+    $legacyIllustration = $settings['illustration'] ?? NULL;
+    $legacyAlt = trim((string) ($settings['illustration_alt'] ?? ''));
+
+    $items = $settings['items'] ?? NULL;
+    if (is_array($items)) {
+      foreach ($items as $index => $item) {
+        if (!is_array($item)) {
+          continue;
+        }
+
+        if (empty($item['illustration']) && $legacyIllustration !== NULL && $index === 0) {
+          $item['illustration'] = $legacyIllustration;
+        }
+
+        $alt = trim((string) ($item['illustration_alt'] ?? $legacyAlt));
+        $mid = $this->resolveMediaId($item['illustration'] ?? NULL, $alt, '');
+        if ($mid !== NULL) {
+          $items[$index]['illustration'] = $mid;
+          $changed = TRUE;
+        }
+
+        if (array_key_exists('illustration_alt', $items[$index])) {
+          unset($items[$index]['illustration_alt']);
+          $changed = TRUE;
+        }
+      }
+      $settings['items'] = array_values($items);
     }
 
+    if (array_key_exists('illustration', $settings)) {
+      unset($settings['illustration']);
+      $changed = TRUE;
+    }
     if (array_key_exists('illustration_alt', $settings)) {
       unset($settings['illustration_alt']);
       $changed = TRUE;

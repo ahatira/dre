@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Layout for homepage S-D sections — mirrors ps_theme:homepage-section shell.
+ *
+ * @see docs/HOMEPAGE_ARCHITECTURE.md Phase 0 (S-D)
+ */
+#}
+{{ attach_library('ps_homepage/homepage_section_layout') }}
+{% set spacing_map = {
+  'none': '',
+  'sm': 'py-3',
+  'md': 'py-4',
+  'lg': 'py-5',
+  'xl': 'py-5',
+} %}
+{% set bg_variant = settings.background|default('default') %}
+{% set spacing_class = spacing_map[settings.spacing|default('lg')] ?? 'py-5' %}
+{% set container_class = settings.container|default('container') %}
+{% set section_classes = [
+  'ps-homepage-section',
+  'ps-homepage-section--bg-' ~ bg_variant,
+  spacing_class,
+  'layout',
+  'layout--ps-homepage-section',
+] %}
+{% if settings.modifier %}
+  {% set section_classes = section_classes|merge(['ps-homepage-section--' ~ settings.modifier]) %}
+{% endif %}
+{% if settings.section_class %}
+  {% for extra_class in settings.section_class|split(' ') %}
+    {% if extra_class %}
+      {% set section_classes = section_classes|merge([extra_class]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<section{{ attributes.addClass(section_classes) }}>
+  <div class="ps-homepage-section__inner{{ container_class != 'none' ? ' ' ~ container_class : '' }}">
+    {% if content.header %}
+      <div class="ps-homepage-section__header layout__region layout__region--header">
+        {{ content.header }}
+      </div>
+    {% endif %}
+    {% if content.body %}
+      <div class="ps-homepage-section__body layout__region layout__region--body">
+        {{ content.body }}
+      </div>
+    {% endif %}
+    {% if content.footer %}
+      <div class="ps-homepage-section__footer layout__region layout__region--footer">
+        {{ content.footer }}
+      </div>
+    {% endif %}
+  </div>
+</section>

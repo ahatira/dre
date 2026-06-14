@@ -83,3 +83,129 @@ function ps_homepage_update_11009(): string {
   $count = \Drupal::service('ps_homepage.media_migrator')->migrateAllPageLayouts();
   return (string) t('Migrated homepage media references on @count page(s).', ['@count' => $count]);
 }
+
+/**
+ * Registers S-D Section Library templates and homepage section LB layout.
+ */
+function ps_homepage_update_11010(): void {
+  \Drupal::service('ps_homepage.section_library_installer')->install();
+}
+
+/**
+ * Refresh S-D Section Library templates for §4 Annonces and §5 Sélection.
+ */
+function ps_homepage_update_11011(): void {
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([4, 5]);
+}
+
+/**
+ * Enable ps_faq and refresh S-D Section Library template for §9 FAQ.
+ */
+function ps_homepage_update_11012(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('ps_faq')) {
+    $moduleInstaller->install(['ps_faq']);
+  }
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([9]);
+  \Drupal::service('ps_homepage.faq_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Enable ps_news, migrate view config, refresh S-D §7 Actualités.
+ */
+function ps_homepage_update_11013(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('ps_news')) {
+    $moduleInstaller->install(['ps_news']);
+  }
+  if (function_exists('ps_news_update_9001')) {
+    ps_news_update_9001();
+  }
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([7]);
+}
+
+/**
+ * Enable ps_content and refresh S-D templates for §2, §3, §6.
+ */
+function ps_homepage_update_11014(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('ps_content')) {
+    $moduleInstaller->install(['ps_content']);
+  }
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([2, 3, 6]);
+}
+
+/**
+ * Enable ps_market_study and refresh S-D Section Library template for §8 Études.
+ */
+function ps_homepage_update_11015(): void {
+  $moduleInstaller = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('ps_market_study')) {
+    $moduleInstaller->install(['ps_market_study']);
+  }
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([8]);
+}
+
+/**
+ * Migrates homepage LB layouts from monolithic blocks to S-D shell sections.
+ */
+function ps_homepage_update_11016(): void {
+  \Drupal::service('ps_homepage.sd_layout_migrator')->migrateAllPageLayouts();
+  \Drupal::service('ps_homepage.section_library_installer')->install();
+}
+
+/**
+ * Re-runs S-D layout migration including default language translations.
+ */
+function ps_homepage_update_11017(): void {
+  \Drupal::service('ps_homepage.sd_layout_migrator')->migrateAllPageLayouts();
+}
+
+/**
+ * Migrates tools block illustration to per-item fields (§3 bnppre spec).
+ */
+function ps_homepage_update_11018(): void {
+  \Drupal::service('ps_homepage.media_migrator')->migrateAllPageLayouts();
+}
+
+/**
+ * Installs market_study catalogue, demo nodes and refreshes §8 homepage block.
+ */
+function ps_homepage_update_11019(): void {
+  if (\Drupal::moduleHandler()->moduleExists('ps_market_study')) {
+    ps_market_study_update_9001();
+    ps_market_study_update_9002();
+    ps_market_study_update_9003();
+  }
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([8]);
+}
+
+/**
+ * Fixes §8 footer CTA URLs to the market studies listing path.
+ */
+function ps_homepage_update_11020(): void {
+  \Drupal::service('ps_homepage.market_study_config_refresher')->refreshFrontPage();
+}
+
+/**
+ * Refreshes §2 services section (maquette content + simplified body form).
+ */
+function ps_homepage_update_11021(): void {
+  \Drupal::service('ps_homepage.services_config_refresher')->refreshFrontPage();
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([2]);
+}
+
+/**
+ * Aligns §2 services with desktop maquette (content order, subtitle, white band).
+ */
+function ps_homepage_update_11022(): void {
+  \Drupal::service('ps_homepage.services_config_refresher')->refreshFrontPage();
+  \Drupal::service('ps_homepage.section_library_installer')->refreshSdTemplates([2]);
+}
+
+/**
+ * Aligns §2 services with Figma desktop/mobile specs (styles + copy + icon).
+ */
+function ps_homepage_update_11023(): void {
+  \Drupal::service('ps_homepage.services_config_refresher')->refreshFrontPage();
+}

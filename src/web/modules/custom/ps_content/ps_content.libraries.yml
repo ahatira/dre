@@ -1,0 +1,20 @@
+outils_accordion:
+  css:
+    theme:
+      css/outils-accordion.css: {}
+  js:
+    js/outils-accordion.js: {}
+    js/media-credit-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - ui_suite_bnp/accordion
+    - ui_suite_bnp/media-credit
+
+media_credit:
+  js:
+    js/media-credit-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - ui_suite_bnp/media-credit

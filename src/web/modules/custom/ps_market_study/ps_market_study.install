@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the ps_market_study module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Installs optional configuration (content type, view, fields).
+ */
+function ps_market_study_update_9001(): void {
+  $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_market_study');
+  $storage = new FileStorage($path . '/config/optional');
+  \Drupal::service('config.installer')->installOptionalConfig($storage);
+
+  if (\Drupal::hasService('router.builder')) {
+    \Drupal::service('router.builder')->rebuild();
+  }
+}
+
+/**
+ * Creates demo market study nodes and taxonomy terms.
+ */
+function ps_market_study_update_9002(): void {
+  if (\Drupal::entityTypeManager()->getStorage('node')->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('type', 'market_study')
+    ->count()
+    ->execute() > 0) {
+    return;
+  }
+
+  $categories = [
+    'en' => [
+      'study' => 'Market study',
+      'insight' => 'Insight',
+    ],
+    'fr' => [
+      'study' => 'Étude de marché',
+      'insight' => 'Analyse',
+    ],
+  ];
+
+  $termIds = [];
+  foreach ($categories['en'] as $key => $label) {
+    $term = Term::create([
+      'vid' => 'market_study_category',
+      'name' => $label,
+      'langcode' => 'en',
+    ]);
+    $term->addTranslation('fr', ['name' => $categories['fr'][$key]]);
+    $term->save();
+    $termIds[$key] = (int) $term->id();
+  }
+
+  $studies = [
+    [
+      'en' => [
+        'title' => 'Office market trends 2026',
+        'category' => $termIds['study'],
+        'date' => '2026-06-14',
+      ],
+      'fr' => [
+        'title' => 'Tendances du marché des bureaux 2026',
+        'category' => $termIds['study'],
+        'date' => '2026-06-14',
+      ],
+    ],
+    [
+      'en' => [
+        'title' => 'Logistics outlook in France',
+        'category' => $termIds['insight'],
+        'date' => '2026-05-14',
+      ],
+      'fr' => [
+        'title' => 'Perspectives logistique en France',
+        'category' => $termIds['insight'],
+        'date' => '2026-05-14',
+      ],
+    ],
+  ];
+
+  foreach ($studies as $study) {
+    $node = Node::create([
+      'type' => 'market_study',
+      'title' => $study['en']['title'],
+      'langcode' => 'en',
+      'status' => 1,
+      'field_study_category' => $study['en']['category'],
+      'field_display_date' => (new DrupalDateTime($study['en']['date']))->format('Y-m-d'),
+    ]);
+    $node->addTranslation('fr', [
+      'title' => $study['fr']['title'],
+      'field_study_category' => $study['fr']['category'],
+      'field_display_date' => (new DrupalDateTime($study['fr']['date']))->format('Y-m-d'),
+    ]);
+    $node->save();
+  }
+}
+
+/**
+ * Refreshes homepage market studies block with node references.
+ */
+function ps_market_study_update_9003(): void {
+  if (\Drupal::moduleHandler()->moduleExists('ps_homepage')) {
+    \Drupal::service('ps_homepage.market_study_config_refresher')->refreshFrontPage();
+  }
+}

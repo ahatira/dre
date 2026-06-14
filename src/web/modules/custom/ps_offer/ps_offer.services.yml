@@ -92,6 +92,19 @@ services:
       - '@extension.path.resolver'
       - '@plugin.manager.icon_pack'
 
+  ps_offer.offer_teaser_builder:
+    class: Drupal\ps_offer\Service\OfferTeaserBuilder
+    factory: Drupal\ps_offer\Service\OfferTeaserBuilder::create
+    arguments: ['@service_container']
+
+  ps_offer.offer_carousel_builder:
+    class: Drupal\ps_offer\Service\OfferCarouselBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_offer.offer_teaser_builder'
+      - '@ps_search.search_path_resolver'
+      - '@language_manager'
+
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks
     arguments:

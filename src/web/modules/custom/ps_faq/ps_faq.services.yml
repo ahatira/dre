@@ -1,0 +1,12 @@
+services:
+  ps_faq.faq_accordion_builder:
+    class: Drupal\ps_faq\Service\FaqAccordionBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@language_manager'
+
+  ps_faq.faq_default_items:
+    class: Drupal\ps_faq\Service\FaqDefaultItems
+    arguments:
+      - '@entity.repository'
+      - '@entity_type.manager'

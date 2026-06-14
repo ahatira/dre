@@ -1,0 +1,6 @@
+faq_accordion:
+  css:
+    theme:
+      css/faq-accordion.css: {}
+  dependencies:
+    - ui_suite_bnp/accordion
