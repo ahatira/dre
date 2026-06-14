@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'News category'
+vid: news_category
+description: 'Categories displayed as tags on news teaser cards.'
+weight: 0
+new_revision: false

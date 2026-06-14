@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Homepage expert journey steps + image CTA overlay.
+ */
+#}
+<section class="ps-expert-steps">
+  <div class="row g-4 g-lg-5 align-items-stretch">
+    <div class="col-lg-6">
+      {% if steps %}
+        <ol class="ps-expert-steps__list list-unstyled mb-0">
+          {% for step in steps %}
+            <li class="ps-expert-steps__item">
+              <span class="ps-expert-steps__number" aria-hidden="true">{{ loop.index }}</span>
+              <span class="ps-expert-steps__label">{{ step }}</span>
+            </li>
+          {% endfor %}
+        </ol>
+      {% endif %}
+    </div>
+    <div class="col-lg-6">
+      <div class="ps-expert-steps__media position-relative">
+        {% if image %}
+          <img src="{{ image }}" alt="{{ image_alt|default('') }}" class="ps-expert-steps__image w-100" loading="lazy" />
+        {% endif %}
+        {% if cta_title or cta_body or cta_button_label %}
+          <aside class="ps-expert-steps__cta">
+            {% if cta_title %}
+              <h3 class="ps-expert-steps__cta-title">{{ cta_title }}</h3>
+            {% endif %}
+            {% if cta_body %}
+              <p class="ps-expert-steps__cta-body">{{ cta_body }}</p>
+            {% endif %}
+            {% if cta_button_label %}
+              {% if cta_link_type == 'modal' and cta_modal_id %}
+                <button type="button" class="btn btn-primary ps-expert-steps__cta-button" data-bs-toggle="modal" data-bs-target="#{{ cta_modal_id }}">
+                  {{ cta_button_label }}
+                </button>
+              {% elseif cta_link_type == 'offcanvas' and cta_button_url %}
+                <a href="{{ cta_button_url }}"
+                   class="btn btn-primary ps-expert-steps__cta-button use-ajax"
+                   data-dialog-type="dialog"
+                   data-dialog-renderer="off_canvas"
+                   data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
+                  {{ cta_button_label }}
+                </a>
+              {% elseif cta_button_url %}
+                <a href="{{ cta_button_url }}" class="btn btn-primary ps-expert-steps__cta-button">{{ cta_button_label }}</a>
+              {% endif %}
+            {% endif %}
+          </aside>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

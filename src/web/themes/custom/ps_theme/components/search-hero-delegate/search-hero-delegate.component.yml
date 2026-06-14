@@ -1,0 +1,25 @@
+name: Search hero delegate
+description: 'Homepage hero delegate search bar below the search form.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    prompt:
+      type: string
+      title: Prompt text
+    tooltip:
+      type: string
+      title: Tooltip text
+    button_label:
+      type: string
+      title: Button label
+    button_url:
+      type: string
+      title: Button URL
+libraryOverrides:
+  dependencies:
+    - ps_search/homepage_search
+  css:
+    component:
+      styles/search-hero-delegate.css: {}

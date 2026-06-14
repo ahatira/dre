@@ -1,0 +1,16 @@
+.ps-news-teaser-card {
+  background: var(--bs-body-bg);
+  box-shadow: 0 0.125rem 0.5rem rgb(0 0 0 / 8%);
+}
+
+.ps-news-teaser-card__media {
+  overflow: hidden;
+}
+
+.ps-news-teaser-card__title a:hover {
+  color: var(--bs-primary);
+}
+
+.ps-news-teaser-card__tags .badge {
+  font-weight: 500;
+}

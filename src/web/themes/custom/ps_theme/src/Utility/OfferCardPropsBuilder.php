@@ -24,6 +24,52 @@ final class OfferCardPropsBuilder {
   }
 
   /**
+   * Builds offer-teaser-card component props from a node.
+   *
+   * @return array<string, mixed>
+   *   Props keyed for ps_theme:offer-teaser-card.
+   */
+  public static function buildTeaser(NodeInterface $node): array {
+    return (new self())->buildTeaserProps($node);
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  private function buildTeaserProps(NodeInterface $node): array {
+    $operationCode = (string) ($node->get('field_operation_type')->value ?? '');
+    $title = (string) ($node->get('field_commercial_title')->value ?? '');
+    if ($title === '') {
+      $title = $node->label() ?? '';
+    }
+
+    $imageUrl = $this->resolvePrimaryImageUrl($node);
+    if ($imageUrl === NULL) {
+      $imageUrl = $this->placeholderImageUrl();
+    }
+
+    $budget = $this->buildBudgetParts($node);
+    $surfaceParts = $this->formatSurfaceParts($node);
+
+    return [
+      'title' => $title,
+      'url' => $node->toUrl()->toString(),
+      'image' => $imageUrl,
+      'image_alt' => $title,
+      'location' => $this->formatGridLocation($node),
+      'surface' => $this->formatSurface($node),
+      'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
+      'surface_suffix' => $surfaceParts['suffix'],
+      'price_amount' => $budget['amount'],
+      'price_qualifiers' => $budget['qualifiers'],
+      'operation' => $operationCode === 'VEN' ? 'sale' : 'rent',
+      'show_favorite' => TRUE,
+      'show_compare' => TRUE,
+      'node_id' => (int) $node->id(),
+    ];
+  }
+
+  /**
    * @return array<string, mixed>
    */
   private function buildGridProps(NodeInterface $node): array {

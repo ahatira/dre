@@ -1,0 +1,68 @@
+name: Offer teaser card
+description: 'Vertical offer card for homepage carousel with CTA link and actions.'
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      type: string
+      title: Title
+    url:
+      type: string
+      title: URL
+    image:
+      type: string
+      title: Image URL
+    image_alt:
+      type: string
+      title: Image alt text
+    location:
+      type: string
+      title: Location label
+    surface:
+      type: string
+      title: Surface label
+    surface_primary:
+      type: string
+      title: Surface primary value
+    surface_suffix:
+      type: string
+      title: Surface suffix
+    price_amount:
+      type: string
+      title: Price amount
+    price_qualifiers:
+      type: string
+      title: Price qualifiers
+    operation:
+      type: string
+      title: Operation type
+      enum:
+        - rent
+        - sale
+    show_favorite:
+      type: boolean
+      title: Show favorite action
+      default: true
+    show_compare:
+      type: boolean
+      title: Show compare action
+      default: true
+    node_id:
+      type: integer
+      title: Offer node ID
+slots:
+  favorite:
+    title: Favorite action
+  compare:
+    title: Compare action
+libraryOverrides:
+  dependencies:
+    - ps_offer/surface_kpi
+  css:
+    component:
+      styles/offer-teaser-card.css: {}

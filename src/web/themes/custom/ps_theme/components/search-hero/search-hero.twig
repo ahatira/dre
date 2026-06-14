@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Homepage search hero — BNPPRE 2-column layout.
+ * Homepage search hero shell — BNPPRE 2-column layout.
  */
 #}
 <section{{ attributes.addClass('ps-search-hero', 'position-relative') }}>
@@ -23,31 +23,15 @@
             {{ search }}
           </div>
         {% endif %}
+        {% if delegate %}
+          {{ delegate }}
+        {% endif %}
       </div>
 
       <div class="col-lg-6 ps-search-hero__promo-col">
-        <aside class="ps-search-hero__promo" aria-label="{{ promo_title|default('') }}">
-          {% if promo_background_image %}
-            <div class="ps-search-hero__promo-background" aria-hidden="true">
-              <img src="{{ promo_background_image }}" alt="{{ promo_background_alt|default('') }}" class="ps-search-hero__promo-image" />
-              <div class="ps-search-hero__promo-overlay"></div>
-            </div>
-          {% endif %}
-          <div class="ps-search-hero__promo-content">
-            {% if promo_title %}
-              <h2 class="ps-search-hero__promo-title">{{ promo_title }}</h2>
-            {% endif %}
-            {% if promo_offers_line %}
-              <p class="ps-search-hero__promo-count">{{ promo_offers_line }}</p>
-            {% endif %}
-            {% if promo_description %}
-              <p class="ps-search-hero__promo-body">{{ promo_description }}</p>
-            {% endif %}
-            {% if promo_cta_label and promo_cta_url %}
-              <a class="btn btn-outline-light ps-search-hero__promo-cta" href="{{ promo_cta_url }}">{{ promo_cta_label }}</a>
-            {% endif %}
-          </div>
-        </aside>
+        {% if promo %}
+          {{ promo }}
+        {% endif %}
       </div>
     </div>
   </div>

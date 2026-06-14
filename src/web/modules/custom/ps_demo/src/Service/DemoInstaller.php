@@ -74,6 +74,7 @@ final class DemoInstaller {
       HomepageInstaller::create(\Drupal::getContainer())->prepareLayoutBuilder();
     }
     $this->importContent();
+    $this->applyHomepageLayout();
     (new DemoMenuNormalizer($this->entityTypeManager))->normalize();
     $this->importDemoConfiguration();
     $this->applyPathAliases();
@@ -218,6 +219,36 @@ final class DemoInstaller {
       ->save(TRUE);
 
     $this->logger->notice('ps_demo: front page set to @path.', ['@path' => $system_path]);
+  }
+
+  /**
+   * Applies the 9-section homepage LB layout with default block configuration.
+   */
+  private function applyHomepageLayout(): void {
+    if (!$this->moduleHandler->moduleExists('ps_homepage')) {
+      return;
+    }
+
+    $homepage = $this->loadHomepageNode();
+    if (!$homepage || !$homepage->hasField('layout_builder__layout')) {
+      return;
+    }
+
+    /** @var \Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder $layoutBuilder */
+    $layoutBuilder = \Drupal::service('ps_homepage.default_layout_builder');
+    $sections = $layoutBuilder->buildSections();
+    $homepage->get('layout_builder__layout')->setValue($sections);
+    $homepage->save();
+
+    foreach ($homepage->getTranslationLanguages(FALSE) as $langcode => $_language) {
+      $translation = $homepage->getTranslation($langcode);
+      $translation->get('layout_builder__layout')->setValue($sections);
+      $translation->save();
+    }
+
+    $this->logger->notice('ps_demo: applied default 9-section homepage layout.');
+
+    \Drupal::service('ps_homepage.section_library_installer')->install();
   }
 
   /**

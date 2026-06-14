@@ -1,0 +1,10 @@
+.ps-market-study-card .card {
+  min-height: 320px;
+  overflow: hidden;
+}
+.ps-market-study-card .card-img-overlay {
+  background: linear-gradient(180deg, rgba(28, 45, 55, 0) 35%, rgba(28, 45, 55, 0.85) 100%);
+}
+.ps-market-study-card__category {
+  letter-spacing: 0.04em;
+}

@@ -21,47 +21,11 @@ ps_demo.settings:
 
 ps_demo.homepage:
   type: config_object
-  label: 'PS Demo homepage block copy'
+  label: 'PS Demo homepage metadata'
   mapping:
-    hero:
+    node:
       type: mapping
-      label: Hero
-      mapping:
-        background:
-          type: string
-          label: 'Background image path (theme-relative)'
-        titles:
-          type: mapping
-          label: Titles
-          mapping:
-            en:
-              type: label
-              label: 'English title'
-            fr:
-              type: label
-              label: 'French title'
-        subtitles:
-          type: mapping
-          label: Subtitles
-          mapping:
-            en:
-              type: text
-              label: 'English subtitle'
-            fr:
-              type: text
-              label: 'French subtitle'
-        promo_background:
-          type: string
-          label: 'Promo panel background (theme-relative)'
-        search:
-          type: mapping
-          label: 'Hero search form copy'
-        promo:
-          type: mapping
-          label: 'Hero promo panel copy'
-    featured:
-      type: mapping
-      label: Featured
+      label: 'Homepage node metadata'
       mapping:
         titles:
           type: mapping
@@ -73,90 +37,13 @@ ps_demo.homepage:
             fr:
               type: label
               label: 'French title'
-    univers:
-      type: mapping
-      label: 'Business univers'
-      mapping:
-        titles:
+        path:
           type: mapping
-          label: Titles
+          label: Paths
           mapping:
             en:
-              type: label
-              label: 'English title'
+              type: string
+              label: 'English alias'
             fr:
-              type: label
-              label: 'French title'
-        items:
-          type: sequence
-          label: Items
-          sequence:
-            type: mapping
-            mapping:
-              code:
-                type: string
-                label: Code
-              query:
-                type: string
-                label: 'Search query string'
-              labels:
-                type: mapping
-                label: Labels
-                mapping:
-                  en:
-                    type: label
-                    label: 'English label'
-                  fr:
-                    type: label
-                    label: 'French label'
-    editorial:
-      type: mapping
-      label: Editorial
-      mapping:
-        titles:
-          type: mapping
-          label: Titles
-          mapping:
-            en:
-              type: label
-              label: 'English title'
-            fr:
-              type: label
-              label: 'French title'
-        bodies:
-          type: mapping
-          label: Bodies
-          mapping:
-            en:
-              type: text
-              label: 'English body'
-            fr:
-              type: text
-              label: 'French body'
-        cta:
-          type: mapping
-          label: CTA
-          mapping:
-            labels:
-              type: mapping
-              label: Labels
-              mapping:
-                en:
-                  type: label
-                  label: 'English label'
-                fr:
-                  type: label
-                  label: 'French label'
-            paths:
-              type: mapping
-              label: Paths
-              mapping:
-                en:
-                  type: string
-                  label: 'English path'
-                fr:
-                  type: string
-                  label: 'French path'
-        image:
-          type: string
-          label: 'Image path (theme-relative)'
+              type: string
+              label: 'French alias'

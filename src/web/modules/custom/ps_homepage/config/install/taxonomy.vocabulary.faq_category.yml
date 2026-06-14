@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'FAQ category'
+vid: faq_category
+description: 'Categories for grouping FAQ items.'
+weight: 0
+new_revision: false

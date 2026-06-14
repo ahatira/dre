@@ -1,0 +1,28 @@
+.ps-search-shortcut-card {
+  padding: 1.5rem 0;
+}
+.ps-search-shortcut-card__icon {
+  color: var(--re-color-primary, #008252);
+  margin-bottom: 1rem;
+}
+.ps-search-shortcut-card__title {
+  color: var(--re-color-heading, #1c2d37);
+  font-size: 1.125rem;
+  font-weight: var(--re-font-weight-bold, 700);
+  margin-bottom: 1rem;
+}
+.ps-search-shortcut-card__link {
+  align-items: center;
+  color: var(--re-color-primary, #008252);
+  display: inline-flex;
+  font-weight: var(--re-font-weight-semibold, 600);
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.ps-search-shortcut-card__link:hover {
+  color: var(--re-color-primary-dark, #006b43);
+  text-decoration: underline;
+}
+.ps-search-shortcut-card__arrow {
+  display: inline-flex;
+}

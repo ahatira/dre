@@ -1,0 +1,11 @@
+@media (min-width: 992px) {
+  .ps-homepage-faq__accordion .accordion {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+
+  .ps-homepage-faq__accordion .accordion-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}

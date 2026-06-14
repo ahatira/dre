@@ -12,6 +12,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\ps_homepage\Service\HomepageOfferCountProvider;
 use Drupal\ps_homepage\Utility\HomepageContent;
 use Drupal\ps_homepage\Utility\HomepageSearchHeroEditorial;
 use Drupal\ps_search\Search\Hero\HeroSearchBuilder;
@@ -33,6 +34,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
     mixed $plugin_definition,
     private readonly HeroSearchBuilder $heroSearchBuilder,
     private readonly FileUrlGeneratorInterface $fileUrlGenerator,
+    private readonly HomepageOfferCountProvider $offerCountProvider,
     private readonly SearchHeroBlockFormBuilder $formBuilder,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -48,6 +50,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_definition,
       $container->get('ps_search.hero_search_builder'),
       $container->get('file_url_generator'),
+      $container->get('ps_homepage.offer_count_provider'),
       new SearchHeroBlockFormBuilder(),
     );
   }
@@ -79,30 +82,33 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public function build(): array {
     $langcode = HomepageContent::langcode();
-    $editorial = HomepageSearchHeroEditorial::resolve($this->configuration, $langcode);
+    $offerCount = NULL;
+    if (!empty($this->configuration['promo_offers_use_dynamic'])) {
+      $offerCount = $this->offerCountProvider->countPublishedOffers();
+    }
 
-    $delegateUrl = Url::fromUserInput($editorial['delegate_url'] ?: '/contact')->toString();
+    $editorial = HomepageSearchHeroEditorial::resolve($this->configuration, $langcode, $offerCount);
+    $defaultBackground = $this->heroSearchBuilder->defaultHeroBackgroundUrl();
 
     return $this->heroSearchBuilder->build([
       'title' => $editorial['title'],
-      'background_image' => $this->resolveBackgroundUrl('background_image', HomepageContent::heroBackgroundUrl()),
+      'background_image' => $this->resolveBackgroundUrl('background_image', $defaultBackground),
       'background_alt' => $editorial['background_alt'],
       'promo_title' => $editorial['promo_title'],
       'promo_offers_line' => $editorial['promo_offers_line'],
       'promo_description' => $editorial['promo_description'],
       'promo_cta_label' => $editorial['promo_cta_label'],
       'promo_cta_url' => $editorial['promo_cta_url'] ?: '/find-property',
-      'promo_background_image' => $this->resolveBackgroundUrl('promo_background_image', HomepageContent::heroPromoBackgroundUrl()),
+      'promo_background_image' => $this->resolveBackgroundUrl('promo_background_image', $defaultBackground),
       'promo_background_alt' => $editorial['promo_background_alt'],
       'labels' => $editorial + [
-        'delegate_url' => $delegateUrl,
+        'delegate_url' => Url::fromUserInput($editorial['delegate_url'] ?: '/contact')->toString(),
       ],
-      'delegate_url' => $delegateUrl,
     ]);
   }
 
   /**
-   * Resolves a managed file URL or falls back to the demo default.
+   * Resolves a managed file URL or falls back to the theme default.
    */
   private function resolveBackgroundUrl(string $configKey, string $fallback): string {
     $fid = (int) ($this->configuration[$configKey] ?? 0);

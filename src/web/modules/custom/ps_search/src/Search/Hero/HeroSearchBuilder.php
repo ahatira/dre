@@ -9,7 +9,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 
 /**
- * Builds the homepage search hero render array (SDC + search slot).
+ * Builds the homepage search hero render array (SDC shell + slots).
  */
 final class HeroSearchBuilder {
 
@@ -19,12 +19,15 @@ final class HeroSearchBuilder {
 
   public function __construct(
     private readonly HomepageSearchPanelBuilder $homepageSearchPanelBuilder,
+    private readonly HeroDelegateBarBuilder $heroDelegateBarBuilder,
     private readonly ExtensionPathResolver $extensionPathResolver,
   ) {}
 
   /**
+   * Builds the homepage search hero render array.
+   *
    * @param array<string, mixed> $heroProps
-   *   title, background_image, background_alt, promo_*, labels, delegate_url.
+   *   Hero properties: title, background_image, background_alt, promo_*, labels.
    *
    * @return array<string, mixed>
    *   Full hero render array.
@@ -32,13 +35,32 @@ final class HeroSearchBuilder {
   public function build(array $heroProps): array {
     $labels = is_array($heroProps['labels'] ?? NULL) ? $heroProps['labels'] : [];
     $panel = $this->homepageSearchPanelBuilder->buildPanelContent($labels);
+    $delegate = $this->heroDelegateBarBuilder->build($labels);
 
-    $delegateUrl = (string) ($heroProps['delegate_url'] ?? '/contact');
     $promoCtaUrl = (string) ($heroProps['promo_cta_url'] ?? '/find-property');
     $backgroundImage = (string) ($heroProps['background_image'] ?? '');
     if ($backgroundImage === '') {
       $backgroundImage = $this->defaultHeroBackgroundUrl();
     }
+
+    $promoBackground = (string) ($heroProps['promo_background_image'] ?? '');
+    if ($promoBackground === '') {
+      $promoBackground = $backgroundImage;
+    }
+
+    $promo = [
+      '#type' => 'component',
+      '#component' => 'ps_theme:search-hero-promo',
+      '#props' => [
+        'title' => (string) ($heroProps['promo_title'] ?? ''),
+        'offers_line' => (string) ($heroProps['promo_offers_line'] ?? ''),
+        'description' => (string) ($heroProps['promo_description'] ?? ''),
+        'cta_label' => (string) ($heroProps['promo_cta_label'] ?? ''),
+        'cta_url' => Url::fromUserInput($promoCtaUrl)->toString(),
+        'background_image' => $promoBackground,
+        'background_alt' => (string) ($heroProps['promo_background_alt'] ?? ''),
+      ],
+    ];
 
     return [
       '#type' => 'component',
@@ -47,17 +69,11 @@ final class HeroSearchBuilder {
         'title' => (string) ($heroProps['title'] ?? ''),
         'background_image' => $backgroundImage,
         'background_alt' => (string) ($heroProps['background_alt'] ?? ''),
-        'promo_title' => (string) ($heroProps['promo_title'] ?? ''),
-        'promo_offers_line' => (string) ($heroProps['promo_offers_line'] ?? ''),
-        'promo_description' => (string) ($heroProps['promo_description'] ?? ''),
-        'promo_cta_label' => (string) ($heroProps['promo_cta_label'] ?? ''),
-        'promo_cta_url' => Url::fromUserInput($promoCtaUrl)->toString(),
-        'promo_background_image' => (string) ($heroProps['promo_background_image'] ?? ''),
-        'promo_background_alt' => (string) ($heroProps['promo_background_alt'] ?? ''),
-        'delegate_url' => Url::fromUserInput($delegateUrl)->toString(),
       ],
       '#slots' => [
         'search' => $panel,
+        'delegate' => $delegate,
+        'promo' => $promo,
       ],
       '#attached' => $panel['#attached'] ?? [],
       '#cache' => [
@@ -74,7 +90,7 @@ final class HeroSearchBuilder {
   /**
    * Default blurred hero background from ps_theme assets.
    */
-  private function defaultHeroBackgroundUrl(): string {
+  public function defaultHeroBackgroundUrl(): string {
     $themePath = $this->extensionPathResolver->getPath('theme', 'ps_theme');
     return Url::fromUri('base:' . $themePath . '/' . self::DEFAULT_BACKGROUND)->toString();
   }

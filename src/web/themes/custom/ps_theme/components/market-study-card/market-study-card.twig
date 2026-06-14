@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Homepage market study card — card_overlay composition.
+ */
+#}
+<article class="ps-market-study-card position-relative h-100">
+  <div class="card border-0 h-100">
+    {% if image %}
+      <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="card-img h-100 object-fit-cover" loading="lazy" />
+    {% endif %}
+    <div class="card-img-overlay d-flex flex-column justify-content-end">
+      {% if category %}
+        <p class="ps-market-study-card__category small text-uppercase mb-1">{{ category }}</p>
+      {% endif %}
+      {% if title %}
+        <h3 class="ps-market-study-card__title card-title h5 text-white mb-1">{{ title }}</h3>
+      {% endif %}
+      {% if date %}
+        <p class="ps-market-study-card__date small text-white-50 mb-0">{{ date }}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% if url %}
+    <a href="{{ url }}" class="stretched-link">
+      <span class="visually-hidden">{{ title }}</span>
+    </a>
+  {% endif %}
+</article>

@@ -1,0 +1,37 @@
+name: News teaser card
+description: 'News article teaser for homepage grid and news listing.'
+group: Property Search
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      type: string
+      title: Title
+    url:
+      type: string
+      title: URL
+    image:
+      type: string
+      title: Image URL
+    image_alt:
+      type: string
+      title: Image alt text
+    categories:
+      type: array
+      title: Category labels
+      items:
+        type: string
+    date:
+      type: string
+      title: Formatted date
+    excerpt:
+      type: string
+      title: Teaser excerpt
+libraryOverrides:
+  css:
+    component:
+      styles/news-teaser-card.css: {}

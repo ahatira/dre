@@ -1,0 +1,35 @@
+.ps-offer-teaser-card {
+  border: 0;
+  border-radius: 0;
+  box-shadow: var(--ps-offer-card-shadow, 0 2px 8px rgba(28, 45, 55, 0.08));
+}
+.ps-offer-teaser-card__media {
+  position: relative;
+}
+.ps-offer-teaser-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  z-index: 2;
+}
+.ps-offer-teaser-card__price-amount {
+  font-weight: var(--re-font-weight-bold, 700);
+}
+.ps-offer-teaser-card__location {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+.ps-offer-teaser-card__cta {
+  align-items: center;
+  color: var(--re-color-primary, #008252);
+  display: inline-flex;
+  font-weight: var(--re-font-weight-semibold, 600);
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.ps-offer-teaser-card__cta:hover {
+  text-decoration: underline;
+}

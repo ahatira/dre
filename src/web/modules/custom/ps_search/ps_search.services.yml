@@ -74,6 +74,21 @@ services:
 
   Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder: '@ps_search.seo_canonical_url_builder'
 
+  ps_search.preset_query_builder:
+    class: Drupal\ps_search\Service\SearchPresetQueryBuilder
+    arguments:
+      - '@ps_search.seo_canonical_url_builder'
+      - '@ps_search.search_path_resolver'
+      - '@language_manager'
+
+  ps_search.preset_options_provider:
+    class: Drupal\ps_search\Service\SearchPresetOptionsProvider
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@language.config_factory_override'
+      - '@entity_type.manager'
+
   ps_search.seo_indexability_checker:
     class: Drupal\ps_search\Service\SearchSeoIndexabilityChecker
     arguments:
@@ -363,10 +378,14 @@ services:
 
   Drupal\ps_search\Search\Header\HeaderSearchPanelBuilder: '@ps_search.header_search_panel_builder'
 
+  ps_search.hero_delegate_bar_builder:
+    class: Drupal\ps_search\Search\Hero\HeroDelegateBarBuilder
+
   ps_search.hero_search_builder:
     class: Drupal\ps_search\Search\Hero\HeroSearchBuilder
     arguments:
       - '@ps_search.homepage_search_panel_builder'
+      - '@ps_search.hero_delegate_bar_builder'
       - '@extension.path.resolver'
 
   ps_search.homepage_search_panel_builder:

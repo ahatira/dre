@@ -8,6 +8,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
+use Drupal\ps_theme\Utility\NewsTeaserPropsBuilder;
 use Drupal\ps_theme\Utility\OfferCardPropsBuilder;
 use Drupal\ps_theme\Utility\OfferSearchCardPropsBuilder;
 
@@ -24,7 +25,20 @@ final class Offer {
   #[Hook('preprocess_node')]
   public function preprocessNode(array &$variables): void {
     $node = $variables['node'] ?? NULL;
-    if (!$node instanceof NodeInterface || $node->bundle() !== 'offer') {
+    if (!$node instanceof NodeInterface) {
+      return;
+    }
+
+    if ($node->bundle() === 'article' && (string) ($variables['view_mode'] ?? '') === 'teaser') {
+      $variables['news_teaser_card_component'] = [
+        '#type' => 'component',
+        '#component' => 'ps_theme:news-teaser-card',
+        '#props' => NewsTeaserPropsBuilder::build($node),
+      ];
+      return;
+    }
+
+    if ($node->bundle() !== 'offer') {
       return;
     }
 

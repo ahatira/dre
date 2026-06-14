@@ -1,0 +1,26 @@
+name: Search shortcut card
+description: 'Minimal homepage search shortcut with icon, title and text link.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    icon_pack:
+      type: string
+      title: Icon pack
+    icon_id:
+      type: string
+      title: Icon ID
+    title:
+      type: string
+      title: Card title
+    link_label:
+      type: string
+      title: Link label
+    link_url:
+      type: string
+      title: Link URL
+libraryOverrides:
+  css:
+    component:
+      styles/search-shortcut-card.css: {}

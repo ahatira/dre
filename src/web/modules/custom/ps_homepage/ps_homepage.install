@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for ps_homepage.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function ps_homepage_install(): void {
+  \Drupal::service('ps_homepage.section_library_installer')->install();
+}
+
+/**
+ * Registers homepage section library templates when section_library is enabled.
+ */
+function ps_homepage_modules_installed(array $modules): void {
+  if (!in_array('section_library', $modules, TRUE)) {
+    return;
+  }
+
+  \Drupal::service('ps_homepage.section_library_installer')->install();
+}
+
+/**
+ * Ensures homepage section library templates exist after updates.
+ */
+function ps_homepage_update_11001(): void {
+  \Drupal::service('ps_homepage.section_library_installer')->install();
+}

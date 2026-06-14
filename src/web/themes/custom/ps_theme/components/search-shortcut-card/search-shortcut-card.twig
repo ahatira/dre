@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Homepage search shortcut card — minimal style.
+ */
+#}
+<article class="ps-search-shortcut-card h-100 d-flex flex-column">
+  {% if icon_pack and icon_id %}
+    <div class="ps-search-shortcut-card__icon" aria-hidden="true">
+      {{ icon(icon_pack, icon_id, {size: '32px'}) }}
+    </div>
+  {% endif %}
+  {% if title %}
+    <h3 class="ps-search-shortcut-card__title">{{ title }}</h3>
+  {% endif %}
+  {% if link_label and link_url %}
+    <a href="{{ link_url }}" class="ps-search-shortcut-card__link mt-auto">
+      <span>{{ link_label }}</span>
+      <span class="ps-search-shortcut-card__arrow" aria-hidden="true">
+        {{ icon('bnp_custom', 'big-arrow-right', {size: '16px'}) }}
+      </span>
+    </a>
+  {% endif %}
+</article>

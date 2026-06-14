@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+id: homepage_news_date
+label: 'Homepage news date'
+locked: false
+pattern: 'j M Y'
+translations:
+  fr:
+    pattern: 'j M Y'

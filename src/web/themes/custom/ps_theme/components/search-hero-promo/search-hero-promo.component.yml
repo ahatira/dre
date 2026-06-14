@@ -1,0 +1,32 @@
+name: Search hero promo
+description: 'Homepage hero promotional panel (right column).'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Promo title
+    offers_line:
+      type: string
+      title: Offers count line
+    description:
+      type: string
+      title: Promo description (HTML)
+    cta_label:
+      type: string
+      title: CTA label
+    cta_url:
+      type: string
+      title: CTA URL
+    background_image:
+      type: string
+      title: Background image URL
+    background_alt:
+      type: string
+      title: Background alt text
+libraryOverrides:
+  css:
+    component:
+      styles/search-hero-promo.css: {}

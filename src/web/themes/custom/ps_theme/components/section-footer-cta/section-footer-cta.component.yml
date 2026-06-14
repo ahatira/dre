@@ -1,0 +1,17 @@
+name: Section footer CTA
+description: 'Centered outline button below a homepage section.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Button label
+    url:
+      type: string
+      title: Button URL
+libraryOverrides:
+  css:
+    component:
+      styles/section-footer-cta.css: {}

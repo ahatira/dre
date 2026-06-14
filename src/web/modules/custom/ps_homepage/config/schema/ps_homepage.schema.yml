@@ -16,3 +16,18 @@ block.settings.ps_homepage_search_hero_block:
     promo_background_alt:
       type: string
       label: 'Promo background alt'
+    promo_offers_use_dynamic:
+      type: boolean
+      label: 'Use dynamic Solr offer count'
+    title_en:
+      type: string
+      label: 'Title (EN)'
+    title_fr:
+      type: string
+      label: 'Title (FR)'
+    promo_offers_template_en:
+      type: string
+      label: 'Offers line template (EN)'
+    promo_offers_template_fr:
+      type: string
+      label: 'Offers line template (FR)'

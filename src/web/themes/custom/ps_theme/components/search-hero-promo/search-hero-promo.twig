@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Homepage search hero — promotional panel.
+ */
+#}
+<aside class="ps-search-hero__promo" aria-label="{{ title|default('') }}">
+  {% if background_image %}
+    <div class="ps-search-hero__promo-background" aria-hidden="true">
+      <img src="{{ background_image }}" alt="{{ background_alt|default('') }}" class="ps-search-hero__promo-image" />
+      <div class="ps-search-hero__promo-overlay"></div>
+    </div>
+  {% endif %}
+  <div class="ps-search-hero__promo-content">
+    {% if title %}
+      <h2 class="ps-search-hero__promo-title">{{ title }}</h2>
+    {% endif %}
+    {% if offers_line %}
+      <p class="ps-search-hero__promo-count">{{ offers_line }}</p>
+    {% endif %}
+    {% if description %}
+      <div class="ps-search-hero__promo-body">{{ description|raw }}</div>
+    {% endif %}
+    {% if cta_label and cta_url %}
+      <a class="btn btn-outline-light ps-search-hero__promo-cta" href="{{ cta_url }}">{{ cta_label }}</a>
+    {% endif %}
+  </div>
+</aside>

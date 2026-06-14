@@ -1,0 +1,24 @@
+.ps-icon-card {
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: 0;
+  box-shadow: none;
+}
+.ps-icon-card__icon {
+  color: var(--re-color-primary, #008252);
+  margin-bottom: 1rem;
+}
+.ps-icon-card__title {
+  color: var(--re-color-heading, #1c2d37);
+  font-size: 1.125rem;
+  font-weight: var(--re-font-weight-bold, 700);
+  margin-bottom: 0.75rem;
+}
+.ps-icon-card__text {
+  color: var(--re-color-muted, #777e83);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+.ps-icon-card__button {
+  width: 100%;
+}

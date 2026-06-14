@@ -1,0 +1,21 @@
+.ps-section-heading {
+  margin-bottom: 2.5rem;
+
+  &__title {
+    color: var(--re-color-heading, #1c2d37);
+    font-family: var(--re-font-family-heading);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: var(--re-font-weight-bold, 700);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+
+  &__subtitle {
+    color: var(--re-color-muted, #777e83);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+}

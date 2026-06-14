@@ -1,0 +1,60 @@
+.ps-expert-steps__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.ps-expert-steps__item {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+}
+.ps-expert-steps__number {
+  align-items: center;
+  background: var(--re-color-primary, #008252);
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  flex: 0 0 2rem;
+  font-weight: var(--re-font-weight-bold, 700);
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+.ps-expert-steps__label {
+  color: var(--re-color-heading, #1c2d37);
+  font-size: 1rem;
+  line-height: 1.5;
+  padding-top: 0.25rem;
+}
+.ps-expert-steps__media {
+  min-height: 100%;
+}
+.ps-expert-steps__image {
+  display: block;
+  min-height: 280px;
+  object-fit: cover;
+}
+.ps-expert-steps__cta {
+  background: rgba(28, 45, 55, 0.88);
+  bottom: 0;
+  color: #fff;
+  left: 0;
+  padding: 1.5rem;
+  position: absolute;
+  right: 0;
+}
+.ps-expert-steps__cta-title {
+  color: #fff;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+.ps-expert-steps__cta-body {
+  font-size: 0.9375rem;
+  margin-bottom: 1rem;
+}
+@media (max-width: 991.98px) {
+  .ps-expert-steps__cta {
+    margin-top: 1rem;
+    position: static;
+  }
+}

@@ -9,7 +9,7 @@ contenu multilingue (default content), copy homepage (config), structure démo (
 |--------|------|-------------|
 | **Structure thème** | Menus vides, blocs en régions (`make install` importe `ps_theme/config/install/`) | `ps_theme/config/install/` |
 | **Contenu démo** | Menus Stellar (Login, Contact, mega-menu…), homepage LB, alias, copy | `export/content/` → `make demo` |
-| **Copy homepage** | Textes EN/FR des blocs LB (hero, univers, éditorial) | `config/install/ps_demo.homepage.yml` |
+| **Copy homepage** | Métadonnées node (titres, alias) | `config/install/ps_demo.homepage.yml` |
 | **Paramètres démo** | Page d'accueil, références UUID | `config/install/ps_demo.settings.yml` |
 | **Structure démo** | Mega-menu panels, langues, bloc Follow us | `src/config/demo/` → `make demo` |
 | **Référence menus** | Schéma YAML pour régénérer les exports | `config/stellar_menus.yml` |
@@ -80,12 +80,17 @@ Enchaînement manuel (équivalent) :
 
 ## Homepage (node/1, Layout Builder)
 
-Le node homepage est exporté avec 4 sections LB :
+Le node homepage est exporté puis **réécrit à l'import** avec **9 sections LB** peuplées (EN+FR) via `HomepageDefaultLayoutBuilder` :
 
 1. Search hero (`ps_homepage_search_hero_block`)
-2. Business univers (`ps_homepage_business_univers_block`)
-3. Featured offers (`ps_homepage_featured_offers_block`)
-4. Editorial promo (`ps_homepage_editorial_promo_block`)
+2. Services (`ps_homepage_services_block`)
+3. Tools (`ps_homepage_tools_block`)
+4. Offers carousel (`ps_homepage_offers_carousel_block`)
+5. Search shortcuts (`ps_homepage_search_shortcuts_block`)
+6. Expert journey (`ps_homepage_expert_journey_block`)
+7. News (`ps_homepage_news_block`)
+8. Market studies (`ps_homepage_market_studies_block`)
+9. FAQ (`ps_homepage_faq_block`)
 
 UUID stable : `b2000001-0000-4000-8000-000000000001` — doit rester le **premier** node importé (nid 1).
 
@@ -96,7 +101,7 @@ front_page: /node/1
 homepage_uuid: b2000001-0000-4000-8000-000000000001
 ```
 
-Les textes affichés par les blocs viennent de **`ps_demo.homepage`** (config), pas du code PHP.
+Les textes des blocs LB sont stockés dans la **configuration de chaque bloc** (onglets EN/FR au BO), plus dans `ps_demo.homepage`.
 
 ## Workflow contributeur
 

@@ -91,6 +91,7 @@
         "drupal/search_api_autocomplete": "^1.11",
         "drupal/search_api_solr": "^4.3",
         "drupal/seckit": "^2.0",
+        "drupal/section_library": "^2.0",
         "drupal/simple_sitemap": "^4.2",
         "drupal/sitewide_alert": "^3.1",
         "drupal/social_media_links": "^2.10",

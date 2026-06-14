@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Homepage section footer — outline CTA.
+ */
+#}
+{% if label and url %}
+  <div class="ps-section-footer-cta text-center">
+    <a class="btn btn-outline-primary ps-section-footer-cta__button" href="{{ url }}">{{ label }}</a>
+  </div>
+{% endif %}

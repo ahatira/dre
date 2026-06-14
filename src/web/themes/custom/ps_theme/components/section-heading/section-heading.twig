@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Homepage section heading — H2 + optional subtitle.
+ */
+#}
+{% if title or subtitle %}
+  <header class="ps-section-heading text-center">
+    {% if title %}
+      <h2 class="ps-section-heading__title">{{ title }}</h2>
+    {% endif %}
+    {% if subtitle %}
+      <p class="ps-section-heading__subtitle">{{ subtitle }}</p>
+    {% endif %}
+  </header>
+{% endif %}

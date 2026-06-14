@@ -1,0 +1,43 @@
+name: Icon card
+description: 'Homepage service card with icon, title, body and bottom-aligned CTA.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    icon_pack:
+      type: string
+      title: Icon pack
+    icon_id:
+      type: string
+      title: Icon ID
+    title:
+      type: string
+      title: Card title
+    body:
+      type: string
+      title: Card body
+    button_label:
+      type: string
+      title: Button label
+    button_url:
+      type: string
+      title: Button URL
+    button_style:
+      type: string
+      title: Button style
+      enum:
+        - primary
+        - outline
+    link_type:
+      type: string
+      title: Link type
+    modal_id:
+      type: string
+      title: Modal ID
+libraryOverrides:
+  css:
+    component:
+      styles/icon-card.css: {}
+  dependencies:
+    - ps_theme/component_offcanvas

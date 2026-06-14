@@ -1,0 +1,52 @@
+.ps-homepage-offers-carousel__viewport {
+  position: relative;
+}
+.ps-homepage-offers-carousel__track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.ps-homepage-offers-carousel__item {
+  flex: 0 0 min(85%, 18rem);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.ps-homepage-offers-carousel__control {
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 2.5rem;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  z-index: 2;
+}
+.ps-homepage-offers-carousel__control--prev {
+  left: -0.5rem;
+}
+.ps-homepage-offers-carousel__control--next {
+  right: -0.5rem;
+}
+@media (min-width: 992px) {
+  .ps-homepage-offers-carousel--visible-3 .ps-homepage-offers-carousel__item {
+    flex-basis: calc((100% - 3rem) / 3);
+  }
+  .ps-homepage-offers-carousel--visible-4 .ps-homepage-offers-carousel__item {
+    flex-basis: calc((100% - 4.5rem) / 4);
+  }
+  .ps-homepage-offers-carousel--visible-6 .ps-homepage-offers-carousel__item {
+    flex-basis: calc((100% - 7.5rem) / 6);
+  }
+  .ps-homepage-offers-carousel__track {
+    overflow-x: hidden;
+    scroll-snap-type: none;
+  }
+}

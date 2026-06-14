@@ -1,0 +1,42 @@
+name: Expert steps
+description: 'Homepage expert journey — numbered steps and image with CTA overlay.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    steps:
+      type: array
+      title: Steps
+      items:
+        type: string
+    image:
+      type: string
+      title: Image URL
+    image_alt:
+      type: string
+      title: Image alt text
+    cta_title:
+      type: string
+      title: CTA title
+    cta_body:
+      type: string
+      title: CTA body
+    cta_button_label:
+      type: string
+      title: CTA button label
+    cta_button_url:
+      type: string
+      title: CTA button URL
+    cta_link_type:
+      type: string
+      title: CTA link type
+    cta_modal_id:
+      type: string
+      title: CTA modal ID
+libraryOverrides:
+  css:
+    component:
+      styles/expert-steps.css: {}
+  dependencies:
+    - ps_theme/component_offcanvas

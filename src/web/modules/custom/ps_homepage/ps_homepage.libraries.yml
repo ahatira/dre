@@ -1,0 +1,28 @@
+homepage_faq:
+  css:
+    theme:
+      css/homepage-faq.css: {}
+  dependencies:
+    - ui_suite_bnp/accordion
+
+homepage_offers_carousel:
+  css:
+    theme:
+      css/homepage-offers-carousel.css: {}
+  js:
+    js/homepage-offers-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+homepage_tools:
+  css:
+    theme:
+      css/homepage-tools.css: {}
+  dependencies:
+    - ui_suite_bnp/accordion
+
+homepage_news:
+  css:
+    theme:
+      css/homepage-news.css: {}

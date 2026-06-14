@@ -1,0 +1,34 @@
+services:
+  ps_homepage.offer_count_provider:
+    class: Drupal\ps_homepage\Service\HomepageOfferCountProvider
+
+  ps_homepage.cta_link_builder:
+    class: Drupal\ps_homepage\Service\HomepageCtaLinkBuilder
+    arguments:
+      - '@ps_search.preset_query_builder'
+      - '@language_manager'
+
+  ps_homepage.media_resolver:
+    class: Drupal\ps_homepage\Utility\HomepageMediaResolver
+    arguments:
+      - '@file_url_generator'
+
+  ps_homepage.offer_teaser_builder:
+    class: Drupal\ps_homepage\Service\HomepageOfferTeaserBuilder
+
+  ps_homepage.news_list_path_resolver:
+    class: Drupal\ps_homepage\Service\NewsListPathResolver
+    arguments:
+      - '@language_manager'
+
+  ps_homepage.default_layout_builder:
+    class: Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder
+    arguments:
+      - '@plugin.manager.block'
+      - '@uuid'
+
+  ps_homepage.section_library_installer:
+    class: Drupal\ps_homepage\Service\HomepageSectionLibraryInstaller
+    arguments:
+      - '@ps_homepage.default_layout_builder'
+      - '@entity_type.manager'

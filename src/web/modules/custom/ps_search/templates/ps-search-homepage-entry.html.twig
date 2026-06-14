@@ -120,38 +120,4 @@
       </div>
     </div>
   </form>
-
-  <div class="ps-homepage-search-entry__delegate">
-    <p class="ps-homepage-search-entry__delegate-text mb-0">
-      {{ l.delegate_prompt }}
-      {% if l.delegate_tooltip %}
-        <span class="ps-homepage-search-entry__tooltip">
-          <button
-            type="button"
-            class="ps-homepage-search-entry__info"
-            aria-label="{{ 'More information'|t }}"
-            aria-expanded="false"
-            aria-controls="ps-homepage-delegate-tooltip"
-            data-ps-delegate-info="true"
-          >
-            <span class="ps-homepage-search-entry__info-icon" aria-hidden="true">
-              {{ icon('bnp_custom', 'information', {'size': '16px'}) }}
-            </span>
-          </button>
-          <span
-            class="ps-homepage-search-entry__tooltip-panel is-hidden"
-            id="ps-homepage-delegate-tooltip"
-            role="tooltip"
-          >
-            {{ l.delegate_tooltip }}
-          </span>
-        </span>
-      {% endif %}
-    </p>
-    {% if l.delegate_url %}
-      <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn" href="{{ l.delegate_url }}">
-        {{ l.delegate_button_label }}
-      </a>
-    {% endif %}
-  </div>
 </div>

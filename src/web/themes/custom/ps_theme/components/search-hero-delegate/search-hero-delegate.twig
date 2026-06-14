@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Homepage search hero — delegate search bar.
+ */
+#}
+<div class="ps-homepage-search-entry__delegate">
+  {% if prompt %}
+    <p class="ps-homepage-search-entry__delegate-text mb-0">
+      {{ prompt }}
+      {% if tooltip %}
+        <span class="ps-homepage-search-entry__tooltip">
+          <button
+            type="button"
+            class="ps-homepage-search-entry__info"
+            aria-label="{{ 'More information'|t }}"
+            aria-expanded="false"
+            aria-controls="ps-homepage-delegate-tooltip"
+            data-ps-delegate-info="true"
+          >
+            <span class="ps-homepage-search-entry__info-icon" aria-hidden="true">
+              {{ icon('bnp_custom', 'information', {'size': '16px'}) }}
+            </span>
+          </button>
+          <span
+            class="ps-homepage-search-entry__tooltip-panel is-hidden"
+            id="ps-homepage-delegate-tooltip"
+            role="tooltip"
+          >
+            {{ tooltip }}
+          </span>
+        </span>
+      {% endif %}
+    </p>
+  {% endif %}
+  {% if button_label and button_url %}
+    <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn" href="{{ button_url }}">
+      {{ button_label }}
+    </a>
+  {% endif %}
+</div>

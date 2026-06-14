@@ -11,8 +11,6 @@ use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Entity\Entity\EntityViewMode;
 use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
-use Drupal\layout_builder\Section;
-use Drupal\layout_builder\SectionComponent;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\PathAliasInterface;
@@ -26,14 +24,6 @@ use Drupal\path_alias\PathAliasInterface;
 final class HomepageInstaller {
 
   private const NODE_UUID = 'b2000001-0000-4000-8000-000000000001';
-
-  private const HERO_COMPONENT_UUID = 'b2000002-0000-4000-8000-000000000001';
-
-  private const FEATURED_COMPONENT_UUID = 'b2000002-0000-4000-8000-000000000002';
-
-  private const UNIVERS_COMPONENT_UUID = 'b2000002-0000-4000-8000-000000000003';
-
-  private const EDITORIAL_COMPONENT_UUID = 'b2000002-0000-4000-8000-000000000004';
 
   public function __construct(
     private readonly ExtensionPathResolver $extensionPathResolver,
@@ -178,42 +168,9 @@ final class HomepageInstaller {
       return;
     }
 
-    $sections = [
-      new Section('layout_onecol', ['label' => 'Hero'], [
-        'content' => new SectionComponent(self::HERO_COMPONENT_UUID, 'content', [
-          'id' => 'ps_homepage_search_hero_block',
-          'label' => 'Search hero',
-          'label_display' => FALSE,
-          'provider' => 'ps_homepage',
-        ]),
-      ]),
-      new Section('layout_onecol', ['label' => 'Business univers'], [
-        'content' => new SectionComponent(self::UNIVERS_COMPONENT_UUID, 'content', [
-          'id' => 'ps_homepage_business_univers_block',
-          'label' => 'Business univers',
-          'label_display' => FALSE,
-          'provider' => 'ps_homepage',
-        ]),
-      ]),
-      new Section('layout_onecol', ['label' => 'Featured offers'], [
-        'content' => new SectionComponent(self::FEATURED_COMPONENT_UUID, 'content', [
-          'id' => 'ps_homepage_featured_offers_block',
-          'label' => 'Featured offers',
-          'label_display' => FALSE,
-          'provider' => 'ps_homepage',
-        ]),
-      ]),
-      new Section('layout_onecol', ['label' => 'Editorial'], [
-        'content' => new SectionComponent(self::EDITORIAL_COMPONENT_UUID, 'content', [
-          'id' => 'ps_homepage_editorial_promo_block',
-          'label' => 'Editorial promo',
-          'label_display' => FALSE,
-          'provider' => 'ps_homepage',
-        ]),
-      ]),
-    ];
-
-    $node->get('layout_builder__layout')->setValue($sections);
+    /** @var \Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder $layoutBuilder */
+    $layoutBuilder = \Drupal::service('ps_homepage.default_layout_builder');
+    $node->get('layout_builder__layout')->setValue($layoutBuilder->buildSections());
     $node->save();
   }
 
