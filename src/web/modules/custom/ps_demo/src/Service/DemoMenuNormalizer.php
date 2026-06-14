@@ -21,7 +21,52 @@ final class DemoMenuNormalizer {
   public function normalize(): void {
     $this->normalizeFooterColumns();
     $this->normalizeFooterLegalLabels();
+    $this->normalizeHeaderActionLabels();
     \Drupal::service('plugin.manager.menu.link')->rebuild();
+  }
+
+  /**
+   * Ensures ps_header_actions menu link titles match Stellar EN/FR copy.
+   */
+  private function normalizeHeaderActionLabels(): void {
+    $storage = $this->entityTypeManager->getStorage('menu_link_content');
+    $updates = [
+      'a2000001-0000-4000-8000-000000000001' => [
+        'en' => 'Find a property',
+        'fr' => 'Trouver un bien',
+      ],
+      'a2000001-0000-4000-8000-000000000002' => [
+        'en' => 'Log in / Sign up',
+        'fr' => "Se connecter / S'inscrire",
+      ],
+      'a2000001-0000-4000-8000-000000000003' => [
+        'en' => 'Contact us',
+        'fr' => 'Nous contacter',
+      ],
+      'a2000001-0000-4000-8000-000000000004' => [
+        'en' => 'What are you looking for?',
+        'fr' => 'Que recherchez-vous ?',
+      ],
+    ];
+
+    foreach ($updates as $uuid => $titles) {
+      $entities = $storage->loadByProperties(['uuid' => $uuid]);
+      foreach ($entities as $entity) {
+        foreach ($titles as $langcode => $title) {
+          if ($entity->hasTranslation($langcode)) {
+            $entity->getTranslation($langcode)->set('title', $title);
+          }
+          elseif ($langcode === $entity->language()->getId()) {
+            $entity->set('title', $title);
+          }
+          else {
+            $translation = $entity->addTranslation($langcode, $entity->toArray());
+            $translation->set('title', $title);
+          }
+        }
+        $entity->save();
+      }
+    }
   }
 
   /**

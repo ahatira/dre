@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_theme\Hook;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
@@ -21,6 +22,7 @@ final class Menu {
 
   public function __construct(
     private readonly LanguageManagerInterface $languageManager,
+    private readonly EntityRepositoryInterface $entityRepository,
   ) {}
 
   /**
@@ -42,6 +44,7 @@ final class Menu {
 
     if (($variables['menu_name'] ?? '') === 'ps_header_actions') {
       $this->applyHeaderActionLinkAttributes($variables['items']);
+      $this->localizeHeaderActionTitles($variables['items']);
       $this->filterHeaderActionItems($variables['items']);
       $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
@@ -97,6 +100,39 @@ final class Menu {
 
       if (!empty($item['below'])) {
         $this->applyHeaderActionLinkAttributes($item['below']);
+      }
+    }
+  }
+
+  /**
+   * Applies menu_link_content translation titles for header action links.
+   *
+   * @param array<int, array<string, mixed>> $items
+   */
+  private function localizeHeaderActionTitles(array &$items): void {
+    foreach ($items as &$item) {
+      $originalLink = $item['original_link'] ?? NULL;
+      if (is_object($originalLink) && method_exists($originalLink, 'getPluginId')) {
+        $pluginId = (string) $originalLink->getPluginId();
+        if (str_starts_with($pluginId, 'menu_link_content:')) {
+          $uuid = substr($pluginId, strlen('menu_link_content:'));
+          try {
+            $entity = $this->entityRepository->loadEntityByUuid('menu_link_content', $uuid);
+            if ($entity !== NULL) {
+              $langcode = $this->languageManager->getCurrentLanguage()->getId();
+              if ($entity->hasTranslation($langcode)) {
+                $item['title'] = $entity->getTranslation($langcode)->label();
+              }
+            }
+          }
+          catch (\Exception) {
+            // Keep the default menu title when the link entity is unavailable.
+          }
+        }
+      }
+
+      if (!empty($item['below'])) {
+        $this->localizeHeaderActionTitles($item['below']);
       }
     }
   }

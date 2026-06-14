@@ -76,7 +76,7 @@ Enchaînement manuel (équivalent) :
 - **Contenu** : chaque export `menu_link_content` / `node` inclut une section `translations.fr`
 - **URL** : alias `/home` (EN), `/fr/accueil` (FR) via `ps_demo.settings` → `front_paths` (sync à l'import)
 - **Traduction** : `language.content_settings.*` dans `config/demo/`
-- **Copy blocs** : clés `en` / `fr` dans `ps_demo.homepage.yml` (modifiable au BO via config sync ou ré-export)
+- **Copy blocs** : textes LB dans la config de chaque bloc (traductions EN/FR au BO). `ps_demo.homepage.yml` = métadonnées node uniquement (titres, alias).
 
 ## Homepage (node/1, Layout Builder)
 
@@ -103,7 +103,7 @@ front_page: /node/1
 homepage_uuid: b2000001-0000-4000-8000-000000000001
 ```
 
-Les textes des blocs LB sont stockés dans la **configuration de chaque bloc** (onglets EN/FR au BO), plus dans `ps_demo.homepage`.
+Les textes des blocs LB sont stockés dans la **configuration de chaque bloc** (traductions EN/FR au BO). `ps_demo.homepage.yml` ne contient que titres et alias du node homepage.
 
 ## Workflow contributeur
 
@@ -111,7 +111,7 @@ Les textes des blocs LB sont stockés dans la **configuration de chaque bloc** (
 
 - Homepage : `/node/1/layout` (sections LB, réordonnancement)
 - Menus : traductions FR sur chaque lien
-- Copy homepage : `/admin/config` → export `ps_demo.homepage` ou édition YAML
+- Copy homepage (titres/alias) : édition de `ps_demo.homepage.yml` ou export config
 
 ### 2. Exporter le contenu
 

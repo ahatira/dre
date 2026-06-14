@@ -25,3 +25,12 @@ function ps_demo_modules_installed(array $modules, bool $is_syncing): void {
   }
   DemoInstaller::create(\Drupal::getContainer())->finalizeInstall();
 }
+
+/**
+ * Normalizes header action menu labels (EN/FR) after homepage decommission.
+ */
+function ps_demo_update_9001(): void {
+  (new \Drupal\ps_demo\Service\DemoMenuNormalizer(
+    \Drupal::entityTypeManager(),
+  ))->normalize();
+}
