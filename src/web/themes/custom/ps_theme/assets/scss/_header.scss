@@ -1044,12 +1044,20 @@ body.ps-mobile-menu-open {
       }
 
       &:not(.ps-site-header--is-expanded) {
+        // Shell stays overflow-visible so top-bar dropdowns (language switcher,
+        // search panel) are not clipped. Main bar collapse is clipped locally.
         .ps-site-header__shell {
-          overflow: hidden;
+          overflow: visible;
         }
 
         .ps-site-header__sticky-bar {
           overflow: visible;
+        }
+
+        .ps-site-header__top-bar {
+          overflow: visible;
+          position: relative;
+          z-index: 2;
         }
 
         .ps-site-header__main-bar {
@@ -1423,6 +1431,7 @@ body.ps-mobile-menu-open {
     padding: 0;
     transform: none !important;
     width: 100%;
+    z-index: var(--ps-z-header-panel, 110);
 
     li {
       margin: 0;
