@@ -35,14 +35,18 @@ final class NewsTeaserBuilder {
   public function build(NodeInterface $node): array {
     $title = $node->label() ?? '';
     $image = $this->resolveTeaserImage($node);
+    $categories = $this->resolveCategories($node);
+    $dateMeta = $this->resolveDisplayDateMeta($node);
 
     return [
       'title' => $title,
       'url' => $node->toUrl()->toString(),
       'image' => $image['url'] ?? '',
       'image_alt' => $image['alt'] ?? $title,
-      'categories' => $this->resolveCategories($node),
-      'date' => $this->formatDisplayDate($node),
+      'categories' => $categories,
+      'category' => $categories[0] ?? NULL,
+      'date' => $dateMeta['formatted'],
+      'date_iso' => $dateMeta['iso'],
       'excerpt' => $this->buildExcerpt($node),
     ];
   }
@@ -99,7 +103,10 @@ final class NewsTeaserBuilder {
     return $labels;
   }
 
-  private function formatDisplayDate(NodeInterface $node): string {
+  /**
+   * @return array{formatted: string, iso: string}
+   */
+  private function resolveDisplayDateMeta(NodeInterface $node): array {
     $timestamp = NULL;
 
     if ($node->hasField('field_display_date') && !$node->get('field_display_date')->isEmpty()) {
@@ -111,10 +118,13 @@ final class NewsTeaserBuilder {
 
     $timestamp ??= (int) $node->getCreatedTime();
     if ($timestamp <= 0) {
-      return '';
+      return ['formatted' => '', 'iso' => ''];
     }
 
-    return $this->dateFormatter->format($timestamp, 'homepage_news_date', $node->language()->getId());
+    return [
+      'formatted' => $this->dateFormatter->format($timestamp, 'homepage_news_date', $node->language()->getId()),
+      'iso' => gmdate('Y-m-d', $timestamp),
+    ];
   }
 
   private function buildExcerpt(NodeInterface $node): string {

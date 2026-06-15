@@ -21,14 +21,12 @@ final class NewsViewsHooks {
       return;
     }
 
-    if (!in_array($view->current_display, ['homepage_news_teaser', 'news_list'], TRUE)) {
+    if ($view->current_display !== 'news_list') {
       return;
     }
 
     $view->element['#attributes']['class'][] = 'ps-homepage-news__view';
-    if ($view->current_display === 'news_list') {
-      $view->element['#attributes']['class'][] = 'ps-homepage-news--cols-3';
-    }
+    $view->element['#attributes']['class'][] = 'ps-homepage-news--cols-3';
   }
 
 }

@@ -411,11 +411,13 @@ ps_news_news_block:
     title: 'News & insights'
     subtitle: 'Market trends and expert perspectives'
     see_more_label: 'View all news'
+    see_more_url: /news
     items_count: 3
   fr:
     title: 'Actualités & analyses'
     subtitle: 'Tendances marché et regards d’experts'
     see_more_label: 'Voir toutes les actualités'
+    see_more_url: /news
     items_count: 3
 
 ps_market_study_market_studies_block:

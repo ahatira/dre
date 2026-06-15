@@ -15,6 +15,9 @@ msgstr "Voir le bien"
 msgid "Consult the listing"
 msgstr "Consulter l'annonce"
 
+msgid "Read more"
+msgstr "Lire la suite"
+
 msgid "Already viewed"
 msgstr "Déjà consultée"
 

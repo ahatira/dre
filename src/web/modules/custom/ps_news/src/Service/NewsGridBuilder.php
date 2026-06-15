@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\ps_news\Service;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\views\Views;
 
 /**
  * Builds the news grid view render array for homepage §7.
  */
 final class NewsGridBuilder {
+
+  use StringTranslationTrait;
 
   private const VIEW_ID = 'ps_news';
 
@@ -28,12 +31,7 @@ final class NewsGridBuilder {
 
     $view = Views::getView(self::VIEW_ID);
     if ($view === NULL) {
-      return [
-        'body' => ['#markup' => ''],
-        'cache' => [],
-        'attached' => [],
-        'meta' => ['items_count' => $itemsCount],
-      ];
+      return $this->emptyResult($itemsCount);
     }
 
     $view->setDisplay(self::DISPLAY_ID);
@@ -41,28 +39,38 @@ final class NewsGridBuilder {
     $view->preExecute();
     $view->execute();
     if ($view->result === []) {
-      return [
-        'body' => ['#markup' => ''],
-        'cache' => [],
-        'attached' => [],
-        'meta' => ['items_count' => $itemsCount],
-      ];
+      return $this->emptyResult($itemsCount);
     }
 
     $viewRender = $view->buildRenderable(self::DISPLAY_ID);
     if ($viewRender === []) {
-      return [
-        'body' => ['#markup' => ''],
-        'cache' => [],
-        'attached' => [],
-        'meta' => ['items_count' => $itemsCount],
-      ];
+      return $this->emptyResult($itemsCount);
     }
 
     $viewRender['#attributes']['class'][] = 'ps-homepage-news__view';
 
+    $colsClass = 'ps-homepage-news--cols-' . $itemsCount;
+
     return [
-      'body' => ['view' => $viewRender],
+      'body' => [
+        'carousel' => [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['ps-homepage-news__carousel', $colsClass]],
+          'viewport' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['ps-homepage-news__viewport']],
+            'view' => $viewRender,
+          ],
+          'dots' => [
+            '#type' => 'container',
+            '#attributes' => [
+              'class' => ['ps-homepage-news__dots'],
+              'role' => 'tablist',
+              'aria-label' => (string) $this->t('News carousel pagination'),
+            ],
+          ],
+        ],
+      ],
       'cache' => [
         'contexts' => ['languages:language_interface'],
         'tags' => ['config:views.view.ps_news', 'node_list:article'],
@@ -74,6 +82,23 @@ final class NewsGridBuilder {
         'items_count' => $itemsCount,
         'section_class_suffix' => 'ps-homepage-news--cols-' . $itemsCount,
       ],
+    ];
+  }
+
+  /**
+   * @return array{
+   *   body: array<string, mixed>,
+   *   cache: array<string, mixed>,
+   *   attached: array<string, mixed>,
+   *   meta: array<string, mixed>
+   * }
+   */
+  private function emptyResult(int $itemsCount): array {
+    return [
+      'body' => ['#markup' => ''],
+      'cache' => [],
+      'attached' => [],
+      'meta' => ['items_count' => $itemsCount],
     ];
   }
 

@@ -2,3 +2,8 @@ news_grid:
   css:
     theme:
       css/news-grid.css: {}
+  js:
+    js/news-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

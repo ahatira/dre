@@ -139,7 +139,7 @@ final class HomepageSectionLibraryTemplateBuilder {
       'section_class' => 'ps-homepage-news',
       'header_subtitle' => TRUE,
       'footer' => TRUE,
-      'footer_url_key' => 'auto_news',
+      'footer_url_key' => 'see_more_url',
     ],
     [
       'number' => 8,

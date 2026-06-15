@@ -25,9 +25,15 @@ props:
       title: Category labels
       items:
         type: string
+    category:
+      type: string
+      title: Primary category label
     date:
       type: string
       title: Formatted date
+    date_iso:
+      type: string
+      title: ISO date for datetime attribute
     excerpt:
       type: string
       title: Teaser excerpt
