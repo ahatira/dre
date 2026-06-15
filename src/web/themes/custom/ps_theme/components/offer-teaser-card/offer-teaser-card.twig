@@ -1,53 +1,53 @@
 {#
 /**
  * @file
- * Homepage offer teaser card for carousel.
+ * Homepage offer teaser card for carousel (Figma Product / §4).
  */
 #}
-<article{{ attributes.addClass(['ps-offer-teaser-card', 'card', 'h-100']).setAttribute('data-offer-id', node_id|default('')) }}>
+<article{{ attributes.addClass(['ps-offer-teaser-card', 'card']).setAttribute('data-offer-id', node_id|default('')) }}>
   {% if image %}
-    <div class="ps-offer-teaser-card__media ratio" style="--bs-aspect-ratio: 75%;">
-      <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="card-img-top object-fit-cover h-100 w-100" loading="lazy" />
-      <div class="ps-offer-teaser-card__actions">
-        {% if show_compare %}
-          <div class="ps-offer-teaser-card__compare">
-            {% block compare %}{% endblock %}
-          </div>
-        {% endif %}
-        {% if show_favorite %}
-          <div class="ps-offer-teaser-card__favorite">
-            {% block favorite %}{% endblock %}
-          </div>
+    <div class="ps-offer-teaser-card__media">
+      <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="ps-offer-teaser-card__image" loading="lazy" />
+      {% if show_favorite or show_compare %}
+        <div class="ps-offer-teaser-card__actions">
+          {% if show_compare %}
+            <div class="ps-offer-teaser-card__compare">
+              {% block compare %}{% endblock %}
+            </div>
+          {% endif %}
+          {% if show_favorite %}
+            <div class="ps-offer-teaser-card__favorite">
+              {% block favorite %}{% endblock %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="ps-offer-teaser-card__body">
+    <div class="ps-offer-teaser-card__main">
+      {% if price_amount %}
+        <p class="ps-offer-teaser-card__price">
+          <span class="ps-offer-teaser-card__price-amount">{{ price_amount }}</span>{% if surface_price_line %}<span class="ps-offer-teaser-card__price-separator"> • </span><span class="ps-offer-teaser-card__price-surface">{{ surface_price_line }}</span>{% endif %}
+        </p>
+      {% endif %}
+      <div class="ps-offer-teaser-card__details">
+        <h3 class="ps-offer-teaser-card__title" title="{{ title }}">{{ title }}</h3>
+        {% if location %}
+          <p class="ps-offer-teaser-card__location">
+            {{ icon('bnp_custom', 'pin-map', {size: '24px'}) }}
+            <span title="{{ location }}">{{ location }}</span>
+          </p>
         {% endif %}
       </div>
     </div>
-  {% endif %}
-  <div class="card-body ps-offer-teaser-card__body d-flex flex-column">
-    {% if price_amount %}
-      <p class="ps-offer-teaser-card__price mb-2">
-        <span class="ps-offer-teaser-card__price-amount">{{ price_amount }}</span>
-        {% if price_qualifiers %}<span class="ps-offer-teaser-card__price-qualifiers"> {{ price_qualifiers }}</span>{% endif %}
-      </p>
-    {% endif %}
-    <h3 class="ps-offer-teaser-card__title card-title h6 mb-2">{{ title }}</h3>
-    {% if location %}
-      <p class="ps-offer-teaser-card__location text-muted small mb-2">
-        {{ icon('bnp_custom', 'pin-map', {size: '16px'}) }}
-        <span>{{ location }}</span>
-      </p>
-    {% endif %}
-    {% if surface_primary %}
-      <p class="ps-offer-teaser-card__surface small mb-3">
-        <span class="ps-surface-kpi__primary">{{ surface_primary }}</span>{% if surface_suffix %}<span class="ps-surface-kpi__suffix"> {{ surface_suffix }}</span>{% endif %}
-      </p>
-    {% elseif surface %}
-      <p class="ps-offer-teaser-card__surface small mb-3">{{ surface }}</p>
-    {% endif %}
     {% if url %}
-      <a href="{{ url }}" class="ps-offer-teaser-card__cta mt-auto">
-        <span>{{ 'View the property'|t }}</span>
-        {{ icon('bnp_custom', 'big-arrow-right', {size: '16px'}) }}
-      </a>
+      <div class="ps-offer-teaser-card__cta-row">
+        <a href="{{ url }}" class="ps-offer-teaser-card__cta">
+          <span>{{ 'Consult the listing'|t }}</span>
+          {{ icon('bnp_custom', 'big-arrow-right', {size: '20px'}) }}
+        </a>
+      </div>
     {% endif %}
   </div>
 </article>

@@ -135,10 +135,10 @@ offer-card/
 
 Homepage PS = sections LB configurables :
 
-1. **Hero recherche** — bloc custom ou SDC `search-hero` + formulaire (module filtres à venir)
-2. **Univers métier** — tuiles asset type (bureaux, logistique…)
-3. **Offres à la une** — View `ps_search_offers` (display teaser)
-4. **Contenu éditorial** — blocs WYSIWYG standard
+1. **Hero recherche** — bloc `ps_homepage_search_hero_block` + SDC `search-hero` / `search-hero-promo`
+2. **Univers métier (Services)** — bloc `ps_content_services_grid_block` + SDC `icon-card`
+3. **Offres à la une** — bloc `ps_offer_offers_carousel_block` + SDC `offer-teaser-card` (sélection manuelle ou fallback Solr)
+4. **Contenu éditorial / sections LB** — 9 sections S-D via Section Library (`ps_homepage_section`)
 
 Sections réutilisables via **Section Library** (`ui_suite_bnp_companion`).
 

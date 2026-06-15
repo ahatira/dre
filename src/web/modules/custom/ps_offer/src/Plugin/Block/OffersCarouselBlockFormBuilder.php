@@ -110,7 +110,7 @@ final class OffersCarouselBlockFormBuilder {
         '#target_type' => 'node',
         '#selection_settings' => ['target_bundles' => ['offer']],
         '#default_value' => $node instanceof NodeInterface ? $node : NULL,
-        '#description' => $this->t('Published offer to feature. Leave empty for dynamic Solr results when no manual selection is set.'),
+        '#description' => $this->t('Published offer to feature. When no offers are selected, the carousel loads the latest published offers from the search index (Solr), falling back to the database if needed.'),
       ];
       $form['offers'][$delta]['remove'] = $this->buildRemoveItemCheckbox(
         (string) $this->t('Remove this offer'),

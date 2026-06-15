@@ -21,6 +21,7 @@ final class OfferCarouselBuilder {
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly OfferTeaserBuilder $offerTeaserBuilder,
+    private readonly OfferFeaturedOffersResolver $featuredOffersResolver,
     private readonly SearchPathResolver $searchPathResolver,
     private readonly LanguageManagerInterface $languageManager,
   ) {}
@@ -51,13 +52,7 @@ final class OfferCarouselBuilder {
     }
 
     if ($nids === []) {
-      $nids = array_values($this->entityTypeManager->getStorage('node')->getQuery()
-        ->accessCheck(TRUE)
-        ->condition('type', 'offer')
-        ->condition('status', NodeInterface::PUBLISHED)
-        ->sort('changed', 'DESC')
-        ->range(0, 6)
-        ->execute());
+      $nids = $this->featuredOffersResolver->resolveDynamicNids(6);
     }
 
     if ($nids === []) {
@@ -71,6 +66,7 @@ final class OfferCarouselBuilder {
 
     $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     $maxVisible = max(3, min(6, (int) ($configuration['max_visible'] ?? 4)));
+    $autoplay = !empty($configuration['autoplay']);
     $cardOptions = [
       'show_favorite' => !empty($configuration['show_favorite']),
       'show_compare' => !empty($configuration['show_compare']),
@@ -105,33 +101,57 @@ final class OfferCarouselBuilder {
     }
 
     $body = [
-      'viewport' => [
+      'carousel' => [
         '#type' => 'container',
-        '#attributes' => ['class' => ['ps-homepage-offers-carousel__viewport']],
-        'prev' => [
-          '#type' => 'html_tag',
-          '#tag' => 'button',
-          '#value' => '‹',
+        '#attributes' => ['class' => ['ps-homepage-offers-carousel__carousel']],
+        'viewport' => [
+          '#type' => 'container',
           '#attributes' => [
-            'type' => 'button',
-            'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--prev'],
-            'data-carousel-prev' => 'true',
-            'aria-label' => (string) $this->t('Previous offers'),
+            'class' => ['ps-homepage-offers-carousel__viewport'],
+            'data-autoplay' => $autoplay ? 'true' : 'false',
+            'data-autoplay-interval' => '5000',
+          ],
+          'fade_prev' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['ps-homepage-offers-carousel__fade', 'ps-homepage-offers-carousel__fade--prev']],
+          ],
+          'control_prev' => [
+            '#type' => 'html_tag',
+            '#tag' => 'button',
+            '#value' => '',
+            '#attributes' => [
+              'type' => 'button',
+              'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--prev'],
+              'data-carousel-prev' => 'true',
+              'aria-label' => (string) $this->t('Previous offers'),
+            ],
+          ],
+          'track' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['ps-homepage-offers-carousel__track']],
+          ] + $items,
+          'fade_next' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['ps-homepage-offers-carousel__fade', 'ps-homepage-offers-carousel__fade--next']],
+          ],
+          'control_next' => [
+            '#type' => 'html_tag',
+            '#tag' => 'button',
+            '#value' => '',
+            '#attributes' => [
+              'type' => 'button',
+              'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--next'],
+              'data-carousel-next' => 'true',
+              'aria-label' => (string) $this->t('Next offers'),
+            ],
           ],
         ],
-        'track' => [
+        'dots' => [
           '#type' => 'container',
-          '#attributes' => ['class' => ['ps-homepage-offers-carousel__track']],
-        ] + $items,
-        'next' => [
-          '#type' => 'html_tag',
-          '#tag' => 'button',
-          '#value' => '›',
           '#attributes' => [
-            'type' => 'button',
-            'class' => ['ps-homepage-offers-carousel__control', 'ps-homepage-offers-carousel__control--next'],
-            'data-carousel-next' => 'true',
-            'aria-label' => (string) $this->t('Next offers'),
+            'class' => ['ps-homepage-offers-carousel__dots'],
+            'role' => 'tablist',
+            'aria-label' => (string) $this->t('Offers carousel pagination'),
           ],
         ],
       ],
@@ -149,7 +169,7 @@ final class OfferCarouselBuilder {
       ],
       'cache' => [
         'contexts' => ['languages:language_interface'],
-        'tags' => array_values(array_unique($cacheTags)),
+        'tags' => array_values(array_unique(array_merge($cacheTags, ['search_api_list:offers']))),
       ],
     ];
   }

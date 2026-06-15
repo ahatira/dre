@@ -32,6 +32,9 @@ props:
     surface_suffix:
       type: string
       title: Surface suffix
+    surface_price_line:
+      type: string
+      title: Surface label for price line
     price_amount:
       type: string
       title: Price amount

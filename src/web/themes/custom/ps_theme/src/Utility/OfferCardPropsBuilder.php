@@ -38,10 +38,7 @@ final class OfferCardPropsBuilder {
    */
   private function buildTeaserProps(NodeInterface $node): array {
     $operationCode = (string) ($node->get('field_operation_type')->value ?? '');
-    $title = (string) ($node->get('field_commercial_title')->value ?? '');
-    if ($title === '') {
-      $title = $node->label() ?? '';
-    }
+    $surfaceParts = $this->formatSurfaceParts($node);
 
     $imageUrl = $this->resolvePrimaryImageUrl($node);
     if ($imageUrl === NULL) {
@@ -49,17 +46,17 @@ final class OfferCardPropsBuilder {
     }
 
     $budget = $this->buildBudgetParts($node);
-    $surfaceParts = $this->formatSurfaceParts($node);
 
     return [
-      'title' => $title,
+      'title' => $this->formatTeaserTitle($node),
       'url' => $node->toUrl()->toString(),
       'image' => $imageUrl,
-      'image_alt' => $title,
+      'image_alt' => $this->formatTeaserTitle($node),
       'location' => $this->formatGridLocation($node),
       'surface' => $this->formatSurface($node),
       'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
       'surface_suffix' => $surfaceParts['suffix'],
+      'surface_price_line' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
       'price_amount' => $budget['amount'],
       'price_qualifiers' => $budget['qualifiers'],
       'operation' => $operationCode === 'VEN' ? 'sale' : 'rent',
@@ -67,6 +64,23 @@ final class OfferCardPropsBuilder {
       'show_compare' => TRUE,
       'node_id' => (int) $node->id(),
     ];
+  }
+
+  /**
+   * Product title for homepage teaser cards (Figma line 2).
+   */
+  private function formatTeaserTitle(NodeInterface $node): string {
+    $commercial = trim((string) ($node->get('field_commercial_title')->value ?? ''));
+    if ($commercial !== '') {
+      return $commercial;
+    }
+
+    $assetCode = (string) ($node->get('field_asset_type')->value ?? '');
+    if ($assetCode !== '') {
+      return $this->dictionaryLabel('asset_type', $assetCode);
+    }
+
+    return $node->label() ?? '';
   }
 
   /**

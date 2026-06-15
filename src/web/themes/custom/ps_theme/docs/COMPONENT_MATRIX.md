@@ -25,7 +25,7 @@ Légende : **G** = `ui_suite_bnp` · **PS** = `ps_theme` · **M** = module Drupa
 | Filtres rapides (type bien) | `asset-type-chips` | **PS** | Dictionary `asset_type` |
 | Tuiles univers (bureaux, logistique…) | `card` + LB | G + LB | Image + titre + lien |
 | Bandeau confiance / chiffres | `stats-bar` | **PS** ou G | À trancher réutilisabilité |
-| Carrousel offres | `offer-card` × N | **PS** | View mode teaser (grille verticale) |
+| Carrousel offres | `offer-teaser-card` × N | **PS** | Bloc LB §4 (`ps_offer_offers_carousel_block`) |
 
 ## Recherche (`/find-property` — slugs i18n, ex. `/fr/recherche-immobiliere`)
 
