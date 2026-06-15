@@ -18,6 +18,9 @@ msgstr "Consulter l'annonce"
 msgid "Read more"
 msgstr "Lire la suite"
 
+msgid "Published on"
+msgstr "Publié le"
+
 msgid "Already viewed"
 msgstr "Déjà consultée"
 

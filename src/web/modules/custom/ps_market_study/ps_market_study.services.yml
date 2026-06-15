@@ -6,6 +6,7 @@ services:
       - '@date.formatter'
       - '@entity.repository'
       - '@extension.path.resolver'
+      - '@file_url_generator'
       - '@language_manager'
 
   ps_market_study.market_study_list_path_resolver:
@@ -28,3 +29,4 @@ services:
       - '@language_manager'
       - '@entity_type.manager'
       - '@ps_market_study.market_study_teaser_builder'
+      - '@ps_market_study.market_study_default_items'

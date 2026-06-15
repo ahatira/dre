@@ -5,10 +5,12 @@ dependencies:
     - field.field.node.market_study.body
     - field.field.node.market_study.field_display_date
     - field.field.node.market_study.field_study_category
+    - field.field.node.market_study.field_study_document
     - field.field.node.market_study.field_teaser_image
     - node.type.market_study
   module:
     - datetime
+    - file
     - media
     - path
     - text
@@ -19,7 +21,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 4
+    weight: 5
     region: content
     settings:
       rows: 9
@@ -47,6 +49,13 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
+  field_study_document:
+    type: file_generic
+    weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -56,7 +65,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

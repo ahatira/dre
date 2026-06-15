@@ -1,0 +1,9 @@
+market_studies_grid:
+  css:
+    theme:
+      css/market-studies-grid.css: {}
+  js:
+    js/market-studies-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

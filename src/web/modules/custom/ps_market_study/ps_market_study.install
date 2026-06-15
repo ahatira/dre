@@ -113,3 +113,114 @@ function ps_market_study_update_9003(): void {
     \Drupal::service('ps_homepage.market_study_config_refresher')->refreshFrontPage();
   }
 }
+
+/**
+ * Adds study PDF field, date format and switches list path to /etudes-marche.
+ */
+function ps_market_study_update_9004(): void {
+  $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_market_study');
+  $storage = new FileStorage($path . '/config/optional');
+  \Drupal::service('config.installer')->installOptionalConfig($storage);
+
+  $formDisplay = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load('node.market_study.default');
+  if ($formDisplay !== NULL) {
+    $formDisplay->setComponent('field_study_document', [
+      'type' => 'file_generic',
+      'weight' => 4,
+      'region' => 'content',
+      'settings' => [
+        'progress_indicator' => 'throbber',
+      ],
+    ]);
+    $formDisplay->save();
+  }
+
+  $viewConfig = \Drupal::configFactory()->getEditable('views.view.ps_market_study');
+  if (!$viewConfig->isNew()) {
+    $data = $viewConfig->getRawData();
+    if (isset($data['display']['research_list']['display_options']['path'])) {
+      $data['display']['research_list']['display_options']['path'] = 'etudes-marche';
+      $viewConfig->setData($data);
+      $viewConfig->save(TRUE);
+    }
+  }
+
+  if (\Drupal::hasService('router.builder')) {
+    \Drupal::service('router.builder')->rebuild();
+  }
+}
+
+/**
+ * Ensures §8 optional configs (PDF field, date format) are installed.
+ */
+function ps_market_study_update_9005(): void {
+  $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_market_study');
+  $storage = new FileStorage($path . '/config/optional');
+  $names = [
+    'field.storage.node.field_study_document',
+    'field.field.node.market_study.field_study_document',
+    'core.date_format.homepage_market_study_date',
+  ];
+
+  foreach ($names as $name) {
+    if (!\Drupal::configFactory()->get($name)->isNew()) {
+      continue;
+    }
+    $data = $storage->read($name);
+    if (!is_array($data)) {
+      continue;
+    }
+    \Drupal::configFactory()->getEditable($name)->setData($data)->save(TRUE);
+  }
+
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+
+  $formDisplay = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load('node.market_study.default');
+  if ($formDisplay !== NULL && !$formDisplay->getComponent('field_study_document')) {
+    $formDisplay->setComponent('field_study_document', [
+      'type' => 'file_generic',
+      'weight' => 4,
+      'region' => 'content',
+      'settings' => [
+        'progress_indicator' => 'throbber',
+      ],
+    ]);
+    $formDisplay->save();
+  }
+}
+
+/**
+ * Creates database tables for the study document field.
+ */
+function ps_market_study_update_9006(): void {
+  $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_market_study');
+  $storage = new FileStorage($path . '/config/optional');
+
+  if (\Drupal\field\Entity\FieldStorageConfig::loadByName('node', 'field_study_document') === NULL) {
+    $fieldStorage = $storage->read('field.storage.node.field_study_document');
+    if (is_array($fieldStorage)) {
+      \Drupal\field\Entity\FieldStorageConfig::create($fieldStorage)->save();
+    }
+  }
+
+  if (\Drupal\field\Entity\FieldConfig::loadByName('node', 'market_study', 'field_study_document') === NULL) {
+    $field = $storage->read('field.field.node.market_study.field_study_document');
+    if (is_array($field)) {
+      \Drupal\field\Entity\FieldConfig::create($field)->save();
+    }
+  }
+
+  $definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('node');
+  if (isset($definitions['field_study_document'])) {
+    $updateManager = \Drupal::entityDefinitionUpdateManager();
+    $changeList = $updateManager->getChangeList();
+    if (isset($changeList['node']['field_storage_definitions']['field_study_document'])) {
+      $updateManager->installFieldStorageDefinition(
+        'field_study_document',
+        'node',
+        'ps_market_study',
+        $definitions['field_study_document'],
+      );
+    }
+  }
+}

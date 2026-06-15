@@ -1,0 +1,154 @@
+.ps-homepage-market-studies .ps-homepage-section__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ps-homepage-market-studies .ps-homepage-section__header {
+  margin-bottom: 4rem;
+}
+
+.ps-homepage-market-studies .ps-homepage-section-header {
+  gap: 2rem;
+  margin-bottom: 0;
+  max-width: 49.25rem;
+}
+
+.ps-homepage-market-studies .ps-homepage-section-header__title {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  max-width: 49.1875rem;
+}
+
+.ps-homepage-market-studies .ps-homepage-section-header__separator {
+  height: 0.5rem;
+  width: 7.0625rem;
+}
+
+.ps-homepage-market-studies .ps-homepage-section-header__subtitle {
+  font-size: 1.125rem;
+  line-height: 2.25rem;
+  max-width: 80%;
+}
+
+.ps-homepage-market-studies .ps-homepage-section__body {
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.ps-homepage-market-studies .ps-homepage-section-footer {
+  margin-top: 0;
+}
+
+.ps-homepage-market-studies .ps-homepage-section-footer__button {
+  border-width: 2px;
+  font-family: var(--re-font-family-body, 'BNPP Sans', 'BNP Sans', sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  height: 2.8125rem;
+  line-height: 1.625rem;
+  min-width: 11rem;
+  padding-inline: 1.125rem;
+}
+
+.ps-homepage-market-studies__carousel {
+  width: 100%;
+}
+
+.ps-homepage-market-studies__viewport {
+  width: 100%;
+}
+
+.ps-homepage-market-studies__track {
+  display: block;
+  font-size: 0;
+  width: 100%;
+}
+
+.ps-homepage-market-studies__item {
+  box-sizing: border-box;
+  display: inline-block;
+  padding-inline: 0.625rem;
+  vertical-align: top;
+  width: 50%;
+}
+
+.ps-homepage-market-studies__item:first-child {
+  padding-left: 0;
+}
+
+.ps-homepage-market-studies__item:last-child {
+  padding-right: 0;
+}
+
+@media (max-width: 991.98px) {
+  .ps-homepage-market-studies .ps-homepage-section__header {
+    margin-bottom: 2.4375rem;
+  }
+
+  .ps-homepage-market-studies .ps-homepage-section-header {
+    gap: 2rem;
+    padding-inline: 1.25rem;
+  }
+
+  .ps-homepage-market-studies .ps-homepage-section-header__title {
+    font-size: 1.5rem;
+    line-height: 2.125rem;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .ps-homepage-market-studies .ps-homepage-section-header__separator {
+    width: 5rem;
+  }
+
+  .ps-homepage-market-studies .ps-homepage-section-header__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.875rem;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .ps-homepage-market-studies .ps-homepage-section__body {
+    margin-bottom: 1.5rem;
+  }
+
+  .ps-homepage-market-studies__viewport {
+    overflow: hidden;
+    padding-inline: 1.25rem;
+  }
+
+  .ps-homepage-market-studies__track {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ps-homepage-market-studies__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ps-homepage-market-studies__item {
+    flex: 0 0 auto;
+    padding-inline: 0;
+    width: calc(100% - 3.125rem);
+  }
+
+  .ps-homepage-market-studies .ps-homepage-section-footer__button {
+    min-width: 100%;
+    width: calc(100% - 2.5rem);
+  }
+}
+
+@media (min-width: 992px) {
+  .ps-homepage-market-studies .ps-homepage-section-header,
+  .ps-homepage-market-studies .ps-homepage-section-header__title,
+  .ps-homepage-market-studies .ps-homepage-section-header__subtitle {
+    text-align: center;
+  }
+}

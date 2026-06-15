@@ -1,38 +1,48 @@
 {#
 /**
  * @file
- * Homepage market study card — card_overlay composition.
+ * Market study card — bnppre floating text box pattern (§8).
  */
 #}
-<article class="ps-market-study-card position-relative h-100">
-  <div class="card border-0 h-100">
-    {% if image %}
-      <div class="ps-market-study-card__image h-100">
-        {{ include('ui_suite_bnp:media-credit', {
-          image_url: image,
-          image_alt: image_alt|default(title),
-          credit: image_credit|default(''),
-          image_class: 'card-img h-100 object-fit-cover',
-          loading: 'lazy',
-          wrapper_class: 'h-100',
-        }) }}
-      </div>
-    {% endif %}
-    <div class="card-img-overlay d-flex flex-column justify-content-end">
-      {% if category %}
-        <p class="ps-market-study-card__category small text-uppercase mb-1">{{ category }}</p>
+<article class="ps-market-study-card">
+  {% if image %}
+    <div class="ps-market-study-card__media">
+      {% if url %}
+        <a href="{{ url }}" class="ps-market-study-card__media-link"{% if url_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
       {% endif %}
-      {% if title %}
-        <h3 class="ps-market-study-card__title card-title h5 text-white mb-1">{{ title }}</h3>
-      {% endif %}
-      {% if date %}
-        <p class="ps-market-study-card__date small text-white-50 mb-0">{{ date }}</p>
+      <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="ps-market-study-card__image" loading="lazy" />
+      {% if url %}
+        </a>
       {% endif %}
     </div>
-  </div>
-  {% if url %}
-    <a href="{{ url }}" class="stretched-link">
-      <span class="visually-hidden">{{ title }}</span>
-    </a>
   {% endif %}
+  <div class="ps-market-study-card__body">
+    {% if category %}
+      <div class="ps-market-study-card__category">
+        {% if category_url %}
+          <a href="{{ category_url }}" class="ps-market-study-card__category-link">{{ category }}</a>
+        {% else %}
+          <span class="ps-market-study-card__category-label">{{ category }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if title %}
+      <h3 class="ps-market-study-card__title">
+        {% if url %}
+          <a href="{{ url }}" class="ps-market-study-card__title-link"{% if url_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ title }}</a>
+        {% else %}
+          {{ title }}
+        {% endif %}
+      </h3>
+    {% endif %}
+    {% if date %}
+      <p class="ps-market-study-card__date">
+        {% if url %}
+          <a href="{{ url }}" class="ps-market-study-card__date-link"{% if url_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ 'Published on'|t }} {{ date }}</a>
+        {% else %}
+          <span>{{ 'Published on'|t }} {{ date }}</span>
+        {% endif %}
+      </p>
+    {% endif %}
+  </div>
 </article>

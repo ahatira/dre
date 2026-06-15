@@ -153,7 +153,7 @@ final class HomepageSectionLibraryTemplateBuilder {
       'section_class' => 'ps-homepage-market-studies',
       'header_subtitle' => TRUE,
       'footer' => TRUE,
-      'footer_url_key' => 'auto_studies',
+      'footer_url_key' => 'see_more_url',
     ],
     [
       'number' => 9,

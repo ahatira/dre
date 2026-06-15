@@ -40,7 +40,7 @@ final class HomepageMarketStudyConfigRefresher {
       return FALSE;
     }
 
-    $studies = $this->marketStudyDefaultItems->resolve();
+    $studies = $this->marketStudyDefaultItems->resolve(2);
     if ($studies === []) {
       return FALSE;
     }

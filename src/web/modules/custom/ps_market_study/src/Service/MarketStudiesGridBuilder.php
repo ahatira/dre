@@ -18,6 +18,8 @@ use Drupal\ps_content\Service\ContentMediaResolver;
  */
 final class MarketStudiesGridBuilder {
 
+  private const DEFAULT_ITEMS = 2;
+
   public function __construct(
     private readonly ContentMediaResolver $mediaResolver,
     private readonly DateFormatterInterface $dateFormatter,
@@ -25,6 +27,7 @@ final class MarketStudiesGridBuilder {
     private readonly LanguageManagerInterface $languageManager,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly MarketStudyTeaserBuilder $teaserBuilder,
+    private readonly MarketStudyDefaultItems $defaultItems,
   ) {}
 
   /**
@@ -38,8 +41,15 @@ final class MarketStudiesGridBuilder {
    */
   public function build(array $configuration): array {
     $studies = $configuration['studies'] ?? [];
-    if (is_array($studies) && $studies !== []) {
-      return $this->buildFromStudies($studies);
+    if (!is_array($studies) || $studies === []) {
+      $studies = $this->defaultItems->resolve(self::DEFAULT_ITEMS);
+    }
+
+    if ($studies !== []) {
+      $result = $this->buildFromStudies($studies);
+      if ($result['body'] !== ['#markup' => '']) {
+        return $result;
+      }
     }
 
     return $this->buildFromLegacyItems($configuration['items'] ?? []);
@@ -47,10 +57,16 @@ final class MarketStudiesGridBuilder {
 
   /**
    * @param list<array<string, mixed>> $studies
+   *
+   * @return array{
+   *   body: array<string, mixed>,
+   *   cache: array<string, mixed>,
+   *   attached: array<string, mixed>
+   * }
    */
   private function buildFromStudies(array $studies): array {
     $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
-    $columns = [];
+    $items = [];
     $cacheTags = ['config:block.block', 'node_list:market_study'];
 
     usort($studies, static fn (array $a, array $b): int => ((int) ($a['weight'] ?? 0)) <=> ((int) ($b['weight'] ?? 0)));
@@ -74,21 +90,27 @@ final class MarketStudiesGridBuilder {
       }
 
       $cacheTags[] = 'node:' . $nid;
-      $columns[] = $this->buildCardColumn($props);
+      $items[] = $this->buildCardItem($props);
     }
 
-    return $this->wrapColumns($columns, $cacheTags);
+    return $this->wrapItems($items, $cacheTags);
   }
 
   /**
-   * @param list<array<string, mixed>> $items
+   * @param list<array<string, mixed>> $legacyItems
+   *
+   * @return array{
+   *   body: array<string, mixed>,
+   *   cache: array<string, mixed>,
+   *   attached: array<string, mixed>
+   * }
    */
-  private function buildFromLegacyItems(array $items): array {
+  private function buildFromLegacyItems(array $legacyItems): array {
     $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
-    $columns = [];
+    $items = [];
     $cacheTags = ['config:block.block'];
 
-    foreach ($items as $item) {
+    foreach ($legacyItems as $item) {
       if (!is_array($item)) {
         continue;
       }
@@ -103,29 +125,30 @@ final class MarketStudiesGridBuilder {
       $imageUrl = $media->url ?? $this->defaultThemeImageUrl();
       $cacheTags = array_merge($cacheTags, $media->cacheTags);
 
-      $columns[] = $this->buildCardColumn([
+      $items[] = $this->buildCardItem([
         'image' => $imageUrl,
         'image_alt' => $media->alt !== '' ? $media->alt : $title,
-        'image_credit' => $media->credit,
         'category' => trim((string) ($item['category'] ?? '')),
+        'category_url' => '',
         'title' => $title,
         'date' => $this->formatLegacyDate((string) ($item['date'] ?? ''), $langcode),
         'url' => Url::fromUserInput($url)->toString(),
+        'url_new_tab' => FALSE,
       ]);
     }
 
-    return $this->wrapColumns($columns, $cacheTags);
+    return $this->wrapItems($items, $cacheTags);
   }
 
   /**
-   * @param array<string, string> $props
+   * @param array<string, mixed> $props
    *
    * @return array<string, mixed>
    */
-  private function buildCardColumn(array $props): array {
+  private function buildCardItem(array $props): array {
     return [
       '#type' => 'container',
-      '#attributes' => ['class' => ['col-12', 'col-lg-6']],
+      '#attributes' => ['class' => ['ps-homepage-market-studies__item']],
       'card' => [
         '#type' => 'component',
         '#component' => 'ps_market_study:market-study-card',
@@ -135,7 +158,7 @@ final class MarketStudiesGridBuilder {
   }
 
   /**
-   * @param list<array<string, mixed>> $columns
+   * @param list<array<string, mixed>> $items
    * @param list<string> $cacheTags
    *
    * @return array{
@@ -144,8 +167,8 @@ final class MarketStudiesGridBuilder {
    *   attached: array<string, mixed>
    * }
    */
-  private function wrapColumns(array $columns, array $cacheTags): array {
-    if ($columns === []) {
+  private function wrapItems(array $items, array $cacheTags): array {
+    if ($items === []) {
       return [
         'body' => ['#markup' => ''],
         'cache' => [],
@@ -155,17 +178,21 @@ final class MarketStudiesGridBuilder {
 
     return [
       'body' => [
-        'grid' => [
+        'carousel' => [
           '#type' => 'container',
-          '#attributes' => ['class' => ['row', 'g-4']],
-        ] + $columns,
-        '#cache' => [
-          'contexts' => ['languages:language_interface'],
-          'tags' => array_values(array_unique($cacheTags)),
+          '#attributes' => ['class' => ['ps-homepage-market-studies__carousel']],
+          'viewport' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['ps-homepage-market-studies__viewport']],
+            'track' => [
+              '#type' => 'container',
+              '#attributes' => ['class' => ['ps-homepage-market-studies__track']],
+            ] + $items,
+          ],
         ],
       ],
       'attached' => [
-        'library' => ['ps_content/media_credit'],
+        'library' => ['ps_market_study/market_studies_grid'],
       ],
       'cache' => [
         'contexts' => ['languages:language_interface'],
@@ -187,7 +214,7 @@ final class MarketStudiesGridBuilder {
     if ($timestamp === FALSE) {
       return $date;
     }
-    return $this->dateFormatter->format($timestamp, 'medium', [], $langcode);
+    return $this->dateFormatter->format($timestamp, 'homepage_market_study_date', '', NULL, $langcode);
   }
 
 }

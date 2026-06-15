@@ -33,7 +33,7 @@ final class MarketStudiesBlockFormBuilder {
       $studies,
       static fn (array $item): bool => (int) ($item['nid'] ?? 0) > 0,
       self::MAX_ITEMS,
-      self::MAX_ITEMS,
+      2,
     );
 
     $form = [

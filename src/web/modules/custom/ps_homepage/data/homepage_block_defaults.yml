@@ -425,11 +425,13 @@ ps_market_study_market_studies_block:
     title: 'Market studies'
     subtitle: 'Insights to guide your real estate decisions'
     see_more_label: 'View all studies'
+    see_more_url: /etudes-marche
     studies: []
   fr:
     title: 'Études de marché'
     subtitle: 'Des analyses pour éclairer vos décisions immobilières'
     see_more_label: 'Voir toutes les études'
+    see_more_url: /etudes-marche
     studies: []
 
 ps_faq_faq_block:

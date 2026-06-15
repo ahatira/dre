@@ -20,9 +20,9 @@ final class MarketStudyListPathResolver {
     $langcode ??= $this->languageManager->getCurrentLanguage()->getId();
     $language = $this->languageManager->getLanguage($langcode);
     if ($language === NULL) {
-      return '/research';
+      return '/etudes-marche';
     }
-    return Url::fromUserInput('/research', ['language' => $language])->toString();
+    return Url::fromUserInput('/etudes-marche', ['language' => $language])->toString();
   }
 
 }

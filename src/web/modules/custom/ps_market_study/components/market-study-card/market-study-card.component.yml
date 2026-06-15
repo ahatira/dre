@@ -1,5 +1,5 @@
 name: Market study card
-description: 'Market study card with image overlay and stretched link.'
+description: 'Market study card with floating text box (bnppre §8 pattern).'
 group: Property Search
 status: stable
 props:
@@ -11,12 +11,12 @@ props:
     image_alt:
       type: string
       title: Image alt text
-    image_credit:
-      type: string
-      title: Image credit
     category:
       type: string
       title: Category label
+    category_url:
+      type: string
+      title: Category URL
     title:
       type: string
       title: Card title
@@ -26,9 +26,10 @@ props:
     url:
       type: string
       title: Card URL
+    url_new_tab:
+      type: boolean
+      title: Open card URL in a new tab
 libraryOverrides:
   css:
     component:
       styles/market-study-card.css: {}
-  dependencies:
-    - ps_content/media_credit
