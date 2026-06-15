@@ -1,0 +1,12 @@
+name: 'Views Promo Card'
+type: module
+description: 'Injects composable promotional cards between Views result rows.'
+core_version_requirement: ^11
+package: Views
+dependencies:
+  - drupal:views
+  - drupal:path_alias
+  - ui_patterns:ui_patterns
+
+suggest:
+  - ui_icons:ui_icons_picker

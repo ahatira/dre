@@ -1,0 +1,25 @@
+id: surface_calc
+label: 'Search Push Card — Surface calculator'
+description: 'Interstitial search card promoting the surface area calculator.'
+pattern_id: ps_theme:search-push-card
+ui_patterns:
+  component_id: ps_theme:search-push-card
+  variant_id: null
+  props:
+    title:
+      source_id: textfield
+      source:
+        value: 'Calculez la surface de vos futurs bureaux !'
+    body:
+      source_id: textfield
+      source:
+        value: 'Le calculateur de surface vous permet de définir en quelques clics les m² dont vous avez besoin.'
+    cta_label:
+      source_id: textfield
+      source:
+        value: 'Démarrer le calculateur'
+    cta_url:
+      source_id: url
+      source:
+        value: '/calculator'
+  slots: {}

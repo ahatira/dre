@@ -5,13 +5,6 @@ ps_search.admin_overview:
   parent: ps_core.config
   weight: 5
 
-ps_search.card_push:
-  title: 'Card Push'
-  description: 'Interstitial push cards for search results and future listing placements.'
-  route_name: ps_search.card_push_admin_overview
-  parent: ps_core.config
-  weight: 6
-
 ps_search.seo_url_mappings:
   title: 'SEO URL mappings'
   description: 'Configure search page and filter URL slugs.'
@@ -39,13 +32,6 @@ ps_search.feature_filter_sync:
   route_name: ps_search.feature_filter_sync_settings
   parent: ps_search.admin_overview
   weight: 10
-
-ps_search.card_push_search_results:
-  title: 'Search results'
-  description: 'Card Push placement in the property search results list.'
-  route_name: ps_search.card_push_search_results_form
-  parent: ps_search.card_push
-  weight: 0
 
 ps_search.alert_settings:
   title: 'Search alerts'

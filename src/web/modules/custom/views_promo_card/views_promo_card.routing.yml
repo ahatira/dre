@@ -1,0 +1,121 @@
+views_promo_card.admin:
+  path: '/admin/config/services/views-promo-card'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::overview'
+    _title: 'Views Promo Card'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card.collection:
+  path: '/admin/config/services/views-promo-card/cards'
+  defaults:
+    _entity_list: 'promo_card'
+    _title: 'Promo cards'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card.add_form:
+  path: '/admin/config/services/views-promo-card/cards/add'
+  defaults:
+    _entity_form: 'promo_card.add'
+    _title: 'Add promo card'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card.edit_form:
+  path: '/admin/config/services/views-promo-card/cards/{promo_card}'
+  defaults:
+    _entity_form: 'promo_card.edit'
+    _title: 'Edit promo card'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card.delete_form:
+  path: '/admin/config/services/views-promo-card/cards/{promo_card}/delete'
+  defaults:
+    _entity_form: 'promo_card.delete'
+    _title: 'Delete promo card'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card_placement.collection:
+  path: '/admin/config/services/views-promo-card/placements'
+  defaults:
+    _entity_list: 'promo_card_placement'
+    _title: 'Placements'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card_placement.add_form:
+  path: '/admin/config/services/views-promo-card/placements/add'
+  defaults:
+    _entity_form: 'promo_card_placement.add'
+    _title: 'Add placement'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card_placement.edit_form:
+  path: '/admin/config/services/views-promo-card/placements/{promo_card_placement}'
+  defaults:
+    _entity_form: 'promo_card_placement.edit'
+    _title: 'Edit placement'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+entity.promo_card_placement.delete_form:
+  path: '/admin/config/services/views-promo-card/placements/{promo_card_placement}/delete'
+  defaults:
+    _entity_form: 'promo_card_placement.delete'
+    _title: 'Delete placement'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+views_promo_card.settings:
+  path: '/admin/config/services/views-promo-card/settings'
+  defaults:
+    _form: '\Drupal\views_promo_card\Form\SettingsForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+views_promo_card.card_preview:
+  path: '/admin/config/services/views-promo-card/cards/preview'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\PromoCardPreviewController::preview'
+  requirements:
+    _permission: 'administer views promo card'
+  methods: [POST]
+  options:
+    _admin_route: TRUE
+    no_cache: TRUE
+
+views_promo_card.placement_preview:
+  path: '/admin/config/services/views-promo-card/placements/preview'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\PromoCardPlacementPreviewController::preview'
+  requirements:
+    _permission: 'administer views promo card'
+  methods: [POST]
+  options:
+    _admin_route: TRUE
+    no_cache: TRUE

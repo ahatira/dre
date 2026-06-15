@@ -38,29 +38,6 @@ ps_search.feature_filter_sync_settings:
   requirements:
     _permission: 'access ps_core config section'
 
-ps_search.card_push_admin_overview:
-  path: '/admin/ps/config/card-push'
-  defaults:
-    _controller: '\Drupal\ps_search\Controller\CardPushAdminOverviewController::overview'
-    _title: 'Card Push'
-  requirements:
-    _permission: 'access ps_core config section'
-
-ps_search.card_push_search_results_form:
-  path: '/admin/ps/config/card-push/search-results'
-  defaults:
-    _form: '\Drupal\ps_search\Form\PushSettingsForm'
-    _title: 'Search results'
-  requirements:
-    _permission: 'access ps_core config section'
-
-ps_search.push_settings_form:
-  path: '/admin/ps/config/search/push'
-  defaults:
-    _controller: '\Drupal\ps_search\Controller\CardPushAdminOverviewController::legacyPushRedirect'
-  requirements:
-    _permission: 'access ps_core config section'
-
 ps_search.alert_settings_form:
   path: '/admin/ps/config/search/alerts'
   defaults:

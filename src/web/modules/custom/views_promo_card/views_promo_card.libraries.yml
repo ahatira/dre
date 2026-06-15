@@ -1,0 +1,30 @@
+promo_card_slot:
+  version: 1.x
+  css:
+    theme:
+      css/promo-card-slot.css: {}
+
+promo_card_admin:
+  version: 1.0.4
+  css:
+    theme:
+      css/promo-card-admin.css: {}
+  js:
+    js/promo-card-admin.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/once
+
+promo_card_preview_frame:
+  version: 1.0.2
+  css:
+    theme:
+      css/promo-card-preview-frame.css: {}
+
+admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/promo-card-admin-overview.css: {}

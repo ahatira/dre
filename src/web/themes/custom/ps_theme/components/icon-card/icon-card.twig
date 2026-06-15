@@ -2,15 +2,29 @@
 /**
  * @file
  * Homepage service icon card — Figma Frame 38/39 (§2 Services).
- *
- * Flat structure (icon, title, body, actions) for equal-height subgrid rows.
  */
 #}
-{% set button_class = button_style == 'primary' ? 'btn-primary' : 'btn-outline-primary' %}
-<article class="ps-icon-card">
+{% set button_class = button_style|default('primary') == 'primary' ? 'btn-primary' : 'btn-outline-primary' %}
+{% set btn_width_class = button_width|default('full') == 'full' ? 'w-100' : '' %}
+{% set card_classes = ['ps-icon-card'] %}
+{% set bg = background|default('transparent') %}
+{% if bg != 'transparent' and bg != '' %}
+  {% set card_classes = card_classes|merge(['ps-icon-card--bg-' ~ bg]) %}
+{% endif %}
+{% set align = text_align|default('center') %}
+{% if align == 'left' %}
+  {% set card_classes = card_classes|merge(['ps-icon-card--align-left']) %}
+{% endif %}
+{% set elev = elevation|default('none') %}
+{% if elev == 'sm' or elev == 'md' %}
+  {% set card_classes = card_classes|merge(['ps-icon-card--elevation-' ~ elev]) %}
+{% endif %}
+{% set icon_sizes = { 'sm': '24px', 'md': '32px', 'lg': '48px' } %}
+{% set icon_px = icon_sizes[icon_size|default('md')] ?? '32px' %}
+<article{{ attributes.addClass(card_classes) }}>
   {% if icon_pack and icon_id %}
     <div class="ps-icon-card__icon" aria-hidden="true">
-      {{ icon(icon_pack, icon_id, {size: '32px'}) }}
+      {{ icon(icon_pack, icon_id, {size: icon_px}) }}
     </div>
   {% endif %}
   {% if title %}
@@ -22,19 +36,19 @@
   {% if button_label %}
     <div class="ps-icon-card__actions">
       {% if link_type == 'modal' and modal_id %}
-        <button type="button" class="btn {{ button_class }} w-100 ps-icon-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+        <button type="button" class="btn {{ button_class }} {{ btn_width_class }} ps-icon-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
           {{ button_label }}
         </button>
       {% elseif link_type == 'offcanvas' %}
         <a href="{{ button_url }}"
-           class="btn {{ button_class }} w-100 ps-icon-card__button use-ajax"
+           class="btn {{ button_class }} {{ btn_width_class }} ps-icon-card__button use-ajax"
            data-dialog-type="dialog"
            data-dialog-renderer="off_canvas"
            data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
           {{ button_label }}
         </a>
       {% elseif button_url %}
-        <a href="{{ button_url }}" class="btn {{ button_class }} w-100 ps-icon-card__button">{{ button_label }}</a>
+        <a href="{{ button_url }}" class="btn {{ button_class }} {{ btn_width_class }} ps-icon-card__button">{{ button_label }}</a>
       {% endif %}
     </div>
   {% endif %}

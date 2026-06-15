@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Unformatted view rows with promo card insertion slots.
+ */
+#}
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+{% for row in rows %}
+  <div{{ row.attributes.addClass(default_row_class ? 'views-row') }}>
+    {{- row.content -}}
+  </div>
+  {% if promo_card_slots[loop.index] is defined %}
+    <div class="views-row promo-card-slot">
+      {{ promo_card_slots[loop.index] }}
+    </div>
+  {% endif %}
+{% endfor %}

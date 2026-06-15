@@ -1,0 +1,31 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - views_promo_card
+id: ps_search_card_push
+label: 'Search results card push'
+weight: 0
+preset_id: surface_calc
+pattern_id: ps_theme:search-push-card
+ui_patterns:
+  component_id: ps_theme:search-push-card
+  variant_id: null
+  props:
+    title:
+      source_id: textfield
+      source:
+        value: 'Calculate the target surface area of your future offices!'
+    body:
+      source_id: textfield
+      source:
+        value: 'Quick and easy to use, the surface area calculator lets you define the m2 surface area you need in just a few clicks.'
+    cta_label:
+      source_id: textfield
+      source:
+        value: 'Start calculator'
+    cta_url:
+      source_id: url
+      source:
+        value: '/calculator'
+  slots: {}

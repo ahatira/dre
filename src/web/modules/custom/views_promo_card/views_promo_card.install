@@ -1,0 +1,300 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for Views Promo Card.
+ */
+
+declare(strict_types=1);
+
+use Drupal\views_promo_card\Entity\PromoCardInterface;
+use Drupal\views_promo_card\Service\PatternIconHelper;
+use Drupal\views_promo_card\Service\UiPatternsPropBuilder;
+use Drupal\views_promo_card\Utility\IconIdUtility;
+
+/**
+ * Installs presets and migrates legacy promo cards to UI Patterns.
+ */
+function views_promo_card_update_11001(): void {
+  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
+  $installer = \Drupal::service('config.installer');
+  $installer->installDefaultConfig('module', 'views_promo_card');
+
+  if (!\Drupal::hasService('views_promo_card.legacy_component_mapper')) {
+    return;
+  }
+
+  /** @var \Drupal\views_promo_card\Service\LegacyComponentMapper $mapper */
+  $mapper = \Drupal::service('views_promo_card.legacy_component_mapper');
+  /** @var \Drupal\views_promo_card\Service\PresetRepository $presets */
+  $presets = \Drupal::service('views_promo_card.preset_repository');
+
+  $storage = \Drupal::entityTypeManager()->getStorage('promo_card');
+  foreach ($storage->loadMultiple() as $card) {
+    if (!$card instanceof PromoCardInterface || $card->getPatternId() !== '') {
+      continue;
+    }
+
+    $mapped = $mapper->map($card);
+    if ($mapped === NULL) {
+      continue;
+    }
+
+    $card->set('pattern_id', $mapped['pattern_id']);
+    $card->set('ui_patterns', $mapped['ui_patterns']);
+
+    $preset = $presets->get($card->id());
+    if ($preset !== NULL) {
+      $card->set('preset_id', $card->id());
+    }
+
+    $card->save();
+  }
+}
+
+/**
+ * Strips legacy component fields from promo card configuration.
+ */
+function views_promo_card_update_11002(): void {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ($config_factory->listAll('views_promo_card.promo_card.') as $config_name) {
+    $editable = $config_factory->getEditable($config_name);
+    $data = $editable->get();
+    if (!is_array($data)) {
+      continue;
+    }
+
+    if (($data['pattern_id'] ?? '') === '' && !empty($data['components'])) {
+      $mapped = views_promo_card_map_legacy_components($data);
+      if ($mapped !== NULL) {
+        $data['pattern_id'] = $mapped['pattern_id'];
+        $data['ui_patterns'] = $mapped['ui_patterns'];
+      }
+    }
+
+    unset($data['components'], $data['wrapper_settings']);
+    $editable->setData($data)->save(TRUE);
+  }
+}
+
+/**
+ * Adds default icon props to icon-card presets and existing promo cards.
+ */
+function views_promo_card_update_11003(): void {
+  /** @var \Drupal\views_promo_card\Service\PatternIconHelper $icon_helper */
+  $icon_helper = \Drupal::service('views_promo_card.pattern_icon_helper');
+  $config_factory = \Drupal::configFactory();
+
+  foreach ($config_factory->listAll('views_promo_card.promo_card_preset.') as $config_name) {
+    $editable = $config_factory->getEditable($config_name);
+    $data = $editable->get();
+    if (!is_array($data)) {
+      continue;
+    }
+    $pattern_id = (string) ($data['pattern_id'] ?? '');
+    if (!$icon_helper->patternHasIconProps($pattern_id)) {
+      continue;
+    }
+
+    $ui_patterns = is_array($data['ui_patterns'] ?? NULL) ? $data['ui_patterns'] : [];
+    $ui_patterns = $icon_helper->normalizeUiPatterns($ui_patterns + [
+      'component_id' => $pattern_id,
+    ]);
+    $data['ui_patterns'] = $ui_patterns;
+    $editable->setData($data)->save(TRUE);
+  }
+
+  $storage = \Drupal::entityTypeManager()->getStorage('promo_card');
+  foreach ($storage->loadMultiple() as $card) {
+    if (!$card instanceof PromoCardInterface) {
+      continue;
+    }
+    $pattern_id = $card->getPatternId();
+    if (!$icon_helper->patternHasIconProps($pattern_id)) {
+      continue;
+    }
+
+    $ui_patterns = $icon_helper->normalizeUiPatterns($card->getUiPatterns() + [
+      'component_id' => $pattern_id,
+    ]);
+    $card->set('ui_patterns', $ui_patterns);
+    $card->save();
+  }
+}
+
+/**
+ * Renames config objects to shorter prefixes (card, placement, preset).
+ */
+function views_promo_card_update_11004(): string {
+  $map = [
+    'views_promo_card.promo_card_preset.' => 'views_promo_card.preset.',
+    'views_promo_card.promo_card.' => 'views_promo_card.card.',
+    'views_promo_card.promo_card_placement.' => 'views_promo_card.placement.',
+  ];
+  $config_factory = \Drupal::configFactory();
+  $count = 0;
+
+  foreach ($map as $old_prefix => $new_prefix) {
+    foreach ($config_factory->listAll($old_prefix) as $old_name) {
+      $new_name = str_replace($old_prefix, $new_prefix, $old_name);
+      if (!$config_factory->get($new_name)->isNew()) {
+        continue;
+      }
+      $data = $config_factory->get($old_name)->getRawData();
+      $config_factory->getEditable($new_name)->setData($data)->save(TRUE);
+      $config_factory->getEditable($old_name)->delete();
+      $count++;
+    }
+  }
+
+  return (string) t('Renamed @count promo card config objects to shorter prefixes.', ['@count' => $count]);
+}
+
+/**
+ * Installs the surface_calc preset on existing sites.
+ */
+function views_promo_card_update_11005(): void {
+  $config_factory = \Drupal::configFactory();
+  if (!$config_factory->get('views_promo_card.preset.surface_calc')->isNew()) {
+    return;
+  }
+
+  $module_path = \Drupal::service('extension.list.module')->getPath('views_promo_card');
+  $install_storage = new \Drupal\Core\Config\FileStorage($module_path . '/config/optional');
+  foreach ($install_storage->listAll('views_promo_card.preset.') as $name) {
+    if ($config_factory->get($name)->isNew()) {
+      $data = $install_storage->read($name);
+      if (is_array($data)) {
+        $config_factory->getEditable($name)->setData($data)->save(TRUE);
+      }
+    }
+  }
+}
+
+/**
+ * Maps legacy component config to UI Patterns (one-time update helper).
+ *
+ * @param array<string, mixed> $data
+ *   Raw promo card config.
+ *
+ * @return array{pattern_id: string, ui_patterns: array<string, mixed>}|null
+ *   Mapped pattern configuration, or NULL when not legacy.
+ */
+function views_promo_card_map_legacy_components(array $data): ?array {
+  $components = $data['components'] ?? [];
+  if (!is_array($components) || $components === []) {
+    return NULL;
+  }
+
+  $content = [];
+  $cta = [];
+  foreach ($components as $component) {
+    if (!is_array($component)) {
+      continue;
+    }
+    $plugin_id = (string) ($component['plugin_id'] ?? '');
+    $configuration = is_array($component['configuration'] ?? NULL) ? $component['configuration'] : [];
+    match ($plugin_id) {
+      'content' => $content = $configuration,
+      'cta' => $cta = $configuration,
+      default => NULL,
+    };
+  }
+
+  if ($content === [] && $cta === []) {
+    return NULL;
+  }
+
+  $wrapper = is_array($data['wrapper_settings'] ?? NULL) ? $data['wrapper_settings'] : [];
+  $css_class = trim((string) ($wrapper['css_class'] ?? ''));
+
+  if (str_contains($css_class, 'expert') || str_contains($css_class, 'icon')) {
+    $pattern_id = views_promo_card_legacy_pattern('icon');
+    if ($pattern_id === NULL) {
+      return NULL;
+    }
+    $parts = IconIdUtility::resolveParts(
+      (string) (\Drupal::config('views_promo_card.settings')->get('default_icon') ?? ''),
+      'bnp_custom',
+      'entrusting-a-property',
+    );
+    return [
+      'pattern_id' => $pattern_id,
+      'ui_patterns' => UiPatternsPropBuilder::component($pattern_id, [
+        'icon_pack' => UiPatternsPropBuilder::textfield($parts['pack']),
+        'icon_id' => UiPatternsPropBuilder::textfield($parts['id']),
+        'title' => UiPatternsPropBuilder::textfield(trim((string) ($content['title'] ?? ''))),
+        'body' => UiPatternsPropBuilder::textfield(trim((string) ($content['body'] ?? ''))),
+        'button_label' => UiPatternsPropBuilder::textfield(trim((string) ($cta['label'] ?? ''))),
+        'button_url' => UiPatternsPropBuilder::url(trim((string) ($cta['url'] ?? ''))),
+        'button_style' => UiPatternsPropBuilder::select((string) ($cta['style'] ?? 'outline')),
+      ]),
+    ];
+  }
+
+  if ($cta !== [] && $content === []) {
+    $pattern_id = views_promo_card_legacy_pattern('cta');
+    if ($pattern_id === NULL) {
+      return NULL;
+    }
+    return [
+      'pattern_id' => $pattern_id,
+      'ui_patterns' => UiPatternsPropBuilder::component($pattern_id, [
+        'title' => UiPatternsPropBuilder::textfield(''),
+        'button_label' => UiPatternsPropBuilder::textfield(trim((string) ($cta['label'] ?? ''))),
+        'button_url' => UiPatternsPropBuilder::url(trim((string) ($cta['url'] ?? ''))),
+      ]),
+    ];
+  }
+
+  $pattern_id = views_promo_card_legacy_pattern('search_push');
+  if ($pattern_id === NULL) {
+    return NULL;
+  }
+
+  return [
+    'pattern_id' => $pattern_id,
+    'ui_patterns' => UiPatternsPropBuilder::component($pattern_id, [
+      'title' => UiPatternsPropBuilder::textfield(trim((string) ($content['title'] ?? ''))),
+      'body' => UiPatternsPropBuilder::textfield(trim((string) ($content['body'] ?? ''))),
+      'cta_label' => UiPatternsPropBuilder::textfield(trim((string) ($cta['label'] ?? ''))),
+      'cta_url' => UiPatternsPropBuilder::url(trim((string) ($cta['url'] ?? '/calculator'))),
+    ]),
+  ];
+}
+
+/**
+ * Resolves a legacy pattern alias from allowed pattern settings.
+ *
+ * @param 'icon'|'cta'|'search_push' $alias
+ *   Legacy pattern alias.
+ *
+ * @return string|null
+ *   Matching allowed pattern ID, or NULL when none found.
+ */
+function views_promo_card_legacy_pattern(string $alias): ?string {
+  $patterns = \Drupal::config('views_promo_card.settings')->get('allowed_patterns') ?? [];
+  if (!is_array($patterns)) {
+    return NULL;
+  }
+
+  $needles = match ($alias) {
+    'icon' => ['icon-card'],
+    'cta' => ['cta-card'],
+    default => ['search-push-card', 'search_push'],
+  };
+
+  foreach ($patterns as $pattern_id) {
+    if (!is_string($pattern_id)) {
+      continue;
+    }
+    foreach ($needles as $needle) {
+      if (str_contains($pattern_id, $needle)) {
+        return $pattern_id;
+      }
+    }
+  }
+
+  return NULL;
+}

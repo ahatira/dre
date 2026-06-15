@@ -14,9 +14,9 @@
   <div{{ row.attributes.addClass(row_classes) }}>
     {{- row.content -}}
   </div>
-  {% if search_push_card and search_push_insert_after and loop.index == search_push_insert_after %}
-    <div class="col-12 ps-search-push-slot">
-      {{ search_push_card }}
+  {% if promo_card_slots[loop.index] is defined %}
+    <div class="col-12 promo-card-slot">
+      {{ promo_card_slots[loop.index] }}
     </div>
   {% endif %}
 {% endfor %}

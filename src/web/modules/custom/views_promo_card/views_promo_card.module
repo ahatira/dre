@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @file
+ * Views Promo Card — inject composable promotional cards into Views rows.
+ */

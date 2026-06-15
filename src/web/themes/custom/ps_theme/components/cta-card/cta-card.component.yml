@@ -14,9 +14,55 @@ props:
     button_url:
       type: string
       title: Button URL or modal anchor
+    button_style:
+      type: string
+      title: Button style
+      enum:
+        - primary
+        - outline
+      default: outline
+    button_width:
+      type: string
+      title: Button width
+      enum:
+        - full
+        - auto
+      default: full
     icon:
       type: string
       title: Icon name
     modal_id:
       type: string
       title: Bootstrap modal ID
+    background:
+      type: string
+      title: Background
+      enum:
+        - default
+        - white
+        - muted
+        - dark
+        - primary
+      default: default
+    text_align:
+      type: string
+      title: Text alignment
+      enum:
+        - left
+        - center
+      default: left
+    elevation:
+      type: string
+      title: Shadow / elevation
+      enum:
+        - none
+        - sm
+        - md
+      default: none
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+libraryOverrides:
+  css:
+    component:
+      styles/cta-card.css: {}

@@ -19,6 +19,7 @@ dependencies:
     - ps_offer
     - ps_search
     - sitewide_alert
+    - views_promo_card
     - system
     - trash
 id: content_admin
@@ -50,6 +51,7 @@ permissions:
   - 'administer ps_core'
   - 'administer ps_media'
   - 'administer search alerts'
+  - 'administer views promo card'
   - 'configure editable page node layout overrides'
   - 'create offer content'
   - 'delete any offer content'

@@ -1,0 +1,24 @@
+views_promo_card.admin:
+  title: 'Views Promo Card'
+  description: 'Configure promotional cards injected into Views results.'
+  route_name: views_promo_card.admin
+  parent: system.admin_config_services
+  weight: 50
+
+entity.promo_card.collection:
+  title: 'Promo cards'
+  route_name: entity.promo_card.collection
+  parent: views_promo_card.admin
+  weight: 0
+
+entity.promo_card_placement.collection:
+  title: 'Placements'
+  route_name: entity.promo_card_placement.collection
+  parent: views_promo_card.admin
+  weight: 10
+
+views_promo_card.settings:
+  title: 'Settings'
+  route_name: views_promo_card.settings
+  parent: views_promo_card.admin
+  weight: 20

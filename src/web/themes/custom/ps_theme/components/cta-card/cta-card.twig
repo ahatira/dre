@@ -1,14 +1,29 @@
-<div class="ps-cta-card">
+{% set button_class = button_style|default('outline') == 'primary' ? 'btn-primary' : 'btn-outline-primary' %}
+{% set btn_width_class = button_width|default('full') == 'full' ? 'w-100' : '' %}
+{% set card_classes = ['ps-cta-card'] %}
+{% set bg = background|default('default') %}
+{% if bg != 'default' and bg != '' %}
+  {% set card_classes = card_classes|merge(['ps-cta-card--bg-' ~ bg]) %}
+{% endif %}
+{% set align = text_align|default('left') %}
+{% if align == 'center' %}
+  {% set card_classes = card_classes|merge(['ps-cta-card--align-center']) %}
+{% endif %}
+{% set elev = elevation|default('none') %}
+{% if elev == 'sm' or elev == 'md' %}
+  {% set card_classes = card_classes|merge(['ps-cta-card--elevation-' ~ elev]) %}
+{% endif %}
+<div{{ attributes.addClass(card_classes) }}>
   {% if title %}
     <h3 class="ps-cta-card__title">{{ title }}</h3>
   {% endif %}
   {% if button_label %}
     {% if modal_id %}
-      <button type="button" class="btn btn-outline-primary w-100 ps-cta-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+      <button type="button" class="btn {{ button_class }} {{ btn_width_class }} ps-cta-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
         {{ button_label }}
       </button>
     {% else %}
-      <a href="{{ button_url }}" class="btn btn-outline-primary w-100 ps-cta-card__button">{{ button_label }}</a>
+      <a href="{{ button_url }}" class="btn {{ button_class }} {{ btn_width_class }} ps-cta-card__button">{{ button_label }}</a>
     {% endif %}
   {% endif %}
 </div>

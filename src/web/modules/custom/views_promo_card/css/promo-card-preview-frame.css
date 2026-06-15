@@ -1,0 +1,37 @@
+/**
+ * Preview iframe document — prevent height feedback loops with parent iframe sizing.
+ */
+.promo-card-preview-page,
+.promo-card-preview-page body {
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0;
+  overflow: hidden;
+}
+
+.promo-card-preview-document {
+  box-sizing: border-box;
+  padding: 0.75rem;
+  background: var(--re-color-surface-muted, #f3f4f6);
+}
+
+.promo-card-preview-document *,
+.promo-card-preview-document *::before,
+.promo-card-preview-document *::after {
+  box-sizing: inherit;
+}
+
+.promo-card-preview-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.promo-card-preview-frame__card {
+  width: 100%;
+}
+
+.promo-card-preview-frame__card > article,
+.promo-card-preview-frame__card > div {
+  width: 100%;
+}

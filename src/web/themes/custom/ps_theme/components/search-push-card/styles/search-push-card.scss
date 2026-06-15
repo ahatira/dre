@@ -37,6 +37,100 @@
     padding-inline: 1.25rem;
   }
 
+  &--bg-white {
+    background-color: #fff;
+  }
+
+  &--bg-muted {
+    background-color: var(--re-color-surface-muted, #f9f9fb);
+  }
+
+  &--bg-dark {
+    background-color: var(--re-color-text-strong, #1c2d37);
+    border-color: transparent;
+    color: #fff;
+
+    .ps-search-push-card__title,
+    .ps-search-push-card__body {
+      color: inherit;
+    }
+
+    .ps-search-push-card__body {
+      opacity: 0.88;
+    }
+
+    .ps-search-push-card__cta.btn-outline-primary {
+      --bs-btn-color: #fff;
+      --bs-btn-border-color: rgba(255, 255, 255, 0.75);
+      --bs-btn-hover-bg: #fff;
+      --bs-btn-hover-color: var(--re-color-text-strong, #1c2d37);
+      --bs-btn-hover-border-color: #fff;
+    }
+  }
+
+  &--bg-primary {
+    background-color: var(--re-color-primary, #00915a);
+    border-color: transparent;
+    color: #fff;
+
+    .ps-search-push-card__title,
+    .ps-search-push-card__body {
+      color: inherit;
+    }
+
+    .ps-search-push-card__body {
+      opacity: 0.92;
+    }
+
+    .ps-search-push-card__cta.btn-outline-primary {
+      --bs-btn-color: #fff;
+      --bs-btn-border-color: rgba(255, 255, 255, 0.85);
+      --bs-btn-bg: transparent;
+      --bs-btn-hover-bg: #fff;
+      --bs-btn-hover-color: var(--re-color-primary, #00915a);
+      --bs-btn-hover-border-color: #fff;
+    }
+
+    .ps-search-push-card__cta.btn-primary {
+      --bs-btn-bg: #fff;
+      --bs-btn-border-color: #fff;
+      --bs-btn-color: var(--re-color-primary, #00915a);
+      --bs-btn-hover-bg: var(--re-color-surface-muted, #f3f4f6);
+      --bs-btn-hover-color: var(--re-color-primary-strong, #007a4d);
+    }
+  }
+
+  &--align-center {
+    align-items: center;
+    text-align: center;
+
+    .ps-search-push-card__cta {
+      align-self: center;
+    }
+  }
+
+  &--cta-full .ps-search-push-card__cta {
+    align-self: stretch;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &--border-none {
+    border-color: transparent;
+  }
+
+  &--border-accent {
+    border-color: var(--re-color-primary, #00915a);
+  }
+
+  &--elevation-sm {
+    box-shadow: 0 2px 8px rgba(28, 45, 55, 0.08);
+  }
+
+  &--elevation-md {
+    box-shadow: 0 8px 24px rgba(28, 45, 55, 0.12);
+  }
+
   @media (max-width: 991.98px) {
     padding: 1.25rem 1rem;
 
@@ -44,7 +138,7 @@
       font-size: 1rem;
     }
 
-    &__cta {
+    &:not(.ps-search-push-card--cta-full) .ps-search-push-card__cta {
       align-self: stretch;
       justify-content: center;
       width: 100%;

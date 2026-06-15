@@ -1,0 +1,3 @@
+administer views promo card:
+  title: 'Administer Views Promo Card'
+  restrict access: true

@@ -43,12 +43,6 @@ final class SearchAdminOverviewController extends ControllerBase {
       ],
       [
         '#type' => 'link',
-        '#title' => $this->t('Card Push'),
-        '#url' => Url::fromRoute('ps_search.card_push_admin_overview'),
-        '#attributes' => ['class' => ['admin-item__link']],
-      ],
-      [
-        '#type' => 'link',
         '#title' => $this->t('Search alerts'),
         '#url' => Url::fromRoute('ps_search.alert_settings_form'),
         '#attributes' => ['class' => ['admin-item__link']],

@@ -13,6 +13,7 @@ dependencies:
     - ps_core
     - ps_seo
     - redirect_after_login
+    - views_promo_card
     - roleassign
     - sitewide_alert
     - system
@@ -38,6 +39,7 @@ permissions:
   - 'administer ps_context matrix'
   - 'administer ps_core'
   - 'administer ps_seo'
+  - 'administer views promo card'
   - 'administer redirect_after_login settings'
   - 'administer site configuration'
   - 'administer sitewide alert'

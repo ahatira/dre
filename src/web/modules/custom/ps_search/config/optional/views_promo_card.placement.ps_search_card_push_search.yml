@@ -1,0 +1,33 @@
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.ps_search_offers
+    - views_promo_card.card.ps_search_card_push
+  module:
+    - views_promo_card
+id: ps_search_card_push_search
+label: 'Search offers — page list'
+weight: 0
+view_id: ps_search_offers
+display_id: page_list
+cards:
+  -
+    promo_card: ps_search_card_push
+    weight: 0
+rotation: weight_first
+placement_rules:
+  -
+    type: fixed
+    position: 1
+conditions:
+  -
+    id: promo_card_pager_page
+    negate: false
+    max_page: 0
+  -
+    id: promo_card_min_results
+    negate: false
+    minimum: 2
+conditions_logic: and
+max_insertions_per_page: 1

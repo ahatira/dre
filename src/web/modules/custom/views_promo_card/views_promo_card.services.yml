@@ -1,0 +1,86 @@
+services:
+  views_promo_card.pattern_registry:
+    class: Drupal\views_promo_card\Service\PatternRegistry
+    arguments:
+      - '@config.factory'
+      - '@plugin.manager.sdc'
+
+  views_promo_card.preset_repository:
+    class: Drupal\views_promo_card\Service\PresetRepository
+    arguments:
+      - '@config.factory'
+
+  views_promo_card.condition_evaluator:
+    class: Drupal\views_promo_card\Service\ConditionEvaluator
+    arguments:
+      - '@plugin.manager.condition'
+
+  views_promo_card.placement_resolver:
+    class: Drupal\views_promo_card\Service\PlacementResolver
+    arguments:
+      - '@entity_type.manager'
+      - '@views_promo_card.condition_evaluator'
+      - '@cache.default'
+
+  views_promo_card.pattern_icon_helper:
+    class: Drupal\views_promo_card\Service\PatternIconHelper
+    arguments:
+      - '@plugin.manager.sdc'
+      - '@config.factory'
+      - '@module_handler'
+
+  views_promo_card.pattern_form_builder:
+    class: Drupal\views_promo_card\Service\PromoCardPatternFormBuilder
+    arguments:
+      - '@views_promo_card.pattern_icon_helper'
+      - '@module_handler'
+      - '@config.factory'
+      - '@entity_type.manager'
+
+  views_promo_card.preview_frame_builder:
+    class: Drupal\views_promo_card\Service\PreviewFrameBuilder
+    arguments:
+      - '@bare_html_page_renderer'
+      - '@views_promo_card.pattern_registry'
+
+  views_promo_card.card_renderer:
+    class: Drupal\views_promo_card\Service\CardRenderer
+    arguments:
+      - '@entity_type.manager'
+      - '@ui_patterns.component_element_builder'
+      - '@views_promo_card.pattern_registry'
+      - '@views_promo_card.pattern_icon_helper'
+      - '@plugin.manager.sdc'
+
+  views_promo_card.card_rotation:
+    class: Drupal\views_promo_card\Service\CardRotationManager
+    arguments:
+      - '@state'
+
+  views_promo_card.insertion_manager:
+    class: Drupal\views_promo_card\Service\InsertionManager
+    arguments:
+      - '@views_promo_card.placement_resolver'
+      - '@views_promo_card.card_renderer'
+      - '@views_promo_card.card_rotation'
+
+  views_promo_card.preview_builder:
+    class: Drupal\views_promo_card\Service\PreviewBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@views_promo_card.card_renderer'
+
+  views_promo_card.preview_theme_negotiator:
+    class: Drupal\views_promo_card\Theme\PreviewThemeNegotiator
+    arguments:
+      - '@config.factory'
+    tags:
+      - { name: theme_negotiator, priority: 1000 }
+
+  Drupal\views_promo_card\Hook\EntityHooks:
+    arguments:
+      - '@cache_tags.invalidator'
+
+  Drupal\views_promo_card\Hook\ViewsPromoCardHooks:
+    arguments:
+      - '@views_promo_card.insertion_manager'

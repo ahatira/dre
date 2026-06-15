@@ -29,12 +29,56 @@ props:
       enum:
         - primary
         - outline
+      default: primary
+    button_width:
+      type: string
+      title: Button width
+      enum:
+        - full
+        - auto
+      default: full
     link_type:
       type: string
       title: Link type
     modal_id:
       type: string
       title: Modal ID
+    background:
+      type: string
+      title: Background
+      enum:
+        - transparent
+        - white
+        - muted
+        - dark
+        - primary
+      default: transparent
+    text_align:
+      type: string
+      title: Text alignment
+      enum:
+        - center
+        - left
+      default: center
+    icon_size:
+      type: string
+      title: Icon size
+      enum:
+        - sm
+        - md
+        - lg
+      default: md
+    elevation:
+      type: string
+      title: Shadow / elevation
+      enum:
+        - none
+        - sm
+        - md
+      default: none
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
 libraryOverrides:
   css:
     component:

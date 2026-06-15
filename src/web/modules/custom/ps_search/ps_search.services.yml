@@ -278,16 +278,6 @@ services:
       - '@ps_search.list_sort_applier'
       - '@ps_search.search_path_resolver'
 
-  ps_search.push_block_builder:
-    class: Drupal\ps_search\Search\Push\SearchPushBlockBuilder
-    arguments:
-      - '@config.factory'
-
-  Drupal\ps_search\Hook\SearchPushViewsHooks:
-    class: Drupal\ps_search\Hook\SearchPushViewsHooks
-    arguments:
-      - '@ps_search.push_block_builder'
-
   Drupal\ps_search\Hook\SearchThemeHooks:
     class: Drupal\ps_search\Hook\SearchThemeHooks
 

@@ -21,6 +21,56 @@ props:
     cta_url:
       type: string
       title: Button URL
+    cta_button_style:
+      type: string
+      title: Button style
+      enum:
+        - primary
+        - outline
+      default: outline
+    background:
+      type: string
+      title: Background
+      enum:
+        - default
+        - white
+        - muted
+        - dark
+        - primary
+      default: default
+    text_align:
+      type: string
+      title: Text alignment
+      enum:
+        - left
+        - center
+      default: left
+    cta_width:
+      type: string
+      title: Button width
+      enum:
+        - auto
+        - full
+      default: auto
+    border:
+      type: string
+      title: Border
+      enum:
+        - default
+        - none
+        - accent
+      default: default
+    elevation:
+      type: string
+      title: Shadow / elevation
+      enum:
+        - none
+        - sm
+        - md
+      default: none
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
 libraryOverrides:
   css:
     component:

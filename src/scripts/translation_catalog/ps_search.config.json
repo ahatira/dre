@@ -22,36 +22,6 @@
       "label": "Slugi URL SEO PS Search"
     }
   },
-  "ps_search.push_settings.yml": {
-    "de": {
-      "title": "Berechnen Sie die Zielfläche Ihrer zukünftigen Büros!",
-      "cta_label": "Rechner starten"
-    },
-    "es": {
-      "title": "¡Calcule la superficie objetivo de sus futuras oficinas!",
-      "cta_label": "Iniciar calculadora"
-    },
-    "fr": {
-      "title": "Calculez la surface cible de vos futurs bureaux !",
-      "cta_label": "Lancer le calculateur"
-    },
-    "it": {
-      "title": "Calcola la superficie target dei tuoi futuri uffici!",
-      "cta_label": "Avvia calcolatore"
-    },
-    "lb": {
-      "title": "Berechent d'Zil-Fläch vun ären zukünftege Büren!",
-      "cta_label": "Rechner lancéieren"
-    },
-    "nl": {
-      "title": "Bereken het streefoppervlak van uw toekomstige kantoren!",
-      "cta_label": "Calculator starten"
-    },
-    "pl": {
-      "title": "Oblicz docelową powierzchnię przyszłych biur!",
-      "cta_label": "Uruchom kalkulator"
-    }
-  },
   "views.view.ps_search_offers.yml": {
     "de": {
       "label": "Angebotssuche",

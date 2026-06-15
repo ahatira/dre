@@ -1,0 +1,201 @@
+views_promo_card.settings:
+  type: config_object
+  label: 'Views Promo Card settings'
+  mapping:
+    debug_log:
+      type: boolean
+      label: 'Log placement resolution to watchdog'
+    allowed_patterns:
+      type: sequence
+      label: 'Allowed SDC pattern IDs'
+      sequence:
+        type: string
+    default_icon:
+      type: string
+      label: 'Default icon (pack:id) for icon-capable patterns'
+    linkit_profile:
+      type: string
+      label: 'Linkit profile ID for URL fields'
+
+views_promo_card.preset.*:
+  type: config_object
+  label: 'Promo card preset'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    description:
+      type: text
+      label: 'Description'
+    pattern_id:
+      type: string
+      label: 'Pattern ID'
+    ui_patterns:
+      type: mapping
+      label: 'UI Patterns defaults'
+      mapping:
+        component_id:
+          type: string
+        variant_id:
+          type: string
+          nullable: true
+        props:
+          type: ignore
+        slots:
+          type: ignore
+
+views_promo_card.card.*:
+  type: config_entity
+  label: 'Promo card'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    status:
+      type: boolean
+      label: 'Enabled'
+    weight:
+      type: integer
+      label: 'Weight'
+    preset_id:
+      type: string
+      label: 'Preset source ID'
+    pattern_id:
+      type: string
+      label: 'SDC pattern ID'
+    ui_patterns:
+      type: mapping
+      label: 'UI Patterns component configuration'
+      mapping:
+        component_id:
+          type: string
+        variant_id:
+          type: string
+          nullable: true
+        props:
+          type: ignore
+        slots:
+          type: ignore
+
+views_promo_card.placement.*:
+  type: config_entity
+  label: 'Promo card placement'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    status:
+      type: boolean
+      label: 'Enabled'
+    weight:
+      type: integer
+      label: 'Weight'
+    view_id:
+      type: string
+      label: 'View ID'
+    display_id:
+      type: string
+      label: 'Display ID'
+    cards:
+      type: sequence
+      label: 'Cards'
+      sequence:
+        type: mapping
+        mapping:
+          promo_card:
+            type: string
+            label: 'Promo card ID'
+          weight:
+            type: integer
+            label: 'Weight'
+    rotation:
+      type: string
+      label: 'Rotation strategy'
+    placement_rules:
+      type: sequence
+      label: 'Placement rules'
+      sequence:
+        type: mapping
+        mapping:
+          type:
+            type: string
+            label: 'Rule type'
+          position:
+            type: integer
+            label: 'Fixed position'
+          every:
+            type: integer
+            label: 'Interval step'
+          start_at:
+            type: integer
+            label: 'Interval start'
+    conditions:
+      type: sequence
+      label: 'Visibility conditions'
+      sequence:
+        type: mapping
+        mapping:
+          id:
+            type: string
+            label: 'Condition plugin ID'
+          negate:
+            type: boolean
+            label: 'Negate'
+          configuration:
+            type: ignore
+    conditions_logic:
+      type: string
+      label: 'Conditions logic'
+    max_insertions_per_page:
+      type: integer
+      label: 'Max insertions per page'
+
+views_promo_card.condition.min_results:
+  type: mapping
+  mapping:
+    minimum:
+      type: integer
+      label: 'Minimum results'
+
+views_promo_card.condition.pager_page:
+  type: mapping
+  mapping:
+    max_page:
+      type: integer
+      label: 'Maximum pager page'
+
+views_promo_card.condition.route_name:
+  type: mapping
+  mapping:
+    routes:
+      type: string
+      label: 'Route names'
+
+views_promo_card.condition.request_parameter:
+  type: mapping
+  mapping:
+    parameter:
+      type: string
+      label: 'Parameter name'
+    value:
+      type: string
+      label: 'Parameter value'
+
+views_promo_card.condition.views_exposed_filter:
+  type: mapping
+  mapping:
+    filter_id:
+      type: string
+      label: 'Filter ID'
+    value:
+      type: string
+      label: 'Expected value'

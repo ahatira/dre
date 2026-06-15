@@ -23,3 +23,4 @@ dependencies:
   - views_load_more:views_load_more
   - ps_form:ps_form
   - webform:webform
+  - views_promo_card:views_promo_card
