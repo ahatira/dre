@@ -8,7 +8,7 @@ contenu multilingue (default content), copy homepage (config), structure démo (
 | Couche | Rôle | Emplacement |
 |--------|------|-------------|
 | **Structure thème** | Menus vides, blocs en régions (`make install` importe `ps_theme/config/install/`) | `ps_theme/config/install/` |
-| **Contenu démo** | Menus Stellar (Login, Contact, mega-menu…), homepage LB, alias, copy | `export/content/` → `make demo` |
+| **Contenu démo** | Menus Stellar (Login, Contact, mega-menu…), homepage LB, alias, copy | `content/` → `make demo` |
 | **Copy homepage** | Métadonnées node (titres, alias) | `config/install/ps_demo.homepage.yml` |
 | **Paramètres démo** | Page d'accueil, références UUID | `config/install/ps_demo.settings.yml` |
 | **Structure démo** | Mega-menu panels, langues, bloc Follow us | `src/config/demo/` → `make demo` |
@@ -21,22 +21,27 @@ Rien de métier en dur dans le PHP : textes, langues, médias (chemins) et confi
 - Drupal **11.3+**
 - Thème **`ps_theme`** actif
 - Langues **EN** (défaut) + **FR**
-- Modules : `ps_homepage`, `content_translation`, `layout_builder`, `advanced_mega_menu`, `social_media_links`
+- Modules : `default_content`, `ps_homepage`, `content_translation`, `layout_builder`, `advanced_mega_menu`, `social_media_links`
 
 ## Structure
 
 ```
 ps_demo/
-├── export/content-structural/   # Référence Login + Contact (doublon partiel de content/)
-├── export/content/              # Demo complet (make demo)
+├── content-structural/          # Référence Login + Contact (doublon partiel de content/)
+├── content/                     # Default content YAML (import auto via module contrib)
 │   ├── node/
-│   └── menu_link_content/
+│   ├── menu_link_content/
+│   ├── file/                    # (+ binaire à côté du .yml pour les médias)
+│   └── media/
 ├── config/stellar_menus.yml     # Référence pour régénérer les exports menu
 ├── config/install/
 │   ├── ps_demo.settings.yml
 │   └── ps_demo.homepage.yml
-├── scripts/import-structural-content.php
-└── src/Service/DemoInstaller.php
+└── src/Service/
+    ├── DemoInstaller.php
+    ├── DemoHeroMediaImporter.php
+    ├── DemoTranslationSync.php
+    └── DemoMenuNormalizer.php
 
 src/config/demo/                 # Partial CMI (mega-menu, multilingual)
 ```
@@ -71,12 +76,31 @@ Enchaînement manuel (équivalent) :
 3. **`make import-sample-xml`** — migrate offres CRM
 4. **`make index-solr`** — index Search API / Solr
 
-## Multilingue
+## Default content (module contrib)
 
-- **Contenu** : chaque export `menu_link_content` / `node` inclut une section `translations.fr`
-- **URL** : alias `/home` (EN), `/fr/accueil` (FR) via `ps_demo.settings` → `front_paths` (sync à l'import)
-- **Traduction** : `language.content_settings.*` dans `config/demo/`
-- **Copy blocs** : textes LB dans la config de chaque bloc (traductions EN/FR au BO). `ps_demo.homepage.yml` = métadonnées node uniquement (titres, alias).
+Import automatique à l’activation de `ps_demo` via le module **`drupal/default_content`** :
+
+- Fichiers : `content/{entity_type}/{uuid}.yml`
+- Dépendances résolues (`_meta.depends`), fichiers binaires copiés pour les entités `file`
+- Export Drush : `drush default-content:export-references` (`dcer`)
+
+`DemoInstaller` ne réimporte le contenu que si le node homepage est absent. Pour un reset dev complet :
+
+```bash
+drush php:script scripts/tools/purge_ps_demo_content.php
+drush pm:uninstall ps_demo -y && drush en ps_demo -y
+```
+
+Pas de scripts PHP dans le module : import via `default_content` + services `DemoInstaller` / `DemoHeroMediaImporter`.
+
+## Multilingue (dynamique)
+
+1. **Import** : `default_content` charge EN + traductions dans chaque YAML (`translations.fr`, …).
+2. **Sync** : `DemoTranslationSync` parcourt les **langues actives du site** (`language_manager`) et crée les traductions manquantes (menus + homepage) en copiant la meilleure source (langue du site → EN → FR ; `lb` → FR).
+3. **Alias** : `applyPathAliases()` crée un alias pour chaque langue active — priorité `ps_demo.homepage` `node.path`, puis alias sur le node, puis fallback EN.
+4. **Copy blocs LB** : overlays par langue dans `ps_homepage/data/homepage_block_defaults.{lang}.yml` (géré par `ps_homepage`).
+
+Contributeur : ajouter titres/alias dans `config/install/ps_demo.homepage.yml` (clés libres par langcode) ou dans l’export node ; pas de liste de langues en dur dans le PHP.
 
 ## Homepage (node/1, Layout Builder)
 
@@ -117,18 +141,17 @@ Les textes des blocs LB sont stockés dans la **configuration de chaque bloc** (
 
 ```bash
 cd src/web
-CONTENT=modules/custom/ps_demo/export/content
+MODULE=modules/custom/ps_demo
+FOLDER="$MODULE/content"
 
-# Homepage + LB
-php core/scripts/drupal content:export node 1 --with-dependencies --dir="$CONTENT"
+# Homepage + dépendances (menus, files, media…)
+vendor/bin/drush dcer node <nid> --folder="$FOLDER"
 
-# Liens menu
-for id in $(../vendor/bin/drush sql:query "SELECT DISTINCT id FROM menu_link_content_data"); do
-  php core/scripts/drupal content:export menu_link_content "$id" --dir="$CONTENT"
-done
+# Hero image : après dcer, copier le binaire à côté du YAML file/
+# (dcer n’inclut pas toujours le PNG — copier depuis ps_theme ou content/file/)
 
-# Alias homepage : mettre à jour ps_demo.settings front_paths (ou exporter la config)
-vendor/bin/drush config:get ps_demo.settings front_paths
+# Liens menu individuels
+vendor/bin/drush default-content:export menu_link_content <id> --file="$FOLDER/menu_link_content/<uuid>.yml"
 ```
 
 ### 3. Exporter la config démo
@@ -149,15 +172,14 @@ make reinstall
 ## Tester l'import seul
 
 ```bash
+vendor/bin/drush php:script scripts/tools/purge_ps_demo_content.php
 vendor/bin/drush pm:uninstall ps_demo -y
-vendor/bin/drush php:script web/modules/custom/ps_demo/scripts/purge-ps-demo-content.php
 vendor/bin/drush pm:install ps_demo -y
-vendor/bin/drush config:import --partial --source=../config/demo -y
 vendor/bin/drush cr
 ```
 
 ## Notes
 
 - Les UUID exportés doivent rester **stables** entre exports.
-- Médias hero : chemins theme dans `ps_demo.homepage` aujourd'hui ; migration vers entités `media` exportées prévue.
+- Médias hero : entités `media` + `file` dans `content/`, référencées par UUID dans `homepage_block_defaults.yml`.
 - UI Patterns / SDC : composition visuelle à venir ; la structure LB + blocs config-first est en place.

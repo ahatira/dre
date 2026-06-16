@@ -1,0 +1,15 @@
+uuid: 1d5a9acd-eeac-4fd5-a1cc-f2a9526405a5
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_sol_bureaux
+label: 'Sol bureaux'
+description: 'Sol bureaux'
+code: TEC_SOL_BUREAUX
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2
+icon: ''
+expose_as_filter: 1

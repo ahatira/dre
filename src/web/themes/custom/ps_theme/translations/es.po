@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ps_theme\n"
+"POT-Creation-Date: 2026-06-16T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-06-16T00:00:00+00:00\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "No image"
+msgstr "Sin imagen"
+
+msgid "View the property"
+msgstr "Ver el inmueble"
+
+msgid "Consult the listing"
+msgstr "Consultar el anuncio"
+
+msgid "Read more"
+msgstr "Leer más"
+
+msgid "Published on"
+msgstr "Publicado el"
+
+msgid "Already viewed"
+msgstr "Ya consultado"
+
+msgid "Exclusivity"
+msgstr "Exclusividad"
+
+msgid "Compare"
+msgstr "Comparar"
+
+msgid "Previous image"
+msgstr "Imagen anterior"
+
+msgid "Next image"
+msgstr "Imagen siguiente"
+
+msgid "On request"
+msgstr "Bajo consulta"
+
+msgid "Add to favorites"
+msgstr "Añadir a favoritos"
+
+msgid "Remove from favorites"
+msgstr "Eliminar de favoritos"
+
+msgid "Favorite"
+msgstr "Favorito"
+
+msgid "Louer"
+msgstr "Alquilar"
+
+msgid "Acheter"
+msgstr "Comprar"
+
+msgid "Surface"
+msgstr "Superficie"
+
+msgid "Price"
+msgstr "Precio"
+
+msgid "Rent"
+msgstr "Alquiler"
+
+msgid "Create an alert"
+msgstr "Crear una alerta"
+
+msgid "Coming soon"
+msgstr "Próximamente"
+
+msgid "result"
+msgstr "resultado"
+
+msgid "results"
+msgstr "resultados"
+
+msgid "Sort by"
+msgstr "Ordenar por"
+
+msgid "Pagination"
+msgstr "Paginación"
+
+msgid "Search this area"
+msgstr "Buscar en esta zona"
+
+msgid "Showing @count in this area"
+msgstr "@count resultados en esta zona"
+
+msgid "Hide list"
+msgstr "Ocultar lista"
+
+msgid "Show list"
+msgstr "Mostrar lista"
+
+msgid "No results found"
+msgstr "No se han encontrado resultados"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "City, district or zip code"
+msgstr "Ciudad, barrio o código postal"
+
+msgid "I'm flexible"
+msgstr "Soy flexible"
+
+msgid "Pan the map or use “Search this area” to explore other regions."
+msgstr "Desplace el mapa o use «Buscar en esta zona» para explorar otras regiones."

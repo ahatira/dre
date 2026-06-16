@@ -1,0 +1,15 @@
+uuid: 0fda0cd9-141c-4ba8-b93a-a6c149badcaf
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+_core:
+  default_config_hash: ha-oR4Ufw2XIuzb35OdUWAe2XUG-SwUmHwDiE8RNAZo
+id: ps_crm_import
+label: 'PS CRM Import'
+description: 'Migration group for importing data from CRM XML files'
+source_type: 'CRM XML'
+module: null
+shared_configuration: {  }

@@ -1,0 +1,15 @@
+uuid: 90fbe0f4-2c9a-4362-8f2e-d8c155cbd17e
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_raccordement_fer
+label: 'Raccordement fer'
+description: 'Raccordement fer'
+code: TEC_RACCORDEMENT_FER
+group: exterieurs
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2872
+icon: ''
+expose_as_filter: 1

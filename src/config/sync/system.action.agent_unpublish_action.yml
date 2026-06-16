@@ -1,0 +1,13 @@
+uuid: a3b10f81-ee3d-464d-a710-180b2e703a35
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_agent
+_core:
+  default_config_hash: I2x5ofQDBGn9HrUYLBG65ujhIsg28z4KP1Uc3E3gt0s
+id: agent_unpublish_action
+label: 'Unpublish agent'
+type: ps_agent
+plugin: agent_unpublish_action
+configuration: {  }

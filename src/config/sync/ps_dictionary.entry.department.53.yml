@@ -1,0 +1,11 @@
+uuid: 13d365bb-0e27-4f7c-8949-9fbabddca4d4
+langcode: en
+status: true
+dependencies: {  }
+id: department.53
+type: department
+code: '53'
+label: Mayenne
+description: null
+icon: null
+weight: 54

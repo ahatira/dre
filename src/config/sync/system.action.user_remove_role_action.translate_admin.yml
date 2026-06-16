@@ -1,0 +1,14 @@
+uuid: 6c3f46e1-353c-4af5-9bd9-3d7a206cfc99
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.translate_admin
+  module:
+    - user
+id: user_remove_role_action.translate_admin
+label: 'Remove the Translation administrator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: translate_admin

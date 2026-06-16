@@ -1,0 +1,15 @@
+uuid: 6d5643d2-30de-4834-92f6-05b47d0f1109
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_production_climatisation
+label: 'Production climatisation'
+description: 'Production climatisation'
+code: TEC_PRODUCTION_CLIMATISATION
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 143
+icon: ''
+expose_as_filter: 1

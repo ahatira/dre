@@ -114,7 +114,7 @@ services:
       - '@entity_type.manager'
       - '@ps_offer.offer_teaser_builder'
       - '@ps_offer.offer_featured_offers_resolver'
-      - '@ps_search.search_path_resolver'
+      - '@?ps_search.search_path_resolver'
       - '@language_manager'
 
   Drupal\ps_offer\Hook\OfferHooks:

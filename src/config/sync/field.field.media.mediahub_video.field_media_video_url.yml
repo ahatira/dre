@@ -1,0 +1,21 @@
+uuid: 01b9e017-8f10-4721-8665-749c547a76c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_video_url
+    - media.type.mediahub_video
+_core:
+  default_config_hash: c-9USXFlMJMDWPHKxkJkY5uzFpCW8pjMZfwrYeuwHGU
+id: media.mediahub_video.field_media_video_url
+field_name: field_media_video_url
+entity_type: media
+bundle: mediahub_video
+label: 'Video URL'
+description: 'Direct video URL (expected: MediaHub AssetLink .mp4)'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

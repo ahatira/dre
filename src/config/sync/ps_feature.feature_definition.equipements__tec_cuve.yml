@@ -1,0 +1,15 @@
+uuid: ca9359e3-82cf-4a01-a739-e6d98d2e1d96
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_cuve
+label: Cuve
+description: Cuve
+code: TEC_CUVE
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2958
+icon: ''
+expose_as_filter: 1

@@ -1,0 +1,22 @@
+uuid: ee347c1d-24eb-4f49-929f-d5208358779c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_surface
+_core:
+  default_config_hash: 174afto0SIUFu17x67JytflxJHgWlh21fbojkbux52c
+id: node.field_divisions
+field_name: field_divisions
+entity_type: node
+type: entity_reference
+settings:
+  target_type: ps_surface_division
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

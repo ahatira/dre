@@ -1,0 +1,25 @@
+uuid: 17ca4661-c4de-44e0-a246-f81ad4b8011f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_show_address
+    - node.type.offer
+_core:
+  default_config_hash: '-__bxcOiUrAGWuADyYVFv4knDu_S7bE96QVu0--xKm4'
+id: node.offer.field_show_address
+field_name: field_show_address
+entity_type: node
+bundle: offer
+label: 'Show precise address'
+description: 'Display the precise address in frontend (if unchecked, only show city/region)'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Show precise address'
+  off_label: 'Show only city/region'
+field_type: boolean

@@ -1,0 +1,11 @@
+uuid: fdc2aee4-c529-4600-a63d-ef11bb1d5dec
+langcode: en
+status: true
+dependencies: {  }
+id: department.83
+type: department
+code: '83'
+label: Var
+description: null
+icon: null
+weight: 84

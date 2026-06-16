@@ -1,0 +1,15 @@
+uuid: 814a18ca-c80f-4416-9126-c6d1d89a58c7
+langcode: en
+status: true
+dependencies: {  }
+id: structure_du_batiment__tec_travaux_raliser
+label: 'Travaux à réaliser'
+description: 'Travaux à réaliser'
+code: TEC_TRAVAUX_RALISER
+group: structure_du_batiment
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2659
+icon: ''
+expose_as_filter: 1

@@ -1,0 +1,21 @@
+uuid: 7d4d26e1-400a-476c-ae82-85adb8da3292
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_dictionary
+_core:
+  default_config_hash: TSHQS-lcSBw5ilRmTCmNjseILlMrCQyWzBZnWJqd440
+id: node.field_budget_unit
+field_name: field_budget_unit
+entity_type: node
+type: ps_dictionary
+settings: {  }
+module: ps_dictionary
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,51 @@
+# Demo market study overlays (UUID → langcode → fields).
+b2000006-0000-4000-8000-000000000001:
+  it:
+    title: 'Mercato uffici Spagna — Q1 2025'
+    body:
+      value: '<p>La domanda degli occupanti e la crescita dei canoni a Madrid e Barcellona guidano l''aggiornamento del primo trimestre.</p>'
+      format: basic_html
+  nl:
+    title: 'Kantorenmarkt Spanje — Q1 2025'
+    body:
+      value: '<p>Huurdersvraag en huurgroei in Madrid en Barcelona domineren het update van het eerste kwartaal.</p>'
+      format: basic_html
+  pl:
+    title: 'Rynek biur w Hiszpanii — Q1 2025'
+    body:
+      value: '<p>Popyt najemców i wzrost czynszów w Madrycie i Barcelonie wiodą w aktualizacji pierwszego kwartału.</p>'
+      format: basic_html
+
+b2000006-0000-4000-8000-000000000002:
+  it:
+    title: 'Barometro logistico europeo'
+    body:
+      value: '<p>Assorbimento e vacanza nei principali hub logistici confermano l''appetito degli investitori per asset di qualità.</p>'
+      format: basic_html
+  nl:
+    title: 'Europees logistiek barometer'
+    body:
+      value: '<p>Opname en leegstand in belangrijke logistieke hubs bevestigen de interesse van investeerders in kwaliteitsactiva.</p>'
+      format: basic_html
+  pl:
+    title: 'Europejski barometr logistyczny'
+    body:
+      value: '<p>Poziom absorpcji i pustostanów w kluczowych hubach logistycznych potwierdza apetyt inwestorów na dobre aktywa.</p>'
+      format: basic_html
+
+b2000006-0000-4000-8000-000000000003:
+  it:
+    title: 'Mercato retail Spagna 2025'
+    body:
+      value: '<p>Evoluzione dei canoni prime e del mix operatori nelle principali destinazioni commerciali spagnole.</p>'
+      format: basic_html
+  nl:
+    title: 'Retailmarkt Spanje 2025'
+    body:
+      value: '<p>Evolutie van prime huren en tenantmix in de grootste winkelgebieden van Spanje.</p>'
+      format: basic_html
+  pl:
+    title: 'Rynek retail w Hiszpanii 2025'
+    body:
+      value: '<p>Ewolucja czynszów prime i miksu operatorów w największych lokalizacjach handlowych Hiszpanii.</p>'
+      format: basic_html

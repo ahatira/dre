@@ -1,0 +1,11 @@
+uuid: 04c6b116-24ea-49ca-b5b6-8a94002e316e
+langcode: en
+status: true
+dependencies: {  }
+id: surface_qualification.maxim
+type: surface_qualification
+code: MAXIM
+label: 'Maximum surface'
+description: null
+icon: null
+weight: 5

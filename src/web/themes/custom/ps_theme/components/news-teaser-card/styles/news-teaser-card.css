@@ -1,15 +1,19 @@
 .ps-news-teaser-card {
-  --ps-news-teaser-card-width: 23.75rem;
   --ps-news-teaser-card-media-height: 14rem;
   --ps-news-teaser-card-body-padding: 1.5rem;
+  --ps-news-teaser-card-title-line-height: 1.5rem;
+  --ps-news-teaser-card-title-lines: 2;
+  --ps-news-teaser-card-excerpt-line-height: 1.5rem;
+  --ps-news-teaser-card-excerpt-lines: 3;
   background: #fff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(28, 45, 55, 0.1);
+  box-sizing: border-box;
   display: flex;
-  flex: none;
   flex-direction: column;
-  height: 29rem;
+  height: 100%;
+  max-width: 100%;
   overflow: hidden;
-  width: var(--ps-news-teaser-card-width);
+  width: 100%;
 }
 
 .ps-news-teaser-card__media {
@@ -26,13 +30,26 @@
   width: 100%;
 }
 
+.ps-news-teaser-card__media-placeholder {
+  align-items: center;
+  background: #e8ecef;
+  color: #a8b0b5;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.ps-news-teaser-card__media-placeholder .bnp-icon {
+  color: currentColor;
+}
+
 .ps-news-teaser-card__body {
   box-sizing: border-box;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   gap: 1.5rem;
-  justify-content: space-between;
   min-height: 0;
   padding: var(--ps-news-teaser-card-body-padding);
   width: 100%;
@@ -40,16 +57,20 @@
 
 .ps-news-teaser-card__main {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 1.25rem;
+  min-height: 0;
   min-width: 0;
 }
 
 .ps-news-teaser-card__meta {
   align-items: center;
   display: flex;
+  flex: none;
   flex-wrap: wrap;
   gap: 1rem;
+  min-height: 2.5rem;
 }
 
 .ps-news-teaser-card__tag {
@@ -77,6 +98,7 @@
 
 .ps-news-teaser-card__details {
   display: flex;
+  flex: none;
   flex-direction: column;
   gap: 0.75rem;
   min-width: 0;
@@ -86,18 +108,29 @@
   color: #333;
   font-family: var(--re-font-family-body, 'BNPP Sans', 'BNP Sans', sans-serif);
   font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5rem;
+  font-weight: 700;
+  height: calc(var(--ps-news-teaser-card-title-lines) * var(--ps-news-teaser-card-title-line-height));
+  line-height: var(--ps-news-teaser-card-title-line-height);
   margin: 0;
 }
 
+.ps-news-teaser-card__title:not(:has(.ps-news-teaser-card__title-link)) {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--ps-news-teaser-card-title-lines);
+  line-clamp: var(--ps-news-teaser-card-title-lines);
+  overflow: hidden;
+}
+
 .ps-news-teaser-card__title-link {
+  -webkit-box-orient: vertical;
   color: inherit;
-  display: block;
+  display: -webkit-box;
+  height: 100%;
+  -webkit-line-clamp: var(--ps-news-teaser-card-title-lines);
+  line-clamp: var(--ps-news-teaser-card-title-lines);
   overflow: hidden;
   text-decoration: none;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .ps-news-teaser-card__title-link:hover,
@@ -113,11 +146,11 @@
   font-family: var(--re-font-family-ui, 'Open Sans', sans-serif);
   font-size: 0.875rem;
   font-weight: 400;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  line-height: 1.5rem;
+  height: calc(var(--ps-news-teaser-card-excerpt-lines) * var(--ps-news-teaser-card-excerpt-line-height));
+  -webkit-line-clamp: var(--ps-news-teaser-card-excerpt-lines);
+  line-clamp: var(--ps-news-teaser-card-excerpt-lines);
+  line-height: var(--ps-news-teaser-card-excerpt-line-height);
   margin: 0;
-  max-height: 3.25rem;
   overflow: hidden;
 }
 
@@ -126,11 +159,13 @@
   align-self: flex-start;
   color: var(--re-color-primary, #00915a);
   display: inline-flex;
+  flex: none;
   font-family: var(--re-font-family-body, 'BNPP Sans', 'BNP Sans', sans-serif);
   font-size: 1rem;
   font-weight: 400;
   gap: 0.5rem;
   line-height: 1.5rem;
+  margin-top: auto;
   text-decoration: none;
 }
 
@@ -145,11 +180,25 @@
   text-decoration: none;
 }
 
+/* Homepage grid — equal-height cards with aligned content rows (Figma §7). */
+.ps-homepage-news .ps-news-teaser-card-wrapper {
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  width: 100%;
+}
+
 @media (max-width: 991.98px) {
-  .ps-news-teaser-card {
-    --ps-news-teaser-card-width: 15.5rem;
+  .ps-homepage-news .ps-news-teaser-card {
     --ps-news-teaser-card-media-height: 9.5rem;
     --ps-news-teaser-card-body-padding: 1.25rem;
-    height: 24rem;
+    flex: none;
+    height: auto;
+    width: 15.5rem;
+  }
+
+  .ps-homepage-news .ps-news-teaser-card__media-placeholder .bnp-icon {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

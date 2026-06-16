@@ -120,3 +120,22 @@ docker compose -f docker/docker-compose.yml up -d --build php nginx
 ### Limite connue
 
 Ces optimisations ameliorent partiellement les requetes web, mais les commandes CLI Drupal dans le conteneur (Drush/PHPUnit) restent souvent lentes sur bind mount Windows.
+
+## Permissions WSL (EACCES sur config/sync)
+
+L'image PHP aligne `www-data` sur uid/gid **1000** (utilisateur WSL). Si Drush est lance **sans** `-u www-data`, les fichiers CMI exportes (`drush cex`) sont crees en `root:root` et VS Code ne peut plus les editer (`EACCES`).
+
+**Prevention** — toujours utiliser :
+
+```bash
+make drush-cex          # ou make drush-cr, make drush-uli
+# docker exec -u www-data -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush ...'
+```
+
+**Reparation** apres un export root :
+
+```bash
+make fix-permissions
+```
+
+Ne pas appliquer sur `web/sites/default/files` (runtime Drupal) sauf problemes upload/cache.

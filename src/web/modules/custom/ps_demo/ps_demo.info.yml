@@ -5,8 +5,10 @@ core_version_requirement: ^11.3
 package: 'Property Search'
 version: 1.0.0
 dependencies:
+  - default_content:default_content
   - drupal:block_content
   - drupal:content_translation
+  - drupal:file
   - drupal:language
   - drupal:layout_builder
   - drupal:media
@@ -23,3 +25,9 @@ dependencies:
   - ps_favorite:ps_favorite
   - ps_homepage:ps_homepage
   - social_media_links:social_media_links
+
+default_content:
+  file:
+    - c1000001-0000-4000-8000-000000000001
+  media:
+    - c1000002-0000-4000-8000-000000000001

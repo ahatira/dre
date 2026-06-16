@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_homepage
+  theme:
+    - ps_theme
+id: ps_theme_mega_menu_tools
+theme: ps_theme
+region: page_bottom
+weight: 0
+provider: null
+plugin: ps_mega_menu_tools
+settings:
+  id: ps_mega_menu_tools
+  label: 'Mega menu — tools'
+  label_display: '0'
+  provider: ps_homepage
+visibility: {  }

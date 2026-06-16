@@ -1,0 +1,15 @@
+uuid: 01a5144d-2c32-4069-b74d-497fca576cee
+langcode: en
+status: true
+dependencies: {  }
+id: structure_du_batiment__tec_couverture
+label: Couverture
+description: Couverture
+code: TEC_COUVERTURE
+group: structure_du_batiment
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 13
+icon: ''
+expose_as_filter: 1

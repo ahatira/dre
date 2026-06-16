@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: Fmv84K4zPLnOhscnWXg0DUn8JL_LJ6q-HTqta79f5nY
+cache_default_ttl: 3600
+enable_audit_logging: true
+audit_retention_days: 365
+conflict_window_seconds: 300
+urgency_help_enabled: true
+urgency_help_lead: 'In a hurry? Call us at'
+urgency_help_phone: '01 87 58 65 34'
+urgency_help_phone_link: 'tel:+33187586534'
+urgency_help_hours: 'Monday to Friday, 9:00 AM to 7:00 PM.'

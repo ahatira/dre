@@ -1,0 +1,26 @@
+uuid: 0e56e1fc-68db-4da9-901a-17edb443c8fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.ps_header_actions
+  module:
+    - menu_link_attributes
+    - system
+  theme:
+    - ps_theme
+id: ps_theme_header_actions
+theme: ps_theme
+region: actions
+weight: 0
+provider: null
+plugin: 'system_menu_block:ps_header_actions'
+settings:
+  id: 'system_menu_block:ps_header_actions'
+  label: 'Header actions'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

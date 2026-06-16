@@ -1,0 +1,17 @@
+uuid: 5b3f5d57-15e0-40c1-a3fe-5108b6ced173
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnp_media
+_core:
+  default_config_hash: j1zOzZfIXke7RKh8rwmg4mFSlfA67orgFohf88jRQyI
+id: gallery
+label: Gallery
+description: 'Generic reusable image gallery.'
+source: bnp_gallery
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_gallery_image
+field_map: {  }

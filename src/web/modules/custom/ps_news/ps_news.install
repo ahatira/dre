@@ -6,3 +6,18 @@
  */
 
 declare(strict_types=1);
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Installs optional configuration (content type, fields, view).
+ */
+function ps_news_install(): void {
+  $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_news');
+  $storage = new FileStorage($path . '/config/optional');
+  \Drupal::service('config.installer')->installOptionalConfig($storage);
+
+  if (\Drupal::hasService('router.builder')) {
+    \Drupal::service('router.builder')->rebuild();
+  }
+}

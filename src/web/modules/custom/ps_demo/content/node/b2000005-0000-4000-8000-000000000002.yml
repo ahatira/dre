@@ -1,0 +1,121 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000005-0000-4000-8000-000000000002
+  bundle: article
+  default_langcode: en
+  depends:
+    b3000001-0000-4000-8000-000000000002: taxonomy_term
+    c1000006-0000-4000-8000-000000000001: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo news article'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Logistics sector outlook'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>Warehouse and logistics assets remain a priority for investors seeking resilient income streams.</p>'
+      format: basic_html
+      summary: ''
+  field_display_date:
+    -
+      value: '2025-02-20'
+  field_news_category:
+    -
+      entity: b3000001-0000-4000-8000-000000000002
+  field_teaser_image:
+    -
+      entity: c1000006-0000-4000-8000-000000000001
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Article démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Perspectives du secteur logistique'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Les entrepôts et actifs logistiques restent prioritaires pour les investisseurs recherchant des flux récurrents.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-02-20'
+    field_news_category:
+      -
+        entity: b3000001-0000-4000-8000-000000000002
+  es:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Artículo demo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Perspectivas del sector logístico'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Los almacenes y activos logísticos siguen siendo prioritarios para inversores que buscan ingresos resilientes.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-02-20'
+    field_news_category:
+      -
+        entity: b3000001-0000-4000-8000-000000000002

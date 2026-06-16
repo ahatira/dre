@@ -1,0 +1,16 @@
+uuid: 0a016e12-58ed-4d7d-9c5c-63af45056380
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_effectif_thorique
+label: 'Effectif théorique'
+description: 'Effectif théorique'
+code: TEC_EFFECTIF_THORIQUE
+group: amenagements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: personne(s)
+weight: 1439
+icon: ''
+expose_as_filter: 1

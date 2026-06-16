@@ -1,0 +1,11 @@
+uuid: 3029d5d9-aa55-4f41-b73f-df93640d1de5
+langcode: en
+status: true
+dependencies: {  }
+id: budget_period.one_shot
+type: budget_period
+code: ONE_SHOT
+label: 'One-shot fees'
+description: null
+icon: null
+weight: 3

@@ -1,0 +1,39 @@
+uuid: acb82fe3-44d8-4fc9-998c-8b3ad3baff8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - image
+    - section_library
+_core:
+  default_config_hash: 3MYhLB2wnl573acUOtHhrLlkXo49nNyMkz05sDjp_40
+id: section_library_template.section_library_template.default
+targetEntityType: section_library_template
+bundle: section_library_template
+mode: default
+content:
+  image:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: ''
+    third_party_settings: {  }
+  label:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  user_id: true

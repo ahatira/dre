@@ -1,0 +1,15 @@
+uuid: a565488f-f69e-443a-bd85-b7edfbcb3b2c
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_capacit_pont_roulant
+label: 'Capacité pont roulant'
+description: 'Capacité pont roulant'
+code: TEC_CAPACIT_PONT_ROULANT
+group: equipements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 663
+icon: ''
+expose_as_filter: 1

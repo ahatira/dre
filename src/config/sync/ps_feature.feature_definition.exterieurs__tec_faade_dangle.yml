@@ -1,0 +1,15 @@
+uuid: 678d7f63-0351-4e09-a9b9-e67c85ecb2e4
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_faade_dangle
+label: "Façade d'angle"
+description: "Façade d'angle"
+code: TEC_FAADE_DANGLE
+group: exterieurs
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2527
+icon: ''
+expose_as_filter: 1

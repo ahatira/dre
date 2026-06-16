@@ -1,0 +1,15 @@
+uuid: a7718ed2-9bee-4667-93f6-10e9ce92646f
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_quai_fer
+label: 'Quai fer'
+description: 'Quai fer'
+code: TEC_QUAI_FER
+group: exterieurs
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 3336
+icon: ''
+expose_as_filter: 1

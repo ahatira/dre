@@ -1,0 +1,25 @@
+uuid: 1f66f4ef-c16d-4fa1-b572-f8f3cc2f8142
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: cBkPDCYDFZkSwPMxOObpDcgx2UReG0OySw5IryMtceo
+name: agent_avatar_xs
+label: 'Agent avatar XS (40x40)'
+effects:
+  a986d779-3c9e-4574-a2c0-fd05849631a0:
+    uuid: a986d779-3c9e-4574-a2c0-fd05849631a0
+    id: focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 40
+      height: 40
+      crop_type: focal_point
+  6bcc5d17-98b9-45fd-8dd7-49fe1e9be5d0:
+    uuid: 6bcc5d17-98b9-45fd-8dd7-49fe1e9be5d0
+    id: image_convert_avif
+    weight: 10
+    data:
+      extension: webp

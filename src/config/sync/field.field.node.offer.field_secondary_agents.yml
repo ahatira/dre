@@ -1,0 +1,31 @@
+uuid: 3f3180dd-0031-4581-bda6-4b4b7c64739f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_secondary_agents
+    - node.type.offer
+    - ps_agent.ps_agent_type.default
+_core:
+  default_config_hash: Pkliuo-jolnf1Ot_I7cwDJg1eC3qj38XIbmJdr5yfP8
+id: node.offer.field_secondary_agents
+field_name: field_secondary_agents
+entity_type: node
+bundle: offer
+label: 'Secondary agents'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:ps_agent'
+  handler_settings:
+    target_bundles:
+      default: default
+    sort:
+      field: last_name
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,16 @@
+uuid: 907d5ae7-8dfd-4fe0-9962-c67a5cc3e281
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_droit_terrasse
+label: 'Droit terrasse'
+description: 'Droit terrasse'
+code: TEC_DROIT_TERRASSE
+group: exterieurs
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: m²
+weight: 2504
+icon: ''
+expose_as_filter: 1

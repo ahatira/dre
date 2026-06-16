@@ -1,0 +1,18 @@
+uuid: 72770d95-212e-47dd-a393-3be56562f93c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ps_theme
+id: ps_theme_local_actions
+theme: ps_theme
+region: editor_tools
+weight: 20
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

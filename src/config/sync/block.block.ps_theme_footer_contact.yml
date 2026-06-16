@@ -1,0 +1,30 @@
+uuid: b0e6b0f1-2a34-4b69-8fca-42b6d618afc5
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_block
+  theme:
+    - ps_theme
+id: ps_theme_footer_contact
+theme: ps_theme
+region: footer
+weight: -20
+provider: null
+plugin: ps_block_footer_contact
+settings:
+  id: ps_block_footer_contact
+  label: 'Footer contact'
+  label_display: '0'
+  provider: ps_block
+  title: 'Contact us'
+  phones:
+    -
+      label: 'City 1'
+      number: '+33 1 40 14 45 00'
+    -
+      label: 'City 2'
+      number: '+33 1 40 14 45 00'
+  email: contact@bnpparibas-realestate.com
+  email_label: contact.realestate.bnpparibas
+visibility: {  }

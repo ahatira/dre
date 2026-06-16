@@ -1,0 +1,11 @@
+uuid: 0e7ac13c-7066-498b-a2e9-ec2dbebac186
+langcode: en
+status: true
+dependencies: {  }
+id: surface_unit.ha
+type: surface_unit
+code: HA
+label: Hectare
+description: null
+icon: null
+weight: 2

@@ -1,0 +1,22 @@
+uuid: d5cdbac6-bfe6-4412-9e8a-5ed9e3950f11
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: tlrqkyppGF1OyDYIjVoh1FoNYv836Q6rGIs1sbjaMbw
+id: node.field_capacity_available
+field_name: field_capacity_available
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,11 @@
+uuid: 836368f8-1f58-43bf-a15e-b222f17abf1c
+langcode: en
+status: true
+dependencies: {  }
+id: department.64
+type: department
+code: '64'
+label: Pyrénées-Atlantiques
+description: null
+icon: null
+weight: 65

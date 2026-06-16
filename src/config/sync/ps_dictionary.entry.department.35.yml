@@ -1,0 +1,11 @@
+uuid: 84f1d02a-eab4-4c77-8916-2cd4c2e201ac
+langcode: en
+status: true
+dependencies: {  }
+id: department.35
+type: department
+code: '35'
+label: Ille-et-Vilaine
+description: null
+icon: null
+weight: 36

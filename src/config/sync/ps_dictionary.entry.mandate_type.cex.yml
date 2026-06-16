@@ -1,0 +1,11 @@
+uuid: 0a2e62ef-ab4c-46c5-90f4-84c1f1901b0f
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type.cex
+type: mandate_type
+code: CEX
+label: Co-exclusive
+description: null
+icon: null
+weight: 3

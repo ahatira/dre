@@ -1,0 +1,11 @@
+uuid: 507a7d11-dc71-4215-8462-573ce1a14b6f
+langcode: en
+status: true
+dependencies: {  }
+id: department.92
+type: department
+code: '92'
+label: Hauts-de-Seine
+description: null
+icon: null
+weight: 93

@@ -1,0 +1,23 @@
+uuid: 337cab65-d165-4a76-8d45-8dc9ca5cac26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_period
+    - node.type.offer
+  module:
+    - options
+_core:
+  default_config_hash: MN-IB2mi43f-lFvgkcbVkqPpZUFndFlIlbgY9nlbOjE
+id: node.offer.field_budget_period
+field_name: field_budget_period
+entity_type: node
+bundle: offer
+label: 'Price period'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,11 @@
+uuid: e14fec78-f2cb-4139-b3cc-5c696f2c345e
+langcode: en
+status: true
+dependencies: {  }
+id: department.30
+type: department
+code: '30'
+label: Gard
+description: null
+icon: null
+weight: 31

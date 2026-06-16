@@ -1,0 +1,11 @@
+uuid: a9962d42-98e3-4246-8309-86f6dab27261
+langcode: en
+status: true
+dependencies: {  }
+id: ges_class.a
+type: ges_class
+code: A
+label: 'Class A'
+description: null
+icon: null
+weight: 1

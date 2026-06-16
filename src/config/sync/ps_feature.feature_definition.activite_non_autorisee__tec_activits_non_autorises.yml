@@ -1,0 +1,15 @@
+uuid: 5958a961-30ca-4ccb-9264-a140a157ca7a
+langcode: en
+status: true
+dependencies: {  }
+id: activite_non_autorisee__tec_activits_non_autorises
+label: 'Activités non autorisées'
+description: 'Activités non autorisées'
+code: TEC_ACTIVITS_NON_AUTORISES
+group: activite_non_autorisee
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2569
+icon: ''
+expose_as_filter: 1

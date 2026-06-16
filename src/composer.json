@@ -109,6 +109,7 @@
         "drupal/views_show_more": "^2.0",
         "drupal/webform": "^6.3@RC",
         "geocoder-php/google-maps-provider": "^4.8",
+        "symfony/dotenv": "^7.4",
         "symfony/http-client": "^7.4"
     },
     "conflict": {

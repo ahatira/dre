@@ -24,15 +24,9 @@ services:
       - memcache
       - mailpit
     working_dir: /var/www/html
+    env_file:
+      - ../src/.env
     environment:
-      DRUPAL_DB_HOST: postgres
-      DRUPAL_DB_NAME: drupal
-      DRUPAL_DB_USER: drupal
-      DRUPAL_DB_PASSWORD: drupal
-      DRUPAL_DB_PORT: 5432
-      MEMCACHE_HOST: memcache
-      SOLR_HOST: solr
-      SOLR_PORT: 8983
       MAILPIT_HOST: mailpit
       MAILPIT_PORT: 1025
     volumes:
@@ -46,6 +40,8 @@ services:
   postgres:
     image: postgres:17
     container_name: ps_postgres
+    env_file:
+      - ../src/.env
     environment:
       POSTGRES_DB: drupal
       POSTGRES_USER: drupal
@@ -54,6 +50,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init-multisite.sh:/docker-entrypoint-initdb.d/init-multisite.sh:ro
 
   memcache:
     image: memcached:1.6-alpine
@@ -70,6 +67,7 @@ services:
       - "8983:8983"
     volumes:
       - solr_data:/var/solr
+      - ../conf/solr/ps_project:/opt/solr/server/solr/configsets/ps_project
 
   npm:
     image: node:20-alpine

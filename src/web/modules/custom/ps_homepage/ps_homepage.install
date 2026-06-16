@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 function ps_homepage_install(): void {
   \Drupal::service('ps_homepage.section_library_installer')->install();
+  \Drupal::service('ps_homepage.layout_field_ensurer')->ensurePageLayoutFieldTranslatable();
 }
 
 /**

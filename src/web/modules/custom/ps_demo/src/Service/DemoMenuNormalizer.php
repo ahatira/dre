@@ -7,7 +7,7 @@ namespace Drupal\ps_demo\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
- * Aligns imported demo menu links with the current ps_theme shell.
+ * Structural demo menu fixes after default content import (no copy / i18n).
  */
 final class DemoMenuNormalizer {
 
@@ -16,61 +16,15 @@ final class DemoMenuNormalizer {
   ) {}
 
   /**
-   * Normalizes footer business/about and legal menu labels after content import.
+   * Moves footer links into ps_theme shell menus (business / about columns).
    */
   public function normalize(): void {
     $this->normalizeFooterColumns();
-    $this->normalizeFooterLegalLabels();
-    $this->normalizeHeaderActionLabels();
     \Drupal::service('plugin.manager.menu.link')->rebuild();
   }
 
   /**
-   * Ensures ps_header_actions menu link titles match Stellar EN/FR copy.
-   */
-  private function normalizeHeaderActionLabels(): void {
-    $storage = $this->entityTypeManager->getStorage('menu_link_content');
-    $updates = [
-      'a2000001-0000-4000-8000-000000000001' => [
-        'en' => 'Find a property',
-        'fr' => 'Trouver un bien',
-      ],
-      'a2000001-0000-4000-8000-000000000002' => [
-        'en' => 'Log in / Sign up',
-        'fr' => "Se connecter / S'inscrire",
-      ],
-      'a2000001-0000-4000-8000-000000000003' => [
-        'en' => 'Contact us',
-        'fr' => 'Nous contacter',
-      ],
-      'a2000001-0000-4000-8000-000000000004' => [
-        'en' => 'What are you looking for?',
-        'fr' => 'Que recherchez-vous ?',
-      ],
-    ];
-
-    foreach ($updates as $uuid => $titles) {
-      $entities = $storage->loadByProperties(['uuid' => $uuid]);
-      foreach ($entities as $entity) {
-        foreach ($titles as $langcode => $title) {
-          if ($entity->hasTranslation($langcode)) {
-            $entity->getTranslation($langcode)->set('title', $title);
-          }
-          elseif ($langcode === $entity->language()->getId()) {
-            $entity->set('title', $title);
-          }
-          else {
-            $translation = $entity->addTranslation($langcode, $entity->toArray());
-            $translation->set('title', $title);
-          }
-        }
-        $entity->save();
-      }
-    }
-  }
-
-  /**
-   * Moves footer links from legacy ps_footer_main into business / about menus.
+   * Reorganises footer menu links into ps_theme column menus.
    */
   private function normalizeFooterColumns(): void {
     $storage = $this->entityTypeManager->getStorage('menu_link_content');
@@ -98,14 +52,8 @@ final class DemoMenuNormalizer {
       'a1000003-0000-4000-8000-000000000312',
     ];
 
-    $this->updateHeading($storage, $business_heading, 'ps_footer_business', [
-      'en' => 'Business websites',
-      'fr' => 'Sites métier',
-    ], 0);
-    $this->updateHeading($storage, $about_heading, 'ps_footer_about', [
-      'en' => 'About BNP Paribas Real Estate',
-      'fr' => 'À propos de BNP Paribas Real Estate',
-    ], 0);
+    $this->moveHeading($storage, $business_heading, 'ps_footer_business', 0);
+    $this->moveHeading($storage, $about_heading, 'ps_footer_about', 0);
 
     foreach ($business_children as $uuid) {
       $this->moveChild($storage, $uuid, 'ps_footer_business', $business_heading);
@@ -119,61 +67,38 @@ final class DemoMenuNormalizer {
   }
 
   /**
-   * Aligns footer legal menu labels with Stellar.
-   */
-  private function normalizeFooterLegalLabels(): void {
-    $storage = $this->entityTypeManager->getStorage('menu_link_content');
-    $updates = [
-      'a1000005-0000-4000-8000-000000000501' => ['en' => 'Data protection', 'fr' => 'Données personnelles'],
-      'a1000005-0000-4000-8000-000000000502' => ['en' => 'Cookie policy', 'fr' => 'Politique cookies'],
-      'a1000005-0000-4000-8000-000000000503' => ['en' => 'Disclaimer', 'fr' => 'Avertissement'],
-      'a1000005-0000-4000-8000-000000000504' => [
-        'en' => 'Suppliers: BNP Paribas is committed to its partners and suppliers',
-        'fr' => 'Fournisseurs : BNP Paribas s\'engage envers ses partenaires et fournisseurs',
-      ],
-      'a1000005-0000-4000-8000-000000000505' => ['en' => 'Sitemap', 'fr' => 'Plan du site'],
-      'a1000005-0000-4000-8000-000000000506' => ['en' => 'Complaints Customer Service', 'fr' => 'Réclamations Service Client'],
-      'a1000005-0000-4000-8000-000000000507' => ['en' => 'Canal de denuncias éticas', 'fr' => 'Canal de dénonciation éthique'],
-    ];
-
-    foreach ($updates as $uuid => $titles) {
-      $entities = $storage->loadByProperties(['uuid' => $uuid]);
-      foreach ($entities as $entity) {
-        foreach ($titles as $langcode => $title) {
-          if ($entity->hasTranslation($langcode)) {
-            $entity->getTranslation($langcode)->set('title', $title);
-          }
-          else {
-            $entity->set('title', $title);
-          }
-        }
-        $entity->save();
-      }
-    }
-  }
-
-  /**
+   * Moves a footer column heading into a ps_theme shell menu.
+   *
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   Menu link storage.
+   * @param string $uuid
+   *   Menu link UUID.
+   * @param string $menu
+   *   Target menu machine name.
+   * @param int $weight
+   *   Link weight.
    */
-  private function updateHeading($storage, string $uuid, string $menu, array $titles, int $weight): void {
+  private function moveHeading($storage, string $uuid, string $menu, int $weight): void {
     $entities = $storage->loadByProperties(['uuid' => $uuid]);
     foreach ($entities as $entity) {
       $entity->set('menu_name', $menu);
       $entity->set('enabled', TRUE);
       $entity->set('weight', $weight);
-      foreach ($titles as $langcode => $title) {
-        if ($entity->hasTranslation($langcode)) {
-          $entity->getTranslation($langcode)->set('title', $title);
-        }
-      }
       $entity->save();
     }
   }
 
   /**
+   * Moves a footer child link under a column heading.
+   *
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   Menu link storage.
+   * @param string $uuid
+   *   Menu link UUID.
+   * @param string $menu
+   *   Target menu machine name.
+   * @param string $parent_uuid
+   *   Parent heading UUID.
    */
   private function moveChild($storage, string $uuid, string $menu, string $parent_uuid): void {
     $entities = $storage->loadByProperties(['uuid' => $uuid]);
@@ -186,8 +111,12 @@ final class DemoMenuNormalizer {
   }
 
   /**
+   * Disables a legacy footer menu link.
+   *
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   Menu link storage.
+   * @param string $uuid
+   *   Menu link UUID.
    */
   private function disableLink($storage, string $uuid): void {
     $entities = $storage->loadByProperties(['uuid' => $uuid]);

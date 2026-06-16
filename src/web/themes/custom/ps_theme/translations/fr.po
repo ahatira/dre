@@ -9,6 +9,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "No image"
+msgstr "Pas d'image"
+
 msgid "View the property"
 msgstr "Voir le bien"
 

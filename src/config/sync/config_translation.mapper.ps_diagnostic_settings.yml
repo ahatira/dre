@@ -1,0 +1,7 @@
+_core:
+  default_config_hash: E-geYNrQZS4rUlyWI1txyNQaAcZE9RH2V-bwGaD6IEw
+id: ps_diagnostic_settings
+title: 'Diagnostic settings'
+weight: 10
+names:
+  - ps_diagnostic.settings

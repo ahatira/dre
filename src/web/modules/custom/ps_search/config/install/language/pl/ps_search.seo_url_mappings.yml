@@ -1,1 +1,12 @@
 search_path: szukaj-nieruchomosci
+operation_types:
+  LOC: do-wynajecia
+  VEN: na-sprzedaz
+asset_types:
+  BUR: biura
+  ENT: magazyn
+  ACT: lokal-uzytkowy
+  COM: handel
+  TER: dzialka
+  LOG: logistyka
+  COW: coworking

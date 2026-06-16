@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: c1000004-0000-4000-8000-000000000001
+  bundle: image
+  default_langcode: en
+  depends:
+    c1000003-0000-4000-8000-000000000001: file
+default:
+  revision_user:
+    -
+      target_id: 0
+  revision_log_message:
+    -
+      value: 'Demo news teaser (bnppre.fr)'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'News — Lille tertiaire'
+  created:
+    -
+      value: 1781616338
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: c1000003-0000-4000-8000-000000000001
+      alt: 'Immobilier tertiaire à Lille'
+      title: ''
+      width: 2880
+      height: 960

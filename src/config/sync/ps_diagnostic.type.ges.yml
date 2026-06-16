@@ -1,0 +1,42 @@
+uuid: 31d6dd01-46cf-433e-95d6-4363b13d703f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dDlOJ0HyFCGW5dXAJZbEH-zWiaOax6LsPfH6mJK1pGY
+id: ges
+label: 'Greenhouse gas emissions'
+unit: kgCO2/m2/year
+icon: 'bnp_custom:gas-emission'
+description: 'Greenhouse gas emissions diagnosis (GES).'
+enabled: true
+weight: 5
+classes:
+  -
+    label: A
+    color: '#EDE7F6'
+    range_max: 5
+  -
+    label: B
+    color: '#D1C4E9'
+    range_max: 10
+  -
+    label: C
+    color: '#B39DDB'
+    range_max: 20
+  -
+    label: D
+    color: '#9575CD'
+    range_max: 35
+  -
+    label: E
+    color: '#7E57C2'
+    range_max: 55
+  -
+    label: F
+    color: '#673AB7'
+    range_max: 80
+  -
+    label: G
+    color: '#4A148C'
+    range_max: 9999

@@ -1,0 +1,11 @@
+uuid: e640a974-30ac-4985-b7b6-373dd75dea6f
+langcode: en
+status: true
+dependencies: {  }
+id: department.85
+type: department
+code: '85'
+label: Vendée
+description: null
+icon: null
+weight: 86

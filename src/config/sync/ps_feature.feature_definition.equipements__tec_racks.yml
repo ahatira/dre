@@ -1,0 +1,15 @@
+uuid: c23a0b8b-cb09-4b78-850f-ac61e8024e37
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_racks
+label: Racks
+description: Racks
+code: TEC_RACKS
+group: equipements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 820
+icon: ''
+expose_as_filter: 1

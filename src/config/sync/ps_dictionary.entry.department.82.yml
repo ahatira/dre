@@ -1,0 +1,11 @@
+uuid: 9551f763-f88f-499b-9d93-08250a0d33ce
+langcode: en
+status: true
+dependencies: {  }
+id: department.82
+type: department
+code: '82'
+label: Tarn-et-Garonne
+description: null
+icon: null
+weight: 83

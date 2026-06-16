@@ -1,0 +1,15 @@
+uuid: 07715931-997d-49eb-8c0d-0de0a57f54c2
+langcode: en
+status: true
+dependencies: {  }
+id: normes_certifications_et_labels__tec_catgorie_erp
+label: 'Catégorie ERP'
+description: 'Catégorie ERP'
+code: TEC_CATGORIE_ERP
+group: normes_certifications_et_labels
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 210
+icon: ''
+expose_as_filter: 1

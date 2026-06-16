@@ -1,0 +1,11 @@
+uuid: 59a12de1-9621-4579-8e81-79d5614728ee
+langcode: en
+status: true
+dependencies: {  }
+id: department.46
+type: department
+code: '46'
+label: Lot
+description: null
+icon: null
+weight: 47

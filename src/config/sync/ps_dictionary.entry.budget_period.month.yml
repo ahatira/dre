@@ -1,0 +1,11 @@
+uuid: 797ca5c4-5c0e-41e8-ab71-b3a009eb7808
+langcode: en
+status: true
+dependencies: {  }
+id: budget_period.month
+type: budget_period
+code: MONTH
+label: Monthly
+description: null
+icon: null
+weight: 2

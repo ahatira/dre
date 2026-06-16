@@ -1,0 +1,20 @@
+uuid: 2a1b3c4d-0100-0000-0000-000000000005
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: k0rmjhzH4YqRni6hZRXdGkGnMZi81yiN0kYKlC8XJ4s
+id: loc_budget_period_year
+label: 'LOC: Set price period to YEAR'
+weight: -20
+conditions_logic: AND
+conditions:
+  -
+    field_name: field_operation_type
+    operator: equals
+    value: LOC
+actions:
+  -
+    action_type: set_default
+    target: field_budget_period
+    value: YEAR

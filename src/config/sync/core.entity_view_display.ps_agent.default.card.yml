@@ -1,0 +1,61 @@
+uuid: 2b4c1d7e-fb24-44b8-9354-ed1fa0049dc0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.ps_agent.card
+    - image.style.agent_avatar_md
+    - ps_agent.ps_agent_type.default
+  module:
+    - image
+    - telephone_formatter
+_core:
+  default_config_hash: 3KJMdbIioqUfoHl8TI-jZ2Sh0k0aFkRGSJgDf1mdB6Q
+id: ps_agent.default.card
+targetEntityType: ps_agent
+bundle: default
+mode: card
+content:
+  avatar:
+    type: image
+    weight: 0
+    label: hidden
+    region: content
+    settings:
+      image_style: agent_avatar_md
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+  display_name:
+    type: string
+    weight: 1
+    label: hidden
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  phone:
+    type: telephone_formatter
+    weight: 2
+    label: hidden
+    region: content
+    settings:
+      format: 1
+      link: true
+      default_country: FR
+    third_party_settings: {  }
+hidden:
+  changed: true
+  checksum: true
+  civility: true
+  created: true
+  email: true
+  first_name: true
+  has_avatar: true
+  internal_external: true
+  internal_lock: true
+  job_title: true
+  last_name: true
+  source_tracking: true
+  status: true
+  uid: true

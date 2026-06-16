@@ -1,0 +1,21 @@
+uuid: 2621c177-b6a1-48af-8d23-a5ed6c97dc41
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source_checksum
+    - node.type.offer
+_core:
+  default_config_hash: qiKpPqM5l_9K-I5E2TpUcAeJgJ-4eiiPimGq7TRIjlA
+id: node.offer.field_source_checksum
+field_name: field_source_checksum
+entity_type: node
+bundle: offer
+label: 'Checksum source'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

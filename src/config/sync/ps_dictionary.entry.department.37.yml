@@ -1,0 +1,11 @@
+uuid: 371e18d5-bc5d-4e33-82f7-33169b1b24b9
+langcode: en
+status: true
+dependencies: {  }
+id: department.37
+type: department
+code: '37'
+label: Indre-et-Loire
+description: null
+icon: null
+weight: 38

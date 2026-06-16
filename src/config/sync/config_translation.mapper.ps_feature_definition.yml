@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: TGDkgiG6v9lxupt6__HnDMeoBwc-L65-CPbRsamBoBk
+id: ps_feature_definition
+title: 'Feature definition'
+weight: 11
+names:
+  - 'ps_feature.feature_definition.*'
+entity_type: fb_feature_definition

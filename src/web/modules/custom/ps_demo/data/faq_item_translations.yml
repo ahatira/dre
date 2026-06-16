@@ -1,0 +1,104 @@
+# Demo FAQ node overlays (UUID → langcode → fields). EN/FR come from default_content export.
+b2000004-0000-4000-8000-000000000001:
+  es:
+    title: '¿Cómo buscar oficinas?'
+    field_question: '¿Cómo buscar oficinas?'
+    field_answer:
+      value: '<p>Utilice el formulario de búsqueda en la página de inicio para filtrar por tipo de transacción, ubicación, tipo de inmueble y superficie. También puede usar los accesos rápidos a los activos más buscados.</p>'
+      format: basic_html
+  it:
+    title: 'Come cercare uffici?'
+    field_question: 'Come cercare uffici?'
+    field_answer:
+      value: '<p>Utilizzate il modulo di ricerca nella homepage per filtrare per tipo di transazione, località, tipologia di immobile e superficie. Potete anche usare i collegamenti rapidi alle asset class più richieste.</p>'
+      format: basic_html
+  nl:
+    title: 'Hoe zoek ik naar kantoren?'
+    field_question: 'Hoe zoek ik naar kantoren?'
+    field_answer:
+      value: '<p>Gebruik het zoekformulier op de homepage om te filteren op transactietype, locatie, type pand en oppervlakte. U kunt ook de snelle links naar de meest gezochte asset classes gebruiken.</p>'
+      format: basic_html
+  pl:
+    title: 'Jak wyszukać biura?'
+    field_question: 'Jak wyszukać biura?'
+    field_answer:
+      value: '<p>Skorzystaj z formularza wyszukiwania na stronie głównej, aby filtrować według typu transakcji, lokalizacji, typu nieruchomości i powierzchni. Możesz też użyć skrótów do najpopularniejszych klas aktywów.</p>'
+      format: basic_html
+
+b2000004-0000-4000-8000-000000000002:
+  es:
+    title: '¿Puedo guardar mis inmuebles favoritos?'
+    field_question: '¿Puedo guardar mis inmuebles favoritos?'
+    field_answer:
+      value: '<p>Sí. Haga clic en el icono de favorito en una ficha de anuncio para guardarlo en su lista y comparar las oportunidades más adelante.</p>'
+      format: basic_html
+  it:
+    title: 'Posso salvare i miei immobili preferiti?'
+    field_question: 'Posso salvare i miei immobili preferiti?'
+    field_answer:
+      value: '<p>Sì. Cliccate sull''icona preferiti su una scheda annuncio per salvarla nella vostra lista e confrontare le opportunità in seguito.</p>'
+      format: basic_html
+  nl:
+    title: 'Kan ik mijn favoriete panden opslaan?'
+    field_question: 'Kan ik mijn favoriete panden opslaan?'
+    field_answer:
+      value: '<p>Ja. Klik op het favorietenpictogram op een advertentiekaart om het op te slaan in uw favorietenlijst en later opportuniteiten te vergelijken.</p>'
+      format: basic_html
+  pl:
+    title: 'Czy mogę zapisać ulubione nieruchomości?'
+    field_question: 'Czy mogę zapisać ulubione nieruchomości?'
+    field_answer:
+      value: '<p>Tak. Kliknij ikonę ulubionych na karcie ogłoszenia, aby dodać je do listy i porównać oferty później.</p>'
+      format: basic_html
+
+b2000004-0000-4000-8000-000000000003:
+  es:
+    title: '¿Cómo delegar mi búsqueda inmobiliaria?'
+    field_question: '¿Cómo delegar mi búsqueda inmobiliaria?'
+    field_answer:
+      value: '<p>Nuestros expertos pueden gestionar la búsqueda por usted. Utilice la opción de delegación en el hero o contáctenos para definir sus necesidades y recibir una preselección de inmuebles adaptados.</p>'
+      format: basic_html
+  it:
+    title: 'Come delegare la mia ricerca immobiliare?'
+    field_question: 'Come delegare la mia ricerca immobiliare?'
+    field_answer:
+      value: '<p>I nostri esperti possono gestire la ricerca per voi. Utilizzate l''opzione di delega nel hero o contattateci per definire le vostre esigenze e ricevere una shortlist di immobili adatti.</p>'
+      format: basic_html
+  nl:
+    title: 'Hoe kan ik mijn pandzoektocht delegeren?'
+    field_question: 'Hoe kan ik mijn pandzoektocht delegeren?'
+    field_answer:
+      value: '<p>Onze experts kunnen de zoektocht voor u uitvoeren. Gebruik de delegatieoptie in de hero of neem contact met ons op om uw behoeften te bespreken en een shortlist van passende panden te ontvangen.</p>'
+      format: basic_html
+  pl:
+    title: 'Jak mogę delegować wyszukiwanie nieruchomości?'
+    field_question: 'Jak mogę delegować wyszukiwanie nieruchomości?'
+    field_answer:
+      value: '<p>Nasi eksperci mogą przeprowadzić wyszukiwanie za Ciebie. Skorzystaj z opcji delegacji w sekcji hero lub skontaktuj się z nami, aby określić wymagania i otrzymać shortlistę dopasowanych nieruchomości.</p>'
+      format: basic_html
+
+b2000004-0000-4000-8000-000000000004:
+  es:
+    title: '¿Dónde encontrar estudios de mercado?'
+    field_question: '¿Dónde encontrar estudios de mercado?'
+    field_answer:
+      value: '<p>Los estudios de mercado se destacan en la página de inicio y están disponibles en la sección de investigación. Ofrecen análisis sobre oficinas, logística, comercio y otros activos.</p>'
+      format: basic_html
+  it:
+    title: 'Dove trovare gli studi di mercato?'
+    field_question: 'Dove trovare gli studi di mercato?'
+    field_answer:
+      value: '<p>Gli studi di mercato sono evidenziati nella homepage e disponibili nella sezione ricerca. Offrono analisi su uffici, logistica, retail e altre asset class.</p>'
+      format: basic_html
+  nl:
+    title: 'Waar vind ik marktstudies?'
+    field_question: 'Waar vind ik marktstudies?'
+    field_answer:
+      value: '<p>Marktstudies worden op de homepage uitgelicht en zijn beschikbaar in het onderzoekdeel. Ze bieden inzichten over kantoren, logistiek, retail en andere asset classes.</p>'
+      format: basic_html
+  pl:
+    title: 'Gdzie znajdę studia rynkowe?'
+    field_question: 'Gdzie znajdę studia rynkowe?'
+    field_answer:
+      value: '<p>Studia rynkowe są wyróżnione na stronie głównej i dostępne w sekcji badawczej. Dostarczają analiz dotyczących biur, logistyki, handlu i innych klas aktywów.</p>'
+      format: basic_html

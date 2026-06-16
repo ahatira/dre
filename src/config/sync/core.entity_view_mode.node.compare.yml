@@ -1,0 +1,13 @@
+uuid: 975ce041-5263-445d-91e6-157eb474c203
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: wCaG0pYemv3gHjlCMe5HhrqQcYu6CAdadNMHPK9rb0k
+id: node.compare
+label: 'Compare column'
+description: null
+targetEntityType: node
+cache: true

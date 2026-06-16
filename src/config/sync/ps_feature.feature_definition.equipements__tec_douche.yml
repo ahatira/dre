@@ -1,0 +1,15 @@
+uuid: 3800568c-088b-4bf6-8944-db0e087f4df6
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_douche
+label: Douche
+description: Douche
+code: TEC_DOUCHE
+group: equipements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 138
+icon: ''
+expose_as_filter: 1

@@ -1,1 +1,12 @@
 search_path: immobilie-sichen
+operation_types:
+  LOC: ze-lounen
+  VEN: ze-verkaafen
+asset_types:
+  BUR: buerger
+  ENT: lager
+  ACT: aktiviteit
+  COM: commerce
+  TER: terrain
+  LOG: logistik
+  COW: coworking

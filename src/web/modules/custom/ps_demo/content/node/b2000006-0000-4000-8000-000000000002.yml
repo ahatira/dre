@@ -1,0 +1,121 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000006-0000-4000-8000-000000000002
+  bundle: market_study
+  default_langcode: en
+  depends:
+    b3000002-0000-4000-8000-000000000002: taxonomy_term
+    c1000012-0000-4000-8000-000000000001: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo market study'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'European logistics barometer'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>Take-up and vacancy trends across key logistics hubs signal continued investor appetite for quality assets.</p>'
+      format: basic_html
+      summary: ''
+  field_display_date:
+    -
+      value: '2025-02-05'
+  field_study_category:
+    -
+      entity: b3000002-0000-4000-8000-000000000002
+  field_teaser_image:
+    -
+      entity: c1000012-0000-4000-8000-000000000001
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Étude démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Baromètre logistique européen'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Les tendances de prise à bail et de vacance sur les hubs logistiques clés confirment l''appétit des investisseurs.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-02-05'
+    field_study_category:
+      -
+        entity: b3000002-0000-4000-8000-000000000002
+  es:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Estudio demo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Barómetro logístico europeo'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Las tendencias de absorción y vacancia en los principales hubs logísticos confirman el apetito inversor por activos de calidad.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-02-05'
+    field_study_category:
+      -
+        entity: b3000002-0000-4000-8000-000000000002

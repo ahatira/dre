@@ -1,0 +1,22 @@
+uuid: ad8bc631-a7e0-4212-a2bb-93681913a5d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 633MsCy2EaEPI5HnW_xGI5s9inchD2qqQNEfNITtKzo
+id: node.field_budget_value
+field_name: field_budget_value
+entity_type: node
+type: decimal
+settings:
+  precision: 12
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

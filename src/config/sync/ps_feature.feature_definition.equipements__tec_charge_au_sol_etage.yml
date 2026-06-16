@@ -1,0 +1,16 @@
+uuid: 561fea5a-5a96-4afd-9c70-0a9ede50b678
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_charge_au_sol_etage
+label: 'Charge au sol Etage'
+description: 'Charge au sol Etage'
+code: TEC_CHARGE_AU_SOL_ETAGE
+group: equipements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: 'kg/m² à 550 kg/m²'
+weight: 114
+icon: ''
+expose_as_filter: 1

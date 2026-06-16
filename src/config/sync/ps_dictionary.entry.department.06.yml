@@ -1,0 +1,11 @@
+uuid: 6ea8bdb1-15d3-45e4-b308-2e0aa620209f
+langcode: en
+status: true
+dependencies: {  }
+id: department.06
+type: department
+code: '06'
+label: Alpes-Maritimes
+description: null
+icon: null
+weight: 6

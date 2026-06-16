@@ -1,0 +1,25 @@
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtrer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+      pager:
+        options:
+          tags:
+            previous: '‹ Précédent'
+            next: 'Suivant ›'
+      fields:
+        name:
+          label: Nom
+        status_indicator:
+          label: Actif
+        scheduled_indicator:
+          label: Planifié
+        operations:
+          label: Actions
+  page_1:
+    display_title: Page

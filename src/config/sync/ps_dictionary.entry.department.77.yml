@@ -1,0 +1,11 @@
+uuid: a821e206-36f3-464d-9778-645136d52917
+langcode: en
+status: true
+dependencies: {  }
+id: department.77
+type: department
+code: '77'
+label: Seine-et-Marne
+description: null
+icon: null
+weight: 78

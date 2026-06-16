@@ -1,0 +1,11 @@
+uuid: 1cfa5d88-ef10-461a-a74c-6b77d9a0df2f
+langcode: en
+status: true
+dependencies: {  }
+id: dpe_class.f
+type: dpe_class
+code: F
+label: 'Class F'
+description: null
+icon: null
+weight: 6

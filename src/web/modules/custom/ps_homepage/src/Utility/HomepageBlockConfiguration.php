@@ -213,6 +213,44 @@ final class HomepageBlockConfiguration {
   }
 
   /**
+   * Keeps translated copy from the target when structure sync runs.
+   *
+   * @param array<string, mixed> $target
+   * @param array<string, mixed> $merged
+   *
+   * @return array<string, mixed>
+   */
+  public static function preserveTranslatableValues(array $target, array $merged, ?string $pluginId = NULL): array {
+    $pluginId ??= (string) ($merged['id'] ?? $target['id'] ?? '');
+
+    foreach (['title', 'subtitle', 'see_more_label', 'see_more_url'] as $key) {
+      if (isset($target[$key]) && is_string($target[$key]) && $target[$key] !== '') {
+        $merged[$key] = $target[$key];
+      }
+    }
+
+    $listKey = self::ITEM_LIST_KEYS[$pluginId] ?? NULL;
+    if ($listKey === NULL || !isset($target[$listKey]) || !is_array($target[$listKey])) {
+      return $merged;
+    }
+
+    $mergedItems = isset($merged[$listKey]) && is_array($merged[$listKey]) ? $merged[$listKey] : [];
+    foreach ($target[$listKey] as $index => $targetItem) {
+      if (!is_array($targetItem) || !isset($mergedItems[$index]) || !is_array($mergedItems[$index])) {
+        continue;
+      }
+      foreach (['card_title', 'body', 'button_label', 'question', 'answer', 'link_label', 'step_label', 'step_title', 'step_body'] as $key) {
+        if (isset($targetItem[$key]) && is_string($targetItem[$key]) && $targetItem[$key] !== '') {
+          $mergedItems[$index][$key] = $targetItem[$key];
+        }
+      }
+    }
+    $merged[$listKey] = $mergedItems;
+
+    return $merged;
+  }
+
+  /**
    * @param array<string, mixed> $config
    */
   public static function usesLegacyLocalizedKeys(array $config): bool {

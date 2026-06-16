@@ -1,0 +1,15 @@
+uuid: 21afad74-7d35-4431-b663-c917aad29e38
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_local_de_charge
+label: 'Local de charge'
+description: 'Local de charge'
+code: TEC_LOCAL_DE_CHARGE
+group: exterieurs
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 779
+icon: ''
+expose_as_filter: 1

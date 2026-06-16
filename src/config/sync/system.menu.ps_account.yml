@@ -1,0 +1,8 @@
+uuid: dabf7ad5-4198-496b-b360-0d669b8e8e26
+langcode: en
+status: true
+dependencies: {  }
+id: ps_account
+label: 'Account area'
+description: 'Sidebar navigation for the authenticated user area (Property Search).'
+locked: false

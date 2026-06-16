@@ -48,7 +48,14 @@ final class HomepageLayoutPersister {
    * @param callable(string): list<Section> $sectionsBuilder
    */
   public function saveAllTranslationLayouts(NodeInterface $node, callable $sectionsBuilder): void {
-    foreach (array_keys($node->getTranslationLanguages()) as $langcode) {
+    $defaultLangcode = $node->language()->getId();
+    $langcodes = array_keys($node->getTranslationLanguages());
+    usort(
+      $langcodes,
+      static fn (string $a, string $b): int => ($a === $defaultLangcode ? 1 : 0) <=> ($b === $defaultLangcode ? 1 : 0),
+    );
+
+    foreach ($langcodes as $langcode) {
       $this->saveTranslationLayout($node, $langcode, $sectionsBuilder($langcode));
     }
   }

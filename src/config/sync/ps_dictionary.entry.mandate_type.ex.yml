@@ -1,0 +1,11 @@
+uuid: e1073d92-3924-4d3b-9eed-57978e3279d8
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type.ex
+type: mandate_type
+code: EX
+label: Exclusive
+description: null
+icon: null
+weight: 2

@@ -1,0 +1,13 @@
+asset_slug_aliases:
+  bureau: bureaux
+search_path: recherche-immobiliere
+operation_types:
+  LOC: a-louer
+  VEN: a-vendre
+asset_types:
+  BUR: bureaux
+  ENT: entrepot
+  ACT: activite
+  COM: commerce
+  TER: terrain
+  LOG: logistique

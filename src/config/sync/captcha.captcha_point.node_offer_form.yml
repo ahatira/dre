@@ -1,0 +1,7 @@
+uuid: 7e50ac0b-93d4-40c5-85c9-8feb965a2a96
+langcode: en
+status: false
+dependencies: {  }
+formId: node_offer_form
+captchaType: default
+label: node_offer_form

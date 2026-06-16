@@ -1,0 +1,16 @@
+uuid: 1891c386-6a43-48b4-8f56-79c909719479
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_charge_au_sol_rdc
+label: 'Charge au sol Rdc'
+description: 'Charge au sol Rdc'
+code: TEC_CHARGE_AU_SOL_RDC
+group: equipements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: tonne(s)/m²
+weight: 19
+icon: ''
+expose_as_filter: 1

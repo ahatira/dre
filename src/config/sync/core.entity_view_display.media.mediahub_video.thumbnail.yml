@@ -1,0 +1,34 @@
+uuid: a22ed968-913e-47c0-8178-c5fc888b537b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.thumbnail
+    - field.field.media.mediahub_video.field_media_video_url
+    - media.type.mediahub_video
+  module:
+    - image
+_core:
+  default_config_hash: '-3k5iMUz_JmKPC8E16L1z3_XMH6X-W2h_sgqwInodPo'
+id: media.mediahub_video.thumbnail
+targetEntityType: media
+bundle: mediahub_video
+mode: thumbnail
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_video_url: true
+  langcode: true
+  name: true
+  uid: true

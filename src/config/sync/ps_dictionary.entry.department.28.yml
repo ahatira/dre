@@ -1,0 +1,11 @@
+uuid: 8a3b4575-9792-4532-9497-f5337b07969f
+langcode: en
+status: true
+dependencies: {  }
+id: department.28
+type: department
+code: '28'
+label: Eure-et-Loir
+description: null
+icon: null
+weight: 27

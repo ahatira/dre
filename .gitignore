@@ -12,11 +12,11 @@
 # ------------------------------
 /src/web/sites/*/files/
 /src/web/sites/*/private/
+/src/private/
 /src/web/sites/default/files/config_*/
 /src/web/sites/simpletest/
 
 # Local site settings can contain secrets and env-specific values.
-/src/web/sites/default/settings.php
 /src/web/sites/*/settings.local.php
 /src/web/sites/*/services.local.yml
 /src/web/sites/*/local.settings.php
@@ -42,8 +42,9 @@
 # ------------------------------
 .env
 .env.*
+!/src/.env.dist
 /src/.env
-/src/.env.*
+!/src/.env.dist
 
 .idea/
 .vscode/

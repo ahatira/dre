@@ -1,0 +1,15 @@
+uuid: 945ca862-4ed3-4ea2-b17f-fbc55cd2f274
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_amnagement_des_bureaux
+label: 'Aménagement des bureaux'
+description: 'Aménagement des bureaux'
+code: TEC_AMNAGEMENT_DES_BUREAUX
+group: amenagements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 4
+icon: ''
+expose_as_filter: 1

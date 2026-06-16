@@ -1,0 +1,11 @@
+uuid: 32972163-46bf-45a3-8c48-8baeec28481e
+langcode: en
+status: true
+dependencies: {  }
+id: dpe_class.d
+type: dpe_class
+code: D
+label: 'Class D'
+description: null
+icon: null
+weight: 4

@@ -1,0 +1,49 @@
+settings:
+  form_submit_label: Envoyer
+  confirmation_message: '<p>Merci. Votre message a été envoyé.</p>'
+handlers:
+  email_notification:
+    subject: 'Formulaire de contact du site'
+    body: _default
+    label: 'Notification du site'
+    settings:
+      from_name: '[webform_submission:values:first_name:raw] [webform_submission:values:last_name:raw]'
+      subject: 'Website contact form'
+      body: _default
+  email_confirmation:
+    subject: 'Merci de nous avoir contactés'
+    body: '<p>Merci pour votre message.</p><p>Nous avons bien reçu votre demande et reviendrons vers vous rapidement.</p>'
+    label: 'Confirmation visiteur'
+    settings:
+      subject: 'Website contact form'
+      body: _default
+category: 'Recherche immobilière'
+title: Contactez-nous
+description: "Formulaire de contact global pour l'offcanvas du header."
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Vos coordonnées'
+    first_name:
+      '#type': textfield
+      '#title': 'Prénom'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Nom'
+      '#required': true
+    email:
+      '#type': email
+      '#title': E-mail
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Téléphone
+  message:
+    '#type': textarea
+    '#title': Message
+    '#required': true
+  legal:
+    '#type': checkbox
+    '#title': 'J'accepte la politique de confidentialité.'
+    '#required': true

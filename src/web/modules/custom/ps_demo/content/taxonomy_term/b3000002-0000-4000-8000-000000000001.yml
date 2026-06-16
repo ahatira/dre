@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: b3000002-0000-4000-8000-000000000001
+  bundle: market_study_category
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Offices
+  weight:
+    -
+      value: 0
+translations:
+  fr:
+    status:
+      -
+        value: true
+    name:
+      -
+        value: Bureaux
+  es:
+    status:
+      -
+        value: true
+    name:
+      -
+        value: Oficinas

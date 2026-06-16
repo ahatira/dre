@@ -1,0 +1,11 @@
+uuid: 4f025c20-25fb-4cf7-8728-4ced6a2e70a8
+langcode: en
+status: true
+dependencies:
+  module:
+    - sitewide_alert
+id: sitewide_alert.token
+label: Token
+description: null
+targetEntityType: sitewide_alert
+cache: true

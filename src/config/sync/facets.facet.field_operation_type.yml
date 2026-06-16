@@ -1,0 +1,56 @@
+uuid: 466e3494-b923-41a1-8cc1-7494aca06596
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.offers
+    - views.view.ps_search_offers
+  module:
+    - search_api
+_core:
+  default_config_hash: KagoYGigcWeAzoOe6PFl-5yM59Yy5WMGI7f3vLW6cpw
+id: field_operation_type
+name: 'Transaction type'
+url_alias: operation_type
+weight: 0
+min_count: 1
+missing: false
+missing_label: others
+show_only_one_result: false
+field_identifier: field_operation_type
+facet_source_id: 'search_api:views_page__ps_search_offers__page_list'
+widget:
+  type: links
+  config:
+    show_numbers: true
+    soft_limit: 0
+    soft_limit_settings:
+      show_less_label: 'Show less'
+      show_more_label: 'Show more'
+query_operator: or
+use_hierarchy: false
+keep_hierarchy_parents_active: false
+hierarchy:
+  type: taxonomy
+  config: {  }
+expand_hierarchy: false
+enable_parent_when_child_gets_disabled: true
+hard_limit: 0
+exclude: false
+only_visible_when_facet_source_is_visible: null
+processor_configs:
+  count_widget_order:
+    processor_id: count_widget_order
+    weights:
+      sort: 30
+    settings:
+      sort: DESC
+  ps_dictionary_label:
+    processor_id: ps_dictionary_label
+    weights:
+      build: 5
+    settings:
+      dictionary_type: operation_type
+empty_behavior:
+  behavior: none
+show_title: false

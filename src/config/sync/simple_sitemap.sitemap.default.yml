@@ -1,0 +1,11 @@
+uuid: 00000000-0000-0000-0000-000000000001
+langcode: en
+status: false
+dependencies:
+  config:
+    - simple_sitemap.type.default_hreflang
+id: default
+label: Default
+description: 'Legacy default sitemap — disabled in favour of per-asset-type offer sitemaps.'
+type: default_hreflang
+weight: -100

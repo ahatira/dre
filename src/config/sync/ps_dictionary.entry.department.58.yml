@@ -1,0 +1,11 @@
+uuid: f09fbb1f-369a-4d5a-a4b9-4ddd77edcd6c
+langcode: en
+status: true
+dependencies: {  }
+id: department.58
+type: department
+code: '58'
+label: Nièvre
+description: null
+icon: null
+weight: 59

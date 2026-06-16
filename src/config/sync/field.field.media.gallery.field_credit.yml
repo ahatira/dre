@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_credit
+    - media.type.gallery
+id: media.gallery.field_credit
+field_name: field_credit
+entity_type: media
+bundle: gallery
+label: Credit
+description: 'Copyright or attribution for this media.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

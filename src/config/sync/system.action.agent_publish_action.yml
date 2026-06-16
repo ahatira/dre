@@ -1,0 +1,13 @@
+uuid: b22b1f24-319d-4e2a-bdd2-c52241edec26
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_agent
+_core:
+  default_config_hash: reMJeLESqzcyjsYr6RvAowPbCjyKzOiNQWG6pl7xLIA
+id: agent_publish_action
+label: 'Publish agent'
+type: ps_agent
+plugin: agent_publish_action
+configuration: {  }

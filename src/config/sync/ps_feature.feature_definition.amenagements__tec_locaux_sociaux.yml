@@ -1,0 +1,15 @@
+uuid: dc599854-5a2f-4e74-b467-d464e84213be
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_locaux_sociaux
+label: 'Locaux sociaux'
+description: 'Locaux sociaux'
+code: TEC_LOCAUX_SOCIAUX
+group: amenagements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 5
+icon: ''
+expose_as_filter: 1

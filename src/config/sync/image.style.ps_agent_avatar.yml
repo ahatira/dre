@@ -1,0 +1,25 @@
+uuid: 7422c8ad-d01c-45da-8a58-13f5ce9d6e27
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: cQyev4IM4J3omfzJPT_PTunQ_JKrUjEN2KWro1hVVuY
+name: ps_agent_avatar
+label: 'PS Agent Avatar (96x96)'
+effects:
+  41e0d56f-8f0b-44c8-b699-0f4d38cb8e11:
+    uuid: 41e0d56f-8f0b-44c8-b699-0f4d38cb8e11
+    id: focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 96
+      height: 96
+      crop_type: focal_point
+  9a3ec89d-6a84-4bea-9ed7-6b8b6e80dc16:
+    uuid: 9a3ec89d-6a84-4bea-9ed7-6b8b6e80dc16
+    id: image_convert_avif
+    weight: 10
+    data:
+      extension: webp

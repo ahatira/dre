@@ -1,0 +1,11 @@
+uuid: 2173f21b-9cd1-4fe9-976f-1820677fc71a
+langcode: en
+status: true
+dependencies: {  }
+id: ges_class.e
+type: ges_class
+code: E
+label: 'Class E'
+description: null
+icon: null
+weight: 5

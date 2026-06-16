@@ -1,0 +1,11 @@
+uuid: c0823066-78c1-41bc-a663-6b0ba5722897
+langcode: en
+status: true
+dependencies: {  }
+id: department.25
+type: department
+code: '25'
+label: Doubs
+description: null
+icon: null
+weight: 24

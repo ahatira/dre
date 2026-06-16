@@ -1,0 +1,12 @@
+uuid: ce2daa54-c498-4e72-aacd-8ebce9d2b0f6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 6TnslV3PMxKDUMPpheklXGdpxCXpZQp4NMSrhKYnmyQ
+id: informations_complementaires
+label: INFORMATIONS_COMPLEMENTAIRES
+description: INFORMATIONS_COMPLEMENTAIRES
+icon: 'bnp_custom:infos'
+asset_types: {  }
+weight: 4808

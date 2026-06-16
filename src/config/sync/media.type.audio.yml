@@ -1,0 +1,17 @@
+uuid: 6aaf0634-127d-4e05-9fe0-1ee2d6548865
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnp_media
+_core:
+  default_config_hash: 0xmHkLhohZYNqqaceAO9LXadBXeehwmZreL5fJIcyIU
+id: audio
+label: Audio
+description: 'Generic reusable audio file.'
+source: bnp_audio_file
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_audio_file
+field_map: {  }

@@ -1,0 +1,11 @@
+uuid: 5d3580f2-02b9-460c-8010-5d21dbe07581
+langcode: en
+status: true
+dependencies: {  }
+id: asset_type.com
+type: asset_type
+code: COM
+label: 'Retail unit'
+description: null
+icon: null
+weight: 5

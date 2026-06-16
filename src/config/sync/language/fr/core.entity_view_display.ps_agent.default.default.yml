@@ -1,0 +1,5 @@
+content:
+  status:
+    settings:
+      format_custom_true: Publié
+      format_custom_false: 'Non publié'

@@ -1,0 +1,11 @@
+uuid: d6c1d247-bc1c-4d04-83d0-b0e651bc266b
+langcode: en
+status: true
+dependencies: {  }
+name: 'FAQ item'
+type: faq_item
+description: 'Frequently asked question entries for homepage and FAQ page.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

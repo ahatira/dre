@@ -19,7 +19,7 @@ use Drupal\path_alias\PathAliasInterface;
  * Creates the Stellar homepage node with a default Layout Builder layout.
  *
  * @deprecated in ps_theme:1.0.0 and is removed from ps_theme:2.0.0. The
- *   homepage node is imported from ps_demo/export/content/node/*.yml.
+ *   homepage node is imported from ps_demo/content/node/*.yml via default_content.
  */
 final class HomepageInstaller {
 

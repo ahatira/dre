@@ -1,0 +1,15 @@
+uuid: 58254957-35e7-4ae0-8e97-1af87b1f8801
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_bureaux_cloisonns
+label: 'Bureaux cloisonnés'
+description: 'Bureaux cloisonnés'
+code: TEC_BUREAUX_CLOISONNS
+group: amenagements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 73
+icon: ''
+expose_as_filter: 1

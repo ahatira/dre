@@ -1,0 +1,21 @@
+uuid: 58d2421d-c11d-4724-8d64-d75abe7848f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_import_id
+    - node.type.offer
+_core:
+  default_config_hash: l5C4LPa5yB27ZroZsFcRDFKVdBqt9ecAUiwiFFWTelk
+id: node.offer.field_import_id
+field_name: field_import_id
+entity_type: node
+bundle: offer
+label: 'Import ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

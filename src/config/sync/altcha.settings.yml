@@ -1,0 +1,36 @@
+_core:
+  default_config_hash: Ec9uDGtMSGek2rl6vOOZ3g5hto5v3LezSJvqCI4qMbY
+integration_type: self_hosted
+saas_api_key: ''
+saas_api_region: eu
+sentinel_api_url: ''
+sentinel_api_key: ''
+sentinel_api_secret: ''
+auto_verification: 'off'
+max_number: null
+expire: null
+delay: null
+library_override: ''
+floating_enabled: false
+floating_mode: auto
+floating_anchor: ''
+floating_offset: null
+hide_logo: false
+hide_footer: false
+aria: ''
+enter_code: ''
+enter_code_aria: ''
+error: ''
+expired: ''
+footer: ''
+get_audio: ''
+label: ''
+verify: ''
+verification_required: ''
+verified: ''
+verifying: ''
+wait: ''
+obfuscate_reveal_text: ''
+obfuscate_max_number: null
+obfuscate_library_override: ''
+langcode: en

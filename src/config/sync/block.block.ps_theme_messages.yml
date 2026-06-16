@@ -1,0 +1,20 @@
+uuid: 1184a07d-8e64-45f0-8ad8-128ad36a8579
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ps_theme
+id: ps_theme_messages
+theme: ps_theme
+region: highlighted
+weight: -50
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

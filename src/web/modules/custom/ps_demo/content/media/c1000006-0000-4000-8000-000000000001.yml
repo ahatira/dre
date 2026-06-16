@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: c1000006-0000-4000-8000-000000000001
+  bundle: image
+  default_langcode: en
+  depends:
+    c1000005-0000-4000-8000-000000000001: file
+default:
+  revision_user:
+    -
+      target_id: 0
+  revision_log_message:
+    -
+      value: 'Demo news teaser (bnppre.fr)'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'News — logistique'
+  created:
+    -
+      value: 1781616338
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: c1000005-0000-4000-8000-000000000001
+      alt: 'Entrepôt logistique'
+      title: ''
+      width: 438
+      height: 252

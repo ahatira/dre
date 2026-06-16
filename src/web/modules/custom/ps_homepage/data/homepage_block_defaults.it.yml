@@ -1,0 +1,211 @@
+# Italian homepage block defaults (overlay on homepage_block_defaults.yml).
+ps_homepage_search_hero_block:
+  it:
+    title: 'Cosa sta cercando?'
+    transaction_type_label: 'Tipo di transazione'
+    op_buy_label: Acquisto
+    op_rent_label: Affitto
+    op_flexible_label: Indifferente
+    location_label: Località
+    location_placeholder: 'Città, quartiere o codice postale'
+    property_type_label: 'Tipo di immobile'
+    property_type_placeholder: 'Tipo di immobile'
+    surface_min_label: 'Superficie minima (m²)'
+    price_max_label: 'Prezzo massimo'
+    search_button_label: Cerca
+    delegate_prompt: 'Desidera delegare la sua ricerca?'
+    delegate_button_label: 'Delegare la mia ricerca'
+    promo_title: 'Immobili d''impresa: trovi i suoi futuri uffici'
+    promo_offers_template: '@count offerte attualmente disponibili'
+    promo_cta_label: 'Scopri le nostre offerte di servizi'
+    promo_cta_url: /find-property
+    promo_description: 'Uffici, spazi di coworking, magazzini logistici, locali commerciali o attività: l''offerta immobiliare d''impresa di BNP Paribas Real Estate copre tutti gli asset del mercato per rispondere al meglio alle sue aspettative.'
+
+ps_content_services_grid_block:
+  it:
+    title: 'BNP Paribas Real Estate la accompagna nel suo progetto immobiliare d''impresa'
+    subtitle: 'Le diverse linee di business di BNP Paribas Real Estate Transaction la aiutano a valorizzare tutti i suoi progetti immobiliari d''impresa.'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:entrusting-a-property'
+        card_title: 'Affidare un immobile'
+        body: 'Affidi la vendita o l''affitto dei suoi uffici, edifici, magazzini, locali o terreni ai nostri esperti.'
+        button_label: 'Affidare il mio immobile'
+        link_type: url
+        button_style: primary
+        button_url: /entrust-property
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+      - weight: 1
+        icon: 'bnp_custom:people-number'
+        card_title: 'Delegare la mia ricerca'
+        body: 'Per trovare il suo prossimo locale professionale, contatti i nostri esperti BNP Paribas Real Estate e delegi la sua ricerca.'
+        button_label: 'Delegare la mia ricerca'
+        link_type: offcanvas
+        button_style: primary
+        button_url: ''
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+      - weight: 2
+        icon: 'bnp_custom:advise'
+        card_title: Consulenza
+        body: 'Definisca la sua strategia immobiliare in logistica o uffici con l''aiuto dei nostri esperti.'
+        button_label: 'Ricevere consulenza'
+        link_type: url
+        button_style: primary
+        button_url: /solutions/advisory
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+      - weight: 3
+        icon: 'bnp_custom:capital-market'
+        card_title: 'Capital markets'
+        body: 'Costruisca o gestisca il suo portafoglio immobiliare con una strategia di investimento su misura.'
+        button_label: 'Scoprire Capital Markets'
+        link_type: url
+        button_style: primary
+        button_url: /solutions/capital-markets
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+
+ps_content_outils_accordion_block:
+  it:
+    title: 'Affrontare al meglio il suo progetto immobiliare'
+    subtitle: 'Tutti gli strumenti di supporto decisionale sviluppati da BNP Paribas Real Estate hanno un obiettivo comune: permetterle di affinare i suoi criteri e ottimizzare le sue ricerche.'
+    items:
+      - weight: 0
+        illustration: null
+        question: 'Uffici classici o coworking? Faccia il test!'
+        answer: '<p>Risponda alle 10 domande del simulatore per ottenere una diagnosi personalizzata.</p><p>Questo strumento analizza le sue modalità di lavoro, le sue esigenze e il suo profilo per orientarla verso la soluzione più adatta.</p>'
+        link_label: 'Aprire il simulatore'
+        link_url: /outils/simulateur-location-bureaux-coworking
+        button_style: outline
+        opened_by_default: true
+      - weight: 1
+        illustration: null
+        question: 'Calcolatore di superficie uffici'
+        answer: '<p>Facile e rapido da usare, il calcolatore di superficie le permette di definire in pochi clic i m² adatti alle sue esigenze in base al personale, agli spazi comuni e all''organizzazione del lavoro.</p>'
+        link_label: 'Avviare il calcolatore'
+        link_url: /outils/calculateur-de-surface-bureaux
+        button_style: outline
+        opened_by_default: false
+      - weight: 2
+        illustration: null
+        question: 'Guide e consigli'
+        answer: '<p>Scopra tutte le nostre guide pratiche per ottimizzare la sua ricerca immobiliare!</p><p>Dalla comprensione dei contratti di locazione commerciale alle tendenze di mercato, le nostre risorse le forniscono le chiavi per il successo del suo progetto.</p>'
+        link_label: 'Scoprire la raccolta'
+        link_url: /guides/guides-conseils
+        button_style: outline
+
+ps_offer_offers_carousel_block:
+  it:
+    title: 'Offerte in evidenza'
+    subtitle: 'Una selezione di opportunità in Italia'
+    see_more_label: 'Vedi tutte le offerte'
+
+ps_search_search_shortcuts_block:
+  it:
+    title: 'Avvii la sua ricerca'
+    subtitle: 'Accesso rapido agli asset più ricercati'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:offices'
+        title: 'Uffici in affitto'
+        link_label: 'Vedi gli annunci'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: BUR
+        preset_locality: ''
+        url: ''
+      - weight: 1
+        icon: 'bnp_custom:logistic-warehouses'
+        title: Logistica
+        link_label: 'Vedi gli annunci'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: LOG
+        preset_locality: ''
+        url: ''
+      - weight: 2
+        icon: 'bnp_custom:shops'
+        title: Commercio
+        link_label: 'Vedi gli annunci'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COM
+        preset_locality: ''
+        url: ''
+      - weight: 3
+        icon: 'bnp_custom:coworking'
+        title: Coworking
+        link_label: 'Vedi gli annunci'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COW
+        preset_locality: ''
+        url: ''
+
+ps_content_experts_accompagnement_block:
+  it:
+    title: 'I nostri esperti la accompagnano'
+    subtitle: 'Qualunque sia il suo progetto immobiliare d''impresa, un esperto dedicato di BNP Paribas Real Estate la accompagna in ogni fase.'
+    steps:
+      - weight: 0
+        image: null
+        image_alt: 'Progetto immobiliare BNPPRE'
+        image_credit: 'nenetus - Adobe Stock'
+        step_label: 'Definizione delle esigenze'
+        step_title: 'Ci parli del suo progetto'
+        step_body: 'Formalizziamo insieme un capitolato chiaro e preciso. Esaminiamo tutte le variabili per chiarire le sue esigenze e prioritizzare i suoi requisiti: superficie, ubicazione, accessibilità, budget, tempistiche, vincoli tecnici ed evoluzioni future. Le inviamo poi gli annunci adatti a questo capitolato.'
+      - weight: 1
+        image: null
+        image_alt: 'Visita dell''immobile BNP Paribas Real Estate'
+        image_credit: 'tsyhun - Shutterstock'
+        step_label: 'Visita dell''immobile'
+        step_title: 'Programmiamo una visita!'
+        step_body: 'Due tipi di visita: sul posto con un consulente che risponde a tutte le sue domande, oppure visita immersiva per alcuni annunci, che le permette di esplorare gli spazi a distanza e preselezionare i suoi preferiti prima di spostarsi.'
+      - weight: 2
+        image: null
+        image_alt: 'Contrattualizzazione BNP Paribas Real Estate'
+        image_credit: 'Andrey_Popov - Shutterstock'
+        step_label: Contrattualizzazione
+        step_title: 'Vigiliamo per tutelare i suoi interessi'
+        step_body: 'Negoziazione del contratto di locazione, prezzo di vendita, contrattualizzazione… In ogni fase la accompagniamo per prendere decisioni informate. I nostri team analizzano le clausole, identificano i punti di attenzione e negoziano le migliori condizioni.'
+      - weight: 3
+        image: null
+        image_alt: 'Adeguamento dei locali professionali'
+        image_credit: 'Who is Danny - Adobe Stock'
+        step_label: 'Adeguamento dei locali'
+        step_title: 'La consigliamo sull''adeguamento dei suoi locali'
+        step_body: 'Implementi nuove modalità di lavoro e spazi dedicati al benessere dei suoi dipendenti per guadagnare competitività e attrarre i migliori talenti. Dal flex office agli spazi di collaborazione, la aiutiamo a progettare un ambiente che stimoli le sue performance.'
+      - weight: 4
+        image: null
+        image_alt: 'Accompagnamento continuo BNP Paribas Real Estate'
+        image_credit: 'marvent - Shutterstock'
+        step_label: Installazione
+        step_title: 'L''accompagnamento continua…'
+        step_body: 'Ha già solide basi per costruire il futuro della sua azienda. L''accompagnamento di BNP Paribas Real Estate non finisce qui: presenti in tutte le linee di business immobiliare, avremo sempre una soluzione per i suoi progetti futuri.'
+
+ps_news_news_block:
+  it:
+    title: 'Notizie e analisi'
+    subtitle: 'Tendenze di mercato e prospettive degli esperti'
+    see_more_label: 'Vedi tutte le notizie'
+
+ps_market_study_market_studies_block:
+  it:
+    title: 'Studi di mercato'
+    subtitle: 'Analisi per orientare le sue decisioni immobiliari'
+    see_more_label: 'Vedi tutti gli studi'
+
+ps_faq_faq_block:
+  it:
+    title: 'Domande frequenti'
+    see_more_label: 'Vedi tutte le domande'

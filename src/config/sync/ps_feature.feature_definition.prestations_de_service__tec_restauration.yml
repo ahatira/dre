@@ -1,0 +1,15 @@
+uuid: 26f1f202-a8fc-4725-ac18-27fd45461c90
+langcode: en
+status: true
+dependencies: {  }
+id: prestations_de_service__tec_restauration
+label: Restauration
+description: Restauration
+code: TEC_RESTAURATION
+group: prestations_de_service
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 106
+icon: ''
+expose_as_filter: 1

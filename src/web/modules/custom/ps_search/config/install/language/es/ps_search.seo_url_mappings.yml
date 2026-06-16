@@ -1,1 +1,12 @@
 search_path: buscar-inmueble
+operation_types:
+  LOC: en-alquiler
+  VEN: en-venta
+asset_types:
+  BUR: oficinas
+  ENT: almacen
+  ACT: local-actividad
+  COM: local-comercial
+  TER: terreno
+  LOG: logistica
+  COW: coworking

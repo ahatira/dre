@@ -1,0 +1,21 @@
+uuid: f608dd41-5c8d-4b79-ae5e-b4e463f3646b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_diagnostic
+_core:
+  default_config_hash: XPGkblv5HSBogIiKZP9l19c3wlZYjlfAsmj43jieNl8
+id: node.field_diagnostics_ges
+field_name: field_diagnostics_ges
+entity_type: node
+type: diagnostic_item
+settings: {  }
+module: ps_diagnostic
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

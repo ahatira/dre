@@ -1,0 +1,24 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: c1000011-0000-4000-8000-000000000001
+  default_langcode: en
+default:
+  filename:
+    -
+      value: study-logistique.jpg
+  uri:
+    -
+      value: 'public://demo/study-logistique.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 344809
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1781616338

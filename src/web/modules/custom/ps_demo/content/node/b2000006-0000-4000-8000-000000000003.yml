@@ -1,0 +1,121 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000006-0000-4000-8000-000000000003
+  bundle: market_study
+  default_langcode: en
+  depends:
+    b3000002-0000-4000-8000-000000000001: taxonomy_term
+    c1000014-0000-4000-8000-000000000001: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo market study'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Retail market Spain 2025'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>Prime retail rents and tenant mix evolution in Spain''s largest shopping destinations.</p>'
+      format: basic_html
+      summary: ''
+  field_display_date:
+    -
+      value: '2025-01-22'
+  field_study_category:
+    -
+      entity: b3000002-0000-4000-8000-000000000001
+  field_teaser_image:
+    -
+      entity: c1000014-0000-4000-8000-000000000001
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Étude démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Marché retail Espagne 2025'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Évolution des loyers prime et du mix enseignes dans les destinations commerciales majeures d''Espagne.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-01-22'
+    field_study_category:
+      -
+        entity: b3000002-0000-4000-8000-000000000001
+  es:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Estudio demo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Mercado retail España 2025'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Evolución de rentas prime y del mix de operadores en las principales zonas comerciales de España.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-01-22'
+    field_study_category:
+      -
+        entity: b3000002-0000-4000-8000-000000000001

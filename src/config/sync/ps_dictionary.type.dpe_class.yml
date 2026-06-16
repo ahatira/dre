@@ -1,0 +1,9 @@
+uuid: 6158a1eb-4b4e-4e63-b62d-f32c881751d6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: uVExqqLogp-_nUlabX-5VW3KFjMogGaLsWahU8K_uxI
+id: dpe_class
+label: 'Classes DPE'
+description: null

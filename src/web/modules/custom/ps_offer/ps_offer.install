@@ -29,6 +29,6 @@ function ps_offer_register_pathauto_safe_tokens(): void {
     'ps-offer-seo-prefix',
   ];
 
-  $config->set('safe_tokens', array_values(array_unique(array_merge($safe_tokens, $offer_tokens)));
+  $config->set('safe_tokens', array_values(array_unique(array_merge($safe_tokens, $offer_tokens))));
   $config->save();
 }

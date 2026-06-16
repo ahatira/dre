@@ -17,11 +17,15 @@ function ps_agent_install(): void {
   $entity_type = $entity_type_manager->getDefinition('ps_agent_type');
   $entity_definition_update_manager->installEntityType($entity_type);
 
-  $field_definition = \Drupal\Core\Field\BaseFieldDefinition::create('string')
-    ->setLabel(t('Agent type'))
-    ->setSetting('max_length', 128)
-    ->setRequired(TRUE);
-  $entity_definition_update_manager->installFieldStorageDefinition('type', 'ps_agent', 'ps_agent', $field_definition);
+  $field_storage_definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('ps_agent');
+  if (isset($field_storage_definitions['type'])) {
+    $entity_definition_update_manager->installFieldStorageDefinition(
+      'type',
+      'ps_agent',
+      'ps_agent',
+      $field_storage_definitions['type'],
+    );
+  }
 
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('ps_agent.ps_agent_type.default');
@@ -33,5 +37,42 @@ function ps_agent_install(): void {
       ->set('id', 'default')
       ->set('label', 'Agent')
       ->save();
+  }
+}
+
+/**
+ * Removes erroneous string field storage on bundle key "type" (legacy install bug).
+ */
+function ps_agent_update_10001(): void {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage = $update_manager->getFieldStorageDefinition('type', 'ps_agent');
+  if ($field_storage !== NULL && $field_storage->getType() === 'string') {
+    $update_manager->uninstallFieldStorageDefinition($field_storage);
+  }
+}
+
+/**
+ * Installs the bundle field storage for ps_agent after legacy string field removal.
+ */
+function ps_agent_update_10002(): void {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('ps_agent');
+  if (!isset($definitions['type'])) {
+    return;
+  }
+  if ($update_manager->getFieldStorageDefinition('type', 'ps_agent') === NULL) {
+    $update_manager->installFieldStorageDefinition(
+      'type',
+      'ps_agent',
+      'ps_agent',
+      $definitions['type'],
+    );
+  }
+  $database = \Drupal::database();
+  if ($database->schema()->fieldExists('ps_agent', 'type')) {
+    $database->update('ps_agent')
+      ->fields(['type' => 'default'])
+      ->isNull('type')
+      ->execute();
   }
 }

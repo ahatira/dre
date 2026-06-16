@@ -1,0 +1,16 @@
+uuid: 2a1b3c4d-0005-0000-0000-000000000005
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: q87zsVwN9Xc-8jA7Ku8bJGp2V9_GEqiV3QwTBBrgNKQ
+id: default_hide_lots
+label: 'Default: Hide Lots tab'
+weight: -10
+conditions_logic: AND
+conditions: {  }
+actions:
+  -
+    action_type: hide_tab
+    target: group_lots
+    value: ''

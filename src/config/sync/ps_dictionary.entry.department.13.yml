@@ -1,0 +1,11 @@
+uuid: 9514959d-159a-48d4-a63f-02c29ea126ac
+langcode: en
+status: true
+dependencies: {  }
+id: department.13
+type: department
+code: '13'
+label: Bouches-du-Rhône
+description: null
+icon: null
+weight: 13

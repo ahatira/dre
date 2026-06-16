@@ -1,0 +1,22 @@
+uuid: 38e8f961-c734-409f-a34f-c86d54fc415c
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - taxonomy
+_core:
+  default_config_hash: _65G6AMdO9rV2o_BgqoNnInqO-5YcUQgO45kEjlctos
+id: taxonomy_term.field_badge
+field_name: field_badge
+entity_type: taxonomy_term
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,95 @@
+uuid: 560d7403-0133-4910-a6c4-f7fd4474bef8
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+_core:
+  default_config_hash: As_Uq3AfHZovv3dgwKdbJRB85J9bLJXwJeNjDgkxCso
+id: ps_agent_from_xml
+class: null
+idMap: {  }
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Agents from CRM XML (Config-First)'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: simple_xml
+  urls:
+    - 'public://crm/offers.xml'
+  item_selector: "/OFFERS_LIST/OFFER/BUSINESS_LEADERS_LIST/BUSINESS_LEADER[normalize-space(UID) != '' and not(UID = preceding::BUSINESS_LEADER/UID)]"
+  fields:
+    -
+      name: uid
+      label: 'Agent UID'
+      selector: UID
+    -
+      name: firstname
+      label: 'First name'
+      selector: FIRSTNAME
+    -
+      name: lastname
+      label: 'Last name'
+      selector: LASTNAME
+    -
+      name: email
+      label: Email
+      selector: MAIL
+    -
+      name: phone
+      label: Phone
+      selector: PHONE_NUMBER
+    -
+      name: avatar_url
+      label: 'Avatar URL'
+      selector: AVATAR_URL
+    -
+      name: creation_date
+      label: 'Creation date'
+      selector: CREATION_DATE
+  ids:
+    uid:
+      type: string
+process:
+  type:
+    plugin: default_value
+    default_value: default
+  first_name: firstname
+  last_name: lastname
+  email: email
+  phone: phone
+  field_business_id: uid
+  civility:
+    plugin: default_value
+    default_value: null
+  internal_external:
+    plugin: default_value
+    default_value: EXTERNAL
+  status:
+    plugin: default_value
+    default_value: 1
+  avatar:
+    -
+      plugin: migration_lookup
+      migration: ps_agent_avatar_file_from_xml
+      source: uid
+      no_stub: true
+    -
+      plugin: skip_on_empty
+      method: process
+  has_avatar:
+    plugin: callback
+    callable: is_numeric
+    source: '@avatar'
+destination:
+  plugin: 'entity:ps_agent'
+migration_dependencies:
+  required:
+    - ps_agent_avatar_file_from_xml
+  optional: {  }
+include: null

@@ -1,0 +1,15 @@
+uuid: def44917-5147-4b60-b961-6fd9d2c543a4
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_faux_plancher
+label: 'Faux plancher'
+description: 'Faux plancher'
+code: TEC_FAUX_PLANCHER
+group: equipements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 49
+icon: ''
+expose_as_filter: 1

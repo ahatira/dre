@@ -1,0 +1,25 @@
+uuid: c18d2aad-11e8-4ff8-b2c9-24d0e43c9276
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: yn04_P2FnlrQ5WMCkxQHOBk_puE1hH4y6CVoiHKKjVQ
+name: agent_avatar_lg
+label: 'Agent avatar LG (160x160)'
+effects:
+  1fc45f48-8200-4f32-a74d-f322deb95dd3:
+    uuid: 1fc45f48-8200-4f32-a74d-f322deb95dd3
+    id: focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 160
+      height: 160
+      crop_type: focal_point
+  8dbf5f6a-b52d-43b8-9ff7-99c4c6f950f0:
+    uuid: 8dbf5f6a-b52d-43b8-9ff7-99c4c6f950f0
+    id: image_convert_avif
+    weight: 10
+    data:
+      extension: webp

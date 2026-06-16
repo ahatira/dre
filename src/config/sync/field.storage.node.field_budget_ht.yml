@@ -1,0 +1,20 @@
+uuid: a578ac40-c31d-43fd-89f6-7b46c8bf71b9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: y7oE7igr4ipWaFE5RD5yROX_hRyxhvRl31WAz_EXiNU
+id: node.field_budget_ht
+field_name: field_budget_ht
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

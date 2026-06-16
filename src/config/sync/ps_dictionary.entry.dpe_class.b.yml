@@ -1,0 +1,11 @@
+uuid: d5050b8e-f07c-4d3b-85c4-a431ce91cd79
+langcode: en
+status: true
+dependencies: {  }
+id: dpe_class.b
+type: dpe_class
+code: B
+label: 'Class B'
+description: null
+icon: null
+weight: 2

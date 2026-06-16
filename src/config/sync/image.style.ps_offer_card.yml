@@ -1,0 +1,17 @@
+uuid: 0db7dd73-8788-45d9-8ee4-caebf3647b55
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: S_7ueGsBaN5MDOmKInfrTOADfUKFDYtHU8ieTP1rAbc
+name: ps_offer_card
+label: 'PS offer card (320×220)'
+effects:
+  ps_offer_card_scale_crop:
+    uuid: 4a8e1f2b-6c3d-4e9a-b1c2-0d5e7f9a3b6d
+    id: image_scale_and_crop
+    weight: 0
+    data:
+      width: 320
+      height: 220
+      anchor: center-center

@@ -1,0 +1,11 @@
+uuid: 1bca0ceb-6ca3-4868-8cd2-909514557ed3
+langcode: en
+status: true
+dependencies: {  }
+id: department.33
+type: department
+code: '33'
+label: Gironde
+description: null
+icon: null
+weight: 34

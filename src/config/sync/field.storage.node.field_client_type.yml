@@ -1,0 +1,21 @@
+uuid: 42aea1b4-4d43-4d1d-b2a6-ebcf064b0aa4
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_dictionary
+_core:
+  default_config_hash: GubZamcQ7gqac3OsaV9KNE_jYEn3Yz0djLZVHln0BQc
+id: node.field_client_type
+field_name: field_client_type
+entity_type: node
+type: ps_dictionary
+settings: {  }
+module: ps_dictionary
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

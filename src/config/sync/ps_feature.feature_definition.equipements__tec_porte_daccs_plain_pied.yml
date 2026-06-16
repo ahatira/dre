@@ -1,0 +1,16 @@
+uuid: 0f754770-eb41-48c8-aa20-116cbdf1902a
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_porte_daccs_plain_pied
+label: "Porte d'accès plain-pied"
+description: "Porte d'accès plain-pied"
+code: TEC_PORTE_DACCS_PLAIN_PIED
+group: equipements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: (3mx3m)
+weight: 9
+icon: ''
+expose_as_filter: 1

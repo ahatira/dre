@@ -1,0 +1,11 @@
+uuid: 103eef69-8c1c-4224-bee5-d9c57e4642d6
+langcode: en
+status: true
+dependencies: {  }
+id: client_type.b2c
+type: client_type
+code: B2C
+label: 'Business to Consumer'
+description: null
+icon: null
+weight: 2

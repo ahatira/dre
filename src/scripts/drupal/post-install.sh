@@ -4,8 +4,10 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
 
 # Post-install — demo content, sample offers, search/SEO modules, Solr index.
 
-readonly XML_SAMPLE="${PS_PROJECT_ROOT}/data/xml/bnppre_sample_50_per_type.xml"
-readonly XML_TARGET="${PS_SRC_DIR}/web/sites/default/files/crm/offers.xml"
+ps_crm_xml_path() {
+  local country="${PS_COUNTRY_CODE:-com}"
+  ps_crm_xml_target "${country}"
+}
 
 show_help() {
   cat <<'EOF'
@@ -78,32 +80,58 @@ ps_success "Prerequisites OK"
 if [[ ${SKIP_DEMO} -eq 0 ]]; then
   ps_info "Step 1/5: Demo content..."
   bash "${PS_SCRIPTS_DIR}/drupal/demo.sh"
+  country="${PS_COUNTRY_CODE:-com}"
+  if ps_is_country_code "${country}"; then
+    ps_info "Re-applying language negotiation for ${country} (demo CMI must not override country splits)..."
+    ps_apply_site_language_negotiation "${country}"
+  fi
   ps_success "Demo content ready"
 else
   ps_info "Step 1/5: Demo content skipped"
 fi
 
 if [[ ${SKIP_OFFERS} -eq 0 ]]; then
-  EXISTING_OFFERS=$(ps_drush sql:query "SELECT COUNT(*) FROM node_field_data WHERE type='offer' AND status=1" 2>/dev/null | tr -d '[:space:]')
+  EXISTING_OFFERS="$(ps_drush_published_offer_count)"
   if [[ -n "${EXISTING_OFFERS}" && "${EXISTING_OFFERS}" -gt 0 && ${FORCE_OFFERS} -eq 0 ]]; then
     ps_info "Step 2/5: Sample offers already present (${EXISTING_OFFERS}) — skipping migrate (use --force-offers to re-import)"
   else
-    ps_info "Step 2/5: Sample offers import..."
-    ps_require_file "${XML_SAMPLE}" "Sample XML not found: ${XML_SAMPLE}"
-    mkdir -p "$(dirname "${XML_TARGET}")"
-    cp "${XML_SAMPLE}" "${XML_TARGET}"
-    ps_success "XML staged: ${XML_TARGET}"
+    country="${PS_COUNTRY_CODE:-com}"
+    ps_info "Step 2/5: Sample offers import (${country})..."
+    ps_require_file "${PS_PROJECT_ROOT}/data/xml/bnppre_sample_50_per_type.xml" \
+      "Master sample XML not found: ${PS_PROJECT_ROOT}/data/xml/bnppre_sample_50_per_type.xml"
+    ps_stage_country_sample_xml "${country}"
+    XML_TARGET="$(ps_crm_xml_target "${country}")"
 
     ps_info "Importing dictionary (ensure referentials are up to date)..."
     ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
     ps_info "Running CRM migrate pipeline..."
-    ps_retry 2 2 ps_drush pm:install migrate migrate_plus migrate_tools ps_migrate -y
+    ps_info "Removing stale migrate configs (imported before ps_migrate)..."
+    ps_drush ev '
+if (!\Drupal::moduleHandler()->moduleExists("ps_migrate")) {
+  $connection = \Drupal::database();
+  $names = $connection->select("config", "c")
+    ->fields("c", ["name"])
+    ->condition("name", "migrate_plus.%", "LIKE")
+    ->execute()
+    ->fetchCol();
+  foreach ($names as $name) {
+    if (preg_match("/^migrate_plus\.(migration|migration_group)\.ps_/", $name)) {
+      $connection->delete("config")->condition("name", $name)->execute();
+    }
+  }
+}
+' || true
+    ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools ps_migrate
     if ! ps_retry 2 2 ps_drush migrate:import ps_offer_from_xml --update --execute-dependencies -y; then
       ps_die "Offer migrate failed (check ${XML_TARGET})"
     fi
 
-    OFFER_COUNT=$(ps_drush sql:query "SELECT COUNT(*) FROM node_field_data WHERE type='offer' AND status=1" 2>/dev/null | tr -d '[:space:]')
+    ps_info "Importing offer translations from XML..."
+    ps_retry 2 2 ps_drush migrate:import ps_offer_translations_from_xml --update -y \
+      || ps_warn "Offer translation migrate had warnings"
+
+    OFFER_COUNT="$(ps_drush_published_offer_count)"
     [[ -n "${OFFER_COUNT}" && "${OFFER_COUNT}" -gt 0 ]] \
       || ps_die "No offers found after migrate import"
     ps_success "Offers imported: ${OFFER_COUNT}"
@@ -119,7 +147,8 @@ ps_retry 2 2 ps_drush en -y ps_seo
 ps_success "ps_compare, ps_search and ps_seo enabled"
 
 if [[ ${SKIP_SOLR} -eq 0 ]]; then
-  ps_info "Step 4/5: Solr index..."
+  ps_info "Step 4/5: Solr cores + index..."
+  ps_solr_init_cores || ps_warn "Solr core init had warnings — index may fail on new countries"
   bash "${PS_SCRIPTS_DIR}/drupal/index-solr.sh"
   ps_info "Syncing feature filters (More filters) into Solr..."
   ps_retry 2 2 ps_drush ps:search:features:sync-index --rebuild-tracker=1 -y \
@@ -136,7 +165,7 @@ for module in "${REQUIRED_MODULES[@]}"; do
   fi
 done
 
-OFFER_COUNT=$(ps_drush sql:query "SELECT COUNT(*) FROM node_field_data WHERE type='offer' AND status=1" 2>/dev/null | tr -d '[:space:]')
+OFFER_COUNT="$(ps_drush_published_offer_count)"
 [[ -n "${OFFER_COUNT}" && "${OFFER_COUNT}" -gt 0 ]] \
   || ps_warn "No published offers — search and favorites will be empty"
 
@@ -151,7 +180,10 @@ ps_retry 2 2 ps_drush_cr
 
 ps_success "Post-install complete!"
 echo ""
-ps_info "Front (FR): ${PS_HTTP_URL}/fr/"
-ps_info "Search (FR): ${PS_HTTP_URL}/fr/recherche-immobiliere"
-ps_info "Admin: ${PS_HTTP_URL}/admin"
-ps_info "Note: sample offers are FR-only; use /fr/ URLs or import EN translations for English paths."
+if [[ -n "${PS_DRUSH_URI:-}" ]]; then
+  ps_info "Site: ${PS_DRUSH_URI}"
+fi
+if [[ -n "${PS_COUNTRY_CODE:-}" ]]; then
+  ps_info "Country: ${PS_COUNTRY_CODE} — sample XML from data/xml/samples/${PS_COUNTRY_CODE}/offers.xml"
+fi
+ps_info "Admin: use drush uli --uri=<admin-domain> for one-time login"

@@ -1,0 +1,15 @@
+uuid: 4be6ac7d-aae0-4296-bf40-dd6709515c26
+langcode: en
+status: true
+dependencies: {  }
+id: prestations_de_service__tec_caftria
+label: Cafétéria
+description: Cafétéria
+code: TEC_CAFTRIA
+group: prestations_de_service
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 1142
+icon: ''
+expose_as_filter: 1

@@ -1,0 +1,11 @@
+uuid: a6f28ed0-aed5-41bb-97e2-3eaf8df65bf1
+langcode: en
+status: true
+dependencies: {  }
+id: department.91
+type: department
+code: '91'
+label: Essonne
+description: null
+icon: null
+weight: 92

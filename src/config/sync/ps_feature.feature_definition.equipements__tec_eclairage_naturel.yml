@@ -1,0 +1,15 @@
+uuid: f2cb7806-4a5b-41c5-bffd-a21ee203e16d
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_eclairage_naturel
+label: 'Eclairage naturel'
+description: 'Eclairage naturel'
+code: TEC_ECLAIRAGE_NATUREL
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 8
+icon: ''
+expose_as_filter: 1

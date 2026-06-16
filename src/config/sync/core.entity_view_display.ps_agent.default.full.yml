@@ -1,0 +1,133 @@
+uuid: b1168cc0-5c9d-4314-bf8f-28f9aab24324
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.ps_agent.full
+    - image.style.agent_avatar_lg
+    - ps_agent.ps_agent_type.default
+  module:
+    - image
+    - options
+    - ps_dictionary
+    - telephone_formatter
+    - user
+_core:
+  default_config_hash: cZDtNf7jBhrJS496YSpRjia7FdiuP9yX-6mn7QWGh5k
+id: ps_agent.default.full
+targetEntityType: ps_agent
+bundle: default
+mode: full
+content:
+  avatar:
+    type: image
+    weight: 0
+    label: hidden
+    region: content
+    settings:
+      image_style: agent_avatar_lg
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+  checksum:
+    type: string
+    label: above
+    weight: 99
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  civility:
+    type: ps_dictionary_formatter
+    weight: 2
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  created:
+    type: timestamp
+    weight: 9
+    label: above
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  display_name:
+    type: string
+    weight: 1
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  email:
+    type: email_mailto
+    weight: 5
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  internal_external:
+    type: list_default
+    weight: 4
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  internal_lock:
+    type: boolean
+    label: above
+    weight: 97
+    settings:
+      format: custom
+      format_custom_true: Protected
+      format_custom_false: 'Not protected'
+    region: content
+    third_party_settings: {  }
+  job_title:
+    type: string
+    weight: 3
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  phone:
+    type: telephone_formatter
+    weight: 6
+    label: above
+    region: content
+    settings:
+      format: 1
+      link: true
+      default_country: FR
+    third_party_settings: {  }
+  source_tracking:
+    type: basic_string
+    label: above
+    weight: 98
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean
+    weight: 7
+    label: above
+    region: content
+    settings:
+      format: custom
+      format_custom_true: Published
+      format_custom_false: Unpublished
+    third_party_settings: {  }
+  uid:
+    type: author
+    weight: 8
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  first_name: true
+  has_avatar: true
+  last_name: true

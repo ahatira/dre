@@ -1,0 +1,21 @@
+uuid: 50ad4e0e-d3fb-438c-8ea0-c11adc037f5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_capacity_notes
+    - node.type.offer
+_core:
+  default_config_hash: v9EyIj3vekO3yjLQpeWxvW_Ta-uA5ahXUykaUEC1KmM
+id: node.offer.field_capacity_notes
+field_name: field_capacity_notes
+entity_type: node
+bundle: offer
+label: 'Capacity notes'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

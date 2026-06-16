@@ -1,0 +1,13 @@
+tooltip_title: 'Informations :'
+label_ht: 'HT : Hors taxes'
+label_hc: 'HC : Hors charges locatives'
+label_cc: 'CC : Charges locatives comprises'
+label_hd: 'HD : Hors droits de notaires'
+fees_prefix: "Honoraires à la charge de l'acquéreur :"
+default_fees_rental: 'Nous consulter. A la signature du bail'
+default_fees_sale: "Nous consulter. A la signature de l'acte"
+on_request: 'Sur demande'
+budget_from_prefix: 'À partir de'
+price_information: 'Informations sur le prix'
+surface_divisible_template: 'Divisible dès @surface'
+surface_capacity_unit: postes

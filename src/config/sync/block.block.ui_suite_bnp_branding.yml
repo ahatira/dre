@@ -1,0 +1,25 @@
+uuid: 90c5d872-52c8-47f4-804e-508b22d81cdc
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ui_suite_bnp
+_core:
+  default_config_hash: dNT9dvuMNiF8a4Q_uRN4zK7er2_P1sa09crMN7nsvCc
+id: ui_suite_bnp_branding
+theme: ui_suite_bnp
+region: navigation
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

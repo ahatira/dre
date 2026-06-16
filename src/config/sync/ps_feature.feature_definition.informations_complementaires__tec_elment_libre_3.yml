@@ -1,0 +1,15 @@
+uuid: 176b223b-7298-447a-86e6-cfcd484f8fc9
+langcode: en
+status: true
+dependencies: {  }
+id: informations_complementaires__tec_elment_libre_3
+label: 'Vestiaire avec 1 sanitaire + 1 douche'
+description: 'Vestiaire avec 1 sanitaire + 1 douche'
+code: TEC_ELMENT_LIBRE_3
+group: informations_complementaires
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 213
+icon: ''
+expose_as_filter: 1

@@ -1,0 +1,15 @@
+uuid: f9885536-a32a-481a-b958-7071b6c5fa4f
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_aire_de_stockage_extrieure
+label: 'Aire de stockage extérieure'
+description: 'Aire de stockage extérieure'
+code: TEC_AIRE_DE_STOCKAGE_EXTRIEURE
+group: exterieurs
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 77
+icon: ''
+expose_as_filter: 1

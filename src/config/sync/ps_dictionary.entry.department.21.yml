@@ -1,0 +1,11 @@
+uuid: 1e478a1c-6031-4d9a-8c8c-cd6c8264bc6b
+langcode: en
+status: true
+dependencies: {  }
+id: department.21
+type: department
+code: '21'
+label: "Côte-d'Or"
+description: null
+icon: null
+weight: 20

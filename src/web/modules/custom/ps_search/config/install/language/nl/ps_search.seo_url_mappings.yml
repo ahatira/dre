@@ -1,1 +1,12 @@
 search_path: vastgoed-zoeken
+operation_types:
+  LOC: te-huur
+  VEN: te-koop
+asset_types:
+  BUR: kantoren
+  ENT: magazijn
+  ACT: bedrijfsruimte
+  COM: winkels
+  TER: perceel
+  LOG: logistiek
+  COW: coworking

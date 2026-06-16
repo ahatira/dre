@@ -1,0 +1,15 @@
+uuid: 476ba805-3a23-4315-9fb9-78e7990fcda4
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_distribution_climatisation
+label: 'Distribution climatisation'
+description: 'Distribution climatisation'
+code: TEC_DISTRIBUTION_CLIMATISATION
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 137
+icon: ''
+expose_as_filter: 1

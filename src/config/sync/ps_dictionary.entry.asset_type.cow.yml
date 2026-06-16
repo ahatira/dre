@@ -1,0 +1,11 @@
+uuid: cdca3b7b-2453-4c7a-8bd7-a6d5d7042ca0
+langcode: en
+status: true
+dependencies: {  }
+id: asset_type.cow
+type: asset_type
+code: COW
+label: Coworking
+description: null
+icon: null
+weight: 2

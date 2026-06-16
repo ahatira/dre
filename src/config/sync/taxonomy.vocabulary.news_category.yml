@@ -1,0 +1,9 @@
+uuid: 8e2fd9eb-a292-4606-8bb4-f056d532d109
+langcode: en
+status: true
+dependencies: {  }
+name: 'News category'
+vid: news_category
+description: 'Categories displayed as tags on news teaser cards.'
+weight: 0
+new_revision: false

@@ -1,0 +1,31 @@
+uuid: 1c24cfc6-7e76-4454-987f-d9bf06620180
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_document
+    - media.type.file
+    - node.type.offer
+_core:
+  default_config_hash: '-EU-IGK2_6E-tQRaIQxfSr6xNnqG7yOsi5LjLpuErsI'
+id: node.offer.field_media_document
+field_name: field_media_document
+entity_type: node
+bundle: offer
+label: Brochure
+description: 'Single downloadable brochure document (PDF, Word, etc.)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      file: file
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

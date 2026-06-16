@@ -1,0 +1,11 @@
+uuid: c309e8fc-4278-4d6f-8e0f-10198202ebc1
+langcode: en
+status: true
+dependencies: {  }
+id: dpe_class.c
+type: dpe_class
+code: C
+label: 'Class C'
+description: null
+icon: null
+weight: 3

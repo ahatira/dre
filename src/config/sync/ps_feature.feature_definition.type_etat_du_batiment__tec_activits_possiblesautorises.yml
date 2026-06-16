@@ -1,0 +1,15 @@
+uuid: a0ba0dd8-e708-4e6b-b465-59fe88bff220
+langcode: en
+status: true
+dependencies: {  }
+id: type_etat_du_batiment__tec_activits_possiblesautorises
+label: 'Activités possibles/autorisées'
+description: 'Activités possibles/autorisées'
+code: TEC_ACTIVITS_POSSIBLESAUTORISES
+group: type_etat_du_batiment
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 4615
+icon: ''
+expose_as_filter: 1

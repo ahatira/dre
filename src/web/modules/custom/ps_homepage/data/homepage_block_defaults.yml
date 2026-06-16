@@ -1,7 +1,7 @@
 ps_homepage_search_hero_block:
   en:
-    background_image: null
-    promo_background_image: null
+    background_media_uuid: c1000002-0000-4000-8000-000000000001
+    promo_background_media_uuid: c1000002-0000-4000-8000-000000000001
     background_alt: ''
     promo_background_alt: ''
     promo_offers_use_dynamic: true
@@ -31,8 +31,8 @@ ps_homepage_search_hero_block:
     promo_cta_label: 'Discover our service offers'
     promo_cta_url: /find-property
   fr:
-    background_image: null
-    promo_background_image: null
+    background_media_uuid: c1000002-0000-4000-8000-000000000001
+    promo_background_media_uuid: c1000002-0000-4000-8000-000000000001
     background_alt: ''
     promo_background_alt: ''
     promo_offers_use_dynamic: true

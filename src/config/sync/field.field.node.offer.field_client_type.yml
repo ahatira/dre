@@ -1,0 +1,24 @@
+uuid: e1650d41-3f2e-4ceb-8fe7-e8f65d1220da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_client_type
+    - node.type.offer
+  module:
+    - ps_dictionary
+_core:
+  default_config_hash: A0JmK0b_l3fDIg45OiCaf_4n54Uwaxa1J8JKaTwmxE4
+id: node.offer.field_client_type
+field_name: field_client_type
+entity_type: node
+bundle: offer
+label: 'Client type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  dictionary_type: client_type
+field_type: ps_dictionary

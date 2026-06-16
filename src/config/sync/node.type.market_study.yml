@@ -1,0 +1,13 @@
+uuid: 506d3c1e-2e75-421e-8b2c-ad2f88269d77
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: FjHb4kWu3BE9B83FewE6yAFxbzQ__QDOpfvccuOuR3g
+name: 'Market study'
+type: market_study
+description: 'Market research publications for homepage and listing pages.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

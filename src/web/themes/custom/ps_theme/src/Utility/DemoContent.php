@@ -16,12 +16,12 @@ final class DemoContent {
    */
   public static function isManagedByPsDemo(?ModuleExtensionList $moduleExtensionList = NULL): bool {
     $paths = [
-      DRUPAL_ROOT . '/modules/custom/ps_demo/export/content',
+      DRUPAL_ROOT . '/modules/custom/ps_demo/content',
     ];
 
     if (\Drupal::moduleHandler()->moduleExists('ps_demo')) {
       $moduleExtensionList ??= \Drupal::service('extension.list.module');
-      $paths[] = DRUPAL_ROOT . '/' . $moduleExtensionList->getPath('ps_demo') . '/export/content';
+      $paths[] = DRUPAL_ROOT . '/' . $moduleExtensionList->getPath('ps_demo') . '/content';
     }
 
     foreach (array_unique($paths) as $path) {

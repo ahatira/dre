@@ -1,0 +1,25 @@
+settings:
+  plugins:
+    ckeditor5_codeBlock:
+      languages:
+        -
+          language: plaintext
+          label: 'Texte brut'
+        -
+          language: php
+          label: PHP
+        -
+          language: javascript
+          label: JavaScript
+        -
+          language: html
+          label: HTML
+        -
+          language: css
+          label: CSS
+        -
+          language: yaml
+          label: YAML
+        -
+          language: json
+          label: JSON

@@ -1,0 +1,16 @@
+uuid: 2a1b3c4d-0008-0000-0000-000000000008
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: BZY0F-qKlp8USAZpnVUOU7upATQHKiTpQYjNYFXuQYo
+id: default_hide_surface
+label: 'Default: Hide Surface tab'
+weight: -11
+conditions_logic: AND
+conditions: {  }
+actions:
+  -
+    action_type: hide_tab
+    target: group_surface
+    value: ''

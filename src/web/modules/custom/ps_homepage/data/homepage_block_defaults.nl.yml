@@ -1,0 +1,211 @@
+# Dutch homepage block defaults (overlay on homepage_block_defaults.yml).
+ps_homepage_search_hero_block:
+  nl:
+    title: 'Waar bent u naar op zoek?'
+    transaction_type_label: 'Type transactie'
+    op_buy_label: Kopen
+    op_rent_label: Huren
+    op_flexible_label: Geen voorkeur
+    location_label: Locatie(s)
+    location_placeholder: 'Stad, wijk of postcode'
+    property_type_label: 'Type vastgoed'
+    property_type_placeholder: 'Type vastgoed'
+    surface_min_label: 'Minimale oppervlakte (m²)'
+    price_max_label: 'Maximale prijs'
+    search_button_label: Zoeken
+    delegate_prompt: 'Wilt u uw zoekopdracht delegeren?'
+    delegate_button_label: 'Mijn zoekopdracht delegeren'
+    promo_title: 'Bedrijfsvastgoed: vind uw toekomstige kantoorruimtes'
+    promo_offers_template: '@count aanbiedingen momenteel beschikbaar'
+    promo_cta_label: 'Ontdek onze serviceaanbiedingen'
+    promo_cta_url: /find-property
+    promo_description: 'Kantoren, coworkingruimtes, logistieke magazijnen, bedrijfsruimtes of winkelruimtes: het bedrijfsvastgoedaanbod van BNP Paribas Real Estate omvat alle activa op de markt om beter aan uw verwachtingen te voldoen.'
+
+ps_content_services_grid_block:
+  nl:
+    title: 'BNP Paribas Real Estate begeleidt u bij uw bedrijfsvastgoedproject'
+    subtitle: 'De verschillende businesslijnen van BNP Paribas Real Estate Transaction helpen u om het maximale uit al uw bedrijfsvastgoedprojecten te halen.'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:entrusting-a-property'
+        card_title: 'Een pand toevertrouwen'
+        body: 'Vertrouw de verkoop of verhuur van uw kantoren, gebouwen, magazijnen, ruimtes of gronden toe aan onze experts.'
+        button_label: 'Mijn pand toevertrouwen'
+        link_type: url
+        button_style: primary
+        button_url: /entrust-property
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+      - weight: 1
+        icon: 'bnp_custom:people-number'
+        card_title: 'Mijn zoekopdracht delegeren'
+        body: 'Om uw volgende bedrijfsruimte te vinden, neem contact op met onze BNP Paribas Real Estate-experts en delegeer uw zoekopdracht.'
+        button_label: 'Mijn zoekopdracht delegeren'
+        link_type: offcanvas
+        button_style: primary
+        button_url: ''
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+      - weight: 2
+        icon: 'bnp_custom:advise'
+        card_title: Advies
+        body: 'Bepaal uw vastgoedstrategie voor logistiek of kantoren met de hulp van onze experts.'
+        button_label: 'Advies ontvangen'
+        link_type: url
+        button_style: primary
+        button_url: /solutions/advisory
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+      - weight: 3
+        icon: 'bnp_custom:capital-market'
+        card_title: 'Capital markets'
+        body: 'Bouw of beheer uw vastgoedportefeuille met een investeringsstrategie op maat.'
+        button_label: 'Capital Markets ontdekken'
+        link_type: url
+        button_style: primary
+        button_url: /solutions/capital-markets
+        modal_id: ''
+        preset_operation: ''
+        preset_asset: ''
+        preset_locality: ''
+
+ps_content_outils_accordion_block:
+  nl:
+    title: 'Uw vastgoedproject optimaal benaderen'
+    subtitle: 'Alle beslissingshulpmiddelen ontwikkeld door BNP Paribas Real Estate hebben een gemeenschappelijk doel: u helpen uw criteria te verfijnen en uw zoekopdrachten te optimaliseren.'
+    items:
+      - weight: 0
+        illustration: null
+        question: 'Klassieke kantoren of coworking? Doe de test!'
+        answer: '<p>Beantwoord de 10 vragen van de simulator voor een gepersonaliseerde diagnose.</p><p>Dit hulpmiddel analyseert uw werkwijzen, behoeften en profiel om u naar de meest geschikte oplossing te leiden.</p>'
+        link_label: 'Simulator openen'
+        link_url: /outils/simulateur-location-bureaux-coworking
+        button_style: outline
+        opened_by_default: true
+      - weight: 1
+        illustration: null
+        question: 'Kantooroppervlaktecalculator'
+        answer: '<p>Eenvoudig en snel te gebruiken: met de oppervlaktecalculator bepaalt u in enkele klikken de m² die aansluiten bij uw behoeften op basis van personeelsbezetting, gemeenschappelijke ruimtes en werkwijze.</p>'
+        link_label: 'Calculator starten'
+        link_url: /outils/calculateur-de-surface-bureaux
+        button_style: outline
+        opened_by_default: false
+      - weight: 2
+        illustration: null
+        question: 'Gidsen en tips'
+        answer: '<p>Ontdek al onze praktische gidsen om uw vastgoedzoektocht te optimaliseren!</p><p>Van het begrijpen van commerciële huurovereenkomsten tot markttrends: onze bronnen geven u de sleutels voor het succes van uw project.</p>'
+        link_label: 'Collectie ontdekken'
+        link_url: /guides/guides-conseils
+        button_style: outline
+
+ps_offer_offers_carousel_block:
+  nl:
+    title: 'Uitgelichte aanbiedingen'
+    subtitle: 'Een selectie kansen in Nederland en België'
+    see_more_label: 'Alle aanbiedingen bekijken'
+
+ps_search_search_shortcuts_block:
+  nl:
+    title: 'Start uw zoekopdracht'
+    subtitle: 'Snelle toegang tot de meest gezochte activa'
+    items:
+      - weight: 0
+        icon: 'bnp_custom:offices'
+        title: 'Kantoren te huur'
+        link_label: 'Advertenties bekijken'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: BUR
+        preset_locality: ''
+        url: ''
+      - weight: 1
+        icon: 'bnp_custom:logistic-warehouses'
+        title: Logistiek
+        link_label: 'Advertenties bekijken'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: LOG
+        preset_locality: ''
+        url: ''
+      - weight: 2
+        icon: 'bnp_custom:shops'
+        title: Retail
+        link_label: 'Advertenties bekijken'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COM
+        preset_locality: ''
+        url: ''
+      - weight: 3
+        icon: 'bnp_custom:coworking'
+        title: Coworking
+        link_label: 'Advertenties bekijken'
+        link_type: search_preset
+        preset_operation: LOC
+        preset_asset: COW
+        preset_locality: ''
+        url: ''
+
+ps_content_experts_accompagnement_block:
+  nl:
+    title: 'Onze experts begeleiden u'
+    subtitle: 'Welk bedrijfsvastgoedproject u ook heeft, een toegewijde BNP Paribas Real Estate-expert begeleidt u bij elke stap.'
+    steps:
+      - weight: 0
+        image: null
+        image_alt: 'Vastgoedproject BNPPRE'
+        image_credit: 'nenetus - Adobe Stock'
+        step_label: 'Behoeftebepaling'
+        step_title: 'Vertel ons over uw project'
+        step_body: 'We stellen samen een duidelijk en precies lastenboek op. We bekijken alle variabelen om uw behoeften te verduidelijken en uw vereisten te prioriteren: oppervlakte, locatie, bereikbaarheid, budget, timing, technische beperkingen en toekomstige ontwikkelingen. Daarna sturen we u de advertenties die passen bij dit lastenboek.'
+      - weight: 1
+        image: null
+        image_alt: 'Bezichtiging van het pand BNP Paribas Real Estate'
+        image_credit: 'tsyhun - Shutterstock'
+        step_label: 'Bezichtiging van het pand'
+        step_title: 'Laten we een bezichtiging plannen!'
+        step_body: 'Twee soorten bezichtigingen: ter plaatse met een consultant die al uw vragen beantwoordt, of een immersieve bezichtiging voor sommige advertenties, waarmee u de ruimtes op afstand kunt verkennen en uw favorieten kunt preselecteren voordat u zich verplaatst.'
+      - weight: 2
+        image: null
+        image_alt: 'Contractualisering BNP Paribas Real Estate'
+        image_credit: 'Andrey_Popov - Shutterstock'
+        step_label: Contractualisering
+        step_title: 'Wij waken over uw belangen'
+        step_body: 'Onderhandeling over de huurovereenkomst, verkoopprijs, contractualisering… Bij elke stap begeleiden we u om weloverwogen beslissingen te nemen. Onze teams analyseren de clausules, identificeren aandachtspunten en onderhandelen de beste voorwaarden.'
+      - weight: 3
+        image: null
+        image_alt: 'Inrichting van bedrijfsruimtes'
+        image_credit: 'Who is Danny - Adobe Stock'
+        step_label: 'Inrichting van ruimtes'
+        step_title: 'Wij adviseren u over de inrichting van uw ruimtes'
+        step_body: 'Implementeer nieuwe werkwijzen en ruimtes voor het welzijn van uw medewerkers om competitiever te worden en het beste talent aan te trekken. Van flex office tot samenwerkingsruimtes: wij helpen u een omgeving te ontwerpen die uw prestaties stimuleert.'
+      - weight: 4
+        image: null
+        image_alt: 'Doorlopende begeleiding BNP Paribas Real Estate'
+        image_credit: 'marvent - Shutterstock'
+        step_label: Installatie
+        step_title: 'De begeleiding gaat door…'
+        step_body: 'U heeft al een solide basis om de toekomst van uw bedrijf op te bouwen. De begeleiding van BNP Paribas Real Estate stopt daar niet: aanwezig in alle vastgoedlijnen hebben we altijd een oplossing voor uw toekomstige projecten.'
+
+ps_news_news_block:
+  nl:
+    title: 'Nieuws en analyses'
+    subtitle: 'Markttrends en expertperspectieven'
+    see_more_label: 'Alle nieuwsberichten bekijken'
+
+ps_market_study_market_studies_block:
+  nl:
+    title: 'Marktstudies'
+    subtitle: 'Analyses om uw vastgoedbeslissingen te sturen'
+    see_more_label: 'Alle studies bekijken'
+
+ps_faq_faq_block:
+  nl:
+    title: 'Veelgestelde vragen'
+    see_more_label: 'Alle vragen bekijken'

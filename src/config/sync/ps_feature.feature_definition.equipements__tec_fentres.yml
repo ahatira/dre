@@ -1,0 +1,15 @@
+uuid: d3c248ce-ca87-47d1-859b-88f71d2e8fc1
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_fentres
+label: Fenêtres
+description: Fenêtres
+code: TEC_FENTRES
+group: equipements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 25
+icon: ''
+expose_as_filter: 1

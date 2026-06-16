@@ -49,7 +49,7 @@ ps_theme (sub-theme, starterkit split)
 ### Phase A — Shell global (Config-First)
 
 1. Block layout en config (`ps_theme/config/install/`)
-2. Contenu + copy démo : `ps_demo/export/content/` + `ps_demo.homepage` config
+2. Contenu + copy démo : `ps_demo/content/` + `ps_demo.homepage` config
 3. Structure démo (mega-menu, multilingue) : `src/config/demo/` (partial CMI)
 4. `page.html.twig` / `html.html.twig` stables — pas de markup page métier
 5. Assets Figma dans `assets/images/` — voir [`docs/ASSETS.md`](ASSETS.md)

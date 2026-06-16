@@ -1,0 +1,25 @@
+uuid: fdbd7c65-8d66-4e13-b4b7-896b01c8b9f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_internal_lock
+    - node.type.offer
+_core:
+  default_config_hash: zVj_uAQq5pXM3fP2NsE3AHf-TFjFYkrzp1bB4nPpiWI
+id: node.offer.field_internal_lock
+field_name: field_internal_lock
+entity_type: node
+bundle: offer
+label: 'Protection Lock'
+description: '⚠️ <strong>Enable this lock to protect manual edits from automated CRM imports.</strong> When locked, this offer will not be overwritten during import synchronization.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Protected
+  off_label: 'Not protected'
+field_type: boolean

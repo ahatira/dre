@@ -1,0 +1,24 @@
+uuid: e4d9ce5b-39ba-4b1a-9c26-ea1444431755
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_asset_type
+    - node.type.offer
+  module:
+    - ps_dictionary
+_core:
+  default_config_hash: mW1LIvJTNyMLPOPAFJUmApz2tT5Ce-BKX2l7w7g36xc
+id: node.offer.field_asset_type
+field_name: field_asset_type
+entity_type: node
+bundle: offer
+label: 'Asset type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  dictionary_type: asset_type
+field_type: ps_dictionary

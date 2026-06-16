@@ -1,0 +1,78 @@
+uuid: 4d428480-209b-4b33-ba42-7582a0af79dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.agent_avatar_lg
+    - ps_agent.ps_agent_type.default
+  module:
+    - focal_point
+_core:
+  default_config_hash: TYHuLWqL4CD6xupp8j6-huj72QUUhahi3Azsk8AY9Xk
+id: ps_agent.default.default
+targetEntityType: ps_agent
+bundle: default
+mode: default
+content:
+  avatar:
+    type: image_focal_point
+    weight: 6
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: agent_avatar_lg
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings: {  }
+  civility:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  email:
+    type: email_default
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  first_name:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  internal_lock:
+    type: boolean_checkbox
+    weight: 95
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  last_name:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  phone:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  display_name: true
+  internal_external: true
+  job_title: true
+  status: true
+  uid: true

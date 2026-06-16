@@ -1,0 +1,4 @@
+label: 'Show precise address'
+description: "Afficher l'adresse précise en front (sinon ville/région uniquement)."
+settings:
+  on_label: 'Show precise address'

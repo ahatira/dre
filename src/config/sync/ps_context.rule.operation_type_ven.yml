@@ -1,0 +1,20 @@
+uuid: 2a1b3c4d-0003-0000-0000-000000000003
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: YcqgKhDkDDMeoC0vUiCT_rM3qndbWFHGjctD_KOpYKQ
+id: operation_type_ven
+label: 'Operation type VEN: hide Price period'
+weight: 0
+conditions_logic: AND
+conditions:
+  -
+    field_name: field_operation_type
+    operator: equals
+    value: VEN
+actions:
+  -
+    action_type: hide_field
+    target: field_budget_period
+    value: ''

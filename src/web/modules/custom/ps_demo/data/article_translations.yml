@@ -1,0 +1,51 @@
+# Demo article overlays (UUID → langcode → fields). EN/FR/ES come from default_content export.
+b2000005-0000-4000-8000-000000000001:
+  it:
+    title: 'Tendenze del mercato uffici nel 2025'
+    body:
+      value: '<p>La domanda di spazi ufficio flessibili continua a trasformare il mercato immobiliare corporate nelle principali città europee.</p>'
+      format: basic_html
+  nl:
+    title: 'Trends op de kantorenmarkt in 2025'
+    body:
+      value: '<p>De vraag naar flexibele kantoorruimte blijft de commerciële vastgoedmarkt in Europese steden hervormen.</p>'
+      format: basic_html
+  pl:
+    title: 'Trendy na rynku biur w 2025'
+    body:
+      value: '<p>Zapotrzebowanie na elastyczne powierzchnie biurowe nadal zmienia rynek nieruchomości komercyjnych w europejskich miastach.</p>'
+      format: basic_html
+
+b2000005-0000-4000-8000-000000000002:
+  it:
+    title: 'Prospettive del settore logistico'
+    body:
+      value: '<p>Magazzini e asset logistici rimangono prioritari per gli investitori che cercano flussi di reddito resilienti.</p>'
+      format: basic_html
+  nl:
+    title: 'Vooruitzichten voor de logistische sector'
+    body:
+      value: '<p>Magazijnen en logistieke activa blijven prioriteit voor investeerders die zoeken naar stabiele inkomstenstromen.</p>'
+      format: basic_html
+  pl:
+    title: 'Perspektywy sektora logistycznego'
+    body:
+      value: '<p>Magazyny i aktywa logistyczne pozostają priorytetem dla inwestorów poszukujących stabilnych strumieni dochodu.</p>'
+      format: basic_html
+
+b2000005-0000-4000-8000-000000000003:
+  it:
+    title: 'Rinascita del retail nei centri urbani'
+    body:
+      value: '<p>Le location retail prime attirano nuovo interesse con il ritorno del traffico nei centri città.</p>'
+      format: basic_html
+  nl:
+    title: 'Retailherstel in stadscentra'
+    body:
+      value: '<p>Prime retaillocaties trekken opnieuw interesse na de terugkeer van bezoekersaantallen in stadscentra.</p>'
+      format: basic_html
+  pl:
+    title: 'Odrodzenie retailu w centrach miast'
+    body:
+      value: '<p>Lokalizacje retail prime ponownie przyciągają uwagę wraz z powrotem ruchu w centrach miast.</p>'
+      format: basic_html

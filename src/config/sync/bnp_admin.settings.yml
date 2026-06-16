@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: fOV-Z_oM1O32aTGr1ux92L5c1kai1HvNplFXA0SyVkY
+core:
+  user_register_admin_only: true
+  node_use_admin_theme: true
+  admin_theme: gin
+gin:
+  enabled: true
+  preset_accent_color: green
+  classic_toolbar: new
+  show_description_toggle: true
+gin_login:
+  enabled: true
+  brand_image_use_default: true

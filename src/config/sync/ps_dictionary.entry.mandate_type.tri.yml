@@ -1,0 +1,11 @@
+uuid: 5d0a9012-97eb-4692-b42c-27eba529c328
+langcode: en
+status: true
+dependencies: {  }
+id: mandate_type.tri
+type: mandate_type
+code: TRI
+label: Tripartite
+description: null
+icon: null
+weight: 6

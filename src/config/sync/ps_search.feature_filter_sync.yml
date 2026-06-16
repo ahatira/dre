@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: _cDzLCe1fVJWi9cmj8Rz__lpIEK61lk3Ey7Fpv3SYzc
+cron_run_immediate_index: true
+cron_index_only_on_change: true
+sync_view_filters: true
+feature_filters_combine: and

@@ -1,0 +1,16 @@
+uuid: 0beeaa4c-9c1f-403b-b9f9-85479247997f
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_espaces_co_working
+label: 'Espaces Co-working'
+description: 'Espaces Co-working'
+code: TEC_ESPACES_CO_WORKING
+group: amenagements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: Places
+weight: 1654
+icon: ''
+expose_as_filter: 1

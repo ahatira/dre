@@ -1,0 +1,15 @@
+uuid: f6660268-24d6-434c-b478-767df2f40cc1
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_source_chauffage
+label: 'Source chauffage'
+description: 'Source chauffage'
+code: TEC_SOURCE_CHAUFFAGE
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 52
+icon: ''
+expose_as_filter: 1

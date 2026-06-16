@@ -1,0 +1,31 @@
+uuid: 8132fa5f-7e16-488f-a586-ed2ae86b991c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_agent
+    - node.type.offer
+    - ps_agent.ps_agent_type.default
+_core:
+  default_config_hash: l7xO9vHalO1u0uD6devbRRNpPHj9qDrTe0V6fK48t4o
+id: node.offer.field_primary_agent
+field_name: field_primary_agent
+entity_type: node
+bundle: offer
+label: 'Primary agent'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:ps_agent'
+  handler_settings:
+    target_bundles:
+      default: default
+    sort:
+      field: last_name
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

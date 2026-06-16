@@ -17,6 +17,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -102,7 +103,15 @@ final class LanguageSwitcherBlock extends BlockBase implements ContainerFactoryP
       ->addCacheContexts(['url.path', 'url.query_args', 'url.site', 'languages:' . $type])
       ->addCacheTags(['config:languageicons.settings']);
 
+    $hiddenFrontLanguages = Settings::get('ps_hidden_front_languages', []);
+    if (!is_array($hiddenFrontLanguages)) {
+      $hiddenFrontLanguages = [];
+    }
+
     foreach ($switch_links->links as $langcode => $link) {
+      if (in_array($langcode, $hiddenFrontLanguages, TRUE)) {
+        continue;
+      }
       $language = $link['language'] ?? $this->languageManager->getLanguage($langcode);
       $icon = $this->buildFlagIcon($langcode, $language);
       $label = ucfirst($langcode);
@@ -136,7 +145,7 @@ final class LanguageSwitcherBlock extends BlockBase implements ContainerFactoryP
       ];
     }
 
-    if ($current_label === NULL) {
+    if ($current_label === NULL || count($menu_links) <= 1) {
       return [];
     }
 

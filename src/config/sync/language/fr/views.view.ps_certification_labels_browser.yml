@@ -1,0 +1,14 @@
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtrer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+      filters:
+        name:
+          expose:
+            label: Libellé
+  entity_browser_1:
+    display_title: 'Entity browser'

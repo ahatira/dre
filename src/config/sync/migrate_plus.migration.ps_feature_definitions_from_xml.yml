@@ -1,0 +1,85 @@
+uuid: 38cea558-94b6-4e61-9f32-b2890ebad236
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+_core:
+  default_config_hash: bEVIqL5wwC9c56ZXGjKkYhOD2HlmAiyWM715cu6lJMk
+id: ps_feature_definitions_from_xml
+class: null
+idMap: {  }
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Feature Definitions from CRM XML'
+source:
+  plugin: ps_feature_technical_elements
+  mode: definitions
+  files:
+    - 'public://crm/offers.xml'
+  fields:
+    -
+      name: definition_id
+      label: 'Definition ID'
+    -
+      name: group_id
+      label: 'Group ID'
+    -
+      name: group_code
+      label: 'Group Code'
+    -
+      name: feature_code
+      label: 'Feature Code'
+    -
+      name: label
+      label: Label
+    -
+      name: description
+      label: Description
+    -
+      name: type_driver
+      label: 'Type driver'
+    -
+      name: weight
+      label: Weight
+    -
+      name: status
+      label: Status
+    -
+      name: payload_defaults
+      label: 'Payload defaults'
+    -
+      name: required_asset_types
+      label: 'Required asset types'
+  ids:
+    definition_id:
+      type: string
+process:
+  id: definition_id
+  label: label
+  description: description
+  code: feature_code
+  group: group_id
+  type_driver: type_driver
+  expose_as_filter:
+    plugin: default_value
+    default_value: 1
+  required_asset_types:
+    plugin: feature_normalize_payload_defaults
+    source: required_asset_types
+  weight: weight
+  status: status
+  payload_defaults:
+    plugin: feature_normalize_payload_defaults
+    source: payload_defaults
+destination:
+  plugin: 'entity:fb_feature_definition'
+migration_dependencies:
+  required:
+    - ps_feature_groups_from_xml
+  optional: {  }
+include: null

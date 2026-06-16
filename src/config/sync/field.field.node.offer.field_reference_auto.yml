@@ -1,0 +1,25 @@
+uuid: 813dabcd-7bea-4a22-99ad-ffd2d8053795
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_reference_auto
+    - node.type.offer
+_core:
+  default_config_hash: R5UH2WyfBiW2IejRq1XUT01Hxo4pg1hdrfnVoL2EM7g
+id: node.offer.field_reference_auto
+field_name: field_reference_auto
+entity_type: node
+bundle: offer
+label: 'Reference Auto'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

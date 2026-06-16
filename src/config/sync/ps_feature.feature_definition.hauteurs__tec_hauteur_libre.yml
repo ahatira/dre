@@ -1,0 +1,16 @@
+uuid: 3962b987-519b-45d0-9f0e-d4ca58d145eb
+langcode: en
+status: true
+dependencies: {  }
+id: hauteurs__tec_hauteur_libre
+label: 'Hauteur libre'
+description: 'Hauteur libre'
+code: TEC_HAUTEUR_LIBRE
+group: hauteurs
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: mètre(s)
+weight: 17
+icon: ''
+expose_as_filter: 1

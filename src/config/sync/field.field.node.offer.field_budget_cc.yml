@@ -1,0 +1,25 @@
+uuid: 0183cd01-0f17-4a48-befd-c152d5e5c56e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_cc
+    - node.type.offer
+_core:
+  default_config_hash: HVf7zG-_1hCQVfQL70OZtX6ydT9YZ22RLg49D2gBiMo
+id: node.offer.field_budget_cc
+field_name: field_budget_cc
+entity_type: node
+bundle: offer
+label: 'CC (Charges Comprises)'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: CC
+  off_label: HC
+field_type: boolean

@@ -12,15 +12,16 @@ l'activation de `ps_demo` (contenu menu + homepage LB déjà importés).
 | `block.block.ps_theme_mega_menu_tools.yml` | Bloc outils colonne « Find a property » |
 | `block.block.ps_theme_footer_social.yml` | Bloc Follow us (`social_media_links`) — LinkedIn + alertes email |
 | `menu_link_attributes.config.yml` | Labels attributs menu header (override config contrib) |
-| `language.negotiation.yml` | Préfixes URL `/` (EN) et `/fr` (FR) |
-| `language.types.yml` | Types de langue (interface, contenu, URL) |
 | `language.content_settings.node.page.yml` | Traduction contenu pages |
 | `language.content_settings.menu_link_content.menu_link_content.yml` | Traduction liens menu |
+
+> **Note:** `language.negotiation` et `language.types` ne sont plus importés ici — chaque pays
+> utilise son Config Split `language_{country}` pendant `make install`.
 
 ## Workflow contributeur
 
 1. Modifier le contenu via le BO (menus, homepage LB, traductions FR).
-2. Exporter le contenu : `ps_demo/export/content/` (core `content:export`).
+2. Exporter le contenu : `ps_demo/content/` (`drush dcer`).
 3. Exporter la config démo modifiée :
 
 ```bash
@@ -34,6 +35,6 @@ vendor/bin/drush config:export --destination=/tmp/demo_export
 
 ## Contenu vs config
 
-- **Contenu modifiable** (placeholders contributeur) : `ps_demo/export/content/`
+- **Contenu modifiable** (placeholders contributeur) : `ps_demo/content/`
 - **Structure démo** (mega-menu, langues, placements) : `config/demo/`
 - **Copy homepage blocs** (EN/FR, chemins médias) : `ps_demo.homepage` config

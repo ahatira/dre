@@ -1,0 +1,43 @@
+label: 'Search offers'
+description: "Page publique de recherche d'offres immobilières."
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      title: 'Search offers'
+      exposed_form:
+        options:
+          submit_button: Appliquer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          bef:
+            filter:
+              locality:
+                advanced:
+                  placeholder_text: 'Ville, quartier ou code postal'
+      sorts:
+        surface_total:
+          expose:
+            label: Surface
+        field_budget_value:
+          expose:
+            label: Prix
+      filters:
+        facets_field_operation_type:
+          expose:
+            label: 'Transaction type'
+        facets_field_asset_type:
+          expose:
+            label: 'Property type'
+        field_budget_value:
+          expose:
+            label: Prix
+        has_video:
+          expose:
+            label: Video
+  block_offer_card:
+    display_options:
+      arguments:
+        nid:
+          exception:
+            title: Tout

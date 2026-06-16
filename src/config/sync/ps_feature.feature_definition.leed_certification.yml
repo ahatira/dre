@@ -1,0 +1,18 @@
+uuid: c1ac0830-87c6-4004-8fdc-a5e4b9d32397
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: 5JNgfW3ALRD89WOuQCvIXtbBS0XVM4cvdAk3Umbv-0I
+id: leed_certification
+label: 'LEED certification'
+description: 'LEED or equivalent environmental certification level.'
+code: LEED
+group: normes_certifications_et_labels
+type_driver: text
+required_asset_types: {  }
+payload_defaults:
+  max_length: 128
+weight: 0
+icon: ''
+expose_as_filter: false

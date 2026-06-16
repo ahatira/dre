@@ -1,0 +1,121 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000005-0000-4000-8000-000000000001
+  bundle: article
+  default_langcode: en
+  depends:
+    b3000001-0000-4000-8000-000000000001: taxonomy_term
+    c1000004-0000-4000-8000-000000000001: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo news article'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Office market trends in 2025'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>Demand for flexible office space continues to reshape the commercial real estate market across major European cities.</p>'
+      format: basic_html
+      summary: ''
+  field_display_date:
+    -
+      value: '2025-03-10'
+  field_news_category:
+    -
+      entity: b3000001-0000-4000-8000-000000000001
+  field_teaser_image:
+    -
+      entity: c1000004-0000-4000-8000-000000000001
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Article démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Tendances du marché des bureaux en 2025'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>La demande de bureaux flexibles continue de transformer le marché immobilier d''entreprise dans les grandes villes européennes.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-03-10'
+    field_news_category:
+      -
+        entity: b3000001-0000-4000-8000-000000000001
+  es:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Artículo demo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Tendencias del mercado de oficinas en 2025'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>La demanda de espacios de oficina flexibles sigue transformando el mercado inmobiliario de empresa en las principales ciudades europeas.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-03-10'
+    field_news_category:
+      -
+        entity: b3000001-0000-4000-8000-000000000001

@@ -1,0 +1,15 @@
+uuid: 1cad8dc7-2d82-4486-84b6-30ab5fe3bf56
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_trottoir
+label: Trottoir
+description: Trottoir
+code: TEC_TROTTOIR
+group: exterieurs
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 1169
+icon: ''
+expose_as_filter: 1

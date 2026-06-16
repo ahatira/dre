@@ -1,0 +1,15 @@
+uuid: 97eb7bdb-0c79-4e8c-8171-a63eff332039
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_auditorium
+label: Auditorium
+description: Auditorium
+code: TEC_AUDITORIUM
+group: amenagements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 1444
+icon: ''
+expose_as_filter: 1

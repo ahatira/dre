@@ -1,0 +1,11 @@
+uuid: 79aae04d-716c-48eb-8795-8fdf1ec756fa
+langcode: en
+status: true
+dependencies: {  }
+id: asset_type.ent
+type: asset_type
+code: ENT
+label: Warehouse
+description: null
+icon: null
+weight: 3

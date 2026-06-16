@@ -1,0 +1,16 @@
+uuid: 230a5be7-7f98-45b3-b1f5-038d4a497a65
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_complexe_salle_de_runion
+label: 'Complexe Salle de réunion'
+description: 'Complexe Salle de réunion'
+code: TEC_COMPLEXE_SALLE_DE_RUNION
+group: amenagements
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: salle(s)
+weight: 301
+icon: ''
+expose_as_filter: 1

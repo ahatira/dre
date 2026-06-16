@@ -1,0 +1,31 @@
+uuid: 8532694e-8aec-4060-aac6-554381bb31ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_certification_labels
+    - node.type.offer
+    - taxonomy.vocabulary.certification_label
+_core:
+  default_config_hash: bAX57vcNT58nQyT7msVtr6JiQUPFq3FGPR-b--CEioI
+id: node.offer.field_certification_labels
+field_name: field_certification_labels
+entity_type: node
+bundle: offer
+label: 'Certification labels'
+description: 'Visual certification labels shown below energy diagnostics on offer detail pages.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      certification_label: certification_label
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

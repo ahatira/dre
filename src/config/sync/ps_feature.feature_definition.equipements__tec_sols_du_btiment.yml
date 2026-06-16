@@ -1,0 +1,15 @@
+uuid: d6202684-3dbc-446f-9bfc-b12ac1499a3f
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_sols_du_btiment
+label: 'Sols du bâtiment'
+description: 'Sols du bâtiment'
+code: TEC_SOLS_DU_BTIMENT
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 3
+icon: ''
+expose_as_filter: 1

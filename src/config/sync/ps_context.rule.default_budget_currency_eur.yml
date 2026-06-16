@@ -1,0 +1,16 @@
+uuid: 2a1b3c4d-0100-0000-0000-000000000001
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: gBRvXuq8XGG9gLdm8qWMGBoxVrhfEh1PScNUpCDhTaU
+id: default_budget_currency_eur
+label: 'Default: Set price currency to EUR'
+weight: -30
+conditions_logic: AND
+conditions: {  }
+actions:
+  -
+    action_type: set_default
+    target: field_budget_currency
+    value: EUR

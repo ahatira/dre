@@ -1,0 +1,24 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: c1000003-0000-4000-8000-000000000001
+  default_langcode: en
+default:
+  filename:
+    -
+      value: news-lille-tertiaire.jpg
+  uri:
+    -
+      value: 'public://demo/news-lille-tertiaire.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 1208206
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1781616338

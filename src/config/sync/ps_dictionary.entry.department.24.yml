@@ -1,0 +1,11 @@
+uuid: 2d42dc96-9394-4e7a-a079-e42c02d5036c
+langcode: en
+status: true
+dependencies: {  }
+id: department.24
+type: department
+code: '24'
+label: Dordogne
+description: null
+icon: null
+weight: 23

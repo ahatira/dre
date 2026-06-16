@@ -1,0 +1,16 @@
+uuid: 7b4aa9aa-fb7d-48e8-91e2-66aad9d913e2
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_linaire_de_faade
+label: 'Linéaire de façade'
+description: 'Linéaire de façade'
+code: TEC_LINAIRE_DE_FAADE
+group: exterieurs
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: mètre(s)
+weight: 1212
+icon: ''
+expose_as_filter: 1

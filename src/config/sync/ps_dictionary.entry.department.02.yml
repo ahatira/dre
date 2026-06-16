@@ -1,0 +1,11 @@
+uuid: c9c4e508-ab28-4eed-8086-7ca4ea2dcb80
+langcode: en
+status: true
+dependencies: {  }
+id: department.02
+type: department
+code: '02'
+label: Aisne
+description: null
+icon: null
+weight: 2

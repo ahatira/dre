@@ -1,0 +1,16 @@
+uuid: b3048d4d-093e-418d-92f1-fdaa3548da34
+langcode: en
+status: true
+dependencies: {  }
+id: hauteurs__tec_hauteur_sous_porte_plain_pied
+label: 'Hauteur sous porte plain-pied'
+description: 'Hauteur sous porte plain-pied'
+code: TEC_HAUTEUR_SOUS_PORTE_PLAIN_PIED
+group: hauteurs
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: 'mètre(s) x 3,00 mètre(s) de Largeur'
+weight: 79
+icon: ''
+expose_as_filter: 1

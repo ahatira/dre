@@ -1,0 +1,11 @@
+uuid: 68854220-b21b-488c-95f3-d5df993191ab
+langcode: en
+status: true
+dependencies: {  }
+id: department.38
+type: department
+code: '38'
+label: Isère
+description: null
+icon: null
+weight: 39

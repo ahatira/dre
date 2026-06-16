@@ -1,0 +1,71 @@
+uuid: b30b6d34-575f-4ee0-91f1-b6110254dabc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.faq_item.field_answer
+    - field.field.node.faq_item.field_faq_category
+    - field.field.node.faq_item.field_question
+    - field.field.node.faq_item.field_weight
+    - node.type.faq_item
+  module:
+    - text
+id: node.faq_item.default
+targetEntityType: node
+bundle: faq_item
+mode: default
+content:
+  field_answer:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+    third_party_settings: {  }
+  field_faq_category:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_question:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  path: true
+  promote: true
+  publish_on: true
+  status: true
+  sticky: true
+  uid: true
+  unpublish_on: true

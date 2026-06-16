@@ -1,0 +1,11 @@
+uuid: 6608553d-65af-4b7b-8528-c5b18bfb35d7
+langcode: en
+status: true
+dependencies: {  }
+id: department.65
+type: department
+code: '65'
+label: Hautes-Pyrénées
+description: null
+icon: null
+weight: 66

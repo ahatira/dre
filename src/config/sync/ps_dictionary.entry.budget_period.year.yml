@@ -1,0 +1,11 @@
+uuid: 00171855-a5dc-4a97-91a2-eb02c93c1c38
+langcode: en
+status: true
+dependencies: {  }
+id: budget_period.year
+type: budget_period
+code: YEAR
+label: Yearly
+description: null
+icon: null
+weight: 1

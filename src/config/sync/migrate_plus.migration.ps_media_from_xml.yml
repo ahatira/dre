@@ -1,0 +1,98 @@
+uuid: b3b396d7-bbb8-4886-b914-8445b4e21246
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+_core:
+  default_config_hash: Y2PHRBnrhHSLW_YTKl7NilBLcHnuV8wuwponRK3YYTg
+id: ps_media_from_xml
+class: null
+idMap: {  }
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Media from CRM XML (Step 2: Create media entities)'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: xml
+  urls:
+    - 'public://crm/offers.xml'
+  item_selector: "/OFFERS_LIST/OFFER/MEDIA_LIST/MEDIA[TYPE_CODE = 'EXT' and not(contains(URL, 'J%C3%A9r%C3%B4me_Blanche.JPG.png'))]"
+  fields:
+    -
+      name: business_id_parent
+      label: 'Parent Offer Business ID'
+      selector: ../../BUSINESS_ID
+    -
+      name: type_code
+      label: 'Media Type Code'
+      selector: TYPE_CODE
+    -
+      name: media_url
+      label: 'Media URL'
+      selector: URL
+    -
+      name: media_value
+      label: 'Media filename'
+      selector: VALUE
+    -
+      name: order
+      label: 'Display order'
+      selector: ORDER
+    -
+      name: alt_text_fr
+      label: 'Alternative text FR'
+      selector: 'ML_ALTERNATIVE/ALTERNATIVE[1]'
+    -
+      name: watermark
+      label: 'Watermark flag'
+      selector: WATERMARK
+  ids:
+    business_id_parent:
+      type: string
+    order:
+      type: integer
+process:
+  bundle:
+    plugin: default_value
+    default_value: image
+  name:
+    plugin: concat
+    source:
+      - business_id_parent
+      - order
+    delimiter: _media_
+  psm_file_id:
+    plugin: migration_lookup
+    migration: ps_file_from_xml
+    source:
+      - business_id_parent
+      - order
+    no_stub: true
+  field_media_image/target_id:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: '@psm_file_id'
+    -
+      plugin: get
+      source: '@psm_file_id'
+  field_media_image/alt: alt_text_fr
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:media'
+migration_dependencies:
+  required:
+    - ps_file_from_xml
+  optional: {  }
+include: null

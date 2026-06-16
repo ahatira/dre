@@ -1,0 +1,15 @@
+uuid: 973bc731-324e-4405-adf4-9c8c6d98cb60
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_sanitaires
+label: Sanitaires
+description: Sanitaires
+code: TEC_SANITAIRES
+group: amenagements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 34
+icon: ''
+expose_as_filter: 1

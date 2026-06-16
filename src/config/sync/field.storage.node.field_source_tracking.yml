@@ -1,0 +1,21 @@
+uuid: 6866c9c8-6797-4e5c-aa40-11a0778be12d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: G3WWo-lpkWWTveRhmFcuCkmDnx826Eud1lIV3F-YbxE
+id: node.field_source_tracking
+field_name: field_source_tracking
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

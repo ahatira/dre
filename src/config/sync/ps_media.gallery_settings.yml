@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: cJ9jn3s-QL8lFdV8cqMoZ8oFgjhQnd3guMtH_wz0F1Q
+badge_icon_photos: 'bnp_custom:camera'
+badge_icon_videos: 'bnp_custom:video'
+badge_icon_visit_3d: 'bnp_custom:visite-guidee'
+badge_icon_plan: 'bnp_custom:floors'

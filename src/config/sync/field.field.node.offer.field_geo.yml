@@ -1,0 +1,40 @@
+uuid: a5359a62-37af-408a-9319-41e4998a5cd2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geo
+    - node.type.offer
+  module:
+    - geocoder_field
+    - geofield
+third_party_settings:
+  geocoder_field:
+    method: geocode
+    weight: -5
+    field: field_address
+    skip_not_empty_value: false
+    disabled: false
+    hidden: false
+    providers:
+      - google_maps
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+_core:
+  default_config_hash: hTKzOu9SOVf0krUXKOEiG-mShYD4EjTDQZFikUHB_7k
+id: node.offer.field_geo
+field_name: field_geo
+entity_type: node
+bundle: offer
+label: Geolocalisation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geofield

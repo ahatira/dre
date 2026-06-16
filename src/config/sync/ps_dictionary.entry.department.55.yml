@@ -1,0 +1,11 @@
+uuid: 0437a739-8226-438a-ab7f-a4d2bed7bc08
+langcode: en
+status: true
+dependencies: {  }
+id: department.55
+type: department
+code: '55'
+label: Meuse
+description: null
+icon: null
+weight: 56

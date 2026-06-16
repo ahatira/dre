@@ -1,0 +1,11 @@
+uuid: a6702450-3a10-4f5d-b4dc-d860b8055efc
+langcode: en
+status: true
+dependencies: {  }
+id: department.70
+type: department
+code: '70'
+label: Haute-Saône
+description: null
+icon: null
+weight: 71

@@ -8,16 +8,6 @@ ps_demo.settings:
     homepage_uuid:
       type: uuid
       label: 'Homepage node UUID (export reference)'
-    front_paths:
-      type: mapping
-      label: 'Homepage URL aliases per language'
-      mapping:
-        en:
-          type: string
-          label: 'English alias'
-        fr:
-          type: string
-          label: 'French alias'
 
 ps_demo.homepage:
   type: config_object
@@ -28,22 +18,8 @@ ps_demo.homepage:
       label: 'Homepage node metadata'
       mapping:
         titles:
-          type: mapping
-          label: Titles
-          mapping:
-            en:
-              type: label
-              label: 'English title'
-            fr:
-              type: label
-              label: 'French title'
+          type: ignore
+          label: 'Titles per langcode'
         path:
-          type: mapping
-          label: Paths
-          mapping:
-            en:
-              type: string
-              label: 'English alias'
-            fr:
-              type: string
-              label: 'French alias'
+          type: ignore
+          label: 'URL aliases per langcode (without leading slash)'

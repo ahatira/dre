@@ -1,0 +1,137 @@
+uuid: 4fb79571-8878-4d32-9b9b-d5489912aa45
+langcode: en
+status: open
+dependencies: {  }
+_core:
+  default_config_hash: iyq8FYf9n-YDaDAtgKZCdW8eTNYIAf1PSWXrC_CdJX8
+open: null
+close: null
+weight: 0
+uid: null
+template: false
+archive: false
+id: contact
+title: 'Contact us'
+description: 'Site-wide contact form for header offcanvas.'
+categories: {  }
+elements: |-
+  contact:
+    '#type': fieldset
+    '#title': 'Your details'
+    first_name:
+      '#type': textfield
+      '#title': 'First name'
+      '#required': true
+    last_name:
+      '#type': textfield
+      '#title': 'Last name'
+      '#required': true
+    email:
+      '#type': email
+      '#title': Email
+      '#required': true
+    phone:
+      '#type': tel
+      '#title': Phone
+  message:
+    '#type': textarea
+    '#title': Message
+    '#required': true
+  legal:
+    '#type': checkbox
+    '#title': 'I agree to the privacy policy.'
+    '#required': true
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  page: false
+  form_submit_label: Send
+  confirmation_type: inline
+  confirmation_message: '<p>Thank you. Your message has been sent.</p>'
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+handlers:
+  email_notification:
+    id: email
+    label: 'Site notification'
+    notes: 'Notifies the default site mailbox of header contact form submissions.'
+    handler_id: email_notification
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: _default
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: '[webform_submission:values:email:raw]'
+      from_options: {  }
+      from_name: '[webform_submission:values:first_name:raw] [webform_submission:values:last_name:raw]'
+      subject: 'Website contact form'
+      body: _default
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+      reply_to: '[webform_submission:values:email:raw]'
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      langcode: ''
+  email_confirmation:
+    id: email
+    label: 'Visitor confirmation'
+    notes: ''
+    handler_id: email_confirmation
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:email:raw]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: 'Thank you for contacting us'
+      body: '<p>Thank you for your message.</p><p>We have received your request and will get back to you shortly.</p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      langcode: ''
+variants: {  }

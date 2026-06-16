@@ -1,0 +1,12 @@
+uuid: 57bca88e-9520-4702-8e42-b8976191a11f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: DszC217vwLz7D-Z6gjesiedooZNJSWgWwF3LdiohowU
+id: acces_vehicules
+label: ACCES_VEHICULES
+description: ACCES_VEHICULES
+icon: 'bnp_custom:pin-map'
+asset_types: {  }
+weight: 4745

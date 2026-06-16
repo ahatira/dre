@@ -1,0 +1,11 @@
+uuid: d90a89d8-15e7-46e4-9b69-85c826400f57
+langcode: en
+status: true
+dependencies: {  }
+id: department.67
+type: department
+code: '67'
+label: Bas-Rhin
+description: null
+icon: null
+weight: 68

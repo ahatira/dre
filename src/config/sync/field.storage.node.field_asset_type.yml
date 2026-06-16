@@ -1,0 +1,21 @@
+uuid: 8729e70d-2791-4b1e-83de-6194555462ec
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - ps_dictionary
+_core:
+  default_config_hash: Ud3otTn8zZ4uoiBGCbOlMcFgC2819l47TSlHX8Fn2ck
+id: node.field_asset_type
+field_name: field_asset_type
+entity_type: node
+type: ps_dictionary
+settings: {  }
+module: ps_dictionary
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

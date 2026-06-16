@@ -1,0 +1,32 @@
+uuid: 7031718b-ac1b-4f33-ac31-06339a307782
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+_core:
+  default_config_hash: g78qEPzyRjEbSyQnPW4mgm9cLQOUOGgqmH26ZMr_Z5Y
+id: node.field_budget_period
+field_name: field_budget_period
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: YEAR
+      label: Year
+    -
+      value: MONTH
+      label: Month
+    -
+      value: ONE_SHOT
+      label: 'One shot'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

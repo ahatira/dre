@@ -33,6 +33,7 @@ final class NewsTeaserBuilder {
    *   Props keyed for ps_theme:news-teaser-card.
    */
   public function build(NodeInterface $node): array {
+    $node = $this->entityRepository->getTranslationFromContext($node);
     $title = $node->label() ?? '';
     $image = $this->resolveTeaserImage($node);
     $categories = $this->resolveCategories($node);

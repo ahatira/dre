@@ -1,0 +1,11 @@
+uuid: cd71e469-d232-46ec-bb09-e7838d9d1417
+langcode: en
+status: true
+dependencies: {  }
+id: department.07
+type: department
+code: '07'
+label: Ardèche
+description: null
+icon: null
+weight: 7

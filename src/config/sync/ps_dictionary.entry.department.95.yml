@@ -1,0 +1,11 @@
+uuid: 668c525b-9b93-457a-87c5-74872948b76f
+langcode: en
+status: true
+dependencies: {  }
+id: department.95
+type: department
+code: '95'
+label: "Val-d'Oise"
+description: null
+icon: null
+weight: 96

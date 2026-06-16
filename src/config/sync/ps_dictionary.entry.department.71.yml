@@ -1,0 +1,11 @@
+uuid: 06ac0f48-503e-42ab-ba18-b1665e709def
+langcode: en
+status: true
+dependencies: {  }
+id: department.71
+type: department
+code: '71'
+label: Saône-et-Loire
+description: null
+icon: null
+weight: 72

@@ -1,0 +1,11 @@
+uuid: 03fc9175-8354-43cf-8cf8-bf7a8921d3f7
+langcode: en
+status: true
+dependencies: {  }
+id: asset_type.bur
+type: asset_type
+code: BUR
+label: Office
+description: null
+icon: null
+weight: 1

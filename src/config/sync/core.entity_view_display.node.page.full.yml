@@ -1,0 +1,28 @@
+uuid: b111df9b-94ab-4b17-a52f-65fe13a18166
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.page.body
+    - node.type.page
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections: {  }
+_core:
+  default_config_hash: AkNVMvbRxHMsyaRUT1ryJgmjPKTsSoW4kqzt-Xib-Do
+id: node.page.full
+targetEntityType: node
+bundle: page
+mode: full
+content: {  }
+hidden:
+  body: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

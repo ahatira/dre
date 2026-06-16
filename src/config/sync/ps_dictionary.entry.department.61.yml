@@ -1,0 +1,11 @@
+uuid: d8cea29a-cff8-41ca-9643-2ca7ca669c11
+langcode: en
+status: true
+dependencies: {  }
+id: department.61
+type: department
+code: '61'
+label: Orne
+description: null
+icon: null
+weight: 62

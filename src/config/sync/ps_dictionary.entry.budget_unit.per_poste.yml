@@ -1,0 +1,11 @@
+uuid: 54fbff29-ed9f-4784-99a1-9db05ba932a0
+langcode: en
+status: true
+dependencies: {  }
+id: budget_unit.per_poste
+type: budget_unit
+code: PER_POSTE
+label: 'Per workstation'
+description: null
+icon: null
+weight: 2

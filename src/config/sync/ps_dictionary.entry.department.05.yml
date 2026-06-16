@@ -1,0 +1,11 @@
+uuid: c9018e5c-1a97-431e-aa42-564c14c4954c
+langcode: en
+status: true
+dependencies: {  }
+id: department.05
+type: department
+code: '05'
+label: Hautes-Alpes
+description: null
+icon: null
+weight: 5

@@ -1,0 +1,56 @@
+label: Fichiers
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      title: Fichiers
+      fields:
+        filename:
+          label: Nom
+        filesize:
+          label: Taille
+        status:
+          label: État
+        changed:
+          label: 'Date de modification'
+        count:
+          label: 'Utilisé dans'
+        operations:
+          label: Actions
+      pager:
+        options:
+          tags:
+            next: 'Suivant ›'
+            previous: '‹ Précédent'
+      exposed_form:
+        options:
+          submit_button: Filtrer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+      filters:
+        filename:
+          expose:
+            label: 'Nom du fichier'
+        status:
+          expose:
+            label: État
+  page_1:
+    display_options:
+      menu:
+        title: Fichiers
+  page_2:
+    display_options:
+      fields:
+        entity_label:
+          label: Entité
+        type:
+          label: "Type d'entité"
+      pager:
+        options:
+          tags:
+            next: 'Suivant ›'
+            previous: '‹ Précédent'
+      arguments:
+        fid:
+          exception:
+            title: Tout

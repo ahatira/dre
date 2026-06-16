@@ -1,0 +1,15 @@
+uuid: 8f29a235-9c2d-461f-a247-d228fa5aaf68
+langcode: en
+status: true
+dependencies: {  }
+id: prestations_de_service__tec_conciergerie
+label: Conciergerie
+description: Conciergerie
+code: TEC_CONCIERGERIE
+group: prestations_de_service
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 1724
+icon: ''
+expose_as_filter: 1

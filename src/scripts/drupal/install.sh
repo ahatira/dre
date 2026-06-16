@@ -2,55 +2,75 @@
 # shellcheck disable=SC1091
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
 
-# Drupal installation script
+# Drupal multisite installation orchestrator
 
 show_help() {
   cat <<'EOF'
-Install Script - Install Drupal site
+Install Script - Install Property Search multisite countries
 
 Usage: scripts/main.sh drupal install [OPTIONS]
 
 Options:
-  --force          Force reinstall (recreate database)
-  --minimal        Site shell only (skip demo, offers, Solr, ps_search/ps_seo)
-  --dev            Enable development modules (devel, stage_file_proxy)
-  -h, --help       Show this help
+  --force              Force reinstall (drop DB per country)
+  --minimal            Skip post-install (demo, offers, Solr) on all countries
+  --dev                Enable development modules (devel, stage_file_proxy)
+  --countries=LIST     Country codes comma-separated or "all" (default: all)
+  --country=CODE       Install a single country (shortcut for --countries)
+  --master-only        Post-install only on COM (legacy shortcut)
+  -h, --help           Show this help
 
-By default, install runs post-install (demo, sample offers, ps_search/ps_seo, Solr).
+Each country uses isolated file directories and its own language set:
+  - public:  web/sites/{code}/files/
+  - private: src/private/{code}/
+
+By default post-install (demo, offers, Solr) runs on every country.
 
 Prerequisites:
-  - Docker containers running (ps_php, ps_postgres)
-  - settings.php configured with database connection
-  - Dependencies built (run 'scripts/main.sh tools build' first)
+  - make env (src/.env)
+  - Docker running
 
 Environment variables:
-  SITE_NAME        Site name (default: "PS Project")
+  SITE_NAME        Base site name (default: "PS Project")
   ADMIN_USER       Admin username (default: "admin")
   ADMIN_PASS       Admin password (default: "admin")
   ADMIN_MAIL       Admin email (default: "admin@example.com")
-  DB_NAME          Database name (default: "drupal")
-  DB_USER          Database user (default: "drupal")
 
 Examples:
   scripts/main.sh drupal install
-  scripts/main.sh drupal install --force
-  scripts/main.sh drupal install --dev
-  SITE_NAME="My Site" scripts/main.sh drupal install
+  scripts/main.sh drupal install com
+  scripts/main.sh drupal install com fr be
+  scripts/main.sh drupal install --minimal fr
+  scripts/main.sh drupal install --countries=fr,com
+  scripts/main.sh drupal install --country=fr --force
+
+  make install com
+  make install com fr --minimal
 EOF
 }
 
-# Default values
+ps_is_country_code() {
+  case "$1" in
+    com|be|es|fr|ie|it|lu|nl|pl|all)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 SITE_NAME="${SITE_NAME:-PS Project}"
 ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_PASS="${ADMIN_PASS:-admin}"
 ADMIN_MAIL="${ADMIN_MAIL:-admin@example.com}"
-DB_NAME="${DB_NAME:-drupal}"
-DB_USER="${DB_USER:-drupal}"
 FORCE_INSTALL=0
 ENABLE_DEV=0
 MINIMAL_INSTALL=0
+POST_INSTALL_MASTER_ONLY=0
+COUNTRIES_RAW="all"
+MASTER_COUNTRY="com"
+COUNTRY_POSITIONAL=()
 
-# Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --force)
@@ -65,206 +85,112 @@ while [[ $# -gt 0 ]]; do
       ENABLE_DEV=1
       shift
       ;;
+    --master-only)
+      POST_INSTALL_MASTER_ONLY=1
+      shift
+      ;;
+    --post-install-all)
+      shift
+      ;;
+    --countries=*)
+      COUNTRIES_RAW="${1#*=}"
+      shift
+      ;;
+    --country=*)
+      COUNTRIES_RAW="${1#*=}"
+      shift
+      ;;
     -h|--help)
       show_help
       exit 0
       ;;
     *)
-      ps_die "Unknown option: $1"
+      if ps_is_country_code "$1"; then
+        COUNTRY_POSITIONAL+=("$1")
+        shift
+      else
+        ps_die "Unknown option or country code: $1 (expected com, be, es, fr, ie, it, lu, nl, pl, or all)"
+      fi
       ;;
   esac
 done
 
-ps_header "Drupal: Installing site"
+if [[ ${#COUNTRY_POSITIONAL[@]} -gt 0 ]]; then
+  if [[ ${#COUNTRY_POSITIONAL[@]} -eq 1 && "${COUNTRY_POSITIONAL[0]}" == "all" ]]; then
+    COUNTRIES_RAW="all"
+  else
+    local_codes=()
+    for code in "${COUNTRY_POSITIONAL[@]}"; do
+      [[ "${code}" == "all" ]] && ps_die "Use 'make install' without country codes to install all sites"
+      local_codes+=("${code}")
+    done
+    COUNTRIES_RAW="$(IFS=,; echo "${local_codes[*]}")"
+  fi
+fi
 
-# Prerequisites
+export FORCE_INSTALL ENABLE_DEV MINIMAL_INSTALL ADMIN_USER ADMIN_PASS ADMIN_MAIL
+
+ps_header "Drupal: Multisite install"
+
 ps_info "Checking prerequisites..."
 ps_require_cmd docker
 ps_require_file "${PS_DOCKER_COMPOSE_FILE}"
+ps_require_file "${PS_SRC_DIR}/.env"
 ps_in_docker || ps_die "Docker containers not running. Start them first: docker compose up -d"
 ps_success "Prerequisites OK"
 
-# Check if already installed
-if ps_drush_bootstrapped && [[ ${FORCE_INSTALL} -eq 0 ]]; then
-  ps_warn "Drupal is already installed. Use --force to reinstall."
-  exit 0
-fi
+mapfile -t COUNTRIES < <(ps_parse_countries_arg "${COUNTRIES_RAW}")
 
-# Drop database if force install
-if [[ ${FORCE_INSTALL} -eq 1 ]]; then
-  ps_info "Dropping existing database..."
-  ps_retry 2 2 ps_drush sql:drop --yes
-  ps_success "Database dropped"
-fi
+bash "${PS_SCRIPTS_DIR}/drupal/provision-databases.sh"
+bash "${PS_SCRIPTS_DIR}/drupal/provision-site-files.sh" --countries="${COUNTRIES_RAW}"
 
-# Site install (minimal profile, settings.php already configured)
-ps_info "Installing Drupal with minimal profile..."
-ps_retry 2 3 ps_drush site:install minimal \
-  --site-name="${SITE_NAME}" \
-  --account-name="${ADMIN_USER}" \
-  --account-pass="${ADMIN_PASS}" \
-  --account-mail="${ADMIN_MAIL}" \
-  --yes
-ps_success "Drupal installed"
+# shellcheck disable=SC1091
+source "${PS_SCRIPTS_DIR}/drupal/install-country.sh"
 
-# Drupal 11.3: UpdateHooks calls update_storage_clear() from a namespaced class
-# before update.module is loaded, which fatals on the first theme/module enable.
-ps_info "Disabling optional Update Status module (not needed for local install)..."
-if ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
-  ps_drush pm:uninstall update -y || ps_warn "Update module could not be uninstalled"
-  ps_drush_cr
-fi
+for country in "${COUNTRIES[@]}"; do
+  country_label="$(ps_country_upper "${country}")"
+  site_name="${SITE_NAME} ${country_label}"
+  ps_install_country_site "${country}" "${site_name}"
+  ps_import_active_language_config_overrides "${country}"
+done
 
-# Base theme (ps_theme sub-theme base).
-ps_info "Enabling base theme (ui_suite_bnp)..."
-ps_retry 2 2 ps_drush theme:enable -y ui_suite_bnp
-ps_success "Base theme enabled"
+ps_success "Multisite install complete!"
+echo ""
 
-# Enable essential contrib modules (not in custom module dependencies)
-ps_info "Enabling essential contrib modules..."
-ps_drush en -y \
-  honeypot seckit || ps_warn "Some essential modules not available"
-ps_success "Essential modules enabled"
+for country in "${COUNTRIES[@]}"; do
+  uri="$(ps_site_uri "${country}")"
+  admin_uri="$(ps_site_admin_uri "${country}" 2>/dev/null || true)"
+  if [[ -n "${admin_uri}" ]]; then
+    ps_info "${country}: front=${uri} admin=${admin_uri}/admin"
+  else
+    ps_info "${country}: ${uri}/admin"
+  fi
+  ps_info "  login: ${ADMIN_USER} / ${ADMIN_PASS}"
+done
 
-# Enable BNP admin baseline module (Gin theme + config on install)
-ps_info "Enabling BNP admin baseline..."
-ps_drush theme:enable -y gin || ps_warn "Gin theme not available"
-ps_retry 2 2 ps_drush en -y bnp_admin
-ps_success "BNP admin baseline enabled"
-
-# BNP Editor (text formats + role permissions; before PS content modules)
-ps_info "Enabling BNP Editor..."
-ps_retry 2 2 ps_drush en -y bnp_editor
-ps_success "BNP Editor enabled"
-
-# Enable development modules if --dev
-if [[ ${ENABLE_DEV} -eq 1 ]]; then
-  ps_info "Enabling development modules..."
-  ps_drush en -y devel devel_generate stage_file_proxy || ps_warn "Some dev modules not available"
-  ps_success "Development modules enabled"
-fi
-
-# French language before PS modules so config/install/language/fr/*.yml overrides apply.
-ps_info "Ensuring French language..."
-if ps_drush language:info | grep -q "French (fr)"; then
-  ps_info "French already enabled"
-else
-  ps_drush language:add fr --skip-translations -y
-  ps_success "French language added"
-fi
-
-# Enable custom PS modules (specific order)
-ps_info "Enabling PS modules..."
-ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
-ps_retry 2 2 ps_drush en -y ps_surface
-ps_retry 2 2 ps_drush en -y entity_browser_generic_embed
-ps_retry 2 2 ps_drush en -y bnp_media ps_media
-# Webform contrib ships webform.webform.contact; ps_form replaces it with PS defaults.
-ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
-ps_drush entity:delete webform contact -y || true
-ps_drush config:delete webform.webform.contact -y || true
-ps_retry 2 2 ps_drush en -y ps_form
-ps_info "Provisioning PS Form webforms..."
-ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->provisionMissing(); if ($missing !== []) { echo "Created: " . implode(", ", $missing) . PHP_EOL; }'
-ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->getMissingWebformIds(); if ($missing !== []) { throw new \RuntimeException("Missing PS Form webforms: " . implode(", ", $missing)); } echo "PS Form webforms OK" . PHP_EOL;' || ps_die "PS Form webforms were not provisioned"
-ps_retry 2 2 ps_drush en -y ps_offer
-ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
-ps_retry 2 2 ps_drush en -y ps_context
-ps_success "PS modules enabled"
-
-# Anti-spam modules
-ps_info "Enabling anti-spam modules..."
-ps_retry 2 2 ps_drush en -y captcha altcha || ps_warn "Anti-spam modules not available"
-ps_success "Anti-spam configured"
-
-# Assign BNP administrator role (RBAC: bnp_admin is the single role source).
-ps_info "Assigning administrator role to ${ADMIN_USER}..."
-ps_drush user:role:add administrator "${ADMIN_USER}" -y || true
-ps_success "Role assigned"
-
-# Import custom module translations (ps_* and bnp_*) + theme FR.
-ps_info "Importing custom module translations..."
-IMPORTED=0
-SKIPPED=0
-FAILED=0
-
-# Get active languages
-ACTIVE_LANGS=$(ps_drush ev 'echo implode(PHP_EOL, array_keys(\Drupal::languageManager()->getLanguages()));')
-
-import_po_file() {
-  local po_file="$1"
-  local langcode="$2"
-  if [[ -z "${po_file}" || -z "${langcode}" ]]; then
+should_post_install() {
+  local country="$1"
+  if [[ ${MINIMAL_INSTALL} -eq 1 ]]; then
     return 1
   fi
-  if ! echo "${ACTIVE_LANGS}" | grep -q "^${langcode}$"; then
-    SKIPPED=$((SKIPPED + 1))
-    return 0
+  if [[ ${POST_INSTALL_MASTER_ONLY} -eq 1 ]]; then
+    [[ "${country}" == "${MASTER_COUNTRY}" ]]
+    return
   fi
-  if ps_drush locale:import "${langcode}" "/var/www/html/${po_file}" --type=customized --override=all -y >/dev/null 2>&1; then
-    IMPORTED=$((IMPORTED + 1))
-  else
-    FAILED=$((FAILED + 1))
-  fi
+  return 0
 }
 
-while IFS= read -r po_file; do
-  [[ -z "${po_file}" ]] && continue
-  filename=$(basename "${po_file}")
-  langcode="${filename%.po}"
-  langcode="${langcode##*.}"
-  import_po_file "${po_file}" "${langcode}"
-done < <(ps_docker_exec_php "find web/modules/custom -path '*/translations/*.po' \( -name 'ps_*.*.po' -o -name 'bnp_*.*.po' \) 2>/dev/null | sort || true")
+for country in "${COUNTRIES[@]}"; do
+  if should_post_install "${country}"; then
+    ps_info "Post-install for ${country}..."
+    PS_DRUSH_URI="$(ps_site_uri "${country}")"
+    export PS_DRUSH_URI
+    PS_COUNTRY_CODE="${country}"
+    export PS_COUNTRY_CODE
+    bash "${PS_SCRIPTS_DIR}/drupal/post-install.sh"
+  else
+    ps_info "Skipping post-install for ${country}"
+  fi
+done
 
-if [[ -f "${PS_SRC_DIR}/web/themes/custom/ps_theme/translations/fr.po" ]] \
-  && echo "${ACTIVE_LANGS}" | grep -q '^fr$'; then
-  import_po_file "web/themes/custom/ps_theme/translations/fr.po" "fr"
-fi
-
-ps_info "Translations: imported=${IMPORTED}, skipped=${SKIPPED}, failed=${FAILED}"
-[[ ${FAILED} -gt 0 ]] && ps_warn "Some translations failed to import"
-
-ps_info "Importing dictionary data..."
-ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
-ps_success "Dictionary imported"
-
-ps_info "Enabling search, compare and SEO modules (required by ps_homepage)..."
-ps_retry 2 2 ps_drush en -y ps_compare ps_search ps_seo
-ps_success "ps_compare, ps_search and ps_seo enabled"
-
-ps_info "Syncing BNP RBAC roles (PS permissions)..."
-bash "${PS_SCRIPTS_DIR}/drupal/rbac-sync.sh"
-
-ps_info "Enabling theme shell dependencies..."
-ps_retry 2 2 ps_drush en -y ps_block ps_homepage
-ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some theme contrib modules not available"
-
-ps_info "Enabling Property Search front theme (shell: blocs + menus vides)..."
-ps_retry 2 2 ps_drush theme:enable -y ps_theme
-ps_retry 2 2 ps_drush config:import --partial --source=themes/custom/ps_theme/config/install -y
-ps_drush config:set -y system.theme default ps_theme
-ps_drush config:set -y system.site page.front /node
-ps_drush config:set -y system.site slogan "Real Estate for a Changing World"
-ps_success "Front theme configured"
-
-# Cache rebuild
-ps_info "Rebuilding cache..."
-ps_retry 2 2 ps_drush_cr
-ps_success "Cache rebuilt"
-
-# Final status
-ps_success "Installation complete!"
-echo ""
-ps_drush status --fields=bootstrap,db-status,drupal-version,drush-version
-echo ""
-ps_info "Back-office: ${PS_HTTP_URL}/admin"
-ps_info "Login: ${ADMIN_USER} / ${ADMIN_PASS}"
-if [[ ${MINIMAL_INSTALL} -eq 1 ]]; then
-  ps_info "Front: ${PS_HTTP_URL}/ (shell only — run: make post-install)"
-else
-  ps_info "Running post-install (demo, offers, Solr)..."
-  bash "${PS_SCRIPTS_DIR}/drupal/post-install.sh"
-  ps_info "Syncing FR config language overrides..."
-  ps_drush php:script scripts/import_language_config_overrides.php fr \
-    || ps_warn "Config language override sync failed"
-fi
+unset PS_DRUSH_URI PS_COUNTRY_CODE

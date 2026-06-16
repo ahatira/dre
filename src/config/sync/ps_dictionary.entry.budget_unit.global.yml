@@ -1,0 +1,11 @@
+uuid: b49b4690-57b6-4027-b191-56a1ff52fd51
+langcode: en
+status: true
+dependencies: {  }
+id: budget_unit.global
+type: budget_unit
+code: GLOBAL
+label: Global
+description: null
+icon: null
+weight: 3

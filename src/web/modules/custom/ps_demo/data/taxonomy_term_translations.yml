@@ -1,0 +1,32 @@
+# Demo taxonomy overlays (UUID → langcode → name).
+b3000001-0000-4000-8000-000000000001:
+  it:
+    name: 'Notizie di mercato'
+  nl:
+    name: 'Marktnieuws'
+  pl:
+    name: 'Wiadomości rynkowe'
+
+b3000001-0000-4000-8000-000000000002:
+  it:
+    name: Tendenze
+  nl:
+    name: Trends
+  pl:
+    name: Trendy
+
+b3000002-0000-4000-8000-000000000001:
+  it:
+    name: Uffici
+  nl:
+    name: Kantoren
+  pl:
+    name: Biura
+
+b3000002-0000-4000-8000-000000000002:
+  it:
+    name: Logistica
+  nl:
+    name: Logistiek
+  pl:
+    name: Logistyka

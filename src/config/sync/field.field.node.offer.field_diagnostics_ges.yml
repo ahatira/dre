@@ -1,0 +1,25 @@
+uuid: 450f46ce-7eef-410f-b9ae-b84631923aca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_diagnostics_ges
+    - node.type.offer
+  module:
+    - ps_diagnostic
+_core:
+  default_config_hash: ZLiac8zDoG_Mi_2ujx5a_fK0H4RnyDYlMWGkUDvcRAo
+id: node.offer.field_diagnostics_ges
+field_name: field_diagnostics_ges
+entity_type: node
+bundle: offer
+label: GES
+description: 'Greenhouse gas emissions diagnostic. Enter the value and let the widget suggest the class automatically when possible.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_types:
+    - ges
+field_type: diagnostic_item

@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: Jfy7yFy8F4PfnYlrapZGGJ8oWaMK-a3V3ROhJHDuDkI
+enable_custom_plugins: true
+enable_media_embed: true
+allowed_protocols: |-
+  http
+  https
+  mailto
+  tel

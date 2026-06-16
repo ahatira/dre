@@ -1,0 +1,17 @@
+uuid: 97baed99-3ea2-4acb-85d9-8c6e24a5dfa9
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: pfK3UR0h9zeJu3aSR6DMM3Leab24YG1_jgBH1XN9EyM
+name: certification_label_badge
+label: 'Certification label badge (160x160)'
+effects:
+  8f3c2a1b-4d5e-6f70-8192-a3b4c5d6e7f8:
+    uuid: 8f3c2a1b-4d5e-6f70-8192-a3b4c5d6e7f8
+    id: image_scale
+    weight: 0
+    data:
+      width: 160
+      height: 160
+      upscale: false

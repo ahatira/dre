@@ -1,0 +1,15 @@
+uuid: f7410965-c590-41b2-aebd-346ac60dc197
+langcode: en
+status: true
+dependencies: {  }
+id: informations_complementaires__tec_elment_libre_2
+label: 'Parking VL en sous-sol (environ 300 places)'
+description: 'Parking VL en sous-sol (environ 300 places)'
+code: TEC_ELMENT_LIBRE_2
+group: informations_complementaires
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 131
+icon: ''
+expose_as_filter: 1

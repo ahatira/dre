@@ -1,0 +1,74 @@
+uuid: 39ba5a48-20ec-4bff-863f-b7d54fc3a8f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - block
+    - bnp_editor
+    - coffee
+    - layout_builder
+    - node
+    - ps_agent
+    - ps_compare
+    - ps_core
+    - ps_diagnostic
+    - ps_dictionary
+    - ps_favorite
+    - ps_feature
+    - ps_media
+    - ps_offer
+    - ps_search
+    - sitewide_alert
+    - system
+    - trash
+id: content_admin
+label: 'Content administrator'
+weight: 3
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access coffee'
+  - 'access content'
+  - 'access ps diagnostic admin'
+  - 'access ps_core config section'
+  - 'access ps_core content section'
+  - 'access ps_core hub'
+  - 'access ps_core structure section'
+  - 'access trash'
+  - 'add sitewide alert entities'
+  - 'administer blocks'
+  - 'administer bnp editor'
+  - 'administer menu'
+  - 'administer nodes'
+  - 'administer ps agent entities'
+  - 'administer ps agent fallback settings'
+  - 'administer ps agent types'
+  - 'administer ps diagnostic settings'
+  - 'administer ps diagnostic types'
+  - 'administer ps features'
+  - 'administer ps offer reference patterns'
+  - 'administer ps_core'
+  - 'administer ps_media'
+  - 'administer search alerts'
+  - 'configure editable page node layout overrides'
+  - 'create offer content'
+  - 'delete any offer content'
+  - 'delete sitewide alert entities'
+  - 'edit any offer content'
+  - 'edit any page content'
+  - 'edit sitewide alert entities'
+  - 'manage ps_agent'
+  - 'manage ps_compare'
+  - 'manage ps_diagnostic'
+  - 'manage ps_dictionary'
+  - 'manage ps_favorite'
+  - 'manage ps_feature'
+  - 'manage ps_offer'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view any unpublished content'
+  - 'view deleted entities'
+  - 'view published sitewide alert entities'
+  - 'view the administration theme'
+  - 'view unpublished sitewide alert entities'

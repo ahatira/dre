@@ -1,0 +1,20 @@
+uuid: 3d2cd9f3-f9ff-4a9f-a3f6-8a9143b94ca3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: b9REGSafL1b85TvWRnTEEt9rk_Vkz0crxkNwG8AloMI
+id: node.field_show_address
+field_name: field_show_address
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

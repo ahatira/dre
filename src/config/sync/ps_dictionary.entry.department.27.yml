@@ -1,0 +1,11 @@
+uuid: 6f6fbe2d-1de0-424d-8932-53760c4da2c1
+langcode: en
+status: true
+dependencies: {  }
+id: department.27
+type: department
+code: '27'
+label: Eure
+description: null
+icon: null
+weight: 26

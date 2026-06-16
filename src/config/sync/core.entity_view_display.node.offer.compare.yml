@@ -1,0 +1,234 @@
+uuid: ad8bb20f-a666-42a2-b356-584c7ab6c259
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.compare
+    - field.field.node.offer.body
+    - field.field.node.offer.field_address
+    - field.field.node.offer.field_asset_type
+    - field.field.node.offer.field_asset_type_raw
+    - field.field.node.offer.field_availability
+    - field.field.node.offer.field_budget_cc
+    - field.field.node.offer.field_budget_currency
+    - field.field.node.offer.field_budget_fees
+    - field.field.node.offer.field_budget_ht
+    - field.field.node.offer.field_budget_period
+    - field.field.node.offer.field_budget_unit
+    - field.field.node.offer.field_budget_value
+    - field.field.node.offer.field_business_id
+    - field.field.node.offer.field_capacity_available
+    - field.field.node.offer.field_capacity_mode
+    - field.field.node.offer.field_capacity_notes
+    - field.field.node.offer.field_capacity_total
+    - field.field.node.offer.field_capacity_unit
+    - field.field.node.offer.field_certification_labels
+    - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_commercial_title
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_diagnostics_dpe
+    - field.field.node.offer.field_diagnostics_ges
+    - field.field.node.offer.field_divisible
+    - field.field.node.offer.field_divisions
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_geo
+    - field.field.node.offer.field_import_id
+    - field.field.node.offer.field_internal_lock
+    - field.field.node.offer.field_last_imported_at
+    - field.field.node.offer.field_mandate_type
+    - field.field.node.offer.field_media_document
+    - field.field.node.offer.field_media_gallery
+    - field.field.node.offer.field_metatag
+    - field.field.node.offer.field_operation_type
+    - field.field.node.offer.field_operation_type_raw
+    - field.field.node.offer.field_primary_agent
+    - field.field.node.offer.field_reference
+    - field.field.node.offer.field_reference_auto
+    - field.field.node.offer.field_secondary_agents
+    - field.field.node.offer.field_show_address
+    - field.field.node.offer.field_source_checksum
+    - field.field.node.offer.field_source_system
+    - field.field.node.offer.field_source_tracking
+    - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_technical_id
+    - node.type.offer
+  module:
+    - ps_diagnostic
+    - ps_dictionary
+    - ps_feature
+    - ps_media
+    - ps_offer
+    - ps_surface
+    - user
+_core:
+  default_config_hash: 7pyO2m6z3ooLqVhGz6TnU_PVjPkt22d6xjnJ3Wrm3S0
+id: node.offer.compare
+targetEntityType: node
+bundle: offer
+mode: compare
+content:
+  field_address:
+    type: ps_offer_location_compare
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_asset_type:
+    type: ps_dictionary_formatter
+    label: hidden
+    settings:
+      display_mode: label
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_availability:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_budget_value:
+    type: ps_offer_budget_compare
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_commercial_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_diagnostics_dpe:
+    type: diagnostic_item_compare
+    label: hidden
+    settings:
+      show_dates: false
+      show_ranges: false
+      show_unknown_banner: false
+      show_reference_table: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_diagnostics_ges:
+    type: diagnostic_item_compare
+    label: hidden
+    settings:
+      show_dates: false
+      show_ranges: false
+      show_unknown_banner: false
+      show_reference_table: false
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_divisible:
+    type: boolean
+    label: hidden
+    settings:
+      format: yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_features:
+    type: feature_default
+    label: hidden
+    settings:
+      show_label: false
+      show_group: false
+      format_style: default
+      hide_disabled_flags: true
+      group_order: ''
+      group_filter: ''
+      column_threshold: 5
+      column_rows: 5
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_mandate_type:
+    type: ps_dictionary_formatter
+    label: hidden
+    settings:
+      display_mode: label
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_media_gallery:
+    type: ps_media_gallery_formatter
+    label: hidden
+    settings:
+      order: type_then_manual
+      show_titles: false
+      use_thumbnail: true
+      lazy_load: true
+      max_items: 1
+      image_style: ps_compare_column
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_operation_type:
+    type: ps_dictionary_formatter
+    label: hidden
+    settings:
+      display_mode: label
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_reference:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_surfaces:
+    type: ps_surface_compare
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  body: true
+  field_asset_type_raw: true
+  field_budget_cc: true
+  field_budget_currency: true
+  field_budget_fees: true
+  field_budget_ht: true
+  field_budget_period: true
+  field_budget_unit: true
+  field_business_id: true
+  field_capacity_available: true
+  field_capacity_mode: true
+  field_capacity_notes: true
+  field_capacity_total: true
+  field_capacity_unit: true
+  field_certification_labels: true
+  field_client_type: true
+  field_diagnostics: true
+  field_divisions: true
+  field_geo: true
+  field_import_id: true
+  field_internal_lock: true
+  field_last_imported_at: true
+  field_media_document: true
+  field_metatag: true
+  field_operation_type_raw: true
+  field_primary_agent: true
+  field_reference_auto: true
+  field_secondary_agents: true
+  field_show_address: true
+  field_source_checksum: true
+  field_source_system: true
+  field_source_tracking: true
+  field_technical_id: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

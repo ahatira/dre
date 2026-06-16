@@ -1,0 +1,15 @@
+uuid: 470afc22-b11f-4eb2-bcc0-2ecd3e5cddc1
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_climatisation
+label: Climatisation
+description: Climatisation
+code: TEC_CLIMATISATION
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 20
+icon: ''
+expose_as_filter: 1

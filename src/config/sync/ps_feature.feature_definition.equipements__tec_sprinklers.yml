@@ -1,0 +1,15 @@
+uuid: c87026dc-fb9f-4182-92e6-c415ec6779c5
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_sprinklers
+label: Sprinklers
+description: Sprinklers
+code: TEC_SPRINKLERS
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2865
+icon: ''
+expose_as_filter: 1

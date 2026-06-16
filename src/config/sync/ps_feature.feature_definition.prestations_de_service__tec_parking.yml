@@ -1,0 +1,16 @@
+uuid: 604fd24e-baed-45f1-9c43-0bfc8c191333
+langcode: en
+status: true
+dependencies: {  }
+id: prestations_de_service__tec_parking
+label: Parking
+description: Parking
+code: TEC_PARKING
+group: prestations_de_service
+type_driver: numeric
+required_asset_types: {  }
+payload_defaults:
+  unit: Places
+weight: 31
+icon: ''
+expose_as_filter: 1

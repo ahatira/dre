@@ -87,6 +87,7 @@ services:
     class: Drupal\ps_homepage\Service\HomepageBlockDefaultsLoader
     arguments:
       - '@extension.path.resolver'
+      - '@entity.repository'
 
   ps_homepage.default_layout_builder:
     class: Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder
@@ -112,10 +113,12 @@ services:
     arguments:
       - '@entity_type.manager'
 
+  ps_homepage.layout_field_ensurer:
+    class: Drupal\ps_homepage\Service\HomepageLayoutFieldEnsurer
+
   ps_homepage.layout_structure_synchronizer:
     class: Drupal\ps_homepage\Service\HomepageLayoutStructureSynchronizer
     arguments:
-      - '@language_manager'
       - '@entity_type.manager'
 
   ps_homepage.section_library_installer:

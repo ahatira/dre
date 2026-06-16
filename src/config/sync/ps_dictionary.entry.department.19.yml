@@ -1,0 +1,11 @@
+uuid: 6a937924-ec50-4542-a17e-fff63f1cea65
+langcode: en
+status: true
+dependencies: {  }
+id: department.19
+type: department
+code: '19'
+label: Corrèze
+description: null
+icon: null
+weight: 19

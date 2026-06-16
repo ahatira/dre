@@ -1,0 +1,12 @@
+uuid: cf02cd18-ade9-461f-bb2f-197d5ef2f290
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: YZfTLYoOq0xHF6EA1hHLuPCwE5S3J48SI45bma86v3s
+id: amenagements
+label: AMENAGEMENTS
+description: AMENAGEMENTS
+icon: ''
+asset_types: {  }
+weight: 4758

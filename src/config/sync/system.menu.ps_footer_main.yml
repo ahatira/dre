@@ -1,0 +1,8 @@
+uuid: ed567371-c483-4267-bd22-87d473fc46cf
+langcode: en
+status: true
+dependencies: {  }
+id: ps_footer_main
+label: 'Footer main'
+description: 'Stellar footer columns (Contact, cities, sites…). Parent items become column titles.'
+locked: false

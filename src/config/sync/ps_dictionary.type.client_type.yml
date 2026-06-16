@@ -1,0 +1,9 @@
+uuid: f89c5c42-60b0-4b73-a38b-90da833182bc
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ZxCH4Kt_CA3m0siozy0WsmcVeyZU8YKfDvXx5L8MPjc
+id: client_type
+label: 'Types de clients'
+description: null

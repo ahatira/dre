@@ -1,0 +1,17 @@
+uuid: 9f2d9242-2403-46d6-8fb2-4c1d68fd2d9b
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnp_media
+_core:
+  default_config_hash: 3B9jtKnu1epVtRanbMtgZPY68d1rsSBI18Jdo0QQz2Q
+id: file
+label: File
+description: 'Generic reusable local file.'
+source: bnp_file
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_file
+field_map: {  }

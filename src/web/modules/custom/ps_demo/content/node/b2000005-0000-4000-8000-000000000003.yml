@@ -1,0 +1,121 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000005-0000-4000-8000-000000000003
+  bundle: article
+  default_langcode: en
+  depends:
+    b3000001-0000-4000-8000-000000000001: taxonomy_term
+    c1000008-0000-4000-8000-000000000001: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo news article'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Retail revival in urban centers'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>Prime retail locations are attracting renewed interest as footfall returns to city centers.</p>'
+      format: basic_html
+      summary: ''
+  field_display_date:
+    -
+      value: '2025-01-15'
+  field_news_category:
+    -
+      entity: b3000001-0000-4000-8000-000000000001
+  field_teaser_image:
+    -
+      entity: c1000008-0000-4000-8000-000000000001
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Article démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Retour du commerce en centre-ville'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Les emplacements commerciaux prime attirent à nouveau l''attention avec le retour de la fréquentation en centre-ville.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-01-15'
+    field_news_category:
+      -
+        entity: b3000001-0000-4000-8000-000000000001
+  es:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Artículo demo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Reactivación del comercio en centros urbanos'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>Los locales comerciales prime vuelven a atraer interés con la recuperación del tráfico en los centros urbanos.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-01-15'
+    field_news_category:
+      -
+        entity: b3000001-0000-4000-8000-000000000001

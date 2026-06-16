@@ -1,0 +1,20 @@
+uuid: 72ce90c4-5782-44f0-9e34-5aefbaa3ab3c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ui_suite_bnp
+_core:
+  default_config_hash: SFaEZLZb2HXDRrQ6ghcRscboVc4WPl77LL1ydywvJ4Q
+id: ui_suite_bnp_page_title
+theme: ui_suite_bnp
+region: header
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

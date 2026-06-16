@@ -1,0 +1,15 @@
+uuid: fdf774c4-d199-4fca-9385-8bfdffa5230c
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_hall_daccueil
+label: "Hall d'accueil"
+description: "Hall d'accueil"
+code: TEC_HALL_DACCUEIL
+group: amenagements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 61
+icon: ''
+expose_as_filter: 1

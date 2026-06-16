@@ -1,0 +1,15 @@
+uuid: 962deacd-a78b-4d89-b439-74fd1c602163
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_type_chauffage
+label: 'Type de chauffage'
+description: 'Type de chauffage'
+code: TEC_TYPE_CHAUFFAGE
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 53
+icon: ''
+expose_as_filter: 1

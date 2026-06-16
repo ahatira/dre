@@ -1,0 +1,22 @@
+uuid: 5802e63b-1115-49de-ab1c-a4f81490b70a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ui_suite_bnp
+_core:
+  default_config_hash: XQdYJPoc7JozvCDxo_goOL2Py5hcD11TbSNzJ7C93OM
+id: ui_suite_bnp_powered
+theme: ui_suite_bnp
+region: footer
+weight: -10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

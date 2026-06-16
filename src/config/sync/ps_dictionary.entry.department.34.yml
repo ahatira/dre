@@ -1,0 +1,11 @@
+uuid: 405533ea-2237-41c6-91b8-94b56e11f621
+langcode: en
+status: true
+dependencies: {  }
+id: department.34
+type: department
+code: '34'
+label: Hérault
+description: null
+icon: null
+weight: 35

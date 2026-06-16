@@ -1,0 +1,12 @@
+uuid: 04f3237b-a9d1-4706-b4eb-ac3fc8b0aa8c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: kzM6ooZK9ezaNPjP238jOASIPHgTaLSUfg5A81ahQGw
+id: node.offer
+label: Offer
+entity_type_id: node
+bundle: offer
+max_favorites: 0
+view_mode: favorite_card

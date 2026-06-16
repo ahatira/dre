@@ -1,0 +1,125 @@
+uuid: ac37ab11-76a6-4253-ae40-7bc112ba9df7
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ps_migrate
+_core:
+  default_config_hash: aO5fpTcYx1LYaQdGgVf1vFIRx2BeCX0qg72q9scLktM
+id: ps_offer_translations_from_xml
+class: null
+idMap: {  }
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ps_crm_import
+migration_group: ps_crm_import
+label: 'Import Offer Translations from CRM XML (dynamic)'
+source:
+  plugin: ps_offer_translation_targets
+  urls:
+    - 'public://crm/offers.xml'
+  fields:
+    -
+      name: business_id
+      label: 'Business ID'
+    -
+      name: offer_xml_node
+      label: 'Full offer XML node'
+    -
+      name: technical_elements
+      label: 'Technical elements node'
+    -
+      name: operation_code
+      label: 'Operation code'
+    -
+      name: type_code
+      label: 'Asset type code'
+    -
+      name: address_city
+      label: City
+    -
+      name: all_surface_values
+      label: 'All surface values'
+    -
+      name: address_country
+      label: 'Country ISO code'
+    -
+      name: source_langcode
+      label: 'Source Drupal language'
+    -
+      name: target_xml_language
+      label: 'Target XML language'
+    -
+      name: target_langcode
+      label: 'Target Drupal language'
+  ids:
+    business_id:
+      type: string
+    target_langcode:
+      type: string
+process:
+  nid:
+    plugin: migration_lookup
+    migration: ps_offer_from_xml
+    source: business_id
+    no_stub: true
+  _skip_check:
+    plugin: skip_on_empty
+    method: row
+    source: '@nid'
+  title:
+    plugin: offer_composed_title
+    source:
+      - operation_code
+      - type_code
+      - address_city
+      - business_id
+      - address_country
+      - target_langcode
+    mode: title
+  field_commercial_title:
+    plugin: offer_composed_title
+    source:
+      - operation_code
+      - type_code
+      - all_surface_values
+      - business_id
+      - address_country
+      - target_langcode
+    mode: commercial
+  langcode: target_langcode
+  content_translation_source: source_langcode
+  body/value:
+    plugin: multilingual_description
+    source:
+      - offer_xml_node
+      - target_xml_language
+    priority:
+      - 2
+      - 4
+      - 1
+  body/format:
+    plugin: default_value
+    default_value: plain_text
+  field_availability:
+    plugin: multilingual_xpath_value
+    source:
+      - offer_xml_node
+      - target_xml_language
+    xpath: ML_AVAILABILITY/AVAILABILITY
+  field_features:
+    plugin: multilingual_feature_items
+    source:
+      - technical_elements
+      - target_xml_language
+destination:
+  plugin: 'entity:node'
+  default_bundle: offer
+  translations: true
+migration_dependencies:
+  required:
+    - ps_offer_from_xml
+  optional: {  }
+include: null

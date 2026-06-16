@@ -1,0 +1,15 @@
+uuid: f6b00977-e776-4ffe-8b69-045f5baebf4b
+langcode: en
+status: true
+dependencies: {  }
+id: amenagements__tec_accs_pers_mobilit_rduite
+label: 'Accès Pers. Mobilité Réduite'
+description: 'Accès Pers. Mobilité Réduite'
+code: TEC_ACCS_PERS_MOBILIT_RDUITE
+group: amenagements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 206
+icon: ''
+expose_as_filter: 1

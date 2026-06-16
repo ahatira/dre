@@ -22,7 +22,7 @@ final class OfferCarouselBuilder {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly OfferTeaserBuilder $offerTeaserBuilder,
     private readonly OfferFeaturedOffersResolver $featuredOffersResolver,
-    private readonly SearchPathResolver $searchPathResolver,
+    private readonly ?SearchPathResolver $searchPathResolver,
     private readonly LanguageManagerInterface $languageManager,
   ) {}
 
@@ -38,7 +38,7 @@ final class OfferCarouselBuilder {
    */
   public function build(array $configuration): array {
     $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
-    $footerUrl = $this->searchPathResolver->getPublicPath($langcode);
+    $footerUrl = $this->searchPathResolver?->getPublicPath($langcode) ?? '/find-property';
 
     $nids = [];
     foreach ($configuration['offers'] ?? [] as $item) {

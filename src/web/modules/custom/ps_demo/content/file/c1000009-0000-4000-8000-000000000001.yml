@@ -1,0 +1,24 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: c1000009-0000-4000-8000-000000000001
+  default_langcode: en
+default:
+  filename:
+    -
+      value: study-bureaux.jpg
+  uri:
+    -
+      value: 'public://demo/study-bureaux.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 216137
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1781616338

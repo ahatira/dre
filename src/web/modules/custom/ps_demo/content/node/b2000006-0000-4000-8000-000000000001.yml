@@ -1,0 +1,121 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2000006-0000-4000-8000-000000000001
+  bundle: market_study
+  default_langcode: en
+  depends:
+    b3000002-0000-4000-8000-000000000001: taxonomy_term
+    c1000010-0000-4000-8000-000000000001: media
+default:
+  revision_uid:
+    -
+      target_id: 0
+  revision_log:
+    -
+      value: 'Demo market study'
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Spain office market Q1 2025'
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>Occupier demand and rental growth in Madrid and Barcelona headline the first-quarter office market update.</p>'
+      format: basic_html
+      summary: ''
+  field_display_date:
+    -
+      value: '2025-03-01'
+  field_study_category:
+    -
+      entity: b3000002-0000-4000-8000-000000000001
+  field_teaser_image:
+    -
+      entity: c1000010-0000-4000-8000-000000000001
+translations:
+  fr:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Étude démo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Marché des bureaux en Espagne — T1 2025'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>La demande des occupiers et la progression des loyers à Madrid et Barcelone dominent l''actualité du premier trimestre.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-03-01'
+    field_study_category:
+      -
+        entity: b3000002-0000-4000-8000-000000000001
+  es:
+    revision_uid:
+      -
+        target_id: 0
+    revision_log:
+      -
+        value: 'Estudio demo'
+    status:
+      -
+        value: true
+    uid:
+      -
+        target_id: 0
+    title:
+      -
+        value: 'Mercado de oficinas en España — T1 2025'
+    promote:
+      -
+        value: false
+    sticky:
+      -
+        value: false
+    revision_translation_affected:
+      -
+        value: true
+    body:
+      -
+        value: '<p>La demanda de ocupantes y el crecimiento de rentas en Madrid y Barcelona destacan en el informe del primer trimestre.</p>'
+        format: basic_html
+        summary: ''
+    field_display_date:
+      -
+        value: '2025-03-01'
+    field_study_category:
+      -
+        entity: b3000002-0000-4000-8000-000000000001

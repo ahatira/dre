@@ -1,0 +1,14 @@
+uuid: 39e70e3a-5e0d-4308-ba20-7831ed7fd100
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.translate_admin
+  module:
+    - user
+id: user_add_role_action.translate_admin
+label: 'Add the Translation administrator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: translate_admin

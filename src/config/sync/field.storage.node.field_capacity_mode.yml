@@ -1,0 +1,32 @@
+uuid: cf23028d-ae4f-470b-b287-f6392572212a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+_core:
+  default_config_hash: i9AawgiT7DlcWH5ZU0urf99D9FZc2Xk4NFe4_8JXANU
+id: node.field_capacity_mode
+field_name: field_capacity_mode
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: SURFACE_BASED
+      label: 'Surface based'
+    -
+      value: SEAT_BASED
+      label: 'Seat based'
+    -
+      value: HYBRID
+      label: Hybrid
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,15 @@
+uuid: ef8aa9da-8d96-48b9-9c23-6b8717bca34d
+langcode: en
+status: true
+dependencies: {  }
+id: type_etat_du_batiment__tec_type_commerce
+label: 'Type de commerce'
+description: 'Type de commerce'
+code: TEC_TYPE_COMMERCE
+group: type_etat_du_batiment
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 2638
+icon: ''
+expose_as_filter: 1

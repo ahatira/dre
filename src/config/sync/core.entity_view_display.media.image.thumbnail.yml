@@ -1,0 +1,35 @@
+uuid: 445b5d87-d138-4df0-a8f9-9471841e4aab
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.thumbnail
+    - field.field.media.image.field_media_image
+    - image.style.bnp_media_admin_card
+    - media.type.image
+  module:
+    - image
+_core:
+  default_config_hash: zxfY89TOPGyv5c-sCa6HxTrPOJpk7DFi_KZ3Q7E954E
+id: media.image.thumbnail
+targetEntityType: media
+bundle: image
+mode: thumbnail
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_style: bnp_media_admin_card
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

@@ -1,0 +1,15 @@
+uuid: cb5b251f-80e4-4531-9024-58c2c56c19ca
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_equipements
+label: Equipements
+description: Equipements
+code: TEC_EQUIPEMENTS
+group: equipements
+type_driver: text
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 460
+icon: ''
+expose_as_filter: 1

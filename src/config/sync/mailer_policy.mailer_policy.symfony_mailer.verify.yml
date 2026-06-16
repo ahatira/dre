@@ -1,0 +1,21 @@
+uuid: d3510dd3-ca00-4955-a714-7a64d02b7428
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ymL3iFSfSYRwU6P4Z1ooJHa5r6KGwKAnTiKXgsaqSRI
+id: symfony_mailer.verify
+configuration:
+  email_body:
+    content:
+      value: |-
+        <h4>You have mail</h4>
+        <p>This is a verification email from <a href="[site:url]">[site:name]</a>.</p>
+        <p>Have a great <span class="day">{{ day }}</span>!</p>
+        <h4 class="text-small">
+          <a href="https://www.drupal.org/project/symfony_mailer">Mailer Plus</a>
+          <img class="symfony-mailer-logo" src="{{ logo_url }}">
+        </h4>
+      format: email_html
+  email_subject:
+    value: 'Verification email from [site:name]'

@@ -1,0 +1,685 @@
+# Demo menu link overlays (UUID → langcode → title). EN/FR from default_content export.
+a1000001-0000-4000-8000-000000000101:
+  es:
+    title: 'Buscar un inmueble'
+  it:
+    title: 'Trova un immobile'
+  nl:
+    title: 'Vind een pand'
+  pl:
+    title: 'Znajdź nieruchomość'
+a1000001-0000-4000-8000-000000000103:
+  es:
+    title: 'Todos los inmuebles'
+  it:
+    title: 'Tutti gli immobili'
+  nl:
+    title: 'Alle panden'
+  pl:
+    title: 'Wszystkie nieruchomości'
+a1000001-0000-4000-8000-000000000104:
+  es:
+    title: 'Sobre nosotros'
+  it:
+    title: 'Chi siamo'
+  nl:
+    title: 'Over ons'
+  pl:
+    title: 'O nas'
+a1000001-0000-4000-8000-000000000105:
+  es:
+    title: Contáctenos
+  it:
+    title: Contattaci
+  nl:
+    title: 'Neem contact op'
+  pl:
+    title: 'Skontaktuj się z nami'
+a1000001-0000-4000-8000-000000000106:
+  es:
+    title: Soluciones
+  it:
+    title: Soluzioni
+  nl:
+    title: Oplossingen
+  pl:
+    title: Rozwiązania
+a1000001-0000-4000-8000-000000000107:
+  es:
+    title: 'Nuestra experiencia'
+  it:
+    title: 'La nostra expertise'
+  nl:
+    title: 'Onze expertise'
+  pl:
+    title: 'Nasza ekspertyza'
+a1000001-0000-4000-8000-000000000108:
+  es:
+    title: 'Últimas noticias'
+  it:
+    title: 'Ultime notizie'
+  nl:
+    title: 'Laatste nieuws'
+  pl:
+    title: Aktualności
+a1000001-0000-4000-8000-000000000109:
+  es:
+    title: Consejo
+  it:
+    title: Consulenza
+  nl:
+    title: Advies
+  pl:
+    title: Doradztwo
+a1000001-0000-4000-8000-00000000010a:
+  es:
+    title: 'Todas las noticias'
+  it:
+    title: 'Tutte le notizie'
+  nl:
+    title: 'Alle nieuwsberichten'
+  pl:
+    title: 'Wszystkie aktualności'
+a1000001-0000-4000-8000-000000000110:
+  es:
+    title: Corporativo
+  it:
+    title: Corporate
+  nl:
+    title: Corporate
+  pl:
+    title: Corporate
+a1000001-0000-4000-8000-000000000111:
+  es:
+    title: 'Todos los inmuebles'
+  it:
+    title: 'Tutti gli immobili'
+  nl:
+    title: 'Alle panden'
+  pl:
+    title: 'Wszystkie nieruchomości'
+a1000001-0000-4000-8000-000000000112:
+  es:
+    title: Alquilar
+  it:
+    title: Affitto
+  nl:
+    title: Huren
+  pl:
+    title: Wynajem
+a1000001-0000-4000-8000-000000000113:
+  es:
+    title: Oficinas
+  it:
+    title: Uffici
+  nl:
+    title: Kantoren
+  pl:
+    title: Biura
+a1000001-0000-4000-8000-000000000114:
+  es:
+    title: Logística
+  it:
+    title: Logistica
+  nl:
+    title: Logistiek
+  pl:
+    title: Logistyka
+a1000001-0000-4000-8000-000000000115:
+  es:
+    title: Comercio
+  it:
+    title: Retail
+  nl:
+    title: Retail
+  pl:
+    title: Handel
+a1000001-0000-4000-8000-000000000116:
+  es:
+    title: Comprar
+  it:
+    title: Acquisto
+  nl:
+    title: Kopen
+  pl:
+    title: Kupno
+a1000001-0000-4000-8000-000000000117:
+  es:
+    title: Oficinas
+  it:
+    title: Uffici
+  nl:
+    title: Kantoren
+  pl:
+    title: Biura
+a1000001-0000-4000-8000-000000000118:
+  es:
+    title: Logística
+  it:
+    title: Logistica
+  nl:
+    title: Logistiek
+  pl:
+    title: Logistyka
+a1000001-0000-4000-8000-000000000119:
+  es:
+    title: 'Sobre BNP Paribas Real Estate'
+  it:
+    title: 'BNP Paribas Real Estate'
+  nl:
+    title: 'Over BNP Paribas Real Estate'
+  pl:
+    title: 'BNP Paribas Real Estate'
+a1000001-0000-4000-8000-00000000011a:
+  es:
+    title: 'Nuestro grupo'
+  it:
+    title: 'Il nostro gruppo'
+  nl:
+    title: 'Onze groep'
+  pl:
+    title: 'Nasza grupa'
+a1000001-0000-4000-8000-00000000011b:
+  es:
+    title: Oficinas
+  it:
+    title: Uffici
+  nl:
+    title: Kantoren
+  pl:
+    title: Biura
+a1000001-0000-4000-8000-00000000011c:
+  es:
+    title: Logística
+  it:
+    title: Logistica
+  nl:
+    title: Logistiek
+  pl:
+    title: Logistyka
+a1000001-0000-4000-8000-00000000011d:
+  es:
+    title: Comercio
+  it:
+    title: Retail
+  nl:
+    title: Retail
+  pl:
+    title: Handel
+a1000001-0000-4000-8000-00000000011e:
+  es:
+    title: 'Servicios de consultoría'
+  it:
+    title: 'Servizi di consulenza'
+  nl:
+    title: Adviesdiensten
+  pl:
+    title: 'Usługi doradcze'
+a1000001-0000-4000-8000-00000000011f:
+  es:
+    title: 'Gestión inmobiliaria'
+  it:
+    title: 'Gestione immobiliare'
+  nl:
+    title: Vastgoedbeheer
+  pl:
+    title: 'Zarządzanie nieruchomościami'
+a1000001-0000-4000-8000-000000000120:
+  es:
+    title: Temas
+  it:
+    title: Temi
+  nl:
+    title: "Thema's"
+  pl:
+    title: Tematy
+a1000001-0000-4000-8000-000000000121:
+  es:
+    title: 'Noticias del mercado'
+  it:
+    title: 'Mercato immobiliare'
+  nl:
+    title: Marktnieuws
+  pl:
+    title: 'Wiadomości rynkowe'
+a1000001-0000-4000-8000-000000000122:
+  es:
+    title: Tendencias
+  it:
+    title: Tendenze
+  nl:
+    title: Trends
+  pl:
+    title: Trendy
+a1000001-0000-4000-8000-000000000123:
+  es:
+    title: Coworking
+  it:
+    title: Coworking
+  nl:
+    title: Coworking
+  pl:
+    title: Coworking
+a1000001-0000-4000-8000-000000000124:
+  es:
+    title: 'Todos los espacios coworking'
+  it:
+    title: 'Tutti gli spazi coworking'
+  nl:
+    title: 'Alle coworkingruimtes'
+  pl:
+    title: 'Wszystkie przestrzenie coworkingowe'
+a1000001-0000-4000-8000-000000000125:
+  es:
+    title: 'Comprar coworking'
+  it:
+    title: 'Acquista coworking'
+  nl:
+    title: 'Coworking kopen'
+  pl:
+    title: 'Kup coworking'
+a1000002-0000-4000-8000-000000000201:
+  es:
+    title: Oficinas
+  it:
+    title: Uffici
+  nl:
+    title: Kantoren
+  pl:
+    title: Biura
+a1000002-0000-4000-8000-000000000202:
+  es:
+    title: Logística
+  it:
+    title: Logistica
+  nl:
+    title: Logistiek
+  pl:
+    title: Logistyka
+a1000002-0000-4000-8000-000000000203:
+  es:
+    title: 'Locales de actividad'
+  it:
+    title: 'Locali commerciali'
+  nl:
+    title: Bedrijfsruimtes
+  pl:
+    title: 'Lokale użytkowe'
+a1000002-0000-4000-8000-000000000204:
+  es:
+    title: Comercio
+  it:
+    title: Retail
+  nl:
+    title: Retail
+  pl:
+    title: Handel
+a1000002-0000-4000-8000-000000000205:
+  es:
+    title: Terrenos
+  it:
+    title: Terreni
+  nl:
+    title: Terreinen
+  pl:
+    title: Działki
+a1000002-0000-4000-8000-000000000206:
+  es:
+    title: Coworking
+  it:
+    title: Coworking
+  nl:
+    title: Coworking
+  pl:
+    title: Coworking
+a1000002-0000-4000-8000-000000000211:
+  es:
+    title: Alquilar
+  it:
+    title: Affitta
+  nl:
+    title: Huren
+  pl:
+    title: Wynajmij
+a1000002-0000-4000-8000-000000000212:
+  es:
+    title: Comprar
+  it:
+    title: Acquista
+  nl:
+    title: Kopen
+  pl:
+    title: Kup
+a1000002-0000-4000-8000-000000000221:
+  es:
+    title: Alquilar
+  it:
+    title: Affitta
+  nl:
+    title: Huren
+  pl:
+    title: Wynajmij
+a1000002-0000-4000-8000-000000000222:
+  es:
+    title: Comprar
+  it:
+    title: Acquista
+  nl:
+    title: Kopen
+  pl:
+    title: Kup
+a1000002-0000-4000-8000-000000000231:
+  es:
+    title: Alquilar
+  it:
+    title: Affitta
+  nl:
+    title: Huren
+  pl:
+    title: Wynajmij
+a1000002-0000-4000-8000-000000000232:
+  es:
+    title: Comprar
+  it:
+    title: Acquista
+  nl:
+    title: Kopen
+  pl:
+    title: Kup
+a1000002-0000-4000-8000-000000000241:
+  es:
+    title: Alquilar
+  it:
+    title: Affitta
+  nl:
+    title: Huren
+  pl:
+    title: Wynajmij
+a1000002-0000-4000-8000-000000000242:
+  es:
+    title: Comprar
+  it:
+    title: Acquista
+  nl:
+    title: Kopen
+  pl:
+    title: Kup
+a1000002-0000-4000-8000-000000000251:
+  es:
+    title: Alquilar
+  it:
+    title: Affitta
+  nl:
+    title: Huren
+  pl:
+    title: Wynajmij
+a1000002-0000-4000-8000-000000000252:
+  es:
+    title: Comprar
+  it:
+    title: Acquista
+  nl:
+    title: Kopen
+  pl:
+    title: Kup
+a1000002-0000-4000-8000-000000000261:
+  es:
+    title: Alquilar
+  it:
+    title: Affitta
+  nl:
+    title: Huren
+  pl:
+    title: Wynajmij
+a1000002-0000-4000-8000-000000000262:
+  es:
+    title: Comprar
+  it:
+    title: Acquista
+  nl:
+    title: Kopen
+  pl:
+    title: Kup
+a1000003-0000-4000-8000-000000000301:
+  es:
+    title: 'Sobre BNP Paribas Real Estate'
+  it:
+    title: 'BNP Paribas Real Estate'
+  nl:
+    title: 'Over BNP Paribas Real Estate'
+  pl:
+    title: 'BNP Paribas Real Estate'
+a1000003-0000-4000-8000-000000000302:
+  es:
+    title: 'Ciudades principales'
+  it:
+    title: 'Città principali'
+  nl:
+    title: 'Belangrijkste steden'
+  pl:
+    title: 'Główne miasta'
+a1000003-0000-4000-8000-000000000303:
+  es:
+    title: 'Sitios de negocio'
+  it:
+    title: 'Siti business'
+  nl:
+    title: 'Business websites'
+  pl:
+    title: 'Strony biznesowe'
+a1000003-0000-4000-8000-000000000311:
+  es:
+    title: '+33 1 40 14 45 00'
+  it:
+    title: '+33 1 40 14 45 00'
+  nl:
+    title: '+33 1 40 14 45 00'
+  pl:
+    title: '+33 1 40 14 45 00'
+a1000003-0000-4000-8000-000000000312:
+  es:
+    title: Escríbanos
+  it:
+    title: Scrivici
+  nl:
+    title: 'Schrijf ons'
+  pl:
+    title: 'Napisz do nas'
+a1000003-0000-4000-8000-000000000313:
+  es:
+    title: 'Formulario de contacto'
+  it:
+    title: 'Modulo di contatto'
+  nl:
+    title: Contactformulier
+  pl:
+    title: 'Formularz kontaktowy'
+a1000003-0000-4000-8000-000000000314:
+  es:
+    title: Sostenibilidad
+  it:
+    title: Sostenibilità
+  nl:
+    title: Duurzaamheid
+  pl:
+    title: 'Zrównoważony rozwój'
+a1000003-0000-4000-8000-000000000315:
+  es:
+    title: Prensa
+  it:
+    title: Stampa
+  nl:
+    title: Pers
+  pl:
+    title: Prasa
+a1000003-0000-4000-8000-000000000321:
+  es:
+    title: Paris
+  it:
+    title: Paris
+  nl:
+    title: Paris
+  pl:
+    title: Paris
+a1000003-0000-4000-8000-000000000322:
+  es:
+    title: Lyon
+  it:
+    title: Lyon
+  nl:
+    title: Lyon
+  pl:
+    title: Lyon
+a1000003-0000-4000-8000-000000000323:
+  es:
+    title: Marseille
+  it:
+    title: Marseille
+  nl:
+    title: Marseille
+  pl:
+    title: Marseille
+a1000003-0000-4000-8000-000000000324:
+  es:
+    title: Lille
+  it:
+    title: Lille
+  nl:
+    title: Lille
+  pl:
+    title: Lille
+a1000003-0000-4000-8000-000000000325:
+  es:
+    title: Bordeaux
+  it:
+    title: Bordeaux
+  nl:
+    title: Bordeaux
+  pl:
+    title: Bordeaux
+a1000003-0000-4000-8000-000000000331:
+  es:
+    title: 'BNP Paribas Real Estate'
+  it:
+    title: 'BNP Paribas Real Estate'
+  nl:
+    title: 'BNP Paribas Real Estate'
+  pl:
+    title: 'BNP Paribas Real Estate'
+a1000003-0000-4000-8000-000000000332:
+  es:
+    title: Investigación
+  it:
+    title: Ricerca
+  nl:
+    title: Onderzoek
+  pl:
+    title: Badania
+a1000003-0000-4000-8000-000000000333:
+  es:
+    title: Carreras
+  it:
+    title: Carriere
+  nl:
+    title: Carrières
+  pl:
+    title: Kariera
+a1000005-0000-4000-8000-000000000501:
+  es:
+    title: 'Protección de datos'
+  it:
+    title: 'Protezione dei dati'
+  nl:
+    title: Gegevensbescherming
+  pl:
+    title: 'Ochrona danych'
+a1000005-0000-4000-8000-000000000502:
+  es:
+    title: 'Política de cookies'
+  it:
+    title: 'Politica sui cookie'
+  nl:
+    title: Cookiebeleid
+  pl:
+    title: 'Polityka cookies'
+a1000005-0000-4000-8000-000000000503:
+  es:
+    title: 'Protección de datos'
+  it:
+    title: 'Protezione dei dati'
+  nl:
+    title: Gegevensbescherming
+  pl:
+    title: 'Ochrona danych'
+a1000005-0000-4000-8000-000000000504:
+  es:
+    title: 'Proveedores: BNP Paribas comprometido con sus socios y proveedores'
+  it:
+    title: 'Fornitori: BNP Paribas impegnata con partner e fornitori'
+  nl:
+    title: 'Leveranciers: BNP Paribas zet zich in voor partners en leveranciers'
+  pl:
+    title: 'Dostawcy: BNP Paribas wspiera partnerów i dostawców'
+a1000005-0000-4000-8000-000000000505:
+  es:
+    title: 'Mapa del sitio'
+  it:
+    title: 'Mappa del sito'
+  nl:
+    title: Sitemap
+  pl:
+    title: 'Mapa witryny'
+a1000005-0000-4000-8000-000000000506:
+  es:
+    title: 'Reclamaciones Servicio al Cliente'
+  it:
+    title: 'Reclami Servizio Clienti'
+  nl:
+    title: 'Klachten Klantenservice'
+  pl:
+    title: 'Reklamacje Obsługi Klienta'
+a1000005-0000-4000-8000-000000000507:
+  es:
+    title: 'Canal de denuncias éticas'
+  it:
+    title: 'Canale di segnalazione etica'
+  nl:
+    title: 'Ethisch meldkanaal'
+  pl:
+    title: 'Kanał zgłoszeń etycznych'
+a2000001-0000-4000-8000-000000000001:
+  es:
+    title: 'Buscar un inmueble'
+  it:
+    title: 'Trova un immobile'
+  nl:
+    title: 'Vind een pand'
+  pl:
+    title: 'Znajdź nieruchomość'
+a2000001-0000-4000-8000-000000000002:
+  es:
+    title: 'Iniciar sesión / Registrarse'
+  it:
+    title: 'Accedi / Registrati'
+  nl:
+    title: 'Inloggen / Registreren'
+  pl:
+    title: 'Zaloguj się / Zarejestruj się'
+a2000001-0000-4000-8000-000000000003:
+  es:
+    title: Contáctenos
+  it:
+    title: Contattaci
+  nl:
+    title: 'Neem contact op'
+  pl:
+    title: 'Skontaktuj się z nami'
+a2000001-0000-4000-8000-000000000004:
+  es:
+    title: '¿Qué está buscando?'
+  it:
+    title: 'Cosa state cercando?'
+  nl:
+    title: 'Wat zoekt u?'
+  pl:
+    title: 'Czego Pan/Pani szuka?'

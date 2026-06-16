@@ -1,0 +1,28 @@
+uuid: 2a1b3c4d-0006-0000-0000-000000000006
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: K8wxm9UM3B_8D5G3S6ShAlAqJxYUr88XeSnfh1Efut0
+id: divisible_show_lots
+label: 'Divisible: Show Lots tab'
+weight: 0
+conditions_logic: AND
+conditions:
+  -
+    field_name: field_operation_type
+    operator: filled
+    value: ''
+  -
+    field_name: field_asset_type
+    operator: filled
+    value: ''
+  -
+    field_name: field_divisible
+    operator: equals
+    value: '1'
+actions:
+  -
+    action_type: show_tab
+    target: group_lots
+    value: ''

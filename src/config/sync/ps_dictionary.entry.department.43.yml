@@ -1,0 +1,11 @@
+uuid: 7c8645b2-952b-461c-b890-35570c1e4cb6
+langcode: en
+status: true
+dependencies: {  }
+id: department.43
+type: department
+code: '43'
+label: Haute-Loire
+description: null
+icon: null
+weight: 44

@@ -1,0 +1,11 @@
+uuid: ab040180-984e-4b69-ba12-da2427cd2071
+langcode: en
+status: true
+dependencies: {  }
+id: department.01
+type: department
+code: '01'
+label: Ain
+description: null
+icon: null
+weight: 1

@@ -4,24 +4,27 @@
  * News article teaser card (Figma News / §7).
  */
 #}
-<article class="ps-news-teaser-card">
-  {% if image %}
-    <div class="ps-news-teaser-card__media">
+<article class="ps-news-teaser-card{{ image ? '' : ' ps-news-teaser-card--no-image' }}">
+  <div class="ps-news-teaser-card__media">
+    {% if image %}
       <img src="{{ image }}" alt="{{ image_alt|default(title) }}" class="ps-news-teaser-card__image" loading="lazy" />
-    </div>
-  {% endif %}
+    {% else %}
+      <div class="ps-news-teaser-card__media-placeholder" aria-hidden="true">
+        {{ icon('bnp_custom', 'camera', {size: '48px'}) }}
+      </div>
+      <span class="visually-hidden">{{ 'No image'|t }}</span>
+    {% endif %}
+  </div>
   <div class="ps-news-teaser-card__body">
     <div class="ps-news-teaser-card__main">
-      {% if category or date %}
-        <div class="ps-news-teaser-card__meta">
-          {% if category %}
-            <span class="ps-news-teaser-card__tag">{{ category }}</span>
-          {% endif %}
-          {% if date %}
-            <time class="ps-news-teaser-card__date" datetime="{{ date_iso|default('') }}">{{ date }}</time>
-          {% endif %}
-        </div>
-      {% endif %}
+      <div class="ps-news-teaser-card__meta">
+        {% if category %}
+          <span class="ps-news-teaser-card__tag">{{ category }}</span>
+        {% endif %}
+        {% if date %}
+          <time class="ps-news-teaser-card__date" datetime="{{ date_iso|default('') }}">{{ date }}</time>
+        {% endif %}
+      </div>
       <div class="ps-news-teaser-card__details">
         {% if url %}
           <h3 class="ps-news-teaser-card__title">
@@ -30,9 +33,7 @@
         {% else %}
           <h3 class="ps-news-teaser-card__title">{{ title }}</h3>
         {% endif %}
-        {% if excerpt %}
-          <p class="ps-news-teaser-card__excerpt">{{ excerpt }}</p>
-        {% endif %}
+        <p class="ps-news-teaser-card__excerpt">{{ excerpt }}</p>
       </div>
     </div>
     {% if url %}

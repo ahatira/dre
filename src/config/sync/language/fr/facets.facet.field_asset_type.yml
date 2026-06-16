@@ -1,0 +1,7 @@
+name: 'Property type'
+missing_label: autres
+widget:
+  config:
+    soft_limit_settings:
+      show_less_label: 'En afficher moins'
+      show_more_label: 'En afficher plus'

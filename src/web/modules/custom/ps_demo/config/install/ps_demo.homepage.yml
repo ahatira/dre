@@ -3,6 +3,14 @@ node:
   titles:
     en: Homepage
     fr: Accueil
+    es: Inicio
+    it: Homepage
+    nl: Homepage
+    pl: Strona główna
   path:
     en: home
     fr: accueil
+    es: inicio
+    it: home
+    nl: home
+    pl: strona-glowna

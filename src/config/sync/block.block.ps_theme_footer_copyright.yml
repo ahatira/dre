@@ -1,0 +1,21 @@
+uuid: 23ee2259-ab46-4416-bdea-c726eeaa1c56
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_block
+  theme:
+    - ps_theme
+id: ps_theme_footer_copyright
+theme: ps_theme
+region: footer_bottom
+weight: 20
+provider: null
+plugin: ps_block_footer_copyright
+settings:
+  id: ps_block_footer_copyright
+  label: 'Footer copyright'
+  label_display: '0'
+  provider: ps_block
+  text: '© BNP Paribas Real Estate'
+visibility: {  }

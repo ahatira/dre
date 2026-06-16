@@ -1,0 +1,25 @@
+uuid: adb39582-4681-4d13-8265-79601923e1a5
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - ps_theme
+id: ps_theme_account_menu
+theme: ps_theme
+region: navigation
+weight: 20
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,31 @@
+uuid: 7593adda-95c1-481e-84fe-265e1283539f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_study_category
+    - node.type.market_study
+    - taxonomy.vocabulary.market_study_category
+_core:
+  default_config_hash: Z7cRbSeKbxB3vJ6j-YYpm2TQvpaLQ5EWg7EI9TQZBAk
+id: node.market_study.field_study_category
+field_name: field_study_category
+entity_type: node
+bundle: market_study
+label: Category
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      market_study_category: market_study_category
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

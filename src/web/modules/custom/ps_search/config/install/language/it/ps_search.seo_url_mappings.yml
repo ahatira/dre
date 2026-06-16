@@ -1,1 +1,12 @@
 search_path: cerca-immobili
+operation_types:
+  LOC: in-affitto
+  VEN: in-vendita
+asset_types:
+  BUR: uffici
+  ENT: magazzino
+  ACT: attivita
+  COM: negozi
+  TER: terreno
+  LOG: logistica
+  COW: coworking

@@ -1,0 +1,15 @@
+uuid: 315f2a85-7047-43b9-bbe6-ea64233d6b7b
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_faux_plafond
+label: 'Faux plafond'
+description: 'Faux plafond'
+code: TEC_FAUX_PLAFOND
+group: equipements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 24
+icon: ''
+expose_as_filter: 1

@@ -1,0 +1,11 @@
+uuid: a8e58130-da28-4f1b-bc9a-c9ee77691963
+langcode: en
+status: true
+dependencies: {  }
+id: department.87
+type: department
+code: '87'
+label: Haute-Vienne
+description: null
+icon: null
+weight: 88

@@ -1,0 +1,10 @@
+langcode: fr
+sections:
+  energy:
+    label: 'Énergie & diagnostics'
+  description:
+    label: Description
+  surface_table:
+    label: 'Tableau de surfaces'
+  location:
+    label: Localisation

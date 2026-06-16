@@ -37,6 +37,9 @@ ps_header "Drupal: Solr index (offers)"
 
 ps_drush_bootstrapped || ps_die "Drupal is not installed. Run: make install"
 
+ps_info "Ensuring Solr cores exist..."
+ps_solr_init_cores || ps_warn "Solr core init had warnings — continuing with index"
+
 ps_info "Clearing offers index and rebuilding tracker..."
 ps_drush search-api:clear offers -y 2>/dev/null || ps_warn "Could not clear offers index (is ps_search enabled?)"
 ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || ps_warn "Could not rebuild offers tracker"

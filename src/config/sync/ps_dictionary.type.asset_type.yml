@@ -1,0 +1,9 @@
+uuid: 27da3a08-b329-44b9-8e6c-b57c9629c4cb
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: UXd3sWCgylJ3s7k3gAm5Jx37dRpcBysEDVbrQeKqvc8
+id: asset_type
+label: 'Asset types'
+description: null

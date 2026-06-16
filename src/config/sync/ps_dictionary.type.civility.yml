@@ -1,0 +1,9 @@
+uuid: ef63e027-72de-480e-94be-18b27e630b38
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: pZ-Ti19w_wpKZFTBFmnay7ktQ68djKRQJy0alOVGSvE
+id: civility
+label: Civility
+description: null

@@ -1,0 +1,21 @@
+uuid: 53252a1c-6f46-4c0c-b01a-97242c103ed9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_fees
+    - node.type.offer
+_core:
+  default_config_hash: db-vBkYlG5jgiNK9MVDg1HNhP4t0L0M0MWRSmTxIwJ4
+id: node.offer.field_budget_fees
+field_name: field_budget_fees
+entity_type: node
+bundle: offer
+label: 'Fees (honoraires)'
+description: 'Fees payable by the tenant or buyer. Shown in the budget info popover when set.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

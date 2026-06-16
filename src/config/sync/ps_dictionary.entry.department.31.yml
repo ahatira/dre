@@ -1,0 +1,11 @@
+uuid: bb200612-7032-4a28-8937-06e58cdf4806
+langcode: en
+status: true
+dependencies: {  }
+id: department.31
+type: department
+code: '31'
+label: Haute-Garonne
+description: null
+icon: null
+weight: 32

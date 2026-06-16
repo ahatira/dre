@@ -1,0 +1,15 @@
+uuid: faa24924-3725-440a-bc38-7be40443944e
+langcode: en
+status: true
+dependencies: {  }
+id: exterieurs__tec_aire_de_manoeuvre
+label: 'Aire de manoeuvre'
+description: 'Aire de manoeuvre'
+code: TEC_AIRE_DE_MANOEUVRE
+group: exterieurs
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 35
+icon: ''
+expose_as_filter: 1

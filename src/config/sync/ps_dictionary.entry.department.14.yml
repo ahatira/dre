@@ -1,0 +1,11 @@
+uuid: 61811555-f958-4bd2-9a26-977d0f05e361
+langcode: en
+status: true
+dependencies: {  }
+id: department.14
+type: department
+code: '14'
+label: Calvados
+description: null
+icon: null
+weight: 14

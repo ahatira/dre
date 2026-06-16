@@ -1,0 +1,11 @@
+uuid: bcd1971d-0af3-4863-be73-fd804e17129c
+langcode: en
+status: true
+dependencies: {  }
+id: surface_qualification.dispo
+type: surface_qualification
+code: DISPO
+label: 'Available surface'
+description: null
+icon: null
+weight: 2

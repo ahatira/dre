@@ -1,0 +1,11 @@
+uuid: 56a49c75-b79a-4753-b378-b7099a71ef7f
+langcode: en
+status: true
+dependencies: {  }
+id: department.90
+type: department
+code: '90'
+label: 'Territoire de Belfort'
+description: null
+icon: null
+weight: 91

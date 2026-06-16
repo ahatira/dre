@@ -1,0 +1,24 @@
+uuid: 05e9c33a-3359-4e04-98aa-995850da31a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.webform_default
+  module:
+    - bnp_editor
+    - filter
+    - media
+    - sitewide_alert
+    - system
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access content'
+  - 'use text format restricted_html'
+  - 'use text format webform_default'
+  - 'view media'
+  - 'view published sitewide alert entities'

@@ -50,7 +50,7 @@ if ! ps_drush theme:status ps_theme 2>/dev/null | grep -q Enabled; then
 fi
 
 ps_info "Ensuring demo dependencies..."
-ps_drush en -y ps_block ps_homepage advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some demo dependencies not available"
+ps_drush en -y default_content ps_block ps_homepage advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some demo dependencies not available"
 
 ps_info "Enabling ps_demo and importing default content..."
 if ps_drush pm:list --status=enabled --filter=ps_demo --format=list 2>/dev/null | grep -q '^ps_demo$'; then
@@ -58,6 +58,19 @@ if ps_drush pm:list --status=enabled --filter=ps_demo --format=list 2>/dev/null 
 else
   ps_retry 2 2 ps_drush en -y ps_demo
 fi
+
+ps_info "Ensuring demo content, translations and homepage layout..."
+ps_drush ev '
+use Drupal\ps_demo\Service\DemoInstaller;
+DemoInstaller::create(\Drupal::getContainer())->finalizeInstall();
+echo "DemoInstaller::finalizeInstall() completed\n";
+' || ps_warn "Demo homepage finalize step had warnings"
+
+ps_info "Applying search SEO URL language overrides..."
+for lang in $(ps_drush ev 'echo implode(" ", array_keys(\Drupal::languageManager()->getLanguages()));'); do
+  ps_drush php:script scripts/import_language_config_overrides.php "${lang}" \
+    || ps_warn "Search SEO override import failed for ${lang}"
+done
 
 ps_info "Applying demo configuration (mega-menu, multilingual)..."
 ps_retry 2 2 ps_drush config:import --partial --source=../config/demo -y

@@ -1,0 +1,11 @@
+uuid: a99fae4c-c983-4643-a7ad-9fad4c276ef2
+langcode: en
+status: true
+dependencies: {  }
+id: asset_type.ter
+type: asset_type
+code: TER
+label: Land
+description: null
+icon: null
+weight: 6

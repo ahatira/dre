@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\ps_homepage\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\layout_builder\Section;
 use Drupal\layout_builder\SectionComponent;
 use Drupal\layout_builder\SectionListInterface;
@@ -16,15 +15,14 @@ use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
  * Propagates neutral LB block values from the default translation to others.
  *
  * Works with layout_builder_at: structure and language-neutral settings (media,
- * nids, weights, presets) stay aligned when the default-language page is saved;
- * translatable text in each translation layout is preserved.
+ * nids, weights, presets) stay aligned when the node default translation is
+ * saved; translatable text in each translation layout is preserved.
  */
 final class HomepageLayoutStructureSynchronizer {
 
   private static bool $suspended = FALSE;
 
   public function __construct(
-    private readonly LanguageManagerInterface $languageManager,
     private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
@@ -41,10 +39,7 @@ final class HomepageLayoutStructureSynchronizer {
       return;
     }
 
-    $defaultLangcode = $this->languageManager->getDefaultLanguage()->getId();
-    if ($node->language()->getId() !== $defaultLangcode) {
-      return;
-    }
+    $defaultLangcode = $node->language()->getId();
 
     $sourceField = $node->get('layout_builder__layout');
     if (!$sourceField instanceof SectionListInterface) {
@@ -133,6 +128,11 @@ final class HomepageLayoutStructureSynchronizer {
           $mergedConfig = HomepageBlockConfiguration::applyNeutralValues(
             is_array($targetConfig) ? $targetConfig : [],
             is_array($sourceConfig) ? $sourceConfig : [],
+            $pluginId,
+          );
+          $mergedConfig = HomepageBlockConfiguration::preserveTranslatableValues(
+            is_array($targetConfig) ? $targetConfig : [],
+            $mergedConfig,
             $pluginId,
           );
           $mergedConfig['id'] = $pluginId;

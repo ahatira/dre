@@ -1,0 +1,11 @@
+uuid: 2b1d18d3-5651-4742-b0fc-26c662a1935f
+langcode: en
+status: true
+dependencies: {  }
+id: department.11
+type: department
+code: '11'
+label: Aude
+description: null
+icon: null
+weight: 11

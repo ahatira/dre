@@ -25,7 +25,8 @@ ps_docker_exec() {
 }
 
 ps_docker_exec_php() {
-  ps_docker_exec "${PS_PHP_CONTAINER}" bash -c "cd ${PS_DRUPAL_ROOT} && $*"
+  # Run as www-data (uid 1000) so bind-mounted files stay writable on the WSL host.
+  docker exec -u www-data -i "${PS_PHP_CONTAINER}" bash -c "cd ${PS_DRUPAL_ROOT} && $*"
 }
 
 ps_docker_exec_db() {
@@ -34,4 +35,18 @@ ps_docker_exec_db() {
 
 ps_in_docker() {
   ps_docker_available && ps_docker_container_running "${PS_PHP_CONTAINER}"
+}
+
+# Create missing Solr cores for all countries (multisite local dev).
+ps_solr_init_cores() {
+  local init_script="${PS_PROJECT_ROOT}/docker/solr/init-cores.sh"
+  local solr_container="${SOLR_CONTAINER:-ps_solr}"
+
+  ps_require_file "${init_script}"
+  if ! ps_docker_container_running "${solr_container}"; then
+    ps_warn "Solr container not running (${solr_container}) — skipping core init"
+    return 1
+  fi
+  chmod +x "${init_script}"
+  SOLR_CONTAINER="${solr_container}" bash "${init_script}"
 }

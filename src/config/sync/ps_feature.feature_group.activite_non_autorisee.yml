@@ -1,0 +1,12 @@
+uuid: 6c44ad4e-3cf7-43d2-b22d-80397f161f39
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Fkg5O72UBajg_f2l51QcCuAe9QGkUcZ1fvxZTMoJmjs
+id: activite_non_autorisee
+label: ACTIVITE_NON_AUTORISEE
+description: ACTIVITE_NON_AUTORISEE
+icon: ''
+asset_types: {  }
+weight: 3954

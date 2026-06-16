@@ -1,0 +1,25 @@
+uuid: 74932f01-6cbe-4896-8d6c-197e8ef0f155
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight
+    - node.type.faq_item
+id: node.faq_item.field_weight
+field_name: field_weight
+entity_type: node
+bundle: faq_item
+label: Weight
+description: 'Sort order on the full FAQ page.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

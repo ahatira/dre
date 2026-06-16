@@ -1,0 +1,11 @@
+uuid: 9427a964-bc6d-4374-8211-913553f58253
+langcode: en
+status: true
+dependencies: {  }
+id: department.60
+type: department
+code: '60'
+label: Oise
+description: null
+icon: null
+weight: 61

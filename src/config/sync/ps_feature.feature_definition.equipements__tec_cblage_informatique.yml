@@ -1,0 +1,15 @@
+uuid: 8723bcf2-d927-4d3e-a1d5-f19137e6e0f1
+langcode: en
+status: true
+dependencies: {  }
+id: equipements__tec_cblage_informatique
+label: 'Câblage informatique'
+description: 'Câblage informatique'
+code: TEC_CBLAGE_INFORMATIQUE
+group: equipements
+type_driver: flag
+required_asset_types: {  }
+payload_defaults: {  }
+weight: 47
+icon: ''
+expose_as_filter: 1

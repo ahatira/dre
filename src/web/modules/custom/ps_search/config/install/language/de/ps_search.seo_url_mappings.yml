@@ -1,1 +1,12 @@
 search_path: immobilie-suchen
+operation_types:
+  LOC: mieten
+  VEN: kaufen
+asset_types:
+  BUR: bueros
+  ENT: lager
+  ACT: gewerbe
+  COM: handel
+  TER: grundstueck
+  LOG: logistik
+  COW: coworking

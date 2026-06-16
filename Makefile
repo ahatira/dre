@@ -10,33 +10,42 @@ PHP_CONTAINER := ps_php
 PG_CONTAINER := ps_postgres
 
 define drush
-docker exec -i $(PHP_CONTAINER) sh -lc 'cd /var/www/html && vendor/bin/drush $(1)'
+docker exec -u www-data -i $(PHP_CONTAINER) sh -lc 'cd /var/www/html && vendor/bin/drush $(1)'
 endef
 
+PS_COUNTRY ?= com
 XML_SAMPLE := data/xml/bnppre_sample_50_per_type.xml
-XML_TARGET := src/web/sites/default/files/crm/offers.xml
+XML_TARGET := src/web/sites/$(PS_COUNTRY)/files/crm/offers.xml
 
 .PHONY: \
 	help up down restart ps logs rebuild \
-	composer-install composer-update npm-install bootstrap \
+	composer-install composer-update npm-install env bootstrap \
+	provision-databases provision-site-files solr-init \
 	install reinstall demo post-install index-solr deploy verify cleanup \
 	rbac-sync rbac-export create-test-users rbac-sec-e2e \
-	drush-status drush-cr drush-uli modules-list theme-admin db-reset \
-	dictionary-import xml-stage-sample \
+	drush-status drush-cr drush-uli drush-cex fix-permissions modules-list theme-admin db-reset \
+	dictionary-import generate-sample-xml xml-stage-sample \
 	import-crm import-sample-xml import-status import-reset import-rollback
 
 help:
 	@echo "Cibles disponibles:"
 	@echo "  make up                - Demarrer services Docker"
+	@echo "  make env               - Generate src/.env from .env.dist (USER_UID substitution)"
+	@echo "  make provision-databases - Create PostgreSQL DBs from src/.env"
+	@echo "  make provision-site-files - Create per-country public/private dirs"
 	@echo "  make down              - Arreter services Docker"
 	@echo "  make restart           - Redemarrer services Docker"
 	@echo "  make ps                - Etat des conteneurs"
 	@echo "  make logs              - Logs nginx"
 	@echo "  make rebuild           - Reconstruire l'image PHP"
-	@echo "  make install           - Installation Drupal complete (site + demo + offres + Solr)"
-	@echo "  make install --minimal - Coquille Drupal seule (sans demo/offres/Solr)"
-	@echo "  make reinstall         - Reinstallation Drupal complete (DB reset + post-install)"
+	@echo "  make install           - Installation multisite (tous les pays par defaut)"
+	@echo "  make install com       - Installation d'un pays (com, fr, be, es, ie, it, lu, nl, pl)"
+	@echo "  make install com fr      - Installation de plusieurs pays"
+	@echo "  make install --minimal fr - Coquille seule (sans demo/offres/Solr)"
+	@echo "  make reinstall com     - Reinstallation forcee d'un pays"
 	@echo "  make post-install      - Demo + offres sample + ps_search/ps_seo + Solr (apres install --minimal)"
+	@echo "  make verify-country fr shell - Verifier coquille sans demo (pays + mode)"
+	@echo "  make verify-country es demo    - Verifier site avec contenu demo"
 	@echo "  make rbac-sync         - Importer les roles BNP avec permissions PS (post-install)"
 	@echo "  make rbac-export       - Exporter les roles actifs vers bnp_admin/config/rbac/"
 	@echo "  make create-test-users - Creer un compte test par role BNP"
@@ -82,13 +91,26 @@ composer-update:
 npm-install:
 	cd "$(SRC_DIR)" && npm install
 
-bootstrap: up composer-install
+bootstrap: env up composer-install
+
+env:
+	bash "$(SRC_DIR)/scripts/tools/setup-env.sh"
+
+provision-databases:
+	bash "$(SRC_DIR)/scripts/drupal/provision-databases.sh"
+
+provision-site-files:
+	bash "$(SRC_DIR)/scripts/drupal/provision-site-files.sh"
+
+solr-init:
+	chmod +x "$(PROJECT_ROOT)/docker/solr/init-cores.sh"
+	"$(PROJECT_ROOT)/docker/solr/init-cores.sh"
 
 install:
-	bash "$(SCRIPTS_CLI)" drupal install $(filter-out $@,$(MAKECMDGOALS))
+	bash "$(SCRIPTS_CLI)" drupal install $(filter-out install,$(MAKECMDGOALS))
 
 reinstall:
-	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out $@,$(MAKECMDGOALS))
+	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out reinstall install,$(MAKECMDGOALS))
 
 post-install:
 	bash "$(SCRIPTS_CLI)" drupal post-install
@@ -107,6 +129,9 @@ rbac-sec-e2e:
 
 demo:
 	bash "$(SCRIPTS_CLI)" drupal demo
+
+verify-country:
+	bash "$(SCRIPTS_CLI)" drupal verify-country $(filter-out verify-country,$(MAKECMDGOALS))
 
 index-solr:
 	bash "$(SCRIPTS_CLI)" drupal index-solr
@@ -129,6 +154,17 @@ drush-cr:
 drush-uli:
 	$(call drush,uli)
 
+drush-cex:
+	$(call drush,cex -y)
+
+fix-permissions:
+	@echo "Correction des droits (uid $$(id -u) via www-data dans le conteneur)..."
+	docker exec -i $(PHP_CONTAINER) chown -R www-data:www-data \
+		/var/www/html/config/sync \
+		/var/www/html/web/modules/custom \
+		/var/www/html/web/themes/custom
+	@echo "Termine. Exemple: ls -la src/config/sync/views.view.ps_news.yml"
+
 modules-list:
 	$(call drush,pml --status=enabled --type=module --no-core --format=list)
 
@@ -141,14 +177,16 @@ db-reset:
 dictionary-import:
 	$(call drush,ps:dictionary:import -y)
 
+generate-sample-xml:
+	bash "$(SCRIPTS_CLI)" tools generate-sample-xml $(PS_COUNTRY)
+
 xml-stage-sample:
-	@test -f "$(XML_SAMPLE)" || (echo "Fichier introuvable: $(XML_SAMPLE)" && exit 1)
-	cp "$(XML_SAMPLE)" "$(XML_TARGET)"
-	@echo "XML source staged: $(XML_TARGET)"
+	bash "$(SCRIPTS_CLI)" drupal stage-sample-xml $(PS_COUNTRY)
 
 import-crm:
-	$(call drush,pm:install migrate migrate_plus migrate_tools ps_migrate -y)
+	$(call drush,en -y migrate migrate_plus migrate_tools ps_migrate)
 	$(call drush,migrate:import ps_offer_from_xml --update --execute-dependencies -y)
+	$(call drush,migrate:import ps_offer_translations_from_xml --update -y)
 
 import-sample-xml: xml-stage-sample dictionary-import import-crm
 

@@ -1,0 +1,11 @@
+uuid: d70aa0e8-4dd6-4b92-9425-e733123484a4
+langcode: en
+status: true
+dependencies: {  }
+id: department.73
+type: department
+code: '73'
+label: Savoie
+description: null
+icon: null
+weight: 74

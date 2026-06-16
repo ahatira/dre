@@ -1,0 +1,21 @@
+uuid: 5a3de971-12a8-4929-9b6b-c01c8c144133
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: lUP1QSBNsdB9Z46KwQjEumlQluy7G9n-0h6N56zXOfc
+id: node.field_budget_fees
+field_name: field_budget_fees
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,24 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: c1000005-0000-4000-8000-000000000001
+  default_langcode: en
+default:
+  filename:
+    -
+      value: news-logistique.jpg
+  uri:
+    -
+      value: 'public://demo/news-logistique.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 79476
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1781616338

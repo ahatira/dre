@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\ps_demo\Service;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\FileStorage;
-use Drupal\Core\DefaultContent\Existing;
-use Drupal\Core\DefaultContent\Finder;
-use Drupal\Core\DefaultContent\Importer;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\default_content\ImporterInterface;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\PathAliasInterface;
 use Drupal\ps_theme\Service\HomepageInstaller;
@@ -20,28 +18,20 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Imports demo content and applies post-import site configuration.
+ * Post-import demo setup after default_content has loaded YAML entities.
  */
 final class DemoInstaller {
 
-  /**
-   * Stable path_alias UUIDs synced from ps_demo.settings front_paths.
-   *
-   * @var array<string, string>
-   */
-  private const PATH_ALIAS_UUIDS = [
-    'en' => 'b3000001-0000-4000-8000-000000000001',
-    'fr' => 'b3000001-0000-4000-8000-000000000002',
-  ];
-
   public function __construct(
-    private readonly ModuleExtensionList $moduleExtensionList,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly EntityRepositoryInterface $entityRepository,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly ModuleHandlerInterface $moduleHandler,
-    private readonly Importer $defaultContentImporter,
+    private readonly ImporterInterface $defaultContentImporter,
+    private readonly DemoTranslationSync $translationSync,
     private readonly LoggerInterface $logger,
+    private readonly DemoHeroMediaImporter $heroMediaImporter,
+    private readonly DemoPartialContentImporter $partialContentImporter,
   ) {}
 
   /**
@@ -49,13 +39,28 @@ final class DemoInstaller {
    */
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('extension.list.module'),
       $container->get('entity_type.manager'),
       $container->get('entity.repository'),
       $container->get('config.factory'),
       $container->get('module_handler'),
-      $container->get(Importer::class),
+      $container->get('default_content.importer'),
+      new DemoTranslationSync(
+        $container->get('entity_type.manager'),
+        $container->get('entity.repository'),
+        $container->get('config.factory'),
+        $container->get('language_manager'),
+        new DemoTranslationOverlayLoader(
+          $container->get('extension.path.resolver'),
+        ),
+      ),
       $container->get('logger.channel.ps_demo'),
+      DemoHeroMediaImporter::create($container),
+      new DemoPartialContentImporter(
+        $container->get('extension.list.module'),
+        $container->get('entity.repository'),
+        $container->get('entity_type.manager'),
+        $container->get('default_content.content_entity_normalizer'),
+      ),
     );
   }
 
@@ -67,13 +72,20 @@ final class DemoInstaller {
   }
 
   /**
-   * Imports content and applies demo configuration after dependencies run.
+   * Applies demo layout and configuration after default content import.
    */
   public function finalizeInstall(): void {
     if (\Drupal::moduleHandler()->moduleExists('ps_homepage')) {
       HomepageInstaller::create(\Drupal::getContainer())->prepareLayoutBuilder();
+      \Drupal::service('ps_homepage.layout_field_ensurer')->ensurePageLayoutFieldTranslatable();
     }
-    $this->importContent();
+    $this->importContentIfMissing();
+    $this->ensureEditorialContentModels();
+    $this->heroMediaImporter->importIfMissing();
+    $imported = $this->partialContentImporter->importEditorialContentIfMissing();
+    $this->ensureEditorialTeaserImages();
+    $this->ensureHomepageConfig();
+    $this->translationSync->sync();
     $this->applyHomepageLayout();
     (new DemoMenuNormalizer($this->entityTypeManager))->normalize();
     $this->importDemoConfiguration();
@@ -85,7 +97,7 @@ final class DemoInstaller {
    * Ensures required modules and the front theme are available.
    */
   private function assertRuntimeReady(): void {
-    foreach (['ps_homepage', 'ps_block', 'social_media_links'] as $module) {
+    foreach (['default_content', 'ps_homepage', 'ps_block', 'social_media_links'] as $module) {
       if (!$this->moduleHandler->moduleExists($module)) {
         throw new \RuntimeException("ps_demo requires the {$module} module.");
       }
@@ -101,27 +113,99 @@ final class DemoInstaller {
   }
 
   /**
-   * Imports YAML entities from the module export/content/ directory.
+   * Imports YAML from content/ when the homepage node is missing.
+   *
+   * On first install, default_content hook_modules_installed() already imports.
+   * This fallback supports make demo recovery without duplicating existing UUIDs.
    */
-  private function importContent(): void {
-    $path = $this->moduleExtensionList->getPath('ps_demo') . '/export/content';
-    if (!is_dir($path)) {
+  private function importContentIfMissing(): void {
+    if ($this->loadHomepageNode()) {
       return;
     }
 
-    $finder = new Finder($path);
-    if ($finder->data === []) {
-      return;
-    }
-
-    $this->defaultContentImporter->importContent($finder, Existing::Skip);
+    $this->defaultContentImporter->importContent('ps_demo');
     \Drupal::service('plugin.manager.menu.link')->rebuild();
+    $this->logger->notice('ps_demo: imported default content via default_content module.');
   }
 
   /**
-   * Imports partial CMI from src/config/demo/ (mega-menu, langues, Follow us…).
-   *
-   * Mirrors `drush config:import --partial` without full-site validation.
+   * Sets teaser images on demo articles/studies when missing (existing installs).
+   */
+  private function ensureEditorialTeaserImages(): void {
+    /** @var array<string, string> $map */
+    $map = [
+      'b2000005-0000-4000-8000-000000000001' => 'c1000004-0000-4000-8000-000000000001',
+      'b2000005-0000-4000-8000-000000000002' => 'c1000006-0000-4000-8000-000000000001',
+      'b2000005-0000-4000-8000-000000000003' => 'c1000008-0000-4000-8000-000000000001',
+      'b2000006-0000-4000-8000-000000000001' => 'c1000010-0000-4000-8000-000000000001',
+      'b2000006-0000-4000-8000-000000000002' => 'c1000012-0000-4000-8000-000000000001',
+      'b2000006-0000-4000-8000-000000000003' => 'c1000014-0000-4000-8000-000000000001',
+    ];
+
+    foreach ($map as $nodeUuid => $mediaUuid) {
+      try {
+        $node = $this->entityRepository->loadEntityByUuid('node', $nodeUuid);
+        $media = $this->entityRepository->loadEntityByUuid('media', $mediaUuid);
+      }
+      catch (\Exception) {
+        continue;
+      }
+
+      if (!$node instanceof NodeInterface || !$media) {
+        continue;
+      }
+      if (!$node->hasField('field_teaser_image')) {
+        continue;
+      }
+
+      $changed = FALSE;
+      foreach ($node->getTranslationLanguages() as $langcode => $_language) {
+        $translation = $node->getTranslation($langcode);
+        if (!$translation->get('field_teaser_image')->isEmpty()) {
+          continue;
+        }
+        $translation->set('field_teaser_image', $media);
+        $changed = TRUE;
+      }
+
+      if ($changed) {
+        $node->setSyncing(TRUE);
+        $node->save();
+      }
+    }
+  }
+
+  /**
+   * Merges install homepage titles/paths into active config (new lang keys).
+   */
+  private function ensureHomepageConfig(): void {
+    $installPath = $this->moduleHandler->getModule('ps_demo')->getPath() . '/config/install/ps_demo.homepage.yml';
+    if (!is_readable($installPath)) {
+      return;
+    }
+
+    $parsed = Yaml::decode((string) file_get_contents($installPath));
+    if (!is_array($parsed) || !isset($parsed['node']) || !is_array($parsed['node'])) {
+      return;
+    }
+
+    $editable = $this->configFactory->getEditable('ps_demo.homepage');
+    foreach (['titles', 'path'] as $key) {
+      $installValues = $parsed['node'][$key] ?? NULL;
+      if (!is_array($installValues)) {
+        continue;
+      }
+      $current = $editable->get('node.' . $key);
+      if (!is_array($current)) {
+        $current = [];
+      }
+      $editable->set('node.' . $key, array_replace($current, $installValues));
+    }
+    $editable->save();
+  }
+
+  /**
+   * Imports partial CMI from src/config/demo/ (mega-menu, multilingual).
    */
   private function importDemoConfiguration(): void {
     $source = dirname(\Drupal::root()) . '/config/demo';
@@ -153,16 +237,10 @@ final class DemoInstaller {
   }
 
   /**
-   * Points homepage URL aliases to the imported node (Config-First).
+   * Creates homepage path aliases for enabled languages (from ps_demo.homepage).
    */
   private function applyPathAliases(): void {
     if (!$this->entityTypeManager->hasDefinition('path_alias')) {
-      return;
-    }
-
-    $settings = $this->configFactory->get('ps_demo.settings');
-    $front_paths = $settings->get('front_paths');
-    if (!is_array($front_paths) || $front_paths === []) {
       return;
     }
 
@@ -171,30 +249,26 @@ final class DemoInstaller {
       return;
     }
 
+    $front_paths = $this->translationSync->homepageAliasesForEnabledLanguages($homepage);
+    if ($front_paths === []) {
+      return;
+    }
+
     $system_path = '/node/' . $homepage->id();
     $storage = $this->entityTypeManager->getStorage('path_alias');
 
     foreach ($front_paths as $langcode => $alias) {
-      if (!is_string($langcode) || !is_string($alias)) {
-        continue;
-      }
-
-      $uuid = self::PATH_ALIAS_UUIDS[$langcode] ?? NULL;
       $entity = NULL;
-      if ($uuid) {
-        try {
-          $entity = $this->entityRepository->loadEntityByUuid('path_alias', $uuid);
-        }
-        catch (\Exception) {
-          $entity = NULL;
-        }
+      $existing = $storage->loadByProperties([
+        'path' => $system_path,
+        'langcode' => $langcode,
+      ]);
+      if ($existing !== []) {
+        $entity = reset($existing);
       }
 
       if (!$entity instanceof PathAliasInterface) {
-        $entity = $storage->create([
-          'uuid' => $uuid,
-          'langcode' => $langcode,
-        ]);
+        $entity = $storage->create(['langcode' => $langcode]);
       }
 
       $entity->set('path', $system_path);
@@ -205,7 +279,7 @@ final class DemoInstaller {
   }
 
   /**
-   * Sets the site front page from the homepage node UUID (Config-First).
+   * Sets the site front page from the homepage node UUID.
    */
   private function applyFrontPage(): void {
     $homepage = $this->loadHomepageNode();
@@ -234,6 +308,8 @@ final class DemoInstaller {
       return;
     }
 
+    \Drupal::service('ps_homepage.layout_field_ensurer')->ensurePageLayoutFieldTranslatable();
+
     $layoutBuilder = \Drupal::service('ps_homepage.default_layout_builder');
     $layoutPersister = \Drupal::service('ps_homepage.layout_persister');
     $layoutPersister->saveAllTranslationLayouts(
@@ -245,6 +321,26 @@ final class DemoInstaller {
 
     \Drupal::service('ps_homepage.section_library_installer')->install();
     \Drupal::service('ps_homepage.faq_config_refresher')->refreshFrontPage();
+    if ($this->moduleHandler->moduleExists('ps_homepage')) {
+      \Drupal::service('ps_homepage.market_study_config_refresher')->refreshFrontPage();
+    }
+  }
+
+  /**
+   * Installs optional news / market study configuration when missing.
+   */
+  private function ensureEditorialContentModels(): void {
+    $installer = \Drupal::service('config.installer');
+
+    if ($this->moduleHandler->moduleExists('ps_news')) {
+      $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_news');
+      $installer->installOptionalConfig(new FileStorage($path . '/config/optional'));
+    }
+
+    if ($this->moduleHandler->moduleExists('ps_market_study')) {
+      $path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_market_study');
+      $installer->installOptionalConfig(new FileStorage($path . '/config/optional'));
+    }
   }
 
   /**

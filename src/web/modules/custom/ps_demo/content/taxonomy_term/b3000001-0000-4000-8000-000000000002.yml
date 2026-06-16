@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: b3000001-0000-4000-8000-000000000002
+  bundle: news_category
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Trends
+  weight:
+    -
+      value: 1
+translations:
+  fr:
+    status:
+      -
+        value: true
+    name:
+      -
+        value: Tendances
+  es:
+    status:
+      -
+        value: true
+    name:
+      -
+        value: Tendencias

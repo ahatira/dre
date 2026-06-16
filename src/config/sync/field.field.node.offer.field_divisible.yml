@@ -1,0 +1,25 @@
+uuid: dcb067cd-db5f-4168-86c5-6f8fda807822
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_divisible
+    - node.type.offer
+_core:
+  default_config_hash: YK8oOy1AMwJ8nUkY9lW6MfdAlinq44B5KCo4Wo7TiqY
+id: node.offer.field_divisible
+field_name: field_divisible
+entity_type: node
+bundle: offer
+label: Divisible
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -1,0 +1,25 @@
+uuid: 214ff83d-17b9-45c1-b5aa-4ea80b7361cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_features
+    - node.type.offer
+  module:
+    - ps_feature
+_core:
+  default_config_hash: 1VsWcrJx8Bh6CmYqLra7ARGRbSN0J3Gttdwsj1N4mis
+id: node.offer.field_features
+field_name: field_features
+entity_type: node
+bundle: offer
+label: Features
+description: 'Offer features managed through the Feature Builder widget.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_groups: {  }
+  allowed_features: {  }
+field_type: feature

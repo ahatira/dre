@@ -1,0 +1,12 @@
+uuid: e2c97a35-c8ac-4064-bba0-c56522ad45ca
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ZdPKfMGvSdiqNjpxet7ACAifghbvuSZZ7nZvWf2f3g8
+id: normes_certifications_et_labels
+label: NORMES_CERTIFICATIONS_ET_LABELS
+description: NORMES_CERTIFICATIONS_ET_LABELS
+icon: 'bnp_custom:medal'
+asset_types: {  }
+weight: 4727

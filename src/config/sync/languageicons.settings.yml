@@ -1,0 +1,7 @@
+_core:
+  default_config_hash: Yw2iy0e_5wBH6jPICIGy--RnGvOzzRcazztDUgkHvfg
+show_node: true
+show_block: true
+placement: before
+size: 16x12
+path: 'modules/contrib/languageicons/flags/*.png'
