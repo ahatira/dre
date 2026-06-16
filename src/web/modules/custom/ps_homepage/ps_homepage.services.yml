@@ -11,6 +11,10 @@ services:
 
   ps_homepage.offer_count_provider:
     class: Drupal\ps_homepage\Service\HomepageOfferCountProvider
+    arguments:
+      - '@ps_search.content_language_resolver'
+      - '@language_manager'
+      - '@request_stack'
 
   ps_homepage.cta_link_builder:
     alias: ps_content.content_cta_link_builder
