@@ -24,7 +24,7 @@ third_party_settings:
     method: geocode
     weight: -5
     field: field_address
-    skip_not_empty_value: false
+    skip_not_empty_value: true
     disabled: false
     hidden: false
     providers:
