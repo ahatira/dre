@@ -58,7 +58,6 @@ elements: |-
 settings:
   form_submit_label: Wyślij
   confirmation_message: "<p>Dziękujemy. Twoja wiadomość została wysłana.</p>"
-handlers:
   email_agent:
     label: 'Powiadomienie doradcy'
     subject: "Zapytanie kontaktowe — Oferta [webform_submission:source-entity:field_reference]"

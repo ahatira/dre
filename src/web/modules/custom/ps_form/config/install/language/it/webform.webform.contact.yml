@@ -31,7 +31,6 @@ elements: |-
 settings:
   form_submit_label: Invia
   confirmation_message: "<p>Grazie. Il tuo messaggio è stato inviato.</p>"
-handlers:
   email_notification:
     label: 'Notifica del sito'
     subject: 'Modulo di contatto del sito'

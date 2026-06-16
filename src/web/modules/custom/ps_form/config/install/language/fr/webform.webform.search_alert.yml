@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Continuer
   confirmation_message: "<p>Votre alerte de recherche a été créée. Vous recevrez un e-mail lorsque de nouveaux biens correspondront à vos critères.</p>"
-handlers:

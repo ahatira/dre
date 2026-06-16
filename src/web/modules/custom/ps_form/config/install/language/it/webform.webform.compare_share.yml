@@ -41,4 +41,3 @@ elements: |-
 settings:
   form_submit_label: 'Ricevi il mio confronto'
   confirmation_message: "<p>Il tuo confronto è stato inviato via e-mail.</p>"
-handlers:

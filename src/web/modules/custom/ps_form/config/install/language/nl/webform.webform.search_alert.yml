@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Doorgaan
   confirmation_message: "<p>Uw zoekalert is aangemaakt. U ontvangt een e-mail wanneer nieuwe panden aan uw criteria voldoen.</p>"
-handlers:

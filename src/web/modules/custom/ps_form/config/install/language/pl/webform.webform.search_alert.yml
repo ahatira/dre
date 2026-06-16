@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Kontynuuj
   confirmation_message: "<p>Twój alert wyszukiwania został utworzony. Otrzymasz e-mail, gdy nowe nieruchomości będą pasować do Twoich kryteriów.</p>"
-handlers:

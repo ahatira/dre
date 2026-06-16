@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Continuar
   confirmation_message: "<p>Su alerta de búsqueda ha sido creada. Recibirá un correo electrónico cuando nuevas propiedades coincidan con sus criterios.</p>"
-handlers:

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-13 12:30+0000\n"
+"PO-Revision-Date: 2026-06-16 16:10+0000\n"
 "Language: lb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +74,7 @@ msgid "Comparison sent to @email."
 msgstr "Vergläich un @email geschéckt."
 
 msgid "Comparison settings"
-msgstr "Comparison settings"
+msgstr "Vergläichs-Astellungen"
 
 msgid "Configure UX options for the comparison table and modal."
 msgstr "UX-Optioune fir d'Vergläichstabel an de Modal astellen."
@@ -142,7 +142,7 @@ msgid "Loading…"
 msgstr "Gëtt gelueden…"
 
 msgid "Location"
-msgstr "Location"
+msgstr "Standuert"
 
 msgid "Manage Property Search comparison"
 msgstr "Property Search-Vergläich geréieren"
@@ -181,7 +181,7 @@ msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Een Zil pro Zeil am Format entity_type.bundle (z. B. node.offer)."
 
 msgid "Open full page"
-msgstr "Open full page"
+msgstr "Voll Säit opmaachen"
 
 msgid "Optional message"
 msgstr "Optional Noriicht"
@@ -305,7 +305,7 @@ msgid "Sticky view-property bar"
 msgstr "Fix Bar « Objet kucken »"
 
 msgid "Summary"
-msgstr "Summary"
+msgstr "Resumé"
 
 msgid "Terms & availability"
 msgstr "Konditiounen a Disponibilitéit"

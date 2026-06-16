@@ -2,12 +2,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_search\n"
-"PO-Revision-Date: 2026-06-13 12:30+0000\n"
+"PO-Revision-Date: 2026-06-16 16:23+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "- Any asset type -"
+msgstr "- Qualsiasi tipo di immobile -"
+
+msgid "- Any transaction -"
+msgstr "- Qualsiasi transazione -"
 
 msgid "10 minutes"
 msgstr "10 minuti"
@@ -54,7 +60,7 @@ msgid "Active"
 msgstr "Attivo"
 
 msgid "Additional information"
-msgstr "Additional information"
+msgstr "Informazioni aggiuntive"
 
 msgid "Administer search alerts"
 msgstr "Amministrare avvisi di ricerca"
@@ -87,19 +93,19 @@ msgid "An active alert already exists for this email and search criteria."
 msgstr "Esiste già un avviso attivo per questa e-mail e criteri di ricerca."
 
 msgid "Apply"
-msgstr "Apply"
+msgstr "Applica"
 
 msgid "Apply location filter"
-msgstr "Apply location filter"
+msgstr "Applica filtro località"
 
 msgid "Apply mobile filters"
-msgstr "Apply mobile filters"
+msgstr "Applica filtri mobile"
 
 msgid "Apply property type filter"
-msgstr "Apply property type filter"
+msgstr "Applica filtro tipo immobile"
 
 msgid "Apply range filter"
-msgstr "Apply range filter"
+msgstr "Applica filtro intervallo"
 
 msgid "Approximate number of grid cells used to aggregate markers (e.g. 64 ≈ "
 "8×8)."
@@ -110,7 +116,7 @@ msgid "Approximation (offline circle)"
 msgstr "Approssimazione (cerchio offline)"
 
 msgid "Asc"
-msgstr "Asc"
+msgstr "Crescente"
 
 msgid "Asset type"
 msgstr "Tipo di attività"
@@ -122,7 +128,7 @@ msgid "Auto"
 msgstr "Auto"
 
 msgid "Availability"
-msgstr "Availability"
+msgstr "Disponibilità"
 
 msgid "BCC email"
 msgstr "E-mail CCN"
@@ -134,7 +140,7 @@ msgid "Back to PS configuration hub"
 msgstr "Torna all'hub configurazione PS"
 
 msgid "Bike"
-msgstr "Bike"
+msgstr "Bicicletta"
 
 msgid "Body text"
 msgstr "Testo del messaggio"
@@ -146,10 +152,10 @@ msgid "Budget currency"
 msgstr "Valuta budget"
 
 msgid "Building structure"
-msgstr "Building structure"
+msgstr "Struttura dell'edificio"
 
 msgid "Building type and condition"
-msgstr "Building type and condition"
+msgstr "Tipo e condizione dell'edificio"
 
 msgid "Button URL"
 msgstr "URL pulsante"
@@ -161,7 +167,7 @@ msgid "Buy"
 msgstr "Acquista"
 
 msgid "Bypass PS Search API rate limits"
-msgstr "Bypass PS Search API rate limits"
+msgstr "Ignora limiti API PS Search"
 
 msgid "CTA button URL"
 msgstr "URL pulsante CTA"
@@ -182,7 +188,7 @@ msgid "Capacity total"
 msgstr "Capacità totale"
 
 msgid "Car"
-msgstr "Car"
+msgstr "Auto"
 
 msgid "Card Push"
 msgstr "Card Push"
@@ -207,7 +213,7 @@ msgid "Ceiling height"
 msgstr "Altezza soffitto"
 
 msgid "Ceiling height (m)"
-msgstr "Ceiling height (m)"
+msgstr "Altezza sottotrave (m)"
 
 msgid "Ceiling height in meters."
 msgstr "Altezza soffitto in metri."
@@ -222,7 +228,11 @@ msgid "City, department, region…"
 msgstr "Città, dipartimento, regione…"
 
 msgid "City, district or zip code"
-msgstr "City, district or zip code"
+msgstr "Città, quartiere o CAP"
+
+msgid "City, postal code or department token as used in search (e.g. Paris, 7"
+"5008, 75)."
+msgstr "Città, CAP o dipartimento usato nella ricerca (es. Roma, 00100, 06)."
 
 msgid "Clear"
 msgstr "Cancella"
@@ -249,7 +259,7 @@ msgid "Combine mode for active feature filters"
 msgstr "Modalità combinazione filtri caratteristiche attivi"
 
 msgid "Coming soon"
-msgstr "Coming soon"
+msgstr "Prossimamente"
 
 msgid "Comma-separated cities, postal codes or department codes."
 msgstr "Città, codici postali o codici dipartimento separati da virgole."
@@ -308,10 +318,13 @@ msgstr "Hash criteri"
 msgid "Cron notifications and retention for property search alerts."
 msgstr "Notifiche cron e conservazione per avvisi ricerca immobiliare."
 
+msgid "Custom URL"
+msgstr "URL personalizzata"
+
 msgid "Customize and define the distance zone according to the means of locom"
 "otion. By default, the zone is set to 5 minutes walk."
-msgstr "Customize and define the distance zone according to the means of locom"
-"otion. By default, the zone is set to 5 minutes walk."
+msgstr "Personalizza la zona di distanza in base al mezzo di trasporto. Predef"
+"inito: 5 minuti a piedi."
 
 msgid "Customize area"
 msgstr "Personalizza area"
@@ -370,7 +383,7 @@ msgid "Department"
 msgstr "Dipartimento"
 
 msgid "Desc"
-msgstr "Desc"
+msgstr "Decrescente"
 
 msgid "Dictionary label"
 msgstr "Etichetta dizionario"
@@ -400,7 +413,7 @@ msgid "Display ps_dictionary entry labels for indexed codes."
 msgstr "Mostra etichette ps_dictionary per codici indicizzati."
 
 msgid "Distance zone isochrone"
-msgstr "Distance zone isochrone"
+msgstr "Zona distanza isocrona"
 
 msgid "District"
 msgstr "Distretto"
@@ -436,7 +449,7 @@ msgid "Enable server-side grid clusters when zone exceeds markers_max"
 msgstr "Abilita cluster griglia server quando la zona supera markers_max"
 
 msgid "Equipments"
-msgstr "Equipments"
+msgstr "Attrezzature"
 
 msgid "Exposes derived fields for More-filters core criteria."
 msgstr "Espone campi derivati per criteri principali Altri filtri."
@@ -464,16 +477,16 @@ msgid "Feature IDs"
 msgstr "ID caratteristiche"
 
 msgid "Feature filters"
-msgstr "Feature filters"
+msgstr "Filtri caratteristiche"
 
 msgid "Feature indexer"
 msgstr "Indicizzatore caratteristiche"
 
 msgid "Feature search filters"
-msgstr "Feature search filters"
+msgstr "Filtri ricerca caratteristiche"
 
 msgid "Feature: @label"
-msgstr "Feature: @label"
+msgstr "Caratteristica: @label"
 
 msgid "Filter"
 msgstr "Filtra"
@@ -482,7 +495,7 @@ msgid "Find your next property"
 msgstr "Trova il tuo prossimo immobile"
 
 msgid "Fittings"
-msgstr "Fittings"
+msgstr "Impianti"
 
 msgid "Frequency"
 msgstr "Frequenza"
@@ -539,13 +552,16 @@ msgid "Has video"
 msgstr "Ha video"
 
 msgid "Header search (property)"
-msgstr "Header search (property)"
+msgstr "Ricerca header (immobile)"
 
 msgid "Heights"
-msgstr "Heights"
+msgstr "Altezze"
 
 msgid "Hide list"
-msgstr "Hide list"
+msgstr "Nascondi elenco"
+
+msgid "Icon"
+msgstr "Icona"
 
 msgid "Immersive tour"
 msgstr "Tour immersivo"
@@ -603,7 +619,7 @@ msgid "Isochrone server cache TTL (seconds)"
 msgstr "TTL cache server isocrona (secondi)"
 
 msgid "Keywords"
-msgstr "Keywords"
+msgstr "Parole chiave"
 
 msgid "Last match count"
 msgstr "Ultimo conteggio corrispondenze"
@@ -642,6 +658,12 @@ msgstr "Lasciare vuoto per riutilizzare la chiave API Google Maps di Geofield "
 msgid "Legacy asset slug aliases"
 msgstr "Alias slug tipo attività legacy"
 
+msgid "Link"
+msgstr "Link"
+
+msgid "Link label"
+msgstr "Etichetta link"
+
 msgid "Load-all list threshold"
 msgstr "Soglia elenco carica tutto"
 
@@ -651,23 +673,26 @@ msgstr "Caricamento…"
 msgid "Location"
 msgstr "Località"
 
+msgid "Location (optional)"
+msgstr "Località (opzionale)"
+
 msgid "Location data"
-msgstr "Location data"
+msgstr "Dati località"
 
 msgid "Location data endpoint"
 msgstr "Endpoint dati localizzazione"
 
 msgid "Location structured data"
-msgstr "Location structured data"
+msgstr "Dati strutturati località"
 
 msgid "Location suggest"
-msgstr "Location suggest"
+msgstr "Suggerimento località"
 
 msgid "Location suggest endpoint"
 msgstr "Endpoint suggerimento localizzazione"
 
 msgid "Location suggestions"
-msgstr "Location suggestions"
+msgstr "Suggerimenti località"
 
 msgid "Location tokens"
 msgstr "Token localizzazione"
@@ -691,7 +716,7 @@ msgid "Map shell (PS native cartography)"
 msgstr "Shell mappa (cartografia nativa PS)"
 
 msgid "Map zone"
-msgstr "Map zone"
+msgstr "Zona mappa"
 
 msgid "Map zone settings"
 msgstr "Impostazioni zona mappa"
@@ -736,10 +761,10 @@ msgid "Maximum zoom"
 msgstr "Zoom massimo"
 
 msgid "Means of transport"
-msgstr "Means of transport"
+msgstr "Mezzo di trasporto"
 
 msgid "Metro, bus, train..."
-msgstr "Metro, bus, train..."
+msgstr "Metro, bus, treno..."
 
 msgid "Min"
 msgstr "Min"
@@ -770,7 +795,7 @@ msgstr "Modulo ps_search 1.0.0 — motore di ricerca, filtri, mappa e API pubbli
 "ca sotto /api/ps/*."
 
 msgid "More criteria group"
-msgstr "More criteria group"
+msgstr "Gruppo criteri aggiuntivi"
 
 msgid "More filters"
 msgstr "Altri filtri"
@@ -797,13 +822,13 @@ msgid "No location found"
 msgstr "Località non trovata"
 
 msgid "No offers match your search criteria. Please adjust your filters."
-msgstr "No offers match your search criteria. Please adjust your filters."
+msgstr "Nessuna offerta corrisponde ai criteri di ricerca. Modifica i filtri."
 
 msgid "No properties in this map area"
-msgstr "No properties in this map area"
+msgstr "Nessun immobile in quest'area della mappa"
 
 msgid "No results found"
-msgstr "No results found"
+msgstr "Nessun risultato trovato"
 
 msgid "None"
 msgstr "Nessuno"
@@ -819,7 +844,7 @@ msgid "Offer geo latitude/longitude"
 msgstr "Latitudine/longitudine geo offerta"
 
 msgid "Offer reference..."
-msgstr "Offer reference..."
+msgstr "Riferimento offerta..."
 
 msgid "Offices, retail and logistics across France."
 msgstr "Uffici, commercio e logistica in Francia."
@@ -836,6 +861,9 @@ msgstr "OpenRouteService"
 
 msgid "OpenRouteService API key"
 msgstr "Chiave API OpenRouteService"
+
+msgid "Operation"
+msgstr "Operazione"
 
 msgid "Operation type"
 msgstr "Tipo operazione"
@@ -871,7 +899,7 @@ msgid "Other criteria"
 msgstr "Altri criteri"
 
 msgid "Outdoors"
-msgstr "Outdoors"
+msgstr "Esterni"
 
 msgid "Overview"
 msgstr "Panoramica"
@@ -910,7 +938,8 @@ msgid "PS Search map zone settings"
 msgstr "Impostazioni zona mappa PS Search"
 
 msgid "Pan the map or use “Search this area” to explore other regions."
-msgstr "Pan the map or use “Search this area” to explore other regions."
+msgstr "Sposta la mappa o usa «Cerca in quest'area» per esplorare altre region"
+"i."
 
 msgid "Paused"
 msgstr "In pausa"
@@ -937,13 +966,13 @@ msgid "Postal code"
 msgstr "Codice postale"
 
 msgid "Price"
-msgstr "Price"
+msgstr "Prezzo"
 
 msgid "Professional email"
 msgstr "E-mail professionale"
 
 msgid "Properties @in @locality"
-msgstr "Properties @in @locality"
+msgstr "Immobili @in @locality"
 
 msgid "Property Search"
 msgstr "Ricerca immobiliare"
@@ -993,6 +1022,9 @@ msgstr "Riferimento"
 msgid "Remove @value"
 msgstr "Rimuovi @value"
 
+msgid "Remove this shortcut"
+msgstr "Rimuovi questo collegamento rapido"
+
 msgid "Rent"
 msgstr "Affitto"
 
@@ -1010,7 +1042,7 @@ msgid "Reset"
 msgstr "Reimposta"
 
 msgid "Restricted activities"
-msgstr "Restricted activities"
+msgstr "Attività ristrette"
 
 msgid "Result count"
 msgstr "Conteggio risultati"
@@ -1031,7 +1063,7 @@ msgid "SEO URL mappings"
 msgstr "Mapping URL SEO"
 
 msgid "SEO URLs"
-msgstr "SEO URLs"
+msgstr "URL SEO"
 
 msgid "Safety cap for the /api/ps/markers JSON endpoint."
 msgstr "Limite di sicurezza per l'endpoint JSON /api/ps/markers."
@@ -1072,13 +1104,13 @@ msgid "Search filter bar"
 msgstr "Barra filtri ricerca"
 
 msgid "Search hero (homepage)"
-msgstr "Search hero (homepage)"
+msgstr "Hero ricerca (homepage)"
 
 msgid "Search keywords..."
-msgstr "Search keywords..."
+msgstr "Parole chiave di ricerca..."
 
 msgid "Search map markers"
-msgstr "Search map markers"
+msgstr "Cerca marcatori mappa"
 
 msgid "Search offers"
 msgstr "Offerte di ricerca"
@@ -1094,22 +1126,33 @@ msgstr "Slug URL pagina ricerca (config base = route Views interna; traduzioni"
 msgid "Search path"
 msgstr "Percorso ricerca"
 
+msgid "Search preset"
+msgstr "Preset di ricerca"
+
+msgid "Search preset builds a filtered search URL. Custom URL accepts an inte"
+"rnal path or absolute URL."
+msgstr "Il preset di ricerca costruisce un URL filtrato. L'URL personalizzata "
+"accetta un percorso interno o URL assoluto."
+
 msgid "Search result count"
-msgstr "Search result count"
+msgstr "Conteggio risultati ricerca"
 
 msgid "Search results"
 msgstr "Risultati di ricerca"
 
 msgid "Search results header"
-msgstr "Search results header"
+msgstr "Intestazione risultati ricerca"
 
 msgid "Search results placement — renders the <em>search-push-card</em> SDC a"
 "fter a configurable result index."
 msgstr "Posizionamento risultati ricerca — renderizza l'SDC <em>search-push-ca"
 "rd</em> dopo un indice risultato configurabile."
 
+msgid "Search shortcuts"
+msgstr "Collegamenti rapidi di ricerca"
+
 msgid "Search this area"
-msgstr "Search this area"
+msgstr "Cerca in quest'area"
 
 msgid "Search zones"
 msgstr "Zone di ricerca"
@@ -1118,19 +1161,25 @@ msgid "See all filters"
 msgstr "Vedi tutti i filtri"
 
 msgid "Selected property"
-msgstr "Selected property"
+msgstr "Immobile selezionato"
 
 msgid "Server cache"
 msgstr "Cache server"
 
 msgid "Services"
-msgstr "Services"
+msgstr "Servizi"
 
 msgid "Settings for the PS-owned Google Map shell on the search page. The Goo"
 "gle Maps JavaScript API key is read from Geofield Map settings (/admin"
 "/config/system/geofield-map)."
 msgstr "Impostazioni shell Google Map PS sulla pagina ricerca. La chiave API G"
 "oogle Maps JavaScript è letta dalle impostazioni Geofield Map."
+
+msgid "Shortcut @number"
+msgstr "Collegamento rapido @number"
+
+msgid "Shortcut content"
+msgstr "Contenuto collegamento rapido"
 
 msgid "Show"
 msgstr "Mostra"
@@ -1145,7 +1194,7 @@ msgid "Show map"
 msgstr "Mostra mappa"
 
 msgid "Show more results"
-msgstr "Show more results"
+msgstr "Mostra più risultati"
 
 msgid "Showing @count in this area"
 msgstr "@count visualizzati in quest'area"
@@ -1195,7 +1244,7 @@ msgid "Sort by"
 msgstr "Ordina per"
 
 msgid "Standards, certifications and labels"
-msgstr "Standards, certifications and labels"
+msgstr "Standard, certificazioni e label"
 
 msgid "Start typing a city name or postal code"
 msgstr "Digita una città o un CAP"
@@ -1257,13 +1306,16 @@ msgid "Transaction type"
 msgstr "Tipo di transazione"
 
 msgid "Transport"
-msgstr "Transport"
+msgstr "Trasporto"
 
 msgid "Transports"
 msgstr "Trasporti"
 
 msgid "Travel time"
-msgstr "Travel time"
+msgstr "Tempo di percorrenza"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "URL slugs for each asset/property type (e.g. BUR → bureau)."
 msgstr "Slug URL per ogni tipo attività/im mobile (es. BUR → bureau)."
@@ -1276,13 +1328,13 @@ msgstr "Usato quando nessuna località è selezionata e non sono impostati limit
 "i mappa espliciti."
 
 msgid "Validate"
-msgstr "Validate"
+msgstr "Convalida"
 
 msgid "Video"
 msgstr "Video"
 
 msgid "Walking"
-msgstr "Walking"
+msgstr "A piedi"
 
 msgid "Weekly"
 msgstr "Settimanale"

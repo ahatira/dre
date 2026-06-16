@@ -1017,15 +1017,39 @@
     "pl": "—"
   },
   "Comparison settings": {
-    "fr": "Paramètres du comparateur"
+    "fr": "Paramètres du comparateur",
+    "de": "Vergleichseinstellungen",
+    "es": "Ajustes de comparación",
+    "it": "Impostazioni confronto",
+    "lb": "Vergläichs-Astellungen",
+    "nl": "Vergelijkingsinstellingen",
+    "pl": "Ustawienia porównania"
   },
   "Location": {
-    "fr": "Localisation"
+    "fr": "Localisation",
+    "de": "Standort",
+    "es": "Ubicación",
+    "it": "Località",
+    "lb": "Standuert",
+    "nl": "Locatie",
+    "pl": "Lokalizacja"
   },
   "Open full page": {
-    "fr": "Ouvrir en pleine page"
+    "fr": "Ouvrir en pleine page",
+    "de": "Vollständige Seite öffnen",
+    "es": "Abrir página completa",
+    "it": "Apri pagina completa",
+    "lb": "Voll Säit opmaachen",
+    "nl": "Volledige pagina openen",
+    "pl": "Otwórz pełną stronę"
   },
   "Summary": {
-    "fr": "Synthèse"
+    "fr": "Synthèse",
+    "de": "Zusammenfassung",
+    "es": "Resumen",
+    "it": "Riepilogo",
+    "lb": "Resumé",
+    "nl": "Samenvatting",
+    "pl": "Podsumowanie"
   }
 }

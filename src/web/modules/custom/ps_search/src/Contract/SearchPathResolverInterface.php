@@ -14,6 +14,11 @@ interface SearchPathResolverInterface {
    *
    * Example: /find-property (no language prefix; Drupal Url handles prefix).
    */
-  public function getPublicPath(): string;
+  public function getPublicPath(?string $langcode = NULL): string;
+
+  /**
+   * Maps a stored machine search path to the localized public slug.
+   */
+  public function resolveStoredPublicSearchPath(string $path, string $langcode): string;
 
 }

@@ -58,7 +58,6 @@ elements: |-
 settings:
   form_submit_label: Senden
   confirmation_message: "<p>Vielen Dank. Ihre Nachricht wurde gesendet.</p>"
-handlers:
   email_agent:
     label: Maklerbenachrichtigung
     subject: "Kontaktanfrage — Angebot [webform_submission:source-entity:field_reference]"

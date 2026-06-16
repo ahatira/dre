@@ -41,4 +41,3 @@ elements: |-
 settings:
   form_submit_label: 'Otrzymaj moje porównanie'
   confirmation_message: "<p>Twoje porównanie zostało wysłane e-mailem.</p>"
-handlers:

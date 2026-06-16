@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Continua
   confirmation_message: "<p>Il tuo avviso di ricerca è stato creato. Riceverai un'e-mail quando nuovi immobili corrisponderanno ai tuoi criteri.</p>"
-handlers:

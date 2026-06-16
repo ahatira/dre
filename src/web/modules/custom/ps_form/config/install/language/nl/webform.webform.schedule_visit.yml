@@ -37,7 +37,6 @@ elements: |-
 settings:
   form_submit_label: Verzenden
   confirmation_message: 'Bedankt. Uw bezoekaanvraag is verzonden.'
-handlers:
   email_agent:
     label: 'Melding adviseur'
     subject: "Bezoekaanvraag — Aanbod [webform_submission:source-entity:field_reference]"

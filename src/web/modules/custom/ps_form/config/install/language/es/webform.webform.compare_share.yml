@@ -41,4 +41,3 @@ elements: |-
 settings:
   form_submit_label: 'Recibir mi comparativa'
   confirmation_message: "<p>Su comparativa ha sido enviada por correo electrónico.</p>"
-handlers:

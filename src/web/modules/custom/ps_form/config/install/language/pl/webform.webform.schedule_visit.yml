@@ -37,7 +37,6 @@ elements: |-
 settings:
   form_submit_label: Wyślij
   confirmation_message: 'Dziękujemy. Twoja prośba o wizytę została wysłana.'
-handlers:
   email_agent:
     label: 'Powiadomienie doradcy'
     subject: "Prośba o wizytę — Oferta [webform_submission:source-entity:field_reference]"

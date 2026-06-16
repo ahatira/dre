@@ -7,9 +7,13 @@ namespace Drupal\ps_homepage\Plugin\Block;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\ps_homepage\Form\HomepageSectionShellFormTrait;
+use Drupal\ps_homepage\Utility\HomepageContent;
+use Drupal\ps_search\Contract\SearchPathResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Layout Builder block — homepage section footer CTA (S-D shell).
@@ -19,9 +23,30 @@ use Drupal\ps_homepage\Form\HomepageSectionShellFormTrait;
   admin_label: new TranslatableMarkup('Homepage section footer'),
   category: new TranslatableMarkup('Property Search'),
 )]
-final class HomepageSectionFooterBlock extends BlockBase {
+final class HomepageSectionFooterBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   use HomepageSectionShellFormTrait;
+
+  public function __construct(
+    array $configuration,
+    string $plugin_id,
+    mixed $plugin_definition,
+    private readonly SearchPathResolverInterface $searchPathResolver,
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('ps_search.search_path_resolver'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -61,6 +86,9 @@ final class HomepageSectionFooterBlock extends BlockBase {
     if ($label === '' || $url === '') {
       return ['#markup' => ''];
     }
+
+    $langcode = HomepageContent::langcode();
+    $url = $this->searchPathResolver->resolveStoredPublicSearchPath($url, $langcode);
 
     return [
       '#type' => 'component',

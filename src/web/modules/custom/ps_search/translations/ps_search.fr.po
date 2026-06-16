@@ -2,12 +2,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_search\n"
-"PO-Revision-Date: 2026-06-13 12:30+0000\n"
+"PO-Revision-Date: 2026-06-16 16:23+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "- Any asset type -"
+msgstr "- Tout type de bien -"
+
+msgid "- Any transaction -"
+msgstr "- Toute transaction -"
 
 msgid "10 minutes"
 msgstr "10 minutes"
@@ -226,6 +232,11 @@ msgstr "Ville, département, région…"
 msgid "City, district or zip code"
 msgstr "Ville, quartier ou code postal"
 
+msgid "City, postal code or department token as used in search (e.g. Paris, 7"
+"5008, 75)."
+msgstr "Ville, code postal ou département utilisé dans la recherche (ex. Paris"
+", 75008, 75)."
+
 msgid "Clear"
 msgstr "Effacer"
 
@@ -310,6 +321,9 @@ msgstr "Hash des critères"
 msgid "Cron notifications and retention for property search alerts."
 msgstr "Notifications cron et rétention pour les alertes de recherche immobili"
 "ère."
+
+msgid "Custom URL"
+msgstr "URL personnalisée"
 
 msgid "Customize and define the distance zone according to the means of locom"
 "otion. By default, the zone is set to 5 minutes walk."
@@ -403,7 +417,7 @@ msgid "Display ps_dictionary entry labels for indexed codes."
 msgstr "Afficher les libellés ps_dictionary pour les codes indexés."
 
 msgid "Distance zone isochrone"
-msgstr "Isochrone zone de distance"
+msgstr "Zone de distance isochrone"
 
 msgid "District"
 msgstr "Arrondissement"
@@ -468,13 +482,13 @@ msgid "Feature IDs"
 msgstr "IDs caractéristiques"
 
 msgid "Feature filters"
-msgstr "Filtres de caractéristiques"
+msgstr "Filtres caractéristiques"
 
 msgid "Feature indexer"
 msgstr "Indexeur caractéristiques"
 
 msgid "Feature search filters"
-msgstr "Filtres caractéristiques recherche"
+msgstr "Filtres de recherche caractéristiques"
 
 msgid "Feature: @label"
 msgstr "Caractéristique : @label"
@@ -543,13 +557,16 @@ msgid "Has video"
 msgstr "A une vidéo"
 
 msgid "Header search (property)"
-msgstr "Recherche header (immobilier)"
+msgstr "Recherche header (bien)"
 
 msgid "Heights"
 msgstr "Hauteurs"
 
 msgid "Hide list"
 msgstr "Masquer la liste"
+
+msgid "Icon"
+msgstr "Icône"
 
 msgid "Immersive tour"
 msgstr "Visite immersive"
@@ -646,6 +663,12 @@ msgstr "Laisser vide pour réutiliser la clé API Google Maps de Geofield Map. L
 msgid "Legacy asset slug aliases"
 msgstr "Alias slugs type d'actif hérités"
 
+msgid "Link"
+msgstr "Lien"
+
+msgid "Link label"
+msgstr "Libellé du lien"
+
 msgid "Load-all list threshold"
 msgstr "Seuil liste tout charger"
 
@@ -654,6 +677,9 @@ msgstr "Chargement…"
 
 msgid "Location"
 msgstr "Localisation"
+
+msgid "Location (optional)"
+msgstr "Localisation (optionnel)"
 
 msgid "Location data"
 msgstr "Données de localisation"
@@ -844,6 +870,9 @@ msgstr "OpenRouteService"
 msgid "OpenRouteService API key"
 msgstr "Clé API OpenRouteService"
 
+msgid "Operation"
+msgstr "Opération"
+
 msgid "Operation type"
 msgstr "Type d'opération"
 
@@ -1001,6 +1030,9 @@ msgstr "Référence"
 msgid "Remove @value"
 msgstr "Supprimer @value"
 
+msgid "Remove this shortcut"
+msgstr "Supprimer ce raccourci"
+
 msgid "Rent"
 msgstr "Loyer"
 
@@ -1080,7 +1112,7 @@ msgid "Search filter bar"
 msgstr "Barre de filtres recherche"
 
 msgid "Search hero (homepage)"
-msgstr "Hero recherche (page d'accueil)"
+msgstr "Hero recherche (homepage)"
 
 msgid "Search keywords..."
 msgstr "Mots-clés de recherche…"
@@ -1102,6 +1134,14 @@ msgstr "Slug URL page de recherche (config base = route Views interne ; traduc"
 msgid "Search path"
 msgstr "Chemin de recherche"
 
+msgid "Search preset"
+msgstr "Préréglage de recherche"
+
+msgid "Search preset builds a filtered search URL. Custom URL accepts an inte"
+"rnal path or absolute URL."
+msgstr "Le préréglage de recherche construit une URL filtrée. L'URL personnali"
+"sée accepte un chemin interne ou une URL absolue."
+
 msgid "Search result count"
 msgstr "Compteur résultats recherche"
 
@@ -1115,6 +1155,9 @@ msgid "Search results placement — renders the <em>search-push-card</em> SDC a"
 "fter a configurable result index."
 msgstr "Emplacement résultats de recherche — affiche le SDC <em>search-push-ca"
 "rd</em> après un index de résultat configurable."
+
+msgid "Search shortcuts"
+msgstr "Raccourcis de recherche"
 
 msgid "Search this area"
 msgstr "Rechercher dans cette zone"
@@ -1140,6 +1183,12 @@ msgid "Settings for the PS-owned Google Map shell on the search page. The Goo"
 msgstr "Paramètres de la coque Google Map PS sur la page de recherche. La clé "
 "API Google Maps JavaScript est lue depuis les paramètres Geofield Map "
 "(/admin/config/system/geofield-map)."
+
+msgid "Shortcut @number"
+msgstr "Raccourci @number"
+
+msgid "Shortcut content"
+msgstr "Contenu du raccourci"
 
 msgid "Show"
 msgstr "Afficher"
@@ -1275,6 +1324,9 @@ msgstr "Transports"
 
 msgid "Travel time"
 msgstr "Temps de trajet"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "URL slugs for each asset/property type (e.g. BUR → bureau)."
 msgstr "Slugs URL pour chaque type d'actif/bien (ex. BUR → bureau)."

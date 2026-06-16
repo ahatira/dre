@@ -414,13 +414,13 @@
     "pl": "Wysokość pod sufitem"
   },
   "Ceiling height (m)": {
-    "de": "Ceiling height (m)",
-    "es": "Ceiling height (m)",
+    "de": "Deckenhöhe (m)",
+    "es": "Altura bajo techo (m)",
     "fr": "Hauteur sous plafond (m)",
-    "it": "Ceiling height (m)",
-    "lb": "Ceiling height (m)",
-    "nl": "Ceiling height (m)",
-    "pl": "Ceiling height (m)"
+    "it": "Altezza sottotrave (m)",
+    "lb": "Deckenhéicht (m)",
+    "nl": "Vrije hoogte (m)",
+    "pl": "Wysokość pomieszczeń (m)"
   },
   "Ceiling height in meters.": {
     "de": "Deckenhöhe in Metern.",
@@ -891,13 +891,13 @@
     "pl": "Wyświetl etykiety ps_dictionary dla indeksowanych kodów."
   },
   "Distance zone isochrone": {
-    "de": "Distance zone isochrone",
-    "es": "Distance zone isochrone",
-    "fr": "Isochrone zone de distance",
-    "it": "Distance zone isochrone",
-    "lb": "Distance zone isochrone",
-    "nl": "Distance zone isochrone",
-    "pl": "Distance zone isochrone"
+    "de": "Distanzzone-Isochrone",
+    "es": "Zona de distancia isócrona",
+    "fr": "Zone de distance isochrone",
+    "it": "Zona distanza isocrona",
+    "lb": "Distanzzone-Isochrone",
+    "nl": "Afstandzone isochroon",
+    "pl": "Strefa odległości izochronalnej"
   },
   "District": {
     "de": "Stadtbezirk",
@@ -1054,12 +1054,12 @@
   },
   "Feature filters": {
     "de": "Merkmalfilter",
-    "es": "Feature filters",
-    "fr": "Filtres de caractéristiques",
-    "it": "Feature filters",
-    "lb": "Feature filters",
-    "nl": "Feature filters",
-    "pl": "Feature filters"
+    "es": "Filtros de características",
+    "fr": "Filtres caractéristiques",
+    "it": "Filtri caratteristiche",
+    "lb": "Merkmalfilter",
+    "nl": "Kenmerkfilters",
+    "pl": "Filtry cech"
   },
   "Feature indexer": {
     "de": "Merkmal-Indexer",
@@ -1072,21 +1072,21 @@
   },
   "Feature search filters": {
     "de": "Merkmal-Suchfilter",
-    "es": "Feature search filters",
-    "fr": "Filtres caractéristiques recherche",
-    "it": "Feature search filters",
-    "lb": "Feature search filters",
-    "nl": "Feature search filters",
-    "pl": "Feature search filters"
+    "es": "Filtros de búsqueda de características",
+    "fr": "Filtres de recherche caractéristiques",
+    "it": "Filtri ricerca caratteristiche",
+    "lb": "Merkmal-Sichfilter",
+    "nl": "Kenmerkzoekfilters",
+    "pl": "Filtry wyszukiwania cech"
   },
   "Feature: @label": {
-    "de": "Feature: @label",
-    "es": "Feature: @label",
+    "de": "Merkmal: @label",
+    "es": "Característica: @label",
     "fr": "Caractéristique : @label",
-    "it": "Feature: @label",
-    "lb": "Feature: @label",
-    "nl": "Feature: @label",
-    "pl": "Feature: @label"
+    "it": "Caratteristica: @label",
+    "lb": "Merkmal: @label",
+    "nl": "Kenmerk: @label",
+    "pl": "Cecha: @label"
   },
   "Filter": {
     "de": "Filtern",
@@ -1270,12 +1270,12 @@
   },
   "Header search (property)": {
     "de": "Header-Suche (Immobilie)",
-    "es": "Header search (property)",
-    "fr": "Recherche header (immobilier)",
-    "it": "Header search (property)",
-    "lb": "Header search (property)",
-    "nl": "Header search (property)",
-    "pl": "Header search (property)"
+    "es": "Búsqueda en cabecera (inmueble)",
+    "fr": "Recherche header (bien)",
+    "it": "Ricerca header (immobile)",
+    "lb": "Header-Sich (Immobilie)",
+    "nl": "Headerzoekopdracht (object)",
+    "pl": "Wyszukiwanie w nagłówku (nieruchomość)"
   },
   "Immersive tour": {
     "de": "Immersive Tour",
@@ -1548,13 +1548,13 @@
     "pl": "Lokalizacja"
   },
   "Location data": {
-    "de": "Location data",
-    "es": "Location data",
+    "de": "Standortdaten",
+    "es": "Datos de ubicación",
     "fr": "Données de localisation",
-    "it": "Location data",
-    "lb": "Location data",
-    "nl": "Location data",
-    "pl": "Location data"
+    "it": "Dati località",
+    "lb": "Standuertdaten",
+    "nl": "Locatiedata",
+    "pl": "Dane lokalizacji"
   },
   "Location data endpoint": {
     "de": "Standortdaten-Endpunkt",
@@ -1566,13 +1566,13 @@
     "pl": "Endpoint danych lokalizacji"
   },
   "Location suggest": {
-    "de": "Location suggest",
-    "es": "Location suggest",
+    "de": "Standortvorschlag",
+    "es": "Sugerencia de ubicación",
     "fr": "Suggestion de localisation",
-    "it": "Location suggest",
-    "lb": "Location suggest",
-    "nl": "Location suggest",
-    "pl": "Location suggest"
+    "it": "Suggerimento località",
+    "lb": "Standuertvirschlag",
+    "nl": "Locatiesuggestie",
+    "pl": "Sugestia lokalizacji"
   },
   "Location suggest endpoint": {
     "de": "Standortvorschlag-Endpunkt",
@@ -1648,12 +1648,12 @@
   },
   "Map zone": {
     "de": "Kartenzone",
-    "es": "Map zone",
+    "es": "Zona del mapa",
     "fr": "Zone carte",
-    "it": "Map zone",
-    "lb": "Map zone",
-    "nl": "Map zone",
-    "pl": "Map zone"
+    "it": "Zona mappa",
+    "lb": "Kaartezon",
+    "nl": "Kaartzone",
+    "pl": "Strefa mapy"
   },
   "Map zone settings": {
     "de": "Kartenzonen-Einstellungen",
@@ -2268,13 +2268,13 @@
     "pl": "E-mail służbowy"
   },
   "Properties @in @locality": {
-    "de": "Properties @in @locality",
-    "es": "Properties @in @locality",
+    "de": "Immobilien @in @locality",
+    "es": "Inmuebles @in @locality",
     "fr": "Biens @in @locality",
-    "it": "Properties @in @locality",
-    "lb": "Properties @in @locality",
-    "nl": "Properties @in @locality",
-    "pl": "Properties @in @locality"
+    "it": "Immobili @in @locality",
+    "lb": "Immobilie @in @locality",
+    "nl": "Objecten @in @locality",
+    "pl": "Nieruchomości @in @locality"
   },
   "Property Search": {
     "de": "Immobiliensuche",
@@ -2494,12 +2494,12 @@
   },
   "SEO URLs": {
     "de": "SEO-URLs",
-    "es": "SEO URLs",
+    "es": "URLs SEO",
     "fr": "URLs SEO",
-    "it": "SEO URLs",
-    "lb": "SEO URLs",
-    "nl": "SEO URLs",
-    "pl": "SEO URLs"
+    "it": "URL SEO",
+    "lb": "SEO-URLs",
+    "nl": "SEO-URL's",
+    "pl": "Adresy URL SEO"
   },
   "Safety cap for the /api/ps/markers JSON endpoint.": {
     "de": "Sicherheitsobergrenze für den /api/ps/markers JSON-Endpunkt.",
@@ -2601,13 +2601,13 @@
     "pl": "Pasek filtrów wyszukiwania"
   },
   "Search hero (homepage)": {
-    "de": "Such-Hero (Startseite)",
-    "es": "Search hero (homepage)",
-    "fr": "Hero recherche (page d'accueil)",
-    "it": "Search hero (homepage)",
-    "lb": "Search hero (homepage)",
-    "nl": "Search hero (homepage)",
-    "pl": "Search hero (homepage)"
+    "de": "Such-Hero (Homepage)",
+    "es": "Hero de búsqueda (homepage)",
+    "fr": "Hero recherche (homepage)",
+    "it": "Hero ricerca (homepage)",
+    "lb": "Sich-Hero (Homepage)",
+    "nl": "Zoekhero (homepage)",
+    "pl": "Hero wyszukiwania (strona główna)"
   },
   "Search offers": {
     "de": "Suchangebote",
@@ -3294,55 +3294,157 @@
     "pl": "30 minut"
   },
   "Additional information": {
-    "fr": "Informations complémentaires"
+    "fr": "Informations complémentaires",
+    "de": "Zusätzliche Informationen",
+    "es": "Información adicional",
+    "it": "Informazioni aggiuntive",
+    "lb": "Zousätzlech Informatiounen",
+    "nl": "Aanvullende informatie",
+    "pl": "Dodatkowe informacje"
   },
   "Apply": {
-    "fr": "Appliquer"
+    "fr": "Appliquer",
+    "de": "Anwenden",
+    "es": "Aplicar",
+    "it": "Applica",
+    "lb": "Uwenden",
+    "nl": "Toepassen",
+    "pl": "Zastosuj"
   },
   "Apply location filter": {
-    "fr": "Appliquer le filtre localisation"
+    "fr": "Appliquer le filtre localisation",
+    "de": "Standortfilter anwenden",
+    "es": "Aplicar filtro de ubicación",
+    "it": "Applica filtro località",
+    "lb": "Standuertfilter uwenden",
+    "nl": "Locatiefilter toepassen",
+    "pl": "Zastosuj filtr lokalizacji"
   },
   "Apply mobile filters": {
-    "fr": "Appliquer les filtres mobile"
+    "fr": "Appliquer les filtres mobile",
+    "de": "Mobile Filter anwenden",
+    "es": "Aplicar filtros móviles",
+    "it": "Applica filtri mobile",
+    "lb": "Mobil Filteren uwenden",
+    "nl": "Mobiele filters toepassen",
+    "pl": "Zastosuj filtry mobilne"
   },
   "Apply property type filter": {
-    "fr": "Appliquer le filtre type de bien"
+    "fr": "Appliquer le filtre type de bien",
+    "de": "Immobilientyp-Filter anwenden",
+    "es": "Aplicar filtro de tipo de inmueble",
+    "it": "Applica filtro tipo immobile",
+    "lb": "Immobilientyp-Filter uwenden",
+    "nl": "Type-objectfilter toepassen",
+    "pl": "Zastosuj filtr typu nieruchomości"
   },
   "Apply range filter": {
-    "fr": "Appliquer le filtre de plage"
+    "fr": "Appliquer le filtre de plage",
+    "de": "Bereichsfilter anwenden",
+    "es": "Aplicar filtro de rango",
+    "it": "Applica filtro intervallo",
+    "lb": "Bereichsfilter uwenden",
+    "nl": "Bereikfilter toepassen",
+    "pl": "Zastosuj filtr zakresu"
   },
   "Asc": {
-    "fr": "Croissant"
+    "fr": "Croissant",
+    "de": "Aufsteigend",
+    "es": "Ascendente",
+    "it": "Crescente",
+    "lb": "Opsteigend",
+    "nl": "Oplopend",
+    "pl": "Rosnąco"
   },
   "Availability": {
-    "fr": "Disponibilité"
+    "fr": "Disponibilité",
+    "de": "Verfügbarkeit",
+    "es": "Disponibilidad",
+    "it": "Disponibilità",
+    "lb": "Disponibilitéit",
+    "nl": "Beschikbaarheid",
+    "pl": "Dostępność"
   },
   "Bike": {
-    "fr": "Vélo"
+    "fr": "Vélo",
+    "de": "Fahrrad",
+    "es": "Bicicleta",
+    "it": "Bicicletta",
+    "lb": "Vëlo",
+    "nl": "Fiets",
+    "pl": "Rower"
   },
   "Building structure": {
-    "fr": "Structure du bâtiment"
+    "fr": "Structure du bâtiment",
+    "de": "Gebäudestruktur",
+    "es": "Estructura del edificio",
+    "it": "Struttura dell'edificio",
+    "lb": "Gebäudestruktur",
+    "nl": "Gebouwstructuur",
+    "pl": "Struktura budynku"
   },
   "Building type and condition": {
-    "fr": "Type et état du bâtiment"
+    "fr": "Type et état du bâtiment",
+    "de": "Gebäudetyp und Zustand",
+    "es": "Tipo y estado del edificio",
+    "it": "Tipo e condizione dell'edificio",
+    "lb": "Gebäudetyp a Zoustand",
+    "nl": "Gebouwtype en staat",
+    "pl": "Typ i stan budynku"
   },
   "Bypass PS Search API rate limits": {
-    "fr": "Contourner les limites de débit API PS Search"
+    "fr": "Contourner les limites de débit API PS Search",
+    "de": "PS Search API-Ratenlimits umgehen",
+    "es": "Omitir límites de tasa de la API PS Search",
+    "it": "Ignora limiti API PS Search",
+    "lb": "PS Search API-Limiten umgehen",
+    "nl": "PS Search API-limieten omzeilen",
+    "pl": "Pomiń limity API PS Search"
   },
   "Car": {
-    "fr": "Voiture"
+    "fr": "Voiture",
+    "de": "Auto",
+    "es": "Coche",
+    "it": "Auto",
+    "lb": "Auto",
+    "nl": "Auto",
+    "pl": "Samochód"
   },
   "City, district or zip code": {
-    "fr": "Ville, quartier ou code postal"
+    "fr": "Ville, quartier ou code postal",
+    "de": "Stadt, Bezirk oder Postleitzahl",
+    "es": "Ciudad, distrito o código postal",
+    "it": "Città, quartiere o CAP",
+    "lb": "Stad, Distrikt oder Postleitzuel",
+    "nl": "Stad, wijk of postcode",
+    "pl": "Miasto, dzielnica lub kod pocztowy"
   },
   "Coming soon": {
-    "fr": "Bientôt disponible"
+    "fr": "Bientôt disponible",
+    "de": "Demnächst",
+    "es": "Próximamente",
+    "it": "Prossimamente",
+    "lb": "Geschwënn",
+    "nl": "Binnenkort",
+    "pl": "Wkrótce"
   },
   "Customize and define the distance zone according to the means of locomotion. By default, the zone is set to 5 minutes walk.": {
-    "fr": "Personnalisez et définissez la zone de distance selon le moyen de locomotion. Par défaut, la zone est réglée sur 5 minutes à pied."
+    "fr": "Personnalisez et définissez la zone de distance selon le moyen de locomotion. Par défaut, la zone est réglée sur 5 minutes à pied.",
+    "de": "Passen Sie die Distanzzone je nach Fortbewegungsmittel an. Standard: 5 Minuten Gehzeit.",
+    "es": "Personalice la zona de distancia según el medio de transporte. Por defecto: 5 minutos a pie.",
+    "it": "Personalizza la zona di distanza in base al mezzo di trasporto. Predefinito: 5 minuti a piedi.",
+    "lb": "Personaliséiert d'Distanzzone je no Fortbewegungsmëttel. Standard: 5 Minutte Fouss.",
+    "nl": "Stel de afstandzone in per vervoermiddel. Standaard: 5 minuten lopen.",
+    "pl": "Dostosuj strefę odległości według środka transportu. Domyślnie: 5 minut pieszo."
   },
   "Desc": {
-    "fr": "Décroissant"
+    "fr": "Décroissant",
+    "de": "Absteigend",
+    "es": "Descendente",
+    "it": "Decrescente",
+    "lb": "Ofsteigend",
+    "nl": "Aflopend",
+    "pl": "Malejąco"
   },
   "Divisible": {
     "fr": "Divisible",
@@ -3354,88 +3456,256 @@
     "pl": "Podzielny"
   },
   "Equipments": {
-    "fr": "Équipements"
+    "fr": "Équipements",
+    "de": "Ausstattung",
+    "es": "Equipamiento",
+    "it": "Attrezzature",
+    "lb": "Ausstattung",
+    "nl": "Uitrusting",
+    "pl": "Wyposażenie"
   },
   "Fittings": {
-    "fr": "Aménagements"
+    "fr": "Aménagements",
+    "de": "Einbauten",
+    "es": "Instalaciones",
+    "it": "Impianti",
+    "lb": "Installatiounen",
+    "nl": "Inrichting",
+    "pl": "Wykończenie"
   },
   "Heights": {
-    "fr": "Hauteurs"
+    "fr": "Hauteurs",
+    "de": "Höhen",
+    "es": "Alturas",
+    "it": "Altezze",
+    "lb": "Héichten",
+    "nl": "Hoogtes",
+    "pl": "Wysokości"
   },
   "Hide list": {
-    "fr": "Masquer la liste"
+    "fr": "Masquer la liste",
+    "de": "Liste ausblenden",
+    "es": "Ocultar lista",
+    "it": "Nascondi elenco",
+    "lb": "Lëscht verstoppen",
+    "nl": "Lijst verbergen",
+    "pl": "Ukryj listę"
   },
   "Keywords": {
-    "fr": "Mots-clés"
+    "fr": "Mots-clés",
+    "de": "Schlagwörter",
+    "es": "Palabras clave",
+    "it": "Parole chiave",
+    "lb": "Schlagwierder",
+    "nl": "Trefwoorden",
+    "pl": "Słowa kluczowe"
   },
   "Location structured data": {
-    "fr": "Données structurées localisation"
+    "fr": "Données structurées localisation",
+    "de": "Strukturierte Standortdaten",
+    "es": "Datos estructurados de ubicación",
+    "it": "Dati strutturati località",
+    "lb": "Strukturéiert Standuertdaten",
+    "nl": "Gestructureerde locatiedata",
+    "pl": "Ustrukturyzowane dane lokalizacji"
   },
   "Location suggestions": {
-    "fr": "Suggestions de localisation"
+    "fr": "Suggestions de localisation",
+    "de": "Standortvorschläge",
+    "es": "Sugerencias de ubicación",
+    "it": "Suggerimenti località",
+    "lb": "Standuertvirschléi",
+    "nl": "Locatiesuggesties",
+    "pl": "Sugestie lokalizacji"
   },
   "Means of transport": {
-    "fr": "Moyen de transport"
+    "fr": "Moyen de transport",
+    "de": "Fortbewegungsmittel",
+    "es": "Medio de transporte",
+    "it": "Mezzo di trasporto",
+    "lb": "Fortbewegungsmëttel",
+    "nl": "Vervoermiddel",
+    "pl": "Środek transportu"
   },
   "Metro, bus, train...": {
-    "fr": "Métro, bus, train…"
+    "fr": "Métro, bus, train…",
+    "de": "Metro, Bus, Zug...",
+    "es": "Metro, autobús, tren...",
+    "it": "Metro, bus, treno...",
+    "lb": "Metro, Bus, Zuch...",
+    "nl": "Metro, bus, trein...",
+    "pl": "Metro, autobus, pociąg..."
   },
   "More criteria group": {
-    "fr": "Groupe critères supplémentaires"
+    "fr": "Groupe critères supplémentaires",
+    "de": "Weitere Kriteriengruppe",
+    "es": "Grupo de más criterios",
+    "it": "Gruppo criteri aggiuntivi",
+    "lb": "Weider Kriteriegrupp",
+    "nl": "Meer criteria groep",
+    "pl": "Grupa dodatkowych kryteriów"
   },
   "No offers match your search criteria. Please adjust your filters.": {
-    "fr": "Aucune offre ne correspond à vos critères. Veuillez ajuster vos filtres."
+    "fr": "Aucune offre ne correspond à vos critères. Veuillez ajuster vos filtres.",
+    "de": "Keine Angebote entsprechen Ihren Suchkriterien. Bitte passen Sie Ihre Filter an.",
+    "es": "Ninguna oferta coincide con sus criterios de búsqueda. Ajuste sus filtros.",
+    "it": "Nessuna offerta corrisponde ai criteri di ricerca. Modifica i filtri.",
+    "lb": "Keng Offeren entspriechen Äre Sichkriterien. Passt Är Filteren un.",
+    "nl": "Geen aanbiedingen komen overeen met uw zoekcriteria. Pas uw filters aan.",
+    "pl": "Żadna oferta spełnia kryteria wyszukiwania. Dostosuj filtry."
   },
   "No properties in this map area": {
-    "fr": "Aucun bien dans cette zone de la carte"
+    "fr": "Aucun bien dans cette zone de la carte",
+    "de": "Keine Immobilien in diesem Kartenbereich",
+    "es": "No hay inmuebles en esta zona del mapa",
+    "it": "Nessun immobile in quest'area della mappa",
+    "lb": "Keng Immobilie an dësem Kaartebereich",
+    "nl": "Geen objecten in dit kaartgebied",
+    "pl": "Brak nieruchomości w tym obszarze mapy"
   },
   "No results found": {
-    "fr": "Aucun résultat"
+    "fr": "Aucun résultat",
+    "de": "Keine Ergebnisse gefunden",
+    "es": "No se encontraron resultados",
+    "it": "Nessun risultato trovato",
+    "lb": "Keng Resultater fonnt",
+    "nl": "Geen resultaten gevonden",
+    "pl": "Brak wyników"
   },
   "Offer reference...": {
-    "fr": "Référence offre…"
+    "fr": "Référence offre…",
+    "de": "Angebotsreferenz...",
+    "es": "Referencia de oferta...",
+    "it": "Riferimento offerta...",
+    "lb": "Offerreferenz...",
+    "nl": "Aanbiedingsreferentie...",
+    "pl": "Referencja oferty..."
   },
   "Outdoors": {
-    "fr": "Extérieurs"
+    "fr": "Extérieurs",
+    "de": "Außenbereich",
+    "es": "Exteriores",
+    "it": "Esterni",
+    "lb": "Baussen",
+    "nl": "Buiten",
+    "pl": "Na zewnątrz"
   },
   "Pan the map or use “Search this area” to explore other regions.": {
-    "fr": "Déplacez la carte ou utilisez « Rechercher dans cette zone » pour explorer d'autres régions."
+    "fr": "Déplacez la carte ou utilisez « Rechercher dans cette zone » pour explorer d'autres régions.",
+    "de": "Verschieben Sie die Karte oder nutzen Sie „In diesem Bereich suchen“, um andere Regionen zu erkunden.",
+    "es": "Desplace el mapa o use «Buscar en esta zona» para explorar otras regiones.",
+    "it": "Sposta la mappa o usa «Cerca in quest'area» per esplorare altre regioni.",
+    "lb": "Verschieft d'Kaart oder benotzt «An dësem Beräich sichen» fir aner Regiounen ze entdecken.",
+    "nl": "Verschuif de kaart of gebruik «Zoek in dit gebied» om andere regio's te verkennen.",
+    "pl": "Przesuń mapę lub użyj «Szukaj w tym obszarze», aby odkryć inne regiony."
   },
   "Price": {
-    "fr": "Prix"
+    "fr": "Prix",
+    "de": "Preis",
+    "es": "Precio",
+    "it": "Prezzo",
+    "lb": "Präis",
+    "nl": "Prijs",
+    "pl": "Cena"
   },
   "Restricted activities": {
-    "fr": "Activités non autorisées"
+    "fr": "Activités non autorisées",
+    "de": "Eingeschränkte Tätigkeiten",
+    "es": "Actividades restringidas",
+    "it": "Attività ristrette",
+    "lb": "Ageschränkt Aktivitéiten",
+    "nl": "Beperkte activiteiten",
+    "pl": "Ograniczone działania"
   },
   "Search keywords...": {
-    "fr": "Mots-clés de recherche…"
+    "fr": "Mots-clés de recherche…",
+    "de": "Suchbegriffe...",
+    "es": "Palabras clave de búsqueda...",
+    "it": "Parole chiave di ricerca...",
+    "lb": "Sichbegrëffer...",
+    "nl": "Zoektermen...",
+    "pl": "Słowa kluczowe wyszukiwania..."
   },
   "Search map markers": {
-    "fr": "Marqueurs carte recherche"
+    "fr": "Marqueurs carte recherche",
+    "de": "Kartenmarkierungen suchen",
+    "es": "Buscar marcadores del mapa",
+    "it": "Cerca marcatori mappa",
+    "lb": "Kaartmarkéierungen sichen",
+    "nl": "Kaartmarkeringen zoeken",
+    "pl": "Szukaj znaczników mapy"
   },
   "Search result count": {
-    "fr": "Compteur résultats recherche"
+    "fr": "Compteur résultats recherche",
+    "de": "Suchergebnisanzahl",
+    "es": "Número de resultados",
+    "it": "Conteggio risultati ricerca",
+    "lb": "Sichresultater-Zuel",
+    "nl": "Zoekresultaat telling",
+    "pl": "Liczba wyników wyszukiwania"
   },
   "Search results header": {
-    "fr": "En-tête résultats recherche"
+    "fr": "En-tête résultats recherche",
+    "de": "Kopfzeile Suchergebnisse",
+    "es": "Encabezado de resultados de búsqueda",
+    "it": "Intestazione risultati ricerca",
+    "lb": "Kappzeil Sichresultater",
+    "nl": "Kop zoekresultaten",
+    "pl": "Nagłówek wyników wyszukiwania"
   },
   "Search this area": {
-    "fr": "Rechercher dans cette zone"
+    "fr": "Rechercher dans cette zone",
+    "de": "In diesem Bereich suchen",
+    "es": "Buscar en esta zona",
+    "it": "Cerca in quest'area",
+    "lb": "An dësem Beräich sichen",
+    "nl": "Zoek in dit gebied",
+    "pl": "Szukaj w tym obszarze"
   },
   "Selected property": {
-    "fr": "Bien sélectionné"
+    "fr": "Bien sélectionné",
+    "de": "Ausgewählte Immobilie",
+    "es": "Inmueble seleccionado",
+    "it": "Immobile selezionato",
+    "lb": "Ausgewielt Immobilie",
+    "nl": "Geselecteerd object",
+    "pl": "Wybrana nieruchomość"
   },
   "Services": {
-    "fr": "Prestations de service"
+    "fr": "Prestations de service",
+    "de": "Dienstleistungen",
+    "es": "Servicios",
+    "it": "Servizi",
+    "lb": "Servicer",
+    "nl": "Diensten",
+    "pl": "Usługi"
   },
   "Show more results": {
-    "fr": "Afficher plus de résultats"
+    "fr": "Afficher plus de résultats",
+    "de": "Weitere Ergebnisse anzeigen",
+    "es": "Mostrar más resultados",
+    "it": "Mostra più risultati",
+    "lb": "Méi Resultater weisen",
+    "nl": "Meer resultaten tonen",
+    "pl": "Pokaż więcej wyników"
   },
   "Standards, certifications and labels": {
-    "fr": "Normes, certifications et labels"
+    "fr": "Normes, certifications et labels",
+    "de": "Normen, Zertifizierungen und Labels",
+    "es": "Normas, certificaciones y etiquetas",
+    "it": "Standard, certificazioni e label",
+    "lb": "Normen, Zertifizéierungen a Labelen",
+    "nl": "Normen, certificeringen en labels",
+    "pl": "Normy, certyfikaty i etykiety"
   },
   "Transport": {
-    "fr": "Accès véhicules"
+    "fr": "Accès véhicules",
+    "de": "Transport",
+    "es": "Transporte",
+    "it": "Trasporto",
+    "lb": "Transport",
+    "nl": "Vervoer",
+    "pl": "Transport"
   },
   "Transports": {
     "fr": "Transports",
@@ -3447,12 +3717,173 @@
     "pl": "Transport"
   },
   "Travel time": {
-    "fr": "Temps de trajet"
+    "fr": "Temps de trajet",
+    "de": "Fahrzeit",
+    "es": "Tiempo de viaje",
+    "it": "Tempo di percorrenza",
+    "lb": "Fahrzäit",
+    "nl": "Reistijd",
+    "pl": "Czas podróży"
   },
   "Validate": {
-    "fr": "Valider"
+    "fr": "Valider",
+    "de": "Bestätigen",
+    "es": "Validar",
+    "it": "Convalida",
+    "lb": "Validéieren",
+    "nl": "Bevestigen",
+    "pl": "Zatwierdź"
   },
   "Walking": {
-    "fr": "Marche"
+    "fr": "Marche",
+    "de": "Gehen",
+    "es": "A pie",
+    "it": "A piedi",
+    "lb": "Fouss",
+    "nl": "Lopen",
+    "pl": "Pieszo"
+  },
+  "- Any asset type -": {
+    "fr": "- Tout type de bien -",
+    "de": "- Beliebiger Vermögensart -",
+    "es": "- Cualquier tipo de inmueble -",
+    "it": "- Qualsiasi tipo di immobile -",
+    "lb": "- All Verméigensart -",
+    "nl": "- Elk type object -",
+    "pl": "- Dowolny typ nieruchomości -"
+  },
+  "- Any transaction -": {
+    "fr": "- Toute transaction -",
+    "de": "- Beliebige Transaktion -",
+    "es": "- Cualquier transacción -",
+    "it": "- Qualsiasi transazione -",
+    "lb": "- All Transaktioun -",
+    "nl": "- Elke transactie -",
+    "pl": "- Dowolna transakcja -"
+  },
+  "City, postal code or department token as used in search (e.g. Paris, 75008, 75).": {
+    "fr": "Ville, code postal ou département utilisé dans la recherche (ex. Paris, 75008, 75).",
+    "de": "Stadt, Postleitzahl oder Departement wie in der Suche (z. B. Berlin, 10115, 10).",
+    "es": "Ciudad, código postal o departamento usado en la búsqueda (ej. Madrid, 28001, 28).",
+    "it": "Città, CAP o dipartimento usato nella ricerca (es. Roma, 00100, 06).",
+    "lb": "Stad, Postleitzuel oder Departement wéi an der Sich (z. B. Paräis, 75008, 75).",
+    "nl": "Stad, postcode of departement zoals in zoeken (bijv. Amsterdam, 1012, 10).",
+    "pl": "Miasto, kod pocztowy lub departament używany w wyszukiwaniu (np. Warszawa, 00-001, 14)."
+  },
+  "Custom URL": {
+    "fr": "URL personnalisée",
+    "de": "Benutzerdefinierte URL",
+    "es": "URL personalizada",
+    "it": "URL personalizzata",
+    "lb": "Personaliséiert URL",
+    "nl": "Aangepaste URL",
+    "pl": "Niestandardowy URL"
+  },
+  "Icon": {
+    "fr": "Icône",
+    "de": "Symbol",
+    "es": "Icono",
+    "it": "Icona",
+    "lb": "Symbol",
+    "nl": "Pictogram",
+    "pl": "Ikona"
+  },
+  "Link": {
+    "fr": "Lien",
+    "de": "Link",
+    "es": "Enlace",
+    "it": "Link",
+    "lb": "Link",
+    "nl": "Link",
+    "pl": "Link"
+  },
+  "Link label": {
+    "fr": "Libellé du lien",
+    "de": "Link-Bezeichnung",
+    "es": "Etiqueta del enlace",
+    "it": "Etichetta link",
+    "lb": "Link-Bezeechnung",
+    "nl": "Linklabel",
+    "pl": "Etykieta linku"
+  },
+  "Location (optional)": {
+    "fr": "Localisation (optionnel)",
+    "de": "Standort (optional)",
+    "es": "Ubicación (opcional)",
+    "it": "Località (opzionale)",
+    "lb": "Standuert (optional)",
+    "nl": "Locatie (optioneel)",
+    "pl": "Lokalizacja (opcjonalnie)"
+  },
+  "Operation": {
+    "fr": "Opération",
+    "de": "Vorgang",
+    "es": "Operación",
+    "it": "Operazione",
+    "lb": "Operatioun",
+    "nl": "Operatie",
+    "pl": "Operacja"
+  },
+  "Remove this shortcut": {
+    "fr": "Supprimer ce raccourci",
+    "de": "Diesen Shortcut entfernen",
+    "es": "Eliminar este acceso directo",
+    "it": "Rimuovi questo collegamento rapido",
+    "lb": "Dëse Shortcut ewechhuelen",
+    "nl": "Deze snelkoppeling verwijderen",
+    "pl": "Usuń ten skrót"
+  },
+  "Search preset": {
+    "fr": "Préréglage de recherche",
+    "de": "Suchvorlage",
+    "es": "Preajuste de búsqueda",
+    "it": "Preset di ricerca",
+    "lb": "Sichvirlage",
+    "nl": "Zoekvoorinstelling",
+    "pl": "Preset wyszukiwania"
+  },
+  "Search preset builds a filtered search URL. Custom URL accepts an internal path or absolute URL.": {
+    "fr": "Le préréglage de recherche construit une URL filtrée. L'URL personnalisée accepte un chemin interne ou une URL absolue.",
+    "de": "Die Suchvorlage erstellt eine gefilterte Such-URL. Benutzerdefinierte URL akzeptiert einen internen Pfad oder absolute URL.",
+    "es": "El preajuste de búsqueda construye una URL filtrada. La URL personalizada acepta una ruta interna o URL absoluta.",
+    "it": "Il preset di ricerca costruisce un URL filtrato. L'URL personalizzata accetta un percorso interno o URL assoluto.",
+    "lb": "D'Sichvirlage baut eng gefiltert Sich-URL. Personaliséiert URL akzeptéiert en internen Wee oder absolut URL.",
+    "nl": "Zoekvoorinstelling bouwt een gefilterde zoek-URL. Aangepaste URL accepteert een intern pad of absolute URL.",
+    "pl": "Preset wyszukiwania tworzy filtrowany URL. Niestandardowy URL przyjmuje ścieżkę wewnętrzną lub absolutny URL."
+  },
+  "Search shortcuts": {
+    "fr": "Raccourcis de recherche",
+    "de": "Such-Shortcuts",
+    "es": "Accesos directos de búsqueda",
+    "it": "Collegamenti rapidi di ricerca",
+    "lb": "Sich-Shortcuts",
+    "nl": "Zoeksnelkoppelingen",
+    "pl": "Skróty wyszukiwania"
+  },
+  "Shortcut @number": {
+    "fr": "Raccourci @number",
+    "de": "Shortcut @number",
+    "es": "Acceso directo @number",
+    "it": "Collegamento rapido @number",
+    "lb": "Shortcut @number",
+    "nl": "Snelkoppeling @number",
+    "pl": "Skrót @number"
+  },
+  "Shortcut content": {
+    "fr": "Contenu du raccourci",
+    "de": "Shortcut-Inhalt",
+    "es": "Contenido del acceso directo",
+    "it": "Contenuto collegamento rapido",
+    "lb": "Shortcut-Inhalt",
+    "nl": "Snelkoppeling inhoud",
+    "pl": "Treść skrótu"
+  },
+  "URL": {
+    "de": "URL",
+    "es": "URL",
+    "it": "URL",
+    "lb": "URL",
+    "nl": "URL",
+    "pl": "URL"
   }
 }

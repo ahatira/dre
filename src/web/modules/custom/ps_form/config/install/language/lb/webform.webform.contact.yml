@@ -31,7 +31,6 @@ elements: |-
 settings:
   form_submit_label: Schécken
   confirmation_message: "<p>Merci. Är Noriicht gouf geschéckt.</p>"
-handlers:
   email_notification:
     label: "Site-Benoriichtung"
     subject: 'Kontaktformular vun der Websäit'

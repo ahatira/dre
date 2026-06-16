@@ -58,7 +58,6 @@ elements: |-
 settings:
   form_submit_label: Enviar
   confirmation_message: "<p>Gracias. Su mensaje ha sido enviado.</p>"
-handlers:
   email_agent:
     label: 'Notificación al consultor'
     subject: "Solicitud de contacto — Oferta [webform_submission:source-entity:field_reference]"

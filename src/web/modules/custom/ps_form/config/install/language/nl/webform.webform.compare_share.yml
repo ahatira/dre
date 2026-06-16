@@ -41,4 +41,3 @@ elements: |-
 settings:
   form_submit_label: 'Ontvang mijn vergelijking'
   confirmation_message: "<p>Uw vergelijking is per e-mail verzonden.</p>"
-handlers:

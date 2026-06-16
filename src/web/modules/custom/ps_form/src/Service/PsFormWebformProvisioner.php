@@ -51,6 +51,12 @@ final class PsFormWebformProvisioner {
       }
 
       $webform = $storage->create($definition);
+      if ($webform->get('handlers') === NULL) {
+        $webform->set('handlers', []);
+      }
+      if ($webform->get('variants') === NULL) {
+        $webform->set('variants', []);
+      }
       $webform->save();
       $created[] = $id;
     }

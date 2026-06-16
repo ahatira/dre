@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_compare\n"
-"PO-Revision-Date: 2026-06-13 12:30+0000\n"
+"PO-Revision-Date: 2026-06-16 16:10+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +73,7 @@ msgid "Comparison sent to @email."
 msgstr "Confronto inviato a @email."
 
 msgid "Comparison settings"
-msgstr "Comparison settings"
+msgstr "Impostazioni confronto"
 
 msgid "Configure UX options for the comparison table and modal."
 msgstr "Configura le opzioni UX della tabella e della modale di confronto."
@@ -140,7 +140,7 @@ msgid "Loading…"
 msgstr "Caricamento…"
 
 msgid "Location"
-msgstr "Location"
+msgstr "Località"
 
 msgid "Manage Property Search comparison"
 msgstr "Gestire il confronto Property Search"
@@ -179,7 +179,7 @@ msgid "One target per line using entity_type.bundle format (e.g. node.offer)."
 msgstr "Un target per riga nel formato entity_type.bundle (es. node.offer)."
 
 msgid "Open full page"
-msgstr "Open full page"
+msgstr "Apri pagina completa"
 
 msgid "Optional message"
 msgstr "Messaggio facoltativo"
@@ -303,7 +303,7 @@ msgid "Sticky view-property bar"
 msgstr "Barra fissa « Vedi immobile »"
 
 msgid "Summary"
-msgstr "Summary"
+msgstr "Riepilogo"
 
 msgid "Terms & availability"
 msgstr "Condizioni e disponibilità"

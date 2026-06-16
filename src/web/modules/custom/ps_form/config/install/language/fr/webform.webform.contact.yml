@@ -31,7 +31,6 @@ elements: |-
 settings:
   form_submit_label: Envoyer
   confirmation_message: "<p>Merci. Votre message a été envoyé.</p>"
-handlers:
   email_notification:
     label: 'Notification du site'
     subject: 'Formulaire de contact du site'

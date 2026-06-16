@@ -37,7 +37,6 @@ elements: |-
 settings:
   form_submit_label: Envoyer
   confirmation_message: 'Merci. Votre demande de visite a été envoyée.'
-handlers:
   email_agent:
     label: 'Notification consultant'
     subject: "Demande de visite — Offre [webform_submission:source-entity:field_reference]"

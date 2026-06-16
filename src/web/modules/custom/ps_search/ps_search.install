@@ -13,4 +13,71 @@ declare(strict_types=1);
 function ps_search_install(): void {
   $entity_type = \Drupal::entityTypeManager()->getDefinition('search_alert');
   \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+  ps_search_fix_seo_url_mappings_base_config();
+}
+
+/**
+ * Restores EN machine SEO slugs in base config on country multisites.
+ */
+function ps_search_update_11001(): void {
+  ps_search_fix_seo_url_mappings_base_config();
+}
+
+/**
+ * Ensures ps_search.seo_url_mappings base config uses the Views machine path.
+ *
+ * Country sites installed with a non-EN default locale merge install/language/*
+ * overlays into active config, which breaks routing and outbound path translation.
+ */
+function ps_search_fix_seo_url_mappings_base_config(): void {
+  $configFactory = \Drupal::configFactory();
+  $editable = $configFactory->getEditable('ps_search.seo_url_mappings');
+  $storage = \Drupal::service('config.storage');
+  $viewData = $storage->read('views.view.ps_search_offers') ?: [];
+  $machineSlug = strtolower(trim((string) ($viewData['display']['page_list']['display_options']['path'] ?? 'find-property'), '/'));
+  if ($machineSlug === '') {
+    $machineSlug = 'find-property';
+  }
+
+  $currentSlug = strtolower(trim((string) $editable->get('search_path'), '/'));
+  if ($currentSlug === $machineSlug) {
+    return;
+  }
+
+  $configLangcode = (string) $editable->get('langcode');
+  if ($configLangcode !== '' && $configLangcode !== 'en') {
+    $override = \Drupal::languageManager()->getLanguageConfigOverride($configLangcode, 'ps_search.seo_url_mappings');
+    if ($override->get('search_path') === NULL) {
+      $override->set('search_path', $editable->get('search_path'));
+      if ($editable->get('operation_types') !== NULL) {
+        $override->set('operation_types', $editable->get('operation_types'));
+      }
+      if ($editable->get('asset_types') !== NULL) {
+        $override->set('asset_types', $editable->get('asset_types'));
+      }
+      if ($editable->get('asset_slug_aliases') !== NULL) {
+        $override->set('asset_slug_aliases', $editable->get('asset_slug_aliases'));
+      }
+      $override->save();
+    }
+  }
+
+  $installPath = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_search');
+  $defaultsFile = $installPath . '/config/install/ps_search.seo_url_mappings.yml';
+  if (is_readable($defaultsFile)) {
+    $defaults = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($defaultsFile));
+    if (is_array($defaults)) {
+      foreach (['search_path', 'operation_types', 'asset_types', 'asset_slug_aliases'] as $key) {
+        if (array_key_exists($key, $defaults)) {
+          $editable->set($key, $defaults[$key]);
+        }
+      }
+    }
+  }
+  else {
+    $editable->set('search_path', $machineSlug);
+  }
+
+  $editable->set('langcode', 'en');
+  $editable->save();
 }

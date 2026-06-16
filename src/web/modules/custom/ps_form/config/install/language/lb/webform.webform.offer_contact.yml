@@ -58,7 +58,6 @@ elements: |-
 settings:
   form_submit_label: Schécken
   confirmation_message: "<p>Merci. Är Noriicht gouf geschéckt.</p>"
-handlers:
   email_agent:
     label: "Beroder-Benoriichtung"
     subject: "Kontaktufro — Offer [webform_submission:source-entity:field_reference]"

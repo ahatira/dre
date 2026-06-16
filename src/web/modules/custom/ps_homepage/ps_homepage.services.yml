@@ -88,6 +88,7 @@ services:
     arguments:
       - '@extension.path.resolver'
       - '@entity.repository'
+      - '@ps_search.search_path_resolver'
 
   ps_homepage.default_layout_builder:
     class: Drupal\ps_homepage\Service\HomepageDefaultLayoutBuilder
@@ -142,3 +143,4 @@ services:
       - '@ps_homepage.block_defaults_loader'
       - '@ps_news.news_list_path_resolver'
       - '@ps_market_study.market_study_list_path_resolver'
+      - '@ps_search.search_path_resolver'

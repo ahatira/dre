@@ -58,7 +58,6 @@ elements: |-
 settings:
   form_submit_label: Envoyer
   confirmation_message: "<p>Merci. Votre message a été envoyé.</p>"
-handlers:
   email_agent:
     label: 'Notification consultant'
     subject: "Demande de contact — Offre [webform_submission:source-entity:field_reference]"

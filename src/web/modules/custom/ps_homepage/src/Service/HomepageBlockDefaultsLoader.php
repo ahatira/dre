@@ -7,11 +7,14 @@ namespace Drupal\ps_homepage\Service;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
+use Drupal\ps_search\Contract\SearchPathResolverInterface;
 
 /**
  * Loads per-language default configuration for homepage LB blocks.
  */
 final class HomepageBlockDefaultsLoader {
+
+  private const MACHINE_SEARCH_PREFIX = '/find-property';
 
   /**
    * @var array<string, mixed>|null
@@ -21,6 +24,7 @@ final class HomepageBlockDefaultsLoader {
   public function __construct(
     private readonly ExtensionPathResolver $extensionPathResolver,
     private readonly EntityRepositoryInterface $entityRepository,
+    private readonly SearchPathResolverInterface $searchPathResolver,
   ) {}
 
   /**
@@ -48,19 +52,48 @@ final class HomepageBlockDefaultsLoader {
         continue;
       }
       if ($candidate === 'en') {
-        return $this->resolveMediaUuids($specific);
+        return $this->resolveMediaUuids($this->localizeSearchPaths($specific, $candidate));
       }
       $base = $all[$pluginId]['fr'] ?? [];
       if (!is_array($base) || $base === []) {
         $base = $all[$pluginId]['en'] ?? [];
       }
       if (!is_array($base) || $base === []) {
-        return $specific;
+        return $this->resolveMediaUuids($this->localizeSearchPaths($specific, $candidate));
       }
       // Locale overlays inherit FR (or EN) block structure, not bare EN strings.
-      return $this->resolveMediaUuids(array_replace($base, $specific));
+      return $this->resolveMediaUuids($this->localizeSearchPaths(array_replace($base, $specific), $candidate));
     }
     return [];
+  }
+
+  /**
+   * @param array<string, mixed> $config
+   *
+   * @return array<string, mixed>
+   */
+  private function localizeSearchPaths(array $config, string $langcode): array {
+    foreach (['promo_cta_url', 'see_more_url'] as $key) {
+      if (!isset($config[$key]) || !is_string($config[$key])) {
+        continue;
+      }
+      $config[$key] = $this->localizePublicSearchPath($config[$key], $langcode);
+    }
+
+    if (isset($config['items']) && is_array($config['items'])) {
+      foreach ($config['items'] as $index => $item) {
+        if (!is_array($item) || !isset($item['url']) || !is_string($item['url'])) {
+          continue;
+        }
+        $config['items'][$index]['url'] = $this->localizePublicSearchPath($item['url'], $langcode);
+      }
+    }
+
+    return $config;
+  }
+
+  private function localizePublicSearchPath(string $path, string $langcode): string {
+    return $this->searchPathResolver->resolveStoredPublicSearchPath($path, $langcode);
   }
 
   private function regionalAlias(string $langcode): string {

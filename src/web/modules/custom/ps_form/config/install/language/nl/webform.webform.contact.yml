@@ -31,7 +31,6 @@ elements: |-
 settings:
   form_submit_label: Verzenden
   confirmation_message: "<p>Bedankt. Uw bericht is verzonden.</p>"
-handlers:
   email_notification:
     label: Sitemelding
     subject: 'Contactformulier van de website'

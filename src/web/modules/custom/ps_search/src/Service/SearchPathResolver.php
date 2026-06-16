@@ -345,17 +345,46 @@ final class SearchPathResolver implements \Drupal\ps_search\Contract\SearchPathR
   }
 
   /**
-   * Machine route slug from base config (Views path), ignoring translations.
+   * Machine route slug from the Views page path (never config translations).
    */
   private function getMachineSearchPathSlug(): string {
     if ($this->machineSlug !== NULL) {
       return $this->machineSlug;
     }
 
-    $data = $this->configStorage->read('ps_search.seo_url_mappings') ?: [];
-    $slug = strtolower(trim((string) ($data['search_path'] ?? 'find-property'), '/'));
+    $viewData = $this->configStorage->read('views.view.ps_search_offers') ?: [];
+    $path = (string) ($viewData['display']['page_list']['display_options']['path'] ?? '');
+    $slug = strtolower(trim($path, '/'));
     $this->machineSlug = $slug !== '' ? $slug : 'find-property';
     return $this->machineSlug;
+  }
+
+  /**
+   * Maps stored machine search paths to the public slug for a language.
+   */
+  public function resolveStoredPublicSearchPath(string $path, string $langcode): string {
+    $path = trim($path);
+    if ($path === '') {
+      return $this->getPublicPath($langcode);
+    }
+
+    $machine = $this->getInternalPath();
+    $legacyMachine = '/find-property';
+    $isMachine = $path === $machine
+      || $path === $legacyMachine
+      || str_starts_with($path, $machine . '?')
+      || str_starts_with($path, $legacyMachine . '?');
+
+    if (!$isMachine) {
+      return $path;
+    }
+
+    $suffix = '';
+    if (str_contains($path, '?')) {
+      $suffix = substr($path, strpos($path, '?'));
+    }
+
+    return $this->getPublicPath($langcode) . $suffix;
   }
 
 }

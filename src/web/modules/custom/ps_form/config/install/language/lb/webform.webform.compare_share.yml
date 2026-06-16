@@ -41,4 +41,3 @@ elements: |-
 settings:
   form_submit_label: 'Mäi Vergläich kréien'
   confirmation_message: "<p>Äre Vergläich gouf per E-Mail geschéckt.</p>"
-handlers:

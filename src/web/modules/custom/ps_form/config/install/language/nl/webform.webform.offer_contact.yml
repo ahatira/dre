@@ -58,7 +58,6 @@ elements: |-
 settings:
   form_submit_label: Verzenden
   confirmation_message: "<p>Bedankt. Uw bericht is verzonden.</p>"
-handlers:
   email_agent:
     label: 'Melding adviseur'
     subject: "Contactverzoek — Aanbod [webform_submission:source-entity:field_reference]"

@@ -37,7 +37,6 @@ elements: |-
 settings:
   form_submit_label: Schécken
   confirmation_message: 'Merci. Är Ufro fir eng Visitt gouf geschéckt.'
-handlers:
   email_agent:
     label: "Beroder-Benoriichtung"
     subject: "Ufro fir eng Visitt — Offer [webform_submission:source-entity:field_reference]"

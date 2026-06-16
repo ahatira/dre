@@ -147,6 +147,15 @@ ps_install_country_site() {
     import_po_file "web/themes/custom/ps_theme/translations/es.po" "es"
   fi
 
+  while IFS= read -r po_file; do
+    [[ -z "${po_file}" ]] && continue
+    local filename langcode
+    filename=$(basename "${po_file}")
+    langcode="${filename#ps_theme.}"
+    langcode="${langcode%.po}"
+    import_po_file "${po_file}" "${langcode}"
+  done < <(ps_docker_exec_php "find web/themes/custom/ps_theme/translations -name 'ps_theme.*.po' 2>/dev/null | sort || true")
+
   ps_info "Translations: imported=${imported}, skipped=${skipped}, failed=${failed}"
   [[ ${failed} -gt 0 ]] && ps_warn "Some translations failed to import"
 

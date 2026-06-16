@@ -48,6 +48,9 @@ foreach ($roots as $root) {
 
         $override = \Drupal::languageManager()->getLanguageConfigOverride($langcode, $name);
         foreach ($data as $key => $value) {
+          if ($value === NULL || in_array($key, ['handlers', 'variants'], TRUE)) {
+            continue;
+          }
           $override->set($key, $value);
         }
         $override->save();

@@ -14,6 +14,7 @@ use Drupal\ps_homepage\Service\HomepageOfferCountProvider;
 use Drupal\ps_homepage\Utility\HomepageContent;
 use Drupal\ps_content\Service\ContentMediaResolver;
 use Drupal\ps_homepage\Utility\HomepageSearchHeroEditorial;
+use Drupal\ps_search\Contract\SearchPathResolverInterface;
 use Drupal\ps_search\Search\Hero\HeroSearchBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -35,6 +36,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
     private readonly ContentMediaResolver $mediaResolver,
     private readonly HomepageOfferCountProvider $offerCountProvider,
     private readonly SearchHeroBlockFormBuilder $formBuilder,
+    private readonly SearchPathResolverInterface $searchPathResolver,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -51,6 +53,7 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
       $container->get('ps_homepage.media_resolver'),
       $container->get('ps_homepage.offer_count_provider'),
       new SearchHeroBlockFormBuilder(),
+      $container->get('ps_search.search_path_resolver'),
     );
   }
 
@@ -99,7 +102,10 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
       'promo_offers_line' => $editorial['promo_offers_line'],
       'promo_description' => $editorial['promo_description'],
       'promo_cta_label' => $editorial['promo_cta_label'],
-      'promo_cta_url' => $editorial['promo_cta_url'] ?: '/find-property',
+      'promo_cta_url' => $this->searchPathResolver->resolveStoredPublicSearchPath(
+        $editorial['promo_cta_url'] ?: $this->searchPathResolver->getPublicPath($langcode),
+        $langcode,
+      ),
       'promo_background_image' => $promoMedia->url ?? ($backgroundMedia->url ?? $defaultBackground),
       'promo_background_alt' => $promoMedia->alt !== '' ? $promoMedia->alt : $editorial['promo_title'],
       'labels' => $editorial + [

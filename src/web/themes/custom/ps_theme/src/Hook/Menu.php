@@ -32,6 +32,9 @@ final class Menu {
   public function preprocessMenu(array &$variables): void {
     if (($variables['menu_name'] ?? '') === 'main') {
       $this->preprocessMainMegaMenu($variables);
+      if (!empty($variables['items'])) {
+        $this->localizeMenuLinkContentTitles($variables['items']);
+      }
     }
 
     if (empty($variables['items'])) {
@@ -44,7 +47,7 @@ final class Menu {
 
     if (($variables['menu_name'] ?? '') === 'ps_header_actions') {
       $this->applyHeaderActionLinkAttributes($variables['items']);
-      $this->localizeHeaderActionTitles($variables['items']);
+      $this->localizeMenuLinkContentTitles($variables['items']);
       $this->filterHeaderActionItems($variables['items']);
       $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
@@ -105,11 +108,11 @@ final class Menu {
   }
 
   /**
-   * Applies menu_link_content translation titles for header action links.
+   * Applies menu_link_content translation titles for menu tree items.
    *
    * @param array<int, array<string, mixed>> $items
    */
-  private function localizeHeaderActionTitles(array &$items): void {
+  private function localizeMenuLinkContentTitles(array &$items): void {
     foreach ($items as &$item) {
       $originalLink = $item['original_link'] ?? NULL;
       if (is_object($originalLink) && method_exists($originalLink, 'getPluginId')) {
@@ -132,7 +135,7 @@ final class Menu {
       }
 
       if (!empty($item['below'])) {
-        $this->localizeHeaderActionTitles($item['below']);
+        $this->localizeMenuLinkContentTitles($item['below']);
       }
     }
   }

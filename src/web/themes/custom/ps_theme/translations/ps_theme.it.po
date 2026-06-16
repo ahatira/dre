@@ -1,52 +1,52 @@
-# ES translation for ps_theme module.
+# IT translation for ps_theme module.
 msgid ""
 msgstr ""
 "Project-Id-Version: ps_theme\n"
 "PO-Revision-Date: 2026-06-16 16:24+0000\n"
-"Language: es\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "10 minutes"
-msgstr "10 minutos"
+msgstr "10 minuti"
 
 msgid "15 minutes"
-msgstr "15 minutos"
+msgstr "15 minuti"
 
 msgid "20 minutes"
-msgstr "20 minutos"
+msgstr "20 minuti"
 
 msgid "30 minutes"
-msgstr "30 minutos"
+msgstr "30 minuti"
 
 msgid "3D visit"
 msgstr "Visita 3D"
 
 msgid "5 minutes"
-msgstr "5 minutos"
+msgstr "5 minuti"
 
 msgid "@current / @total"
 msgstr "@current / @total"
 
 msgid "@current of @total"
-msgstr "@current de @total"
+msgstr "@current di @total"
 
 msgid "About menu"
-msgstr "Menú Sobre nosotros"
+msgstr "Menu Chi siamo"
 
 msgid "Account navigation"
-msgstr "Navegación de cuenta"
+msgstr "Navigazione account"
 
 msgid "Add a linear gradient as background image to the backgrounds. This gra"
 "dient starts with a semi-transparent white which fades out to the bott"
 "om."
-msgstr "Añadir degradado lineal como imagen de fondo, de blanco semitransparen"
-"te que se desvanece hacia abajo."
+msgstr "Aggiungi gradiente lineare come sfondo, da bianco semi-trasparente che"
+" sfuma in basso."
 
 msgid "Add to favorites"
-msgstr "Añadir a favoritos"
+msgstr "Aggiungi ai preferiti"
 
 msgid "Already viewed"
 msgstr "Ya consultado"
@@ -55,440 +55,436 @@ msgid "BNP Paribas Real Estate"
 msgstr "BNP Paribas Real Estate"
 
 msgid "Background"
-msgstr "Fondo"
+msgstr "Sfondo"
 
 msgid "Background gradient"
-msgstr "Degradado de fondo"
+msgstr "Gradiente sfondo"
 
 msgid "Bike"
-msgstr "Bicicleta"
+msgstr "Bicicletta"
 
 msgid "Bootstrap container class"
-msgstr "Clase contenedor Bootstrap"
+msgstr "Classe container Bootstrap"
 
 msgid "Bottom bar container class"
-msgstr "Clase contenedor barra inferior"
+msgstr "Classe container barra inferiore"
 
 msgid "Business menu"
-msgstr "Menú business"
+msgstr "Menu business"
 
 msgid "Buy"
-msgstr "Comprar"
+msgstr "Acquista"
 
 msgid "Calculate your target office space"
-msgstr "Calcule su superficie de oficina objetivo"
+msgstr "Calcola la superficie ufficio target"
 
 msgid "Calculate your travel time :"
-msgstr "Calcule su tiempo de viaje:"
+msgstr "Calcola il tempo di percorrenza:"
 
 msgid "Capacity"
-msgstr "Capacidad"
+msgstr "Capacità"
 
 msgid "Car"
-msgstr "Coche"
+msgstr "Auto"
 
 msgid "Carte offre horizontale pour les résultats de recherche (Stellar Produ"
 "ct card)."
-msgstr "Tarjeta horizontal de oferta para resultados de búsqueda (Stellar Prod"
-"uct card)."
+msgstr "Scheda offerta orizzontale per risultati di ricerca (Stellar Product c"
+"ard)."
 
 msgid "Carte offre verticale pour carrousels homepage et grilles teaser (Stel"
 "lar)."
-msgstr "Tarjeta vertical de oferta para carruseles de homepage y rejillas teas"
-"er (Stellar)."
+msgstr "Scheda offerta verticale per carrelli homepage e griglie teaser (Stell"
+"ar)."
 
 msgid "Clear departure address"
-msgstr "Borrar dirección de salida"
+msgstr "Cancella indirizzo di partenza"
 
 msgid "Clear location search"
-msgstr "Borrar búsqueda de ubicación"
+msgstr "Cancella ricerca località"
 
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Chiudi"
 
 msgid "Consult the listing"
 msgstr "Consultar el anuncio"
 
 msgid "Consultant card for offer detail with contact and visit CTAs."
-msgstr "Tarjeta de consultor para ficha de oferta con CTAs de contacto y visit"
-"a."
+msgstr "Scheda consulente per dettaglio offerta con CTA contatto e visita."
 
 msgid "Customize and define the distance zone according to the means of locom"
 "otion. By default, the zone is set to 5 minutes walk."
-msgstr "Personalice la zona de distancia según el medio de transporte. Por def"
-"ecto: 5 minutos a pie."
+msgstr "Personalizza la zona di distanza in base al mezzo di trasporto. Predef"
+"inito: 5 minuti a piedi."
 
 msgid "Customize area"
-msgstr "Personalizar zona"
+msgstr "Personalizza area"
 
 msgid "Departure address :"
-msgstr "Dirección de salida:"
+msgstr "Indirizzo di partenza:"
 
 msgid "Departure or destination address could not be found."
-msgstr "No se encontró la dirección de salida o destino."
+msgstr "Indirizzo di partenza o destinazione non trovato."
 
 msgid "Discover your tools:"
-msgstr "Descubra sus herramientas:"
+msgstr "Scopri i tuoi strumenti:"
 
 msgid "Enter an address"
-msgstr "Introduzca una dirección"
+msgstr "Inserisci un indirizzo"
 
 msgid "Exclusivity"
-msgstr "Exclusividad"
+msgstr "Esclusività"
 
 msgid "Expand extra extra large"
-msgstr "Expandir extra extra grande"
+msgstr "Espandi extra extra large"
 
 msgid "Expand extra large"
-msgstr "Expandir extra grande"
+msgstr "Espandi extra large"
 
 msgid "Expand large"
-msgstr "Expandir grande"
+msgstr "Espandi grande"
 
 msgid "Expand medium"
-msgstr "Expandir mediano"
+msgstr "Espandi medio"
 
 msgid "Expand small"
-msgstr "Expandir pequeño"
+msgstr "Espandi piccolo"
 
 msgid "Expert journey steps"
-msgstr "Pasos del recorrido experto"
+msgstr "Passi del percorso esperto"
 
 msgid "Favorite"
 msgstr "Favorito"
 
 msgid "Favorites"
-msgstr "Favoritos"
+msgstr "Preferiti"
 
 msgid "Follow us"
-msgstr "Síguenos"
+msgstr "Seguici"
 
 msgid "Footer menu"
-msgstr "Menú pie de página"
+msgstr "Menu footer"
 
 msgid "Full-width homepage band shell — background, Bootstrap spacing, contai"
 "ner and body slots."
-msgstr "Franja homepage a ancho completo — fondo, espaciado Bootstrap, contene"
-"dor y slots body."
+msgstr "Fascia homepage a tutta larghezza — sfondo, spaziatura Bootstrap, cont"
+"ainer e slot body."
 
 msgid "Google Maps API key is not configured."
-msgstr "La clave API de Google Maps no está configurada."
+msgstr "La chiave API Google Maps non è configurata."
 
 msgid "Header actions menu"
-msgstr "Menú acciones cabecera"
+msgstr "Menu azioni header"
 
 msgid "Header favorites block"
-msgstr "Bloque favoritos cabecera"
+msgstr "Blocco preferiti header"
 
 msgid "Header navigation (desktop bar)"
-msgstr "Navegación cabecera (barra escritorio)"
+msgstr "Navigazione header (barra desktop)"
 
 msgid "Header navigation (mobile panel)"
-msgstr "Navegación cabecera (panel móvil)"
+msgstr "Navigazione header (panel mobile)"
 
 msgid "Header shortcut (language switcher)"
-msgstr "Atajo cabecera (selector idioma)"
+msgstr "Shortcut header (selettore lingua)"
 
 msgid "Heading level"
-msgstr "Nivel de encabezado"
+msgstr "Livello intestazione"
 
 msgid "Hero gallery for offer detail pages with overlays and lightbox trigger"
 "."
-msgstr "Galería hero para páginas detalle oferta con overlays y lightbox."
+msgstr "Galleria hero per pagine dettaglio offerta con overlay e lightbox."
 
 msgid "Hide list"
-msgstr "Ocultar lista"
+msgstr "Nascondi elenco"
 
 msgid "Home"
-msgstr "Inicio"
+msgstr "Home"
 
 msgid "Homepage expert journey — desktop stepper with per-step images and mob"
 "ile stacked cards."
-msgstr "Recorrido experto homepage — stepper escritorio con imágenes por paso "
-"y tarjetas apiladas móvil."
+msgstr "Percorso esperto homepage — stepper desktop con immagini per passo e c"
+"ard impilate mobile."
 
 msgid "Homepage hero delegate search bar below the search form."
-msgstr "Barra de búsqueda delegada bajo el formulario de búsqueda del hero."
+msgstr "Barra di ricerca delegata sotto il form di ricerca hero."
 
 msgid "Homepage hero promotional panel (right column)."
-msgstr "Panel promocional hero homepage (columna derecha)."
+msgstr "Panel promozionale hero homepage (colonna destra)."
 
 msgid "Homepage hero shell — background, title, search, delegate and promo sl"
 "ots."
-msgstr "Shell hero homepage — fondo, título, búsqueda, delegado y slots promo."
+msgstr "Shell hero homepage — sfondo, titolo, ricerca, delegato e slot promo."
 
 msgid "Homepage section footer CTA button."
-msgstr "Botón CTA pie de sección homepage."
+msgstr "Pulsante CTA footer sezione homepage."
 
 msgid "Homepage section title, optional subtitle and alignment variants."
-msgstr "Título de sección homepage, subtítulo opcional y variantes de alineaci"
-"ón."
+msgstr "Titolo sezione homepage, sottotitolo opzionale e varianti allineamento"
+"."
 
 msgid "Homepage service card with icon, title, body and bottom-aligned CTA."
-msgstr "Tarjeta de servicio homepage con icono, título, cuerpo y CTA alineado "
-"abajo."
+msgstr "Scheda servizio homepage con icona, titolo, corpo e CTA in basso."
 
 msgid "I'm flexible"
 msgstr "Soy flexible"
 
 msgid "Interactive offer map with POI filters and travel time."
-msgstr "Mapa interactivo de oferta con filtros POI y tiempo de viaje."
+msgstr "Mappa interattiva offerta con filtri POI e tempo di percorrenza."
 
 msgid "Internal path (e.g. /node/1) or absolute URL."
-msgstr "Ruta interna (ej. /node/1) o URL absoluta."
+msgstr "Percorso interno (es. /node/1) o URL assoluto."
 
 msgid "Interstitial promotional card inserted between search result offer car"
 "ds."
-msgstr "Tarjeta promocional intersticial entre tarjetas de oferta en resultado"
-"s."
+msgstr "Card promozionale interstiziale tra le card offerta nei risultati."
 
 msgid "Location editor row (chips + autocomplete input) for the BNPPRE search"
 " filter bar."
-msgstr "Fila editor de ubicación (chips + autocompletar) para filtro BNPPRE."
+msgstr "Riga editor località (chip + autocomplete) per filtro BNPPRE."
 
 msgid "Louer / Acheter toggle for Property Search (SEO URLs via ps_search)."
-msgstr "Toggle Alquilar/Comprar para Property Search (URLs SEO vía ps_search)."
+msgstr "Toggle Affitta/Acquista per Property Search (URL SEO via ps_search)."
 
 msgid "Main footer (3 columns) container class"
-msgstr "Clase contenedor footer principal (3 columnas)"
+msgstr "Classe container footer principale (3 colonne)"
 
 msgid "Main navigation"
-msgstr "Navegación principal"
+msgstr "Navigazione principale"
 
 msgid "Margin bottom"
-msgstr "Margen inferior"
+msgstr "Margine inferiore"
 
 msgid "Margin end"
-msgstr "Margen final"
+msgstr "Margine finale"
 
 msgid "Margin start"
-msgstr "Margen inicial"
+msgstr "Margine iniziale"
 
 msgid "Margin top"
-msgstr "Margen superior"
+msgstr "Margine superiore"
 
 msgid "Max @unit"
-msgstr "Máx @unit"
+msgstr "Max @unit"
 
 msgid "Max surface (m²)"
-msgstr "Superficie máx. (m²)"
+msgstr "Superficie max (m²)"
 
 msgid "Means of transport"
-msgstr "Medio de transporte"
+msgstr "Mezzo di trasporto"
 
 msgid "Min @unit"
-msgstr "Mín @unit"
+msgstr "Min @unit"
 
 msgid "Min surface (m²)"
-msgstr "Superficie mín. (m²)"
+msgstr "Superficie min (m²)"
 
 msgid "Min/max range inputs (surface, capacity, budget) for the BNPPRE search"
 " filter bar."
-msgstr "Campos min/max (superficie, capacidad, presupuesto) para filtro BNPPRE"
-"."
+msgstr "Input min/max (superficie, capacità, budget) per filtro BNPPRE."
 
 msgid "Minimal homepage search shortcut with icon, title and text link."
-msgstr "Atajo de búsqueda homepage mínimo con icono, título y enlace."
+msgstr "Shortcut ricerca homepage minimale con icona, titolo e link."
 
 msgid "Modal media gallery with thumbnails for offer pages."
-msgstr "Galería modal con miniaturas para páginas de oferta."
+msgstr "Galleria media modale con miniature per pagine offerta."
 
 msgid "More information"
-msgstr "Más información"
+msgstr "Ulteriori informazioni"
 
 msgid "My location"
-msgstr "Mi ubicación"
+msgstr "La mia posizione"
 
 msgid "Navigation aria-label"
-msgstr "Aria-label navegación"
+msgstr "Aria-label navigazione"
 
 msgid "Navigation collapsible"
-msgstr "Navegación plegable"
+msgstr "Navigazione comprimibile"
 
 msgid "News article teaser for homepage grid and news listing."
-msgstr "Teaser de artículo para rejilla homepage y listado de noticias."
+msgstr "Teaser articolo per griglia homepage e lista news."
 
 msgid "Next image"
-msgstr "Imagen siguiente"
+msgstr "Immagine successiva"
 
 msgid "Next media"
-msgstr "Medio siguiente"
+msgstr "Media successivo"
 
 msgid "No cycling route found for this journey."
-msgstr "No se encontró ruta en bicicleta para este trayecto."
+msgstr "Nessun percorso in bici trovato per questo tragitto."
 
 msgid "No image"
 msgstr "Sin imagen"
 
 msgid "No media available"
-msgstr "No hay medios disponibles"
+msgstr "Nessun media disponibile"
 
 msgid "No properties in this map area"
-msgstr "No hay inmuebles en esta zona del mapa"
+msgstr "Nessun immobile in quest'area della mappa"
 
 msgid "No public transport route found for this journey."
-msgstr "No se encontró ruta de transporte público para este trayecto."
+msgstr "Nessun percorso di trasporto pubblico trovato."
 
 msgid "No results found"
-msgstr "No se han encontrado resultados"
+msgstr "Nessun risultato trovato"
 
 msgid "No route found for this journey."
-msgstr "No se encontró ruta para este trayecto."
+msgstr "Nessun percorso trovato per questo tragitto."
 
 msgid "No walking route found for this journey."
-msgstr "No se encontró ruta a pie para este trayecto."
+msgstr "Nessun percorso a piedi trovato."
 
 msgid "Offcanvas label"
-msgstr "Etiqueta offcanvas"
+msgstr "Etichetta offcanvas"
 
 msgid "Offer actions"
-msgstr "Acciones de la oferta"
+msgstr "Azioni offerta"
 
 msgid "Office or coworking rental? Take the test!"
-msgstr "¿Alquiler de oficina o coworking? ¡Haga la prueba!"
+msgstr "Affitto ufficio o coworking? Fai il test!"
 
 msgid "Open 3D visit in a new tab"
-msgstr "Abrir visita 3D en una nueva pestaña"
+msgstr "Apri visita 3D in una nuova scheda"
 
 msgid "Open favorites panel"
-msgstr "Abrir panel de favoritos"
+msgstr "Apri panel preferiti"
 
 msgid "Open gallery"
-msgstr "Abrir galería"
+msgstr "Apri galleria"
 
 msgid "Our internal tools:"
-msgstr "Nuestras herramientas internas:"
+msgstr "I nostri strumenti interni:"
 
 msgid "PS overrides (legacy split build)"
-msgstr "Overrides PS (build split legacy)"
+msgstr "Override PS (build split legacy)"
 
 msgid "Pagination"
 msgstr "Paginación"
 
 msgid "Pan the map or use “Search this area” to explore other regions."
-msgstr "Desplace el mapa o use «Buscar en esta zona» para explorar otras regio"
-"nes."
+msgstr "Sposta la mappa o usa «Cerca in quest'area» per esplorare altre region"
+"i."
 
 msgid "Plan"
-msgstr "Plano"
+msgstr "Planimetria"
 
 msgid "Please select an address from the suggestions."
-msgstr "Seleccione una dirección de las sugerencias."
+msgstr "Seleziona un indirizzo dai suggerimenti."
 
 msgid "PreFooter container class"
-msgstr "Clase contenedor prefooter"
+msgstr "Classe container prefooter"
 
 msgid "Previous image"
-msgstr "Imagen anterior"
+msgstr "Immagine precedente"
 
 msgid "Previous media"
-msgstr "Medio anterior"
+msgstr "Media precedente"
 
 msgid "Price"
-msgstr "Precio"
+msgstr "Prezzo"
 
 msgid "Primary image URL fallback."
-msgstr "URL imagen principal alternativa."
+msgstr "URL immagine principale fallback."
 
 msgid "Property Search Theme settings"
-msgstr "Ajustes del tema Property Search"
+msgstr "Impostazioni tema Property Search"
 
 msgid "Property Search navbar — Stellar header shell with BNP custom icons."
-msgstr "Navbar Property Search — shell header Stellar con iconos BNP."
+msgstr "Navbar Property Search — shell header Stellar con icone BNP."
 
 msgid "Property type asset grid and transaction buttons for the BNPPRE search"
 " filter bar."
-msgstr "Rejilla tipos de inmueble y botones de transacción para filtro BNPPRE."
+msgstr "Griglia tipi immobile e pulsanti transazione per filtro BNPPRE."
 
 msgid "Property types"
-msgstr "Tipos de inmuebles"
+msgstr "Tipi di immobili"
 
 msgid "Read more"
 msgstr "Leer más"
 
 msgid "Rechercher"
-msgstr "Buscar"
+msgstr "Cerca"
 
 msgid "Rent"
-msgstr "Alquiler"
+msgstr "Affitto"
 
 msgid "Reset"
-msgstr "Restablecer"
+msgstr "Reimposta"
 
 msgid "Search"
-msgstr "Buscar"
+msgstr "Cerca"
 
 msgid "Search desktop trigger"
-msgstr "Trigger búsqueda escritorio"
+msgstr "Trigger ricerca desktop"
 
 msgid "Search dropdown panel"
-msgstr "Panel desplegable búsqueda"
+msgstr "Panel dropdown ricerca"
 
 msgid "Search mobile trigger"
-msgstr "Trigger búsqueda móvil"
+msgstr "Trigger ricerca mobile"
 
 msgid "Search this area"
-msgstr "Buscar en esta zona"
+msgstr "Cerca in quest'area"
 
 msgid "See you soon!"
-msgstr "¡Hasta pronto!"
+msgstr "A presto!"
 
 msgid "Select language"
-msgstr "Seleccionar idioma"
+msgstr "Seleziona lingua"
 
 msgid "Selected property"
-msgstr "Inmueble seleccionado"
+msgstr "Immobile selezionato"
 
 msgid "Show list"
-msgstr "Mostrar lista"
+msgstr "Mostra elenco"
 
 msgid "Show points of interest :"
-msgstr "Mostrar puntos de interés:"
+msgstr "Mostra punti di interesse:"
 
 msgid "Simple card with title and action button."
-msgstr "Tarjeta simple con título y botón de acción."
+msgstr "Scheda semplice con titolo e pulsante azione."
 
 msgid "Single hero slide preview for offer gallery."
-msgstr "Vista previa slide hero única para galería de oferta."
+msgstr "Anteprima slide hero singola per galleria offerta."
 
 msgid "Single lightbox thumbnail for offer gallery."
-msgstr "Miniatura lightbox única para galería de oferta."
+msgstr "Miniatura lightbox singola per galleria offerta."
 
 msgid "Site branding"
-msgstr "Marca del sitio"
+msgstr "Branding sito"
 
 msgid "Skip to main content"
-msgstr "Pasar al contenido principal"
+msgstr "Vai al contenuto principale"
 
 msgid "Spacing"
-msgstr "Espaciado"
+msgstr "Spaziatura"
 
 msgid "Stacked filter section shell for the mobile filters offcanvas (Phase 5"
 "A.6)."
-msgstr "Shell sección filtro apilada para offcanvas filtros móvil."
+msgstr "Shell sezione filtro impilata per offcanvas filtri mobile."
 
 msgid "Stellar footer contact column — phones and email with icons."
-msgstr "Columna contacto footer Stellar — teléfonos y email con iconos."
+msgstr "Colonna contatto footer Stellar — telefoni e email con icone."
 
 msgid "Stellar footer copyright line."
-msgstr "Línea copyright footer Stellar."
+msgstr "Riga copyright footer Stellar."
 
 msgid "Stellar footer follow-us social links."
-msgstr "Enlaces sociales Síguenos footer Stellar."
+msgstr "Link social Seguici footer Stellar."
 
 msgid "Stellar footer menu column — accordion on mobile, static column on des"
 "ktop."
-msgstr "Columna menú footer Stellar — acordeón móvil, columna estática escrito"
-"rio."
+msgstr "Colonna menu footer Stellar — accordion mobile, colonna statica deskto"
+"p."
 
 msgid "Stellar footer — prefooter, three columns, legal bottom bar."
-msgstr "Footer Stellar — prefooter, tres columnas, barra legal."
+msgstr "Footer Stellar — prefooter, tre colonne, barra legale."
 
 msgid "Stellar header — branding/shortcut row + navigation/actions row."
-msgstr "Header Stellar — fila branding/atajos + fila navegación/acciones."
+msgstr "Header Stellar — riga branding/shortcut + riga navigazione/azioni."
 
 msgid "Suffix such as HT/HC/m²/an."
-msgstr "Sufijo como HT/HC/m²/año."
+msgstr "Suffisso come HT/HC/m²/anno."
 
 msgid "Surface"
 msgstr "Superficie"
@@ -497,65 +493,64 @@ msgid "Theme front Property Search (BNPPRE)"
 msgstr "Tema front Property Search (BNPPRE)"
 
 msgid "This message was sent by"
-msgstr "Este mensaje fue enviado por"
+msgstr "Questo messaggio è stato inviato da"
 
 msgid "This route may include several connections."
-msgstr "Esta ruta puede incluir varias conexiones."
+msgstr "Questo percorso può includere diversi collegamenti."
 
 msgid "Toggle navigation"
-msgstr "Alternar navegación"
+msgstr "Attiva/disattiva navigazione"
 
 msgid "Transaction type"
-msgstr "Tipo de transacción"
+msgstr "Tipo di transazione"
 
 msgid "Transports"
-msgstr "Transportes"
+msgstr "Trasporti"
 
 msgid "Travel mode"
-msgstr "Modo de transporte"
+msgstr "Modalità di trasporto"
 
 msgid "Travel mode :"
-msgstr "Modo de transporte:"
+msgstr "Modalità di trasporto:"
 
 msgid "Travel time"
-msgstr "Tiempo de viaje"
+msgstr "Tempo di percorrenza"
 
 msgid "Unable to calculate travel time."
-msgstr "No se puede calcular el tiempo de viaje."
+msgstr "Impossibile calcolare il tempo di percorrenza."
 
 msgid "Unique section ID (accordion)"
-msgstr "ID sección única (acordeón)"
+msgstr "ID sezione univoco (accordion)"
 
 msgid "User account menu (authenticated)"
-msgstr "Menú cuenta usuario (autenticado)"
+msgstr "Menu account utente (autenticato)"
 
 msgid "Validate"
-msgstr "Validar"
+msgstr "Convalida"
 
 msgid "Vertical offer card for homepage carousel with CTA link and actions."
-msgstr "Tarjeta vertical de oferta para carrusel homepage con enlace CTA y acc"
-"iones."
+msgstr "Scheda offerta verticale per carosello homepage con link CTA e azioni."
 
 msgid "Via"
-msgstr "Vía"
+msgstr "Via"
 
 msgid "Walking"
-msgstr "A pie"
+msgstr "A piedi"
 
 msgid "eCommute: employee commute time calculator"
-msgstr "eCommute: calculadora de tiempo de desplazamiento"
+msgstr "eCommute: calcolatore tempo di pendolarismo"
 
 msgid "eSelect: personalised listing matching tool"
-msgstr "eSelect: herramienta de emparejamiento de anuncios"
+msgstr "eSelect: strumento di matching annunci personalizzato"
 
 msgid "mo"
-msgstr "mes"
+msgstr "mese"
 
 msgid "photos"
-msgstr "fotos"
+msgstr "foto"
 
 msgid "seat"
-msgstr "plaza"
+msgstr "posto"
 
 msgid "yr"
-msgstr "año"
+msgstr "anno"

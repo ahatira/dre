@@ -12,6 +12,7 @@ use Drupal\ps_homepage\Utility\HomepageBlockConfiguration;
 use Drupal\ps_homepage\Utility\HomepageSectionDisplayMode;
 use Drupal\ps_market_study\Service\MarketStudyListPathResolver;
 use Drupal\ps_news\Service\NewsListPathResolver;
+use Drupal\ps_search\Contract\SearchPathResolverInterface;
 
 /**
  * Builds S-D Section Library templates (header / body / footer via LB layout).
@@ -177,6 +178,7 @@ final class HomepageSectionLibraryTemplateBuilder {
     private readonly HomepageBlockDefaultsLoader $defaultsLoader,
     private readonly NewsListPathResolver $newsListPathResolver,
     private readonly MarketStudyListPathResolver $marketStudyListPathResolver,
+    private readonly SearchPathResolverInterface $searchPathResolver,
   ) {}
 
   /**
@@ -385,7 +387,7 @@ final class HomepageSectionLibraryTemplateBuilder {
 
     $urlKey = (string) ($definition['footer_url_key'] ?? 'see_more_url');
     $url = match ($urlKey) {
-      'auto_search' => '/find-property',
+      'auto_search' => $this->searchPathResolver->getPublicPath($langcode),
       'auto_news' => $this->newsListPathResolver->getPublicPath($langcode),
       'auto_studies' => $this->marketStudyListPathResolver->getPublicPath($langcode),
       default => HomepageBlockConfiguration::string($defaults, 'see_more_url'),

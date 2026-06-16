@@ -88,6 +88,9 @@ final class DemoInstaller {
     $this->translationSync->sync();
     $this->applyHomepageLayout();
     (new DemoMenuNormalizer($this->entityTypeManager))->normalize();
+    if (\Drupal::hasService('ps_demo.search_uri_normalizer')) {
+      \Drupal::service('ps_demo.search_uri_normalizer')->normalize();
+    }
     $this->importDemoConfiguration();
     $this->applyPathAliases();
     $this->applyFrontPage();

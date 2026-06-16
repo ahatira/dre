@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Weiter
   confirmation_message: "<p>Ihr Suchalarm wurde erstellt. Sie erhalten eine E-Mail, sobald neue Immobilien Ihren Kriterien entsprechen.</p>"
-handlers:

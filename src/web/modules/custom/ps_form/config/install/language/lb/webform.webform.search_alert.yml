@@ -60,4 +60,3 @@ elements: |-
 settings:
   form_submit_label: Weider
   confirmation_message: "<p>Äre Sich-Alarm gouf erstallt. Dir kritt eng E-Mail wann nei Objeten Äre Krittären entspriechen.</p>"
-handlers:

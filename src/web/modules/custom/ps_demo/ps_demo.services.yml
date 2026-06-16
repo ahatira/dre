@@ -2,3 +2,9 @@ services:
   logger.channel.ps_demo:
     parent: logger.channel_base
     arguments: ['ps_demo']
+
+  ps_demo.search_uri_normalizer:
+    class: Drupal\ps_demo\Service\DemoSearchUriNormalizer
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_search.search_path_resolver'
