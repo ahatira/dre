@@ -13,7 +13,7 @@ Usage: scripts/main.sh drupal index-solr
 Prerequisites:
   - Site installed with ps_search enabled
   - Solr container running
-  - Offers present (run make import-sample-xml first)
+  - Offers present (run make import first)
 
 Examples:
   scripts/main.sh drupal index-solr

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\ps_homepage\Service;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\layout_builder\Section;
 use Drupal\node\NodeInterface;
@@ -16,6 +18,8 @@ final class HomepageSectionLibraryInstaller {
   public function __construct(
     private readonly HomepageSectionLibraryTemplateBuilder $templateBuilder,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ConfigFactoryInterface $configFactory,
+    private readonly EntityRepositoryInterface $entityRepository,
   ) {}
 
   /**
@@ -90,6 +94,9 @@ final class HomepageSectionLibraryInstaller {
     }
   }
 
+  /**
+   *
+   */
   private function installSdTemplates(NodeInterface $homepage): void {
     $storage = $this->entityTypeManager->getStorage('section_library_template');
 
@@ -123,17 +130,22 @@ final class HomepageSectionLibraryInstaller {
     $entity->save();
   }
 
+  /**
+   *
+   */
   private function loadHomepageNode(): ?NodeInterface {
-    if (!\Drupal::moduleHandler()->moduleExists('ps_demo')) {
-      return NULL;
-    }
-
-    $uuid = (string) (\Drupal::config('ps_demo.settings')->get('homepage_uuid') ?? '');
+    $uuid = HomepageShellInstaller::homepageUuid($this->configFactory);
     if ($uuid === '') {
       return NULL;
     }
 
-    $node = \Drupal::service('entity.repository')->loadEntityByUuid('node', $uuid);
+    try {
+      $node = $this->entityRepository->loadEntityByUuid('node', $uuid);
+    }
+    catch (\Exception) {
+      $node = NULL;
+    }
+
     return $node instanceof NodeInterface ? $node : NULL;
   }
 

@@ -169,6 +169,11 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y ps_compare ps_search ps_seo
   ps_success "ps_compare, ps_search and ps_seo enabled"
 
+  ps_info "Enabling favorites and migrate stack (import via make import)..."
+  ps_retry 2 2 ps_drush en -y ps_favorite
+  ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools ps_migrate
+  ps_success "ps_favorite and ps_migrate stack enabled"
+
   ps_info "Syncing BNP RBAC roles..."
   bash "${PS_SCRIPTS_DIR}/drupal/rbac-sync.sh"
 
@@ -186,9 +191,24 @@ ps_install_country_site() {
     \Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig();
     echo "ps_theme shell install applied\n";
   ' || ps_die "ps_theme shell install failed for ${country}"
-  ps_success "Front theme configured"
+
+  ps_info "Installing shell homepage (node/1) and front page..."
+  ps_retry 2 2 ps_drush en -y prevent_homepage_deletion
+  ps_drush ev '
+    \Drupal::service("ps_homepage.shell_installer")->install();
+    echo "ps_homepage shell install applied\n";
+  ' || ps_die "ps_homepage shell install failed for ${country}"
+  ps_success "Front theme and homepage configured"
+
+  ps_info "Initializing Solr cores..."
+  ps_solr_init_cores || ps_warn "Solr core init had warnings"
+  ps_drush search-api:clear offers -y 2>/dev/null || true
+  ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || true
+  ps_drush search-api:index offers -y 2>/dev/null || ps_warn "Solr index empty until make import"
 
   ps_retry 2 2 ps_drush_cr
-  ps_success "Country ${country} installation complete"
+  ps_success "Country ${country} shell install complete"
+  ps_info "  make import ${country}  — CRM XML sample + Solr reindex"
+  ps_info "  make demo ${country}    — demo content (optional)"
   ps_drush status --fields=bootstrap,db-status,uri,db-name
 }

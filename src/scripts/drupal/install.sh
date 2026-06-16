@@ -1,29 +1,32 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
-
 # Drupal multisite installation orchestrator
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
 
 show_help() {
   cat <<'EOF'
-Install Script - Install Property Search multisite countries
+Install Script - Install Property Search multisite countries (shell only)
 
-Usage: scripts/main.sh drupal install [OPTIONS]
+Usage: scripts/main.sh drupal install [OPTIONS] [countries...]
+
+Installs the greenfield shell: modules, theme, forms, search, SEO, migrate stack.
+Does not import CRM XML or demo content — use make import and make demo separately.
 
 Options:
   --force              Force reinstall (drop DB per country)
-  --minimal            Skip post-install (demo, offers, Solr) on all countries
   --dev                Enable development modules (devel, stage_file_proxy)
   --countries=LIST     Country codes comma-separated or "all" (default: all)
   --country=CODE       Install a single country (shortcut for --countries)
-  --master-only        Post-install only on COM (legacy shortcut)
   -h, --help           Show this help
 
 Each country uses isolated file directories and its own language set:
   - public:  web/sites/{code}/files/
   - private: src/private/{code}/
 
-By default post-install (demo, offers, Solr) runs on every country.
+Workflow (three independent steps):
+  1. make install [country]   — shell (this script)
+  2. make import [country]    — CRM XML sample offers + Solr index
+  3. make demo [country]      — demo menus, homepage, mega-menu
 
 Prerequisites:
   - make env (src/.env)
@@ -37,14 +40,12 @@ Environment variables:
 
 Examples:
   scripts/main.sh drupal install
-  scripts/main.sh drupal install com
-  scripts/main.sh drupal install com fr be
-  scripts/main.sh drupal install --minimal fr
+  scripts/main.sh drupal install es
   scripts/main.sh drupal install --countries=fr,com
-  scripts/main.sh drupal install --country=fr --force
+  scripts/main.sh drupal install --force es
 
   make install com
-  make install com fr --minimal
+  make reinstall fr
 EOF
 }
 
@@ -65,10 +66,7 @@ ADMIN_PASS="${ADMIN_PASS:-admin}"
 ADMIN_MAIL="${ADMIN_MAIL:-admin@example.com}"
 FORCE_INSTALL=0
 ENABLE_DEV=0
-MINIMAL_INSTALL=0
-POST_INSTALL_MASTER_ONLY=0
 COUNTRIES_RAW="all"
-MASTER_COUNTRY="com"
 COUNTRY_POSITIONAL=()
 
 while [[ $# -gt 0 ]]; do
@@ -77,19 +75,8 @@ while [[ $# -gt 0 ]]; do
       FORCE_INSTALL=1
       shift
       ;;
-    --minimal)
-      MINIMAL_INSTALL=1
-      shift
-      ;;
     --dev)
       ENABLE_DEV=1
-      shift
-      ;;
-    --master-only)
-      POST_INSTALL_MASTER_ONLY=1
-      shift
-      ;;
-    --post-install-all)
       shift
       ;;
     --countries=*)
@@ -128,9 +115,9 @@ if [[ ${#COUNTRY_POSITIONAL[@]} -gt 0 ]]; then
   fi
 fi
 
-export FORCE_INSTALL ENABLE_DEV MINIMAL_INSTALL ADMIN_USER ADMIN_PASS ADMIN_MAIL
+export FORCE_INSTALL ENABLE_DEV ADMIN_USER ADMIN_PASS ADMIN_MAIL
 
-ps_header "Drupal: Multisite install"
+ps_header "Drupal: Multisite install (shell)"
 
 ps_info "Checking prerequisites..."
 ps_require_cmd docker
@@ -154,7 +141,7 @@ for country in "${COUNTRIES[@]}"; do
   ps_import_active_language_config_overrides "${country}"
 done
 
-ps_success "Multisite install complete!"
+ps_success "Multisite shell install complete!"
 echo ""
 
 for country in "${COUNTRIES[@]}"; do
@@ -166,31 +153,7 @@ for country in "${COUNTRIES[@]}"; do
     ps_info "${country}: ${uri}/admin"
   fi
   ps_info "  login: ${ADMIN_USER} / ${ADMIN_PASS}"
-done
-
-should_post_install() {
-  local country="$1"
-  if [[ ${MINIMAL_INSTALL} -eq 1 ]]; then
-    return 1
-  fi
-  if [[ ${POST_INSTALL_MASTER_ONLY} -eq 1 ]]; then
-    [[ "${country}" == "${MASTER_COUNTRY}" ]]
-    return
-  fi
-  return 0
-}
-
-for country in "${COUNTRIES[@]}"; do
-  if should_post_install "${country}"; then
-    ps_info "Post-install for ${country}..."
-    PS_DRUSH_URI="$(ps_site_uri "${country}")"
-    export PS_DRUSH_URI
-    PS_COUNTRY_CODE="${country}"
-    export PS_COUNTRY_CODE
-    bash "${PS_SCRIPTS_DIR}/drupal/post-install.sh"
-  else
-    ps_info "Skipping post-install for ${country}"
-  fi
+  ps_info "  next: make import ${country}  |  make demo ${country}"
 done
 
 unset PS_DRUSH_URI PS_COUNTRY_CODE

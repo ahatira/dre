@@ -10,9 +10,9 @@ Verify Country Site - Property Search multisite QA
 Usage: scripts/main.sh drupal verify-country <country> <mode>
 
 Modes:
-  shell   Coquille sans demo (make install --minimal <country>)
-  demo    Coquille + contenu demo (make demo apres shell)
-  full    Shell + demo + offres sample + Solr (make post-install)
+  shell   Coquille greenfield (make install — no demo, no XML)
+  demo    Coquille + contenu demo (make demo)
+  full    Shell + demo + offres importees (make import)
 
 Examples:
   scripts/main.sh drupal verify-country fr shell
@@ -20,11 +20,11 @@ Examples:
   make verify-country fr shell
 
 Workflow pays par pays:
-  1. make reinstall --minimal fr
+  1. make reinstall fr
   2. make verify-country fr shell
-  3. make demo   (avec PS_DRUSH_URI du pays)
+  3. make demo fr
   4. make verify-country fr demo
-  5. make post-install  (optionnel)
+  5. make import fr
   6. make verify-country fr full
 EOF
 }
@@ -71,7 +71,7 @@ export PS_DRUSH_URI
 ps_info "URI: ${PS_DRUSH_URI}"
 
 if ! ps_drush_bootstrapped; then
-  ps_die "Site not bootstrapped. Run: make install --minimal ${COUNTRY}"
+  ps_die "Site not bootstrapped. Run: make install ${COUNTRY}"
 fi
 
 output="$(ps_drush php:script /var/www/html/scripts/tools/verify_country_site.php "${MODE}" "${COUNTRY}" 2>&1)" || true

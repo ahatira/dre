@@ -8,20 +8,24 @@ show_help() {
   cat <<'EOF'
 Demo Script - Import Property Search demo content
 
-Usage: scripts/main.sh drupal demo
+Usage: scripts/main.sh drupal demo [country]
 
 Imports ps_demo default content (menus, homepage LB) and structural demo config
 (mega-menu panels, multilingual settings) from ps_demo/config/install/.
 
+Does not import CRM XML — use make import separately.
+
 Prerequisites:
-  - Site installed: scripts/main.sh drupal install (or make install)
+  - Site installed: make install [country]
   - Docker containers running
 
 Examples:
-  scripts/main.sh drupal demo
-  make demo
+  make demo es
+  scripts/main.sh drupal demo fr
 EOF
 }
+
+COUNTRY="${PS_COUNTRY_CODE:-com}"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -29,13 +33,23 @@ while [[ $# -gt 0 ]]; do
       show_help
       exit 0
       ;;
+    com|be|es|fr|ie|it|lu|nl|pl)
+      COUNTRY="$1"
+      shift
+      ;;
     *)
-      ps_die "Unknown option: $1"
+      ps_die "Unknown option or country: $1"
       ;;
   esac
 done
 
-ps_header "Drupal: Demo content"
+ps_is_country_code "${COUNTRY}" || ps_die "Unknown country: ${COUNTRY}"
+PS_COUNTRY_CODE="${COUNTRY}"
+export PS_COUNTRY_CODE
+PS_DRUSH_URI="$(ps_site_uri "${COUNTRY}")"
+export PS_DRUSH_URI
+
+ps_header "Drupal: Demo content (${COUNTRY})"
 
 ps_info "Checking prerequisites..."
 ps_require_cmd docker
@@ -69,6 +83,9 @@ DemoInstaller::create(\Drupal::getContainer())->finalizeInstall();
 echo "DemoInstaller::finalizeInstall() completed\n";
 ' || ps_warn "Demo homepage finalize step had warnings"
 
+ps_info "Re-applying language negotiation (demo CMI must not override country splits)..."
+ps_apply_site_language_negotiation "${COUNTRY}"
+
 ps_info "Applying search SEO URL language overrides..."
 for lang in $(ps_drush ev 'echo implode(" ", array_keys(\Drupal::languageManager()->getLanguages()));'); do
   ps_drush php:script scripts/import_language_config_overrides.php "${lang}" \
@@ -78,4 +95,4 @@ done
 ps_info "Rebuilding cache..."
 ps_retry 2 2 ps_drush_cr
 ps_success "Demo content ready"
-ps_info "Front page: ${PS_HTTP_URL}/"
+ps_info "Front page: ${PS_DRUSH_URI}/"

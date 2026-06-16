@@ -82,10 +82,12 @@ scripts/main.sh drupal install
 scripts/main.sh drupal install --force
 
 # Shell only (no demo/offers/Solr)
-scripts/main.sh drupal install --minimal
+scripts/main.sh drupal install es
 
-# Complete an existing minimal install
-scripts/main.sh drupal post-install
+# Three independent steps (per country):
+make install es    # shell only (forms, search, SEO, migrate stack)
+make import es     # CRM XML sample + Solr index
+make demo es       # demo menus, homepage, mega-menu
 
 # Custom site name
 SITE_NAME="My Site" scripts/main.sh drupal install
@@ -94,9 +96,9 @@ SITE_NAME="My Site" scripts/main.sh drupal install
 ### Demo & data (after install)
 
 ```bash
-make demo                 # Menus, homepage, mega-menu config
-make import-sample-xml    # Sample CRM offers (migrate)
-make index-solr           # Solr index for offers
+make import es            # Sample CRM offers (migrate) + Solr
+make demo es              # Menus, homepage, mega-menu config
+make index-solr           # Reindex Solr only
 ```
 
 ### Help

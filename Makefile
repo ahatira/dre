@@ -21,7 +21,7 @@ XML_TARGET := src/web/sites/$(PS_COUNTRY)/files/crm/offers.xml
 	help up down restart ps logs rebuild \
 	composer-install composer-update npm-install env bootstrap \
 	provision-databases provision-site-files solr-init \
-	install reinstall demo post-install index-solr deploy verify cleanup \
+	install reinstall import demo post-install index-solr deploy verify cleanup \
 	rbac-sync rbac-export create-test-users rbac-sec-e2e \
 	drush-status drush-cr drush-uli drush-cex fix-permissions modules-list theme-admin db-reset \
 	dictionary-import generate-sample-xml xml-stage-sample \
@@ -38,21 +38,23 @@ help:
 	@echo "  make ps                - Etat des conteneurs"
 	@echo "  make logs              - Logs nginx"
 	@echo "  make rebuild           - Reconstruire l'image PHP"
-	@echo "  make install           - Installation multisite (tous les pays par defaut)"
-	@echo "  make install com       - Installation d'un pays (com, fr, be, es, ie, it, lu, nl, pl)"
-	@echo "  make install com fr      - Installation de plusieurs pays"
-	@echo "  make install --minimal fr - Coquille seule (sans demo/offres/Solr)"
-	@echo "  make reinstall com     - Reinstallation forcee d'un pays"
-	@echo "  make post-install      - Demo + offres sample + ps_search/ps_seo + Solr (apres install --minimal)"
-	@echo "  make verify-country fr shell - Verifier coquille sans demo (pays + mode)"
-	@echo "  make verify-country es demo    - Verifier site avec contenu demo"
+	@echo "  make install           - Coquille greenfield (sans XML ni demo)"
+	@echo "  make install com       - Installation shell d'un pays (com, fr, be, es, ie, it, lu, nl, pl)"
+	@echo "  make install com fr    - Installation shell de plusieurs pays"
+	@echo "  make reinstall com     - Reinstallation forcee d'un pays (shell seul)"
+	@echo "  make import es         - Import XML CRM sample + index Solr (apres install)"
+	@echo "  make demo es           - Contenu demo (menus, homepage, mega-menu)"
+	@echo "  make post-install      - Deprecated: import + demo (preferer import et demo separes)"
+	@echo "  make verify-country fr shell - Verifier coquille sans demo"
+	@echo "  make verify-country es demo  - Verifier site avec contenu demo"
+	@echo "  make verify-country es full  - Verifier shell + demo + offres importees"
 	@echo "  make rbac-sync         - Importer les roles BNP avec permissions PS (post-install)"
 	@echo "  make rbac-export       - Exporter les roles actifs vers bnp_admin/config/rbac/"
 	@echo "  make create-test-users - Creer un compte test par role BNP"
 	@echo "  make rbac-sec-e2e      - E2E SEC + CTX-ADM (RBAC recette)"
 	@echo "  make demo              - Contenu demo (menus, homepage, mega-menu CMI)"
-	@echo "  make import-sample-xml - Import offres sample (migrate CRM XML)"
-	@echo "  make index-solr        - Indexer les offres dans Solr"
+	@echo "  make import            - Import XML CRM sample + index Solr"
+	@echo "  make index-solr        - Reindexer les offres dans Solr"
 	@echo "  make deploy            - Workflow deploiement Drupal"
 	@echo "  make verify            - Verifier build/dependances scripts"
 	@echo "  make dictionary-import - Import des dictionnaires"
@@ -112,6 +114,9 @@ install:
 reinstall:
 	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out reinstall install,$(MAKECMDGOALS))
 
+import:
+	bash "$(SCRIPTS_CLI)" drupal import $(filter-out import,$(MAKECMDGOALS))
+
 post-install:
 	bash "$(SCRIPTS_CLI)" drupal post-install
 
@@ -128,7 +133,7 @@ rbac-sec-e2e:
 	cd "$(SRC_DIR)" && composer test:rbac-sec-e2e
 
 demo:
-	bash "$(SCRIPTS_CLI)" drupal demo
+	bash "$(SCRIPTS_CLI)" drupal demo $(filter-out demo,$(MAKECMDGOALS))
 
 verify-country:
 	bash "$(SCRIPTS_CLI)" drupal verify-country $(filter-out verify-country,$(MAKECMDGOALS))

@@ -113,9 +113,15 @@ $shell_modules = [
   'ps_core',
   'ps_dictionary',
   'ps_offer',
+  'ps_form',
+  'ps_compare',
   'ps_search',
+  'ps_seo',
+  'ps_migrate',
+  'ps_favorite',
   'ps_homepage',
   'ps_block',
+  'prevent_homepage_deletion',
 ];
 $shell_ok = TRUE;
 foreach ($shell_modules as $module) {
@@ -128,7 +134,10 @@ if ($shell_ok) {
   verify_pass('Shell PS modules enabled');
 }
 
-$homepageUuid = (string) (\Drupal::config('ps_demo.settings')->get('homepage_uuid') ?? 'b2000001-0000-4000-8000-000000000001');
+$homepageUuid = (string) (\Drupal::config('ps_homepage.settings')->get('homepage_uuid') ?? '');
+if ($homepageUuid === '') {
+  $homepageUuid = (string) (\Drupal::config('ps_demo.settings')->get('homepage_uuid') ?? 'b2000001-0000-4000-8000-000000000001');
+}
 $homepage = NULL;
 try {
   $homepage = \Drupal::service('entity.repository')->loadEntityByUuid('node', $homepageUuid);
@@ -153,18 +162,31 @@ $offerCount = (int) \Drupal::entityTypeManager()->getStorage('node')->getQuery()
   ->execute();
 
 if ($mode === 'shell') {
-  if (!\Drupal::moduleHandler()->moduleExists('ps_demo')) {
+  if (\Drupal::moduleHandler()->moduleExists('ps_demo')) {
     verify_fail($failures, 'ps_demo must not be enabled in shell mode');
   }
   else {
     verify_pass('ps_demo not enabled');
   }
 
-  if ($homepage !== NULL) {
-    verify_fail($failures, "Demo homepage node present (nid={$homepage->id()}) — run purge or reinstall --minimal");
+  if ($homepage === NULL) {
+    verify_fail($failures, "Shell homepage missing (uuid={$homepageUuid})");
   }
   else {
-    verify_pass('No demo homepage node');
+    verify_pass("Shell homepage nid={$homepage->id()}");
+    if ((int) $homepage->id() !== 1) {
+      verify_fail($failures, "Homepage nid={$homepage->id()}, expected node/1");
+    }
+    else {
+      verify_pass('Homepage is node/1');
+    }
+  }
+
+  if ($frontPage !== '/node/1') {
+    verify_fail($failures, "Front page={$frontPage}, expected /node/1");
+  }
+  else {
+    verify_pass('Front page=/node/1');
   }
 
   if ($demoMenuCount > 0) {
@@ -172,13 +194,6 @@ if ($mode === 'shell') {
   }
   else {
     verify_pass('No demo stellar menu links');
-  }
-
-  if ($frontPage !== '' && preg_match('/^\/node\/\d+$/', $frontPage) && $homepage !== NULL) {
-    verify_fail($failures, "Front page {$frontPage} points to demo homepage");
-  }
-  else {
-    verify_pass("Front page={$frontPage} (no demo homepage binding)");
   }
 
   if ($offerCount > 0) {
@@ -305,14 +320,14 @@ if ($mode === 'demo' || $mode === 'full') {
 
 if ($mode === 'full') {
   if (!\Drupal::moduleHandler()->moduleExists('ps_migrate')) {
-    verify_fail($failures, 'ps_migrate not enabled — run: make post-install');
+    verify_fail($failures, 'ps_migrate not enabled — run: make install');
   }
   else {
     verify_pass('ps_migrate enabled');
   }
 
   if ($offerCount <= 0) {
-    verify_fail($failures, 'No published offers — run: make post-install or import sample XML');
+    verify_fail($failures, 'No published offers — run: make import');
   }
   else {
     verify_pass("Published offers={$offerCount}");

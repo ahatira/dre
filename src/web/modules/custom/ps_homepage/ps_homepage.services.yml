@@ -1,4 +1,8 @@
 services:
+  logger.channel.ps_homepage:
+    parent: logger.channel_base
+    arguments: ['ps_homepage']
+
   _defaults:
     autowire: true
     autoconfigure: true
@@ -131,6 +135,8 @@ services:
     arguments:
       - '@ps_homepage.section_library_template_builder'
       - '@entity_type.manager'
+      - '@config.factory'
+      - '@entity.repository'
 
   ps_homepage.layout_tempstore_cleaner:
     class: Drupal\ps_homepage\Service\HomepageLayoutTempstoreCleaner
@@ -148,3 +154,18 @@ services:
       - '@ps_news.news_list_path_resolver'
       - '@ps_market_study.market_study_list_path_resolver'
       - '@ps_search.search_path_resolver'
+
+  ps_homepage.shell_installer:
+    class: Drupal\ps_homepage\Service\HomepageShellInstaller
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@language_manager'
+      - '@entity_field.manager'
+      - '@ps_homepage.layout_field_ensurer'
+      - '@ps_homepage.default_layout_builder'
+      - '@ps_homepage.layout_persister'
+      - '@ps_homepage.section_library_installer'
+      - '@ps_homepage.faq_config_refresher'
+      - '@ps_homepage.market_study_config_refresher'
+      - '@logger.channel.ps_homepage'

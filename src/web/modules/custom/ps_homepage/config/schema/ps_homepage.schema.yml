@@ -56,3 +56,28 @@ block.settings.ps_homepage_section_footer_block:
     cta_style:
       type: string
       label: 'CTA style'
+
+ps_homepage.settings:
+  type: config_object
+  label: 'PS Homepage settings'
+  mapping:
+    homepage_uuid:
+      type: string
+      label: 'Homepage node UUID'
+    front_page:
+      type: string
+      label: 'Front page path'
+
+ps_homepage.homepage:
+  type: config_object
+  label: 'PS Homepage node metadata'
+  mapping:
+    node:
+      type: mapping
+      mapping:
+        titles:
+          type: mapping
+          label: 'Node titles per language'
+        path:
+          type: mapping
+          label: 'Path aliases per language'

@@ -385,7 +385,10 @@ final class DemoInstaller {
    * Loads the homepage node declared in ps_demo.settings.
    */
   private function loadHomepageNode(): ?NodeInterface {
-    $homepage_uuid = (string) ($this->configFactory->get('ps_demo.settings')->get('homepage_uuid') ?? '');
+    $homepage_uuid = (string) ($this->configFactory->get('ps_homepage.settings')->get('homepage_uuid') ?? '');
+    if ($homepage_uuid === '') {
+      $homepage_uuid = (string) ($this->configFactory->get('ps_demo.settings')->get('homepage_uuid') ?? '');
+    }
     if ($homepage_uuid === '') {
       return NULL;
     }
