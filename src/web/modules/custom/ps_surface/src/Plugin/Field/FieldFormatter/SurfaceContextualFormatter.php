@@ -15,10 +15,11 @@ use Drupal\node\NodeInterface;
  *
  *  - Capacity-driven (matrix) → empty on the surface field (capacity shown elsewhere)
  *  - TER                  → "{TOTAL} {unit}" only
- *  - Others + divisible   → "{TOTAL} {unit} ({template @surface})"
+ *  - Others + divisible   → "{TOTAL} {unit} (divisible template)"
  *    when MINIM or ETREF is strictly below TOTAL
  *  - Others + indivisible → "{TOTAL} {unit}" or "{DISPO} {unit}"
- *
+ */
+/**
  * @FieldFormatter(
  *   id = "ps_surface_contextual",
  *   label = @Translation("PS surface — Contextual (matrix-driven)"),

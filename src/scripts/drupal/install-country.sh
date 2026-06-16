@@ -30,6 +30,7 @@ ps_install_country_site() {
     ps_load_dotenv
     db_name="${!var:-}"
     if [[ -n "${db_name}" ]]; then
+      ps_docker_exec_db "psql -v ON_ERROR_STOP=1 -U \"${DB_USER:-drupal}\" -d postgres -c \"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${db_name}' AND pid <> pg_backend_pid();\""
       ps_docker_exec_db "psql -v ON_ERROR_STOP=1 -U \"${DB_USER:-drupal}\" -d postgres -c \"DROP DATABASE IF EXISTS ${db_name};\" -c \"CREATE DATABASE ${db_name};\""
       ps_success "Database dropped and recreated"
     else
@@ -66,7 +67,10 @@ ps_install_country_site() {
 
   ps_info "Enabling BNP admin baseline..."
   ps_drush theme:enable -y gin || ps_warn "Gin theme not available"
-  ps_retry 2 2 ps_drush en -y bnp_admin
+  if ! ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
+    ps_drush config:delete update.settings -y 2>/dev/null || true
+  fi
+  ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
   ps_success "BNP admin baseline enabled"
 
   ps_apply_site_language_negotiation "${country}"
@@ -87,13 +91,15 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y entity_browser_generic_embed
   ps_retry 2 2 ps_drush en -y bnp_media ps_media
   ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
-  ps_drush entity:delete webform contact -y || true
-  ps_drush config:delete webform.webform.contact -y || true
+  ps_drush entity:delete webform contact -y 2>/dev/null || true
+  ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_retry 2 2 ps_drush en -y ps_form
   ps_info "Provisioning PS Form webforms..."
   ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->provisionMissing(); if ($missing !== []) { echo "Created: " . implode(", ", $missing) . PHP_EOL; }'
   ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->getMissingWebformIds(); if ($missing !== []) { throw new \RuntimeException("Missing PS Form webforms: " . implode(", ", $missing)); } echo "PS Form webforms OK" . PHP_EOL;' || ps_die "PS Form webforms were not provisioned"
-  ps_retry 2 2 ps_drush en -y ps_offer
+  ps_drush_cr
+  ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
+  ps_verify_ps_offer_install || ps_die "ps_offer install verification failed"
   ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
   ps_retry 2 2 ps_drush en -y ps_context
   ps_success "PS modules enabled"
