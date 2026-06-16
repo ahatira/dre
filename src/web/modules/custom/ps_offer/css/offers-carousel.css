@@ -4,6 +4,8 @@
   --ps-offers-carousel-fade-width: 10.4375rem;
   --ps-offers-carousel-control-size: 2.5rem;
   --ps-offers-carousel-arrow-gutter: 3rem;
+  --ps-offers-carousel-card-height: 22.375rem;
+  --ps-offers-carousel-card-shadow-space: 1.5rem;
   overflow: visible;
 }
 
@@ -72,8 +74,9 @@
 }
 
 .ps-homepage-offers-carousel__viewport {
-  min-height: 22.375rem;
+  min-height: calc(var(--ps-offers-carousel-card-height) + var(--ps-offers-carousel-card-shadow-space));
   overflow: visible;
+  padding-bottom: var(--ps-offers-carousel-card-shadow-space);
   position: relative;
 }
 
@@ -81,6 +84,8 @@
   display: flex;
   gap: var(--ps-offers-carousel-gap-mobile);
   overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: var(--ps-offers-carousel-card-shadow-space);
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -96,9 +101,14 @@
   scroll-snap-align: start;
 }
 
+.ps-homepage-offers-carousel .ps-offer-teaser-card {
+  position: relative;
+  z-index: 1;
+}
+
 .ps-homepage-offers-carousel__fade {
   display: none;
-  height: 22.375rem;
+  height: var(--ps-offers-carousel-card-height);
   inset-block-start: 0;
   pointer-events: none;
   position: absolute;
@@ -222,8 +232,10 @@
 
   .ps-homepage-offers-carousel__track {
     gap: var(--ps-offers-carousel-gap-desktop);
-    min-height: 22.375rem;
-    overflow-x: hidden;
+    min-height: calc(var(--ps-offers-carousel-card-height) + var(--ps-offers-carousel-card-shadow-space));
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: var(--ps-offers-carousel-card-shadow-space);
     scroll-snap-type: none;
   }
 }

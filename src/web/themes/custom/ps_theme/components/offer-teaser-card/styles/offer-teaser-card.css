@@ -2,15 +2,15 @@
   --ps-offer-teaser-card-width: 17.375rem;
   --ps-offer-teaser-card-media-height: 11.5rem;
   --ps-offer-teaser-card-body-height: 10.875rem;
+  --ps-offer-teaser-card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   background: #fff;
   border: 0;
   border-radius: 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--ps-offer-teaser-card-shadow);
   display: flex;
   flex-direction: column;
   flex: none;
   height: 22.375rem;
-  overflow: hidden;
   width: var(--ps-offer-teaser-card-width);
 }
 
@@ -23,7 +23,7 @@
   --bs-card-spacer-y: 0;
   --bs-card-spacer-x: 0;
   --bs-card-bg: #fff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--ps-offer-teaser-card-shadow);
 }
 
 .ps-offer-teaser-card__media {
@@ -113,23 +113,26 @@
 }
 
 .ps-offer-teaser-card__body {
+  background: #fff;
+  box-shadow: none;
   box-sizing: border-box;
   display: flex;
-  flex: none;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 1.5rem;
-  height: var(--ps-offer-teaser-card-body-height);
+  min-height: var(--ps-offer-teaser-card-body-height);
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
   padding: 1rem;
   width: 100%;
 }
 
 .ps-offer-teaser-card__main {
   display: flex;
-  flex: none;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 0.5rem;
+  min-height: 0;
   min-width: 0;
   width: 100%;
 }
@@ -207,6 +210,7 @@
   display: flex;
   flex: none;
   justify-content: flex-end;
+  margin-top: auto;
   max-width: 100%;
   min-width: 0;
   width: 100%;
