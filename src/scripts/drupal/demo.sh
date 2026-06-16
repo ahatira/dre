@@ -10,8 +10,8 @@ Demo Script - Import Property Search demo content
 
 Usage: scripts/main.sh drupal demo
 
-Imports ps_demo default content (menus, homepage LB) and partial demo CMI
-(mega-menu panels, multilingual settings).
+Imports ps_demo default content (menus, homepage LB) and structural demo config
+(mega-menu panels, multilingual settings) from ps_demo/config/install/.
 
 Prerequisites:
   - Site installed: scripts/main.sh drupal install (or make install)
@@ -71,9 +71,6 @@ for lang in $(ps_drush ev 'echo implode(" ", array_keys(\Drupal::languageManager
   ps_drush php:script scripts/import_language_config_overrides.php "${lang}" \
     || ps_warn "Search SEO override import failed for ${lang}"
 done
-
-ps_info "Applying demo configuration (mega-menu, multilingual)..."
-ps_retry 2 2 ps_drush config:import --partial --source=../config/demo -y
 
 ps_info "Rebuilding cache..."
 ps_retry 2 2 ps_drush_cr

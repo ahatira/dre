@@ -91,7 +91,7 @@ final class DemoInstaller {
     if (\Drupal::hasService('ps_demo.search_uri_normalizer')) {
       \Drupal::service('ps_demo.search_uri_normalizer')->normalize();
     }
-    $this->importDemoConfiguration();
+    $this->importStructuralConfiguration();
     $this->applyPathAliases();
     $this->applyFrontPage();
   }
@@ -208,21 +208,45 @@ final class DemoInstaller {
   }
 
   /**
-   * Imports partial CMI from src/config/demo/ (mega-menu, multilingual).
+   * Removes configuration shipped with ps_demo (install + structure overlays).
+   *
+   * Required so drush en ps_demo can re-import config after uninstall (Drupal
+   * does not remove third-party config objects such as mega-menu panels).
    */
-  private function importDemoConfiguration(): void {
-    $source = dirname(\Drupal::root()) . '/config/demo';
-    if (!is_dir($source)) {
-      $this->logger->warning('ps_demo: demo config directory not found at @path.', ['@path' => $source]);
+  public function removeInstalledConfiguration(): void {
+    $removed = 0;
+    foreach ($this->demoConfigurationPaths() as $path) {
+      if (!is_dir($path)) {
+        continue;
+      }
+      $sync_storage = new FileStorage($path);
+      foreach ($sync_storage->listAll() as $name) {
+        if (!$this->configFactory->get($name)->isNew()) {
+          $this->configFactory->getEditable($name)->delete();
+          $removed++;
+        }
+      }
+    }
+
+    if ($removed > 0) {
+      $this->logger->notice('ps_demo: removed @count configuration objects on uninstall.', [
+        '@count' => $removed,
+      ]);
+    }
+  }
+
+  /**
+   * Applies demo overrides for config already created at install (contrib/theme).
+   */
+  private function importStructuralConfiguration(): void {
+    $structure_path = $this->moduleHandler->getModule('ps_demo')->getPath() . '/config/structure';
+    if (!is_dir($structure_path)) {
       return;
     }
 
-    $sync_storage = new FileStorage($source);
+    $sync_storage = new FileStorage($structure_path);
     $imported = 0;
     foreach ($sync_storage->listAll() as $name) {
-      if ($name === 'README') {
-        continue;
-      }
       $data = $sync_storage->read($name);
       if (!is_array($data)) {
         continue;
@@ -232,15 +256,26 @@ final class DemoInstaller {
     }
 
     if ($imported > 0) {
-      $this->logger->notice('ps_demo: imported @count demo configuration objects from @path.', [
+      $this->logger->notice('ps_demo: applied @count demo configuration overrides from config/structure.', [
         '@count' => $imported,
-        '@path' => $source,
       ]);
     }
   }
 
   /**
-   * Creates homepage path aliases for enabled languages (from ps_demo.homepage).
+   * @return string[]
+   *   Absolute paths to ps_demo configuration directories.
+   */
+  private function demoConfigurationPaths(): array {
+    $module_path = $this->moduleHandler->getModule('ps_demo')->getPath();
+    return [
+      $module_path . '/config/install',
+      $module_path . '/config/structure',
+    ];
+  }
+
+  /**
+   * Creates homepage path aliases for enabled languages (ps_demo.homepage).
    */
   private function applyPathAliases(): void {
     if (!$this->entityTypeManager->hasDefinition('path_alias')) {

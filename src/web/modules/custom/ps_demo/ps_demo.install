@@ -25,3 +25,10 @@ function ps_demo_modules_installed(array $modules, bool $is_syncing): void {
   }
   DemoInstaller::create(\Drupal::getContainer())->finalizeInstall();
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function ps_demo_uninstall(): void {
+  DemoInstaller::create(\Drupal::getContainer())->removeInstalledConfiguration();
+}

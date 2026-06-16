@@ -35,7 +35,7 @@ Développement custom : modules `ps_*`, modules BNP `bnp_*`, thèmes `ps_theme` 
 | Thème front | `src/web/themes/custom/ps_theme/` |
 | Design system | `src/web/themes/custom/ui_suite_bnp/` |
 | Config sync | `src/config/sync/` |
-| Config demo | `src/config/demo/` |
+| Config demo | `ps_demo/config/install/` (module `ps_demo`) |
 | Scripts CLI | `src/scripts/main.sh` |
 | Makefile | `Makefile` (racine) |
 | Règles Cursor | `.cursor/rules/` |

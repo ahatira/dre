@@ -47,7 +47,7 @@ git checkout -b release/dre-initial
 - `Makefile`, `docker/`, `patches/`
 - `src/composer.json`, `src/composer.lock`, `src/package.json`, `src/gulpfile.js`, etc.
 - `src/config/sync/` — configuration CMI production
-- `src/config/demo/` — démo / contenu optionnel install
+- `ps_demo/config/install/` — démo structure (mega-menu, blocs) via module `ps_demo`
 - `src/web/modules/custom/` — tous modules `ps_*`, `bnp_*`, `views_promo_card`
 - `src/web/themes/custom/` — `ps_theme`, `ui_suite_bnp`
 - `src/scripts/` — CLI install (`main.sh`, `drupal/install.sh`, …)

@@ -11,7 +11,7 @@ contenu multilingue (default content), copy homepage (config), structure démo (
 | **Contenu démo** | Menus Stellar (Login, Contact, mega-menu…), homepage LB, alias, copy | `content/` → `make demo` |
 | **Copy homepage** | Métadonnées node (titres, alias) | `config/install/ps_demo.homepage.yml` |
 | **Paramètres démo** | Page d'accueil, références UUID | `config/install/ps_demo.settings.yml` |
-| **Structure démo** | Mega-menu panels, langues, bloc Follow us | `src/config/demo/` → `make demo` |
+| **Structure démo** | Mega-menu panels, langues, bloc Follow us | `ps_demo/config/install/` → `make demo` |
 | **Référence menus** | Schéma YAML pour régénérer les exports | `config/stellar_menus.yml` |
 
 Rien de métier en dur dans le PHP : textes, langues, médias (chemins) et config sont exportables.
@@ -34,17 +34,22 @@ ps_demo/
 │   ├── file/                    # (+ binaire à côté du .yml pour les médias)
 │   └── media/
 ├── config/stellar_menus.yml     # Référence pour régénérer les exports menu
-├── config/install/
+├── config/install/              # Imported on drush en ps_demo (unique demo entities)
 │   ├── ps_demo.settings.yml
-│   └── ps_demo.homepage.yml
+│   ├── ps_demo.homepage.yml
+│   ├── advanced_mega_menu.megamenu_content.*.yml
+│   └── language.content_settings.*.yml
+├── config/structure/              # Demo overrides applied by finalizeInstall()
+│   ├── advanced_mega_menu.settings.yml
+│   └── menu_link_attributes.config.yml
 └── src/Service/
     ├── DemoInstaller.php
     ├── DemoHeroMediaImporter.php
     ├── DemoTranslationSync.php
     └── DemoMenuNormalizer.php
-
-src/config/demo/                 # Partial CMI (mega-menu, multilingual)
 ```
+
+Structural demo CMI: `config/install/` on module enable, `config/structure/` overrides at finalize.
 
 ## Installation complète
 
@@ -159,7 +164,7 @@ vendor/bin/drush default-content:export menu_link_content <id> --file="$FOLDER/m
 ```bash
 cd src
 vendor/bin/drush config:export --destination=/tmp/demo_export
-# Copier les fichiers pertinents vers config/demo/ et ps_demo/config/install/
+# Copier les fichiers pertinents vers ps_demo/config/install/
 ```
 
 ### 4. Valider

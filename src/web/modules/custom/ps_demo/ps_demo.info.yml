@@ -16,6 +16,8 @@ dependencies:
   - drupal:node
   - drupal:path
   - drupal:path_alias
+  - advanced_mega_menu:advanced_mega_menu
+  - menu_link_attributes:menu_link_attributes
   - ps_block:ps_block
   - ps_core:ps_core
   - ps_content:ps_content
