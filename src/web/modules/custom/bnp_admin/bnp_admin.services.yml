@@ -1,4 +1,15 @@
 services:
+  logger.channel.bnp_admin:
+    parent: logger.channel_base
+    arguments: ['bnp_admin']
+
+  bnp_admin.rbac_role_importer:
+    class: Drupal\bnp_admin\Service\RbacRoleImporter
+    arguments:
+      - '@config.factory'
+      - '@extension.list.module'
+      - '@logger.channel.bnp_admin'
+
   bnp_admin.configurator:
     class: Drupal\bnp_admin\BnpAdminConfigurator
     arguments:

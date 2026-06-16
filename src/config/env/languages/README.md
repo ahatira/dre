@@ -1,7 +1,7 @@
 # Per-country language.negotiation overrides (Config Split `language_{code}`).
 
-Imported at install/post-install via `ps_apply_site_language_negotiation`
-(`config:import --partial --source=../config/env/languages/{code}`) and enabled in
+Imported at install/post-install via `ps_core.site_language_negotiation_installer`
+(`SiteLanguageNegotiationInstaller`) and enabled in
 `settings.bootstrap.php` (`config_split.config_split.language_{code}`).
 
 | Site | Default | Prefixes (non-default lang first path segment) |

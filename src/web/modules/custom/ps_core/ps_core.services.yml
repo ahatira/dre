@@ -62,6 +62,21 @@ services:
       - '@config.factory'
       - '@renderer'
 
+  ps_core.site_language_negotiation_installer:
+    class: Drupal\ps_core\Service\SiteLanguageNegotiationInstaller
+    arguments:
+      - '@config.factory'
+      - '@config.storage'
+      - '@config.storage.sync'
+      - '@logger.channel.ps_core'
+
+  ps_core.ps_theme_shell_installer:
+    class: Drupal\ps_theme\Service\ThemeShellInstaller
+    arguments:
+      - '@config.factory'
+      - '@extension.path.resolver'
+      - '@logger.channel.ps_core'
+
   Drupal\ps_core\Hook\MailHooks:
     class: Drupal\ps_core\Hook\MailHooks
     arguments:

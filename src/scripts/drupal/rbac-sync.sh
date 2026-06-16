@@ -103,8 +103,11 @@ if [[ ${DRY_RUN} -eq 1 ]]; then
   exit 0
 fi
 
-ps_info "Importing RBAC roles (partial)..."
-ps_retry 2 2 ps_drush config:import --partial --source="${RBAC_DRUSH_SOURCE}" -y
+ps_info "Importing RBAC roles (bnp_admin RbacRoleImporter)..."
+ps_retry 2 2 ps_drush ev '
+  $count = \Drupal::service("bnp_admin.rbac_role_importer")->import();
+  echo "Imported {$count} RBAC role configs\n";
+'
 ps_drush_cr
 ps_success "RBAC roles imported"
 

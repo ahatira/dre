@@ -44,9 +44,12 @@ ps_in_docker || ps_die "Docker containers not running. Start them first: docker 
 ps_drush_bootstrapped || ps_die "Drupal is not installed. Run: make install"
 ps_success "Prerequisites OK"
 
-if ! ps_drush theme:status ps_theme 2>/dev/null | grep -q Enabled; then
+if ! ps_drush config:get system.theme default --format=string 2>/dev/null | grep -qx 'ps_theme'; then
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
   ps_drush config:set -y system.theme default ps_theme
+  ps_drush cr
+  ps_drush ev '\Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig();' \
+    || ps_warn "ps_theme shell install failed in demo"
 fi
 
 ps_info "Ensuring demo dependencies..."

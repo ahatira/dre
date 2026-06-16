@@ -11,7 +11,12 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function ps_form_install(): void {
-  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
+  $provisioner = \Drupal::service('ps_form.webform_provisioner');
+  $provisioner->provisionMissing();
+  $missing = $provisioner->getMissingWebformIds();
+  if ($missing !== []) {
+    throw new \RuntimeException('Missing PS Form webforms after install: ' . implode(', ', $missing));
+  }
 }
 
 /**

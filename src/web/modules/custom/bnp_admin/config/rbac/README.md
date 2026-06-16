@@ -14,11 +14,12 @@ make rbac-sync
 bash src/scripts/main.sh drupal rbac-sync
 ```
 
+Service : `bnp_admin.rbac_role_importer` (lit les YAML de ce dossier).
+
 Équivalent Drush :
 
 ```bash
-drush config:import --partial \
-  --source=modules/custom/bnp_admin/config/rbac -y
+drush ev '$count = \Drupal::service("bnp_admin.rbac_role_importer")->import(); echo "Imported {$count} roles\n";'
 drush cr
 ```
 

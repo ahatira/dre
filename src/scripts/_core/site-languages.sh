@@ -62,23 +62,13 @@ ps_import_active_language_config_overrides() {
   done
 }
 
-# Write config_split.language_{country} from sync storage into active config.
+# Import language split entity + language.negotiation via ps_core installer.
 ps_import_language_split_entity() {
   local country="$1"
-  local split_id name
-
-  split_id="$(ps_site_language_split_id "${country}")"
-  name="config_split.config_split.${split_id}"
-
-  ps_drush ev "
-    \$name = '${name}';
-    \$sync = \Drupal::service('config.storage.sync');
-    if (!\$sync->exists(\$name)) {
-      throw new \RuntimeException('Missing sync config: ' . \$name);
-    }
-    \Drupal::service('config.storage')->write(\$name, \$sync->read(\$name));
-    echo 'Imported split entity: ' . \$name . PHP_EOL;
-  "
+  ps_drush ev '
+    \Drupal::service("ps_core.site_language_negotiation_installer")->applyForCountry("'${country}'");
+    echo "Language negotiation applied for '${country}'\n";
+  ' || ps_die "Language negotiation failed for ${country}"
 }
 
 # Add enabled languages and default langcode (after site:install).
@@ -101,29 +91,21 @@ ps_add_site_languages() {
   ps_drush config:set -y system.site default_langcode "${default_lang}"
 }
 
-# Drush --source path (relative to Drupal web root after bootstrap).
-ps_site_language_negotiation_source() {
-  printf '../config/env/languages/%s' "$1"
-}
-
-# Import language.negotiation YAML (partial config:import; csim alias unavailable in Drush 13).
+# Apply per-country language.negotiation (ps_core SiteLanguageNegotiationInstaller).
 ps_apply_site_language_negotiation() {
   local country="$1"
-  local split_id source
+  local split_id
 
   split_id="$(ps_site_language_split_id "${country}")"
-  source="$(ps_site_language_negotiation_source "${country}")"
 
   ps_require_file "${PS_SRC_DIR}/config/env/languages/${country}/language.negotiation.yml" \
     "Missing language.negotiation for ${country}"
 
-  ps_import_language_split_entity "${country}"
-
-  ps_info "Applying language negotiation for ${country} (config:import ${source})..."
-  if ps_retry 2 2 ps_drush config:import --partial --source="${source}" -y; then
+  ps_info "Applying language negotiation for ${country} (ps_core installer)..."
+  if ps_retry 2 2 ps_import_language_split_entity "${country}"; then
     ps_success "Language negotiation applied: ${split_id}"
   else
-    ps_warn "language.negotiation import failed for ${country}"
+    ps_warn "language.negotiation apply failed for ${country}"
   fi
   ps_drush cr
 }

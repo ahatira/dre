@@ -115,6 +115,7 @@ Voir `.cursor/rules/` :
 ## Documentation interne
 
 - `docs/PROJECT_CONTEXT.md` — architecture détaillée
+- `docs/INSTALL_CONFIG.md` — install greenfield vs deploy CMI
 - `docs/DRUPAL_ARCHITECTURE.md` — standards Drupal
 - `docs/DEVELOPMENT_WORKFLOW.md` — workflow quotidien
 - `src/web/themes/custom/ps_theme/docs/ARCHITECTURE.md` — front

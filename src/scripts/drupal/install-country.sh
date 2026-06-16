@@ -73,8 +73,6 @@ ps_install_country_site() {
   ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
   ps_success "BNP admin baseline enabled"
 
-  ps_apply_site_language_negotiation "${country}"
-
   ps_info "Enabling BNP Editor..."
   ps_retry 2 2 ps_drush en -y bnp_editor
   ps_success "BNP Editor enabled"
@@ -87,6 +85,7 @@ ps_install_country_site() {
 
   ps_info "Enabling PS modules..."
   ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
+  ps_apply_site_language_negotiation "${country}"
   ps_retry 2 2 ps_drush en -y ps_surface
   ps_retry 2 2 ps_drush en -y entity_browser_generic_embed
   ps_retry 2 2 ps_drush en -y bnp_media ps_media
@@ -94,9 +93,6 @@ ps_install_country_site() {
   ps_drush entity:delete webform contact -y 2>/dev/null || true
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_retry 2 2 ps_drush en -y ps_form
-  ps_info "Provisioning PS Form webforms..."
-  ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->provisionMissing(); if ($missing !== []) { echo "Created: " . implode(", ", $missing) . PHP_EOL; }'
-  ps_drush ev '$missing = \Drupal::service("ps_form.webform_provisioner")->getMissingWebformIds(); if ($missing !== []) { throw new \RuntimeException("Missing PS Form webforms: " . implode(", ", $missing)); } echo "PS Form webforms OK" . PHP_EOL;' || ps_die "PS Form webforms were not provisioned"
   ps_drush_cr
   ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
   ps_verify_ps_offer_install || ps_die "ps_offer install verification failed"
@@ -182,9 +178,14 @@ ps_install_country_site() {
 
   ps_info "Enabling Property Search front theme..."
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
-  ps_retry 2 2 ps_drush config:import --partial --source=themes/custom/ps_theme/config/install -y
   ps_drush config:set -y system.theme default ps_theme
   ps_drush config:set -y system.site slogan "Real Estate for a Changing World"
+  ps_drush cr
+  ps_info "Applying ps_theme shell layout (block regions + menus)..."
+  ps_drush ev '
+    \Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig();
+    echo "ps_theme shell install applied\n";
+  ' || ps_die "ps_theme shell install failed for ${country}"
   ps_success "Front theme configured"
 
   ps_retry 2 2 ps_drush_cr
