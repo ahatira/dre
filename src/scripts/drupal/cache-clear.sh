@@ -1,41 +1,27 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
-
-# Cache clear - Rebuild Drupal cache
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Cache Clear - Rebuild Drupal caches
+Cache clear — rebuild cache on all multisite countries.
 
 Usage: scripts/main.sh drupal cache-clear
-
-This rebuilds all Drupal caches using drush cache:rebuild.
-
-Examples:
-  scripts/main.sh drupal cache-clear
 EOF
 }
 
-if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
-  show_help
-  exit 0
-fi
+[[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && { show_help; exit 0; }
 
-ps_header "Drupal: Clearing all caches"
+ps_header "Cache rebuild (all countries)"
+ps_load_config
+ps_resolve_runtime
 
-if [[ -n "${PS_DRUSH_URI:-}" ]]; then
-  ps_info "Running drush cache:rebuild for ${PS_DRUSH_URI}..."
-  ps_drush_cr
-else
-  ps_info "Running drush cache:rebuild for all multisite URIs..."
-  for country in $(ps_multisite_countries); do
-    uri="$(ps_site_uri "${country}")"
-    if ps_drush --uri="${uri}" status --fields=bootstrap 2>/dev/null | grep -q 'Successful'; then
-      ps_info "Cache rebuild: ${country} (${uri})"
-      ps_drush --uri="${uri}" cache:rebuild -y
-    fi
-  done
-fi
-
-ps_success "Cache cleared successfully!"
+for country in "${PS_COUNTRIES[@]}"; do
+  ps_drush_for_country "${country}"
+  if ps_drush_bootstrapped; then
+    ps_drush_cr
+    ps_success "Cache rebuilt: ${country}"
+  else
+    ps_warn "Skip ${country} (not bootstrapped)"
+  fi
+done

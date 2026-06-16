@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
-# Drush - Drush command wrapper with Docker support
+# Drush wrapper — auto-detect host or Docker.
 
 ps_drush() {
-  local drush_args=()
-  if [[ -n "${PS_DRUSH_URI:-}" ]]; then
-    drush_args+=(--uri="${PS_DRUSH_URI}")
+  ps_resolve_runtime
+  local cmd=()
+  if [[ -n "${PS_DRUSH_ALIAS:-}" ]]; then
+    cmd=("${PS_DRUSH_ALIAS}")
   fi
 
-  if ps_in_docker; then
-    local quoted_args=()
-    for arg in "${drush_args[@]}" "$@"; do
-      quoted_args+=("$(printf '%q' "${arg}")")
-    done
-    ps_docker_exec_php "vendor/bin/drush ${quoted_args[*]}"
+  if [[ "${PS_RUNTIME}" == "host" ]]; then
+    (cd "${PS_SRC_DIR}" && vendor/bin/drush "${cmd[@]}" "$@")
   else
-    if [[ ! -x "${PS_SRC_DIR}/vendor/bin/drush" ]]; then
-      ps_die "Drush not found at ${PS_SRC_DIR}/vendor/bin/drush"
-    fi
-    (cd "${PS_SRC_DIR}" && vendor/bin/drush "${drush_args[@]}" "$@")
+    local quoted=()
+    local arg
+    for arg in "${cmd[@]}" "$@"; do
+      quoted+=("$(printf '%q' "${arg}")")
+    done
+    ps_docker_exec_php "vendor/bin/drush ${quoted[*]}"
   fi
 }
 
@@ -25,7 +24,118 @@ ps_drush_cr() {
   ps_drush cache:rebuild "$@"
 }
 
-# Count published offers without requiring psql in the PHP container.
+# Select Drush site alias @ps.{country} (uri = sites/{country}, see drush/sites/ps.site.yml).
+ps_drush_for_country() {
+  local country="$1"
+  PS_COUNTRY_CODE="${country}"
+  export PS_COUNTRY_CODE
+  PS_DRUSH_ALIAS="@ps.${country}"
+  export PS_DRUSH_ALIAS
+}
+
+ps_drush_bootstrapped() {
+  ps_drush status --field=bootstrap 2>/dev/null | grep -qi successful
+}
+
+ps_require_drush_psql() {
+  ps_resolve_runtime
+  if [[ "${PS_RUNTIME}" == "host" ]]; then
+    command -v psql >/dev/null 2>&1 \
+      || ps_warn "psql not found on host — drush sql:create may fail for PostgreSQL"
+    return 0
+  fi
+  ps_docker_exec_php "command -v psql >/dev/null" \
+    || ps_die "psql missing in ${PS_PHP_CONTAINER}. Run: make rebuild && make restart"
+}
+
+ps_drush_database_exists() {
+  local result
+  result="$(ps_drush ev '
+    $options = \Drush\Drush::config()->get("runtime.options");
+    $sql = \Drush\Sql\SqlBase::create($options);
+    $spec = $sql->getDbSpec();
+    $name = $spec["database"] ?? "";
+    if ($name === "") { echo "no"; return; }
+    $pdo = new \PDO(
+      sprintf("pgsql:host=%s;port=%d;dbname=postgres", $spec["host"] ?? "postgres", (int) ($spec["port"] ?? 5432)),
+      $spec["username"] ?? "drupal",
+      $spec["password"] ?? "drupal"
+    );
+    $stmt = $pdo->prepare("SELECT 1 FROM pg_database WHERE datname = :name");
+    $stmt->execute(["name" => $name]);
+    echo $stmt->fetchColumn() ? "yes" : "no";
+  ' 2>/dev/null | tr -d '[:space:]')"
+  [[ "${result}" == "yes" ]]
+}
+
+ps_drush_sql_create() {
+  ps_resolve_runtime
+  if [[ "${PS_RUNTIME}" == "host" ]] && ! command -v psql >/dev/null 2>&1; then
+    if ps_in_docker; then
+      ps_info "Host psql missing — running sql:create in ${PS_PHP_CONTAINER}"
+      local alias="${PS_DRUSH_ALIAS:-}"
+      [[ -n "${alias}" ]] || ps_die "PS_DRUSH_ALIAS required for sql:create"
+      ps_docker_exec_php "vendor/bin/drush ${alias} sql:create -y $*"
+      return $?
+    fi
+    ps_die "psql required for sql:create. Install postgresql-client or start Docker (make up)"
+  fi
+  ps_require_drush_psql
+  ps_drush sql:create -y "$@"
+}
+
+ps_ensure_country_database() {
+  local country="$1"
+  ps_drush_for_country "${country}"
+  local upper var db_name
+  upper="$(ps_country_upper "${country}")"
+  var="DB_NAME_${upper}"
+  db_name="$(ps_env_get "${var}")"
+  [[ -n "${db_name}" ]] || ps_die "Missing ${var} in configuration"
+
+  if ps_drush_database_exists; then
+    ps_info "Database exists: ${db_name} (${country})"
+    return 0
+  fi
+  ps_info "Creating database: ${db_name} (${country})"
+  ps_retry 2 2 ps_drush_sql_create
+}
+
 ps_drush_published_offer_count() {
   ps_drush ev 'echo (int) \Drupal::entityTypeManager()->getStorage("node")->getQuery()->accessCheck(FALSE)->condition("type","offer")->condition("status",1)->count()->execute();' 2>/dev/null | tr -d '[:space:]'
+}
+
+ps_drush_import_language_config_overrides() {
+  local langcode="$1"
+  ps_drush ev '
+    use Drupal\Component\Serialization\Yaml;
+    $langcode = "'"${langcode}"'";
+    if (\Drupal::languageManager()->getLanguage($langcode) === NULL) {
+      throw new \RuntimeException("Language not enabled: {$langcode}");
+    }
+    $roots = [DRUPAL_ROOT . "/modules/custom", DRUPAL_ROOT . "/themes/custom"];
+    $imported = 0;
+    foreach ($roots as $root) {
+      if (!is_dir($root)) { continue; }
+      foreach (glob($root . "/*", GLOB_ONLYDIR) ?: [] as $extensionPath) {
+        foreach (["install", "optional"] as $type) {
+          $languageDir = $extensionPath . "/config/{$type}/language/{$langcode}";
+          if (!is_dir($languageDir)) { continue; }
+          foreach (glob($languageDir . "/*.yml") ?: [] as $file) {
+            $name = basename($file, ".yml");
+            $data = Yaml::decode((string) file_get_contents($file));
+            if (!is_array($data) || $data === []) { continue; }
+            $override = \Drupal::languageManager()->getLanguageConfigOverride($langcode, $name);
+            foreach ($data as $key => $value) {
+              if ($value === NULL || in_array($key, ["handlers", "variants"], TRUE)) { continue; }
+              $override->set($key, $value);
+            }
+            $override->save();
+            $imported++;
+          }
+        }
+      }
+    }
+    echo "imported={$imported} lang={$langcode}\n";
+  ' || ps_warn "Language config override import failed for ${langcode}"
 }

@@ -60,7 +60,7 @@ git checkout -b release/dre-initial
 - `src/web/sites/default/settings.php`, `settings.local.php`, `files/`
 - `.env`, `.cursor/`, `.claude/`, `backup/`, `archived-scripts/`
 - `docs/` (doc interne — optionnel pour dre)
-- `src/scripts/translate_sample_offers.php` — script one-shot local
+- `archived-scripts/i18n-tooling/` — scripts Python i18n one-shot (hors pipeline install)
 - Logs, `data/`, `tmp/`
 
 ## Modules avec `hook_update_N` à consolider

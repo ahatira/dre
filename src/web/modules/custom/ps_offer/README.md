@@ -238,9 +238,6 @@ cd src && vendor/bin/phpunit web/modules/custom/ps_offer/tests/src/Unit
 # E2E référence
 composer run test:offer-ref-e2e
 
-# Régression multi-modules
-composer run test:regression:modules
-
 # Behat
 composer run test:behat -- --suite=ps_offer_reference --no-interaction
 ```

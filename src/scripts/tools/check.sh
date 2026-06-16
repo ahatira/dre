@@ -1,82 +1,54 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
-
-# Check if build has been executed
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Check Script - Verify build dependencies
+Check — verify build artefacts (CI gate, no Drupal bootstrap).
 
 Usage: scripts/main.sh tools check
 
-Verifies that build has been executed:
-  - Composer dependencies installed (vendor/)
-  - NPM libraries copied (web/libraries/)
+Checks:
+  - src/vendor/autoload.php
+  - Required web/libraries/* paths
 
-This script does NOT install anything, only checks.
-Use 'scripts/main.sh tools build' to install dependencies.
-
-Examples:
-  scripts/main.sh tools check
+Does not install anything. Run: scripts/main.sh tools build
 EOF
 }
 
-if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
-  show_help
-  exit 0
-fi
+[[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && { show_help; exit 0; }
 
-ps_header "Check: Verifying build dependencies"
-
+ps_header "Verify: build artefacts"
 ERRORS=0
 
-# Check vendor/
-ps_info "Checking Composer dependencies..."
-if [[ ! -d "${PS_SRC_DIR}/vendor" ]]; then
-  ps_error "vendor/ directory not found"
-  ERRORS=$((ERRORS + 1))
-elif [[ ! -f "${PS_SRC_DIR}/vendor/autoload.php" ]]; then
-  ps_error "vendor/autoload.php not found"
+if [[ ! -f "${PS_SRC_DIR}/vendor/autoload.php" ]]; then
+  ps_error "Missing vendor/autoload.php"
   ERRORS=$((ERRORS + 1))
 else
-  ps_success "Composer dependencies OK"
+  ps_success "Composer vendor OK"
 fi
 
-# Check web/libraries/
-ps_info "Checking NPM libraries..."
 REQUIRED_LIBS=(
-  "ace"
-  "clipboard"
-  "dropzone"
-  "nouislider"
-  "slick-carousel/slick"
-  "ckeditor5/plugins/media-embed"
+  ace
+  clipboard
+  dropzone
+  nouislider
+  slick-carousel/slick
+  ckeditor5/plugins/media-embed
 )
 
-MISSING_LIBS=()
+MISSING=()
 for lib in "${REQUIRED_LIBS[@]}"; do
-  if [[ ! -d "${PS_WEB_DIR}/libraries/${lib}" ]]; then
-    MISSING_LIBS+=("${lib}")
-  fi
+  [[ -d "${PS_WEB_DIR}/libraries/${lib}" ]] || MISSING+=("${lib}")
 done
 
-if [[ ${#MISSING_LIBS[@]} -gt 0 ]]; then
-  ps_error "Missing libraries in web/libraries/:"
-  for lib in "${MISSING_LIBS[@]}"; do
-    echo "  - ${lib}" >&2
-  done
+if [[ ${#MISSING[@]} -gt 0 ]]; then
+  ps_error "Missing web/libraries:"
+  printf '  - %s\n' "${MISSING[@]}" >&2
   ERRORS=$((ERRORS + 1))
 else
-  ps_success "NPM libraries OK"
+  ps_success "Front libraries OK"
 fi
 
-# Summary
-if [[ ${ERRORS} -gt 0 ]]; then
-  echo ""
-  ps_error "Build verification failed (${ERRORS} errors)"
-  ps_info "Run: scripts/main.sh tools build"
-  exit 1
-fi
-
-ps_success "Build verification passed!"
+[[ ${ERRORS} -eq 0 ]] || ps_die "Verify failed (${ERRORS} error(s)). Run: make build"
+ps_success "Verify passed"

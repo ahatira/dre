@@ -1,0 +1,31 @@
+# Property Search multisite — Drush site aliases.
+# uri = site directory name under web/sites/ (no dynamic domain URLs).
+# Usage: drush @ps.es status
+
+com:
+  root: ../web
+  uri: com
+be:
+  root: ../web
+  uri: be
+es:
+  root: ../web
+  uri: es
+fr:
+  root: ../web
+  uri: fr
+ie:
+  root: ../web
+  uri: ie
+it:
+  root: ../web
+  uri: it
+lu:
+  root: ../web
+  uri: lu
+nl:
+  root: ../web
+  uri: nl
+pl:
+  root: ../web
+  uri: pl

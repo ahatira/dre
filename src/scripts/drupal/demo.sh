@@ -1,27 +1,17 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
-
-# Demo content — menus, homepage, mega-menu config (requires site install first).
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Demo Script - Import Property Search demo content
+Demo — ps_demo content (menus, homepage, mega-menu).
 
 Usage: scripts/main.sh drupal demo [country]
 
-Imports ps_demo default content (menus, homepage LB) and structural demo config
-(mega-menu panels, multilingual settings) from ps_demo/config/install/.
+Default country: com
 
+Prerequisites: make install [country]
 Does not import CRM XML — use make import separately.
-
-Prerequisites:
-  - Site installed: make install [country]
-  - Docker containers running
-
-Examples:
-  make demo es
-  scripts/main.sh drupal demo fr
 EOF
 }
 
@@ -29,70 +19,37 @@ COUNTRY="${PS_COUNTRY_CODE:-com}"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -h|--help)
-      show_help
-      exit 0
-      ;;
-    com|be|es|fr|ie|it|lu|nl|pl)
-      COUNTRY="$1"
-      shift
-      ;;
-    *)
-      ps_die "Unknown option or country: $1"
-      ;;
+    -h|--help) show_help; exit 0 ;;
+    com|be|es|fr|ie|it|lu|nl|pl) COUNTRY="$1"; shift ;;
+    *) ps_die "Unknown option or country: $1" ;;
   esac
 done
 
 ps_is_country_code "${COUNTRY}" || ps_die "Unknown country: ${COUNTRY}"
-PS_COUNTRY_CODE="${COUNTRY}"
-export PS_COUNTRY_CODE
-PS_DRUSH_URI="$(ps_site_uri "${COUNTRY}")"
-export PS_DRUSH_URI
+ps_load_config
+ps_drush_for_country "${COUNTRY}"
 
-ps_header "Drupal: Demo content (${COUNTRY})"
+ps_header "Demo content (${COUNTRY})"
+ps_drush_bootstrapped || ps_die "Site not installed. Run: make install ${COUNTRY}"
 
-ps_info "Checking prerequisites..."
-ps_require_cmd docker
-ps_require_file "${PS_DOCKER_COMPOSE_FILE}"
-ps_in_docker || ps_die "Docker containers not running. Start them first: docker compose up -d"
-ps_drush_bootstrapped || ps_die "Drupal is not installed. Run: make install"
-ps_success "Prerequisites OK"
+ps_drush en -y default_content ps_block ps_homepage advanced_mega_menu menu_link_attributes \
+  languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
 
-if ! ps_drush config:get system.theme default --format=string 2>/dev/null | grep -qx 'ps_theme'; then
-  ps_retry 2 2 ps_drush theme:enable -y ps_theme
-  ps_drush config:set -y system.theme default ps_theme
-  ps_drush cr
-  ps_drush ev '\Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig();' \
-    || ps_warn "ps_theme shell install failed in demo"
-fi
-
-ps_info "Ensuring demo dependencies..."
-ps_drush en -y default_content ps_block ps_homepage advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some demo dependencies not available"
-
-ps_info "Enabling ps_demo and importing default content..."
-if ps_drush pm:list --status=enabled --filter=ps_demo --format=list 2>/dev/null | grep -q '^ps_demo$'; then
-  ps_info "ps_demo already enabled"
-else
+if ! ps_drush pm:list --status=enabled --filter=ps_demo --format=list 2>/dev/null | grep -q '^ps_demo$'; then
   ps_retry 2 2 ps_drush en -y ps_demo
 fi
 
-ps_info "Ensuring demo content, translations and homepage layout..."
 ps_drush ev '
 use Drupal\ps_demo\Service\DemoInstaller;
 DemoInstaller::create(\Drupal::getContainer())->finalizeInstall();
-echo "DemoInstaller::finalizeInstall() completed\n";
-' || ps_warn "Demo homepage finalize step had warnings"
+echo "DemoInstaller complete\n";
+' || ps_warn "Demo finalize had warnings"
 
-ps_info "Re-applying language negotiation (demo CMI must not override country splits)..."
 ps_apply_site_language_negotiation "${COUNTRY}"
 
-ps_info "Applying search SEO URL language overrides..."
 for lang in $(ps_drush ev 'echo implode(" ", array_keys(\Drupal::languageManager()->getLanguages()));'); do
-  ps_drush php:script scripts/import_language_config_overrides.php "${lang}" \
-    || ps_warn "Search SEO override import failed for ${lang}"
+  ps_drush_import_language_config_overrides "${lang}"
 done
 
-ps_info "Rebuilding cache..."
-ps_retry 2 2 ps_drush_cr
-ps_success "Demo content ready"
-ps_info "Front page: ${PS_DRUSH_URI}/"
+ps_drush_cr
+ps_success "Demo ready: ${PS_DRUSH_ALIAS} ($(ps_site_uri "${COUNTRY}"))"

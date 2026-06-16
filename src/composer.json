@@ -141,8 +141,7 @@
         "test:promo-card-e2e": "bash web/modules/custom/views_promo_card/tests/e2e_promo_card.sh",
         "test:compare-search-b2b": "bash web/modules/custom/ps_compare/tests/b2b_compare_search.sh",
         "test:compare-b2b": "bash web/modules/custom/ps_compare/tests/b2b_compare_full.sh",
-        "test:behat": "vendor/bin/behat --config behat.yml.dist --strict --colors",
-        "test:regression:modules": "bash scripts/test/regression.sh"
+        "test:behat": "vendor/bin/behat --config behat.yml.dist --strict --colors"
     },
     "config": {
         "allow-plugins": {

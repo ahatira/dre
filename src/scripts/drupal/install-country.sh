@@ -1,21 +1,17 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-# Installs one Property Search multisite country (modules, theme, translations).
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
+# Installs one Property Search multisite country (shell only — no demo, no CRM XML).
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 ps_install_country_site() {
   local country="$1"
   local site_name="$2"
 
-  PS_COUNTRY_CODE="${country}"
-  export PS_COUNTRY_CODE
-  PS_DRUSH_URI="$(ps_site_uri "${country}")"
-  export PS_DRUSH_URI
-
-  ps_header "Drupal: Installing country ${country} (${PS_DRUSH_URI})"
+  ps_drush_for_country "${country}"
+  ps_header "Install country ${country} (${PS_DRUSH_ALIAS} → $(ps_site_uri "${country}"))"
 
   if ps_drush_bootstrapped && [[ ${FORCE_INSTALL:-0} -eq 0 ]]; then
-    ps_warn "Country ${country} is already installed. Use --force to reinstall."
+    ps_warn "Country ${country} already installed. Use --force to reinstall."
     return 0
   fi
 
@@ -23,23 +19,11 @@ ps_install_country_site() {
   default_lang="$(ps_site_default_langcode "${country}")"
 
   if [[ ${FORCE_INSTALL:-0} -eq 1 ]]; then
-    ps_info "Dropping database for ${country}..."
-    local db_name upper var
-    upper="$(ps_country_upper "${country}")"
-    var="DB_NAME_${upper}"
-    ps_load_dotenv
-    db_name="${!var:-}"
-    if [[ -n "${db_name}" ]]; then
-      ps_docker_exec_db "psql -v ON_ERROR_STOP=1 -U \"${DB_USER:-drupal}\" -d postgres -c \"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${db_name}' AND pid <> pg_backend_pid();\""
-      ps_docker_exec_db "psql -v ON_ERROR_STOP=1 -U \"${DB_USER:-drupal}\" -d postgres -c \"DROP DATABASE IF EXISTS ${db_name};\" -c \"CREATE DATABASE ${db_name};\""
-      ps_success "Database dropped and recreated"
-    else
-      ps_warn "DB name not found for ${country}, trying drush sql:drop..."
-      ps_retry 2 2 ps_drush sql:drop --yes || ps_die "Could not drop database for ${country}"
-    fi
+    ps_info "Recreating database (drush sql:create)..."
+    ps_retry 2 2 ps_drush_sql_create || ps_die "Could not recreate database for ${country}"
   fi
 
-  ps_info "Installing Drupal minimal profile for ${country} (locale=${default_lang})..."
+  ps_info "Drupal site:install (locale=${default_lang})..."
   ps_retry 2 3 ps_drush site:install minimal \
     --site-name="${site_name}" \
     --account-name="${ADMIN_USER}" \
@@ -47,168 +31,71 @@ ps_install_country_site() {
     --account-mail="${ADMIN_MAIL}" \
     --locale="${default_lang}" \
     --yes
-  ps_success "Drupal core installed (${country})"
 
-  ps_add_site_languages "${country}"
-
-  ps_info "Disabling optional Update Status module..."
   if ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
-    ps_drush pm:uninstall update -y || ps_warn "Update module could not be uninstalled"
+    ps_drush pm:uninstall update -y 2>/dev/null || true
     ps_drush_cr
   fi
 
-  ps_info "Enabling base theme (ui_suite_bnp)..."
   ps_retry 2 2 ps_drush theme:enable -y ui_suite_bnp
-  ps_success "Base theme enabled"
+  ps_drush en -y honeypot seckit 2>/dev/null || ps_warn "Some essential modules not available"
 
-  ps_info "Enabling essential contrib modules..."
-  ps_drush en -y honeypot seckit || ps_warn "Some essential modules not available"
-  ps_success "Essential modules enabled"
-
-  ps_info "Enabling BNP admin baseline..."
-  ps_drush theme:enable -y gin || ps_warn "Gin theme not available"
-  if ! ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
-    ps_drush config:delete update.settings -y 2>/dev/null || true
-  fi
+  ps_drush theme:enable -y gin 2>/dev/null || ps_warn "Gin theme not available"
   ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
-  ps_success "BNP admin baseline enabled"
-
-  ps_info "Enabling BNP Editor..."
+  ps_add_site_languages "${country}"
   ps_retry 2 2 ps_drush en -y bnp_editor
-  ps_success "BNP Editor enabled"
 
   if [[ ${ENABLE_DEV:-0} -eq 1 ]]; then
-    ps_info "Enabling development modules..."
-    ps_drush en -y devel devel_generate stage_file_proxy || ps_warn "Some dev modules not available"
-    ps_success "Development modules enabled"
+    ps_drush en -y devel devel_generate stage_file_proxy 2>/dev/null || ps_warn "Dev modules not available"
   fi
 
   ps_info "Enabling PS modules..."
   ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
   ps_apply_site_language_negotiation "${country}"
-  ps_retry 2 2 ps_drush en -y ps_surface
-  ps_retry 2 2 ps_drush en -y entity_browser_generic_embed
-  ps_retry 2 2 ps_drush en -y bnp_media ps_media
+  ps_retry 2 2 ps_drush en -y ps_surface entity_browser_generic_embed bnp_media ps_media
   ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
   ps_drush entity:delete webform contact -y 2>/dev/null || true
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_retry 2 2 ps_drush en -y ps_form
   ps_drush_cr
   ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
-  ps_verify_ps_offer_install || ps_die "ps_offer install verification failed"
-  ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override || ps_warn "Mail transport modules not available"
-  ps_retry 2 2 ps_drush en -y ps_context
-  ps_success "PS modules enabled"
+  ps_verify_ps_offer_install || ps_die "ps_offer verification failed"
+  ps_apply_google_maps_api_key
+  ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override ps_context 2>/dev/null || true
+  ps_retry 2 2 ps_drush en -y captcha altcha 2>/dev/null || true
+  ps_drush user:role:add administrator "${ADMIN_USER}" -y 2>/dev/null || true
 
-  ps_info "Enabling anti-spam modules..."
-  ps_retry 2 2 ps_drush en -y captcha altcha || ps_warn "Anti-spam modules not available"
-  ps_success "Anti-spam configured"
+  ps_import_module_translations
 
-  ps_info "Assigning administrator role to ${ADMIN_USER}..."
-  ps_drush user:role:add administrator "${ADMIN_USER}" -y || true
-  ps_success "Role assigned"
+  ps_info "Importing dictionary..."
+  ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
-  ps_info "Importing custom module translations..."
-  local imported=0 skipped=0 failed=0
-  local active_langs
-  active_langs="$(ps_drush ev 'echo implode(PHP_EOL, array_keys(\Drupal::languageManager()->getLanguages()));')"
-
-  import_po_file() {
-    local po_file="$1"
-    local langcode="$2"
-    if [[ -z "${po_file}" || -z "${langcode}" ]]; then
-      return 1
-    fi
-    if ! echo "${active_langs}" | grep -q "^${langcode}$"; then
-      skipped=$((skipped + 1))
-      return 0
-    fi
-    if ps_drush locale:import "${langcode}" "/var/www/html/${po_file}" --type=customized --override=all -y >/dev/null 2>&1; then
-      imported=$((imported + 1))
-    else
-      failed=$((failed + 1))
-    fi
-  }
-
-  while IFS= read -r po_file; do
-    [[ -z "${po_file}" ]] && continue
-    local filename langcode
-    filename=$(basename "${po_file}")
-    langcode="${filename%.po}"
-    langcode="${langcode##*.}"
-    import_po_file "${po_file}" "${langcode}"
-  done < <(ps_docker_exec_php "find web/modules/custom -path '*/translations/*.po' \( -name 'ps_*.*.po' -o -name 'bnp_*.*.po' \) 2>/dev/null | sort || true")
-
-  if [[ -f "${PS_SRC_DIR}/web/themes/custom/ps_theme/translations/fr.po" ]] \
-    && echo "${active_langs}" | grep -q '^fr$'; then
-    import_po_file "web/themes/custom/ps_theme/translations/fr.po" "fr"
-  fi
-
-  if [[ -f "${PS_SRC_DIR}/web/themes/custom/ps_theme/translations/es.po" ]] \
-    && echo "${active_langs}" | grep -q '^es$'; then
-    import_po_file "web/themes/custom/ps_theme/translations/es.po" "es"
-  fi
-
-  while IFS= read -r po_file; do
-    [[ -z "${po_file}" ]] && continue
-    local filename langcode
-    filename=$(basename "${po_file}")
-    langcode="${filename#ps_theme.}"
-    langcode="${langcode%.po}"
-    import_po_file "${po_file}" "${langcode}"
-  done < <(ps_docker_exec_php "find web/themes/custom/ps_theme/translations -name 'ps_theme.*.po' 2>/dev/null | sort || true")
-
-  ps_info "Translations: imported=${imported}, skipped=${skipped}, failed=${failed}"
-  [[ ${failed} -gt 0 ]] && ps_warn "Some translations failed to import"
-
-  ps_info "Importing dictionary data..."
-  ps_retry 2 2 ps_drush ps:dictionary:import || ps_warn "Dictionary import warnings"
-  ps_success "Dictionary imported"
-
-  ps_info "Enabling search, compare and SEO modules..."
   ps_retry 2 2 ps_drush en -y ps_compare ps_search ps_seo
-  ps_success "ps_compare, ps_search and ps_seo enabled"
+  ps_retry 2 2 ps_drush en -y ps_favorite migrate migrate_plus migrate_tools ps_migrate
 
-  ps_info "Enabling favorites and migrate stack (import via make import)..."
-  ps_retry 2 2 ps_drush en -y ps_favorite
-  ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools ps_migrate
-  ps_success "ps_favorite and ps_migrate stack enabled"
-
-  ps_info "Syncing BNP RBAC roles..."
-  bash "${PS_SCRIPTS_DIR}/drupal/rbac-sync.sh"
-
-  ps_info "Enabling theme shell dependencies..."
   ps_retry 2 2 ps_drush en -y ps_block ps_homepage
-  ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias || ps_warn "Some theme contrib modules not available"
+  ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
 
-  ps_info "Enabling Property Search front theme..."
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
   ps_drush config:set -y system.theme default ps_theme
+  ps_drush config:set -y system.site name "${site_name}"
   ps_drush config:set -y system.site slogan "Real Estate for a Changing World"
-  ps_drush cr
-  ps_info "Applying ps_theme shell layout (block regions + menus)..."
-  ps_drush ev '
-    \Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig();
-    echo "ps_theme shell install applied\n";
-  ' || ps_die "ps_theme shell install failed for ${country}"
+  ps_drush_cr
 
-  ps_info "Installing shell homepage (node/1) and front page..."
+  ps_drush ev '\Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig(); echo "ps_theme shell OK\n";' \
+    || ps_die "ps_theme shell install failed"
   ps_retry 2 2 ps_drush en -y prevent_homepage_deletion
-  ps_drush ev '
-    \Drupal::service("ps_homepage.shell_installer")->install();
-    echo "ps_homepage shell install applied\n";
-  ' || ps_die "ps_homepage shell install failed for ${country}"
-  ps_success "Front theme and homepage configured"
+  ps_drush ev '\Drupal::service("ps_homepage.shell_installer")->install(); echo "ps_homepage shell OK\n";' \
+    || ps_die "ps_homepage shell install failed"
 
-  ps_info "Initializing Solr cores..."
-  ps_solr_init_cores || ps_warn "Solr core init had warnings"
+  ps_solr_init_cores || ps_warn "Solr core init skipped"
   ps_drush search-api:clear offers -y 2>/dev/null || true
   ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || true
   ps_drush search-api:index offers -y 2>/dev/null || ps_warn "Solr index empty until make import"
 
+  ps_import_active_language_config_overrides "${country}"
   ps_retry 2 2 ps_drush_cr
-  ps_success "Country ${country} shell install complete"
-  ps_info "  make import ${country}  — CRM XML sample + Solr reindex"
-  ps_info "  make demo ${country}    — demo content (optional)"
-  ps_drush status --fields=bootstrap,db-status,uri,db-name
+
+  ps_success "Shell install complete: ${country}"
+  ps_info "Next: make import ${country}  |  make demo ${country}"
 }

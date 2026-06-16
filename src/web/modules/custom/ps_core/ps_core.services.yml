@@ -48,6 +48,7 @@ services:
     class: Drupal\ps_core\Service\EmailBrandingBuilder
     arguments:
       - '@config.factory'
+      - '@language_manager'
       - '@extension.list.theme'
       - '@file_url_generator'
 

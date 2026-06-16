@@ -14,56 +14,38 @@ docker exec -u www-data -i $(PHP_CONTAINER) sh -lc 'cd /var/www/html && vendor/b
 endef
 
 PS_COUNTRY ?= com
-XML_SAMPLE := data/xml/bnppre_sample_50_per_type.xml
-XML_TARGET := src/web/sites/$(PS_COUNTRY)/files/crm/offers.xml
 
 .PHONY: \
 	help up down restart ps logs rebuild \
 	composer-install composer-update npm-install env bootstrap \
-	provision-databases provision-site-files solr-init \
-	install reinstall import demo post-install index-solr deploy verify cleanup \
+	build verify install reinstall import demo deploy \
 	rbac-sync rbac-export create-test-users rbac-sec-e2e \
 	drush-status drush-cr drush-uli drush-cex fix-permissions modules-list theme-admin db-reset \
-	dictionary-import generate-sample-xml xml-stage-sample \
-	import-crm import-sample-xml import-status import-reset import-rollback
+	dictionary-import import-crm import-status import-reset import-rollback
 
 help:
-	@echo "Cibles disponibles:"
-	@echo "  make up                - Demarrer services Docker"
-	@echo "  make env               - Generate src/.env from .env.dist (USER_UID substitution)"
-	@echo "  make provision-databases - Create PostgreSQL DBs from src/.env"
-	@echo "  make provision-site-files - Create per-country public/private dirs"
-	@echo "  make down              - Arreter services Docker"
-	@echo "  make restart           - Redemarrer services Docker"
-	@echo "  make ps                - Etat des conteneurs"
-	@echo "  make logs              - Logs nginx"
-	@echo "  make rebuild           - Reconstruire l'image PHP"
-	@echo "  make install           - Coquille greenfield (sans XML ni demo)"
-	@echo "  make install com       - Installation shell d'un pays (com, fr, be, es, ie, it, lu, nl, pl)"
-	@echo "  make install com fr    - Installation shell de plusieurs pays"
-	@echo "  make reinstall com     - Reinstallation forcee d'un pays (shell seul)"
-	@echo "  make import es         - Import XML CRM sample + index Solr (apres install)"
-	@echo "  make demo es           - Contenu demo (menus, homepage, mega-menu)"
-	@echo "  make post-install      - Deprecated: import + demo (preferer import et demo separes)"
-	@echo "  make verify-country fr shell - Verifier coquille sans demo"
-	@echo "  make verify-country es demo  - Verifier site avec contenu demo"
-	@echo "  make verify-country es full  - Verifier shell + demo + offres importees"
-	@echo "  make rbac-sync         - Importer les roles BNP avec permissions PS (post-install)"
-	@echo "  make rbac-export       - Exporter les roles actifs vers bnp_admin/config/rbac/"
-	@echo "  make create-test-users - Creer un compte test par role BNP"
-	@echo "  make rbac-sec-e2e      - E2E SEC + CTX-ADM (RBAC recette)"
-	@echo "  make demo              - Contenu demo (menus, homepage, mega-menu CMI)"
-	@echo "  make import            - Import XML CRM sample + index Solr"
-	@echo "  make index-solr        - Reindexer les offres dans Solr"
-	@echo "  make deploy            - Workflow deploiement Drupal"
-	@echo "  make verify            - Verifier build/dependances scripts"
-	@echo "  make dictionary-import - Import des dictionnaires"
-	@echo "  make xml-stage-sample  - Copier XML sample vers la source migrate"
-	@echo "  make import-sample-xml - Import XML sample (pipeline migrate)"
-	@echo "  make import-crm        - Import offers CRM and execute migrate dependencies"
-	@echo "  make import-status     - Statut des migrations"
-	@echo "  make import-reset      - Reset status migrations"
-	@echo "  make import-rollback   - Rollback migrations"
+	@echo "Docker:"
+	@echo "  make up / down / restart / ps / logs / rebuild"
+	@echo ""
+	@echo "Dependencies:"
+	@echo "  make env              - Generate src/.env (dev)"
+	@echo "  make build            - composer + npm + libs"
+	@echo "  make verify           - CI gate (vendor + libraries)"
+	@echo "  make composer-install"
+	@echo ""
+	@echo "Drupal scripts (src/scripts/main.sh):"
+	@echo "  make install [country]   - Shell greenfield (default: all countries)"
+	@echo "  make reinstall [country] - Force reinstall"
+	@echo "  make import [country]    - CRM sample + Solr (default: com)"
+	@echo "  make demo [country]      - Demo content (default: com)"
+	@echo "  make deploy              - cim + updb + cr (all countries)"
+	@echo "  make drush-cr            - Cache rebuild all countries"
+	@echo "  make rbac-sync           - Import BNP roles (not in install)"
+	@echo "  make create-test-users   - QA test accounts"
+	@echo ""
+	@echo "Drush shortcuts (docker, single default URI):"
+	@echo "  make drush-status / drush-uli / drush-cex"
+	@echo "  make dictionary-import / import-crm / import-status"
 
 up:
 	docker compose -f "$(COMPOSE_FILE)" up -d
@@ -80,9 +62,8 @@ logs:
 	docker compose -f "$(COMPOSE_FILE)" logs -f nginx
 
 rebuild:
-	@echo "Reconstruction de l'image PHP..."
 	docker compose -f "$(COMPOSE_FILE)" build --no-cache php
-	@echo "Image reconstruite. Lancez 'make restart'"
+	@echo "Image rebuilt. Run: make restart"
 
 composer-install:
 	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction --prefer-dist
@@ -93,20 +74,16 @@ composer-update:
 npm-install:
 	cd "$(SRC_DIR)" && npm install
 
-bootstrap: env up composer-install
+bootstrap: env up build
 
 env:
-	bash "$(SRC_DIR)/scripts/tools/setup-env.sh"
+	bash "$(SCRIPTS_CLI)" tools env
 
-provision-databases:
-	bash "$(SRC_DIR)/scripts/drupal/provision-databases.sh"
+build:
+	bash "$(SCRIPTS_CLI)" tools build
 
-provision-site-files:
-	bash "$(SRC_DIR)/scripts/drupal/provision-site-files.sh"
-
-solr-init:
-	chmod +x "$(PROJECT_ROOT)/docker/solr/init-cores.sh"
-	"$(PROJECT_ROOT)/docker/solr/init-cores.sh"
+verify:
+	bash "$(SCRIPTS_CLI)" tools check
 
 install:
 	bash "$(SCRIPTS_CLI)" drupal install $(filter-out install,$(MAKECMDGOALS))
@@ -117,44 +94,29 @@ reinstall:
 import:
 	bash "$(SCRIPTS_CLI)" drupal import $(filter-out import,$(MAKECMDGOALS))
 
-post-install:
-	bash "$(SCRIPTS_CLI)" drupal post-install
-
-rbac-sync:
-	bash "$(SCRIPTS_CLI)" drupal rbac-sync
-
-rbac-export:
-	bash "$(SCRIPTS_CLI)" drupal rbac-sync --export
-
-create-test-users:
-	bash "$(SCRIPTS_CLI)" drupal create-test-users
-
-rbac-sec-e2e:
-	cd "$(SRC_DIR)" && composer test:rbac-sec-e2e
-
 demo:
 	bash "$(SCRIPTS_CLI)" drupal demo $(filter-out demo,$(MAKECMDGOALS))
-
-verify-country:
-	bash "$(SCRIPTS_CLI)" drupal verify-country $(filter-out verify-country,$(MAKECMDGOALS))
-
-index-solr:
-	bash "$(SCRIPTS_CLI)" drupal index-solr
 
 deploy:
 	bash "$(SCRIPTS_CLI)" drupal deploy
 
-verify:
-	bash "$(SCRIPTS_CLI)" tools check
+rbac-sync:
+	bash "$(SCRIPTS_CLI)" drupal rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))
 
-cleanup:
+rbac-export:
+	bash "$(SCRIPTS_CLI)" drupal rbac-sync --export $(filter-out rbac-export,$(MAKECMDGOALS))
+
+create-test-users:
+	bash "$(SCRIPTS_CLI)" drupal create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
+
+rbac-sec-e2e:
+	cd "$(SRC_DIR)" && composer test:rbac-sec-e2e
+
+drush-cr:
 	bash "$(SCRIPTS_CLI)" drupal cache-clear
 
 drush-status:
 	$(call drush,status --fields=bootstrap,db-status,drupal-version,drush-version)
-
-drush-cr:
-	bash "$(SCRIPTS_CLI)" drupal cache-clear
 
 drush-uli:
 	$(call drush,uli)
@@ -163,12 +125,10 @@ drush-cex:
 	$(call drush,cex -y)
 
 fix-permissions:
-	@echo "Correction des droits (uid $$(id -u) via www-data dans le conteneur)..."
 	docker exec -i $(PHP_CONTAINER) chown -R www-data:www-data \
 		/var/www/html/config/sync \
 		/var/www/html/web/modules/custom \
 		/var/www/html/web/themes/custom
-	@echo "Termine. Exemple: ls -la src/config/sync/views.view.ps_news.yml"
 
 modules-list:
 	$(call drush,pml --status=enabled --type=module --no-core --format=list)
@@ -182,18 +142,10 @@ db-reset:
 dictionary-import:
 	$(call drush,ps:dictionary:import -y)
 
-generate-sample-xml:
-	bash "$(SCRIPTS_CLI)" tools generate-sample-xml $(PS_COUNTRY)
-
-xml-stage-sample:
-	bash "$(SCRIPTS_CLI)" drupal stage-sample-xml $(PS_COUNTRY)
-
 import-crm:
 	$(call drush,en -y migrate migrate_plus migrate_tools ps_migrate)
 	$(call drush,migrate:import ps_offer_from_xml --update --execute-dependencies -y)
 	$(call drush,migrate:import ps_offer_translations_from_xml --update -y)
-
-import-sample-xml: xml-stage-sample dictionary-import import-crm
 
 import-status:
 	$(call drush,migrate:status)
@@ -222,6 +174,5 @@ import-rollback:
 	$(call drush,migrate:rollback ps_feature_definitions_from_xml) || true
 	$(call drush,migrate:rollback ps_feature_groups_from_xml) || true
 
-# Allow: make install --minimal
 %:
 	@:

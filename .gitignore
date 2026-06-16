@@ -95,9 +95,6 @@ Thumbs.db
 /backup/
 /src/backup/
 
-# One-shot local scripts (not part of install pipeline)
-/src/scripts/translate_sample_offers.php
-
 # ------------------------------
 # Drupal scaffold defaults (docroot)
 # ------------------------------

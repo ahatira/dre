@@ -1,58 +1,34 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/_source.sh"
-
-# Deployment script - Full production deployment workflow
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Deploy Script - Production deployment workflow
+Deploy — config import, database updates, cache rebuild (all countries).
 
 Usage: scripts/main.sh drupal deploy
 
-Performs a complete deployment:
-  1. Check dependencies are built (run 'tools build' first)
-  2. Import configuration
-  3. Run database updates
-  4. Rebuild cache
-
-Prerequisites:
-  - Run 'scripts/main.sh tools build --production' before deploying
-
-This script is designed for production environments.
-
-Examples:
-  scripts/main.sh tools build --production
-  scripts/main.sh drupal deploy
+Per country: drush cim -y → updb -y → cr
+Fail-fast on first error. Run tools build before deploy in production.
 EOF
 }
 
-if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
-  show_help
-  exit 0
-fi
+[[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && { show_help; exit 0; }
 
-ps_header "Deployment: Starting production workflow"
+ps_header "Deploy (all countries)"
+ps_load_config
+ps_resolve_runtime
 
-# Step 1: Check dependencies
-ps_info "Step 1/4: Checking dependencies..."
-bash "${PS_SCRIPTS_DIR}/tools/check.sh" || ps_die "Build verification failed. Run 'scripts/main.sh tools build' first."
-ps_success "Dependencies verified"
+bash "${PS_SCRIPTS_DIR}/tools/check.sh" || ps_die "Build verify failed. Run: make build"
 
-# Step 2: Config import
-ps_info "Step 2/4: Importing configuration..."
-ps_drush config:import --yes
-ps_success "Configuration imported"
+for country in "${PS_COUNTRIES[@]}"; do
+  ps_drush_for_country "${country}"
+  ps_info "Deploy ${country} (${PS_DRUSH_ALIAS})..."
+  ps_drush_bootstrapped || ps_die "Site ${country} not bootstrapped — aborting deploy"
+  ps_drush config:import -y
+  ps_drush updatedb -y
+  ps_drush_cr
+  ps_success "Deployed ${country}"
+done
 
-# Step 3: Database updates
-ps_info "Step 3/4: Running database updates..."
-ps_drush updatedb --yes
-ps_success "Database updated"
-
-# Step 4: Cache rebuild
-ps_info "Step 4/4: Rebuilding cache..."
-ps_drush_cr
-ps_success "Cache rebuilt"
-
-ps_success "Deployment complete!"
-ps_info "Site URL: ${PS_HTTP_URL}"
+ps_success "Deploy complete (all countries)"
