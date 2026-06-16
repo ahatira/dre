@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install and update hooks for ps_seo.
+ * Install hooks for ps_seo.
  */
 
 declare(strict_types=1);
@@ -13,39 +13,6 @@ declare(strict_types=1);
 function ps_seo_install(): void {
   _ps_seo_import_metatag_defaults();
   _ps_seo_import_sitemap_config();
-}
-
-/**
- * Import PS Metatag defaults on existing sites (replaces core/ps_offer defaults).
- */
-function ps_seo_update_9001(): void {
-  _ps_seo_import_metatag_defaults();
-}
-
-/**
- * Remove stale FR config overrides left from ps_offer Metatag defaults.
- */
-function ps_seo_update_9002(): void {
-  _ps_seo_import_metatag_defaults();
-}
-
-/**
- * Import Simple XML Sitemap settings (per-asset-type offer sitemaps).
- */
-function ps_seo_update_9003(): void {
-  _ps_seo_import_sitemap_config();
-}
-
-/**
- * Enable schema_image_object and re-import enriched offer Metatag defaults.
- */
-function ps_seo_update_9004(): void {
-  $moduleInstaller = \Drupal::service('module_installer');
-  if (!\Drupal::moduleHandler()->moduleExists('schema_image_object')) {
-    $moduleInstaller->install(['schema_image_object'], TRUE);
-  }
-
-  _ps_seo_import_metatag_defaults();
 }
 
 /**

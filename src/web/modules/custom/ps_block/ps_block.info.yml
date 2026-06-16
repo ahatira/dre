@@ -2,6 +2,7 @@ name: 'PS Block'
 type: module
 description: 'Configurable Stellar blocks for Property Search (footer contact, copyright…).'
 core_version_requirement: ^11.3
+version: 1.0.0
 package: 'Property Search'
 dependencies:
   - ps_core:ps_core

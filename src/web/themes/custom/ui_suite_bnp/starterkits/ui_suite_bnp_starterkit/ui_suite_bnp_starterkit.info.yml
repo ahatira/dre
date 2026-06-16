@@ -2,6 +2,7 @@ name: 'UI Suite BNP Starterkit'
 type: theme
 description: 'Example theme with Bootstrap SASS compilation in one file.'
 core_version_requirement: ^11.3
+version: 1.0.0
 base theme: ui_suite_bnp
 hidden: true
 

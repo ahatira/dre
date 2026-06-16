@@ -2,6 +2,7 @@ name: 'Entity Browser Generic Embed'
 type: module
 description: 'Generic entity browser and entity embed bridge for media workflows.'
 core_version_requirement: ^11
+version: 1.0.0
 package: BNP
 dependencies:
   - drupal:media

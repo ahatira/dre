@@ -2,6 +2,7 @@ name: 'PS Favorite'
 type: module
 description: 'Favorite system for offers with authenticated and anonymous persistence.'
 core_version_requirement: ^10.3 || ^11
+version: 1.0.0
 package: 'Property Search'
 dependencies:
   - drupal:node

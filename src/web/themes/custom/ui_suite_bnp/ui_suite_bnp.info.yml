@@ -2,6 +2,7 @@ name: 'UI Suite BNP'
 type: theme
 description: "A site-builder friendly Bootstrap theme, using the UI Suite modules."
 core_version_requirement: ^11.3
+version: 1.0.0
 base theme: false
 dependencies:
   - ui_patterns:ui_patterns

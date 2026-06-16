@@ -2,6 +2,7 @@ name: 'PS Homepage'
 type: module
 description: 'Layout Builder orchestration, Section Library and homepage shell blocks.'
 core_version_requirement: ^11.3
+version: 1.0.0
 package: 'Property Search'
 dependencies:
   - drupal:content_translation

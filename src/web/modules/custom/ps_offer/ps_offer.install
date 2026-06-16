@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install and update hooks for ps_offer.
+ * Install hooks for ps_offer.
  */
 
 declare(strict_types=1);
@@ -12,99 +12,6 @@ declare(strict_types=1);
  */
 function ps_offer_install(): void {
   ps_offer_register_pathauto_safe_tokens();
-}
-
-/**
- * Renames offer view mode "card" to "search" for search results listing.
- */
-function ps_offer_update_9001(): void {
-  $config_factory = \Drupal::configFactory();
-
-  foreach ([
-    'core.entity_view_display.node.offer.card',
-    'core.entity_view_mode.node.card',
-  ] as $config_name) {
-    $config_factory->getEditable($config_name)->delete();
-  }
-
-  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
-  $installer = \Drupal::service('config.installer');
-  $installer->installDefaultConfig('module', 'ps_offer');
-
-  $view = $config_factory->getEditable('views.view.ps_search_offers');
-  if ($view->isNew()) {
-    return;
-  }
-
-  $data = $view->getRawData();
-  if (isset($data['display']['default']['display_options']['row']['options']['view_modes']['entity:node']['offer'])) {
-    $data['display']['default']['display_options']['row']['options']['view_modes']['entity:node']['offer'] = 'search';
-  }
-
-  $dependencies = $data['dependencies']['config'] ?? [];
-  $dependencies = array_values(array_filter(
-    $dependencies,
-    static fn (string $dependency): bool => $dependency !== 'core.entity_view_mode.node.card',
-  ));
-  if (!in_array('core.entity_view_mode.node.search', $dependencies, TRUE)) {
-    $dependencies[] = 'core.entity_view_mode.node.search';
-  }
-  $data['dependencies']['config'] = $dependencies;
-
-  $view->setData($data);
-  $view->save();
-}
-
-/**
- * Aligns offer Pathauto pattern with search SEO URL segments.
- */
-function ps_offer_update_9002(): void {
-  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
-  $installer = \Drupal::service('config.installer');
-  $installer->installDefaultConfig('module', 'ps_offer');
-}
-
-/**
- * Fixes offer Pathauto pattern: pathauto strips slashes inside tokens.
- */
-function ps_offer_update_9003(): void {
-  $config = \Drupal::configFactory()->getEditable('pathauto.pattern.offer');
-  if ($config->isNew()) {
-    return;
-  }
-
-  $config->set('pattern', '/[node:ps-offer-operation]/[node:ps-offer-asset]/[node:ps-offer-department]/[node:ps-offer-city]/[node:title]-[node:field_reference].html');
-  $config->save();
-}
-
-/**
- * Registers offer SEO tokens as Pathauto safe tokens (preserve a-louer, etc.).
- */
-function ps_offer_update_9004(): void {
-  ps_offer_register_pathauto_safe_tokens();
-}
-
-/**
- * Renames offer favorite view mode "card_favorite" to "favorite_card".
- */
-function ps_offer_update_9005(): void {
-  $config_factory = \Drupal::configFactory();
-
-  foreach ([
-    'core.entity_view_display.node.offer.card_favorite',
-    'core.entity_view_mode.node.card_favorite',
-  ] as $config_name) {
-    $config_factory->getEditable($config_name)->delete();
-  }
-
-  /** @var \Drupal\Core\Config\ConfigInstallerInterface $installer */
-  $installer = \Drupal::service('config.installer');
-  $installer->installDefaultConfig('module', 'ps_offer');
-
-  $target = $config_factory->getEditable('ps_favorite.target.node.offer');
-  if (!$target->isNew() && $target->get('view_mode') === 'card_favorite') {
-    $target->set('view_mode', 'favorite_card')->save();
-  }
 }
 
 /**
@@ -122,6 +29,6 @@ function ps_offer_register_pathauto_safe_tokens(): void {
     'ps-offer-seo-prefix',
   ];
 
-  $config->set('safe_tokens', array_values(array_unique(array_merge($safe_tokens, $offer_tokens))));
+  $config->set('safe_tokens', array_values(array_unique(array_merge($safe_tokens, $offer_tokens)));
   $config->save();
 }

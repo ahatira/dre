@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @file
- * Install and update hooks for the BNP Admin module.
+ * Install hooks for the BNP Admin module.
  */
 
 /**
@@ -40,100 +40,6 @@ function bnp_admin_uninstall(): void {
     $role = $storage->load($roleId);
     if ($role !== NULL) {
       $storage->delete([$role]);
-    }
-  }
-}
-
-/**
- * Apply portable baseline roles and Gin branding on existing sites.
- */
-function bnp_admin_update_9001(): void {
-  /** @var \Drupal\bnp_admin\BnpAdminConfigurator $configurator */
-  $configurator = \Drupal::service('bnp_admin.configurator');
-  $configurator->applyBaseline();
-  $configurator->applyRoleBaseline();
-}
-
-/**
- * Rename host_admin role to administrator (super admin).
- */
-function bnp_admin_update_9002(): void {
-  /** @var \Drupal\bnp_admin\BnpAdminConfigurator $configurator */
-  $configurator = \Drupal::service('bnp_admin.configurator');
-
-  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
-  $userStorage = \Drupal::entityTypeManager()->getStorage('user');
-
-  $hostAdmin = $roleStorage->load('host_admin');
-  if ($hostAdmin !== NULL) {
-    $uids = $userStorage->getQuery()
-      ->condition('roles', 'host_admin')
-      ->accessCheck(FALSE)
-      ->execute();
-
-    foreach ($uids as $uid) {
-      $account = $userStorage->load($uid);
-      if ($account !== NULL) {
-        $account->addRole('administrator');
-        $account->removeRole('host_admin');
-        $account->save();
-      }
-    }
-
-    $roleStorage->delete([$hostAdmin]);
-  }
-
-  $configurator->applyRoleBaseline();
-}
-
-/**
- * Migrate legacy PS overlay roles into BNP baseline roles (Option A).
- */
-function bnp_admin_update_9003(): void {
-  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
-  $userStorage = \Drupal::entityTypeManager()->getStorage('user');
-
-  $migrations = [
-    'ps_admin' => ['content_admin', 'site_admin'],
-    'ps_content_editor' => ['content_editor'],
-  ];
-
-  foreach ($migrations as $legacyRole => $targetRoles) {
-    if ($roleStorage->load($legacyRole) === NULL) {
-      continue;
-    }
-
-    $uids = $userStorage->getQuery()
-      ->condition('roles', $legacyRole)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    foreach ($uids as $uid) {
-      $account = $userStorage->load($uid);
-      if ($account === NULL) {
-        continue;
-      }
-      foreach ($targetRoles as $targetRole) {
-        if ($roleStorage->load($targetRole) !== NULL) {
-          $account->addRole($targetRole);
-        }
-      }
-      $account->removeRole($legacyRole);
-      $account->save();
-    }
-
-    $legacy = $roleStorage->load($legacyRole);
-    if ($legacy !== NULL) {
-      $roleStorage->delete([$legacy]);
-    }
-  }
-
-  $configFactory = \Drupal::configFactory();
-  foreach ($configFactory->listAll('system.action.user_') as $actionId) {
-    $config = $configFactory->get($actionId);
-    $rid = $config->get('configuration.rid');
-    if (in_array($rid, ['ps_admin', 'ps_content_editor'], TRUE)) {
-      $configFactory->getEditable($actionId)->delete();
     }
   }
 }

@@ -1,11 +1,11 @@
 promo_card_slot:
-  version: 1.x
+  version: 1.0.0
   css:
     theme:
       css/promo-card-slot.css: {}
 
 promo_card_admin:
-  version: 1.0.9
+  version: 1.0.0
   css:
     theme:
       css/promo-card-admin.css: {}
@@ -19,7 +19,7 @@ promo_card_admin:
     - core/drupal.vertical-tabs
 
 promo_card_preview_frame:
-  version: 1.0.3
+  version: 1.0.0
   css:
     theme:
       css/promo-card-preview-frame.css: {}

@@ -1,5 +1,5 @@
 common:
-  version: VERSION
+  version: 1.0.0
   css:
     theme:
       css/theme/bnp_media.common.css: {}
@@ -11,7 +11,7 @@ common:
     - core/once
 
 bnp_video_player:
-  version: VERSION
+  version: 1.0.0
   css:
     theme:
       css/theme/bnp-video-player.theme.css: {}
@@ -25,17 +25,17 @@ bnp_video_player:
     - core/once
 
 oembed_frame_youtube:
-  version: VERSION
+  version: 1.0.0
   js:
     js/oembed-frame.bnp-media.youtube.js: {}
 
 oembed_frame_vimeo:
-  version: VERSION
+  version: 1.0.0
   js:
     js/oembed-frame.bnp-media.vimeo.js: {}
 
 oembed_frame_mediahub:
-  version: VERSION
+  version: 1.0.0
   js:
     js/oembed-frame.bnp-media.mediahub.js: {}
 

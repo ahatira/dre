@@ -2,4 +2,5 @@ name: 'UI Suite BNP Companion'
 description: 'Provides Bootstrap integration for stuff which are not alterable/overridable by a theme.'
 type: module
 core_version_requirement: ^11.3
+version: 1.0.0
 package: 'User interface'

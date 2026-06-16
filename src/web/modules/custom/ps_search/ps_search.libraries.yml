@@ -1,5 +1,5 @@
 filter.htmx:
-  version: 1.0.14
+  version: 1.0.0
   js:
     js/search-filter-htmx.js: {}
   dependencies:
@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 filter.bar:
-  version: 1.0.64
+  version: 1.0.0
   js:
     js/search-location-editor.js: {}
     js/search-filter-bar.js: {}
@@ -39,7 +39,7 @@ header.search:
     - ps_theme/header
 
 homepage.search:
-  version: 1.0.10
+  version: 1.0.0
   js:
     js/homepage-search.js: {}
   css:
@@ -52,7 +52,7 @@ homepage.search:
     - ps_theme/form
 
 search-page-map-utils:
-  version: 1.0.10
+  version: 1.0.0
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:
@@ -60,7 +60,7 @@ search-page-map-utils:
     - core/drupalSettings
 
 marker-cluster:
-  version: 1.2.10
+  version: 1.0.0
   remote: https://cdnjs.com/libraries/js-marker-clusterer
   license:
     name: Apache 2.0
@@ -72,7 +72,7 @@ marker-cluster:
     - core/drupal
 
 search-page-map-init:
-  version: 1.0.9
+  version: 1.0.0
   js:
     js/page/search-page-map-init.js: {}
   dependencies:
@@ -82,7 +82,7 @@ search-page-map-init:
     - ps_search/search-page-map-utils
 
 search-page-core:
-  version: 1.0.5
+  version: 1.0.0
   js:
     js/page/search-page-layout.js: {}
     js/page/search-page-load-more.js: {}
@@ -99,14 +99,14 @@ search-page-core:
     - ui_suite_bnp/framework_js
 
 search-page-map-sync:
-  version: 1.0.5
+  version: 1.0.0
   js:
     js/page/search-page-map-sync.js: {}
   dependencies:
     - ps_search/search-page-core
 
 search-page-zone-reload:
-  version: 1.0.8
+  version: 1.0.0
   js:
     js/page/search-page-zone-reload.js: {}
   dependencies:
@@ -114,7 +114,7 @@ search-page-zone-reload:
     - views/views.ajax
 
 search-page-map-markers:
-  version: 1.0.9
+  version: 1.0.0
   js:
     js/page/search-page-map-markers.js: {}
   dependencies:
@@ -132,7 +132,7 @@ search-page-map-bounds:
     - ps_search/search-page-zone-reload
 
 search-page-map-popup:
-  version: 1.0.2
+  version: 1.0.0
   js:
     js/page/search-page-map-popup.js: {}
   dependencies:
@@ -149,7 +149,7 @@ search-page-map-zone:
     - ps_search/search-page-map-popup
 
 search-page-location:
-  version: 1.0.1
+  version: 1.0.0
   js:
     js/page/search-page-location.js: {}
   dependencies:
@@ -162,7 +162,7 @@ search-page:
     - ps_search/search-page-map-sync
 
 search-alert-offcanvas:
-  version: 1.0.5
+  version: 1.0.0
   js:
     js/search-alert-offcanvas.js: {}
   css:

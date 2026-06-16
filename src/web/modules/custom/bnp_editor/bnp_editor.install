@@ -2,12 +2,10 @@
 
 /**
  * @file
- * Install, update and uninstall functions for BNP Editor module.
+ * Install hooks for BNP Editor module.
  */
 
 declare(strict_types=1);
-
-use Drupal\bnp_editor\Service\BnpEditorRoleInstaller;
 
 /**
  * Implements hook_install().
@@ -15,13 +13,6 @@ use Drupal\bnp_editor\Service\BnpEditorRoleInstaller;
 function bnp_editor_install(): void {
   \Drupal::service('bnp_editor.role_installer')->applyDefaultPermissions();
   \Drupal::messenger()->addStatus(t('BNP Editor text formats and role permissions have been applied.'));
-}
-
-/**
- * Implements hook_update_N().
- */
-function bnp_editor_update_9001(): void {
-  \Drupal::service('bnp_editor.role_installer')->applyDefaultPermissions();
 }
 
 /**

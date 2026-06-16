@@ -3,6 +3,7 @@ type: module
 description: 'Provides migration support for PS entities with entity protection integration'
 package: 'Property Search'
 core_version_requirement: ^11.3
+version: 1.0.0
 dependencies:
   - drupal:migrate
   - migrate_plus:migrate_plus

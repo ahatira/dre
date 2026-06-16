@@ -8,9 +8,9 @@
 declare(strict_types=1);
 
 /**
- * Installs the search_alert content entity on existing sites.
+ * Installs the search_alert content entity schema.
  */
-function ps_search_update_10001(): void {
+function ps_search_install(): void {
   $entity_type = \Drupal::entityTypeManager()->getDefinition('search_alert');
   \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
 }

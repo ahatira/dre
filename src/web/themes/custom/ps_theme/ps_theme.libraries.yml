@@ -178,7 +178,7 @@ offer-detail:
     - ps_theme/framework
 
 swiper:
-  version: 11.2.8
+  version: 1.0.0
   js:
     /libraries/swiper/swiper-bundle.min.js: { minified: true }
   css:
@@ -188,7 +188,7 @@ swiper:
     - core/drupal
 
 photoswipe:
-  version: 5.4.4
+  version: 1.0.0
   js:
     /libraries/photoswipe/photoswipe.umd.min.js: { minified: true, weight: -10 }
     /libraries/photoswipe/photoswipe-lightbox.umd.min.js: { minified: true, weight: -5 }

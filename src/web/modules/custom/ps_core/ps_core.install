@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install and update hooks for ps_core.
+ * Install hooks for ps_core.
  */
 
 declare(strict_types=1);
@@ -29,32 +29,4 @@ function ps_core_apply_mailer_policy_theme(): void {
   $configuration['mailer_wrap_and_convert'] = $configuration['mailer_wrap_and_convert'] ?? ['plain' => FALSE];
   $configuration['email_theme'] = ['theme' => 'ps_theme'];
   $config->set('configuration', $configuration)->save();
-}
-
-/**
- * Sets the global Mailer policy theme to ps_theme.
- */
-function ps_core_update_9001(): string {
-  ps_core_apply_mailer_policy_theme();
-  return 'Updated global mailer policy to render emails with ps_theme.';
-}
-
-/**
- * Adds site-wide urgency contact defaults to ps_core.settings.
- */
-function ps_core_update_9002(): string {
-  $config = \Drupal::configFactory()->getEditable('ps_core.settings');
-  if ($config->get('urgency_help_phone') !== NULL) {
-    return 'Urgency contact settings already present.';
-  }
-
-  $config
-    ->set('urgency_help_enabled', TRUE)
-    ->set('urgency_help_lead', 'In a hurry? Call us at')
-    ->set('urgency_help_phone', '01 87 58 65 34')
-    ->set('urgency_help_phone_link', 'tel:+33187586534')
-    ->set('urgency_help_hours', 'Monday to Friday, 9:00 AM to 7:00 PM.')
-    ->save();
-
-  return 'Added site-wide urgency contact settings.';
 }

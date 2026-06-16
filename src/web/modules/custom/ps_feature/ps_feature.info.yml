@@ -2,6 +2,7 @@ name: 'PS Feature'
 type: module
 description: 'Feature Builder - 9 type drivers for business components'
 core_version_requirement: ^11
+version: 1.0.0
 package: 'Property Search'
 dependencies:
   - ps_core:ps_core

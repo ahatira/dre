@@ -4,36 +4,25 @@ declare(strict_types=1);
 
 /**
  * @file
- * Install, update and uninstall functions for the ps_agent module.
+ * Install hooks for the ps_agent module.
  */
 
 /**
- * Add bundle (type) support to the ps_agent entity.
- *
- * Adds the 'type' column to the ps_agent table and sets all existing
- * agents to the 'default' bundle.
+ * Installs bundle support and default agent type on first enable.
  */
-function ps_agent_update_10001(): void {
+function ps_agent_install(): void {
   $entity_type_manager = \Drupal::entityTypeManager();
   $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
 
-  // Install the ps_agent_type entity type.
   $entity_type = $entity_type_manager->getDefinition('ps_agent_type');
   $entity_definition_update_manager->installEntityType($entity_type);
 
-  // Install the 'type' (bundle) base field on ps_agent.
   $field_definition = \Drupal\Core\Field\BaseFieldDefinition::create('string')
     ->setLabel(t('Agent type'))
     ->setSetting('max_length', 128)
     ->setRequired(TRUE);
   $entity_definition_update_manager->installFieldStorageDefinition('type', 'ps_agent', 'ps_agent', $field_definition);
 
-  // Set all existing agents to the 'default' bundle.
-  \Drupal::database()->update('ps_agent')
-    ->fields(['type' => 'default'])
-    ->execute();
-
-  // Install the default agent type config entity.
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('ps_agent.ps_agent_type.default');
   if ($config->isNew()) {

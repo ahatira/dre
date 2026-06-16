@@ -3,6 +3,7 @@ type: module
 description: 'Simple and configurable diagnostics module for offers.'
 package: 'Property Search'
 core_version_requirement: '^10 || ^11'
+version: 1.0.0
 dependencies:
   - drupal:field
   - drupal:file

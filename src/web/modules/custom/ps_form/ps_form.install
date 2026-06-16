@@ -4,53 +4,12 @@ declare(strict_types=1);
 
 /**
  * @file
- * Install and update hooks for the ps_form module.
+ * Install hooks for the ps_form module.
  */
 
 /**
  * Implements hook_install().
  */
 function ps_form_install(): void {
-  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
-}
-
-/**
- * Ensures PS Form webforms exist on sites enabled before install defaults.
- */
-function ps_form_update_10001(): void {
-  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
-}
-
-/**
- * Enables Ajax inline confirmation for the header contact offcanvas webform.
- */
-function ps_form_update_10002(): void {
-  $webform = \Drupal::entityTypeManager()->getStorage('webform')->load('contact');
-  if ($webform === NULL) {
-    return;
-  }
-
-  $settings = $webform->getSettings();
-  $settings['ajax'] = TRUE;
-  $settings['ajax_scroll_top'] = 'form';
-  $settings['page'] = FALSE;
-  $settings['form_submit_label'] = 'Send';
-  $settings['confirmation_type'] = 'inline';
-  $settings['confirmation_message'] = '<p>Thank you. Your message has been sent.</p>';
-  $webform->setSettings($settings);
-  $webform->save();
-}
-
-/**
- * Provisions the search alert webform for property search notifications.
- */
-function ps_form_update_10003(): void {
-  \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
-}
-
-/**
- * Provisions the compare share webform for comparison email lead capture.
- */
-function ps_form_update_10004(): void {
   \Drupal::service('ps_form.webform_provisioner')->provisionMissing();
 }

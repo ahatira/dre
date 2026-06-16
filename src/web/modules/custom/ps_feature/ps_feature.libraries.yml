@@ -1,11 +1,11 @@
 admin:
-  version: 1.x
+  version: 1.0.0
   css:
     theme:
       css/admin.css: {}
 
 feature-builder:
-  version: 2.x
+  version: 1.0.0
   css:
     theme:
       css/feature-builder.css: {}

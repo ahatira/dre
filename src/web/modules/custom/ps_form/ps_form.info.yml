@@ -2,6 +2,7 @@ name: 'PS Form'
 type: module
 description: 'Webform definitions and front integrations for Property Search.'
 core_version_requirement: ^11.3
+version: 1.0.0
 package: 'Property Search'
 dependencies:
   - drupal:inline_form_errors

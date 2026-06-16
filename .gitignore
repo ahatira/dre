@@ -87,6 +87,16 @@ Thumbs.db
 /imports/
 /tmp/
 
+# Dev workspace / AI tooling — not for dre.git release
+/.cursor/
+/.claude/
+/archived-scripts/
+/backup/
+/src/backup/
+
+# One-shot local scripts (not part of install pipeline)
+/src/scripts/translate_sample_offers.php
+
 # ------------------------------
 # Drupal scaffold defaults (docroot)
 # ------------------------------

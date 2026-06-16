@@ -2,6 +2,7 @@ name: 'PS Compare'
 type: module
 description: 'Property offer comparison list with anonymous and authenticated persistence.'
 core_version_requirement: ^10.3 || ^11
+version: 1.0.0
 package: 'Property Search'
 dependencies:
   - drupal:node

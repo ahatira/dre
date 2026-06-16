@@ -1,11 +1,11 @@
 surface-widget:
-  version: 1.0
+  version: 1.0.0
   css:
     component:
       css/ps-surface-widget.css: {}
 
 surface-division-table:
-  version: 1.0
+  version: 1.0.0
   js:
     js/surface-division-table.js: {}
   dependencies:

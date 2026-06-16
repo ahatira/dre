@@ -229,7 +229,7 @@ framework_css_re:
     - ui_suite_bnp/framework_css_bootstrap
 
 media-credit:
-  version: 1.x
+  version: 1.0.0
   css:
     component:
       components/media-credit/css/media-credit.css: {}
