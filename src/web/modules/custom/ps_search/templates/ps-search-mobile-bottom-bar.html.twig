@@ -23,7 +23,9 @@
     class="ps-search-mobile-bottom-bar__btn ps-search-mobile-bottom-bar__btn--alert"
     data-ps-search-alert-open
   >
-    <span class="ps-search-mobile-bottom-bar__icon ps-search-mobile-bottom-bar__icon--alert" aria-hidden="true"></span>
+    <span class="ps-search-mobile-bottom-bar__icon ps-search-mobile-bottom-bar__icon--alert" aria-hidden="true">
+      {{ icon('bnp_custom', 'notification', {'size': '20px'}) }}
+    </span>
     {{ 'Create an alert'|t }}
   </button>
 </nav>

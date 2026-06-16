@@ -13,8 +13,10 @@
   {# Desktop — title row with Create an alert #}
   <div class="ps-search-results-header__top d-none d-lg-flex justify-content-between align-items-start gap-3 mb-2">
     <h1 class="h4 fw-semibold mb-0 js-ps-results-header-title">{{ title }}</h1>
-    <button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0 ps-search-results-header__alert-btn" data-ps-search-alert-open>
-      <span class="ps-search-results-header__alert-icon" aria-hidden="true"></span>
+    <button type="button" class="btn btn-primary btn-sm flex-shrink-0 ps-search-results-header__alert-btn" data-ps-search-alert-open>
+      <span class="ps-search-results-header__alert-icon" aria-hidden="true">
+        {{ icon('bnp_custom', 'notification', {'size': '16px'}) }}
+      </span>
       {{ 'Create an alert'|t }}
     </button>
   </div>
