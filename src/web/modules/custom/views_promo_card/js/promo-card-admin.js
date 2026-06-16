@@ -3,10 +3,22 @@
  * Live preview for promo card admin forms (iframe with ps_theme CSS).
  */
 
-(function (Drupal, once) {
+(function (Drupal, once, $) {
   'use strict';
 
   const DEBOUNCE_MS = 450;
+
+  /**
+   * Removes script tags from preview HTML (iframe sandbox is CSS-only).
+   */
+  const stripScriptsFromHtml = (html) => {
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    template.content.querySelectorAll('script').forEach((script) => {
+      script.remove();
+    });
+    return template.innerHTML;
+  };
 
   /**
    * Returns true when a Drupal AJAX request is in progress on the form.
@@ -44,9 +56,6 @@
 
   /**
    * Resizes the iframe to fit its document height.
-   *
-   * Height is reset before measuring so a previous iframe size cannot inflate
-   * scrollHeight on the next preview refresh.
    */
   const resizePreviewIframe = (iframe) => {
     const doc = iframe.contentDocument;
@@ -84,7 +93,9 @@
           return;
         }
 
-        let timer = null;
+        const isPlacementForm = form.classList.contains('promo-card-placement-form');
+        let debounceTimer = null;
+        let ajaxWaitTimer = null;
         let previewEnabled = true;
 
         const showEmptyPreview = () => {
@@ -94,101 +105,92 @@
             : '';
         };
 
-        const refreshPreview = (immediate = false) => {
+        const executePreviewFetch = () => {
           if (!previewEnabled) {
             return;
           }
 
-          window.clearTimeout(timer);
+          if (isAjaxBusy(form)) {
+            window.clearTimeout(ajaxWaitTimer);
+            ajaxWaitTimer = window.setTimeout(executePreviewFetch, 100);
+            return;
+          }
 
-          const run = () => {
-            if (isAjaxBusy(form)) {
-              timer = window.setTimeout(run, 100);
-              return;
-            }
+          form.classList.remove('promo-card-admin-form--preview-error');
 
-            form.classList.remove('promo-card-admin-form--preview-error');
-
-            const body = new FormData(form);
-            fetch(previewUrl, {
-              method: 'POST',
-              body,
-              credentials: 'same-origin',
-              headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-              },
+          const body = new FormData(form);
+          fetch(previewUrl, {
+            method: 'POST',
+            body,
+            credentials: 'same-origin',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+            },
+          })
+            .then((response) => {
+              if (response.status === 204) {
+                showEmptyPreview();
+                return '';
+              }
+              if (!response.ok) {
+                throw new Error('Preview request failed');
+              }
+              return response.text();
             })
-              .then((response) => {
-                if (response.status === 204) {
-                  showEmptyPreview();
-                  return '';
-                }
-                if (!response.ok) {
-                  throw new Error('Preview request failed');
-                }
-                return response.text();
-              })
-              .then((html) => {
-                if (typeof html !== 'string' || html.length === 0) {
-                  return;
-                }
-                const iframe = ensurePreviewIframe(target);
-                disconnectPreviewObserver(iframe);
-                iframe.style.height = '160px';
-                iframe.srcdoc = html;
-                iframe.onload = () => {
-                  // Fonts/layout may settle slightly after first paint.
-                  finalizePreviewIframe(iframe);
-                  window.setTimeout(() => finalizePreviewIframe(iframe), 50);
-                };
-              })
-              .catch(() => {
-                form.classList.add('promo-card-admin-form--preview-error');
-              });
-          };
-
-          timer = window.setTimeout(run, immediate ? 0 : DEBOUNCE_MS);
+            .then((html) => {
+              if (typeof html !== 'string' || html.length === 0) {
+                return;
+              }
+              const iframe = ensurePreviewIframe(target);
+              disconnectPreviewObserver(iframe);
+              iframe.style.height = '160px';
+              iframe.srcdoc = stripScriptsFromHtml(html);
+              iframe.onload = () => {
+                finalizePreviewIframe(iframe);
+                window.setTimeout(() => finalizePreviewIframe(iframe), 50);
+              };
+            })
+            .catch(() => {
+              form.classList.add('promo-card-admin-form--preview-error');
+            });
         };
 
-        const enablePreview = () => {
-          previewEnabled = true;
+        const queuePreviewRefresh = (debounceMs = DEBOUNCE_MS) => {
+          if (!previewEnabled) {
+            return;
+          }
+          window.clearTimeout(debounceTimer);
+          debounceTimer = window.setTimeout(executePreviewFetch, debounceMs);
         };
 
         form.addEventListener('input', () => {
-          enablePreview();
-          refreshPreview();
+          previewEnabled = true;
+          queuePreviewRefresh();
         });
+
         form.addEventListener('change', (event) => {
-          enablePreview();
-          // Pattern select rebuilds props via AJAX; preview refreshes on ajaxComplete.
+          previewEnabled = true;
           if (event.target?.name === 'layout[editor][pattern_id]') {
             return;
           }
-          // Appearance selects live in a details element; refresh immediately.
           const isAppearance = event.target?.name?.includes('[pattern_form][appearance][');
-          refreshPreview(isAppearance);
+          queuePreviewRefresh(isAppearance ? 0 : DEBOUNCE_MS);
         });
 
-        const schedulePreviewRefresh = (delay = 0) => {
-          if (!previewEnabled) {
-            return;
-          }
-          window.clearTimeout(timer);
-          timer = window.setTimeout(() => refreshPreview(true), delay);
-        };
-
-        const editorRoot = form.querySelector('.promo-card-admin__editor') ?? form;
-        const observer = new MutationObserver(() => schedulePreviewRefresh(150));
-        observer.observe(editorRoot, { childList: true, subtree: true });
+        if (!isPlacementForm) {
+          const editorRoot = form.querySelector('.promo-card-admin__editor') ?? form;
+          const observer = new MutationObserver(() => queuePreviewRefresh(150));
+          observer.observe(editorRoot, { childList: true, subtree: true });
+        }
 
         $(document).on('ajaxComplete.viewsPromoCardAdmin', () => {
           if (document.body.contains(form)) {
-            schedulePreviewRefresh(100);
+            queuePreviewRefresh(100);
           }
         });
 
-        refreshPreview(true);
+        executePreviewFetch();
       });
     },
   };
-})(Drupal, once);
+})(Drupal, once, jQuery);

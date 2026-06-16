@@ -36,7 +36,7 @@ final class MinResultsCondition extends ConditionPluginBase implements ViewAware
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return ['minimum' => 1] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
   }
 
   /**
@@ -47,9 +47,9 @@ final class MinResultsCondition extends ConditionPluginBase implements ViewAware
     $form['minimum'] = [
       '#type' => 'number',
       '#title' => $this->t('Minimum total results'),
-      '#default_value' => $this->configuration['minimum'] ?? 1,
+      '#description' => $this->t('Leave empty to ignore this condition.'),
+      '#default_value' => $this->configuration['minimum'] ?? '',
       '#min' => 0,
-      '#required' => TRUE,
     ];
     return $form;
   }
@@ -59,15 +59,21 @@ final class MinResultsCondition extends ConditionPluginBase implements ViewAware
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     parent::submitConfigurationForm($form, $form_state);
-    $this->configuration['minimum'] = (int) $form_state->getValue('minimum');
+    $minimum = $form_state->getValue('minimum');
+    if ($minimum === '' || $minimum === NULL) {
+      unset($this->configuration['minimum']);
+    }
+    else {
+      $this->configuration['minimum'] = (int) $minimum;
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function evaluate(): bool {
-    if ($this->view === NULL) {
-      return FALSE;
+    if ($this->view === NULL || !array_key_exists('minimum', $this->configuration)) {
+      return TRUE;
     }
     $minimum = (int) ($this->configuration['minimum'] ?? 0);
     return $this->resolveTotalResults() >= $minimum;

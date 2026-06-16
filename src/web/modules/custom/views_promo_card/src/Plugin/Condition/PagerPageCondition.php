@@ -36,7 +36,7 @@ final class PagerPageCondition extends ConditionPluginBase implements ViewAwareC
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return ['max_page' => 0] + parent::defaultConfiguration();
+    return parent::defaultConfiguration();
   }
 
   /**
@@ -47,10 +47,11 @@ final class PagerPageCondition extends ConditionPluginBase implements ViewAwareC
     $form['max_page'] = [
       '#type' => 'number',
       '#title' => $this->t('Maximum pager page'),
-      '#description' => $this->t('Use 0 for first page only (recommended with load-more).'),
-      '#default_value' => $this->configuration['max_page'] ?? 0,
+      '#description' => $this->t('Use 0 for first page only (recommended with load-more). Leave empty to ignore this condition.'),
+      '#default_value' => array_key_exists('max_page', $this->configuration)
+        ? $this->configuration['max_page']
+        : '',
       '#min' => 0,
-      '#required' => TRUE,
     ];
     return $form;
   }
@@ -60,15 +61,21 @@ final class PagerPageCondition extends ConditionPluginBase implements ViewAwareC
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     parent::submitConfigurationForm($form, $form_state);
-    $this->configuration['max_page'] = (int) $form_state->getValue('max_page');
+    $max_page = $form_state->getValue('max_page');
+    if ($max_page === '' || $max_page === NULL) {
+      unset($this->configuration['max_page']);
+    }
+    else {
+      $this->configuration['max_page'] = (int) $max_page;
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function evaluate(): bool {
-    if ($this->view === NULL) {
-      return FALSE;
+    if ($this->view === NULL || !array_key_exists('max_page', $this->configuration)) {
+      return TRUE;
     }
     return (int) $this->view->getCurrentPage() <= (int) ($this->configuration['max_page'] ?? 0);
   }

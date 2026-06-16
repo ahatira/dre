@@ -9,11 +9,10 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
-use Drupal\Core\Render\Element;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
 use Drupal\views_promo_card\Entity\PromoCardPlacement;
 use Drupal\views_promo_card\Entity\PromoCardPlacementInterface;
-use Drupal\views_promo_card\Service\PatternRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -43,9 +42,9 @@ final class PromoCardPlacementForm extends EntityForm {
   private ConditionManager $conditionManager;
 
   /**
-   * Pattern registry service.
+   * Language manager.
    */
-  private PatternRegistry $patternRegistry;
+  private LanguageManagerInterface $languageManager;
 
   /**
    * {@inheritdoc}
@@ -54,7 +53,7 @@ final class PromoCardPlacementForm extends EntityForm {
     /** @var static $instance */
     $instance = parent::create($container);
     $instance->conditionManager = $container->get('plugin.manager.condition');
-    $instance->patternRegistry = $container->get('views_promo_card.pattern_registry');
+    $instance->languageManager = $container->get('language_manager');
     return $instance;
   }
 
@@ -67,10 +66,6 @@ final class PromoCardPlacementForm extends EntityForm {
     $entity = $this->entity;
 
     $form['#attached']['library'][] = 'views_promo_card/promo_card_admin';
-    $form['#attached']['library'][] = 'ps_theme/framework';
-    foreach ($this->patternRegistry->getAllowedPatternLibraries() as $library_id) {
-      $form['#attached']['library'][] = $library_id;
-    }
     $form['#attributes']['class'][] = 'promo-card-admin-form';
     $form['#attributes']['class'][] = 'promo-card-placement-form';
     $form['#attributes']['data-preview-url'] = Url::fromRoute('views_promo_card.placement_preview')->toString();
@@ -127,6 +122,10 @@ final class PromoCardPlacementForm extends EntityForm {
 
     $selected_view = $form_state->getValue(['layout', 'editor', 'target', 'view_id']) ?? $entity->getViewId();
     $display_options = $this->getDisplayOptions((string) $selected_view);
+    $selected_display = $form_state->getValue(['layout', 'editor', 'target', 'display_id']) ?? $entity->getDisplayId();
+    if ($display_options !== [] && !isset($display_options[$selected_display])) {
+      $selected_display = (string) array_key_first($display_options);
+    }
 
     $editor['target'] = [
       '#type' => 'details',
@@ -148,7 +147,7 @@ final class PromoCardPlacementForm extends EntityForm {
       '#type' => 'select',
       '#title' => $this->t('Display'),
       '#options' => $display_options,
-      '#default_value' => $entity->getDisplayId(),
+      '#default_value' => $selected_display,
       '#required' => TRUE,
       '#prefix' => '<div id="display-id-wrapper">',
       '#suffix' => '</div>',
@@ -277,6 +276,7 @@ final class PromoCardPlacementForm extends EntityForm {
       '#attributes' => [
         'class' => ['promo-card-admin__preview-target'],
         'id' => 'promo-card-preview-target',
+        'data-preview-empty' => $this->t('Select a promo card to preview placement in the search grid.'),
       ],
     ];
 
@@ -288,12 +288,24 @@ final class PromoCardPlacementForm extends EntityForm {
   }
 
   /**
-   * Builds the compact conditions section.
+   * Builds the conditions section with vertical tabs (block visibility pattern).
    */
   private function buildConditionsForm(PromoCardPlacementInterface $entity, FormStateInterface $form_state): array {
-    $form = [];
+    $stored = [];
+    foreach ($entity->getConditions() as $item) {
+      $stored[(string) ($item['id'] ?? '')] = $item;
+    }
 
-    $form['conditions_logic'] = [
+    $definitions = $this->conditionManager->getDefinitions();
+
+    $form['conditions_section'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Conditions'),
+      '#open' => TRUE,
+      '#tree' => TRUE,
+    ];
+
+    $form['conditions_section']['conditions_logic'] = [
       '#type' => 'radios',
       '#title' => $this->t('Condition logic'),
       '#options' => [
@@ -303,138 +315,95 @@ final class PromoCardPlacementForm extends EntityForm {
       '#default_value' => $entity->getConditionsLogic(),
     ];
 
-    $stored = [];
-    foreach ($entity->getConditions() as $item) {
-      $stored[(string) ($item['id'] ?? '')] = $item;
-    }
-
-    $visible = $this->getVisibleConditions($form_state, $entity);
-    $definitions = $this->conditionManager->getDefinitions();
-
-    $form['conditions'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Conditions'),
-      '#open' => TRUE,
-    ];
-
-    $add_options = [];
-    foreach (self::ALLOWED_CONDITIONS as $condition_id) {
-      if (!isset($definitions[$condition_id])) {
-        continue;
-      }
-      if (!in_array($condition_id, $visible, TRUE)) {
-        $add_options[$condition_id] = (string) $definitions[$condition_id]['label'];
-      }
-    }
-
-    $form['conditions']['toolbar'] = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['promo-card-conditions-toolbar']],
-      '#access' => $add_options !== [],
-    ];
-    $form['conditions']['toolbar']['add_type'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Add condition'),
-      '#title_display' => 'invisible',
-      '#options' => $add_options,
-      '#empty_option' => $this->t('- Select condition type -'),
-    ];
-    $form['conditions']['toolbar']['add'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Add'),
-      '#submit' => ['::addCondition'],
-      '#limit_validation_errors' => [],
-      '#ajax' => [
-        'callback' => '::rebuildConditionsSection',
-        'wrapper' => 'promo-card-conditions-list',
+    $form['conditions_section']['conditions_tabs'] = [
+      '#type' => 'vertical_tabs',
+      '#title' => $this->t('Condition types'),
+      '#parents' => ['conditions_tabs'],
+      '#attached' => [
+        'library' => [
+          'block/drupal.block',
+        ],
       ],
     ];
 
-    $form['conditions']['list'] = [
-      '#type' => 'container',
-      '#attributes' => ['id' => 'promo-card-conditions-list'],
-    ];
-
-    if ($visible === []) {
-      $form['conditions']['list']['empty'] = [
-        '#markup' => '<p class="promo-card-conditions-empty">' . $this->t('No conditions yet. Add one to restrict when this placement applies.') . '</p>',
-      ];
-    }
-
-    foreach ($visible as $condition_id) {
-      if (!isset($definitions[$condition_id])) {
-        continue;
-      }
+    foreach ($this->getAllowedConditionIds() as $condition_id) {
       $configuration = $stored[$condition_id] ?? ['id' => $condition_id];
       /** @var \Drupal\Core\Condition\ConditionInterface $condition */
       $condition = $this->conditionManager->createInstance($condition_id, $configuration);
       $form_state->set(['conditions', $condition_id], $condition);
+
       $condition_form = $condition->buildConfigurationForm([], $form_state);
       $condition_form['#type'] = 'details';
       $condition_form['#title'] = (string) $definitions[$condition_id]['label'];
-      $condition_form['#open'] = isset($stored[$condition_id]);
-      $condition_form['#tree'] = TRUE;
-      $condition_form['#attributes']['class'][] = 'promo-card-condition-item';
-      $this->applyOptionalConditionWrapper(
-        $condition_form,
-        'layout[editor][conditions][list][condition_' . $condition_id,
-        isset($stored[$condition_id]),
-      );
-      $form['conditions']['list']['condition_' . $condition_id] = $condition_form;
+      $condition_form['#group'] = 'conditions_tabs';
+      $condition_form['#parents'] = [
+        'layout',
+        'editor',
+        'conditions_section',
+        $condition_id,
+      ];
+
+      $form['conditions_section'][$condition_id] = $condition_form;
     }
+
+    $this->applyBlockConditionFormTweaks($form['conditions_section']);
 
     return $form;
   }
 
   /**
-   * AJAX callback to rebuild the conditions list after adding a condition.
-   */
-  public function rebuildConditionsSection(array &$form, FormStateInterface $form_state): array {
-    return $form['layout']['editor']['conditions']['list'];
-  }
-
-  /**
-   * Submit handler: adds a condition type to the visible list.
-   */
-  public function addCondition(array &$form, FormStateInterface $form_state): void {
-    $type = (string) $form_state->getValue([
-      'layout',
-      'editor',
-      'conditions',
-      'toolbar',
-      'add_type',
-    ]);
-    if ($type === '') {
-      return;
-    }
-
-    $visible = $this->getVisibleConditions($form_state, $this->entity);
-    if (!in_array($type, $visible, TRUE)) {
-      $visible[] = $type;
-      $form_state->set('visible_conditions', $visible);
-    }
-    $form_state->setRebuild(TRUE);
-  }
-
-  /**
-   * Returns condition IDs currently shown on the form.
+   * Returns condition plugin IDs always shown on the placement form.
    *
    * @return list<string>
-   *   Visible condition plugin IDs.
+   *   Allowed condition plugin IDs.
    */
-  private function getVisibleConditions(FormStateInterface $form_state, PromoCardPlacementInterface $entity): array {
-    $visible = $form_state->get('visible_conditions');
-    if (!is_array($visible)) {
-      $visible = [];
-      foreach ($entity->getConditions() as $item) {
-        $id = (string) ($item['id'] ?? '');
-        if ($id !== '') {
-          $visible[] = $id;
-        }
+  private function getAllowedConditionIds(): array {
+    $ids = [];
+    foreach (self::ALLOWED_CONDITIONS as $condition_id) {
+      if ($condition_id === 'language' && !$this->languageManager->isMultilingual()) {
+        continue;
       }
-      $form_state->set('visible_conditions', $visible);
+      if ($this->conditionManager->hasDefinition($condition_id)) {
+        $ids[] = $condition_id;
+      }
     }
-    return array_values(array_filter($visible, fn(mixed $id): bool => is_string($id) && $id !== ''));
+    return $ids;
+  }
+
+  /**
+   * Applies block visibility form tweaks for core condition plugins.
+   */
+  private function applyBlockConditionFormTweaks(array &$conditions_section): void {
+    $disable_negation = ['language', 'user_role'];
+    foreach ($disable_negation as $condition_id) {
+      if (isset($conditions_section[$condition_id]['negate'])) {
+        $conditions_section[$condition_id]['negate']['#type'] = 'value';
+        $conditions_section[$condition_id]['negate']['#value'] = $conditions_section[$condition_id]['negate']['#default_value'];
+      }
+    }
+
+    if (isset($conditions_section['user_role'])) {
+      $conditions_section['user_role']['#title'] = $this->t('Roles');
+      unset($conditions_section['user_role']['roles']['#description']);
+    }
+
+    if (isset($conditions_section['request_path'])) {
+      $conditions_section['request_path']['#title'] = $this->t('Pages');
+      $conditions_section['request_path']['negate']['#type'] = 'radios';
+      $conditions_section['request_path']['negate']['#default_value'] = (int) $conditions_section['request_path']['negate']['#default_value'];
+      $conditions_section['request_path']['negate']['#title_display'] = 'invisible';
+      $conditions_section['request_path']['negate']['#options'] = [
+        $this->t('Show for the listed pages'),
+        $this->t('Hide for the listed pages'),
+      ];
+    }
+  }
+
+  /**
+   * Returns a condition subform element from the built form array.
+   */
+  private function getConditionFormElement(array $form, string $condition_id): ?array {
+    return $form['layout']['editor']['conditions_section'][$condition_id] ?? NULL;
   }
 
   /**
@@ -474,11 +443,16 @@ final class PromoCardPlacementForm extends EntityForm {
       return;
     }
 
-    foreach (['label', 'id', 'status', 'weight', 'rotation', 'max_insertions_per_page', 'conditions_logic'] as $key) {
+    foreach (['label', 'id', 'weight', 'rotation', 'max_insertions_per_page'] as $key) {
       if (array_key_exists($key, $editor)) {
         $entity->set($key, $editor[$key]);
       }
     }
+    $conditions_section = $editor['conditions_section'] ?? [];
+    if (is_array($conditions_section) && array_key_exists('conditions_logic', $conditions_section)) {
+      $entity->set('conditions_logic', $conditions_section['conditions_logic']);
+    }
+    $entity->set('status', (bool) ($editor['status'] ?? FALSE));
 
     $target = $editor['target'] ?? [];
     if (is_array($target)) {
@@ -495,13 +469,16 @@ final class PromoCardPlacementForm extends EntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
+    $this->validateConditions($form, $form_state);
+  }
 
-    foreach ($this->getVisibleConditions($form_state, $this->entity) as $condition_id) {
-      if (!$this->isConditionEnabled($form_state, $condition_id)) {
-        continue;
-      }
+  /**
+   * Validates all condition subforms (block visibility pattern).
+   */
+  private function validateConditions(array $form, FormStateInterface $form_state): void {
+    foreach ($this->getAllowedConditionIds() as $condition_id) {
       $condition = $form_state->get(['conditions', $condition_id]);
-      $condition_form = $form['layout']['editor']['conditions']['list']['condition_' . $condition_id] ?? NULL;
+      $condition_form = $this->getConditionFormElement($form, $condition_id);
       if ($condition === NULL || $condition_form === NULL) {
         continue;
       }
@@ -510,6 +487,14 @@ final class PromoCardPlacementForm extends EntityForm {
         SubformState::createForSubform($condition_form, $form, $form_state),
       );
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    parent::submitForm($form, $form_state);
+    $this->entity->set('conditions', $this->submitConditions($form, $form_state));
   }
 
   /**
@@ -544,27 +529,7 @@ final class PromoCardPlacementForm extends EntityForm {
       ],
     ]);
     $entity->set('placement_rules', $rules);
-
-    $conditions = [];
-    foreach ($this->getVisibleConditions($form_state, $entity) as $condition_id) {
-      $condition_form = $form['layout']['editor']['conditions']['list']['condition_' . $condition_id] ?? NULL;
-      if ($condition_form === NULL || !$this->isConditionEnabled($form_state, $condition_id)) {
-        continue;
-      }
-      $condition = $form_state->get(['conditions', $condition_id]);
-      if ($condition === NULL) {
-        continue;
-      }
-      $condition->submitConfigurationForm(
-        $condition_form,
-        SubformState::createForSubform($condition_form, $form, $form_state),
-      );
-      $config = $condition->getConfiguration();
-      if ($this->conditionIsActive($config)) {
-        $conditions[] = $config;
-      }
-    }
-    $entity->set('conditions', $conditions);
+    $entity->set('conditions', $this->submitConditions($form, $form_state));
 
     $status = parent::save($form, $form_state);
     $this->messenger()->addStatus($this->t('Placement %label saved.', ['%label' => $entity->label()]));
@@ -573,57 +538,51 @@ final class PromoCardPlacementForm extends EntityForm {
   }
 
   /**
-   * Adds an enable checkbox and makes child fields required only when enabled.
+   * Submits all condition subforms and returns persisted configuration.
+   *
+   * @return list<array<string, mixed>>
+   *   Condition configuration arrays.
    */
-  private function applyOptionalConditionWrapper(array &$form, string $parents, bool $enabled_default): void {
-    $form['enabled'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable this condition'),
-      '#default_value' => $enabled_default,
-      '#weight' => -100,
-    ];
-    $input_name = $parents . '][enabled]';
-    foreach (Element::children($form) as $key) {
-      if ($key === 'enabled') {
+  private function submitConditions(array $form, FormStateInterface $form_state): array {
+    $conditions = [];
+    foreach ($this->getAllowedConditionIds() as $condition_id) {
+      $condition_form = $this->getConditionFormElement($form, $condition_id);
+      if ($condition_form === NULL) {
         continue;
       }
-      if (!empty($form[$key]['#required'])) {
-        unset($form[$key]['#required']);
-        $form[$key]['#states']['required'] = [
-          ':input[name="' . $input_name . '"]' => ['checked' => TRUE],
-        ];
+      $condition = $form_state->get(['conditions', $condition_id]);
+      if ($condition === NULL) {
+        continue;
+      }
+      $subform_state = SubformState::createForSubform($condition_form, $form, $form_state);
+      $condition->submitConfigurationForm($condition_form, $subform_state);
+      $config = $this->normalizeConditionConfiguration($condition->getConfiguration());
+      if ($this->conditionConfigurationIsValid($config)) {
+        $conditions[] = $config;
       }
     }
+    return $conditions;
   }
 
   /**
-   * Checks whether a condition is enabled on the placement form.
+   * Normalizes a condition configuration before persistence.
    */
-  private function isConditionEnabled(FormStateInterface $form_state, string $condition_id): bool {
-    return (bool) $form_state->getValue([
-      'layout',
-      'editor',
-      'conditions',
-      'list',
-      'condition_' . $condition_id,
-      'enabled',
-    ]);
+  private function normalizeConditionConfiguration(array $config): array {
+    $config['negate'] = !empty($config['negate']);
+    return $config;
   }
 
   /**
-   * Determines whether a condition configuration is actively used.
+   * Checks whether a submitted condition has enough data to persist.
    */
-  private function conditionIsActive(array $config): bool {
-    if (!empty($config['negate'])) {
-      return TRUE;
-    }
+  private function conditionConfigurationIsValid(array $config): bool {
     $id = (string) ($config['id'] ?? '');
     return match ($id) {
       'request_path' => trim((string) ($config['pages'] ?? '')) !== '',
       'user_role' => !empty($config['roles']),
       'language' => !empty($config['langcodes']),
-      'promo_card_min_results' => isset($config['minimum']),
-      'promo_card_pager_page' => isset($config['max_page']),
+      'promo_card_min_results' => array_key_exists('minimum', $config) && is_numeric($config['minimum']),
+      'promo_card_pager_page' => array_key_exists('max_page', $config) && is_numeric($config['max_page']),
       'promo_card_route_name' => trim((string) ($config['routes'] ?? '')) !== '',
       'promo_card_request_parameter' => trim((string) ($config['parameter'] ?? '')) !== '',
       'promo_card_views_exposed_filter' => trim((string) ($config['filter_id'] ?? '')) !== '',

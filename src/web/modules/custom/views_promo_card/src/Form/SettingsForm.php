@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\views_promo_card\Form;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views_promo_card\Service\PatternRegistry;
@@ -25,6 +26,11 @@ final class SettingsForm extends ConfigFormBase {
   private EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * Module handler.
+   */
+  private ModuleHandlerInterface $moduleHandler;
+
+  /**
    * {@inheritdoc}
    */
   public static function create($container): static {
@@ -32,6 +38,7 @@ final class SettingsForm extends ConfigFormBase {
     $instance = parent::create($container);
     $instance->patternRegistry = $container->get('views_promo_card.pattern_registry');
     $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->moduleHandler = $container->get('module_handler');
     return $instance;
   }
 
@@ -82,7 +89,7 @@ final class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('debug_log'),
     ];
 
-    if ($this->moduleHandler()->moduleExists('linkit')) {
+    if ($this->moduleHandler->moduleExists('linkit')) {
       $profiles = $this->entityTypeManager->getStorage('linkit_profile')->loadMultiple();
       $profile_options = ['' => $this->t('- First available profile -')];
       foreach ($profiles as $profile) {

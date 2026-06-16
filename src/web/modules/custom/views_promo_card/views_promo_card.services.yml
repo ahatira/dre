@@ -14,6 +14,8 @@ services:
     class: Drupal\views_promo_card\Service\ConditionEvaluator
     arguments:
       - '@plugin.manager.condition'
+      - '@context.handler'
+      - '@context.repository'
 
   views_promo_card.placement_resolver:
     class: Drupal\views_promo_card\Service\PlacementResolver

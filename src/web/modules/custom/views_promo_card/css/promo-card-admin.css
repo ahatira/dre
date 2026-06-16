@@ -131,31 +131,16 @@
   grid-column: 1 / -1;
 }
 
-.promo-card-conditions-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: flex-end;
-  margin-bottom: 1rem;
+.promo-card-placement-form .promo-card-admin__editor .vertical-tabs {
+  margin-top: 0.5rem;
 }
 
-.promo-card-conditions-toolbar .form-item {
-  margin: 0;
-  flex: 1 1 220px;
+.promo-card-placement-form .promo-card-admin__editor .vertical-tabs__menu {
+  min-width: 180px;
 }
 
-.promo-card-conditions-empty {
-  margin: 0;
-  color: #666;
-  font-size: 0.875rem;
-}
-
-.promo-card-condition-item {
-  margin-bottom: 0.75rem;
-  border: 1px solid #d8dee4;
-  border-radius: 6px;
-  padding: 0.5rem 0.75rem;
-  background: #fff;
+.promo-card-placement-form .promo-card-admin__editor .vertical-tabs__panes {
+  min-width: 0;
 }
 
 .promo-card-placement-form .promo-card-admin__editor .form-item {

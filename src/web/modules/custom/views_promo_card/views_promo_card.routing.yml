@@ -110,7 +110,7 @@ views_promo_card.card_preview:
     no_cache: TRUE
 
 views_promo_card.placement_preview:
-  path: '/admin/config/services/views-promo-card/placements/preview'
+  path: '/admin/config/services/views-promo-card/placement-preview'
   defaults:
     _controller: '\Drupal\views_promo_card\Controller\PromoCardPlacementPreviewController::preview'
   requirements:

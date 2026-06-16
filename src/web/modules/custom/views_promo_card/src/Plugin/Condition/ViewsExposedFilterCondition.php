@@ -50,15 +50,13 @@ final class ViewsExposedFilterCondition extends ConditionPluginBase implements V
     $form['filter_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Filter ID'),
-      '#description' => $this->t('Machine name of the exposed filter (e.g. field_asset_type).'),
+      '#description' => $this->t('Machine name of the exposed filter identifier (e.g. asset_type, operation_type).'),
       '#default_value' => $this->configuration['filter_id'] ?? '',
-      '#required' => TRUE,
     ];
     $form['value'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Expected value'),
       '#default_value' => $this->configuration['value'] ?? '',
-      '#required' => TRUE,
     ];
     return $form;
   }

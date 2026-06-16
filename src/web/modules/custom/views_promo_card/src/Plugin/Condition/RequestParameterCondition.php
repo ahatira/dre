@@ -64,7 +64,6 @@ final class RequestParameterCondition extends ConditionPluginBase implements Con
       '#type' => 'textfield',
       '#title' => $this->t('Parameter name'),
       '#default_value' => $this->configuration['parameter'] ?? '',
-      '#required' => TRUE,
     ];
     $form['value'] = [
       '#type' => 'textfield',
