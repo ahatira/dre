@@ -95,8 +95,8 @@ Thumbs.db
 /backup/
 /src/backup/
 
-# CMI export — local only (not versioned on release/dre-initial).
-/src/config/
+# CMI sync export — local only (env Config Split overrides are versioned).
+/src/config/sync/
 
 # ------------------------------
 # Drupal scaffold defaults (docroot)
