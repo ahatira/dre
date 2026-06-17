@@ -113,20 +113,15 @@ ps_npm_prepare() {
 # ps_theme SCSS imports web/libraries/bootstrap (see ps_theme/README.md).
 ps_link_theme_bootstrap_library() {
   local bootstrap_src="${PS_WEB_DIR}/themes/custom/ui_suite_bnp/node_modules/bootstrap"
-  local lib_link="${PS_WEB_DIR}/libraries/bootstrap"
+  local lib_dest="${PS_WEB_DIR}/libraries/bootstrap"
 
   ps_require_file "${bootstrap_src}/scss/_functions.scss" \
     "Bootstrap not found in ui_suite_bnp (build ui_suite_bnp theme first)"
 
   mkdir -p "${PS_WEB_DIR}/libraries"
-  rm -rf "${lib_link}"
-  if ln -sfn "../themes/custom/ui_suite_bnp/node_modules/bootstrap" "${lib_link}" 2>/dev/null; then
-    ps_success "Bootstrap linked at web/libraries/bootstrap"
-  else
-    ps_warn "Symlink failed — copying bootstrap to web/libraries/bootstrap"
-    cp -a "${bootstrap_src}" "${lib_link}"
-    ps_success "Bootstrap copied to web/libraries/bootstrap"
-  fi
+  rm -rf "${lib_dest}"
+  cp -a "${bootstrap_src}" "${lib_dest}"
+  ps_success "Bootstrap copied to web/libraries/bootstrap"
 }
 
 ps_resolve_runtime() {
