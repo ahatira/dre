@@ -14,6 +14,11 @@ Options:
   --keep-npm     Keep node_modules after build
   -h, --help     Show this help
 
+NPM runtime:
+  Host npm when available (Linux). Otherwise Node via Docker (node:20-alpine).
+  CI/Jenkins (CI, JENKINS_URL): Docker npm by default — set PS_NPM_DOCKER=0 to use agent npm.
+  Override image: PS_NODE_IMAGE=node:20-alpine
+
 Themes (in order):
   1. ui_suite_bnp — npm run build (CSS + icons)
   2. ps_theme     — npm run gulp-prod
@@ -29,7 +34,7 @@ ps_build_theme() {
   local label="$3"
   ps_info "${label}..."
   ps_npm_fix_ownership_if_needed "${theme_dir}"
-  ps_npm_exec "${theme_dir}" sh -lc "npm install --no-save"
+  ps_npm_exec "${theme_dir}" sh -lc "$(ps_npm_install_cmd "${theme_dir}")"
   if ! ps_npm_usable_on_host; then
     ps_npm_prepare "${theme_dir}"
   fi
@@ -68,7 +73,7 @@ ps_success "Composer OK"
 ps_info "NPM install + libs..."
 ps_npm_fix_ownership_if_needed "${PS_SRC_DIR}/node_modules"
 ps_npm_fix_libraries_permissions
-ps_npm_exec "${PS_SRC_DIR}" sh -lc 'npm install --no-save'
+ps_npm_exec "${PS_SRC_DIR}" sh -lc "$(ps_npm_install_cmd "${PS_SRC_DIR}")"
 if ! ps_npm_usable_on_host; then
   ps_npm_prepare "${PS_SRC_DIR}"
 fi
@@ -83,7 +88,6 @@ ps_build_theme "${PS_PS_THEME}" "gulp-prod" "ps_theme"
 if [[ ${PRODUCTION} -eq 1 && ${KEEP_NPM} -eq 0 ]]; then
   rm -rf \
     "${PS_SRC_DIR}/node_modules" \
-    "${PS_SRC_DIR}/package-lock.json" \
     "${PS_UI_SUITE_THEME}/node_modules" \
     "${PS_PS_THEME}/node_modules"
   ps_success "node_modules cleaned"
