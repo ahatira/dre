@@ -1,6 +1,5 @@
 favicon:
-  use_default: false
-  path: favicon.ico
+  use_default: true
 features:
   comment_user_picture: true
   comment_user_verification: true
