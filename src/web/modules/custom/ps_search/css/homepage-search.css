@@ -173,6 +173,8 @@
 }
 
 .ps-homepage-search-entry__submit {
+  display: flex;
+  justify-content: center;
   margin-bottom: 0;
   padding-top: 0;
 }
@@ -314,8 +316,8 @@
   }
 
   .ps-homepage-search-entry__submit {
-    grid-column: 1;
-    justify-self: start;
+    grid-column: 1 / -1;
+    justify-self: center;
   }
 
   .ps-homepage-search-entry__op-group .ps-op-btn {
@@ -381,11 +383,13 @@
   }
 
   .ps-homepage-search-entry__submit {
+    justify-content: center;
     width: 100%;
   }
 
   .ps-homepage-search-entry__submit .btn {
-    width: 100% !important;
+    min-width: 11rem;
+    width: auto !important;
   }
 
   .ps-homepage-search-entry .form-select,
