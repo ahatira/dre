@@ -8,7 +8,7 @@
 
   &__top {
     background-color: var(--re-color-surface, #fff);
-    border-bottom: 1px solid var(--re-color-border-soft, #ebedef);
+    border-bottom: 0;
     padding-block: var(--re-space-24, 24px);
 
     @media (min-width: 992px) {
@@ -31,6 +31,17 @@
     display: grid;
     gap: var(--re-space-16, 16px);
     grid-template-columns: 1fr;
+
+    .accordion-item,
+    .ps-site-footer__prefooter-item {
+      border: 0;
+    }
+
+    .accordion-item:first-child,
+    .accordion-item:last-child {
+      border-bottom: 0;
+      border-top: 0;
+    }
 
     @media (min-width: 992px) {
       gap: var(--re-space-24, 24px) var(--re-space-32, 32px);

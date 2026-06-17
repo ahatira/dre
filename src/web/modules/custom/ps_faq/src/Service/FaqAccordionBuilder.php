@@ -93,20 +93,23 @@ final class FaqAccordionBuilder {
       ];
     }
 
+    $itemCount = count($accordionItems);
+    $rowCount = (int) ceil($itemCount / 2);
+    $leftItems = array_slice($accordionItems, 0, $rowCount);
+    $rightItems = array_slice($accordionItems, $rowCount);
+
+    $this->markColumnBottomItem($leftItems);
+    $this->markColumnBottomItem($rightItems);
+
     $body = [
       'accordion_wrapper' => [
         '#type' => 'container',
         '#attributes' => ['class' => ['ps-homepage-faq__accordion']],
-        'accordion' => [
-          '#type' => 'component',
-          '#component' => 'ui_suite_bnp:accordion',
-          '#props' => [
-            'keep_open' => FALSE,
-            'accordion_id' => Html::getUniqueId('ps-faq'),
-          ],
-          '#slots' => [
-            'content' => $accordionItems,
-          ],
+        'columns' => [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['ps-homepage-faq__accordion-columns']],
+          'left' => $this->buildAccordionColumn($leftItems, 'left'),
+          'right' => $this->buildAccordionColumn($rightItems, 'right'),
         ],
       ],
     ];
@@ -122,6 +125,40 @@ final class FaqAccordionBuilder {
       ],
       'attached' => [
         'library' => ['ps_faq/faq_accordion'],
+      ],
+    ];
+  }
+
+  /**
+   * @param list<array<string, mixed>> $items
+   */
+  private function markColumnBottomItem(array &$items): void {
+    if ($items === []) {
+      return;
+    }
+    $lastIndex = count($items) - 1;
+    $items[$lastIndex]['#attributes']['class'][] = 'ps-homepage-faq__accordion-item--col-bottom';
+  }
+
+  /**
+   * @param list<array<string, mixed>> $items
+   *
+   * @return array<string, mixed>
+   */
+  private function buildAccordionColumn(array $items, string $suffix): array {
+    if ($items === []) {
+      return ['#markup' => ''];
+    }
+
+    return [
+      '#type' => 'component',
+      '#component' => 'ui_suite_bnp:accordion',
+      '#props' => [
+        'keep_open' => FALSE,
+        'accordion_id' => Html::getUniqueId('ps-faq-' . $suffix),
+      ],
+      '#slots' => [
+        'content' => $items,
       ],
     ];
   }
