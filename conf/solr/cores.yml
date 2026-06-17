@@ -1,0 +1,12 @@
+# Property Search Solr cores — one deployable directory per core (from src/.env).
+
+cores:
+  com: local_ps_core_com_db
+  be: local_ps_core_be_db
+  es: local_ps_core_es_db
+  fr: local_ps_core_fr_db
+  ie: local_ps_core_ie_db
+  it: local_ps_core_it_db
+  lu: local_ps_core_lu_db
+  nl: local_ps_core_nl_db
+  pl: local_ps_core_pl_db

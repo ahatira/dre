@@ -69,6 +69,15 @@ ps_crm_xml_target() {
   printf '%s/crm/offers.xml' "$(ps_public_files_dir "$1")"
 }
 
+# Solr core name for a country (SOLR_CORE_{CODE} in .env).
+ps_solr_core_name() {
+  local country="$1"
+  local upper var
+  upper="$(ps_country_upper "${country}")"
+  var="SOLR_CORE_${upper}"
+  ps_env_get "${var}"
+}
+
 ps_parse_countries_arg() {
   local raw="$1"
   local -a selected=()

@@ -81,7 +81,7 @@ bash src/scripts/main.sh tools build --production
 scripts/
 ├── main.sh
 ├── _core/          # bootstrap, config, log, runtime, drush, multisite, helpers
-├── drupal/         # install, import, demo, deploy, cache-clear, rbac-sync, create-test-users
+├── drupal/         # install, import, demo, deploy, cache-clear, export-solr, rbac-sync, create-test-users
 └── tools/          # env, build, check
 ```
 
@@ -92,6 +92,13 @@ scripts/
 | 1 | `make install [country]` | Drupal shell, modules, dictionary, theme |
 | 2 | `make import [country]` | Migrate CRM XML + Solr |
 | 3 | `make demo [country]` | ps_demo menus / homepage |
+
+Solr config export (commit `conf/solr/{core_name}/` for prod):
+
+```bash
+make export-solr              # default country com
+make export-solr -- --finalize-all
+```
 
 ## Configuration
 

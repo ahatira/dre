@@ -67,7 +67,7 @@ services:
       - "8983:8983"
     volumes:
       - solr_data:/var/solr
-      - ../conf/solr/ps_project:/opt/solr/server/solr/configsets/ps_project
+      - ../conf/solr:/opt/solr/conf-export:ro
 
   npm:
     image: node:20-alpine

@@ -11,7 +11,7 @@ COUNTRY ?= com
 .PHONY: \
 	help up down restart ps logs rebuild \
 	env bootstrap build verify composer-install composer-update npm-install fix-permissions \
-	install reinstall import demo deploy drush-cr index-solr \
+	install reinstall import demo deploy drush-cr index-solr export-solr \
 	rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rbac-sec-e2e
 
@@ -34,6 +34,7 @@ help:
 	@echo "  make deploy                    - cim + updb + cr (all countries)"
 	@echo "  make drush-cr                  - Cache rebuild (all countries)"
 	@echo "  make index-solr [country]      - Reindex Search API offers"
+	@echo "  make export-solr [country]     - Export Solr cores to conf/solr/{core_name}/"
 	@echo "  make rbac-sync [country]       - Import BNP RBAC roles"
 	@echo "  make rbac-export [country]     - Export RBAC roles to YAML"
 	@echo "  make create-test-users [country]"
@@ -106,6 +107,9 @@ drush-cr:
 
 index-solr:
 	bash "$(SCRIPTS_CLI)" drupal index-solr $(filter-out index-solr,$(MAKECMDGOALS))
+
+export-solr:
+	bash "$(SCRIPTS_CLI)" drupal export-solr $(filter-out export-solr,$(MAKECMDGOALS))
 
 rbac-sync:
 	bash "$(SCRIPTS_CLI)" drupal rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))
