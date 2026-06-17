@@ -28,7 +28,12 @@ ps_build_theme() {
   local npm_script="$2"
   local label="$3"
   ps_info "${label}..."
-  ( cd "${theme_dir}" && npm install --no-save && npm run "${npm_script}" )
+  ps_npm_fix_ownership_if_needed "${theme_dir}"
+  ps_npm_exec "${theme_dir}" sh -lc "npm install --no-save"
+  if ! ps_npm_usable_on_host; then
+    ps_npm_prepare "${theme_dir}"
+  fi
+  ps_npm_exec "${theme_dir}" sh -lc "npm run ${npm_script}"
   ps_success "${label} OK"
 }
 
@@ -48,7 +53,9 @@ done
 
 ps_header "Build: project dependencies"
 ps_require_cmd composer
-ps_require_cmd npm
+if ! ps_npm_usable_on_host; then
+  ps_require_cmd docker
+fi
 
 COMPOSER_OPTS=(install --no-interaction --optimize-autoloader)
 [[ ${NO_CACHE} -eq 1 ]] && COMPOSER_OPTS+=(--no-cache)
@@ -59,10 +66,18 @@ ps_info "Composer install..."
 ps_success "Composer OK"
 
 ps_info "NPM install + libs..."
-( cd "${PS_SRC_DIR}" && npm install --no-save && npm run libs )
+ps_npm_fix_ownership_if_needed "${PS_SRC_DIR}/node_modules"
+ps_npm_fix_libraries_permissions
+ps_npm_exec "${PS_SRC_DIR}" sh -lc 'npm install --no-save'
+if ! ps_npm_usable_on_host; then
+  ps_npm_prepare "${PS_SRC_DIR}"
+fi
+ps_npm_exec "${PS_SRC_DIR}" sh -lc 'npm run libs'
+touch "${PS_WEB_DIR}/libraries/.gitkeep" 2>/dev/null || true
 ps_success "NPM libraries OK"
 
 ps_build_theme "${PS_UI_SUITE_THEME}" "build" "ui_suite_bnp theme"
+ps_link_theme_bootstrap_library
 ps_build_theme "${PS_PS_THEME}" "gulp-prod" "ps_theme"
 
 if [[ ${PRODUCTION} -eq 1 && ${KEEP_NPM} -eq 0 ]]; then
