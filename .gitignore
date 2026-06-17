@@ -27,6 +27,7 @@
 /logs/
 /migration_output.log
 /src/public/
+/src/bnppre_sample_100_per_type.xml
 
 # Temporary workspace outputs.
 /src/tmp/
