@@ -18,6 +18,61 @@ make deploy          # cim + updb + cr (all countries)
 # Direct CLI
 bash src/scripts/main.sh drupal install --help
 bash src/scripts/main.sh tools build
+bash src/scripts/main.sh tools build --production
+```
+
+## Build manuel (npm / thèmes)
+
+Équivalent de `make build` sans `main.sh` — utile sur Jenkins ou pour debug.
+Remplacer `/path/to/ps_project_wsl` par la racine du checkout (`${WORKSPACE}`, etc.).
+
+**Prérequis :** Node ≥ 18 (recommandé 20), Composer, bash (pas `sh`).
+
+```bash
+# Composer (optionnel si vendor/ déjà présent)
+cd /path/to/ps_project_wsl/src
+composer install --no-interaction --optimize-autoloader --no-dev
+
+# Libs JS Drupal (racine src/)
+cd /path/to/ps_project_wsl/src
+rm -rf node_modules web/libraries
+npm ci
+npm run libs
+
+# Thème parent ui_suite_bnp (CSS + icônes)
+cd /path/to/ps_project_wsl/src/web/themes/custom/ui_suite_bnp
+rm -rf node_modules
+npm ci
+npm run build
+
+# Bootstrap pour ps_theme (copie, pas symlink)
+cd /path/to/ps_project_wsl/src
+rm -rf web/libraries/bootstrap
+cp -a web/themes/custom/ui_suite_bnp/node_modules/bootstrap web/libraries/bootstrap
+
+# Thème ps_theme (Gulp production)
+cd /path/to/ps_project_wsl/src/web/themes/custom/ps_theme
+rm -rf node_modules
+npm ci
+npm run gulp-prod
+```
+
+**Sans `package-lock.json`** — remplacer chaque `npm ci` par `npm install --no-save`.
+
+**Vérification :**
+
+```bash
+test -f /path/to/ps_project_wsl/src/web/libraries/bootstrap/scss/_functions.scss && echo "bootstrap OK"
+test -f /path/to/ps_project_wsl/src/web/themes/custom/ps_theme/assets/css/styles.css && echo "ps_theme CSS OK"
+bash /path/to/ps_project_wsl/src/scripts/main.sh tools check
+```
+
+**CI / Jenkins** — préférer le script (Docker Node 20 si `CI=true`) :
+
+```bash
+cd /path/to/ps_project_wsl
+export CI=true
+bash src/scripts/main.sh tools build --production
 ```
 
 ## Structure
