@@ -12,8 +12,8 @@ Imported at install/post-install via `ps_core.site_language_negotiation_installe
 | es   | es      | `/en/` |
 | ie   | en      | — |
 | it   | it      | `/en/` |
-| lu   | fr      | `/en/`, `/lb/` |
+| lu   | fr      | `/en/` |
 | pl   | pl      | `/en/` |
 | nl   | nl      | `/en/` |
 
-Luxembourg: client alias `lu` → Drupal langcode `lb`.
+Luxembourg (`lu`): FR default, EN via `/en/` (same pattern as `fr`).

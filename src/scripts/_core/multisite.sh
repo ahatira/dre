@@ -152,7 +152,7 @@ ps_site_language_codes() {
     es) printf 'en es' ;;
     ie) printf 'en' ;;
     it) printf 'en it' ;;
-    lu) printf 'en fr lb' ;;
+    lu) printf 'en fr' ;;
     pl) printf 'en pl' ;;
     nl) printf 'en nl' ;;
     *) ps_die "Unknown country for languages: $1" ;;
