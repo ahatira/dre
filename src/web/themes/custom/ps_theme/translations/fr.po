@@ -45,9 +45,6 @@ msgid "Add a linear gradient as background image to the backgrounds. This gra"
 msgstr "Ajouter un dégradé linéaire comme image d'arrière-plan. Ce dégradé com"
 "mence par un blanc semi-transparent qui s'estompe vers le bas."
 
-msgid "Add to favorites"
-msgstr "Ajouter aux favoris"
-
 msgid "Already viewed"
 msgstr "Déjà consultée"
 
@@ -152,12 +149,6 @@ msgstr "Étendre petit"
 
 msgid "Expert journey steps"
 msgstr "Étapes du parcours expert"
-
-msgid "Favorite"
-msgstr "Favori"
-
-msgid "Favorites"
-msgstr "Favoris"
 
 msgid "Follow us"
 msgstr "Suivez-nous"
@@ -349,9 +340,6 @@ msgstr "Location de bureau ou coworking ? Faites le test !"
 
 msgid "Open 3D visit in a new tab"
 msgstr "Ouvrir la visite 3D dans un nouvel onglet"
-
-msgid "Open favorites panel"
-msgstr "Ouvrir le panneau favoris"
 
 msgid "Open gallery"
 msgstr "Ouvrir la galerie"

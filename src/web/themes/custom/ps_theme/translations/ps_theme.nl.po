@@ -44,9 +44,6 @@ msgid "Add a linear gradient as background image to the backgrounds. This gra"
 "om."
 msgstr "Lineair gradiënt als achtergrondafbeelding."
 
-msgid "Add to favorites"
-msgstr "Toevoegen aan favorieten"
-
 msgid "Already viewed"
 msgstr "Ya consultado"
 
@@ -148,12 +145,6 @@ msgstr "Klein uitbreiden"
 
 msgid "Expert journey steps"
 msgstr "Experttraject stappen"
-
-msgid "Favorite"
-msgstr "Favorito"
-
-msgid "Favorites"
-msgstr "Favorieten"
 
 msgid "Follow us"
 msgstr "Volg ons"
@@ -338,9 +329,6 @@ msgstr "Kantoor of coworking huren? Doe de test!"
 
 msgid "Open 3D visit in a new tab"
 msgstr "3D-rondleiding openen in nieuw tabblad"
-
-msgid "Open favorites panel"
-msgstr "Favorietenpaneel openen"
 
 msgid "Open gallery"
 msgstr "Galerie openen"

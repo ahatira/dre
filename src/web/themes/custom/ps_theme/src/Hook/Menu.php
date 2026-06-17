@@ -264,7 +264,6 @@ final class Menu {
     $item['title'] = match ($pluginId) {
       'user.page' => 'Mon compte',
       'user.logout' => 'Déconnexion',
-      'ps_favorite.account_page' => 'Mes favoris',
       default => $item['title'],
     };
   }

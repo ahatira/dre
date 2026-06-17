@@ -44,9 +44,6 @@ msgid "Add a linear gradient as background image to the backgrounds. This gra"
 "om."
 msgstr "Dodaj gradient liniowy jako tło."
 
-msgid "Add to favorites"
-msgstr "Dodaj do ulubionych"
-
 msgid "Already viewed"
 msgstr "Ya consultado"
 
@@ -149,12 +146,6 @@ msgstr "Rozszerz mały"
 
 msgid "Expert journey steps"
 msgstr "Kroki ścieżki eksperta"
-
-msgid "Favorite"
-msgstr "Favorito"
-
-msgid "Favorites"
-msgstr "Ulubione"
 
 msgid "Follow us"
 msgstr "Obserwuj nas"
@@ -339,9 +330,6 @@ msgstr "Wynajem biura lub coworking? Zrób test!"
 
 msgid "Open 3D visit in a new tab"
 msgstr "Otwórz wizytę 3D w nowej karcie"
-
-msgid "Open favorites panel"
-msgstr "Otwórz panel ulubionych"
 
 msgid "Open gallery"
 msgstr "Otwórz galerię"

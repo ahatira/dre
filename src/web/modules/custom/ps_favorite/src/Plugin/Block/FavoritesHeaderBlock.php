@@ -7,6 +7,7 @@ namespace Drupal\ps_favorite\Plugin\Block;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Drupal\ps_favorite\Service\FavoriteLazyBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -38,17 +39,22 @@ final class FavoritesHeaderBlock extends BlockBase implements ContainerFactoryPl
   public function build(): array {
     return [
       '#theme' => 'ps_favorite_header_block',
-      '#offcanvas_url' => '/favorites/offcanvas',
+      '#offcanvas_url' => Url::fromRoute('ps_favorite.offcanvas')->toString(),
       '#dialog_options' => '{"dialogClass":"ps-favorite-offcanvas"}',
       '#count' => $this->favoriteLazyBuilder->buildHeaderCount(),
       '#attached' => [
         'library' => ['ps_favorite/favorites'],
         'drupalSettings' => [
           'psFavorite' => [
-            'countEndpoint' => '/favorites/count',
+            'countEndpoint' => Url::fromRoute('ps_favorite.count')->toString(),
             'countRefreshMs' => 0,
           ],
         ],
+      ],
+      '#cache' => [
+        'contexts' => ['languages:language_interface', 'session', 'user'],
+        'tags' => ['ps_favorite:count'],
+        'max-age' => 0,
       ],
     ];
   }

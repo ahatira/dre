@@ -45,9 +45,6 @@ msgid "Add a linear gradient as background image to the backgrounds. This gra"
 msgstr "Linearen Verlauf als Hintergrundbild hinzufügen, von semi-transparente"
 "m Weiß nach unten verblassend."
 
-msgid "Add to favorites"
-msgstr "Zu Favoriten hinzufügen"
-
 msgid "Already viewed"
 msgstr "Ya consultado"
 
@@ -151,12 +148,6 @@ msgstr "Klein erweitern"
 
 msgid "Expert journey steps"
 msgstr "Expert-Schritte"
-
-msgid "Favorite"
-msgstr "Favorito"
-
-msgid "Favorites"
-msgstr "Favoriten"
 
 msgid "Follow us"
 msgstr "Folgen Sie uns"
@@ -346,9 +337,6 @@ msgstr "Büro- oder Coworking-Miete? Machen Sie den Test!"
 
 msgid "Open 3D visit in a new tab"
 msgstr "3D-Tour in neuem Tab öffnen"
-
-msgid "Open favorites panel"
-msgstr "Favoritenbereich öffnen"
 
 msgid "Open gallery"
 msgstr "Galerie öffnen"

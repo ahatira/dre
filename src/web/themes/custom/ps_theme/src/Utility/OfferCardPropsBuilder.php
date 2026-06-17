@@ -123,7 +123,6 @@ final class OfferCardPropsBuilder {
       'price' => $price,
       'operation' => $operationCode === 'VEN' ? 'sale' : 'rent',
       'badges' => array_values(array_filter($badges)),
-      'favorite' => TRUE,
     ];
   }
 

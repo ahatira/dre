@@ -79,6 +79,7 @@ final class FavoritePageBuilder {
       ],
       '#cache' => [
         'tags' => ['ps_favorite:list', 'ps_favorite:count'],
+        'contexts' => ['languages:language_interface', 'session', 'user'],
         'max-age' => 0,
       ],
     ];

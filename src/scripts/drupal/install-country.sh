@@ -65,8 +65,6 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y captcha altcha 2>/dev/null || true
   ps_drush user:role:add administrator "${ADMIN_USER}" -y 2>/dev/null || true
 
-  ps_import_module_translations
-
   ps_info "Importing dictionary..."
   ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
@@ -87,6 +85,8 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y prevent_homepage_deletion
   ps_drush ev '\Drupal::service("ps_homepage.shell_installer")->install(); echo "ps_homepage shell OK\n";' \
     || ps_die "ps_homepage shell install failed"
+
+  ps_import_module_translations
 
   ps_solr_init_cores || ps_warn "Solr core init skipped"
   ps_drush search-api:clear offers -y 2>/dev/null || true

@@ -41,10 +41,6 @@ props:
       title: Badges
       items:
         type: string
-    favorite:
-      type: boolean
-      title: Show favorite action placeholder
-      default: false
     show_compare:
       type: boolean
       title: Show compare action

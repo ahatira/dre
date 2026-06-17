@@ -45,9 +45,6 @@ msgid "Add a linear gradient as background image to the backgrounds. This gra"
 msgstr "Aggiungi gradiente lineare come sfondo, da bianco semi-trasparente che"
 " sfuma in basso."
 
-msgid "Add to favorites"
-msgstr "Aggiungi ai preferiti"
-
 msgid "Already viewed"
 msgstr "Ya consultado"
 
@@ -152,12 +149,6 @@ msgstr "Espandi piccolo"
 
 msgid "Expert journey steps"
 msgstr "Passi del percorso esperto"
-
-msgid "Favorite"
-msgstr "Favorito"
-
-msgid "Favorites"
-msgstr "Preferiti"
 
 msgid "Follow us"
 msgstr "Seguici"
@@ -345,9 +336,6 @@ msgstr "Affitto ufficio o coworking? Fai il test!"
 
 msgid "Open 3D visit in a new tab"
 msgstr "Apri visita 3D in una nuova scheda"
-
-msgid "Open favorites panel"
-msgstr "Apri panel preferiti"
 
 msgid "Open gallery"
 msgstr "Apri galleria"
