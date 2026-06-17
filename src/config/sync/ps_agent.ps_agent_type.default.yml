@@ -1,8 +1,0 @@
-uuid: 8939c201-4460-4447-82a2-6235aa1a9efa
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: DafdIgvYT2Qsqu_uLzOBl01HD731tHNB7w--hpSMHbw
-id: default
-label: Agent

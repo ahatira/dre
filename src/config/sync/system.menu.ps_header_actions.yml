@@ -1,8 +1,0 @@
-uuid: 4608bbfa-c2d1-40ee-a537-48a715e17840
-langcode: en
-status: true
-dependencies: {  }
-id: ps_header_actions
-label: 'Header actions'
-description: 'Stellar header CTAs — button classes via Menu Link Attributes.'
-locked: false

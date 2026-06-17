@@ -1,8 +1,0 @@
-uuid: 83903ff9-94a9-43e5-9d3e-18c84d0cc14f
-langcode: en
-status: true
-dependencies: {  }
-id: ps_footer_business
-label: 'Footer business'
-description: 'Stellar footer business websites column.'
-locked: false

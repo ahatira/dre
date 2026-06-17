@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: homepage_market_study_date
-label: 'Homepage market study date'
-locked: false
-pattern: 'j F Y'

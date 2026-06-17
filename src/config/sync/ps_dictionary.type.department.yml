@@ -1,9 +1,0 @@
-uuid: 4baa3d14-18c4-4ca5-b478-0b95776d1620
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: PjCFOb0s-ucy7wEroj7GUoagYyk1A3GXZN4AmBIAjFk
-id: department
-label: 'French departments'
-description: 'INSEE department codes and names for location search.'

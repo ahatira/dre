@@ -1,8 +1,0 @@
-_core:
-  default_config_hash: r4fWwpiy2cCoZih98n-4JcYoyRqfsXxjNJSG80Iglzk
-id: ps_diagnostic_type
-title: 'Diagnostic type'
-weight: 10
-names:
-  - 'ps_diagnostic.type.*'
-entity_type: ps_diagnostic_type

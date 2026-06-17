@@ -1,9 +1,0 @@
-uuid: 75ae51b8-b7a6-4fff-bffb-1f61ccb850ca
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: _V0Osvq3gsb3kUJt8D0kks-mlcCATymcEhQrulOgN9A
-id: budget_period
-label: 'Budget periods'
-description: null

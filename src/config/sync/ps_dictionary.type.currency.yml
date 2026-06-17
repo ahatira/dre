@@ -1,9 +1,0 @@
-uuid: fc2f3a50-6d86-44ef-951d-ebf4afe3faed
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: pVHr7fKccMso44o21KOq88qUIjErkPxNNDxe-gG3d34
-id: currency
-label: Devises
-description: null

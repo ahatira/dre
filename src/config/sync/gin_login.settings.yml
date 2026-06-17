@@ -1,7 +1,0 @@
-_core:
-  default_config_hash: OhypfKr4_Eo8XwXg3Sios05lN-LjxOhSdSOSkEN9Ndo
-logo:
-  use_default: false
-  path: modules/custom/bnp_admin/images/logo-bnp.svg
-brand_image:
-  use_default: true

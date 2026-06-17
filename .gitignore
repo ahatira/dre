@@ -95,6 +95,9 @@ Thumbs.db
 /backup/
 /src/backup/
 
+# CMI export — local only (not versioned on release/dre-initial).
+/src/config/
+
 # ------------------------------
 # Drupal scaffold defaults (docroot)
 # ------------------------------

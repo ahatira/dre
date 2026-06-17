@@ -1,9 +1,0 @@
-uuid: c6ee9287-464e-4987-9af0-147897e4da7e
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: xeDpyqQiN82VMAFHJMcWwqIGxlP1RemYAY-A_wYICmM
-id: ges_class
-label: 'Classes GES'
-description: null

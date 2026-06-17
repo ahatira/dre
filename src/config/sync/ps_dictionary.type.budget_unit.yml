@@ -1,9 +1,0 @@
-uuid: 9dd308ef-f3ba-4fb1-9141-c6a9efa917d6
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: 1v6TGtMlod-nXvUg0KVK8Wk5SFo4VRNduo1BXZI84T8
-id: budget_unit
-label: 'Budget units'
-description: null

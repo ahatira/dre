@@ -1,9 +1,0 @@
-uuid: 3410e83d-fb11-4ad4-85fc-644142fe84e6
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: sY__Z5ESpEzUrj0NBHflFDSDCwOfPc0uMsBo-oObawM
-id: operation_type
-label: "Types d'operation"
-description: null

@@ -1,2 +1,0 @@
-label: 'Verrou de protection'
-description: "⚠️ <strong>Activez ce verrou pour protéger les modifications manuelles des imports CRM automatisés.</strong> Une fois verrouillée, cette offre ne sera pas écrasée lors de la synchronisation d'import."

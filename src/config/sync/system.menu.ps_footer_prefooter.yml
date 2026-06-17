@@ -1,8 +1,0 @@
-uuid: 513e099e-d0a0-4262-9002-e7b6f93a890a
-langcode: en
-status: true
-dependencies: {  }
-id: ps_footer_prefooter
-label: 'Footer pre-footer'
-description: 'Stellar pre-footer accordion sections (asset types).'
-locked: false

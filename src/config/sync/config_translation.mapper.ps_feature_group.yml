@@ -1,8 +1,0 @@
-_core:
-  default_config_hash: PxPDpxgrqFFNgjUS_6WsC65Jtp3NG3ECEiWXcp76Irk
-id: ps_feature_group
-title: 'Feature group'
-weight: 10
-names:
-  - 'ps_feature.feature_group.*'
-entity_type: fb_feature_group

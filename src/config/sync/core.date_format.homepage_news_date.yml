@@ -1,8 +1,0 @@
-uuid: 342019d6-873e-4faa-b8c6-06582d7dcd54
-langcode: en
-status: true
-dependencies: {  }
-id: homepage_news_date
-label: 'Homepage news date'
-locked: false
-pattern: 'j M Y'

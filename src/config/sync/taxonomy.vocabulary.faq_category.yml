@@ -1,9 +1,0 @@
-uuid: 75101de1-961c-482e-8951-f67d0cc9cef1
-langcode: en
-status: true
-dependencies: {  }
-name: 'FAQ category'
-vid: faq_category
-description: 'Categories for grouping FAQ items.'
-weight: 0
-new_revision: false

@@ -1,5 +1,0 @@
-_core:
-  default_config_hash: p48XNHdbvBmQ3pCnN1xQCB-HRF8ZxM-MIlnQsbbiOJY
-embed_provider: 'http://ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}'
-ckeditor_version: ''
-plugins_version_installed: ''

@@ -1,8 +1,0 @@
-uuid: fdf6fefc-42d4-4cac-9fd5-dbc103a93638
-langcode: en
-status: true
-dependencies: {  }
-id: ps_footer_about
-label: 'Footer about'
-description: 'Stellar footer about column.'
-locked: false

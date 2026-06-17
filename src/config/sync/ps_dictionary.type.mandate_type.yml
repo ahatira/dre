@@ -1,9 +1,0 @@
-uuid: ffd35c2d-d2d5-4ee3-bb55-2a753f3c47ab
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: ZSA8S87AyHxz963BvZA5o0unz00Nzw9uJK9oxS09SvY
-id: mandate_type
-label: 'Types de mandats'
-description: null
