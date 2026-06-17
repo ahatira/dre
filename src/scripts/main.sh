@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # PS Project — scripts CLI entry point.
+if [ -z "${BASH_VERSION:-}" ]; then
+  exec /usr/bin/env bash "$0" "$@"
+fi
 set -Eeuo pipefail
 
 SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
