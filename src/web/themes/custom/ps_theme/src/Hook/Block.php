@@ -51,18 +51,25 @@ final class Block {
   #[Hook('preprocess_block__ps_theme_footer_social')]
   public function preprocessFooterSocial(array &$variables): void {
     $configuration = $variables['configuration'] ?? [];
+    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $override = \Drupal::languageManager()->getLanguageConfigOverride($langcode, 'block.block.ps_theme_footer_social');
+    if ($label = $override->get('settings.label')) {
+      $configuration['label'] = $label;
+    }
+    $platformOverrides = $override->get('settings.platforms');
+    if (is_array($platformOverrides)) {
+      $configuration['platforms'] = array_replace_recursive($configuration['platforms'] ?? [], $platformOverrides);
+    }
+
     $platforms = $configuration['platforms'] ?? [];
     if ($platforms === []) {
       return;
     }
 
-    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    $copy = [
-      'title' => ['en' => 'Follow us', 'fr' => 'Suivez-nous'],
-      'linkedin' => ['en' => 'LinkedIn', 'fr' => 'LinkedIn'],
-      'email' => ['en' => 'Email alerts', 'fr' => 'Alertes email'],
-    ];
-    $title = $copy['title'][$langcode] ?? $copy['title']['en'];
+    $title = trim((string) ($configuration['label'] ?? ''));
+    if ($title === '') {
+      $title = (string) t('Follow us');
+    }
 
     $icon_map = [
       'linkedin' => 'linkedin',
@@ -91,8 +98,13 @@ final class Block {
         $attributes = 'target="_blank" rel="noopener noreferrer"';
       }
 
+      $linkTitle = trim((string) ($platform['description'] ?? ''));
+      if ($linkTitle === '') {
+        $linkTitle = $platform_id === 'email' ? (string) t('Email alerts') : $platform_id;
+      }
+
       $links[] = [
-        'title' => $copy[$platform_id][$langcode] ?? $copy[$platform_id]['en'] ?? (string) ($platform['description'] ?? $platform_id),
+        'title' => $linkTitle,
         'url' => $url_builders[$platform_id]($value),
         'icon' => $icon_map[$platform_id],
         'attributes' => $attributes,

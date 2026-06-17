@@ -1,0 +1,5 @@
+settings:
+  label: 'Obserwuj nas'
+  platforms:
+    email:
+      description: 'Powiadomienia e-mail'

@@ -1,0 +1,5 @@
+settings:
+  label: 'Folgen Sie uns'
+  platforms:
+    email:
+      description: 'E-Mail-Benachrichtigungen'

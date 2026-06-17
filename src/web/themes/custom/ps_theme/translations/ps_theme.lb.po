@@ -341,7 +341,7 @@ msgid "PS overrides (legacy split build)"
 msgstr "PS-Overrides"
 
 msgid "Pagination"
-msgstr "Paginación"
+msgstr "Paginatioun"
 
 msgid "Pan the map or use “Search this area” to explore other regions."
 msgstr "Verschieft d'Kaart oder benotzt «An dësem Beräich sichen» fir aner Reg"
@@ -382,7 +382,7 @@ msgid "Property types"
 msgstr "Immobilientypen"
 
 msgid "Read more"
-msgstr "Leer más"
+msgstr "Méi liesen"
 
 msgid "Rechercher"
 msgstr "Sichen"

@@ -47,9 +47,8 @@ echo "DemoInstaller complete\n";
 
 ps_apply_site_language_negotiation "${COUNTRY}"
 
-for lang in $(ps_drush ev 'echo implode(" ", array_keys(\Drupal::languageManager()->getLanguages()));'); do
-  ps_drush_import_language_config_overrides "${lang}"
-done
+ps_import_module_translations
+ps_import_active_language_config_overrides "${COUNTRY}"
 
 ps_drush_cr
 ps_success "Demo ready: ${PS_DRUSH_ALIAS} ($(ps_site_uri "${COUNTRY}"))"

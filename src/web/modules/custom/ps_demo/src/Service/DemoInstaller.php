@@ -60,6 +60,9 @@ final class DemoInstaller {
         $container->get('entity.repository'),
         $container->get('entity_type.manager'),
         $container->get('default_content.content_entity_normalizer'),
+        $container->get('default_content.content_file_storage'),
+        $container->get('file_system'),
+        $container->get('account_switcher'),
       ),
     );
   }
@@ -82,7 +85,6 @@ final class DemoInstaller {
     $this->importContentIfMissing();
     $this->ensureEditorialContentModels();
     $this->heroMediaImporter->importIfMissing();
-    $imported = $this->partialContentImporter->importEditorialContentIfMissing();
     $this->ensureEditorialTeaserImages();
     $this->ensureHomepageConfig();
     $this->translationSync->sync();
@@ -116,19 +118,34 @@ final class DemoInstaller {
   }
 
   /**
-   * Imports YAML from content/ when the homepage node is missing.
+   * Imports YAML from content/ when entities are missing.
    *
    * On first install, default_content hook_modules_installed() already imports.
-   * This fallback supports make demo recovery without duplicating existing UUIDs.
+   * When the homepage shell exists (same UUID), imports the rest of the package.
    */
   private function importContentIfMissing(): void {
-    if ($this->loadHomepageNode()) {
+    if (!$this->loadHomepageNode()) {
+      $this->defaultContentImporter->importContent('ps_demo');
+      \Drupal::service('plugin.manager.menu.link')->rebuild();
+      $this->logger->notice('ps_demo: imported default content via default_content module.');
       return;
     }
 
-    $this->defaultContentImporter->importContent('ps_demo');
-    \Drupal::service('plugin.manager.menu.link')->rebuild();
-    $this->logger->notice('ps_demo: imported default content via default_content module.');
+    $homepageUuid = (string) ($this->configFactory->get('ps_homepage.settings')->get('homepage_uuid') ?? '');
+    if ($homepageUuid === '') {
+      $homepageUuid = (string) ($this->configFactory->get('ps_demo.settings')->get('homepage_uuid') ?? '');
+    }
+    if ($homepageUuid === '') {
+      $homepageUuid = 'b2000001-0000-4000-8000-000000000001';
+    }
+
+    $imported = $this->partialContentImporter->importPackageIfMissing([$homepageUuid]);
+    if ($imported > 0) {
+      \Drupal::service('plugin.manager.menu.link')->rebuild();
+      $this->logger->notice('ps_demo: imported @count demo entities (homepage excluded).', [
+        '@count' => $imported,
+      ]);
+    }
   }
 
   /**

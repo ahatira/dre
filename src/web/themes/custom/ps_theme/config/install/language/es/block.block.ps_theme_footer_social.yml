@@ -1,0 +1,5 @@
+settings:
+  label: 'Síguenos'
+  platforms:
+    email:
+      description: 'Alertas por correo'

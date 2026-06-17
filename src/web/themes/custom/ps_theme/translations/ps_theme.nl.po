@@ -340,7 +340,7 @@ msgid "PS overrides (legacy split build)"
 msgstr "PS-overrides (legacy split build)"
 
 msgid "Pagination"
-msgstr "Paginación"
+msgstr "Paginering"
 
 msgid "Pan the map or use “Search this area” to explore other regions."
 msgstr "Verschuif de kaart of gebruik «Zoek in dit gebied» om andere regio's t"
@@ -381,7 +381,7 @@ msgid "Property types"
 msgstr "Type objecten"
 
 msgid "Read more"
-msgstr "Leer más"
+msgstr "Lees meer"
 
 msgid "Rechercher"
 msgstr "Zoeken"

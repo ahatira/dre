@@ -1,0 +1,5 @@
+settings:
+  label: 'Seguici'
+  platforms:
+    email:
+      description: 'Avvisi e-mail'
