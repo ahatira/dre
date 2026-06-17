@@ -13,16 +13,22 @@ use Psr\Log\LoggerInterface;
  * Applies per-country language.negotiation for multisite greenfield installs.
  *
  * Replaces shell partial config:import from src/config/env/languages/{country}.
- * Config Split entities remain in sync CMI; negotiation YAML in config/env.
+ * Config Split entities are read from src/config/env/splits (versioned).
  */
 final class SiteLanguageNegotiationInstaller {
+
+  /**
+   * File storage for versioned Config Split entity YAML.
+   */
+  private readonly FileStorage $splitStorage;
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly StorageInterface $configStorage,
-    private readonly StorageInterface $syncStorage,
     private readonly LoggerInterface $logger,
-  ) {}
+  ) {
+    $this->splitStorage = new FileStorage(DRUPAL_ROOT . '/../config/env/splits');
+  }
 
   /**
    * Imports the language split entity and applies language.negotiation.
@@ -33,26 +39,27 @@ final class SiteLanguageNegotiationInstaller {
       throw new \InvalidArgumentException('Country code is required.');
     }
 
-    $this->importLanguageSplitEntity($country);
+    $this->importSplitEntity('language_' . $country);
+    $this->importSplitEntity('local');
     $this->applyLanguageNegotiation($country);
   }
 
   /**
-   * Copies the per-country language Config Split entity from sync storage.
+   * Copies a Config Split entity from config/env/splits into active storage.
    */
-  private function importLanguageSplitEntity(string $country): void {
-    $configName = 'config_split.config_split.language_' . $country;
+  private function importSplitEntity(string $splitId): void {
+    $configName = 'config_split.config_split.' . $splitId;
     if ($this->configStorage->exists($configName)) {
       return;
     }
 
-    if (!$this->syncStorage->exists($configName)) {
-      throw new \RuntimeException(sprintf('Missing sync config: %s', $configName));
+    if (!$this->splitStorage->exists($configName)) {
+      throw new \RuntimeException(sprintf('Missing split config: %s', $configName));
     }
 
-    $data = $this->syncStorage->read($configName);
+    $data = $this->splitStorage->read($configName);
     if (!is_array($data)) {
-      throw new \RuntimeException(sprintf('Invalid sync config: %s', $configName));
+      throw new \RuntimeException(sprintf('Invalid split config: %s', $configName));
     }
 
     $this->configStorage->write($configName, $data);

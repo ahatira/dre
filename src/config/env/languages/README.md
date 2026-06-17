@@ -1,5 +1,8 @@
 # Per-country language.negotiation overrides (Config Split `language_{code}`).
 
+Split entity YAML: `../splits/config_split.config_split.language_{code}.yml`.
+Negotiation values: `language.negotiation.yml` in this directory.
+
 Imported at install/post-install via `ps_core.site_language_negotiation_installer`
 (`SiteLanguageNegotiationInstaller`) and enabled in
 `settings.bootstrap.php` (`config_split.config_split.language_{code}`).

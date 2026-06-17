@@ -1,0 +1,15 @@
+langcode: en
+status: false
+dependencies: {  }
+id: language_it
+label: 'Languages IT'
+description: 'Per-site language negotiation (IT). Enabled via settings.bootstrap.php.'
+weight: 2
+stackable: true
+no_patching: false
+storage: folder
+folder: ../config/env/languages/it
+module: {  }
+complete_list: {  }
+partial_list:
+  - language.negotiation

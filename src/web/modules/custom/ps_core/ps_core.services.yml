@@ -68,7 +68,6 @@ services:
     arguments:
       - '@config.factory'
       - '@config.storage'
-      - '@config.storage.sync'
       - '@logger.channel.ps_core'
 
   ps_core.ps_theme_shell_installer:
