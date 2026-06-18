@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 OP_CODE="${1:-LOC}"
 ASSET_CODE="${2:-BUR}"
 MODE="${3:-basic}"
 
-DRUSH="docker exec ps_php /var/www/html/vendor/bin/drush"
-
 run_eval() {
   local php_code="$1"
-  ${DRUSH} php:eval "$php_code"
+  ps_e2e_drush php:eval "$php_code"
 }
 
 run_eval_b64() {
   local php_code="$1"
   local encoded
   encoded="$(printf '%s' "$php_code" | base64 -w0)"
-  ${DRUSH} php:eval "eval(base64_decode('${encoded}'));"
+  ps_e2e_drush php:eval "eval(base64_decode('${encoded}'));"
 }
 
 echo "== PS Offer reference uniqueness E2E =="

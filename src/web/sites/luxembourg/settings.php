@@ -4,8 +4,8 @@
 
 /**
  * @file
- * Property Search multisite — be country bootstrap.
+ * Property Search multisite — lu (luxembourg/) country bootstrap.
  */
 
-$ps_country_code = 'be';
+$ps_country_code = 'lu';
 require dirname(__DIR__) . '/default/settings.php';

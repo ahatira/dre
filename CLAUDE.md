@@ -11,32 +11,55 @@ Développer et maintenir une plateforme immobilière Drupal 11 en respectant str
 ## Environnement
 
 - **OS dev** : WSL2 Linux
-- **Runtime** : Docker Compose (conteneur PHP `ps_php`)
+- **Runtime web** : Docker Compose (nginx + PHP `ps_php`) — services uniquement
+- **Drush** : hôte WSL (`src/vendor/bin/drush`, alias `@ps.{code}`)
 - **DB** : PostgreSQL 17 — jamais supposer MySQL
-- **URL** : http://localhost:8080
+- **URL** : multisite — ex. `http://fr.localhost:8083`, `http://com.localhost:8080`
+- **Déployable** : `src/` seul en INT/staging/prod ; repo racine = dev (Docker, `scripts/`)
+
+## Multisite
+
+- **9 pays** — manifest source : `scripts/multisite/countries.yml`
+- Sync : `make generate-multisite` → `src/web/sites/countries.yml` + `src/drush/sites/ps.site.yml`
+- **Code pays** (`fr`, `be`…) : CLI, `@ps.fr`, `DB_NAME_FR`
+- **`site_dir`** (`france`, `belgium`, `com`) : dossiers `web/sites/`, `private/`, suffixe chemins fichiers
+
+Chemins fichiers (1 variable globale par type, vide = défaut dev) :
+
+| Variable | Vide → défaut |
+|----------|----------------|
+| `APP_PUBLIC_PATH` | `sites/{site_dir}/files` |
+| `APP_PRIVATE_PATH` | `src/private/{site_dir}` |
+| `APP_ASSETS_PATH` | agrégats dans public files |
+| `APP_TEMP_PATH` | temp système Drupal |
+
+`APP_PRIVATE_PATH` en prod = montage dédié — **ne pas mkdir**. Détail : `docs/MULTISITE_OPS.md`.
 
 ## Commandes — NE PAS improviser
 
 ```bash
-# ✅ Drush — TOUJOURS dans le conteneur
+# ✅ Drush — TOUJOURS sur l'hôte WSL
 make drush-cr
 make drush-uli
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush cex -y'
+make drush fr cex -y
+make drush-cex
 
-# ✅ Composer — hôte WSL (workflow hybride du projet)
+# ✅ Composer / npm — hôte WSL
 make composer-install
-
-# ✅ Frontend
 cd src && npm run gulp-prod
 
-# ✅ Docker
+# ✅ Docker + multisite (racine repo, dev)
 make up / make down / make restart
+make env / make verify-multisite
+make generate-multisite
+make bootstrap          # env + up + generate-multisite + build
 ```
 
 ```bash
 # ❌ INTERDIT
-drush cr                    # sur l'hôte WSL
-composer install            # dans le conteneur (sauf migration future)
+docker exec ps_php drush …   # Drush n'est plus dans le conteneur
+composer install             # dans le conteneur
+drush …                      # sur l'hôte sans passer par src/vendor/bin/drush ou make drush
 Modifier core/ ou contrib/
 ```
 
@@ -60,6 +83,7 @@ Avant d'écrire du code, vérifier dans l'ordre :
 | `src/web/themes/custom/ps_theme/` | `src/vendor/` |
 | `src/web/themes/custom/ui_suite_bnp/` | |
 | `src/config/sync/` | |
+| `scripts/multisite/countries.yml` (racine repo) | |
 
 ## Patterns PHP obligatoires
 
@@ -81,9 +105,12 @@ public function formNodeOfferFormAlter(array &$form, FormStateInterface $form_st
 Après tout changement via UI admin :
 
 ```bash
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush cex -y'
+make drush-cex
+# ou: cd src && vendor/bin/drush @ps.fr cex -y
 git diff src/config/sync/
 ```
+
+Après modification du manifest pays : `make generate-multisite` puis commit des fichiers générés dans `src/`.
 
 ## Frontend
 
@@ -95,8 +122,8 @@ git diff src/config/sync/
 ## Qualité avant livraison
 
 1. `make up` + `make drush-cr` — site opérationnel
-2. **Validation navigateur obligatoire** — ouvrir `http://localhost:8080`, parcours impacté (MCP navigateur Cursor pour les agents)
-3. Behat / E2E si suite existante pour le module modifié
+2. **Validation navigateur obligatoire** — site impacté (ex. `http://fr.localhost:8083`)
+3. Behat / E2E si suite existante (`src/scripts/e2e/common.sh` pour scripts shell)
 4. `git diff` — scope minimal, pas de bruit
 5. PHPCS sur fichiers PHP modifiés
 6. Config exportée si changements UI admin
@@ -110,12 +137,16 @@ git diff src/config/sync/
 - Créer un nouveau module au lieu d'étendre un module existant
 - Twig/page template monolithique au lieu de SDC + LB
 - Oublier d'exporter la config après changements admin
-- Exécuter drush sur l'hôte
-- **Marquer une tâche terminée sans test navigateur** sur http://localhost:8080
+- Oublier `make generate-multisite` après edit de `scripts/multisite/countries.yml`
+- Confondre code pays (`fr`) et `site_dir` (`france`) pour les chemins fichiers
+- Exécuter Drush via `docker exec` — utiliser `make drush` ou `vendor/bin/drush` sur l'hôte
+- `mkdir` sur `APP_PRIVATE_PATH` monté en prod
+- **Marquer une tâche terminée sans test navigateur** sur le site impacté
 
 ## Références
 
 - `AGENTS.md` — contexte complet
+- `docs/MULTISITE_OPS.md` — multisite 9 pays
 - `docs/PROJECT_CONTEXT.md` — architecture
 - `docs/DRUPAL_ARCHITECTURE.md` — standards
 - `docs/DEVELOPMENT_WORKFLOW.md` — workflow quotidien

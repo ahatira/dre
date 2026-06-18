@@ -61,12 +61,7 @@ ps_verify_ps_offer_install() {
 }
 
 ps_drush_po_path() {
-  local host_path="$1"
-  if [[ "${PS_RUNTIME}" == "docker" ]]; then
-    printf '/var/www/html/%s' "${host_path#${PS_SRC_DIR}/}"
-  else
-    printf '%s' "${host_path}"
-  fi
+  printf '%s' "$1"
 }
 
 ps_import_module_translations() {
@@ -126,7 +121,6 @@ ps_apply_google_maps_api_key() {
 }
 
 ps_index_offers_solr() {
-  ps_solr_init_cores || ps_warn "Solr core init had warnings"
   ps_drush search-api:clear offers -y 2>/dev/null || ps_warn "Could not clear offers index"
   ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || ps_warn "Could not rebuild offers tracker"
   ps_retry 2 2 ps_drush search-api:index offers -y \

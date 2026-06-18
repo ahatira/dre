@@ -58,35 +58,22 @@ ps_solr_export_write_cores_manifest() {
 
 ps_solr_export_fetch_config_zip() {
   local country="$1"
-  local zip_host="${PS_PROJECT_ROOT}/conf/solr/.ps_solr_export.zip"
-  local zip_drush=""
+  local zip_host="${PS_REPO_ROOT}/conf/solr/.ps_solr_export.zip"
 
   ps_drush_for_country "${country}"
   ps_resolve_runtime
   ps_info "Generating Solr config from Search API server ${PS_SOLR_SERVER_ID}..."
 
   rm -f "${zip_host}"
-  if [[ "${PS_RUNTIME}" == "docker" ]]; then
-    mkdir -p "${PS_SRC_DIR}/private"
-    zip_drush="${PS_DRUPAL_ROOT}/private/.ps_solr_export.zip"
-    rm -f "${PS_SRC_DIR}/private/.ps_solr_export.zip"
-    ps_docker_exec_php "vendor/bin/drush ${PS_DRUSH_ALIAS} search-api-solr:get-server-config ${PS_SOLR_SERVER_ID} ${zip_drush} ${PS_SOLR_VERSION}" \
-      || ps_die "search-api-solr:get-server-config failed"
-    [[ -f "${PS_SRC_DIR}/private/.ps_solr_export.zip" ]] \
-      || ps_die "Solr config zip missing after Drush export (${PS_SRC_DIR}/private/.ps_solr_export.zip)"
-    mv "${PS_SRC_DIR}/private/.ps_solr_export.zip" "${zip_host}"
-  else
-    ps_drush search-api-solr:get-server-config "${PS_SOLR_SERVER_ID}" "${zip_host}" "${PS_SOLR_VERSION}" \
-      || ps_die "search-api-solr:get-server-config failed"
-  fi
-
+  ps_drush search-api-solr:get-server-config "${PS_SOLR_SERVER_ID}" "${zip_host}" "${PS_SOLR_VERSION}" \
+    || ps_die "search-api-solr:get-server-config failed"
   [[ -f "${zip_host}" ]] || ps_die "Solr config zip not found: ${zip_host}"
   PS_SOLR_EXPORT_ZIP="${zip_host}"
 }
 
 ps_solr_export_unzip_to_staging() {
   local zip_host="$1"
-  local staging="${PS_PROJECT_ROOT}/conf/solr/.ps_solr_export_staging"
+  local staging="${PS_REPO_ROOT}/conf/solr/.ps_solr_export_staging"
 
   ps_require_unzip
   rm -rf "${staging}"
@@ -105,7 +92,7 @@ ps_solr_export_write_core_directory() {
   local country="$1"
   local core_name="$2"
   local config_src="$3"
-  local core_root="${PS_PROJECT_ROOT}/conf/solr/${core_name}"
+  local core_root="${PS_REPO_ROOT}/conf/solr/${core_name}"
 
   rm -rf "${core_root}"
   mkdir -p "${core_root}/conf"
@@ -139,7 +126,7 @@ done
 ps_is_country_code "${COUNTRY}" || ps_die "Unknown country: ${COUNTRY}"
 ps_load_config
 
-solr_root="${PS_PROJECT_ROOT}/conf/solr"
+solr_root="${PS_REPO_ROOT}/conf/solr"
 manifest="${solr_root}/cores.yml"
 
 ps_header "Solr config export (${COUNTRY})"
@@ -169,8 +156,8 @@ for country in $(ps_multisite_countries); do
   core_count=$((core_count + 1))
 done
 
-rm -rf "${PS_PROJECT_ROOT}/conf/solr/.ps_solr_export_staging"
+rm -rf "${PS_REPO_ROOT}/conf/solr/.ps_solr_export_staging"
 ps_solr_export_write_cores_manifest "${manifest}"
 
 ps_success "Solr config exported to conf/solr/ (${core_count} cores)"
-ps_info "Each core is in conf/solr/{core_name}/ — commit and deploy; local: docker/solr/init-cores.sh"
+ps_info "Each core is in conf/solr/{core_name}/ — local dev: make init-solr-cores (repo root)"

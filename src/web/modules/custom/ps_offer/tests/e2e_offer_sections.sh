@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NID="${1:-7}"
-DRUSH="docker exec ps_php /var/www/html/vendor/bin/drush"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
 
+NID="${1:-7}"
 assert_eq() {
   local expected="$1"
   local actual="$2"
@@ -28,9 +29,9 @@ assert_contains() {
 
 echo "== PS Offer sections E2E (node ${NID}) =="
 
-${DRUSH} cr -q
+ps_e2e_drush cr -q
 
-ROUTE_DATA="$(${DRUSH} php:eval '
+ROUTE_DATA="$(ps_e2e_drush php:eval '
 $route = \Drupal::service("router.route_provider")->getRouteByName("ps_offer.section_settings");
 print "form=".$route->getDefault("_form")."\n";
 print "permission=".$route->getRequirement("_permission")."\n";
@@ -43,7 +44,7 @@ assert_eq '\Drupal\ps_offer\Form\OfferSectionSettingsForm' "${ROUTE_FORM}" "sect
 assert_eq 'manage ps_offer' "${ROUTE_PERMISSION}" "section settings route requires manage ps_offer"
 
 # Submit the admin form programmatically (same contract as /admin/ps/config/offer-sections).
-${DRUSH} php:eval '
+ps_e2e_drush php:eval '
 use Drupal\Core\Form\FormState;
 use Drupal\ps_offer\Form\OfferSectionSettingsForm;
 
@@ -71,7 +72,7 @@ $form_object->submitForm($form, $form_state);
 print "form_submitted\n";
 '
 
-REGISTRY_DATA="$(${DRUSH} php:eval '
+REGISTRY_DATA="$(ps_e2e_drush php:eval '
 $registry = \Drupal::service("ps_core.section_registry");
 $builder = \Drupal::service("ps_core.section_heading_builder");
 print "surface_label=".$registry->getLabel("surface_table")."\n";
@@ -90,9 +91,9 @@ assert_eq "bnp_custom:floors" "${SURFACE_ICON}" "form submit persisted surface i
 assert_eq "bnp_custom:pin-map" "${LOCATION_ICON}" "validateForm normalized icon picker submission"
 assert_eq "config:ps_core.offer_section_settings" "${CACHE_TAGS}" "heading builder exposes config cache tag"
 
-${DRUSH} cr -q
+ps_e2e_drush cr -q
 
-HTTP_CODE="$(curl -s -o /tmp/ps_offer_sections_e2e.html -w '%{http_code}' "http://localhost:8080/node/${NID}")"
+HTTP_CODE="$(curl -s -o /tmp/ps_offer_sections_e2e.html -w '%{http_code}' "${BASE}/node/${NID}")"
 assert_eq "200" "${HTTP_CODE}" "offer detail page responds with HTTP 200"
 
 HTML="$(cat /tmp/ps_offer_sections_e2e.html)"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Drush wrapper — auto-detect host or Docker.
+# Drush wrapper — host only (WSL dev and production servers).
 
 ps_drush() {
   ps_resolve_runtime
@@ -7,24 +7,13 @@ ps_drush() {
   if [[ -n "${PS_DRUSH_ALIAS:-}" ]]; then
     cmd=("${PS_DRUSH_ALIAS}")
   fi
-
-  if [[ "${PS_RUNTIME}" == "host" ]]; then
-    (cd "${PS_SRC_DIR}" && vendor/bin/drush "${cmd[@]}" "$@")
-  else
-    local quoted=()
-    local arg
-    for arg in "${cmd[@]}" "$@"; do
-      quoted+=("$(printf '%q' "${arg}")")
-    done
-    ps_docker_exec_php "vendor/bin/drush ${quoted[*]}"
-  fi
+  (cd "${PS_SRC_DIR}" && vendor/bin/drush "${cmd[@]}" "$@")
 }
 
 ps_drush_cr() {
   ps_drush cache:rebuild "$@"
 }
 
-# Select Drush site alias @ps.{country} (uri = sites/{country}, see drush/sites/ps.site.yml).
 ps_drush_for_country() {
   local country="$1"
   PS_COUNTRY_CODE="${country}"
@@ -38,14 +27,8 @@ ps_drush_bootstrapped() {
 }
 
 ps_require_drush_psql() {
-  ps_resolve_runtime
-  if [[ "${PS_RUNTIME}" == "host" ]]; then
-    command -v psql >/dev/null 2>&1 \
-      || ps_warn "psql not found on host — drush sql:create may fail for PostgreSQL"
-    return 0
-  fi
-  ps_docker_exec_php "command -v psql >/dev/null" \
-    || ps_die "psql missing in ${PS_PHP_CONTAINER}. Run: make rebuild && make restart"
+  command -v psql >/dev/null 2>&1 \
+    || ps_warn "psql not found on host — drush sql:create may fail for PostgreSQL"
 }
 
 ps_drush_database_exists() {
@@ -57,7 +40,7 @@ ps_drush_database_exists() {
     $name = $spec["database"] ?? "";
     if ($name === "") { echo "no"; return; }
     $pdo = new \PDO(
-      sprintf("pgsql:host=%s;port=%d;dbname=postgres", $spec["host"] ?? "postgres", (int) ($spec["port"] ?? 5432)),
+      sprintf("pgsql:host=%s;port=%d;dbname=postgres", $spec["host"] ?? "127.0.0.1", (int) ($spec["port"] ?? 5432)),
       $spec["username"] ?? "drupal",
       $spec["password"] ?? "drupal"
     );
@@ -69,17 +52,6 @@ ps_drush_database_exists() {
 }
 
 ps_drush_sql_create() {
-  ps_resolve_runtime
-  if [[ "${PS_RUNTIME}" == "host" ]] && ! command -v psql >/dev/null 2>&1; then
-    if ps_in_docker; then
-      ps_info "Host psql missing — running sql:create in ${PS_PHP_CONTAINER}"
-      local alias="${PS_DRUSH_ALIAS:-}"
-      [[ -n "${alias}" ]] || ps_die "PS_DRUSH_ALIAS required for sql:create"
-      ps_docker_exec_php "vendor/bin/drush ${alias} sql:create -y $*"
-      return $?
-    fi
-    ps_die "psql required for sql:create. Install postgresql-client or start Docker (make up)"
-  fi
   ps_require_drush_psql
   ps_drush sql:create -y "$@"
 }

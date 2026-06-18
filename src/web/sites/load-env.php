@@ -7,9 +7,26 @@ declare(strict_types=1);
  * Early environment bootstrap for multisite (sites.php + settings).
  */
 
+require_once __DIR__ . '/countries.php';
+
+if (!function_exists('ps_app_env')) {
+  /**
+   * Current application environment (dev, int, staging, prod).
+   */
+  function ps_app_env(): string {
+    $value = $_ENV['APP_ENV'] ?? getenv('APP_ENV');
+    if ($value === FALSE || $value === NULL || $value === '') {
+      return 'dev';
+    }
+    return (string) $value;
+  }
+}
+
 if (!function_exists('ps_load_env')) {
   /**
-   * Loads Composer autoload and src/.env via symfony/dotenv.
+   * Loads Composer autoload and, in dev only, src/.env via symfony/dotenv.
+   *
+   * INT, staging and production rely on system environment variables only.
    */
   function ps_load_env(): void {
     static $loaded = FALSE;
@@ -22,6 +39,10 @@ if (!function_exists('ps_load_env')) {
     $autoload = $composerRoot . '/vendor/autoload.php';
     if (is_readable($autoload)) {
       require_once $autoload;
+    }
+
+    if (ps_app_env() !== 'dev') {
+      return;
     }
 
     if (!class_exists(\Symfony\Component\Dotenv\Dotenv::class)) {
@@ -44,112 +65,157 @@ if (!function_exists('ps_load_env')) {
 if (!function_exists('ps_env')) {
   /**
    * Reads an environment variable with optional default.
+   *
+   * Missing, null and empty/whitespace-only values are treated as unset.
    */
   function ps_env(string $key, ?string $default = NULL): string {
     $value = $_ENV[$key] ?? getenv($key);
-    if ($value === FALSE || $value === NULL || $value === '') {
+    if ($value === FALSE || $value === NULL) {
       return $default ?? '';
     }
-    return (string) $value;
+    $value = trim((string) $value);
+    if ($value === '') {
+      return $default ?? '';
+    }
+    return $value;
   }
 }
 
-if (!function_exists('ps_country_codes')) {
+if (!function_exists('ps_env_path_base')) {
   /**
-   * Supported Property Search country site codes.
-   *
-   * @return string[]
+   * Global path base from env (empty when unset or blank).
    */
-  function ps_country_codes(): array {
-    return ['com', 'be', 'es', 'fr', 'ie', 'it', 'lu', 'nl', 'pl'];
+  function ps_env_path_base(string $key): string {
+    return ps_env($key);
   }
 }
 
-if (!function_exists('ps_env_country')) {
+if (!function_exists('ps_composer_root')) {
   /**
-   * Reads a per-country env var with global base fallback.
-   *
-   * Resolution order:
-   * 1. {PREFIX}_{COUNTRY} (e.g. APP_PUBLIC_PATH_FR)
-   * 2. {PREFIX}/{country} when PREFIX is set (e.g. APP_PUBLIC_PATH=/data/files)
-   * 3. Empty string (caller applies default)
+   * Composer project root (parent of the Drupal web root).
    */
-  function ps_env_country(string $countryCode, string $prefix): string {
-    $countryCode = strtolower($countryCode);
-    $upper = strtoupper($countryCode);
+  function ps_composer_root(string $appRoot): string {
+    return dirname($appRoot);
+  }
+}
 
-    $countryValue = ps_env($prefix . '_' . $upper);
-    if ($countryValue !== '') {
-      return $countryValue;
+if (!function_exists('ps_path_is_absolute')) {
+  /**
+   * Whether a path string is absolute.
+   */
+  function ps_path_is_absolute(string $path): bool {
+    return $path !== '' && ($path[0] === '/' || (PHP_OS_FAMILY === 'Windows' && preg_match('/^[A-Za-z]:[\\\\\\/]/', $path)));
+  }
+}
+
+if (!function_exists('ps_resolve_path_from_base')) {
+  /**
+   * Builds a path from a global env base + optional site_dir segment.
+   *
+   * Absolute base → {base}/{site_dir} or {base} when site_dir is NULL.
+   * Relative base → {composerRoot}/{base}/{site_dir} or {composerRoot}/{base}.
+   */
+  function ps_resolve_path_from_base(string $base, string $appRoot, ?string $siteDir = NULL): string {
+    $base = rtrim($base, '/');
+    $suffix = $siteDir !== NULL ? '/' . $siteDir : '';
+    if (ps_path_is_absolute($base)) {
+      return $base . $suffix;
     }
-
-    $globalValue = ps_env($prefix);
-    if ($globalValue !== '') {
-      return rtrim($globalValue, '/') . '/' . $countryCode;
-    }
-
-    return '';
+    return ps_composer_root($appRoot) . '/' . ltrim($base . $suffix, '/');
   }
 }
 
 if (!function_exists('ps_resolve_public_files_path')) {
   /**
    * Relative public files path under the Drupal web root.
+   *
+   * | APP_PUBLIC_PATH | Result (site_dir=france)        |
+   * |-----------------|-------------------------------|
+   * | unset / empty   | sites/france/files              |
+   * | sites           | sites/france/files              |
    */
   function ps_resolve_public_files_path(string $countryCode): string {
-    $configured = ps_env_country($countryCode, 'APP_PUBLIC_PATH');
-    if ($configured !== '') {
-      // Absolute paths outside web root are not supported for public files.
-      if ($configured[0] === '/') {
-        throw new \RuntimeException(sprintf(
-          'APP_PUBLIC_PATH for %s must be relative to the Drupal web root, got: %s',
-          $countryCode,
-          $configured
-        ));
-      }
-      return $configured;
+    $siteDir = ps_country_site_dir($countryCode);
+    $base = ps_env_path_base('APP_PUBLIC_PATH');
+    if ($base === '') {
+      return 'sites/' . $siteDir . '/files';
     }
+    if (ps_path_is_absolute($base)) {
+      throw new \RuntimeException(sprintf(
+        'APP_PUBLIC_PATH must be relative to the Drupal web root, got: %s',
+        $base
+      ));
+    }
+    return rtrim($base, '/') . '/' . $siteDir . '/files';
+  }
+}
 
-    return 'sites/' . strtolower($countryCode) . '/files';
+if (!function_exists('ps_private_path_is_configured')) {
+  /**
+   * Whether private files path comes from APP_PRIVATE_PATH (not the dev default).
+   */
+  function ps_private_path_is_configured(): bool {
+    return ps_env_path_base('APP_PRIVATE_PATH') !== '';
   }
 }
 
 if (!function_exists('ps_resolve_private_files_path')) {
   /**
    * Absolute private files path (outside web root).
+   *
+   * | APP_PRIVATE_PATH | Result (site_dir=france)           |
+   * |------------------|------------------------------------|
+   * | unset / empty    | {composerRoot}/private/france      |
+   * | /mnt/private     | /mnt/private/france                |
    */
   function ps_resolve_private_files_path(string $countryCode, string $appRoot): string {
-    $configured = ps_env_country($countryCode, 'APP_PRIVATE_PATH');
-    if ($configured !== '') {
-      if ($configured[0] === '/') {
-        return $configured;
-      }
-      return dirname($appRoot) . '/' . ltrim($configured, '/');
+    $siteDir = ps_country_site_dir($countryCode);
+    $base = ps_env_path_base('APP_PRIVATE_PATH');
+    if ($base !== '') {
+      return ps_resolve_path_from_base($base, $appRoot, $siteDir);
     }
-
-    return dirname($appRoot) . '/private/' . strtolower($countryCode);
+    return ps_composer_root($appRoot) . '/private/' . $siteDir;
   }
 }
 
 if (!function_exists('ps_resolve_temp_files_path')) {
   /**
-   * Absolute temp path, per country when a global base is configured.
+   * Absolute temp path — shared across all country sites (no site_dir suffix).
+   *
+   * | APP_TEMP_PATH | Result              |
+   * |---------------|---------------------|
+   * | unset / empty | '' (Drupal default) |
+   * | /tmp          | /tmp                |
    */
   function ps_resolve_temp_files_path(string $countryCode, string $appRoot): string {
-    $configured = ps_env_country($countryCode, 'APP_TEMP_PATH');
-    if ($configured !== '') {
-      if ($configured[0] === '/') {
-        return $configured;
-      }
-      return dirname($appRoot) . '/' . ltrim($configured, '/');
+    unset($countryCode);
+    $base = ps_env_path_base('APP_TEMP_PATH');
+    if ($base === '') {
+      return '';
     }
+    return ps_resolve_path_from_base($base, $appRoot, NULL);
+  }
+}
 
-    $globalTemp = ps_env('APP_TEMP_PATH');
-    if ($globalTemp !== '') {
-      $base = $globalTemp[0] === '/' ? $globalTemp : dirname($appRoot) . '/' . ltrim($globalTemp, '/');
-      return rtrim($base, '/') . '/' . strtolower($countryCode);
+if (!function_exists('ps_resolve_assets_files_path')) {
+  /**
+   * Path for Drupal aggregated CSS/JS ($settings['file_assets_path']).
+   *
+   * | APP_ASSETS_PATH | Result (site_dir=france)                    |
+   * |-----------------|---------------------------------------------|
+   * | unset / empty   | '' → Drupal uses public files (recommended) |
+   * | assets          | assets/france (relative to web root)        |
+   * | /mnt/assets     | /mnt/assets/france                          |
+   */
+  function ps_resolve_assets_files_path(string $countryCode): string {
+    $base = ps_env_path_base('APP_ASSETS_PATH');
+    if ($base === '') {
+      return '';
     }
-
-    return '';
+    $siteDir = ps_country_site_dir($countryCode);
+    if (ps_path_is_absolute($base)) {
+      return rtrim($base, '/') . '/' . $siteDir;
+    }
+    return rtrim($base, '/') . '/' . $siteDir;
   }
 }

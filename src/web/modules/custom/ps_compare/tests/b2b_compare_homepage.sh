@@ -2,7 +2,9 @@
 # B2B smoke tests — Compare on homepage / teaser offer cards.
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 COOKIE_JAR="${TMPDIR:-/tmp}/ps-compare-b2b-home-cookies.txt"
@@ -23,7 +25,7 @@ assert_html_contains() {
 echo "=== PS Compare B2B — Homepage / teaser context ($BASE) ==="
 
 echo "--- Teaser compare button (lazy builder) ---"
-TEASER_RESULT=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+TEASER_RESULT=$(ps_e2e_drush php:eval "
 \$ids = array_values(\\Drupal::entityTypeManager()->getStorage(\"node\")->getQuery()->accessCheck(TRUE)->condition(\"type\", \"offer\")->range(0, 1)->execute());
 if (\$ids === []) { print \"FAIL:no_offer\"; return; }
 \$node = \\Drupal\\node\\Entity\\Node::load(\$ids[0]);
@@ -33,7 +35,7 @@ if (!str_contains(\$html, \"data-ps-compare-toggle\")) { print \"FAIL:no_toggle\
 if (!str_contains(\$html, \"ps-compare-button--teaser\")) { print \"FAIL:no_teaser_class\"; return; }
 if (!str_contains(\$html, \"/api/compare/toggle/node/\")) { print \"FAIL:no_url\"; return; }
 print \"PASS:teaser_button\";
-"' 2>/dev/null | tail -1)
+" 2>/dev/null | tail -1)
 
 if [[ "$TEASER_RESULT" == "PASS:teaser_button" ]]; then
   pass "Teaser compare button renders via lazy builder"

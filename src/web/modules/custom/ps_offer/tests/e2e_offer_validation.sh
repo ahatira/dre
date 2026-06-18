@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 NID="${1:-1}"
 BUDGET="${2:-0}"
 STATUS="${3:-draft}"
 BUNDLE="${4:-offer}"
 SPECIAL="${5:-none}"
 
-DRUSH="docker exec ps_php /var/www/html/vendor/bin/drush"
+run_eval() {
+  local php_code="$1"
+  ps_e2e_drush php:eval "$php_code"
+}
 
 if [[ "$SPECIAL" == "manual-duplicate" ]]; then
   php_code="
@@ -52,7 +58,7 @@ catch (\Exception \$e) {
 "
 
   set +e
-  output=$(${DRUSH} php:eval "$php_code" 2>&1)
+  output=$(ps_e2e_drush php:eval "$php_code" 2>&1)
   exit_code=$?
   set -e
 
@@ -118,7 +124,7 @@ catch (\Exception \$e) {
 "
 
   set +e
-  output=$(${DRUSH} php:eval "$php_code" 2>&1)
+  output=$(ps_e2e_drush php:eval "$php_code" 2>&1)
   exit_code=$?
   set -e
 
@@ -187,7 +193,7 @@ catch (\Exception \$e) {
 "
 
   set +e
-  output=$(${DRUSH} php:eval "$php_code" 2>&1)
+  output=$(ps_e2e_drush php:eval "$php_code" 2>&1)
   exit_code=$?
   set -e
 
@@ -230,7 +236,7 @@ try {
 "
 
 set +e
-output=$(${DRUSH} php:eval "$php_code" 2>&1)
+output=$(ps_e2e_drush php:eval "$php_code" 2>&1)
 exit_code=$?
 set -e
 

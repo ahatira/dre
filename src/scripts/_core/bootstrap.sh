@@ -10,14 +10,14 @@ PS_BOOTSTRAP_LOADED=1
 PS_CORE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PS_SCRIPTS_DIR="$(dirname "${PS_CORE_DIR}")"
 PS_SRC_DIR="$(dirname "${PS_SCRIPTS_DIR}")"
-PS_PROJECT_ROOT="$(dirname "${PS_SRC_DIR}")"
 PS_WEB_DIR="${PS_SRC_DIR}/web"
 
-PS_DOCKER_COMPOSE_FILE="${PS_PROJECT_ROOT}/docker/docker-compose.yml"
-PS_PHP_CONTAINER="${PS_PHP_CONTAINER:-ps_php}"
-PS_DB_CONTAINER="${PS_DB_CONTAINER:-ps_postgres}"
-PS_DRUPAL_ROOT="/var/www/html"
-PS_HTTP_PORT="${PS_HTTP_PORT:-8080}"
+# Monorepo root when src/ is deployed inside the full dev repository.
+if [[ -d "${PS_SRC_DIR}/../docker" ]]; then
+  PS_REPO_ROOT="$(dirname "${PS_SRC_DIR}")"
+else
+  PS_REPO_ROOT="${PS_SRC_DIR}"
+fi
 
 # shellcheck source=/dev/null
 source "${PS_CORE_DIR}/config.sh"
@@ -27,6 +27,8 @@ source "${PS_CORE_DIR}/log.sh"
 source "${PS_CORE_DIR}/runtime.sh"
 # shellcheck source=/dev/null
 source "${PS_CORE_DIR}/drush.sh"
+# shellcheck source=/dev/null
+source "${PS_CORE_DIR}/countries.sh"
 # shellcheck source=/dev/null
 source "${PS_CORE_DIR}/multisite.sh"
 # shellcheck source=/dev/null

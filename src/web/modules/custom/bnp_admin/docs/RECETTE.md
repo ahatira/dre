@@ -37,7 +37,7 @@ tests/
 └── e2e_manual_offer_off01.php
 ```
 
-Les scripts utilisent `docker exec ps_php drush` et `curl` sur `http://localhost:8080`.
+Les scripts utilisent `src/scripts/e2e/common.sh` (Drush hôte `@ps.com`) et `curl` sur `http://com.localhost:8080` (surchargeable via `BASE_URL`).
 
 ## Documentation par module
 
@@ -49,4 +49,4 @@ Les scripts utilisent `docker exec ps_php drush` et `curl` sur `http://localhost
 
 ## Validation navigateur
 
-Les scripts ne remplacent pas la validation navigateur pour les parcours UI (OFF-14→18, CTX-FORM-07, OFF-03-UI). Ouvrir `http://localhost:8080` après `make drush-cr`.
+Les scripts ne remplacent pas la validation navigateur pour les parcours UI (OFF-14→18, CTX-FORM-07, OFF-03-UI). Ouvrir `http://com.localhost:8080` (ou le site pays concerné) après `make drush-cr`.

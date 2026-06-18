@@ -2,7 +2,9 @@
 # B2B smoke tests — Authenticated user must not hit 500 (ps_compare_item table).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 COOKIE_JAR="${TMPDIR:-/tmp}/ps-compare-b2b-auth-cookies.txt"
@@ -26,7 +28,7 @@ echo "=== PS Compare B2B — Authenticated pages ($BASE) ==="
 rm -f "$COOKIE_JAR"
 touch "$COOKIE_JAR"
 
-ULI=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush uli --name=admin --uri=http://localhost:8080' 2>/dev/null | tail -1)
+ULI=$(ps_e2e_drush uli --name=admin --uri="${BASE}" 2>/dev/null | tail -1)
 if [[ -z "$ULI" ]]; then
   fail "Could not generate admin login link"
   echo "=== Results: $PASS passed, $FAIL failed ==="

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 ACTION="${1:-}"
 GROUP_ID="${2:-}"
 DEF_ID="${3:-}"
@@ -10,16 +13,14 @@ CODE="${6:-}"
 PAYLOAD_B64="${7:-}"
 REQUIRED_ASSETS_B64="${8:-}"
 
-DRUSH="docker exec ps_php /var/www/html/vendor/bin/drush"
-
 run_eval() {
   local php_code="$1"
-  ${DRUSH} php:eval "$php_code"
+  ps_e2e_drush php:eval "$php_code"
 }
 
 run_drush() {
   local drush_args="$1"
-  ${DRUSH} ${drush_args}
+  ps_e2e_drush ${drush_args}
 }
 
 case "$ACTION" in

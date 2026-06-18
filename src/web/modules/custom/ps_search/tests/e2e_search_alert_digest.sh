@@ -2,7 +2,9 @@
 # E2E — search alert digest email via Mailpit + matcher smoke (Phase B §5).
 set -euo pipefail
 
-BASE_URL="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 MAILPIT_API="${MAILPIT_API:-http://localhost:8025/api/v1}"
 EMAIL="alert-digest-$(date +%s)@example.com"
 SEARCH_URL="${BASE_URL}/for-rent/office/"
@@ -19,44 +21,44 @@ else
   echo "WARNING: Mailpit not reachable at ${MAILPIT_API} — skipping inbox clear."
 fi
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush cset ps_search.alert_settings enabled 1 -y >/dev/null"
+ps_e2e_drush cset ps_search.alert_settings enabled 1 -y >/dev/null
 
-RESULT=$(docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush ev \"
-use Drupal\\\\ps_search\\\\Entity\\\\SearchAlert;
-use Drupal\\\\ps_search\\\\Entity\\\\SearchAlertInterface;
+RESULT=$(ps_e2e_drush ev "
+use Drupal\\ps_search\\Entity\\SearchAlert;
+use Drupal\\ps_search\\Entity\\SearchAlertInterface;
 
-\\\$offerStorage = \\\Drupal::entityTypeManager()->getStorage('node');
-\\\$offerIds = \\\$offerStorage->getQuery()
+\$offerStorage = \\Drupal::entityTypeManager()->getStorage('node');
+\$offerIds = \$offerStorage->getQuery()
   ->accessCheck(FALSE)
   ->condition('type', 'offer')
   ->condition('status', 1)
   ->range(0, 1)
   ->execute();
-if (\\\$offerIds === []) {
+if (\$offerIds === []) {
   echo 'skip:no_offers';
   return;
 }
-\\\$nid = (int) reset(\\\$offerIds);
+\$nid = (int) reset(\$offerIds);
 
-\\\$serializer = \\\Drupal::service('ps_search.alert_criteria_serializer');
-\\\$criteria = [
+\$serializer = \\Drupal::service('ps_search.alert_criteria_serializer');
+\$criteria = [
   'operation_type' => 'LOC',
   'asset_type' => 'BUR',
   'search_url' => '${SEARCH_URL}',
   'search_path' => '${SEARCH_PATH}',
   'langcode' => 'en',
 ];
-\\\$json = \\\$serializer->toJson(\\\$criteria);
+\$json = \$serializer->toJson(\$criteria);
 
-\\\$alert = SearchAlert::create([
+\$alert = SearchAlert::create([
   'alert_name' => 'Digest E2E',
   'prof_email' => '${EMAIL}',
   'frequence' => SearchAlertInterface::FREQUENCE_WEEKLY,
   'optout_email' => FALSE,
   'optout_sms' => FALSE,
   'optout_tel' => FALSE,
-  'criteria' => \\\$json,
-  'criteria_hash' => \\\$serializer->hash(\\\$criteria),
+  'criteria' => \$json,
+  'criteria_hash' => \$serializer->hash(\$criteria),
   'search_url' => '${SEARCH_URL}',
   'search_path' => '${SEARCH_PATH}',
   'alert_status' => SearchAlertInterface::STATUS_ACTIVE,
@@ -64,20 +66,20 @@ if (\\\$offerIds === []) {
   'langcode' => 'en',
   'last_sent' => 0,
 ]);
-\\\$alert->save();
+\$alert->save();
 
-\\\$matcher = \\\Drupal::service('ps_search.alert_matcher');
-\\\$matcherNids = \\\$matcher->findMatchingOfferIds(\\\$alert);
+\$matcher = \\Drupal::service('ps_search.alert_matcher');
+\$matcherNids = \$matcher->findMatchingOfferIds(\$alert);
 
-\\\$mailer = \\\Drupal::service('ps_search.alert_mailer');
-\\\$sent = \\\$mailer->sendDigest(\\\$alert, [\\\$nid]);
-if (!\\\$sent) {
-  throw new \\\RuntimeException('Mailer failed to send digest.');
+\$mailer = \\Drupal::service('ps_search.alert_mailer');
+\$sent = \$mailer->sendDigest(\$alert, [\$nid]);
+if (!\$sent) {
+  throw new \\RuntimeException('Mailer failed to send digest.');
 }
-\\\$mailer->markSent(\\\$alert, [\\\$nid]);
+\$mailer->markSent(\$alert, [\$nid]);
 
-echo 'digest:sent alert:' . \\\$alert->id() . ' nid:' . \\\$nid . ' matcher_count:' . count(\\\$matcherNids);
-\"")
+echo 'digest:sent alert:' . \$alert->id() . ' nid:' . \$nid . ' matcher_count:' . count(\$matcherNids);
+")
 
 echo "${RESULT}"
 
@@ -109,7 +111,7 @@ else
   echo "WARNING: Mailpit API unavailable — mail send verified via Drush only."
 fi
 
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush ps:search:alerts:process --purge=0' >/dev/null
+ps_e2e_drush ps:search:alerts:process --purge=0 >/dev/null
 echo "Drush ps:search:alerts:process smoke OK."
 
 echo "Search alert digest E2E passed."

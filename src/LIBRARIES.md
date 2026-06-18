@@ -130,8 +130,9 @@ For automated deployments, use the **build script** which handles the complete w
 # Keep node_modules after build
 ./scripts/build.sh --keep-npm
 
-# Docker execution
-docker exec ps_php bash -c "cd /var/www/html && ./scripts/build.sh --production"
+# Production build (host WSL, from repo root)
+make build --production
+# or: cd src && bash scripts/main.sh tools build --production
 ```
 
 ### What the Build Script Does
@@ -234,13 +235,14 @@ services:
 ### Install All Dependencies
 
 ```bash
-docker exec ps_php bash -c "cd /var/www/html && npm install"
+cd src && npm install
 ```
 
 ### Copy Libraries to web/libraries/
 
 ```bash
-docker exec ps_php bash -c "cd /var/www/html && npm run libs"
+cd src && npm run libs
+# or: make build (includes libs step)
 ```
 
 This command:
@@ -253,7 +255,7 @@ This command:
 After copying libraries, always clear Drupal cache:
 
 ```bash
-docker exec ps_php bash -c "cd /var/www/html/web && ../vendor/bin/drush cr"
+make drush-cr
 ```
 
 ## Configuration Files
@@ -374,12 +376,12 @@ Defines copy rules for each library:
 
 4. **Fix permissions** (if needed):
    ```bash
-   docker exec ps_php bash -c "cd /var/www/html && chown -R www-data:www-data web/libraries/"
+   make fix-permissions   # repo root, dev Docker
    ```
 
 5. **Clear Drupal cache**:
    ```bash
-   docker exec ps_php bash -c "cd /var/www/html/web && ../vendor/bin/drush cr"
+   make drush-cr
    ```
 
 ## Copy Modes
@@ -422,18 +424,18 @@ Each Drupal module expects specific file paths:
 
 1. Verify file exists:
    ```bash
-   docker exec ps_php bash -c "ls -lh /var/www/html/web/libraries/<library-name>/"
+   ls -lh src/web/libraries/<library-name>/
    ```
 
 2. Check permissions:
    ```bash
-   docker exec ps_php bash -c "ls -la /var/www/html/web/libraries/"
+   ls -la src/web/libraries/
    ```
    Owner should be `www-data:www-data`
 
 3. Clear Drupal cache:
    ```bash
-   docker exec ps_php bash -c "cd /var/www/html/web && ../vendor/bin/drush cr"
+   make drush-cr
    ```
 
 ### Permission Issues
@@ -441,7 +443,7 @@ Each Drupal module expects specific file paths:
 If files are owned by `root:root`, fix with:
 
 ```bash
-docker exec ps_php bash -c "cd /var/www/html && chown -R www-data:www-data web/libraries/"
+make fix-permissions
 ```
 
 ### Wrong Files Copied
@@ -460,7 +462,7 @@ Node.js v20.19.2 and npm v9.2.0 are installed in the `ps_php` Docker container.
 To access Node/npm directly:
 
 ```bash
-docker exec -it ps_php bash
+Drush et npm s'exécutent sur l'hôte WSL ; Docker fournit nginx/PHP/PostgreSQL/Solr uniquement.
 cd /var/www/html
 npm --version
 node --version

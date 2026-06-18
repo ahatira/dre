@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# Generate src/.env from .env.dist (dev only).
+# Generate src/.env from .env.dist (local dev only).
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SRC_DIR="$(dirname "$(dirname "${SCRIPT_DIR}")")"
-DIST="${SRC_DIR}/.env.dist"
-OUT="${SRC_DIR}/.env"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+DIST="${ROOT}/src/.env.dist"
+OUT="${ROOT}/src/.env"
 
 [[ -f "${DIST}" ]] || { echo "Missing: ${DIST}" >&2; exit 1; }
 

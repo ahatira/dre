@@ -1,5 +1,7 @@
 # Per-country language.negotiation overrides (Config Split `language_{code}`).
 
+Country codes and language matrix: `../../../../scripts/multisite/countries.yml` (source) → `web/sites/countries.yml` (generated).
+
 Split entity YAML: `../splits/config_split.config_split.language_{code}.yml`.
 Negotiation values: `language.negotiation.yml` in this directory.
 

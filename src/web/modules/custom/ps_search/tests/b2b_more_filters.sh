@@ -2,7 +2,9 @@
 # B2B smoke tests — More filters (per-feature, lazy-load, count API, group labels).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 

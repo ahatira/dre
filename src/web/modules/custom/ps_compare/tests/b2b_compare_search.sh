@@ -2,7 +2,9 @@
 # B2B smoke tests — Compare feature on property search page (/find-property).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 COOKIE_JAR="${TMPDIR:-/tmp}/ps-compare-b2b-cookies.txt"
@@ -153,7 +155,7 @@ else
 fi
 
 echo "--- Toggle flow (Drupal kernel via Drush — session-independent) ---"
-TOGGLE_RESULT=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+TOGGLE_RESULT=$(ps_e2e_drush php:eval "
 \$storage = \\Drupal::entityTypeManager()->getStorage(\"node\");
 \$ids = array_values(\$storage->getQuery()->accessCheck(TRUE)->condition(\"type\", \"offer\")->range(0, 4)->execute());
 if (count(\$ids) < 2) { print \"FAIL:not_enough_offers\"; return; }
@@ -173,7 +175,7 @@ if (\$manager->canOpenComparisonPage() !== TRUE) { print \"FAIL:can_compare\"; r
 \$p3 = json_decode(\$r3->getContent(), TRUE);
 if ((\$p3[\"isCompared\"] ?? TRUE) !== FALSE || (\$p3[\"count\"] ?? 0) !== 1) { print \"FAIL:remove1\"; return; }
 print \"PASS:toggle_flow\";
-"' 2>/dev/null | tail -1)
+" 2>/dev/null | tail -1)
 
 if [[ "$TOGGLE_RESULT" == "PASS:toggle_flow" ]]; then
   pass "Toggle add/remove flow (2 offers, CSRF, count)"
@@ -181,7 +183,7 @@ else
   fail "Toggle flow via Drush ($TOGGLE_RESULT)"
 fi
 
-LIMIT_RESULT=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+LIMIT_RESULT=$(ps_e2e_drush php:eval "
 \$storage = \\Drupal::entityTypeManager()->getStorage(\"node\");
 \$ids = array_values(\$storage->getQuery()->accessCheck(TRUE)->condition(\"type\", \"offer\")->range(0, 5)->execute());
 if (count(\$ids) < 5) { print \"SKIP:need_5_offers\"; return; }
@@ -196,7 +198,7 @@ if (\$r->getStatusCode() !== 409) { print \"FAIL:status_\" . \$r->getStatusCode(
 \$payload = json_decode(\$r->getContent(), TRUE);
 if ((\$payload[\"limit\"] ?? NULL) !== 4) { print \"FAIL:no_limit_flag\"; return; }
 print \"PASS:limit_409\";
-"' 2>/dev/null | tail -1)
+" 2>/dev/null | tail -1)
 
 if [[ "$LIMIT_RESULT" == "PASS:limit_409" ]]; then
   pass "5th add returns HTTP 409 with limit=4"

@@ -1,0 +1,87 @@
+# GENERATED — do not edit directly.
+# Source: scripts/multisite/countries.yml (repo root monorepo).
+# Regenerate: make generate-multisite
+#
+countries:
+  com:
+    site_dir: com
+    label: International
+    default_lang: en
+    languages:
+      - en
+      - fr
+    dev_port: 8080
+
+  be:
+    site_dir: belgium
+    label: Belgium
+    default_lang: fr
+    languages:
+      - en
+      - fr
+      - nl
+    dev_port: 8081
+
+  es:
+    site_dir: spain
+    label: Spain
+    default_lang: es
+    languages:
+      - en
+      - es
+    dev_port: 8082
+
+  fr:
+    site_dir: france
+    label: France
+    default_lang: fr
+    languages:
+      - fr
+      - en
+    dev_port: 8083
+    hidden_front_languages:
+      - en
+
+  ie:
+    site_dir: ireland
+    label: Ireland
+    default_lang: en
+    languages:
+      - en
+    dev_port: 8084
+
+  it:
+    site_dir: italy
+    label: Italy
+    default_lang: it
+    languages:
+      - en
+      - it
+    dev_port: 8085
+
+  lu:
+    site_dir: luxembourg
+    label: Luxembourg
+    default_lang: fr
+    languages:
+      - en
+      - fr
+    dev_port: 8086
+
+  nl:
+    site_dir: netherlands
+    label: Netherlands
+    default_lang: nl
+    languages:
+      - en
+      - nl
+    dev_port: 8087
+
+  pl:
+    site_dir: poland
+    label: Poland
+    default_lang: pl
+    languages:
+      - en
+      - pl
+    dev_port: 8088

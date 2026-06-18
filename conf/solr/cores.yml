@@ -1,4 +1,5 @@
 # Property Search Solr cores — one deployable directory per core (from src/.env).
+# Country codes: web/sites/countries.yml
 
 cores:
   com: local_ps_core_com_db

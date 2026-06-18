@@ -51,7 +51,7 @@ if ($hashSalt !== '') {
   $settings['hash_salt'] = $hashSalt;
 }
 
-// Public / private / temp — isolated per country (never shared across multisites).
+// Public / private / temp / assets — per country where applicable (never shared).
 $publicPath = ps_resolve_public_files_path($ps_country_code);
 $privatePath = ps_resolve_private_files_path($ps_country_code, $app_root);
 $tempPath = ps_resolve_temp_files_path($ps_country_code, $app_root);
@@ -65,10 +65,7 @@ if ($tempPath !== '') {
   $settings['file_temp_path'] = $tempPath;
 }
 
-$assetsPath = ps_env_country($ps_country_code, 'APP_ASSETS_PATH');
-if ($assetsPath === '') {
-  $assetsPath = ps_env('APP_ASSETS_PATH');
-}
+$assetsPath = ps_resolve_assets_files_path($ps_country_code);
 if ($assetsPath !== '') {
   $settings['file_assets_path'] = $assetsPath;
 }
@@ -145,9 +142,10 @@ if (ps_env('APP_ENV', 'dev') === 'dev') {
 $languageSplitId = 'language_' . $ps_country_code;
 $config['config_split.config_split.' . $languageSplitId]['status'] = TRUE;
 
-// FR: English enabled for admin/contrib but hidden on the front language switcher.
-if ($ps_country_code === 'fr') {
-  $settings['ps_hidden_front_languages'] = ['en'];
+// Languages enabled but hidden on the front language switcher (manifest-driven).
+$hiddenFrontLanguages = ps_country_hidden_front_languages($ps_country_code);
+if ($hiddenFrontLanguages !== []) {
+  $settings['ps_hidden_front_languages'] = $hiddenFrontLanguages;
 }
 
 // Mailpit defaults for local Docker (overridable in settings.local.php).

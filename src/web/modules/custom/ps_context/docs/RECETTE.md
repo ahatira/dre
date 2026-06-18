@@ -73,5 +73,5 @@ Cas alignés OFF-14 à OFF-18 (voir `ps_offer/docs/RECETTE.md`).
 Obligatoire après changement matrix ou JS :
 
 1. `make drush-cr`
-2. Ouvrir `http://localhost:8080/node/add/offer`
+2. Ouvrir `http://com.localhost:8080/node/add/offer`
 3. Parcourir CTX-FORM-01 à 06 + CTX-SEARCH-01 à 03

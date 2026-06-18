@@ -7,7 +7,7 @@ Module Drupal unique pour le domaine **Property Search** (BNPPRE) : moteur Solr,
 - Drupal **11.3+**, PHP **8.3**, PostgreSQL, Solr 9 (stack Docker PS)
 - Modules : `search_api`, `search_api_solr`, `facets`, `better_exposed_filters`, `views_load_more`, `ps_dictionary`, `ps_feature`, `ps_context`, `ps_offer`, …
 - Clé Google Maps (carte recherche) : lue depuis `geofield_map.settings` (BO Geofield Map — module via `ps_offer`)
-- Site local : `make up` → http://localhost:8080
+- Site local : `make up` → http://com.localhost:8080 (multisite `com`)
 
 ## Installation
 
@@ -23,17 +23,17 @@ Sur site existant (config runtime non présente dans CMI sync) :
 
 ```bash
 # Feature sync settings, map zone, API limits — une fois si absent
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
-\$source = new \Drupal\Core\Config\FileStorage(\"modules/custom/ps_search/config/install\");
-foreach ([\"ps_search.feature_filter_sync\", \"ps_search.map_zone_settings\", \"ps_search.api_rate_limit_settings\", \"ps_search.api_cache_settings\"] as \$name) {
+make drush com php:eval "
+\$source = new \Drupal\Core\Config\FileStorage('modules/custom/ps_search/config/install');
+foreach (['ps_search.feature_filter_sync', 'ps_search.map_zone_settings', 'ps_search.api_rate_limit_settings', 'ps_search.api_cache_settings'] as \$name) {
   if (\Drupal::configFactory()->get(\$name)->isNew()) {
     \Drupal::configFactory()->getEditable(\$name)->setData(\$source->read(\$name))->save(TRUE);
     echo \"imported \$name\n\";
   }
 }
-"'
+"
 make drush-cr
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush ps:search:features:sync --prune=0'
+make drush com ps:search:features:sync -- --prune=0
 make index-solr
 ```
 
@@ -65,8 +65,8 @@ Legacy `/ps-search*` supprimé (L10).
 ## Drush
 
 ```bash
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush ps:search:features:sync'
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush ps:search:features:sync-index'
+make drush com ps:search:features:sync
+make drush com ps:search:features:sync-index
 ```
 
 Alias : `ps-sfs`, `ps-sfs-index`.
@@ -92,7 +92,7 @@ Interface strings live in `translations/ps_search.{langcode}.po` (fr, de, es, it
 Import after editing a `.po` file:
 
 ```bash
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush locale:import fr /var/www/html/web/modules/custom/ps_search/translations/ps_search.fr.po --type=customized --override=all -y'
+make drush com locale:import fr web/modules/custom/ps_search/translations/ps_search.fr.po -- --type=customized --override=all -y
 make drush-cr
 ```
 

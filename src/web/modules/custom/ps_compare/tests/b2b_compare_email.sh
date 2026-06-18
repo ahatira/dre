@@ -2,7 +2,9 @@
 # B2B smoke tests — Compare share email (Mailpit).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 MAILPIT="${MAILPIT_URL:-http://localhost:8025}"
 PASS=0
 FAIL=0
@@ -18,25 +20,25 @@ curl -s -X DELETE "$MAILPIT/api/v1/messages" >/dev/null || true
 pass "Mailpit messages cleared"
 
 echo "--- Send comparison email via Drush ---"
-SEND_RESULT=$(docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush php:eval \"
-\\\$recipient = '${TEST_EMAIL}';
-\\\$account = \\\\Drupal\\\\user\\\\Entity\\\\User::load(1);
-if (\\\$account === NULL) { print 'FAIL:no_admin'; return; }
-\\\\Drupal::service('account_switcher')->switchTo(\\\$account);
-\\\\Drupal::database()->delete('ps_compare_item')->condition('uid', (int) \\\$account->id())->execute();
-\\\$storage = \\\\Drupal::entityTypeManager()->getStorage('node');
-\\\$ids = array_values(\\\$storage->getQuery()->accessCheck(TRUE)->condition('type', 'offer')->range(0, 2)->execute());
-if (count(\\\$ids) < 2) { \\\\Drupal::service('account_switcher')->switchBack(); print 'FAIL:not_enough_offers'; return; }
-\\\$manager = \\\\Drupal::service('ps_compare.manager');
-foreach (\\\$ids as \\\$id) { \\\$manager->addCompare(\\\$storage->load(\\\$id)); }
-if (!\\\\Drupal::service('ps_compare.email_sender')->sendFromForm(\\\$recipient, 'Automated compare email test.')) {
-  \\\\Drupal::service('account_switcher')->switchBack();
+SEND_RESULT=$(ps_e2e_drush php:eval "
+\$recipient = '${TEST_EMAIL}';
+\$account = \\Drupal\\user\\Entity\\User::load(1);
+if (\$account === NULL) { print 'FAIL:no_admin'; return; }
+\\Drupal::service('account_switcher')->switchTo(\$account);
+\\Drupal::database()->delete('ps_compare_item')->condition('uid', (int) \$account->id())->execute();
+\$storage = \\Drupal::entityTypeManager()->getStorage('node');
+\$ids = array_values(\$storage->getQuery()->accessCheck(TRUE)->condition('type', 'offer')->range(0, 2)->execute());
+if (count(\$ids) < 2) { \\Drupal::service('account_switcher')->switchBack(); print 'FAIL:not_enough_offers'; return; }
+\$manager = \\Drupal::service('ps_compare.manager');
+foreach (\$ids as \$id) { \$manager->addCompare(\$storage->load(\$id)); }
+if (!\\Drupal::service('ps_compare.email_sender')->sendFromForm(\$recipient, 'Automated compare email test.')) {
+  \\Drupal::service('account_switcher')->switchBack();
   print 'FAIL:send_failed';
   return;
 }
-\\\\Drupal::service('account_switcher')->switchBack();
+\\Drupal::service('account_switcher')->switchBack();
 print 'PASS:sent';
-\"" 2>/dev/null | tail -1 || echo "FAIL:drush_error")
+" 2>/dev/null | tail -1 || echo "FAIL:drush_error")
 
 if [[ "$SEND_RESULT" == "PASS:sent" ]]; then
   pass "CompareEmailSender delivered message"

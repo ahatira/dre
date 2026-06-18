@@ -10,17 +10,8 @@ La stack Docker locale fournit uniquement les services d'execution et d'infrastr
 4. **Memcache 1.6**
 5. **Solr 9**
 6. **Mailpit**
-7. **Node container** optionnel pour execution npm dans Docker
 
-## Workflow recommande sur Windows
-
-Sur Windows, le workflow valide pour ce projet est **hybride** :
-
-1. **Composer sur l'hote**
-2. **npm sur l'hote**
-3. **Docker pour les services runtime uniquement**
-
-Cette approche evite les timeouts et les problemes d'extraction observes avec Composer dans un volume monte depuis Windows.
+Composer, npm et Drush s'exécutent sur l'hôte WSL — pas dans Docker.
 
 ## Commandes principales
 
@@ -68,10 +59,11 @@ docker compose -f docker/docker-compose.yml exec -T php sh -lc 'cp /var/www/html
 docker compose -f docker/docker-compose.yml exec -T php sh -lc 'vendor/bin/drush site:install minimal --db-url=pgsql://drupal:drupal@postgres:5432/drupal --account-name=admin --account-pass=admin --account-mail=admin@example.com --site-name="PS Project" -y'
 ```
 
-## URLs utiles
+## URLs utiles (multisite dev)
 
-- Drupal front : <http://localhost:8080>
-- Drupal admin : <http://localhost:8080/admin>
+- International : <http://com.localhost:8080>
+- France : <http://fr.localhost:8083>
+- Admin FR : <http://admin.fr.localhost:8083>
 - Solr : <http://localhost:8983>
 - Mailpit : <http://localhost:8025>
 
@@ -83,8 +75,8 @@ La config SMTP est dans `src/web/sites/default/settings.local.php` (host `mailpi
 Apres une install fraiche :
 
 ```bash
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush en -y symfony_mailer mailer_override'
 make drush-cr
+# ou: cd src && vendor/bin/drush @ps.com en -y symfony_mailer mailer_override
 ```
 
 Verifier les emails : <http://localhost:8025>
@@ -94,7 +86,7 @@ Verifier les emails : <http://localhost:8025>
 ### Anonyme
 
 ```bash
-curl -I http://localhost:8080/admin
+curl -I -H "Host: fr.localhost" http://127.0.0.1:8083/admin
 ```
 
 Un **403 Forbidden** sur `/admin` en anonyme est normal.
@@ -125,11 +117,10 @@ Ces optimisations ameliorent partiellement les requetes web, mais les commandes 
 
 L'image PHP aligne `www-data` sur uid/gid **1000** (utilisateur WSL). Si Drush est lance **sans** `-u www-data`, les fichiers CMI exportes (`drush cex`) sont crees en `root:root` et VS Code ne peut plus les editer (`EACCES`).
 
-**Prevention** — toujours utiliser :
+**Prevention** — toujours utiliser Drush sur l'hôte :
 
 ```bash
 make drush-cex          # ou make drush-cr, make drush-uli
-# docker exec -u www-data -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush ...'
 ```
 
 **Reparation** apres un export root :

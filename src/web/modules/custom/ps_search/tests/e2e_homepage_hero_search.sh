@@ -3,7 +3,9 @@
 # Covers Buy / Rent / Indifférent × all asset types × EN + FR.
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 

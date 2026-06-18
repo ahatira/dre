@@ -21,8 +21,9 @@ Développement custom : modules `ps_*`, modules BNP `bnp_*`, thèmes `ps_theme` 
 | Front theme | `ps_theme` (sub-theme `ui_suite_bnp`) |
 | Composants | SDC + UI Patterns + Layout Builder |
 | Config | CMI (`src/config/sync/`) + Config Split + Config Ignore |
-| Local | Docker Compose (`docker/docker-compose.yml`) |
-| URL locale | http://localhost:8080 |
+| Local | Docker Compose (`docker/docker-compose.yml`) — services runtime uniquement |
+| URL locale | Multisite : `http://com.localhost:8080`, `http://fr.localhost:8083`, etc. |
+| Multisite | 9 pays — manifest `scripts/multisite/countries.yml` → `make generate-multisite` |
 
 ## Chemins clés
 
@@ -37,28 +38,58 @@ Développement custom : modules `ps_*`, modules BNP `bnp_*`, thèmes `ps_theme` 
 | Config sync | `src/config/sync/` |
 | Config demo | `ps_demo/config/install/` (module `ps_demo`) |
 | Scripts CLI | `src/scripts/main.sh` |
-| Makefile | `Makefile` (racine) |
+| Ops Docker / multisite (dev) | `scripts/docker/`, `scripts/multisite/` |
+| Manifest pays (source) | `scripts/multisite/countries.yml` |
+| Manifest pays (runtime) | `src/web/sites/countries.yml` (généré) |
+| Dossiers Drupal (`site_dir`) | `src/web/sites/{site_dir}/` — ex. `france`, `belgium`, `com` |
+| Artefact déployable | `src/` seul (INT/staging/prod) |
+| Makefile racine | `Makefile` — Docker + délégation |
+| Makefile projet | `src/Makefile` — build, deploy, drush (prod aussi) |
 | Règles Cursor | `.cursor/rules/` |
 
 ## Workflow hybride WSL
 
 | Action | Environnement |
 |--------|--------------|
-| Drush, PHP runtime | Conteneur `ps_php` via `make` ou `docker exec` |
+| Drush | **Hôte WSL** (`make drush-cr`, `cd src && vendor/bin/drush @ps.fr …`) |
+| PHP web (HTTP) | Conteneur `ps_php` via nginx |
 | Composer install/update | Hôte WSL (`make composer-install`) |
 | npm/gulp | Hôte WSL (`cd src && npm run gulp-prod`) |
 | Docker lifecycle | Hôte (`make up/down/restart`) |
 
+`src/.env` (dev) : `DB_HOST=127.0.0.1` pour Drush hôte ; le conteneur PHP reçoit `DB_HOST=postgres` via docker-compose.
+
+### Multisite — codes vs dossiers
+
+| Concept | Exemple | Usage |
+|---------|---------|--------|
+| **Code pays** | `fr`, `be`, `com` | CLI (`make install fr`), Drush `@ps.fr`, env `DB_NAME_FR` |
+| **`site_dir`** | `france`, `belgium`, `com` | Dossier `web/sites/`, `private/`, chemins fichiers |
+
+Chemins fichiers (variables globales optionnelles — voir `docs/MULTISITE_OPS.md`) :
+
+| Variable vide | Défaut dev |
+|---------------|------------|
+| `APP_PUBLIC_PATH` | `sites/{site_dir}/files` |
+| `APP_PRIVATE_PATH` | `src/private/{site_dir}` (mkdir en dev seulement) |
+| `APP_ASSETS_PATH` | agrégats Drupal dans le public files |
+| `APP_TEMP_PATH` | temp système Drupal |
+
+`APP_PRIVATE_PATH` monté en prod : ne jamais `mkdir` — le chemin doit exister.
+
 ## Commandes essentielles
 
 ```bash
+make bootstrap             # env + up + generate-multisite + build (dev)
 make up                    # Démarrer Docker
-make drush-cr              # Cache rebuild
+make generate-multisite    # Sync manifest → src/
+make verify-multisite      # Valider variables pays
+make drush-cr              # Cache rebuild (hôte)
 make drush-uli             # Login admin
+make drush fr uli          # Login pays FR
 make composer-install      # Dépendances PHP
 make deploy                # Workflow déploiement
 make index-solr            # Index Solr
-make dictionary-import     # Import référentiels
 bash src/scripts/main.sh tools build   # Build complet
 ```
 
@@ -94,10 +125,11 @@ bash src/scripts/main.sh tools build   # Build complet
 
 | Méthode | Commande / action |
 |---------|-------------------|
-| Navigateur Cursor (agents) | MCP → `http://localhost:8080` + pages impactées |
+| Navigateur Cursor (agents) | MCP → site impacté (ex. `http://fr.localhost:8083`) |
 | Behat | `cd src && composer test:behat` |
 | E2E offer | `cd src && composer test:offer-ref-e2e` |
-| Login admin | `make drush-uli` |
+| E2E shell modules | `src/scripts/e2e/common.sh` — Drush hôte `@ps.com`, URL `http://com.localhost:8080` |
+| Login admin | `make drush-uli` ou `make drush fr uli` |
 
 Prérequis : `make up`, `make drush-cr`. Si front modifié : `cd src && npm run gulp-prod`.
 
@@ -114,6 +146,7 @@ Voir `.cursor/rules/` :
 
 ## Documentation interne
 
+- `docs/MULTISITE_OPS.md` — multisite 9 pays, ports, chemins fichiers
 - `docs/PROJECT_CONTEXT.md` — architecture détaillée
 - `docs/INSTALL_CONFIG.md` — install greenfield vs deploy CMI
 - `docs/DRUPAL_ARCHITECTURE.md` — standards Drupal

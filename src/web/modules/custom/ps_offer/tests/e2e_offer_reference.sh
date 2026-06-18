@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 NID="${1:-1}"
 MANUAL_REF="REF-E2E-MANUAL-001"
 OP_CODE="${2:-LOC}"
 ASSET_CODE="${3:-BUR}"
 
-DRUSH="docker exec ps_php /var/www/html/vendor/bin/drush"
-
 run_eval() {
   local php_code="$1"
-  ${DRUSH} php:eval "$php_code"
+  ps_e2e_drush php:eval "$php_code"
 }
 
 assert_eq() {
@@ -42,14 +43,14 @@ echo "Scenario: operation=${OP_CODE}, asset=${ASSET_CODE}"
 run_eval '$storage=\Drupal::entityTypeManager()->getStorage("ps_offer_reference_pattern"); $pattern=$storage->load("default"); if (!$pattern) { $pattern=$storage->create(["id"=>"default","label"=>"Default offer reference pattern","status"=>TRUE,"weight"=>0,"target_bundles"=>["offer"],"allow_manual_override"=>TRUE,"require_uniqueness"=>TRUE,"validate_manual_value_against_pattern"=>TRUE,"generate_on_create"=>TRUE,"regenerate_on_source_change"=>TRUE,"counter_scope_mode"=>"prefix","segments"=>[["uuid"=>"seg-literal-o","label"=>"Offer type","type"=>"literal","weight"=>0,"length"=>1,"fallback_value"=>"O"],["uuid"=>"seg-op","label"=>"Operation code","type"=>"field_map","weight"=>10,"length"=>1,"source_field"=>"field_operation_type","resolution_mode"=>"manual_then_alias","mapping"=>["LOC"=>"L","VEN"=>"V","CESSION"=>"C"],"fallback_value"=>"L"],["uuid"=>"seg-asset","label"=>"Asset code","type"=>"field_map","weight"=>20,"length"=>3,"source_field"=>"field_asset_type","resolution_mode"=>"manual_then_alias","mapping"=>["BUR"=>"BUR","ACT"=>"ACT","ENT"=>"LOG","COM"=>"COM","COW"=>"COW"],"fallback_value"=>"BUR"],["uuid"=>"seg-year","label"=>"Year","type"=>"year_2_digits","weight"=>30,"length"=>2,"fallback_value"=>"00"],["uuid"=>"seg-counter","label"=>"Counter","type"=>"counter","weight"=>40,"length"=>5,"fallback_value"=>"1"]]]); $pattern->save(); print "pattern_created\n"; } else { print "pattern_exists\n"; }'
 
 # Ensure a media item exists for required gallery validation.
-MEDIA_ID="$(${DRUSH} php:eval '$storage=\Drupal::entityTypeManager()->getStorage("media"); $ids=\Drupal::entityQuery("media")->accessCheck(FALSE)->range(0,1)->execute(); if ($ids) { print (string) reset($ids); return; } $m=$storage->create(["bundle"=>"mediahub_video","name"=>"E2E Auto Generated Media","field_media_video_url"=>"https://example.com/video.mp4","status"=>1]); $m->save(); print (string) $m->id();')"
+MEDIA_ID="$(ps_e2e_drush php:eval '$storage=\Drupal::entityTypeManager()->getStorage("media"); $ids=\Drupal::entityQuery("media")->accessCheck(FALSE)->range(0,1)->execute(); if ($ids) { print (string) reset($ids); return; } $m=$storage->create(["bundle"=>"mediahub_video","name"=>"E2E Auto Generated Media","field_media_video_url"=>"https://example.com/video.mp4","status"=>1]); $m->save(); print (string) $m->id();')"
 
 echo "Using media id: ${MEDIA_ID}"
 
 # Manual mode scenario.
 run_eval '$nid=(int) "'"${NID}"'"; $node=\Drupal\node\Entity\Node::load($nid); if (!$node) { throw new \RuntimeException("Node not found: " . $nid); } $node->set("field_reference_auto", 0); $node->set("field_reference", "'"${MANUAL_REF}"'"); if ($node->hasField("field_operation_type")) { $node->set("field_operation_type", "'"${OP_CODE}"'"); } if ($node->hasField("field_asset_type")) { $node->set("field_asset_type", "'"${ASSET_CODE}"'"); } if ($node->hasField("field_media_gallery")) { $node->set("field_media_gallery", [["target_id" => (int) "'"${MEDIA_ID}"'"]]); } $node->save(); print "manual_saved\n";'
 
-MANUAL_DATA="$(${DRUSH} php:eval '$nid=(int) "'"${NID}"'"; $node=\Drupal\node\Entity\Node::load($nid); if (!$node) { throw new \RuntimeException("Node not found: " . $nid); } print "ref=".($node->get("field_reference")->value ?? "")."\n"; print "auto=".(string) ((int) $node->get("field_reference_auto")->value)."\n"; print "gallery_count=".(string) count($node->get("field_media_gallery"))."\n";')"
+MANUAL_DATA="$(ps_e2e_drush php:eval '$nid=(int) "'"${NID}"'"; $node=\Drupal\node\Entity\Node::load($nid); if (!$node) { throw new \RuntimeException("Node not found: " . $nid); } print "ref=".($node->get("field_reference")->value ?? "")."\n"; print "auto=".(string) ((int) $node->get("field_reference_auto")->value)."\n"; print "gallery_count=".(string) count($node->get("field_media_gallery"))."\n";')"
 
 MANUAL_REF_DB="$(echo "$MANUAL_DATA" | sed -n 's/^ref=//p' | head -n1)"
 MANUAL_AUTO_DB="$(echo "$MANUAL_DATA" | sed -n 's/^auto=//p' | head -n1)"
@@ -62,7 +63,7 @@ assert_regex '^[1-9][0-9]*$' "${MANUAL_GALLERY_DB}" "gallery has at least one me
 # Auto mode scenario.
 run_eval '$nid=(int) "'"${NID}"'"; $node=\Drupal\node\Entity\Node::load($nid); if (!$node) { throw new \RuntimeException("Node not found: " . $nid); } $node->set("field_reference_auto", 1); $node->set("field_reference", ""); if ($node->hasField("field_operation_type")) { $node->set("field_operation_type", "'"${OP_CODE}"'"); } if ($node->hasField("field_asset_type")) { $node->set("field_asset_type", "'"${ASSET_CODE}"'"); } if ($node->hasField("field_media_gallery")) { $node->set("field_media_gallery", [["target_id" => (int) "'"${MEDIA_ID}"'"]]); } $node->save(); print "auto_saved\n";'
 
-AUTO_DATA="$(${DRUSH} php:eval '$nid=(int) "'"${NID}"'"; $node=\Drupal\node\Entity\Node::load($nid); if (!$node) { throw new \RuntimeException("Node not found: " . $nid); } print "ref=".($node->get("field_reference")->value ?? "")."\n"; print "auto=".(string) ((int) $node->get("field_reference_auto")->value)."\n";')"
+AUTO_DATA="$(ps_e2e_drush php:eval '$nid=(int) "'"${NID}"'"; $node=\Drupal\node\Entity\Node::load($nid); if (!$node) { throw new \RuntimeException("Node not found: " . $nid); } print "ref=".($node->get("field_reference")->value ?? "")."\n"; print "auto=".(string) ((int) $node->get("field_reference_auto")->value)."\n";')"
 
 AUTO_REF_DB="$(echo "$AUTO_DATA" | sed -n 's/^ref=//p' | head -n1)"
 AUTO_AUTO_DB="$(echo "$AUTO_DATA" | sed -n 's/^auto=//p' | head -n1)"

@@ -43,7 +43,7 @@ Codes dictionnaire : LOC/VEN (operation), BUR/COW/ENT/ACT/COM/TER (asset). Voir 
 | OFF-17 | Divisible sans op/actif | Lots reste masqué |
 | OFF-18 | Édition = create | `/node/{id}/edit` identique à create |
 
-Validation navigateur obligatoire : `http://localhost:8080/node/add/offer` avec `content.editor`.
+Validation navigateur obligatoire : `http://com.localhost:8080/node/add/offer` avec `content.editor`.
 
 ## Validations (VAL-01 à VAL-10)
 

@@ -2,7 +2,9 @@
 # Manual recette helper — CTX-FORM, CTX-DEF, CTX-SEARCH, CTX-ADM (browser-complement).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PASS=0
 FAIL=0
@@ -16,7 +18,7 @@ fail() { echo "  FAIL: $1"; FAIL=$((FAIL + 1)); }
 skip() { echo "  SKIP: $1"; SKIP=$((SKIP + 1)); }
 
 drush() {
-  docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush $*"
+  ps_e2e_drush "$@"
 }
 
 login_jar() {

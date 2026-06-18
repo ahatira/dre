@@ -88,7 +88,6 @@ ps_install_country_site() {
 
   ps_import_module_translations
 
-  ps_solr_init_cores || ps_warn "Solr core init skipped"
   ps_drush search-api:clear offers -y 2>/dev/null || true
   ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || true
   ps_drush search-api:index offers -y 2>/dev/null || ps_warn "Solr index empty until make import"

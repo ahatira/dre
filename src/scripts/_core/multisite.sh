@@ -1,21 +1,9 @@
 #!/usr/bin/env bash
-# Multisite helpers — countries, URIs, languages, file paths.
-
-readonly PS_COUNTRIES=(com be es fr ie it lu nl pl)
-
-ps_multisite_countries() {
-  printf '%s\n' "${PS_COUNTRIES[@]}"
-}
+# Multisite helpers — URIs, languages, file paths.
+# Country list and language matrix: web/sites/countries.yml (see countries.sh).
 
 ps_country_upper() {
   printf '%s' "$1" | tr '[:lower:]' '[:upper:]'
-}
-
-ps_is_country_code() {
-  case "$1" in
-    com|be|es|fr|ie|it|lu|nl|pl|all) return 0 ;;
-    *) return 1 ;;
-  esac
 }
 
 ps_site_domain() {
@@ -26,8 +14,18 @@ ps_site_domain() {
 
 ps_site_port() {
   local country="$1"
-  local upper="APP_DOMAIN_$(ps_country_upper "${country}")_PORT"
-  ps_env_get "${upper}" "8080"
+  local upper port
+  upper="APP_DOMAIN_$(ps_country_upper "${country}")_PORT"
+  port="$(ps_env_get "${upper}")"
+  if [[ -n "${port}" ]]; then
+    printf '%s' "${port}"
+    return 0
+  fi
+  if [[ "$(ps_env_get APP_ENV dev)" == "dev" ]]; then
+    ps_country_dev_port "${country}"
+    return 0
+  fi
+  printf '80'
 }
 
 ps_site_uri() {
@@ -58,11 +56,55 @@ ps_site_admin_uri() {
 }
 
 ps_public_files_dir() {
-  printf '%s/web/sites/%s/files' "${PS_SRC_DIR}" "$1"
+  local country="$1"
+  local site_dir base rel
+  site_dir="$(ps_country_site_dir "${country}")"
+  base="$(ps_env_path_base APP_PUBLIC_PATH)"
+  if [[ -n "${base}" ]]; then
+    rel="${base%/}/${site_dir}/files"
+    printf '%s/web/%s' "${PS_SRC_DIR}" "${rel#/}"
+  else
+    printf '%s/web/sites/%s/files' "${PS_SRC_DIR}" "${site_dir}"
+  fi
+}
+
+# Global env base + /{site_dir} (mirrors load-env.php). No per-country APP_*_{CODE} vars.
+ps_path_from_global_base() {
+  local base="$1"
+  local site_dir="$2"
+  if [[ "${base}" == /* ]]; then
+    printf '%s/%s' "${base%/}" "${site_dir}"
+  else
+    printf '%s/%s/%s' "${PS_SRC_DIR}" "${base#/}" "${site_dir}"
+  fi
+}
+
+ps_resolve_private_files_dir() {
+  local country="$1"
+  local base site_dir
+  site_dir="$(ps_country_site_dir "${country}")"
+  base="$(ps_env_path_base APP_PRIVATE_PATH)"
+  if [[ -n "${base}" ]]; then
+    ps_path_from_global_base "${base}" "${site_dir}"
+    return 0
+  fi
+  printf '%s/private/%s' "${PS_SRC_DIR}" "${site_dir}"
 }
 
 ps_private_files_dir() {
-  printf '%s/private/%s' "${PS_SRC_DIR}" "$1"
+  ps_resolve_private_files_dir "$1"
+}
+
+ps_private_path_is_configured() {
+  [[ -n "$(ps_env_path_base APP_PRIVATE_PATH)" ]]
+}
+
+ps_private_path_should_provision() {
+  local country="$1"
+  unset country
+  [[ "$(ps_env_get APP_ENV dev)" == "dev" ]] || return 1
+  ps_private_path_is_configured && return 1
+  return 0
 }
 
 ps_crm_xml_target() {
@@ -92,10 +134,11 @@ ps_parse_countries_arg() {
   for token in "${tokens[@]}"; do
     token="$(printf '%s' "${token}" | tr '[:upper:]' '[:lower:]' | xargs)"
     [[ -z "${token}" ]] && continue
-    case "${token}" in
-      com|be|es|fr|ie|it|lu|nl|pl) selected+=("${token}") ;;
-      *) ps_die "Unknown country code: ${token}" ;;
-    esac
+    if ps_is_country_code "${token}"; then
+      selected+=("${token}")
+    else
+      ps_die "Unknown country code: ${token}"
+    fi
   done
   [[ ${#selected[@]} -gt 0 ]] || ps_die "No valid countries in: ${raw}"
   printf '%s\n' "${selected[@]}"
@@ -104,7 +147,8 @@ ps_parse_countries_arg() {
 ps_foreach_country() {
   local callback="$1"
   local country
-  for country in "${PS_COUNTRIES[@]}"; do
+  ps_countries_init
+  for country in "${_PS_COUNTRIES_CACHE[@]}"; do
     "${callback}" "${country}"
   done
 }
@@ -113,59 +157,31 @@ ps_provision_country_files() {
   local country="$1"
   local public_dir private_dir
   public_dir="$(ps_public_files_dir "${country}")"
-  private_dir="$(ps_private_files_dir "${country}")"
+  private_dir="$(ps_resolve_private_files_dir "${country}")"
 
   mkdir -p \
     "${public_dir}/crm" \
     "${public_dir}/translations" \
-    "${public_dir}/bnp-media/placeholders" \
-    "${private_dir}"
+    "${public_dir}/bnp-media/placeholders"
 
-  if ps_in_docker; then
-    ps_docker_exec_php "chown -R www-data:www-data web/sites/${country}/files private/${country}" \
-      2>/dev/null || ps_warn "chown failed for ${country} (run make fix-permissions)"
+  if ps_private_path_should_provision; then
+    mkdir -p "${private_dir}"
+  elif [[ ! -d "${private_dir}" ]]; then
+    ps_warn "${country}: private path not found (expected mount or pre-provisioned): ${private_dir}"
   fi
+
   ps_success "${country}: public=${public_dir} private=${private_dir}"
 }
 
 ps_stage_sample_xml() {
   local country="$1"
   local master target
-  master="${PS_PROJECT_ROOT}/data/xml/bnppre_sample_100_per_type.xml"
+  master="${PS_REPO_ROOT}/data/xml/bnppre_sample_100_per_type.xml"
   target="$(ps_crm_xml_target "${country}")"
   ps_require_file "${master}" "Master sample XML not found: ${master} (run: python3 data/xml/build_sample_100_per_type.py)"
   mkdir -p "$(dirname "${target}")"
   cp "${master}" "${target}"
   ps_info "XML staged: ${target}"
-}
-
-# --- Languages (per-country matrix) ---
-
-ps_site_default_langcode() {
-  case "$1" in
-    com|ie) printf 'en' ;;
-    fr|be|lu) printf 'fr' ;;
-    es) printf 'es' ;;
-    it) printf 'it' ;;
-    nl) printf 'nl' ;;
-    pl) printf 'pl' ;;
-    *) ps_die "Unknown country for default lang: $1" ;;
-  esac
-}
-
-ps_site_language_codes() {
-  case "$1" in
-    com) printf 'en fr' ;;
-    fr) printf 'fr en' ;;
-    be) printf 'en fr nl' ;;
-    es) printf 'en es' ;;
-    ie) printf 'en' ;;
-    it) printf 'en it' ;;
-    lu) printf 'en fr' ;;
-    pl) printf 'en pl' ;;
-    nl) printf 'en nl' ;;
-    *) ps_die "Unknown country for languages: $1" ;;
-  esac
 }
 
 ps_site_language_split_id() {

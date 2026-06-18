@@ -2,7 +2,9 @@
 # E2E — RBAC SEC-* and CTX-ADM-* (QA cahier §8.1, §9).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PASS=0
 FAIL=0
@@ -18,7 +20,7 @@ cleanup() { rm -rf "$TMP"; }
 trap cleanup EXIT
 
 drush() {
-  docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush $*"
+  ps_e2e_drush "$@"
 }
 
 login_user() {

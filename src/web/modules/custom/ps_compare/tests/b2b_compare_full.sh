@@ -2,6 +2,9 @@
 # B2B full suite — Compare feature (search, page, homepage, authenticated).
 set -euo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOTAL_PASS=0
 TOTAL_FAIL=0

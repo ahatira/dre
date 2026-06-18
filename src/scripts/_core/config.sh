@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Bi-mode configuration: dev (.env) | prod/staging (system environment).
+# Bi-mode configuration: dev (.env) | int/staging/prod (system environment).
 
 ps_load_config() {
   if [[ -n "${PS_CONFIG_LOADED:-}" ]]; then
@@ -26,6 +26,16 @@ ps_env_get() {
   else
     printf '%s' "${default}"
   fi
+}
+
+# Path env vars: unset, empty or whitespace-only → treated as unset.
+ps_env_path_base() {
+  local key="$1"
+  local value
+  value="$(ps_env_get "${key}")"
+  value="${value#"${value%%[![:space:]]*}"}"
+  value="${value%"${value##*[![:space:]]}"}"
+  printf '%s' "${value}"
 }
 
 ps_require_env() {

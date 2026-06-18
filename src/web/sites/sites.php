@@ -4,7 +4,10 @@
 
 /**
  * @file
- * Multisite aliases driven by environment variables (src/.env).
+ * Multisite aliases driven by environment variables.
+ *
+ * Dev: src/.env (APP_ENV=dev). INT/staging/prod: system environment only.
+ * HTTP port is handled by the reverse proxy; Host header selects the site.
  *
  * @see \Drupal\Core\DrupalKernel::getSitePath()
  */
@@ -18,24 +21,14 @@ foreach (ps_country_codes() as $countryCode) {
   $upper = strtoupper($countryCode);
   $domain = ps_env('APP_DOMAIN_' . $upper);
   $adminDomain = ps_env('APP_DOMAIN_' . $upper . '_ADMIN');
-  $port = ps_env('APP_DOMAIN_' . $upper . '_PORT', '80');
 
   if ($domain === '') {
     continue;
   }
 
-  $siteDir = $countryCode;
-
-  if ($port !== '' && $port !== '80' && $port !== '443') {
-    $sites[$port . '.' . $domain] = $siteDir;
-    if ($adminDomain !== '') {
-      $sites[$port . '.' . $adminDomain] = $siteDir;
-    }
-  }
-  else {
-    $sites[$domain] = $siteDir;
-    if ($adminDomain !== '') {
-      $sites[$adminDomain] = $siteDir;
-    }
+  $siteDir = ps_country_site_dir($countryCode);
+  $sites[$domain] = $siteDir;
+  if ($adminDomain !== '') {
+    $sites[$adminDomain] = $siteDir;
   }
 }

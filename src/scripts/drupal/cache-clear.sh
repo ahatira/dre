@@ -4,19 +4,31 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Cache clear — rebuild cache on all multisite countries.
+Cache clear — rebuild cache on multisite countries.
 
-Usage: scripts/main.sh drupal cache-clear
+Usage: scripts/main.sh drupal cache-clear [country...]
+
+  cache-clear           all bootstrapped countries
+  cache-clear fr        single country
 EOF
 }
 
 [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && { show_help; exit 0; }
 
-ps_header "Cache rebuild (all countries)"
+ps_header "Cache rebuild"
 ps_load_config
 ps_resolve_runtime
 
-for country in "${PS_COUNTRIES[@]}"; do
+ps_countries_init
+target_countries=()
+if [[ $# -gt 0 ]]; then
+  countries_raw="$(IFS=,; printf '%s' "$*")"
+  mapfile -t target_countries < <(ps_parse_countries_arg "${countries_raw}")
+else
+  target_countries=("${_PS_COUNTRIES_CACHE[@]}")
+fi
+
+for country in "${target_countries[@]}"; do
   ps_drush_for_country "${country}"
   if ps_drush_bootstrapped; then
     ps_drush_cr

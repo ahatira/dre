@@ -4,8 +4,8 @@
 
 /**
  * @file
- * Property Search multisite — nl country bootstrap.
+ * Property Search multisite — ie (ireland/) country bootstrap.
  */
 
-$ps_country_code = 'nl';
+$ps_country_code = 'ie';
 require dirname(__DIR__) . '/default/settings.php';

@@ -6,7 +6,9 @@
 # the share offcanvas over an authenticated ULI session.
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 MAILPIT="${MAILPIT_URL:-http://localhost:8025}"
 PASS=0
 FAIL=0
@@ -48,7 +50,7 @@ assert_file_contains() {
 }
 
 seed_compare_items_drush() {
-  docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+  ps_e2e_drush php:eval "
 \$storage = \\Drupal::entityTypeManager()->getStorage(\"node\");
 \$ids = array_values(\$storage->getQuery()->accessCheck(TRUE)->condition(\"type\", \"offer\")->range(0, 2)->execute());
 if (count(\$ids) < 2) { print \"FAIL:not_enough_offers\"; return; }
@@ -62,33 +64,33 @@ foreach (\$ids as \$id) { \$manager->addCompare(\$storage->load(\$id)); }
 \\Drupal::service(\"account_switcher\")->switchBack();
 if (\$count < 2) { print \"FAIL:seed\"; return; }
 print \"PASS:seeded\";
-"' 2>/dev/null | tail -1
+" 2>/dev/null | tail -1
 }
 
 submit_compare_share_webform_drush() {
-  docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush php:eval \"
-use Drupal\\\\webform\\\\Entity\\\\WebformSubmission;
+  ps_e2e_drush php:eval "
+use Drupal\\webform\\Entity\\WebformSubmission;
 
-\\\$account = \\\Drupal\\\\user\\\\Entity\\\\User::load(1);
-if (\\\$account === NULL) { print 'FAIL:no_admin'; return; }
-\\\Drupal::service('account_switcher')->switchTo(\\\$account);
-if (!\\\Drupal::service('ps_compare.manager')->canOpenComparisonPage()) {
-  \\\Drupal::service('account_switcher')->switchBack();
+\$account = \\Drupal\\user\\Entity\\User::load(1);
+if (\$account === NULL) { print 'FAIL:no_admin'; return; }
+\\Drupal::service('account_switcher')->switchTo(\$account);
+if (!\\Drupal::service('ps_compare.manager')->canOpenComparisonPage()) {
+  \\Drupal::service('account_switcher')->switchBack();
   print 'FAIL:not_enough_items';
   return;
 }
-\\\$submission = WebformSubmission::create([
+\$submission = WebformSubmission::create([
   'webform_id' => 'compare_share',
-  'uid' => (int) \\\$account->id(),
+  'uid' => (int) \$account->id(),
   'data' => [
     'prof_email_address' => '${TEST_EMAIL}',
     'legal' => 1,
   ],
 ]);
-\\\$submission->save();
-\\\Drupal::service('account_switcher')->switchBack();
+\$submission->save();
+\\Drupal::service('account_switcher')->switchBack();
 print 'PASS:submitted';
-\"" 2>/dev/null | tail -1
+" 2>/dev/null | tail -1
 }
 
 echo "=== PS Compare B2B — Share offcanvas + webform ($BASE) ==="
@@ -110,7 +112,7 @@ else
 fi
 
 echo "--- Authenticated session (ULI) ---"
-ULI=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush uli --name=admin --uri=http://localhost:8080' 2>/dev/null | tail -1 || true)
+ULI=$(ps_e2e_drush uli --name=admin --uri="${BASE}" 2>/dev/null | tail -1 || true)
 if [[ -z "$ULI" ]]; then
   fail "Could not generate admin login link"
   echo "=== Results: $PASS passed, $FAIL failed ==="

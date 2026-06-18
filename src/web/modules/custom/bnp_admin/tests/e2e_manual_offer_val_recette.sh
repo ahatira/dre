@@ -2,6 +2,9 @@
 # Manual recette — OFF-01→12 + VAL-01→10 (Drush entity + form validation).
 set -euo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 
@@ -9,7 +12,7 @@ pass() { echo "  PASS: $1"; PASS=$((PASS + 1)); }
 fail() { echo "  FAIL: $1"; FAIL=$((FAIL + 1)); }
 
 drush() {
-  docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush $*"
+  ps_e2e_drush "$@"
 }
 
 echo "=== Manual recette — OFF-01→18 + VAL-01→10 ==="

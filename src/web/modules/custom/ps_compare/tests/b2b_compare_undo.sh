@@ -2,7 +2,9 @@
 # B2B smoke tests — Undo removal via toggle API (remove then restore).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 
@@ -11,7 +13,7 @@ fail() { echo "  FAIL: $1"; FAIL=$((FAIL + 1)); }
 
 echo "=== PS Compare B2B — Undo toggle flow ==="
 
-UNDO_RESULT=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+UNDO_RESULT=$(ps_e2e_drush php:eval "
 \$account = \\Drupal\\user\\Entity\\User::load(1);
 \\Drupal::service(\"account_switcher\")->switchTo(\$account);
 \$storage = \\Drupal::entityTypeManager()->getStorage(\"node\");
@@ -36,7 +38,7 @@ if ((int) (\$restoreData[\"count\"] ?? 0) !== 2) { print \"FAIL:count_after_rest
 \$undoSetting = \\Drupal::config(\"ps_compare.settings\")->get(\"display_undo_removal\");
 if (\$undoSetting === NULL) { print \"FAIL:undo_config_missing\"; return; }
 print \"PASS:undo_toggle\";
-"' 2>/dev/null | tail -1)
+" 2>/dev/null | tail -1)
 
 if [[ "$UNDO_RESULT" == "PASS:undo_toggle" ]]; then
   pass "Toggle remove + restore restores compare count"
@@ -44,17 +46,17 @@ else
   fail "Undo toggle API ($UNDO_RESULT)"
 fi
 
-LIB_RESULT=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+LIB_RESULT=$(ps_e2e_drush php:eval "
 \$paths = array_map(static fn (array \$item): string => (string) (\$item[\"data\"] ?? \"\"), \\Drupal::service(\"library.discovery\")->getLibraryByName(\"ps_compare\", \"compare-toggle\")[\"js\"] ?? []);
 print in_array(\"modules/custom/ps_compare/js/ps-compare-undo.js\", \$paths, true) ? \"PASS:undo_js\" : \"FAIL:undo_js\";
-"' 2>/dev/null | tail -1)
+" 2>/dev/null | tail -1)
 if [[ "$LIB_RESULT" == "PASS:undo_js" ]]; then
   pass "Undo JS in compare-toggle library"
 else
   fail "Undo JS library ($LIB_RESULT)"
 fi
 
-LEGACY_JS=$(docker exec -i ps_php sh -lc 'test -f /var/www/html/web/modules/custom/ps_compare/js/ps-compare-share.js && echo present || echo absent' 2>/dev/null | tail -1)
+LEGACY_JS=$([[ -f "${PS_E2E_SRC_DIR}/web/modules/custom/ps_compare/js/ps-compare-share.js" ]] && echo present || echo absent)
 if [[ "$LEGACY_JS" == "absent" ]]; then
   pass "Legacy ps-compare-share.js removed"
 else

@@ -4,47 +4,34 @@ SHELL := /usr/bin/env bash
 PROJECT_ROOT := $(CURDIR)
 COMPOSE_FILE := $(PROJECT_ROOT)/docker/docker-compose.yml
 SRC_DIR := $(PROJECT_ROOT)/src
-SCRIPTS_CLI := $(SRC_DIR)/scripts/main.sh
-
+SRC_MAKE := $(MAKE) -C "$(SRC_DIR)"
 COUNTRY ?= com
 
 .PHONY: \
 	help up down restart ps logs rebuild \
-	env bootstrap build verify composer-install composer-update npm-install fix-permissions \
-	install reinstall import demo deploy drush-cr index-solr export-solr \
+	env bootstrap generate-multisite verify-multisite fix-permissions init-solr-cores \
+	build verify install reinstall import demo deploy drush-cr index-solr export-solr \
 	rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex rbac-sec-e2e
+	drush drush-uli drush-status drush-cex rbac-sec-e2e \
+	composer-install composer-update npm-install
 
 help:
-	@echo "PS Project — Makefile wraps src/scripts/main.sh"
+	@echo "PS Project — dev environment (repo root)"
 	@echo ""
-	@echo "Docker:"
+	@echo "Docker (local dev only):"
 	@echo "  make up | down | restart | ps | logs | rebuild"
+	@echo "  make env | fix-permissions | init-solr-cores"
 	@echo ""
-	@echo "Tools (scripts/tools/):"
-	@echo "  make env | build | verify | bootstrap"
-	@echo "  make composer-install | composer-update | npm-install"
-	@echo "  make fix-permissions"
+	@echo "Multisite (repo root → syncs into src/):"
+	@echo "  make generate-multisite | verify-multisite"
 	@echo ""
-	@echo "Drupal (scripts/drupal/):"
-	@echo "  make install [country...]      - Greenfield multisite shell"
-	@echo "  make reinstall [country...]    - Force reinstall"
-	@echo "  make import [country]          - CRM migrate + Solr"
-	@echo "  make demo [country]            - Demo content"
-	@echo "  make deploy                    - cim + updb + cr (all countries)"
-	@echo "  make drush-cr                  - Cache rebuild (all countries)"
-	@echo "  make index-solr [country]      - Reindex Search API offers"
-	@echo "  make export-solr [country]     - Export Solr cores to conf/solr/{core_name}/"
-	@echo "  make rbac-sync [country]       - Import BNP RBAC roles"
-	@echo "  make rbac-export [country]     - Export RBAC roles to YAML"
-	@echo "  make create-test-users [country]"
+	@echo "Project commands (delegate to src/Makefile, Drush on host):"
+	@echo "  make bootstrap          = env + up + generate-multisite + build"
+	@echo "  make build | verify | install | deploy | drush-cr | …"
 	@echo ""
-	@echo "Drush (@ps.{country}, default COUNTRY=$(COUNTRY)):"
-	@echo "  make drush [country] <args...>   e.g. make drush fr uli"
-	@echo "  make drush-uli | drush-status | drush-cex   (override: COUNTRY=fr)"
-	@echo ""
-	@echo "Tests:"
-	@echo "  make rbac-sec-e2e"
+	@echo "See src/Makefile and README.md for full project command list."
+
+# --- Docker (dev only) ---
 
 up:
 	docker compose -f "$(COMPOSE_FILE)" up -d
@@ -64,73 +51,86 @@ rebuild:
 	docker compose -f "$(COMPOSE_FILE)" build --no-cache php
 	@echo "Image rebuilt. Run: make restart"
 
-composer-install:
-	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction --prefer-dist
-
-composer-update:
-	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer update --no-interaction --prefer-dist
-
-npm-install:
-	cd "$(SRC_DIR)" && npm install
-
-bootstrap: env up build
-
 env:
-	bash "$(SCRIPTS_CLI)" tools env
-
-build:
-	bash "$(SCRIPTS_CLI)" tools build
-
-verify:
-	bash "$(SCRIPTS_CLI)" tools check
+	bash "$(PROJECT_ROOT)/scripts/docker/env.sh"
 
 fix-permissions:
-	bash "$(SCRIPTS_CLI)" tools fix-permissions
+	bash "$(PROJECT_ROOT)/scripts/docker/fix-permissions.sh"
+
+init-solr-cores:
+	bash "$(PROJECT_ROOT)/scripts/docker/index-solr.sh"
+
+# --- Multisite (repo root) ---
+
+generate-multisite:
+	bash "$(PROJECT_ROOT)/scripts/multisite/generate.sh"
+
+verify-multisite:
+	bash "$(PROJECT_ROOT)/scripts/multisite/verify.sh"
+
+bootstrap: env up generate-multisite build
+
+# --- Delegate to src/ ---
+
+build:
+	$(SRC_MAKE) build $(filter-out build,$(MAKECMDGOALS))
+
+verify:
+	$(SRC_MAKE) verify
+
+composer-install:
+	$(SRC_MAKE) composer-install
+
+composer-update:
+	$(SRC_MAKE) composer-update
+
+npm-install:
+	$(SRC_MAKE) npm-install
 
 install:
-	bash "$(SCRIPTS_CLI)" drupal install $(filter-out install,$(MAKECMDGOALS))
+	$(SRC_MAKE) install $(filter-out install,$(MAKECMDGOALS))
 
 reinstall:
-	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out reinstall install,$(MAKECMDGOALS))
+	$(SRC_MAKE) reinstall $(filter-out reinstall install,$(MAKECMDGOALS))
 
 import:
-	bash "$(SCRIPTS_CLI)" drupal import $(filter-out import,$(MAKECMDGOALS))
+	$(SRC_MAKE) import $(filter-out import,$(MAKECMDGOALS))
 
 demo:
-	bash "$(SCRIPTS_CLI)" drupal demo $(filter-out demo,$(MAKECMDGOALS))
+	$(SRC_MAKE) demo $(filter-out demo,$(MAKECMDGOALS))
 
 deploy:
-	bash "$(SCRIPTS_CLI)" drupal deploy
+	$(SRC_MAKE) deploy $(filter-out deploy,$(MAKECMDGOALS))
 
 drush-cr:
-	bash "$(SCRIPTS_CLI)" drupal cache-clear
+	$(SRC_MAKE) drush-cr $(filter-out drush-cr,$(MAKECMDGOALS))
 
-index-solr:
-	bash "$(SCRIPTS_CLI)" drupal index-solr $(filter-out index-solr,$(MAKECMDGOALS))
+index-solr: init-solr-cores
+	$(SRC_MAKE) index-solr $(filter-out index-solr,$(MAKECMDGOALS))
 
 export-solr:
-	bash "$(SCRIPTS_CLI)" drupal export-solr $(filter-out export-solr,$(MAKECMDGOALS))
+	$(SRC_MAKE) export-solr $(filter-out export-solr,$(MAKECMDGOALS))
 
 rbac-sync:
-	bash "$(SCRIPTS_CLI)" drupal rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))
+	$(SRC_MAKE) rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))
 
 rbac-export:
-	bash "$(SCRIPTS_CLI)" drupal rbac-sync --export $(filter-out rbac-export,$(MAKECMDGOALS))
+	$(SRC_MAKE) rbac-export $(filter-out rbac-export,$(MAKECMDGOALS))
 
 create-test-users:
-	bash "$(SCRIPTS_CLI)" drupal create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
+	$(SRC_MAKE) create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
 
 drush:
-	bash "$(SCRIPTS_CLI)" drupal drush $(filter-out drush,$(MAKECMDGOALS))
+	$(SRC_MAKE) drush $(filter-out drush,$(MAKECMDGOALS))
 
 drush-uli:
-	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) uli
+	$(SRC_MAKE) drush-uli COUNTRY=$(COUNTRY)
 
 drush-status:
-	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) status --fields=bootstrap,db-status,drupal-version,drush-version
+	$(SRC_MAKE) drush-status COUNTRY=$(COUNTRY)
 
 drush-cex:
-	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) cex -y
+	$(SRC_MAKE) drush-cex COUNTRY=$(COUNTRY)
 
 rbac-sec-e2e:
 	bash "$(SRC_DIR)/web/modules/custom/bnp_admin/tests/e2e_rbac_sec_ctx.sh"

@@ -21,7 +21,7 @@ Workflow:
   make import [country]    — CRM sample + Solr
   make demo [country]      — demo content (optional)
 
-Prerequisites (dev): make env
+Prerequisites (dev): make env (from repo root)
 RBAC: run make rbac-sync separately after install.
 EOF
 }
@@ -69,7 +69,7 @@ ps_header "Drupal: multisite install (shell)"
 ps_load_config
 
 if [[ "$(ps_env_get APP_ENV dev)" == "dev" ]]; then
-  ps_require_file "${PS_SRC_DIR}/.env" "Run: make env"
+  ps_require_file "${PS_SRC_DIR}/.env" "Run: make env (from repo root)"
 fi
 
 ps_resolve_runtime

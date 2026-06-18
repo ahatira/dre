@@ -3,7 +3,10 @@
 # Usage: bash web/modules/custom/ps_offer/tests/e2e_offer_gallery.sh [base_url] [node_id]
 set -euo pipefail
 
-BASE_URL="${1:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
+BASE_URL="${1:-http://com.localhost:8080}"
 NODE_ID="${2:-2}"
 URL="${BASE_URL}/node/${NODE_ID}"
 FAIL=0

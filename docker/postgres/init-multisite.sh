@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Creates Property Search multisite databases on first PostgreSQL init.
+# Reads DB_NAME_{CODE} from container environment (src/.env via docker-compose).
 set -euo pipefail
 
 create_db() {
@@ -15,12 +16,10 @@ create_db() {
   psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" --dbname postgres -c "CREATE DATABASE \"${name}\";"
 }
 
-create_db "${DB_NAME_COM:-}"
-create_db "${DB_NAME_BE:-}"
-create_db "${DB_NAME_ES:-}"
-create_db "${DB_NAME_FR:-}"
-create_db "${DB_NAME_IE:-}"
-create_db "${DB_NAME_IT:-}"
-create_db "${DB_NAME_LU:-}"
-create_db "${DB_NAME_NL:-}"
-create_db "${DB_NAME_PL:-}"
+while IFS= read -r line; do
+  case "${line}" in
+    DB_NAME_*=*)
+      create_db "${line#*=}"
+      ;;
+  esac
+done < <(env | grep -E '^DB_NAME_' | sort)

@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 ACTION="${1:-}" 
 TYPE="${2:-}"
 CODE="${3:-}"
 LABEL="${4:-}"
 WEIGHT="${5:-0}"
 
-DRUSH="docker exec ps_php /var/www/html/vendor/bin/drush"
-
 run_eval() {
   local php_code="$1"
-  ${DRUSH} php:eval "$php_code"
+  ps_e2e_drush php:eval "$php_code"
 }
 
 entry_id() {
@@ -53,7 +54,7 @@ case "$ACTION" in
     run_eval "\$resolver=\\Drupal::service('ps_dictionary.resolver'); \$label=\$resolver->resolveLabel('${TYPE}','${CODE}'); if (\$label === NULL) { print 'RESULT:NULL'; return; } print 'RESULT:' . \$label;"
     ;;
   autocomplete_contains)
-    RESPONSE="$(curl -sS "http://localhost:8080/ps-dictionary/autocomplete/${TYPE}?q=${CODE}")"
+    RESPONSE="$(curl -sS "${BASE}/ps-dictionary/autocomplete/${TYPE}?q=${CODE}")"
     echo "$RESPONSE"
     if echo "$RESPONSE" | grep -qi "${CODE}\|${LABEL}"; then
       echo "PASS: autocomplete contains expected value"

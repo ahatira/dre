@@ -2,7 +2,9 @@
 # B2B smoke tests — Compare table page (/compare).
 set -euo pipefail
 
-BASE="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 PASS=0
 FAIL=0
 COOKIE_JAR="${TMPDIR:-/tmp}/ps-compare-b2b-page-cookies.txt"
@@ -30,18 +32,18 @@ assert_html_not_contains() {
 }
 
 drush_clear() {
-  docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+  ps_e2e_drush php:eval "
 \$account = \\Drupal\\user\\Entity\\User::load(1);
 if (\$account !== NULL) {
   \\Drupal::database()->delete(\"ps_compare_item\")->condition(\"uid\", (int) \$account->id())->execute();
 }
 print \"PASS:cleared\";
-"' 2>/dev/null | tail -1
+" 2>/dev/null | tail -1
 }
 
 drush_seed() {
   local count="$1"
-  docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+  ps_e2e_drush php:eval "
 \$count = '"$count"';
 \$account = \\Drupal\\user\\Entity\\User::load(1);
 if (\$account === NULL) { print \"FAIL:no_admin\"; return; }
@@ -54,14 +56,14 @@ if (count(\$ids) < \$count) { \\Drupal::service(\"account_switcher\")->switchBac
 for (\$i = 0; \$i < \$count; \$i++) { \$manager->addCompare(\$storage->load(\$ids[\$i])); }
 \\Drupal::service(\"account_switcher\")->switchBack();
 print \"PASS:seeded_\$count\";
-"' 2>/dev/null | tail -1
+" 2>/dev/null | tail -1
 }
 
 login_admin() {
   rm -f "$COOKIE_JAR"
   touch "$COOKIE_JAR"
   local uli
-  uli=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush uli --name=admin --uri=http://localhost:8080' 2>/dev/null | tail -1)
+  uli=$(ps_e2e_drush uli --name=admin --uri="${BASE}" 2>/dev/null | tail -1)
   curl -sL -m 120 -b "$COOKIE_JAR" -c "$COOKIE_JAR" -o /dev/null "$uli" 2>/dev/null || true
 }
 
@@ -83,7 +85,7 @@ assert_page_has_one_of() {
 
 drush_build_columns() {
   local expected="$1"
-  docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+  ps_e2e_drush php:eval "
 \$expected = '"$expected"';
 \$account = \\Drupal\\user\\Entity\\User::load(1);
 \\Drupal::service(\"account_switcher\")->switchTo(\$account);
@@ -105,7 +107,7 @@ if (count(\$columns) !== \$expected) { print \"FAIL:columns_\" . count(\$columns
 if (\$expected >= 2 && \$rowCount < 5) { print \"FAIL:rows_\" . \$rowCount; return; }
 if (\$expected >= 2 && count(\$sections) < 3) { print \"FAIL:sections_\" . count(\$sections); return; }
 print \"PASS:page_builder_\$expected\";
-"' 2>/dev/null | tail -1
+" 2>/dev/null | tail -1
 }
 
 echo "=== PS Compare B2B — Compare page ($BASE) ==="
@@ -197,11 +199,11 @@ else
   fail "ComparePageBuilder ($BUILD_RESULT)"
 fi
 
-UNDO_LIB=$(docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush php:eval "
+UNDO_LIB=$(ps_e2e_drush php:eval "
 \$lib = \\Drupal::service(\"library.discovery\")->getLibraryByName(\"ps_compare\", \"compare-toggle\");
 \$paths = array_map(static fn (array \$item): string => (string) (\$item[\"data\"] ?? \"\"), \$lib[\"js\"] ?? []);
 print in_array(\"modules/custom/ps_compare/js/ps-compare-undo.js\", \$paths, true) ? \"PASS:undo_lib\" : \"FAIL:undo_lib\";
-"' 2>/dev/null | tail -1)
+" 2>/dev/null | tail -1)
 if [[ "$UNDO_LIB" == "PASS:undo_lib" ]]; then
   pass "Compare undo JS registered in compare-toggle library"
 else

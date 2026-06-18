@@ -1,0 +1,92 @@
+# Property Search — production Nginx example (HTTP only, no SSL).
+#
+# Install on the application server, then:
+#   1. Replace placeholder domains with values from docs/env.prod.example
+#   2. Adjust root and fastcgi_pass for your PHP-FPM setup
+#   3. Include shared Drupal location rules (see snippets/drupal-locations-prod.conf)
+#
+# Drupal resolves the site via Host header + web/sites/sites.php.
+# One server block per country — public + admin domain on port 80.
+
+# Shared location rules (copy snippets/drupal-locations-prod.conf to the server).
+
+server {
+    listen 80;
+    server_name www.propertysearch.com admin.propertysearch.com;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.be admin.propertysearch.be;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.es admin.propertysearch.es;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.fr admin.propertysearch.fr;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.ie admin.propertysearch.ie;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.it admin.propertysearch.it;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.lu admin.propertysearch.lu;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.nl admin.propertysearch.nl;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}
+
+server {
+    listen 80;
+    server_name www.propertysearch.pl admin.propertysearch.pl;
+    root /var/www/ps_project/src/web;
+    index index.php index.html;
+    client_max_body_size 64M;
+    include /etc/nginx/snippets/ps-drupal-locations.conf;
+}

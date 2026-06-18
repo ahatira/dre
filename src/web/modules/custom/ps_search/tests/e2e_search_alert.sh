@@ -2,7 +2,9 @@
 # E2E tests — search alert offcanvas, criteria, repository, webform hook (Phase B §5).
 set -euo pipefail
 
-BASE_URL="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 EMAIL="alert-e2e-$(date +%s)@example.com"
 AUTH_EMAIL="alert-auth-e2e-$(date +%s)@example.com"
 SEARCH_URL="${BASE_URL}/for-rent/office/paris-12-75012/"
@@ -23,11 +25,9 @@ grep -q 'Continue' /tmp/ps-search-alert-offcanvas.html
 grep -q 'ps-site-urgency-help\|In a hurry' /tmp/ps-search-alert-offcanvas.html
 echo "Offcanvas markup OK."
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush ev \"
-use Drupal\\\\webform\\\\Entity\\\\WebformSubmission;
-
-\\\$serializer = \\\Drupal::service('ps_search.alert_criteria_serializer');
-\\\$criteria = [
+ps_e2e_drush ev "
+\$serializer = \\Drupal::service('ps_search.alert_criteria_serializer');
+\$criteria = [
   'operation_type' => 'LOC',
   'asset_type' => 'BUR',
   'locality' => ['75012'],
@@ -35,21 +35,21 @@ use Drupal\\\\webform\\\\Entity\\\\WebformSubmission;
   'search_path' => '${SEARCH_PATH}',
   'langcode' => 'en',
 ];
-\\\$normalized = \\\$serializer->normalizeCriteria(\\\$criteria);
-\\\$request = \\\$serializer->buildRequest(\\\$normalized);
-if (\\\$request->query->get('operation_type') !== 'LOC') {
-  throw new \\\RuntimeException('Criteria round-trip failed.');
+\$normalized = \$serializer->normalizeCriteria(\$criteria);
+\$request = \$serializer->buildRequest(\$normalized);
+if (\$request->query->get('operation_type') !== 'LOC') {
+  throw new \\RuntimeException('Criteria round-trip failed.');
 }
 echo 'criteria-roundtrip:ok';
-\""
+"
 
 echo
 echo "Criteria serializer round-trip OK."
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush ev \"
-\\\$repo = \\\Drupal::service('ps_search.alert_repository');
-\\\$serializer = \\\Drupal::service('ps_search.alert_criteria_serializer');
-\\\$criteria = [
+ps_e2e_drush ev "
+\$repo = \\Drupal::service('ps_search.alert_repository');
+\$serializer = \\Drupal::service('ps_search.alert_criteria_serializer');
+\$criteria = [
   'operation_type' => 'LOC',
   'asset_type' => 'BUR',
   'locality' => ['75012'],
@@ -57,69 +57,69 @@ docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush ev \"
   'search_path' => '${SEARCH_PATH}',
   'langcode' => 'en',
 ];
-\\\$payload = [
+\$payload = [
   'alert_name' => 'E2E Alert',
   'prof_email_address' => '${EMAIL}',
   'frequence' => 'weekly',
-  'criteria_json' => \\\$serializer->toJson(\\\$criteria),
+  'criteria_json' => \$serializer->toJson(\$criteria),
   'search_url' => '${SEARCH_URL}',
   'search_path' => '${SEARCH_PATH}',
 ];
-\\\$entity = \\\$repo->createFromSubmission(\\\$payload);
-if (\\\$entity === NULL) {
-  throw new \\\RuntimeException('Expected alert entity to be created.');
+\$entity = \$repo->createFromSubmission(\$payload);
+if (\$entity === NULL) {
+  throw new \\RuntimeException('Expected alert entity to be created.');
 }
-\\\$duplicate = \\\$repo->createFromSubmission(\\\$payload);
-if (\\\$duplicate !== NULL) {
-  throw new \\\RuntimeException('Duplicate alert should be rejected.');
+\$duplicate = \$repo->createFromSubmission(\$payload);
+if (\$duplicate !== NULL) {
+  throw new \\RuntimeException('Duplicate alert should be rejected.');
 }
-echo 'entity:' . \\\$entity->id();
-\""
+echo 'entity:' . \$entity->id();
+"
 
 echo
 echo "Repository create + dedup OK."
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush ev \"
-use Drupal\\\\user\\\\Entity\\\\User;
-use Drupal\\\\webform\\\\Entity\\\\WebformSubmission;
+ps_e2e_drush ev "
+use Drupal\\user\\Entity\\User;
+use Drupal\\webform\\Entity\\WebformSubmission;
 
-\\\$user = User::create([
+\$user = User::create([
   'name' => 'alert_e2e_' . time(),
   'mail' => '${AUTH_EMAIL}',
   'status' => 1,
 ]);
-\\\$user->save();
-user_login_finalize(\\\$user);
+\$user->save();
+user_login_finalize(\$user);
 
-\\\$serializer = \\\Drupal::service('ps_search.alert_criteria_serializer');
-\\\$criteria = [
+\$serializer = \\Drupal::service('ps_search.alert_criteria_serializer');
+\$criteria = [
   'operation_type' => 'VEN',
   'asset_type' => 'BUR',
   'search_url' => '${SEARCH_URL}',
   'search_path' => '${SEARCH_PATH}',
   'langcode' => 'en',
 ];
-\\\$before = count(\\\Drupal::entityTypeManager()->getStorage('search_alert')->loadMultiple());
-\\\$submission = WebformSubmission::create([
+\$before = count(\\Drupal::entityTypeManager()->getStorage('search_alert')->loadMultiple());
+\$submission = WebformSubmission::create([
   'webform_id' => 'search_alert',
-  'uid' => (int) \\\$user->id(),
+  'uid' => (int) \$user->id(),
   'data' => [
     'alert_name' => 'Auth E2E Alert',
     'prof_email_address' => '${AUTH_EMAIL}',
     'frequence' => 'weekly',
     'legal' => '1',
-    'criteria_json' => \\\$serializer->toJson(\\\$criteria),
+    'criteria_json' => \$serializer->toJson(\$criteria),
     'search_url' => '${SEARCH_URL}',
     'search_path' => '${SEARCH_PATH}',
   ],
 ]);
-\\\$submission->save();
-\\\$after = count(\\\Drupal::entityTypeManager()->getStorage('search_alert')->loadMultiple());
-if (\\\$after <= \\\$before) {
-  throw new \\\RuntimeException('Webform submission did not create search alert entity.');
+\$submission->save();
+\$after = count(\\Drupal::entityTypeManager()->getStorage('search_alert')->loadMultiple());
+if (\$after <= \$before) {
+  throw new \\RuntimeException('Webform submission did not create search alert entity.');
 }
-echo 'webform-auth:ok uid:' . \\\$user->id();
-\""
+echo 'webform-auth:ok uid:' . \$user->id();
+"
 
 echo
 echo "Authenticated webform submission OK."

@@ -2,7 +2,9 @@
 # E2E tests — promo card injection via views_promo_card.
 set -euo pipefail
 
-BASE_URL="${BASE_URL:-http://localhost:8080}"
+# shellcheck source=/dev/null
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)/scripts/e2e/common.sh"
+
 SEARCH_URL="${BASE_URL}/fr/a-louer/bureaux/"
 CTA_URL="/calculator"
 CARD_ID="ps_search_card_push"
@@ -10,14 +12,14 @@ PLACEMENT_ID="ps_search_card_push_search"
 
 echo "== Views promo card E2E =="
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush pm:enable views_promo_card -y 2>/dev/null || true && \
-  vendor/bin/drush php:eval \"
+ps_e2e_drush pm:enable views_promo_card -y 2>/dev/null || true
+ps_e2e_drush php:eval "
 use Drupal\\views_promo_card\\Entity\\PromoCard;
 use Drupal\\views_promo_card\\Entity\\PromoCardPlacement;
-\\\$card = PromoCard::load('${CARD_ID}') ?? PromoCard::create(['id' => '${CARD_ID}', 'label' => 'Search push E2E']);
-\\\$card->set('status', TRUE);
-\\\$card->set('pattern_id', 'ps_theme:search-push-card');
-\\\$card->set('ui_patterns', [
+\$card = PromoCard::load('${CARD_ID}') ?? PromoCard::create(['id' => '${CARD_ID}', 'label' => 'Search push E2E']);
+\$card->set('status', TRUE);
+\$card->set('pattern_id', 'ps_theme:search-push-card');
+\$card->set('ui_patterns', [
   'component_id' => 'ps_theme:search-push-card',
   'variant_id' => NULL,
   'props' => [
@@ -28,20 +30,21 @@ use Drupal\\views_promo_card\\Entity\\PromoCardPlacement;
   ],
   'slots' => [],
 ]);
-\\\$card->save();
-\\\$placement = PromoCardPlacement::load('${PLACEMENT_ID}') ?? PromoCardPlacement::create([
+\$card->save();
+\$placement = PromoCardPlacement::load('${PLACEMENT_ID}') ?? PromoCardPlacement::create([
   'id' => '${PLACEMENT_ID}', 'label' => 'E2E search', 'view_id' => 'ps_search_offers', 'display_id' => 'page_list',
 ]);
-\\\$placement->set('status', TRUE);
-\\\$placement->set('cards', [['promo_card' => '${CARD_ID}', 'weight' => 0]]);
-\\\$placement->set('placement_rules', [['type' => 'fixed', 'position' => 1]]);
-\\\$placement->set('conditions', [
+\$placement->set('status', TRUE);
+\$placement->set('cards', [['promo_card' => '${CARD_ID}', 'weight' => 0]]);
+\$placement->set('placement_rules', [['type' => 'fixed', 'position' => 1]]);
+\$placement->set('conditions', [
   ['id' => 'promo_card_pager_page', 'negate' => FALSE, 'max_page' => 0],
   ['id' => 'promo_card_min_results', 'negate' => FALSE, 'minimum' => 2],
 ]);
-\\\$placement->set('conditions_logic', 'and');
-\\\$placement->save();
-\" && vendor/bin/drush cr"
+\$placement->set('conditions_logic', 'and');
+\$placement->save();
+"
+ps_e2e_drush cr
 
 PAGE_CODE=$(curl -sS -o /tmp/ps-search-push-page.html -w '%{http_code}' "${SEARCH_URL}")
 echo "Search page HTTP: ${PAGE_CODE}"
@@ -54,27 +57,28 @@ grep -q 'Start calculator' /tmp/ps-search-push-page.html
 grep -q 'href="/calculator"' /tmp/ps-search-push-page.html
 echo "Promo card markup OK."
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush php:eval \"
-\\\$view = \\Drupal\\views\\Views::getView('ps_search_offers');
-\\\$view->setDisplay('page_list');
-\\\$view->execute();
-\\\$insertion = \\Drupal::service('views_promo_card.insertion_manager');
-\\\$slots = \\\$insertion->buildSlots(\\\$view, count(\\\$view->result));
-if ((int) (\\\$view->total_rows ?? 0) > 1 && count(\\\$view->result) >= 1 && \\\$slots === []) {
+ps_e2e_drush php:eval "
+\$view = \\Drupal\\views\\Views::getView('ps_search_offers');
+\$view->setDisplay('page_list');
+\$view->execute();
+\$insertion = \\Drupal::service('views_promo_card.insertion_manager');
+\$slots = \$insertion->buildSlots(\$view, count(\$view->result));
+if ((int) (\$view->total_rows ?? 0) > 1 && count(\$view->result) >= 1 && \$slots === []) {
   throw new \\RuntimeException('Expected promo card slots when results exceed minimum.');
 }
 echo 'insertion-manager:ok';
-\""
+"
 
 echo
 echo "Insertion manager OK."
 
-docker exec -i ps_php sh -lc "cd /var/www/html && vendor/bin/drush php:eval \"
-\\\$placement = \\Drupal\\views_promo_card\\Entity\\PromoCardPlacement::load('${PLACEMENT_ID}');
-if (\\\$placement) { \\\$placement->set('status', FALSE)->save(); }
-\\\$card = \\Drupal\\views_promo_card\\Entity\\PromoCard::load('${CARD_ID}');
-if (\\\$card) { \\\$card->set('status', FALSE)->save(); }
-\" && vendor/bin/drush cr"
+ps_e2e_drush php:eval "
+\$placement = \\Drupal\\views_promo_card\\Entity\\PromoCardPlacement::load('${PLACEMENT_ID}');
+if (\$placement) { \$placement->set('status', FALSE)->save(); }
+\$card = \\Drupal\\views_promo_card\\Entity\\PromoCard::load('${CARD_ID}');
+if (\$card) { \$card->set('status', FALSE)->save(); }
+"
+ps_e2e_drush cr
 
 echo "Promo card disabled again after test."
 echo "== Views promo card E2E passed =="

@@ -27,7 +27,7 @@ git rm -r --cached .cursor .claude archived-scripts 2>/dev/null || true
 
 # 3. Export config à jour
 make drush-cr
-docker exec -i ps_php sh -lc 'cd /var/www/html && vendor/bin/drush cex -y'
+make drush-cex
 
 # 4. Vérifier le diff config avant add
 git status src/config/sync/
@@ -110,7 +110,7 @@ git push dre release/dre-initial:main --force-with-lease
 make up
 make install          # ou install --minimal + post-install
 make drush-status
-# Navigateur : http://localhost:8080
+# Navigateur : http://com.localhost:8080
 ```
 
 ## Commande d’audit

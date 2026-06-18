@@ -1,31 +1,31 @@
 # Property Search multisite — Drush site aliases.
-# uri = site directory name under web/sites/ (no dynamic domain URLs).
-# Usage: drush @ps.es status
+# Generated from scripts/multisite/countries.yml — run: make generate-multisite (repo root)
+# uri = site directory under web/sites/ (not a full HTTP URL).
 
 com:
   root: ../web
   uri: com
 be:
   root: ../web
-  uri: be
+  uri: belgium
 es:
   root: ../web
-  uri: es
+  uri: spain
 fr:
   root: ../web
-  uri: fr
+  uri: france
 ie:
   root: ../web
-  uri: ie
+  uri: ireland
 it:
   root: ../web
-  uri: it
+  uri: italy
 lu:
   root: ../web
-  uri: lu
+  uri: luxembourg
 nl:
   root: ../web
-  uri: nl
+  uri: netherlands
 pl:
   root: ../web
-  uri: pl
+  uri: poland

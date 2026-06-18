@@ -4,11 +4,17 @@ set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 ENV_FILE="${PROJECT_ROOT}/src/.env"
+COUNTRIES_CLI="${PROJECT_ROOT}/src/scripts/_core/countries-cli.php"
 CONTAINER="${SOLR_CONTAINER:-ps_solr}"
 CORES_ROOT="/opt/solr/conf-export"
 
 if [[ ! -f "${ENV_FILE}" ]]; then
   echo "Missing ${ENV_FILE}. Run: make env" >&2
+  exit 1
+fi
+
+if [[ ! -f "${COUNTRIES_CLI}" ]]; then
+  echo "Missing ${COUNTRIES_CLI}" >&2
   exit 1
 fi
 
@@ -34,8 +40,9 @@ create_core() {
   docker exec "${CONTAINER}" solr create -c "${core}" -d "${CORES_ROOT}/${core}"
 }
 
-for code in com be es fr ie it lu nl pl; do
+while IFS= read -r code; do
+  [[ -z "${code}" ]] && continue
   upper="$(echo "${code}" | tr '[:lower:]' '[:upper:]')"
   var="SOLR_CORE_${upper}"
   create_core "${!var:-}"
-done
+done < <(php "${COUNTRIES_CLI}" codes)
