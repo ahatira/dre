@@ -51,9 +51,35 @@ ps_drush_database_exists() {
   [[ "${result}" == "yes" ]]
 }
 
+ps_drush_sql_recreate_pdo() {
+  ps_drush ev '
+    $options = \Drush\Drush::config()->get("runtime.options");
+    $sql = \Drush\Sql\SqlBase::create($options);
+    $spec = $sql->getDbSpec();
+    $name = $spec["database"] ?? "";
+    if ($name === "") {
+      throw new \RuntimeException("Missing database name in Drush db spec.");
+    }
+    $pdo = new \PDO(
+      sprintf("pgsql:host=%s;port=%d;dbname=postgres", $spec["host"] ?? "127.0.0.1", (int) ($spec["port"] ?? 5432)),
+      $spec["username"] ?? "drupal",
+      $spec["password"] ?? "drupal"
+    );
+    $quoted = "\"" . str_replace("\"", "\"\"", $name) . "\"";
+    $pdo->exec("SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = " . $pdo->quote($name) . " AND pid <> pg_backend_pid()");
+    $pdo->exec("DROP DATABASE IF EXISTS {$quoted}");
+    $pdo->exec("CREATE DATABASE {$quoted}");
+    echo "recreated={$name}\n";
+  '
+}
+
 ps_drush_sql_create() {
-  ps_require_drush_psql
-  ps_drush sql:create -y "$@"
+  if command -v psql >/dev/null 2>&1; then
+    ps_drush sql:create -y "$@"
+    return $?
+  fi
+  ps_info "psql not on host — recreating database via PDO (dev/prod PHP)"
+  ps_drush_sql_recreate_pdo
 }
 
 ps_ensure_country_database() {

@@ -100,8 +100,6 @@ ps_private_path_is_configured() {
 }
 
 ps_private_path_should_provision() {
-  local country="$1"
-  unset country
   [[ "$(ps_env_get APP_ENV dev)" == "dev" ]] || return 1
   ps_private_path_is_configured && return 1
   return 0
