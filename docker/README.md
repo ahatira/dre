@@ -70,16 +70,30 @@ docker compose -f docker/docker-compose.yml exec -T php sh -lc 'vendor/bin/drush
 ## Emails locaux (Mailpit)
 
 Les webforms (`ps_form`) envoient via **Symfony Mailer** vers Mailpit en local.
-La config SMTP est dans `src/web/sites/default/settings.local.php` (host `mailpit`, port `1025`).
 
-Apres une install fraiche :
+### `settings.local.php` (dev)
+
+Fichier **gitignoré**, conservé entre les `make reinstall`. Template versionné :
+
+```bash
+cp src/web/sites/default/settings.local.example.php src/web/sites/default/settings.local.php
+```
+
+Contenu typique (voir le template) :
+
+- **Mailpit** — `MAILPIT_HOST` / `MAILPIT_PORT` depuis `src/.env`
+- **Solr** — connecteur Search API via `SOLR_*` / `SOLR_CORE_{CODE}` (`ps_apply_search_api_solr_connector_overrides`)
+
+En prod, le connecteur Solr est dans `settings.bootstrap.php` ; `backend_config` est exclu du CMI via `config_ignore`.
+
+Après copie ou modification :
 
 ```bash
 make drush-cr
 # ou: cd src && vendor/bin/drush @ps.com en -y symfony_mailer mailer_override
 ```
 
-Verifier les emails : <http://localhost:8025>
+Vérifier les emails : <http://localhost:8025>
 
 ## Validation rapide
 
