@@ -111,10 +111,9 @@ if ($cacheHost !== '') {
   $settings['cache_default_class'] = 'MemcacheBackend';
 }
 
-// Solr connector (prod/staging/int) — env-specific; not imported from CMI (config_ignore).
-if (ps_env('APP_ENV', 'dev') !== 'dev') {
-  ps_apply_search_api_solr_connector_overrides($config, $ps_country_code);
-}
+// Solr connector — env-specific (SOLR_* / SOLR_CORE_{CODE}); not imported from CMI (config_ignore).
+// Applied in all environments so dev works without settings.local.php (Drush host vs PHP container).
+ps_apply_search_api_solr_connector_overrides($config, $ps_country_code);
 
 // Config Split: local dev overrides only (see config/env/local/).
 if (ps_env('APP_ENV', 'dev') === 'dev') {

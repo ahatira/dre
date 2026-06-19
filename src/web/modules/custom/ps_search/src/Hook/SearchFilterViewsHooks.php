@@ -15,6 +15,7 @@ use Drupal\ps_search\Service\MapBoundsResolver;
 use Drupal\ps_search\Service\SearchContentLanguageResolver;
 use Drupal\ps_search\Service\SearchMapSettingsBuilder;
 use Drupal\ps_search\Service\SearchResultCounter;
+use Drupal\ps_search\Service\SearchSolrCircuitBreaker;
 use Drupal\search_api\Plugin\views\query\SearchApiQuery;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -45,6 +46,7 @@ final class SearchFilterViewsHooks {
     private readonly RequestStack $requestStack,
     private readonly SearchMapSettingsBuilder $mapSettingsBuilder,
     private readonly SearchContentLanguageResolver $contentLanguageResolver,
+    private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
 
   /**
@@ -74,6 +76,29 @@ final class SearchFilterViewsHooks {
     }
 
     $query->setLanguages($langcodes);
+  }
+
+  /**
+   * Opens the Solr circuit breaker when the search view query was aborted.
+   */
+  #[Hook('views_post_execute')]
+  public function viewsPostExecute(ViewExecutable $view): void {
+    if ($view->id() !== 'ps_search_offers') {
+      return;
+    }
+
+    $query = $view->getQuery();
+    if (!$query instanceof SearchApiQuery || !$query->shouldAbort()) {
+      return;
+    }
+
+    if ($this->circuitBreaker?->isUnavailable()) {
+      return;
+    }
+
+    $this->circuitBreaker?->recordFailure(
+      new \RuntimeException('Search API view query aborted.'),
+    );
   }
 
   /**

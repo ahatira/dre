@@ -123,7 +123,7 @@ ps_install_country_site() {
 
   ps_import_module_translations
 
-  ps_drush search-api:clear offers -y 2>/dev/null || true
+  # Fresh shell install has an empty index — skip Solr clear (needs a live connector).
   ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || true
   ps_info "Solr index skipped on shell install (run: make import ${country})"
 

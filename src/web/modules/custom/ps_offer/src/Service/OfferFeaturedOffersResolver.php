@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_search\Service\SearchSolrCircuitBreaker;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Query\QueryInterface;
 use Psr\Log\LoggerInterface;
@@ -28,6 +29,7 @@ final class OfferFeaturedOffersResolver {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly LanguageManagerInterface $languageManager,
     private readonly LoggerInterface $logger,
+    private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
 
   /**
@@ -55,6 +57,10 @@ final class OfferFeaturedOffersResolver {
    *   Matching offer node IDs, or empty when the query fails.
    */
   private function resolveFromSearchIndex(int $limit, string $langcode): array {
+    if ($this->circuitBreaker?->isUnavailable()) {
+      return [];
+    }
+
     $index = Index::load(self::INDEX_ID);
     if ($index === NULL) {
       return [];
@@ -75,9 +81,11 @@ final class OfferFeaturedOffersResolver {
         }
       }
 
+      $this->circuitBreaker?->recordSuccess();
       return $nids;
     }
     catch (\Throwable $exception) {
+      $this->circuitBreaker?->recordFailure($exception);
       $this->logger->warning('Homepage featured offers Solr query failed: @message', [
         '@message' => $exception->getMessage(),
       ]);

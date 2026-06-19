@@ -34,12 +34,6 @@ if (ps_env('APP_ENV', 'dev') === 'dev') {
   $config['mailer_transport.mailer_transport.sendmail']['configuration']['port'] = $mailpitPort;
   $config['mailer_transport.mailer_transport.sendmail']['configuration']['query']['verify_peer'] = FALSE;
 
-  // --- Search API Solr connector (per country) --------------------------------
-  // Env: SOLR_HOST, SOLR_PORT, SOLR_PATH, SOLR_CORE_{CODE} (see .env.dist).
-  // backend_config is config_ignore'd — connector stays env-specific in dev;
-  // other search_api.server.ps_solr keys remain editable in BO and exportable.
-  ps_apply_search_api_solr_connector_overrides($config, $ps_country_code);
-
   // --- Optional: project-specific dev overrides -------------------------------
   // $settings['cache']['bins']['render']['class'] = 'Drupal\Core\Cache\NullBackendFactory';
   // $settings['cache']['bins']['dynamic_page_cache']['class'] = 'Drupal\Core\Cache\NullBackendFactory';

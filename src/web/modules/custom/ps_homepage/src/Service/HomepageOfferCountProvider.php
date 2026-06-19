@@ -7,6 +7,7 @@ namespace Drupal\ps_homepage\Service;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\ps_search\Service\SearchContentLanguageResolver;
+use Drupal\ps_search\Service\SearchSolrCircuitBreaker;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,12 +21,17 @@ final class HomepageOfferCountProvider {
     private readonly SearchContentLanguageResolver $contentLanguageResolver,
     private readonly LanguageManagerInterface $languageManager,
     private readonly RequestStack $requestStack,
+    private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
 
   /**
    * Counts indexed offers for the active content language (matches search page).
    */
   public function countPublishedOffers(): int {
+    if ($this->circuitBreaker?->isUnavailable()) {
+      return 0;
+    }
+
     $index = Index::load('offers');
     if ($index === NULL) {
       return 0;
@@ -36,9 +42,12 @@ final class HomepageOfferCountProvider {
     $this->applyContentLanguageFilter($query);
 
     try {
-      return (int) $query->execute()->getResultCount();
+      $count = (int) $query->execute()->getResultCount();
+      $this->circuitBreaker?->recordSuccess();
+      return $count;
     }
-    catch (\Exception) {
+    catch (\Throwable $exception) {
+      $this->circuitBreaker?->recordFailure($exception);
       return 0;
     }
   }

@@ -9,6 +9,7 @@ use Drupal\ps_search\Api\RequestValidator;
 use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\ps_search\Service\LocationSuggestBuilder;
 use Drupal\ps_search\Service\SearchFilterQueryBuilder;
+use Drupal\ps_search\Service\SearchSolrCircuitBreaker;
 use Drupal\search_api\Entity\Index;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,6 +25,7 @@ final class SearchCountController extends ControllerBase {
     private readonly SearchFilterQueryBuilder $filterQueryBuilder,
     private readonly LocationSuggestBuilder $locationSuggestBuilder,
     private readonly RequestValidator $requestValidator,
+    private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
 
   /**
@@ -35,6 +37,7 @@ final class SearchCountController extends ControllerBase {
       $container->get('ps_search.filter_query_builder'),
       $container->get('ps_search.location_suggest_builder'),
       $container->get('ps_search.api.request_validator'),
+      $container->get('ps_search.solr_circuit_breaker'),
     );
   }
 
@@ -45,6 +48,10 @@ final class SearchCountController extends ControllerBase {
     $validationError = $this->requestValidator->validateBusinessFilters($request);
     if ($validationError !== NULL) {
       return $validationError;
+    }
+
+    if ($this->circuitBreaker?->isUnavailable()) {
+      return new JsonResponse(['count' => 0, 'error' => 'query_failed'], 200);
     }
 
     $index = Index::load('offers');
@@ -59,8 +66,10 @@ final class SearchCountController extends ControllerBase {
     try {
       $results = $query->execute();
       $count = (int) $results->getResultCount();
+      $this->circuitBreaker?->recordSuccess();
     }
-    catch (\Exception) {
+    catch (\Throwable $exception) {
+      $this->circuitBreaker?->recordFailure($exception);
       return new JsonResponse(['count' => 0, 'error' => 'query_failed'], 200);
     }
 

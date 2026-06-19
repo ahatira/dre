@@ -49,6 +49,7 @@ final class SearchMarkersBuilder {
     private readonly ConfigFactoryInterface $configFactory,
     private readonly CacheBackendInterface $cacheBackend,
     private readonly SearchListLoadedLimitResolver $listLoadedLimitResolver,
+    private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
 
   /**
@@ -83,6 +84,10 @@ final class SearchMarkersBuilder {
    *   Marker payload.
    */
   private function buildUncached(Request $request, int $max): array {
+    if ($this->circuitBreaker?->isUnavailable()) {
+      return $this->attachGlobalCount($this->emptyPayload(), 0);
+    }
+
     $globalCount = $this->resultCounter->countBusinessFilters($request);
 
     $index = Index::load('offers');
@@ -153,7 +158,8 @@ final class SearchMarkersBuilder {
     try {
       $results = $query->execute();
     }
-    catch (\Exception) {
+    catch (\Exception $exception) {
+      $this->circuitBreaker?->recordFailure($exception);
       return $this->emptyPayload();
     }
 
@@ -208,7 +214,8 @@ final class SearchMarkersBuilder {
     try {
       $results = $query->execute();
     }
-    catch (\Exception) {
+    catch (\Exception $exception) {
+      $this->circuitBreaker?->recordFailure($exception);
       return $this->emptyPayload();
     }
 

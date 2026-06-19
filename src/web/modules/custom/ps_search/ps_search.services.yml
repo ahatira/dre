@@ -210,11 +210,18 @@ services:
       - '@config.factory'
       - '@ps_search.result_geo_bounds_resolver'
 
+  ps_search.solr_circuit_breaker:
+    class: Drupal\ps_search\Service\SearchSolrCircuitBreaker
+    arguments:
+      - '@cache.default'
+      - '@logger.channel.ps_search'
+
   ps_search.result_counter:
     class: Drupal\ps_search\Service\SearchResultCounter
     arguments:
       - '@ps_search.filter_query_builder'
       - '@ps_search.map_bounds_resolver'
+      - '@?ps_search.solr_circuit_breaker'
 
   ps_search.list_loaded_limit:
     class: Drupal\ps_search\Service\SearchListLoadedLimitResolver
@@ -294,6 +301,13 @@ services:
       - '@request_stack'
       - '@ps_search.map_settings_builder'
       - '@ps_search.content_language_resolver'
+      - '@?ps_search.solr_circuit_breaker'
+
+  Drupal\ps_search\EventSubscriber\SearchSolrQueryGuardSubscriber:
+    arguments:
+      - '@ps_search.solr_circuit_breaker'
+    tags:
+      - { name: event_subscriber }
 
   Drupal\ps_search\Service\SearchMapMarkerBuilder:
     class: Drupal\ps_search\Service\SearchMapMarkerBuilder
@@ -312,6 +326,7 @@ services:
       - '@config.factory'
       - '@cache.default'
       - '@ps_search.list_loaded_limit'
+      - '@?ps_search.solr_circuit_breaker'
 
   ps_search.map_settings_builder:
     class: Drupal\ps_search\Service\SearchMapSettingsBuilder

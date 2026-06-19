@@ -242,11 +242,17 @@ if (!function_exists('ps_apply_search_api_solr_connector_overrides')) {
     $solrCoreKey = 'SOLR_CORE_' . strtoupper($countryCode);
     $solrCore = ps_env($solrCoreKey, 'ps_project');
 
-    $config['search_api.server.ps_solr']['backend_config']['connector_config']['scheme'] = 'http';
-    $config['search_api.server.ps_solr']['backend_config']['connector_config']['host'] = $solrHost;
-    $config['search_api.server.ps_solr']['backend_config']['connector_config']['port'] = $solrPort;
-    $config['search_api.server.ps_solr']['backend_config']['connector_config']['path'] = $solrPath;
-    $config['search_api.server.ps_solr']['backend_config']['connector_config']['core'] = $solrCore;
+    $connector =& $config['search_api.server.ps_solr']['backend_config']['connector_config'];
+    $connector['scheme'] = 'http';
+    $connector['host'] = $solrHost;
+    $connector['port'] = $solrPort;
+    $connector['path'] = $solrPath;
+    $connector['core'] = $solrCore;
+
+    if (ps_app_env() === 'dev') {
+      $connector['timeout'] = 2;
+      $connector['index_timeout'] = 2;
+    }
   }
 }
 

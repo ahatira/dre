@@ -83,9 +83,8 @@ cp src/web/sites/default/settings.local.example.php src/web/sites/default/settin
 Contenu typique (voir le template) :
 
 - **Mailpit** — `MAILPIT_HOST` / `MAILPIT_PORT` depuis `src/.env`
-- **Solr** — connecteur Search API via `SOLR_*` / `SOLR_CORE_{CODE}` (`ps_apply_search_api_solr_connector_overrides`)
 
-En prod, le connecteur Solr est dans `settings.bootstrap.php` ; `backend_config` est exclu du CMI via `config_ignore`.
+Le connecteur **Solr** (`SOLR_*`, `SOLR_CORE_{CODE}`) est appliqué dans `settings.bootstrap.php` pour tous les environnements — pas besoin de `settings.local.php` pour Solr. En prod/staging, `backend_config` est exclu du CMI via `config_ignore`.
 
 Après copie ou modification :
 

@@ -16,12 +16,38 @@ final class SearchResultCounter {
   public function __construct(
     private readonly SearchFilterQueryBuilder $filterQueryBuilder,
     private readonly MapBoundsResolver $mapBoundsResolver,
+    private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
+
+  /**
+   * Whether Solr queries should be skipped for this request.
+   */
+  private function skipSearch(): bool {
+    return $this->circuitBreaker?->isUnavailable() ?? FALSE;
+  }
+
+  /**
+   * Clears the circuit after a successful Solr query.
+   */
+  private function recordSearchSuccess(): void {
+    $this->circuitBreaker?->recordSuccess();
+  }
+
+  /**
+   * Opens the circuit after a Solr failure.
+   */
+  private function recordSearchFailure(\Throwable $exception): void {
+    $this->circuitBreaker?->recordFailure($exception);
+  }
 
   /**
    * Counts offers matching business filters only (no map zone).
    */
   public function countBusinessFilters(Request $request): int {
+    if ($this->skipSearch()) {
+      return 0;
+    }
+
     $index = Index::load('offers');
     if (!$index) {
       return 0;
@@ -32,9 +58,12 @@ final class SearchResultCounter {
     $this->filterQueryBuilder->applyBusinessFilters($query, $request);
 
     try {
-      return (int) $query->execute()->getResultCount();
+      $count = (int) $query->execute()->getResultCount();
+      $this->recordSearchSuccess();
+      return $count;
     }
-    catch (\Exception) {
+    catch (\Throwable $exception) {
+      $this->recordSearchFailure($exception);
       return 0;
     }
   }
@@ -55,6 +84,10 @@ final class SearchResultCounter {
    * Counts offers matching business filters within explicit map bounds.
    */
   public function countInBoundsWithBounds(Request $request, MapBounds $bounds): int {
+    if ($this->skipSearch()) {
+      return 0;
+    }
+
     $index = Index::load('offers');
     if (!$index) {
       return 0;
@@ -66,9 +99,12 @@ final class SearchResultCounter {
     $this->filterQueryBuilder->applyMapBounds($query, $bounds);
 
     try {
-      return (int) $query->execute()->getResultCount();
+      $count = (int) $query->execute()->getResultCount();
+      $this->recordSearchSuccess();
+      return $count;
     }
-    catch (\Exception) {
+    catch (\Throwable $exception) {
+      $this->recordSearchFailure($exception);
       return 0;
     }
   }

@@ -19,6 +19,7 @@ services:
       - '@ps_search.content_language_resolver'
       - '@language_manager'
       - '@request_stack'
+      - '@?ps_search.solr_circuit_breaker'
 
   ps_homepage.cta_link_builder:
     alias: ps_content.content_cta_link_builder
