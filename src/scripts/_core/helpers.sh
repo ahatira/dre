@@ -110,6 +110,45 @@ ps_ensure_telephone_field_stack() {
   ' || return 1
 }
 
+ps_ensure_entity_browser_stack() {
+  ps_info "Ensuring Entity Browser stack (bnp_media)..."
+  ps_drush ev '
+    $moduleInstaller = \Drupal::service("module_installer");
+    $moduleHandler = \Drupal::moduleHandler();
+    foreach ([
+      "embed",
+      "entity_embed",
+      "entity_browser",
+      "entity_browser_enhanced",
+      "entity_browser_entity_form",
+    ] as $module) {
+      if (!$moduleHandler->moduleExists($module)) {
+        $moduleInstaller->install([$module], TRUE);
+        echo "enabled {$module}\n";
+      }
+    }
+    \Drupal::service("entity_type.manager")->clearCachedDefinitions();
+    if (!\Drupal::entityTypeManager()->hasDefinition("entity_browser")) {
+      throw new \RuntimeException("entity_browser entity type is missing");
+    }
+    echo "entity_browser stack OK\n";
+  ' || return 1
+}
+
+ps_refresh_field_type_cache() {
+  ps_drush ev '
+    $moduleInstaller = \Drupal::service("module_installer");
+    $moduleHandler = \Drupal::moduleHandler();
+    foreach (["image", "file", "address", "geofield", "telephone"] as $module) {
+      if (!$moduleHandler->moduleExists($module)) {
+        $moduleInstaller->install([$module], TRUE);
+      }
+    }
+    \Drupal::service("plugin.manager.field.field_type")->clearCachedDefinitions();
+    echo "field type cache refreshed\n";
+  ' >/dev/null 2>&1 || return 1
+}
+
 ps_recover_ps_offer_if_partial() {
   if ps_drush pm:list --status=enabled --filter=ps_offer --format=list 2>/dev/null | grep -q '^ps_offer$'; then
     if ! ps_verify_ps_offer_install 2>/dev/null; then

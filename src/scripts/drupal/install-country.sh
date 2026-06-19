@@ -61,14 +61,17 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
   ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_surface entity_browser_generic_embed bnp_media ps_media
+  ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready"
+  ps_ensure_bnp_media_foundation || ps_die "BNP Media foundation not ready"
+  ps_drush_cr
   ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
   ps_drush entity:delete webform contact -y 2>/dev/null || true
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
+  ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready before ps_form"
   ps_retry 2 2 ps_drush en -y ps_form
   ps_drush_cr
   ps_info "Preparing ps_offer dependencies..."
-  ps_ensure_bnp_media_foundation || ps_die "BNP Media foundation not ready"
-  ps_retry 2 2 ps_drush en -y entity_browser ps_favorite ps_diagnostic layout_builder layout_discovery
+  ps_retry 2 2 ps_drush en -y ps_favorite ps_diagnostic layout_builder layout_discovery
   ps_drush_cr
   ps_recover_ps_offer_if_partial
   ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
@@ -86,6 +89,7 @@ ps_install_country_site() {
 
   ps_retry 2 2 ps_drush en -y ps_compare
   ps_retry 2 2 ps_drush en -y search_api search_api_solr
+  ps_refresh_field_type_cache
   ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_search
   ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready"
@@ -101,6 +105,7 @@ ps_install_country_site() {
   ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
 
   ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready before theme"
+  ps_refresh_field_type_cache
   ps_drush_cr
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
   ps_drush config:set -y system.theme default ps_theme
