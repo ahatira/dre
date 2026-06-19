@@ -66,6 +66,7 @@ docker compose -f docker/docker-compose.yml exec -T php sh -lc 'vendor/bin/drush
 - Admin FR : <http://admin.fr.localhost:8083>
 - Solr : <http://localhost:8983>
 - Mailpit : <http://localhost:8025>
+- Multisite debug : <http://fr.localhost:8083/multisite-debug.php> (tout vhost local)
 
 ## Emails locaux (Mailpit)
 

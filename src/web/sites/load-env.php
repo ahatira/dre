@@ -388,3 +388,146 @@ if (!function_exists('ps_resolve_assets_files_path')) {
     return rtrim($base, '/') . '/' . $siteDir;
   }
 }
+
+if (!function_exists('ps_env_debug_meta')) {
+  /**
+   * Metadata for multisite debug (env source, paths).
+   *
+   * @return array<string, mixed>
+   */
+  function ps_env_debug_meta(): array {
+    $composerRoot = dirname(__DIR__, 2);
+    $envFile = $composerRoot . '/.env';
+    $envDist = $composerRoot . '/.env.dist';
+    $loadedFrom = NULL;
+    if (ps_app_env() === 'dev') {
+      if (is_readable($envFile)) {
+        $loadedFrom = $envFile;
+      }
+      elseif (is_readable($envDist)) {
+        $loadedFrom = $envDist . ' (fallback, .env missing)';
+      }
+    }
+    return [
+      'app_env' => ps_app_env(),
+      'dotenv_active' => ps_app_env() === 'dev',
+      'env_file' => $loadedFrom,
+      'composer_root' => $composerRoot,
+    ];
+  }
+}
+
+if (!function_exists('ps_find_site_path')) {
+  /**
+   * Resolves the Drupal site path using the same algorithm as DrupalKernel::findSitePath().
+   *
+   * @param array<string, mixed> $server
+   *   Request server parameters (e.g. $_SERVER).
+   * @param array<string, string>|null $sites
+   *   sites.php map; built from env when NULL.
+   *
+   * @return array<string, mixed>
+   *   Resolution result with attempts for debugging.
+   */
+  function ps_find_site_path(array $server, string $appRoot, ?array $sites = NULL, bool $requireSettings = TRUE): array {
+    if ($sites === NULL) {
+      $sites = ps_build_multisite_sites_map();
+    }
+
+    $scriptName = (string) ($server['SCRIPT_NAME'] ?? '');
+    if ($scriptName === '' && isset($server['SCRIPT_FILENAME'])) {
+      $scriptName = (string) $server['SCRIPT_FILENAME'];
+    }
+
+    $httpHost = (string) ($server['HTTP_HOST'] ?? '');
+    if ($httpHost === '' && class_exists(\Symfony\Component\HttpFoundation\Request::class)) {
+      $request = \Symfony\Component\HttpFoundation\Request::create($server['REQUEST_URI'] ?? '/', 'GET', [], [], [], $server);
+      $httpHost = $request->getHttpHost();
+    }
+
+    $attempts = [];
+    $pathParts = explode('/', $scriptName);
+    $hostParts = explode('.', implode('.', array_reverse(explode(':', rtrim($httpHost, '.')))));
+
+    for ($i = count($pathParts) - 1; $i > 0; $i--) {
+      for ($j = count($hostParts); $j > 0; $j--) {
+        $siteId = implode('.', array_slice($hostParts, -$j)) . implode('.', array_slice($pathParts, 0, $i));
+        $resolvedDir = $siteId;
+        $viaAlias = FALSE;
+        if (isset($sites[$siteId])) {
+          $resolvedDir = $sites[$siteId];
+          $viaAlias = TRUE;
+        }
+
+        $dirPath = $appRoot . '/sites/' . $resolvedDir;
+        $settingsExists = is_file($dirPath . '/settings.php');
+        $matches = $settingsExists || (!$requireSettings && is_file($dirPath));
+
+        $attempts[] = [
+          'site_id' => $siteId,
+          'resolved_dir' => $resolvedDir,
+          'alias' => $viaAlias,
+          'settings_exists' => $settingsExists,
+          'match' => $matches,
+        ];
+
+        if ($matches) {
+          return [
+            'site_path' => 'sites/' . $resolvedDir,
+            'site_dir' => $resolvedDir,
+            'matched_key' => $siteId,
+            'http_host' => $httpHost,
+            'script_name' => $scriptName,
+            'via_alias' => $viaAlias,
+            'fallback' => FALSE,
+            'attempts' => $attempts,
+          ];
+        }
+      }
+    }
+
+    return [
+      'site_path' => 'sites/default',
+      'site_dir' => 'default',
+      'matched_key' => NULL,
+      'http_host' => $httpHost,
+      'script_name' => $scriptName,
+      'via_alias' => FALSE,
+      'fallback' => TRUE,
+      'attempts' => $attempts,
+    ];
+  }
+}
+
+if (!function_exists('ps_drupal_kernel_find_site_path')) {
+  /**
+   * Delegates site resolution to Drupal core (when available).
+   */
+  function ps_drupal_kernel_find_site_path(string $appRoot, bool $requireSettings = TRUE): ?string {
+    $autoload = $appRoot . '/autoload.php';
+    if (!is_readable($autoload)) {
+      return NULL;
+    }
+    if (!class_exists(\Drupal\Core\DrupalKernel::class, FALSE)) {
+      require_once $autoload;
+    }
+    if (!class_exists(\Drupal\Core\DrupalKernel::class)) {
+      return NULL;
+    }
+    if (!function_exists('drupal_valid_test_ua')) {
+      /**
+       * Stub for findSitePath() when bootstrap.inc is not loaded.
+       */
+      function drupal_valid_test_ua($new_prefix = NULL) {
+        return FALSE;
+      }
+    }
+    $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+    try {
+      return \Drupal\Core\DrupalKernel::findSitePath($request, $requireSettings, $appRoot);
+    }
+    catch (\Throwable $e) {
+      return 'ERROR: ' . $e->getMessage();
+    }
+  }
+}
