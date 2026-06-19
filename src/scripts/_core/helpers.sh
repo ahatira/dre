@@ -196,6 +196,145 @@ ps_drush_po_path() {
   printf '%s' "$1"
 }
 
+ps_contrib_translations_dir() {
+  printf '%s/translations/contrib' "${PS_SRC_DIR}"
+}
+
+# Returns 0 when the PO basename is a custom project file (not contrib/core cache).
+ps_contrib_translation_is_custom_po() {
+  local name="$1"
+  [[ "${name}" == ps_* || "${name}" == bnp_* || "${name}" == ps_theme.* ]]
+}
+
+ps_import_contrib_translations() {
+  ps_resolve_runtime
+  local cache_dir active_langs imported=0 skipped=0 failed=0 missing=0
+  cache_dir="$(ps_contrib_translations_dir)"
+
+  if [[ ! -d "${cache_dir}" ]]; then
+    ps_warn "Contrib translation cache missing: ${cache_dir} (run: make translations-fetch)"
+    return 0
+  fi
+
+  active_langs="$(ps_drush ev 'echo implode(PHP_EOL, array_keys(\Drupal::languageManager()->getLanguages()));')"
+
+  import_po() {
+    local po_file="$1" langcode="$2" drush_path
+    [[ -n "${po_file}" && -n "${langcode}" ]] || return 1
+    if ! echo "${active_langs}" | grep -q "^${langcode}$"; then
+      skipped=$((skipped + 1))
+      return 0
+    fi
+    drush_path="$(ps_drush_po_path "${po_file}")"
+    if ps_drush locale:import "${langcode}" "${drush_path}" --type=not-customized --override=all -y >/dev/null 2>&1; then
+      imported=$((imported + 1))
+    else
+      failed=$((failed + 1))
+    fi
+  }
+
+  local lang_dir po_file filename langcode found=0
+  ps_contrib_translations_flatten
+
+  while IFS= read -r po_file; do
+    [[ -z "${po_file}" ]] && continue
+    found=1
+    filename=$(basename "${po_file}")
+    if ps_contrib_translation_is_custom_po "${filename}"; then
+      skipped=$((skipped + 1))
+      continue
+    fi
+    langcode="${filename%.po}"
+    langcode="${langcode##*.}"
+    import_po "${po_file}" "${langcode}"
+  done < <(find "${cache_dir}" -maxdepth 1 -name '*.po' 2>/dev/null | sort)
+
+  if [[ ${found} -eq 0 ]]; then
+    missing=1
+  fi
+
+  ps_info "Contrib translations: imported=${imported}, skipped=${skipped}, failed=${failed}, empty_cache=${missing}"
+  [[ ${failed} -eq 0 ]] || ps_warn "Some contrib translations failed to import"
+  if [[ ${imported} -eq 0 && ${missing} -gt 0 ]]; then
+    ps_warn "Contrib cache has no .po files yet — run: make translations-fetch (dev)"
+  fi
+}
+
+ps_contrib_translations_flatten() {
+  local cache_dir moved=0 po_file filename dest
+  cache_dir="$(ps_contrib_translations_dir)"
+
+  while IFS= read -r po_file; do
+    [[ -z "${po_file}" ]] && continue
+    filename=$(basename "${po_file}")
+    dest="${cache_dir}/${filename}"
+    if [[ "${po_file}" == "${dest}" ]]; then
+      continue
+    fi
+    if [[ -f "${dest}" ]]; then
+      rm -f "${po_file}"
+      continue
+    fi
+    mv -f "${po_file}" "${dest}"
+    moved=$((moved + 1))
+  done < <(find "${cache_dir}" -mindepth 2 -name '*.po' 2>/dev/null | sort)
+
+  if [[ ${moved} -gt 0 ]]; then
+    ps_info "Flattened ${moved} contrib PO file(s) to ${cache_dir}/"
+  fi
+}
+
+# @deprecated Use ps_contrib_translations_flatten — Drupal expects a flat translation.path.
+ps_contrib_translations_organize() {
+  ps_contrib_translations_flatten
+}
+
+ps_enable_locale_and_import_contrib_translations() {
+  ps_info "Importing contrib/core translations from local cache..."
+  ps_drush pm:enable locale -y 2>/dev/null || ps_drush en -y locale
+  ps_import_contrib_translations
+}
+
+ps_contrib_translations_update_manifest() {
+  ps_resolve_runtime
+  PS_CACHE_DIR="$(ps_contrib_translations_dir)" \
+  PS_SRC_DIR="${PS_SRC_DIR}" \
+  PS_WEB_DIR="${PS_WEB_DIR}" \
+  php -r '
+    require getenv("PS_SRC_DIR") . "/vendor/autoload.php";
+    $cache = getenv("PS_CACHE_DIR");
+    $web = getenv("PS_WEB_DIR");
+    $langs = [];
+    $count = 0;
+    foreach (glob($cache . "/*.po") ?: [] as $po) {
+      $count++;
+      $base = basename($po);
+      if (preg_match("/\.([a-z]{2,3})\.po$/", $base, $m)) {
+        $langs[$m[1]] = true;
+      }
+    }
+    ksort($langs);
+    $core = "unknown";
+    $drupalPhp = $web . "/core/lib/Drupal.php";
+    if (is_readable($drupalPhp) && preg_match("/const VERSION = '\''([^'\'']+)'\''/", file_get_contents($drupalPhp), $m)) {
+      $core = $m[1];
+    }
+    $lockFile = getenv("PS_SRC_DIR") . "/composer.lock";
+    $lockHash = is_readable($lockFile) ? substr(hash_file("sha256", $lockFile), 0, 16) : null;
+    $data = [
+      "generated_at" => gmdate("c"),
+      "drupal_core" => $core,
+      "composer_lock_hash" => $lockHash,
+      "languages" => array_keys($langs),
+      "po_files_count" => $count,
+    ];
+    file_put_contents(
+      $cache . "/manifest.yml",
+      \Symfony\Component\Yaml\Yaml::dump($data, 4, 2, \Symfony\Component\Yaml\Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE)
+    );
+  '
+}
+
 ps_import_module_translations() {
   ps_resolve_runtime
   local active_langs imported=0 skipped=0 failed=0

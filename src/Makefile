@@ -9,7 +9,7 @@ COUNTRY ?= com
 	help build verify install reinstall install-from-conf import demo deploy drush-cr \
 	index-solr export-solr rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex composer-install composer-update npm-install \
-	seed-site-configs export-all-configs
+	seed-site-configs export-all-configs translations-fetch translations-fetch
 
 help:
 	@echo "Property Search — src/ (deployable artefact)"
@@ -26,6 +26,7 @@ help:
 	@echo "  make index-solr [country] | export-solr [country]"
 	@echo "  make rbac-sync [country] | rbac-export [country]"
 	@echo "  make create-test-users [country]"
+	@echo "  make translations-fetch [country] [lang...]  — dev: populate translations/contrib"
 	@echo "  make drush [country] <args...>   (default COUNTRY=$(COUNTRY))"
 	@echo "  make drush-uli | drush-status | drush-cex"
 	@echo ""
@@ -90,6 +91,9 @@ rbac-export:
 
 create-test-users:
 	bash "$(SCRIPTS_CLI)" drupal create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
+
+translations-fetch:
+	bash "$(SCRIPTS_CLI)" drupal translations-fetch $(filter-out translations-fetch,$(MAKECMDGOALS))
 
 drush:
 	bash "$(SCRIPTS_CLI)" drupal drush $(filter-out drush,$(MAKECMDGOALS))

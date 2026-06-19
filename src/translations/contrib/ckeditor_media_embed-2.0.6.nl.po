@@ -1,0 +1,28 @@
+# Dutch translation of CKEditor Media Embed Plugin (2.0.6)
+# Copyright (c) 2026 by the Dutch translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CKEditor Media Embed Plugin (2.0.6)\n"
+"POT-Creation-Date: 2026-03-13 19:54+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Provider"
+msgstr "Provider"
+msgid "Installed"
+msgstr "Geïnstalleerd"
+msgid "About"
+msgstr "Over"
+msgid "Uses"
+msgstr "Gebruikt"
+msgid "Provider URL"
+msgstr "Provider-URL"
+msgid "Media Embed"
+msgstr "Media Embed"
+msgid "CKEditor 5"
+msgstr "CKEditor 5"

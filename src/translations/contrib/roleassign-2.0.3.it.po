@@ -1,0 +1,26 @@
+# Italian translation of RoleAssign (2.0.3)
+# Copyright (c) 2025 by the Italian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: RoleAssign (2.0.3)\n"
+"POT-Creation-Date: 2025-01-14 01:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Italian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Roles"
+msgstr "Ruoli"
+msgid "Assignable roles"
+msgstr "Ruli assegnabili"
+msgid "role"
+msgstr "ruolo"
+msgid ""
+"The user receives the combined permissions of all roles selected here "
+"and the following roles: %roles."
+msgstr ""
+"L'utente riceve la combinazione dei permssi di tutti i ruoli "
+"selezionati qui e dei seguenti ruoli: %roles."

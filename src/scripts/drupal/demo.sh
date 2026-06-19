@@ -47,6 +47,7 @@ echo "DemoInstaller complete\n";
 
 ps_apply_site_language_negotiation "${COUNTRY}"
 
+ps_import_contrib_translations
 ps_import_module_translations
 ps_import_active_language_config_overrides "${COUNTRY}"
 

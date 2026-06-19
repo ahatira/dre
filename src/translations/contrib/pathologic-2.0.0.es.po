@@ -1,0 +1,22 @@
+# Spanish translation of Pathologic (2.0.0)
+# Copyright (c) 2026 by the Spanish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Pathologic (2.0.0)\n"
+"POT-Creation-Date: 2026-03-19 00:54+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Scheme"
+msgstr "Esquema"
+msgid "Input filters"
+msgstr "Filtros de entrada"
+msgid "Pathologic"
+msgstr "Pathologic"
+msgid "Helps avoid broken links and incorrect paths in content."
+msgstr "Ayuda a evitar caminos incorrectos en contenido y enlaces rotos."

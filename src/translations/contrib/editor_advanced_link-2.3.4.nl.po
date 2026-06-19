@@ -1,0 +1,26 @@
+# Dutch translation of Editor Advanced link (2.3.4)
+# Copyright (c) 2026 by the Dutch translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Editor Advanced link (2.3.4)\n"
+"POT-Creation-Date: 2026-01-19 14:42+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Title"
+msgstr "Titel"
+msgid "ID"
+msgstr "ID"
+msgid "Advanced"
+msgstr "Uitgebreid"
+msgid "CSS classes"
+msgstr "CSS-klassen"
+msgid "Open in new window"
+msgstr "Open in nieuw venster"
+msgid "Advanced Link"
+msgstr "Geavanceerde link"

@@ -13,7 +13,7 @@ COUNTRY ?= com
 	build verify install reinstall install-from-conf import demo deploy drush-cr index-solr export-solr \
 	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex rbac-sec-e2e \
+	drush drush-uli drush-status drush-cex rbac-sec-e2e translations-fetch \
 	composer-install composer-update npm-install
 
 help:
@@ -132,6 +132,9 @@ rbac-export:
 
 create-test-users:
 	$(SRC_MAKE) create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
+
+translations-fetch:
+	$(SRC_MAKE) translations-fetch $(filter-out translations-fetch,$(MAKECMDGOALS))
 
 drush:
 	$(SRC_MAKE) drush $(filter-out drush,$(MAKECMDGOALS))

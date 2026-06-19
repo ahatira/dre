@@ -70,8 +70,17 @@ if ($assetsPath !== '') {
   $settings['file_assets_path'] = $assetsPath;
 }
 
-// Locale translation downloads: per-site public files directory.
-$config['locale.settings']['translation']['path'] = $publicPath . '/translations';
+// Versioned contrib/core UI translations (flat layout; see translations/contrib/README.md).
+$config['locale.settings']['translation']['path'] = '../translations/contrib';
+// Local files only — no remote fetch on install/module enable (use: make translations-fetch).
+if (getenv('PS_LOCALE_FETCH') === '1') {
+  $config['locale.settings']['translation']['use_source'] = 'remote_and_local';
+  $config['locale.settings']['translation']['import_enabled'] = TRUE;
+}
+else {
+  $config['locale.settings']['translation']['use_source'] = 'local';
+  $config['locale.settings']['translation']['import_enabled'] = FALSE;
+}
 
 // Trusted host patterns from all configured front/admin/infra domains.
 $trustedPatterns = ps_build_trusted_host_patterns();

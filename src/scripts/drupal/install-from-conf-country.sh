@@ -32,6 +32,7 @@ ps_install_country_from_conf() {
   ps_apply_config_ignore_settings_from_env
   ps_enable_seo_modules_post_import
   ps_add_site_languages "${country}"
+  ps_enable_locale_and_import_contrib_translations
 
   ps_info "Running database updates..."
   ps_drush updatedb -y

@@ -37,6 +37,20 @@ ps_site_language_codes() {
   ps_countries_cli languages "$1"
 }
 
+# Union of all language codes across countries (manifest order preserved, unique).
+ps_all_site_language_codes() {
+  ps_countries_init
+  local code lang seen=""
+  for code in "${_PS_COUNTRIES_CACHE[@]}"; do
+    for lang in $(ps_site_language_codes "${code}"); do
+      if [[ " ${seen} " != *" ${lang} "* ]]; then
+        printf '%s\n' "${lang}"
+        seen="${seen} ${lang}"
+      fi
+    done
+  done
+}
+
 ps_country_dev_port() {
   ps_countries_cli dev_port "$1"
 }

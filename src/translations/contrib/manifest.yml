@@ -1,0 +1,10 @@
+generated_at: '2026-06-19T13:32:33+00:00'
+drupal_core: 11.3.11
+composer_lock_hash: b9c5ecb5e201599a
+languages:
+  - es
+  - fr
+  - it
+  - nl
+  - pl
+po_files_count: 298

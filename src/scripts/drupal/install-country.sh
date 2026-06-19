@@ -49,6 +49,7 @@ ps_install_country_site() {
   ps_drush theme:enable -y gin 2>/dev/null || ps_warn "Gin theme not available"
   ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
   ps_add_site_languages "${country}"
+  ps_enable_locale_and_import_contrib_translations
   ps_apply_site_language_negotiation "${country}"
   ps_retry 2 2 ps_drush en -y bnp_editor
 

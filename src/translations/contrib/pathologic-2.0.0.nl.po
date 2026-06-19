@@ -1,0 +1,28 @@
+# Dutch translation of Pathologic (2.0.0)
+# Copyright (c) 2026 by the Dutch translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Pathologic (2.0.0)\n"
+"POT-Creation-Date: 2026-03-19 00:54+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Scheme"
+msgstr "Schema"
+msgid "Input filters"
+msgstr "Invoerfilters"
+msgid "Helps avoid broken links and incorrect paths in content."
+msgstr "Helpt gebroken links en onjuiste paden in inhoud te voorkomen."
+msgid "Also considered local"
+msgstr "Ook als lokaal behandeld"
+msgid ""
+"In most cases, Pathologic should be the <em>last</em> filter in the "
+"&ldquo;Filter processing order&rdquo; list."
+msgstr ""
+"Pathologic moet doorgaans het <em>laatste</em> filter zijn in de "
+"'Filterverwerkingsvolgorde'-lijst."
