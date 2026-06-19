@@ -182,8 +182,13 @@ ps_stage_sample_xml() {
   ps_info "XML staged: ${target}"
 }
 
+ps_site_config_split_id() {
+  printf 'site_%s' "$1"
+}
+
+# Backward-compatible alias for scripts referencing the old split id.
 ps_site_language_split_id() {
-  printf 'language_%s' "$1"
+  ps_site_config_split_id "$1"
 }
 
 ps_add_site_languages() {
@@ -203,16 +208,31 @@ ps_add_site_languages() {
   ps_drush config:set -y system.site default_langcode "${default_lang}"
 }
 
-ps_apply_site_language_negotiation() {
+	ps_apply_site_language_negotiation() {
   local country="$1"
-  ps_require_file "${PS_SRC_DIR}/config/env/languages/${country}/language.negotiation.yml" \
-    "Missing language.negotiation for ${country}"
-  ps_info "Applying language negotiation for ${country}..."
-  ps_retry 2 2 ps_drush ev '
-    \Drupal::service("ps_core.site_language_negotiation_installer")->applyForCountry("'${country}'");
-    echo "Language negotiation applied\n";
-  ' || ps_warn "language.negotiation apply failed for ${country}"
-  ps_drush_cr
+  local file="${PS_SRC_DIR}/config/sites/${country}/language.negotiation.yml"
+  if [[ ! -f "${file}" ]]; then
+    ps_warn "No language.negotiation in config/sites/${country} (run: make seed-site-configs)"
+    return 0
+  fi
+  ps_info "Applying language.negotiation for ${country}..."
+  local partial_dir="${PS_SRC_DIR}/tmp/lang-neg-${country}"
+  rm -rf "${partial_dir}"
+  mkdir -p "${partial_dir}"
+  cp "${file}" "${partial_dir}/"
+  ps_drush config:import -y --partial --source="${partial_dir}" \
+    || ps_warn "language.negotiation import failed for ${country}"
+  rm -rf "${partial_dir}"
+}
+
+ps_bootstrap_site_config_split() {
+  local country="$1"
+  ps_warn "Config Split per country removed — language.negotiation is in config/sites/${country}/"
+  ps_apply_site_language_negotiation "${country}"
+}
+
+ps_apply_site_config_overrides() {
+  ps_apply_site_language_negotiation "$1"
 }
 
 ps_import_active_language_config_overrides() {

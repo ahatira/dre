@@ -1,0 +1,443 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.offer.body
+    - field.field.node.offer.field_address
+    - field.field.node.offer.field_asset_type
+    - field.field.node.offer.field_asset_type_raw
+    - field.field.node.offer.field_availability
+    - field.field.node.offer.field_budget_cc
+    - field.field.node.offer.field_budget_currency
+    - field.field.node.offer.field_budget_ht
+    - field.field.node.offer.field_budget_period
+    - field.field.node.offer.field_budget_unit
+    - field.field.node.offer.field_budget_value
+    - field.field.node.offer.field_business_id
+    - field.field.node.offer.field_capacity_available
+    - field.field.node.offer.field_capacity_mode
+    - field.field.node.offer.field_capacity_notes
+    - field.field.node.offer.field_capacity_total
+    - field.field.node.offer.field_capacity_unit
+    - field.field.node.offer.field_client_type
+    - field.field.node.offer.field_certification_labels
+    - field.field.node.offer.field_commercial_title
+    - field.field.node.offer.field_diagnostics
+    - field.field.node.offer.field_diagnostics_dpe
+    - field.field.node.offer.field_diagnostics_ges
+    - field.field.node.offer.field_divisible
+    - field.field.node.offer.field_divisions
+    - field.field.node.offer.field_features
+    - field.field.node.offer.field_geo
+    - field.field.node.offer.field_import_id
+    - field.field.node.offer.field_internal_lock
+    - field.field.node.offer.field_last_imported_at
+    - field.field.node.offer.field_mandate_type
+    - field.field.node.offer.field_media_document
+    - field.field.node.offer.field_media_gallery
+    - field.field.node.offer.field_metatag
+    - field.field.node.offer.field_operation_type
+    - field.field.node.offer.field_operation_type_raw
+    - field.field.node.offer.field_primary_agent
+    - field.field.node.offer.field_reference
+    - field.field.node.offer.field_reference_auto
+    - field.field.node.offer.field_secondary_agents
+    - field.field.node.offer.field_show_address
+    - field.field.node.offer.field_source_checksum
+    - field.field.node.offer.field_source_system
+    - field.field.node.offer.field_source_tracking
+    - field.field.node.offer.field_surfaces
+    - field.field.node.offer.field_technical_id
+    - node.type.offer
+    - views.view.ps_offer_similar
+  module:
+    - layout_builder
+    - layout_discovery
+    - ps_diagnostic
+    - ps_offer
+    - views
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: Main
+          context_mapping: {  }
+          column_widths: 67-33
+        components:
+          a1000001-0000-4000-8000-000000000001:
+            uuid: a1000001-0000-4000-8000-000000000001
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_media_gallery'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: ps_media_gallery_formatter
+                label: hidden
+                settings:
+                  order: type_then_manual
+                  show_titles: false
+                  use_thumbnail: true
+                  lazy_load: true
+                  max_items: 0
+                  image_style: ps_offer_gallery_thumb
+                  display_template: hero
+                  hero_image_style: ps_offer_gallery_hero
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          a1000001-0000-4000-8000-000000000040:
+            uuid: a1000001-0000-4000-8000-000000000040
+            region: first
+            configuration:
+              id: ps_offer_detail_header
+              label_display: '0'
+              provider: ps_offer
+              context_mapping: {  }
+            weight: 1
+            additional: {  }
+          a1000001-0000-4000-8000-000000000018:
+            uuid: a1000001-0000-4000-8000-000000000018
+            region: first
+            configuration:
+              id: 'field_block:node:offer:body'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: ps_offer_description
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 3
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--description
+          a1000001-0000-4000-8000-000000000019:
+            uuid: a1000001-0000-4000-8000-000000000019
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_features'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: feature_default
+                label: hidden
+                settings:
+                  show_label: true
+                  show_group: true
+                  format_style: grouped
+                  hide_disabled_flags: true
+                  group_order: equipements
+                  group_filter: equipements
+                third_party_settings: {  }
+            weight: 4
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--features
+          a1000001-0000-4000-8000-00000000001a:
+            uuid: a1000001-0000-4000-8000-00000000001a
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_features'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: feature_default
+                label: hidden
+                settings:
+                  show_label: true
+                  show_group: true
+                  format_style: grouped
+                  hide_disabled_flags: true
+                  group_order: prestations_de_service
+                  group_filter: prestations_de_service
+                third_party_settings: {  }
+            weight: 5
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--features
+          a1000001-0000-4000-8000-00000000001b:
+            uuid: a1000001-0000-4000-8000-00000000001b
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_features'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: feature_default
+                label: hidden
+                settings:
+                  show_label: true
+                  show_group: true
+                  format_style: grouped
+                  hide_disabled_flags: true
+                  group_order: type_etat_du_batiment
+                  group_filter: type_etat_du_batiment
+                third_party_settings: {  }
+            weight: 6
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--features
+          a1000001-0000-4000-8000-00000000001c:
+            uuid: a1000001-0000-4000-8000-00000000001c
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_features'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: feature_default
+                label: hidden
+                settings:
+                  show_label: true
+                  show_group: true
+                  format_style: grouped
+                  hide_disabled_flags: true
+                  group_order: informations_complementaires
+                  group_filter: informations_complementaires
+                third_party_settings: {  }
+            weight: 7
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--features
+          a1000001-0000-4000-8000-00000000001e:
+            uuid: a1000001-0000-4000-8000-00000000001e
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_diagnostics'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: diagnostic_item_default
+                label: above
+                settings:
+                  show_dates: false
+                  show_ranges: true
+                  show_unknown_banner: true
+                  show_reference_table: false
+                third_party_settings: {  }
+            weight: 8
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--energy
+          a1000001-0000-4000-8000-000000000021:
+            uuid: a1000001-0000-4000-8000-000000000021
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_certification_labels'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: certification_label_badge
+                label: hidden
+                settings:
+                  image_style: certification_label_badge
+                third_party_settings: {  }
+            weight: 9
+            additional:
+              css_classes:
+                - ps-certification-labels-section
+          a1000001-0000-4000-8000-00000000001f:
+            uuid: a1000001-0000-4000-8000-00000000001f
+            region: first
+            configuration:
+              id: 'field_block:node:offer:field_divisions'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: ps_surface_division_table
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 10
+            additional: {  }
+          a1000001-0000-4000-8000-000000000020:
+            uuid: a1000001-0000-4000-8000-000000000020
+            region: first
+            configuration:
+              id: ps_offer_detail_location
+              label_display: '0'
+              provider: ps_offer
+              context_mapping: {  }
+            weight: 11
+            additional: {  }
+          a1000001-0000-4000-8000-000000000030:
+            uuid: a1000001-0000-4000-8000-000000000030
+            region: second
+            configuration:
+              id: 'field_block:node:offer:field_primary_agent'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: ps_offer_agent_card
+                label: hidden
+                settings:
+                  view_mode: card
+                  consultant_label: 'Your consultant'
+                  contact_label: 'Contact the consultancy'
+                  contact_label_mobile: Contact
+                  visit_title: 'Would you like to visit?'
+                  visit_label: 'Schedule a visit'
+                  visit_label_mobile: Visit
+                  contact_dialog_options: '{"width":800,"dialogClasses":"modal-dialog-centered modal-lg"}'
+                third_party_settings: {  }
+            weight: 0
+            additional:
+              css_classes:
+                - ps-offer-agent-panel
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: Map
+          context_mapping: {  }
+        components:
+          a1000001-0000-4000-8000-000000000022:
+            uuid: a1000001-0000-4000-8000-000000000022
+            region: content
+            configuration:
+              id: 'field_block:node:offer:field_geo'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: ps_offer_geo_interactive
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--map
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: Similar
+          context_mapping: {  }
+        components:
+          a1000001-0000-4000-8000-000000000031:
+            uuid: a1000001-0000-4000-8000-000000000031
+            region: content
+            configuration:
+              id: 'views_block:ps_offer_similar-offer_detail_similar'
+              label: 'Similar offers'
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional:
+              css_classes:
+                - ps-offer-section
+                - ps-offer-section--similar
+        third_party_settings: {  }
+id: node.offer.full
+targetEntityType: node
+bundle: offer
+mode: full
+content:
+  body:
+    type: ps_offer_description
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: first
+hidden:
+  field_address: true
+  field_asset_type: true
+  field_asset_type_raw: true
+  field_availability: true
+  field_budget_cc: true
+  field_budget_currency: true
+  field_budget_fees: true
+  field_budget_ht: true
+  field_budget_period: true
+  field_budget_unit: true
+  field_budget_value: true
+  field_business_id: true
+  field_capacity_available: true
+  field_capacity_mode: true
+  field_capacity_notes: true
+  field_capacity_total: true
+  field_capacity_unit: true
+  field_client_type: true
+  field_commercial_title: true
+  field_certification_labels: true
+  field_diagnostics: true
+  field_diagnostics_dpe: true
+  field_diagnostics_ges: true
+  field_divisible: true
+  field_divisions: true
+  field_features: true
+  field_geo: true
+  field_import_id: true
+  field_internal_lock: true
+  field_last_imported_at: true
+  field_mandate_type: true
+  field_media_document: true
+  field_media_gallery: true
+  field_metatag: true
+  field_operation_type: true
+  field_operation_type_raw: true
+  field_primary_agent: true
+  field_reference: true
+  field_reference_auto: true
+  field_secondary_agents: true
+  field_show_address: true
+  field_source_checksum: true
+  field_source_system: true
+  field_source_tracking: true
+  field_surfaces: true
+  field_technical_id: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,20 @@
+langcode: en
+status: false
+dependencies: {  }
+id: site_com
+label: 'Site COM (International)'
+description: 'Per-country CMI overrides. Enabled via settings.bootstrap.php.'
+weight: 10
+stackable: true
+no_patching: false
+storage: folder
+folder: ../config/env/sites/com
+module: {  }
+complete_list:
+  - language.entity.en
+  - language.entity.fr
+partial_list:
+  - language.negotiation
+  - system.site
+  - ps_homepage.homepage
+  - ps_homepage.settings

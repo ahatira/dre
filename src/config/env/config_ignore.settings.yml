@@ -1,0 +1,37 @@
+langcode: en
+mode: intermediate
+ignored_config_entities:
+  import:
+    - config_split.config_split.*
+    - system.site
+    - user.role.administrator
+    - user.role.site_admin
+    - user.role.content_admin
+    - user.role.content_editor
+    - user.role.seo_admin
+    - user.role.translate_admin
+    - user.role.translate_editor
+    - devel.settings
+    - devel.toolbar.settings
+    - stage_file_proxy.settings
+    - 'search_api.server.ps_solr:backend_config'
+    - 'locale.settings:translation.path'
+    - mailer_transport.settings
+    - mailer_transport.mailer_transport.sendmail
+  export:
+    - config_split.config_split.*
+    - system.site
+    - user.role.administrator
+    - user.role.site_admin
+    - user.role.content_admin
+    - user.role.content_editor
+    - user.role.seo_admin
+    - user.role.translate_admin
+    - user.role.translate_editor
+    - devel.settings
+    - devel.toolbar.settings
+    - stage_file_proxy.settings
+    - 'search_api.server.ps_solr:backend_config'
+    - 'locale.settings:translation.path'
+    - mailer_transport.settings
+    - mailer_transport.mailer_transport.sendmail

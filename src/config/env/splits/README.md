@@ -1,18 +1,9 @@
-# Config Split entities (versioned)
+# Config Split — local dev only
 
-YAML definitions for Config Split (`config_split.config_split.*`).
+Per-country configuration now lives in **`config/sites/{code}/`** (full CMI per site).
 
-| File | Split id | Folder override |
-|------|----------|-----------------|
-| `config_split.config_split.local.yml` | `local` | `../config/env/local` |
-| `config_split.config_split.language_{code}.yml` | `language_{code}` | `../config/env/languages/{code}` |
+This directory keeps only the **`local`** split for development overrides (`config/env/local/`).
 
-Imported into active config at greenfield install via
-`ps_core.site_language_negotiation_installer` (`SiteLanguageNegotiationInstaller`).
+Legacy **`site_{code}`** split entities are deprecated. Regenerate scaffolding with `make generate-multisite` (no longer creates site splits).
 
-Activation (status) is controlled in `web/sites/default/settings.bootstrap.php`:
-- `local` when `APP_ENV=dev`
-- `language_{ps_country_code}` for each multisite
-
-`src/config/sync/` remains gitignored (full CMI export); split **entities** live here so
-CI and fresh clones do not depend on sync.
+See `config/sites/README.md`.

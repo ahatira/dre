@@ -1,0 +1,19 @@
+langcode: en
+status: false
+dependencies: {  }
+id: site_ie
+label: 'Site IE (Ireland)'
+description: 'Per-country CMI overrides. Enabled via settings.bootstrap.php.'
+weight: 10
+stackable: true
+no_patching: false
+storage: folder
+folder: ../config/env/sites/ie
+module: {  }
+complete_list:
+  - language.entity.en
+partial_list:
+  - language.negotiation
+  - system.site
+  - ps_homepage.homepage
+  - ps_homepage.settings

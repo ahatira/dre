@@ -12,6 +12,26 @@ declare(strict_types=1);
  */
 function ps_core_install(): void {
   ps_core_apply_mailer_policy_theme();
+  if (getenv('PS_SKIP_CONFIG_IGNORE_ON_INSTALL') !== '1') {
+    ps_core_apply_config_ignore_settings();
+  }
+}
+
+/**
+ * Applies versioned config_ignore settings from config/env.
+ */
+function ps_core_apply_config_ignore_settings(): void {
+  $path = DRUPAL_ROOT . '/../config/env/config_ignore.settings.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($path));
+  if (!is_array($data) || $data === []) {
+    return;
+  }
+
+  \Drupal::configFactory()->getEditable('config_ignore.settings')->setData($data)->save(TRUE);
 }
 
 /**

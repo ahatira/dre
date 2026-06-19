@@ -96,7 +96,8 @@ Thumbs.db
 /backup/
 /src/backup/
 
-# CMI sync export — local only (env Config Split overrides are versioned).
+# CMI export — local only (env Config Split overrides are versioned).
+/src/config/sites/
 /src/config/sync/
 
 # ------------------------------

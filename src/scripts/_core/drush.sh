@@ -71,6 +71,8 @@ ps_drush_sql_recreate_pdo() {
     $pdo->exec("CREATE DATABASE {$quoted}");
     echo "recreated={$name}\n";
   '
+  # Drop stale Drush bootstrap after terminating DB connections.
+  sleep 1
 }
 
 ps_drush_sql_create() {

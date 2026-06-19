@@ -40,6 +40,22 @@ final class HomepageShellInstaller {
    * Installs homepage node/1 with default LB layout and front page config.
    */
   public function install(): void {
+    $this->installShell(includeSectionLibrary: TRUE);
+  }
+
+  /**
+   * Creates homepage node and LB layout after a full config import.
+   *
+   * Skips Section Library and content refreshers (demo / post-import steps).
+   */
+  public function installFromConfiguration(): void {
+    $this->installShell(includeSectionLibrary: FALSE);
+  }
+
+  /**
+   * Shared shell: node/1, LB sections, front page, path aliases.
+   */
+  private function installShell(bool $includeSectionLibrary): void {
     if (!$this->entityTypeManager->getStorage('node_type')->load('page')) {
       throw new \RuntimeException('Homepage shell install requires the page content type.');
     }
@@ -50,9 +66,11 @@ final class HomepageShellInstaller {
     $this->applyLayout($node);
     $this->setFrontPage();
     $this->ensurePathAliases($node);
-    $this->sectionLibraryInstaller->install();
-    $this->faqConfigRefresher->refreshFrontPage();
-    $this->marketStudyConfigRefresher->refreshFrontPage();
+    if ($includeSectionLibrary) {
+      $this->sectionLibraryInstaller->install();
+      $this->faqConfigRefresher->refreshFrontPage();
+      $this->marketStudyConfigRefresher->refreshFrontPage();
+    }
 
     $this->logger->notice('ps_homepage: shell homepage installed at /node/{nid}.', [
       'nid' => $node->id(),

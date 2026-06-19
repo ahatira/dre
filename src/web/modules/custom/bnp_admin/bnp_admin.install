@@ -11,11 +11,15 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function bnp_admin_install(): void {
-  $themeInstaller = \Drupal::service('theme_installer');
-  if (!\Drupal::service('theme_handler')->themeExists('gin')) {
+  if (!is_dir(DRUPAL_ROOT . '/themes/contrib/gin')) {
     throw new \RuntimeException('The Gin admin theme is required. Install drupal/gin via Composer before enabling bnp_admin.');
   }
-  $themeInstaller->install(['gin']);
+
+  $themeHandler = \Drupal::service('theme_handler');
+  // During site:install --existing-config, Gin may not be discoverable yet; core.extension enables it.
+  if ($themeHandler->themeExists('gin') && !isset($themeHandler->listInfo()['gin'])) {
+    \Drupal::service('theme_installer')->install(['gin']);
+  }
 
   \Drupal::service('bnp_admin.configurator')->applyBaseline();
   \Drupal::messenger()->addStatus(t('BNP Admin baseline initialized.'));

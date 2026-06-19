@@ -11,7 +11,7 @@ if ! docker ps --filter "name=${CONTAINER}" --filter "status=running" --format '
 fi
 
 docker exec -i "${CONTAINER}" chown -R www-data:www-data \
-  /var/www/html/config/sync \
+  /var/www/html/config/sites \
   /var/www/html/web/modules/custom \
   /var/www/html/web/themes/custom
 

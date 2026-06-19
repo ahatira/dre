@@ -51,12 +51,12 @@ for path in .cursor .claude archived-scripts backup src/backup; do
 done
 
 section "Config sync (optional — skipped for dre initial release)"
-sync_count=$(find src/config/sync -name '*.yml' 2>/dev/null | wc -l)
-tracked_sync=$(git ls-files 'src/config/sync/*.yml' 2>/dev/null | wc -l)
+sync_count=$(find src/config/sites -name '*.yml' 2>/dev/null | wc -l)
+tracked_sync=$(git ls-files 'src/config/sites/*/*.yml' 2>/dev/null | wc -l)
 echo "  Local YAML files: $sync_count"
 echo "  Tracked in git:   $tracked_sync"
 if [[ "$tracked_sync" -gt 0 ]]; then
-  ok "config/sync tracked"
+  ok "config/sites tracked"
 elif [[ "$sync_count" -gt 0 ]]; then
   echo "  (intentionally untracked for this release)"
 else

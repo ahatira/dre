@@ -60,6 +60,99 @@ ps_verify_ps_offer_install() {
   ' || return 1
 }
 
+ps_ensure_bnp_media_foundation() {
+  ps_info "Ensuring BNP Media foundation (image field storage)..."
+  ps_drush ev '
+    $moduleInstaller = \Drupal::service("module_installer");
+    $moduleHandler = \Drupal::moduleHandler();
+    foreach (["image", "file", "media", "media_library"] as $module) {
+      if (!$moduleHandler->moduleExists($module)) {
+        $moduleInstaller->install([$module], TRUE);
+        echo "enabled {$module}\n";
+      }
+    }
+    if (!$moduleHandler->moduleExists("bnp_media")) {
+      throw new \RuntimeException("bnp_media must be enabled before ps_offer");
+    }
+    $storage = \Drupal::configFactory()->get("field.storage.media.field_media_gallery_image");
+    if ($storage->isNew()) {
+      $source = new \Drupal\Core\Config\FileStorage(DRUPAL_ROOT . "/modules/custom/bnp_media/config/install");
+      if ($source->exists("field.storage.media.field_media_gallery_image")) {
+        \Drupal::configFactory()->getEditable("field.storage.media.field_media_gallery_image")
+          ->setData($source->read("field.storage.media.field_media_gallery_image"))
+          ->save(TRUE);
+        echo "imported field.storage.media.field_media_gallery_image\n";
+      }
+    }
+    if (\Drupal::configFactory()->get("field.storage.media.field_media_gallery_image")->isNew()) {
+      throw new \RuntimeException("field.storage.media.field_media_gallery_image is missing");
+    }
+    echo "bnp_media foundation OK\n";
+  ' || return 1
+}
+
+ps_ensure_telephone_field_stack() {
+  ps_info "Ensuring telephone field stack (ps_agent)..."
+  ps_drush ev '
+    $moduleInstaller = \Drupal::service("module_installer");
+    $moduleHandler = \Drupal::moduleHandler();
+    foreach (["telephone", "telephone_formatter"] as $module) {
+      if (!$moduleHandler->moduleExists($module)) {
+        $moduleInstaller->install([$module], TRUE);
+        echo "enabled {$module}\n";
+      }
+    }
+    \Drupal::service("plugin.manager.field.field_type")->clearCachedDefinitions();
+    if (!\Drupal::service("plugin.manager.field.field_type")->hasDefinition("telephone")) {
+      throw new \RuntimeException("telephone field type is missing");
+    }
+    echo "telephone field stack OK\n";
+  ' || return 1
+}
+
+ps_recover_ps_offer_if_partial() {
+  if ps_drush pm:list --status=enabled --filter=ps_offer --format=list 2>/dev/null | grep -q '^ps_offer$'; then
+    if ! ps_verify_ps_offer_install 2>/dev/null; then
+      ps_warn "ps_offer partially installed — uninstalling before retry"
+      ps_drush pm:uninstall ps_offer -y 2>/dev/null || true
+      ps_drush_cr
+    fi
+  fi
+}
+
+ps_ensure_ps_search_stack() {
+  ps_info "Ensuring Search API Solr stack (index offers)..."
+  ps_drush ev '
+    $moduleHandler = \Drupal::moduleHandler();
+    $moduleInstaller = \Drupal::service("module_installer");
+    foreach (["search_api", "search_api_solr"] as $module) {
+      if (!$moduleHandler->moduleExists($module)) {
+        $moduleInstaller->install([$module], TRUE);
+        echo "enabled {$module}\n";
+      }
+    }
+    \Drupal::service("entity_type.manager")->clearCachedDefinitions();
+    if (!\Drupal::entityTypeManager()->hasDefinition("search_api_index")) {
+      throw new \RuntimeException("search_api_index entity type is missing after enabling search_api");
+    }
+    $source = new \Drupal\Core\Config\FileStorage(DRUPAL_ROOT . "/modules/custom/ps_search/config/install");
+    $serverStorage = \Drupal::entityTypeManager()->getStorage("search_api_server");
+    if ($serverStorage->load("ps_solr") === NULL && $source->exists("search_api.server.ps_solr")) {
+      $serverStorage->createFromStorageRecord($source->read("search_api.server.ps_solr"))->save();
+      echo "created search_api.server.ps_solr\n";
+    }
+    $indexStorage = \Drupal::entityTypeManager()->getStorage("search_api_index");
+    if ($indexStorage->load("offers") === NULL && $source->exists("search_api.index.offers")) {
+      $indexStorage->createFromStorageRecord($source->read("search_api.index.offers"))->save();
+      echo "created search_api.index.offers\n";
+    }
+    if ($indexStorage->load("offers") === NULL) {
+      throw new \RuntimeException("search_api.index.offers is missing");
+    }
+    echo "search_api offers index OK\n";
+  ' || return 1
+}
+
 ps_drush_po_path() {
   printf '%s' "$1"
 }

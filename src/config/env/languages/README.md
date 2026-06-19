@@ -1,24 +1,8 @@
-# Per-country language.negotiation overrides (Config Split `language_{code}`).
+# Deprecated — use `../sites/`
 
-Country codes and language matrix: `../../../../scripts/multisite/countries.yml` (source) → `web/sites/countries.yml` (generated).
+Per-country overrides now live in `config/env/sites/{code}/`.
 
-Split entity YAML: `../splits/config_split.config_split.language_{code}.yml`.
-Negotiation values: `language.negotiation.yml` in this directory.
+This directory is kept temporarily for reference during migration. New YAML must
+be added under `config/env/sites/`, not here.
 
-Imported at install/post-install via `ps_core.site_language_negotiation_installer`
-(`SiteLanguageNegotiationInstaller`) and enabled in
-`settings.bootstrap.php` (`config_split.config_split.language_{code}`).
-
-| Site | Default | Prefixes (non-default lang first path segment) |
-|------|---------|--------------------------------------------------|
-| com  | en      | `/fr/` |
-| fr   | fr      | `/en/` (en hidden on front switcher) |
-| be   | fr      | `/en/`, `/nl/` |
-| es   | es      | `/en/` |
-| ie   | en      | — |
-| it   | it      | `/en/` |
-| lu   | fr      | `/en/` |
-| pl   | pl      | `/en/` |
-| nl   | nl      | `/en/` |
-
-Luxembourg (`lu`): FR default, EN via `/en/` (same pattern as `fr`).
+Regenerate splits: `make generate-multisite` (repo root).

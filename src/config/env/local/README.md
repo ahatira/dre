@@ -1,5 +1,6 @@
-# Config Split « local » — partial overrides (Solr, SMTP, etc.)
+# Config Split « local » — dev-only overrides.
 #
-# Infrastructure values (Solr host/core, Memcache) are overridden in
-# web/sites/default/settings.bootstrap.php via environment variables.
-# Add YAML overrides here when they should live in CMI rather than settings.
+# Enabled when APP_ENV=dev (settings.bootstrap.php).
+# Owns devel / stage_file_proxy module config (see complete_list in split entity).
+#
+# Infrastructure (Solr connector, Memcache, Mailpit) stays in settings.bootstrap.php.

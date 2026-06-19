@@ -23,8 +23,8 @@ if (!in_array($ps_country_code, ps_country_codes(), TRUE)) {
 
 $settings['ps_country_code'] = $ps_country_code;
 
-// Shared configuration sync for all country sites.
-$settings['config_sync_directory'] = '../config/sync';
+// Per-country configuration sync (full CMI export per site).
+$settings['config_sync_directory'] = '../config/sites/' . $ps_country_code;
 
 // Database connection per country.
 $dbKey = 'DB_NAME_' . strtoupper($ps_country_code);
@@ -134,13 +134,10 @@ $config['search_api.server.ps_solr']['backend_config']['connector_config']['port
 $config['search_api.server.ps_solr']['backend_config']['connector_config']['path'] = $solrPath;
 $config['search_api.server.ps_solr']['backend_config']['connector_config']['core'] = $solrCore;
 
-// Config Split: local dev overrides + per-country language negotiation.
+// Config Split: local dev overrides only (see config/env/local/).
 if (ps_env('APP_ENV', 'dev') === 'dev') {
   $config['config_split.config_split.local']['status'] = TRUE;
 }
-
-$languageSplitId = 'language_' . $ps_country_code;
-$config['config_split.config_split.' . $languageSplitId]['status'] = TRUE;
 
 // Languages enabled but hidden on the front language switcher (manifest-driven).
 $hiddenFrontLanguages = ps_country_hidden_front_languages($ps_country_code);

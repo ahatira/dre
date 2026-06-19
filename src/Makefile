@@ -6,9 +6,10 @@ SCRIPTS_CLI := $(SRC_DIR)/scripts/main.sh
 COUNTRY ?= com
 
 .PHONY: \
-	help build verify install reinstall import demo deploy drush-cr \
+	help build verify install reinstall install-from-conf import demo deploy drush-cr \
 	index-solr export-solr rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex composer-install composer-update npm-install
+	drush drush-uli drush-status drush-cex composer-install composer-update npm-install \
+	seed-site-configs export-all-configs
 
 help:
 	@echo "Property Search — src/ (deployable artefact)"
@@ -16,6 +17,9 @@ help:
 	@echo "  make build [--production via scripts/main.sh tools build --production]"
 	@echo "  make verify"
 	@echo "  make install [country...] | reinstall [country...]"
+	@echo "  make install-from-conf [country...]  — CMI from config/sites/{code}"
+	@echo "  make seed-site-configs               — seed sites from legacy config/sync"
+	@echo "  make export-all-configs [country...] — drush cex per country"
 	@echo "  make import [country] | demo [country]"
 	@echo "  make deploy [country...]"
 	@echo "  make drush-cr [country...]"
@@ -47,6 +51,18 @@ install:
 
 reinstall:
 	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out reinstall install,$(MAKECMDGOALS))
+
+install-from-conf:
+	bash "$(SCRIPTS_CLI)" drupal install-from-conf $(filter-out install-from-conf,$(MAKECMDGOALS))
+
+reinstall-from-conf:
+	bash "$(SCRIPTS_CLI)" drupal install-from-conf --force $(filter-out reinstall-from-conf install-from-conf,$(MAKECMDGOALS))
+
+seed-site-configs:
+	bash "$(SRC_DIR)/../scripts/multisite/seed-site-configs.sh"
+
+export-all-configs:
+	bash "$(SCRIPTS_CLI)" drupal export-all-configs $(filter-out export-all-configs,$(MAKECMDGOALS))
 
 import:
 	bash "$(SCRIPTS_CLI)" drupal import $(filter-out import,$(MAKECMDGOALS))

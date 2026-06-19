@@ -9,6 +9,11 @@ stackable: false
 no_patching: false
 storage: folder
 folder: ../config/env/local
-module: {  }
-complete_list: {  }
+module:
+  - devel
+  - stage_file_proxy
+complete_list:
+  - devel.settings
+  - devel.toolbar.settings
+  - stage_file_proxy.settings
 partial_list: {  }

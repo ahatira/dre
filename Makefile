@@ -10,7 +10,8 @@ COUNTRY ?= com
 .PHONY: \
 	help up down restart ps logs rebuild \
 	env bootstrap generate-multisite verify-multisite fix-permissions init-solr-cores \
-	build verify install reinstall import demo deploy drush-cr index-solr export-solr \
+	build verify install reinstall install-from-conf import demo deploy drush-cr index-solr export-solr \
+	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rbac-sec-e2e \
 	composer-install composer-update npm-install
@@ -23,11 +24,11 @@ help:
 	@echo "  make env | fix-permissions | init-solr-cores"
 	@echo ""
 	@echo "Multisite (repo root → syncs into src/):"
-	@echo "  make generate-multisite | verify-multisite"
+	@echo "  make seed-site-configs | export-all-configs [country]"
 	@echo ""
 	@echo "Project commands (delegate to src/Makefile, Drush on host):"
 	@echo "  make bootstrap          = env + up + generate-multisite + build"
-	@echo "  make build | verify | install | deploy | drush-cr | …"
+	@echo "  make build | verify | install | install-from-conf | deploy | drush-cr | …"
 	@echo ""
 	@echo "See src/Makefile and README.md for full project command list."
 
@@ -92,6 +93,18 @@ install:
 
 reinstall:
 	$(SRC_MAKE) reinstall $(filter-out reinstall install,$(MAKECMDGOALS))
+
+install-from-conf:
+	$(SRC_MAKE) install-from-conf $(filter-out install-from-conf,$(MAKECMDGOALS))
+
+reinstall-from-conf:
+	$(SRC_MAKE) reinstall-from-conf $(filter-out reinstall-from-conf install-from-conf,$(MAKECMDGOALS))
+
+seed-site-configs:
+	bash "$(PROJECT_ROOT)/scripts/multisite/seed-site-configs.sh"
+
+export-all-configs:
+	$(SRC_MAKE) export-all-configs $(filter-out export-all-configs,$(MAKECMDGOALS))
 
 import:
 	$(SRC_MAKE) import $(filter-out import,$(MAKECMDGOALS))

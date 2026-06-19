@@ -32,8 +32,14 @@ ps_install_country_site() {
     --locale="${default_lang}" \
     --yes
 
-  if ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
+  ps_drush_cr
+
+  # Orphan update.settings from a partial install blocks bnp_admin (update is a dependency).
+  if ! ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
+    ps_drush config:delete update.settings -y 2>/dev/null || true
+  else
     ps_drush pm:uninstall update -y 2>/dev/null || true
+    ps_drush config:delete update.settings -y 2>/dev/null || true
     ps_drush_cr
   fi
 
@@ -43,6 +49,7 @@ ps_install_country_site() {
   ps_drush theme:enable -y gin 2>/dev/null || ps_warn "Gin theme not available"
   ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
   ps_add_site_languages "${country}"
+  ps_apply_site_language_negotiation "${country}"
   ps_retry 2 2 ps_drush en -y bnp_editor
 
   if [[ ${ENABLE_DEV:-0} -eq 1 ]]; then
@@ -50,15 +57,24 @@ ps_install_country_site() {
   fi
 
   ps_info "Enabling PS modules..."
+  ps_ensure_telephone_field_stack || ps_die "Telephone field stack not ready"
   ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
-  ps_apply_site_language_negotiation "${country}"
+  ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_surface entity_browser_generic_embed bnp_media ps_media
   ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
   ps_drush entity:delete webform contact -y 2>/dev/null || true
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_retry 2 2 ps_drush en -y ps_form
   ps_drush_cr
+  ps_info "Preparing ps_offer dependencies..."
+  ps_ensure_bnp_media_foundation || ps_die "BNP Media foundation not ready"
+  ps_retry 2 2 ps_drush en -y entity_browser ps_favorite ps_diagnostic layout_builder layout_discovery
+  ps_drush_cr
+  ps_recover_ps_offer_if_partial
   ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
+  ps_drush ev 'require_once DRUPAL_ROOT . "/modules/custom/ps_offer/ps_offer.install"; ps_offer_apply_full_layout_display(); echo "ps_offer layout OK\n";' \
+    || ps_die "ps_offer layout apply failed"
+  ps_drush_cr
   ps_verify_ps_offer_install || ps_die "ps_offer verification failed"
   ps_apply_google_maps_api_key
   ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override ps_context 2>/dev/null || true
@@ -68,12 +84,24 @@ ps_install_country_site() {
   ps_info "Importing dictionary..."
   ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
-  ps_retry 2 2 ps_drush en -y ps_compare ps_search ps_seo
-  ps_retry 2 2 ps_drush en -y ps_favorite migrate migrate_plus migrate_tools ps_migrate
+  ps_retry 2 2 ps_drush en -y ps_compare
+  ps_retry 2 2 ps_drush en -y search_api search_api_solr
+  ps_drush_cr
+  ps_retry 2 2 ps_drush en -y ps_search
+  ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready"
+  ps_drush_cr
+  ps_retry 2 2 ps_drush en -y ps_seo
+  ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready after ps_seo"
+  ps_drush_cr
+  ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools
+  ps_drush_cr
+  ps_retry 2 2 ps_drush en -y ps_migrate
 
   ps_retry 2 2 ps_drush en -y ps_block ps_homepage
   ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
 
+  ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready before theme"
+  ps_drush_cr
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
   ps_drush config:set -y system.theme default ps_theme
   ps_drush config:set -y system.site name "${site_name}"
@@ -83,6 +111,7 @@ ps_install_country_site() {
   ps_drush ev '\Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig(); echo "ps_theme shell OK\n";' \
     || ps_die "ps_theme shell install failed"
   ps_retry 2 2 ps_drush en -y prevent_homepage_deletion
+  ps_drush_cr
   ps_drush ev '\Drupal::service("ps_homepage.shell_installer")->install(); echo "ps_homepage shell OK\n";' \
     || ps_die "ps_homepage shell install failed"
 
@@ -90,7 +119,7 @@ ps_install_country_site() {
 
   ps_drush search-api:clear offers -y 2>/dev/null || true
   ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || true
-  ps_drush search-api:index offers -y 2>/dev/null || ps_warn "Solr index empty until make import"
+  ps_info "Solr index skipped on shell install (run: make import ${country})"
 
   ps_import_active_language_config_overrides "${country}"
   ps_retry 2 2 ps_drush_cr

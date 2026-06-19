@@ -63,12 +63,15 @@ services:
       - '@config.factory'
       - '@renderer'
 
-  ps_core.site_language_negotiation_installer:
-    class: Drupal\ps_core\Service\SiteLanguageNegotiationInstaller
+  ps_core.site_config_split_installer:
+    class: Drupal\ps_core\Service\SiteConfigSplitInstaller
     arguments:
       - '@config.factory'
       - '@config.storage'
       - '@logger.channel.ps_core'
+
+  ps_core.site_language_negotiation_installer:
+    alias: ps_core.site_config_split_installer
 
   ps_core.ps_theme_shell_installer:
     class: Drupal\ps_theme\Service\ThemeShellInstaller

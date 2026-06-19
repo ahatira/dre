@@ -7,11 +7,36 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Config\FileStorage;
+
 /**
  * Implements hook_install().
  */
 function ps_offer_install(): void {
   ps_offer_register_pathauto_safe_tokens();
+  ps_offer_apply_full_layout_display();
+}
+
+/**
+ * Applies Layout Builder sections after all offer fields exist.
+ *
+ * Importing LB sections via config/install triggers block plugin warnings
+ * during module enable; defer to hook_install once dependencies are ready.
+ */
+function ps_offer_apply_full_layout_display(): void {
+  $modulePath = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_offer');
+  $storage = new FileStorage($modulePath . '/config/optional');
+  $configName = 'core.entity_view_display.node.offer.full';
+  if (!$storage->exists($configName)) {
+    return;
+  }
+
+  $data = $storage->read($configName);
+  if (!is_array($data)) {
+    return;
+  }
+
+  \Drupal::configFactory()->getEditable($configName)->setData($data)->save(TRUE);
 }
 
 /**
