@@ -1,5 +1,10 @@
 langcode: en
 mode: intermediate
+# Connector Solr (host, port, core) is env-specific:
+# - dev/local: $config override in sites/default/settings.local.php
+# - prod: $config override in settings.bootstrap.php (APP_ENV != dev)
+# backend_config is ignored on import/export so CIM deploy does not overwrite prod.
+# Other search_api.server.ps_solr keys remain editable in BO and exportable via CMI.
 ignored_config_entities:
   import:
     - config_split.config_split.*

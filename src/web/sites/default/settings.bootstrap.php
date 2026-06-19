@@ -73,29 +73,10 @@ if ($assetsPath !== '') {
 // Locale translation downloads: per-site public files directory.
 $config['locale.settings']['translation']['path'] = $publicPath . '/translations';
 
-// Trusted host patterns from all configured front/admin domains.
-$trustedPatterns = [];
-foreach (ps_country_codes() as $code) {
-  $upper = strtoupper($code);
-  foreach (['APP_DOMAIN_' . $upper, 'APP_DOMAIN_' . $upper . '_ADMIN'] as $envKey) {
-    $host = ps_env($envKey);
-    if ($host === '') {
-      continue;
-    }
-    $escaped = preg_quote($host, '/');
-    $trustedPatterns[] = '^' . $escaped . '$';
-  }
-}
-$serviceDomain = ps_env('APP_DOMAIN_SERVICE');
-if ($serviceDomain !== '') {
-  $trustedPatterns[] = '^' . preg_quote($serviceDomain, '/') . '$';
-}
-$probesDomain = ps_env('APP_DOMAIN_PROBES');
-if ($probesDomain !== '') {
-  $trustedPatterns[] = '^' . preg_quote($probesDomain, '/') . '$';
-}
+// Trusted host patterns from all configured front/admin/infra domains.
+$trustedPatterns = ps_build_trusted_host_patterns();
 if ($trustedPatterns !== []) {
-  $settings['trusted_host_patterns'] = array_values(array_unique($trustedPatterns));
+  $settings['trusted_host_patterns'] = $trustedPatterns;
 }
 
 // Outbound HTTP proxy.
@@ -121,18 +102,10 @@ if ($cacheHost !== '') {
   $settings['cache_default_class'] = 'MemcacheBackend';
 }
 
-// Infrastructure overrides (Solr connector per country).
-$solrHost = ps_env('SOLR_HOST', 'solr');
-$solrPort = (int) ps_env('SOLR_PORT', '8983');
-$solrPath = ps_env('SOLR_PATH', '/');
-$solrCoreKey = 'SOLR_CORE_' . strtoupper($ps_country_code);
-$solrCore = ps_env($solrCoreKey, 'ps_project');
-
-$config['search_api.server.ps_solr']['backend_config']['connector_config']['scheme'] = 'http';
-$config['search_api.server.ps_solr']['backend_config']['connector_config']['host'] = $solrHost;
-$config['search_api.server.ps_solr']['backend_config']['connector_config']['port'] = $solrPort;
-$config['search_api.server.ps_solr']['backend_config']['connector_config']['path'] = $solrPath;
-$config['search_api.server.ps_solr']['backend_config']['connector_config']['core'] = $solrCore;
+// Solr connector (prod/staging/int) — env-specific; not imported from CMI (config_ignore).
+if (ps_env('APP_ENV', 'dev') !== 'dev') {
+  ps_apply_search_api_solr_connector_overrides($config, $ps_country_code);
+}
 
 // Config Split: local dev overrides only (see config/env/local/).
 if (ps_env('APP_ENV', 'dev') === 'dev') {
@@ -143,17 +116,4 @@ if (ps_env('APP_ENV', 'dev') === 'dev') {
 $hiddenFrontLanguages = ps_country_hidden_front_languages($ps_country_code);
 if ($hiddenFrontLanguages !== []) {
   $settings['ps_hidden_front_languages'] = $hiddenFrontLanguages;
-}
-
-// Mailpit defaults for local Docker (overridable in settings.local.php).
-if (ps_env('APP_ENV', 'dev') === 'dev') {
-  $mailpitHost = ps_env('MAILPIT_HOST', 'mailpit');
-  $mailpitPort = (int) ps_env('MAILPIT_PORT', '1025');
-  $config['mailer_transport.settings']['default_transport'] = 'sendmail';
-  $config['mailer_transport.mailer_transport.sendmail']['plugin'] = 'smtp';
-  $config['mailer_transport.mailer_transport.sendmail']['configuration']['user'] = '';
-  $config['mailer_transport.mailer_transport.sendmail']['configuration']['pass'] = '';
-  $config['mailer_transport.mailer_transport.sendmail']['configuration']['host'] = $mailpitHost;
-  $config['mailer_transport.mailer_transport.sendmail']['configuration']['port'] = $mailpitPort;
-  $config['mailer_transport.mailer_transport.sendmail']['configuration']['query']['verify_peer'] = FALSE;
 }

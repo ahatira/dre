@@ -6,10 +6,21 @@ ps_country_upper() {
   printf '%s' "$1" | tr '[:lower:]' '[:upper:]'
 }
 
+# First hostname from a comma-separated APP_DOMAIN_* value.
+ps_env_first_host() {
+  local key="$1"
+  local raw first
+  raw="$(ps_env_get "${key}")"
+  [[ -n "${raw}" ]] || return 1
+  first="${raw%%,*}"
+  first="$(printf '%s' "${first}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+  [[ -n "${first}" ]] || return 1
+  printf '%s' "${first}"
+}
+
 ps_site_domain() {
   local country="$1"
-  local upper="APP_DOMAIN_$(ps_country_upper "${country}")"
-  ps_env_get "${upper}"
+  ps_env_first_host "APP_DOMAIN_$(ps_country_upper "${country}")"
 }
 
 ps_site_port() {
@@ -43,10 +54,8 @@ ps_site_uri() {
 
 ps_site_admin_uri() {
   local country="$1"
-  local upper domain port
-  upper="$(ps_country_upper "${country}")"
-  domain="$(ps_env_get "APP_DOMAIN_${upper}_ADMIN")"
-  [[ -n "${domain}" ]] || return 1
+  local domain port
+  domain="$(ps_env_first_host "APP_DOMAIN_$(ps_country_upper "${country}")_ADMIN")" || return 1
   port="$(ps_site_port "${country}")"
   if [[ "${port}" == "80" ]]; then
     printf 'http://%s' "${domain}"
