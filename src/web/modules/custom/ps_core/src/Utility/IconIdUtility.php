@@ -106,4 +106,27 @@ final class IconIdUtility {
     ];
   }
 
+  /**
+   * Maps icon arrays for SDC component props (id → icon_id).
+   *
+   * JSON Schema property names must not use "id" — ui_patterns
+   * ReferencesResolver treats it as a schema URI keyword.
+   *
+   * @param array<string, array{pack: string, id: string}> $icons
+   *   Icon maps using internal pack/id keys.
+   *
+   * @return array<string, array{pack: string, icon_id: string}>
+   *   Icon definitions keyed for component props.
+   */
+  public static function forComponentProp(array $icons): array {
+    $mapped = [];
+    foreach ($icons as $key => $icon) {
+      $mapped[$key] = [
+        'pack' => (string) ($icon['pack'] ?? self::DEFAULT_BNP_PACK),
+        'icon_id' => (string) ($icon['icon_id'] ?? $icon['id'] ?? ''),
+      ];
+    }
+    return $mapped;
+  }
+
 }

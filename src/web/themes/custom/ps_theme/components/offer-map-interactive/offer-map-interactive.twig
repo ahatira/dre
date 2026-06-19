@@ -46,10 +46,10 @@
           </div>
         </div>
         {% set travel_icon_defaults = {
-          DRIVING: {pack: 'bnp_custom', id: 'car'},
-          TRANSIT: {pack: 'bnp_custom', id: 'transport'},
-          WALKING: {pack: 'bnp_custom', id: 'walking'},
-          BICYCLING: {pack: 'bnp_custom', id: 'bike'},
+          DRIVING: {pack: 'bnp_custom', icon_id: 'car'},
+          TRANSIT: {pack: 'bnp_custom', icon_id: 'transport'},
+          WALKING: {pack: 'bnp_custom', icon_id: 'walking'},
+          BICYCLING: {pack: 'bnp_custom', icon_id: 'bike'},
         } %}
         {% set travel_modes = [
           { mode: 'DRIVING', label: 'Car'|t },
@@ -70,7 +70,7 @@
                 aria-pressed="{{ travel_mode.mode == 'DRIVING' ? 'true' : 'false' }}"
               >
                 <span class="ps-offer-map-interactive__travel-mode-icon" aria-hidden="true">
-                  {{ icon(icon.pack, icon.id, {size: '24px'}) }}
+                  {{ icon(icon.pack, icon.icon_id, {size: '24px'}) }}
                 </span>
               </button>
             {% endfor %}

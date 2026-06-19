@@ -48,26 +48,26 @@ props:
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
         TRANSIT:
           type: object
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
         WALKING:
           type: object
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
         BICYCLING:
           type: object
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string

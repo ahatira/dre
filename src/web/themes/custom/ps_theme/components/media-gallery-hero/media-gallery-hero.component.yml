@@ -56,28 +56,28 @@ props:
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
         videos:
           type: object
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
         visit_3d:
           type: object
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
         plan:
           type: object
           properties:
             pack:
               type: string
-            id:
+            icon_id:
               type: string
 slots:
   favorite:

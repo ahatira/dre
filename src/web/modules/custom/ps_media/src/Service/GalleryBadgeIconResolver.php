@@ -28,7 +28,7 @@ final class GalleryBadgeIconResolver implements CacheableDependencyInterface {
   /**
    * Resolves all gallery badge icons from configuration.
    *
-   * @return array<string, array{pack: string, id: string}>
+   * @return array<string, array{pack: string, icon_id: string}>
    *   Badge icon definitions keyed by badge type.
    */
   public function resolve(): array {
@@ -50,7 +50,7 @@ final class GalleryBadgeIconResolver implements CacheableDependencyInterface {
   /**
    * Parses a stored icon value with fallback defaults.
    *
-   * @return array{pack: string, id: string}
+   * @return array{pack: string, icon_id: string}
    *   Parsed icon pack and id.
    */
   private function parseIcon(mixed $value, string $defaultPack, string $defaultId): array {
@@ -58,7 +58,7 @@ final class GalleryBadgeIconResolver implements CacheableDependencyInterface {
 
     return [
       'pack' => $parts['pack'],
-      'id' => $parts['id'],
+      'icon_id' => $parts['id'],
     ];
   }
 

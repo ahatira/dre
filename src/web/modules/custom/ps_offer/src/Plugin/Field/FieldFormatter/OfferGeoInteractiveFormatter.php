@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
+use Drupal\ps_core\Utility\IconIdUtility;
 use Drupal\ps_offer\Service\GoogleMapsSettings;
 use Drupal\ps_offer\Service\OfferMapLocationBuilder;
 use Drupal\ps_offer\Service\OfferMapSettings;
@@ -101,7 +102,7 @@ final class OfferGeoInteractiveFormatter extends FormatterBase implements Contai
           'address' => $address,
           'show_travel' => $show_travel,
           'show_poi' => $show_poi,
-          'travel_mode_icons' => $this->mapSettings->getTravelModeIcons(),
+          'travel_mode_icons' => IconIdUtility::forComponentProp($this->mapSettings->getTravelModeIcons()),
           'poi_filter_icons' => $this->mapSettings->getPoiFilterIcons(),
           'offer_id' => (int) $entity->id(),
         ],
