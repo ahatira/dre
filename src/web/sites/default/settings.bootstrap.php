@@ -111,6 +111,10 @@ if (ps_memcache_bootstrap_enabled($app_root)) {
   $settings['cache_default_class'] = 'MemcacheBackend';
 }
 
+// Solr connector — dev only (SOLR_* in src/.env; ps_php overrides SOLR_HOST=solr).
+// Prod/int: config_ignore + drush config:set (see docs/MULTISITE_OPS.md).
+ps_apply_search_api_solr_connector_overrides($config, $ps_country_code);
+
 // Config Split: local dev overrides only (see config/env/local/).
 if (ps_env('APP_ENV', 'dev') === 'dev') {
   $config['config_split.config_split.local']['status'] = TRUE;

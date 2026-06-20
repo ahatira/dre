@@ -23,14 +23,14 @@
     "nouislider": "^15.8.1",
     "photoswipe": "^5.4.4",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.8"
+    "swiper": "^12.2.0"
   },
   "devDependencies": {
     "copy-files-from-to": "^3.2.4",
     "rimraf": "^6.0.1"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   }
 }

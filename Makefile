@@ -13,8 +13,8 @@ COUNTRY ?= com
 	build verify install reinstall install-from-conf import demo deploy drush-cr index-solr export-solr \
 	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex rbac-sec-e2e translations-fetch \
-	composer-install composer-update npm-install
+	drush drush-uli drush-status drush-cex rebuild-permissions rbac-sec-e2e translations-fetch \
+	composer-install composer-update npm-install npm-audit
 
 help:
 	@echo "PS Project — dev environment (repo root)"
@@ -28,7 +28,7 @@ help:
 	@echo ""
 	@echo "Project commands (delegate to src/Makefile, Drush on host):"
 	@echo "  make bootstrap          = env + up + generate-multisite + build"
-	@echo "  make build | verify | install | install-from-conf | deploy | drush-cr | …"
+	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
 	@echo ""
 	@echo "See src/Makefile and README.md for full project command list."
 
@@ -87,6 +87,9 @@ composer-update:
 
 npm-install:
 	$(SRC_MAKE) npm-install
+
+npm-audit:
+	$(SRC_MAKE) npm-audit
 
 install:
 	$(SRC_MAKE) install $(filter-out install,$(MAKECMDGOALS))
@@ -147,6 +150,9 @@ drush-status:
 
 drush-cex:
 	$(SRC_MAKE) drush-cex COUNTRY=$(COUNTRY)
+
+rebuild-permissions:
+	$(SRC_MAKE) rebuild-permissions $(filter-out rebuild-permissions,$(MAKECMDGOALS))
 
 rbac-sec-e2e:
 	bash "$(SRC_DIR)/web/modules/custom/bnp_admin/tests/e2e_rbac_sec_ctx.sh"

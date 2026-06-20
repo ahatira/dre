@@ -10,7 +10,8 @@ Usage: scripts/main.sh tools check
 
 Checks:
   - src/vendor/autoload.php
-  - Required web/libraries/* paths
+  - Required web/libraries/* paths (ace, swiper, photoswipe, bootstrap, …)
+  - Compiled theme CSS (ui_suite_bnp, ps_theme)
 
 Does not install anything. Run: scripts/main.sh tools build
 EOF
@@ -30,10 +31,13 @@ fi
 
 REQUIRED_LIBS=(
   ace
+  bootstrap
   clipboard
   dropzone
   nouislider
+  photoswipe
   slick-carousel/slick
+  swiper
   ckeditor5/plugins/media-embed
 )
 
@@ -48,6 +52,27 @@ if [[ ${#MISSING[@]} -gt 0 ]]; then
   ERRORS=$((ERRORS + 1))
 else
   ps_success "Front libraries OK"
+fi
+
+REQUIRED_FILES=(
+  "${PS_WEB_DIR}/libraries/swiper/swiper-bundle.min.js"
+  "${PS_WEB_DIR}/libraries/photoswipe/photoswipe.umd.min.js"
+  "${PS_WEB_DIR}/libraries/bootstrap/scss/_functions.scss"
+  "${PS_WEB_DIR}/themes/custom/ui_suite_bnp/assets/vendor/bootstrap/bootstrap.min.css"
+  "${PS_WEB_DIR}/themes/custom/ps_theme/assets/css/styles.css"
+)
+
+MISSING_FILES=()
+for file in "${REQUIRED_FILES[@]}"; do
+  [[ -f "${file}" ]] || MISSING_FILES+=("${file#${PS_SRC_DIR}/}")
+done
+
+if [[ ${#MISSING_FILES[@]} -gt 0 ]]; then
+  ps_error "Missing build artefacts:"
+  printf '  - %s\n' "${MISSING_FILES[@]}" >&2
+  ERRORS=$((ERRORS + 1))
+else
+  ps_success "Theme build artefacts OK"
 fi
 
 [[ ${ERRORS} -eq 0 ]] || ps_die "Verify failed (${ERRORS} error(s)). Run: make build"

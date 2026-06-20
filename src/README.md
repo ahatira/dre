@@ -6,7 +6,7 @@ Dossier versionné déployé tel quel sur INT, staging et production.
 
 - PHP 8.3 + extensions (pgsql, …)
 - Composer (pour le build initial)
-- Node.js 20 + npm (build front)
+- Node.js 20+ + npm 10+ (build front — WSL Linux, not Windows `/mnt/c/` path)
 - Drush via `vendor/bin/drush` (après `composer install`)
 
 ## Commandes

@@ -234,6 +234,11 @@
       cursor: default;
     }
 
+    // Swiper 12 injects default SVG arrows; keep custom BNP icons only.
+    > svg {
+      display: none;
+    }
+
     &--prev {
       left: 24px;
     }

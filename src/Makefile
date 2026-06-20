@@ -8,7 +8,7 @@ COUNTRY ?= com
 .PHONY: \
 	help build verify install reinstall install-from-conf import demo deploy drush-cr \
 	index-solr export-solr rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex composer-install composer-update npm-install \
+	drush drush-uli drush-status drush-cex rebuild-permissions composer-install composer-update npm-install npm-audit \
 	seed-site-configs export-all-configs translations-fetch translations-fetch
 
 help:
@@ -22,13 +22,14 @@ help:
 	@echo "  make export-all-configs [country...] — drush cex per country"
 	@echo "  make import [country] | demo [country]"
 	@echo "  make deploy [country...]"
-	@echo "  make drush-cr [country...]"
+	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
 	@echo "  make index-solr [country] | export-solr [country]"
 	@echo "  make rbac-sync [country] | rbac-export [country]"
 	@echo "  make create-test-users [country]"
 	@echo "  make translations-fetch [country] [lang...]  — dev: populate translations/contrib"
 	@echo "  make drush [country] <args...>   (default COUNTRY=$(COUNTRY))"
 	@echo "  make drush-uli | drush-status | drush-cex"
+	@echo "  make npm-install | npm-audit"
 	@echo ""
 	@echo "Drush runs on the host. Requires vendor/ (make build / composer-install)."
 
@@ -45,7 +46,12 @@ composer-update:
 	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer update --no-interaction --prefer-dist
 
 npm-install:
-	cd "$(SRC_DIR)" && npm install
+	cd "$(SRC_DIR)" && npm ci --no-audit --no-fund
+	cd "$(SRC_DIR)/web/themes/custom/ui_suite_bnp" && npm ci --no-audit --no-fund
+	cd "$(SRC_DIR)/web/themes/custom/ps_theme" && npm ci --no-audit --no-fund
+
+npm-audit:
+	bash "$(SCRIPTS_CLI)" tools npm-audit
 
 install:
 	bash "$(SCRIPTS_CLI)" drupal install $(filter-out install,$(MAKECMDGOALS))
@@ -106,6 +112,9 @@ drush-status:
 
 drush-cex:
 	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) cex -y
+
+rebuild-permissions:
+	bash "$(SCRIPTS_CLI)" drupal rebuild-permissions $(filter-out rebuild-permissions,$(MAKECMDGOALS))
 
 %:
 	@:

@@ -1,13 +1,14 @@
 {
   "name": "ps_theme",
   "license": "GPL-2.0-or-later",
+  "private": true,
   "dependencies": {
-    "gulp": "4.*",
+    "gulp": "^5.0.1",
     "gulp-autoprefixer": "8.*",
     "gulp-mode": "1.*",
     "gulp-sass": "5.*",
     "gulp-sass-glob": "1.*",
-    "gulp-sourcemaps": "3.*",
+    "gulp-sourcemaps": "^2.6.5",
     "sass": "1.*"
   },
   "scripts": {

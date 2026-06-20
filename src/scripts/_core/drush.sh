@@ -25,6 +25,11 @@ ps_drush_cr() {
   fi
 }
 
+ps_drush_rebuild_permissions() {
+  ps_drush php:eval 'node_access_rebuild(); echo "node_access_rebuild OK\n";' \
+    || ps_die "Content permissions rebuild failed"
+}
+
 ps_drush_for_country() {
   local country="$1"
   PS_COUNTRY_CODE="${country}"

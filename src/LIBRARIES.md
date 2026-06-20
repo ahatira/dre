@@ -143,26 +143,20 @@ The build script (`scripts/build.sh`) performs a complete build process:
    - Development: `composer install`
    - Production: `composer install --no-dev --optimize-autoloader`
 
-2. **Install npm dependencies**
-   - Development: `npm install`
-   - Production: `npm ci` (reproducible builds)
+2. **Install npm dependencies** (`npm ci` when `package-lock.json` is present — all three roots: `src/`, `ui_suite_bnp/`, `ps_theme/`)
 
 3. **Copy JavaScript libraries**
    - Runs `npm run libs`
-   - Copies all 6 libraries to `web/libraries/`
+   - Copies 8 library sets to `web/libraries/` (ace, clipboard, dropzone, nouislider, slick, swiper, photoswipe, ckeditor5 media-embed)
 
-4. **Fix file permissions**
-   - Sets `www-data:www-data` ownership (in Docker)
-   - Sets `755` permissions
+4. **Compile themes**
+   - `ui_suite_bnp`: `npm run build`
+   - Copy Bootstrap → `web/libraries/bootstrap`
+   - `ps_theme`: `npm run gulp-prod`
 
-5. **Clean npm artifacts**
-   - **Removes `node_modules/`** (saves ~150MB disk space)
-   - Keeps `package-lock.json` (for reproducibility)
-   - Clears npm cache
-   - Use `--keep-npm` to skip this step
-
-6. **Clear Drupal cache**
-   - Runs `drush cr` (unless `--no-cache`)
+5. **Clean npm artifacts** (production only, unless `--keep-npm`)
+   - Removes `node_modules/` under `src/` and both themes
+   - Keeps `package-lock.json` files for reproducibility
 
 ### Other Scripts
 

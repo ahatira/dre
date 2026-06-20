@@ -274,8 +274,9 @@ if (!function_exists('ps_solr_is_configured')) {
   /**
    * Whether dev Docker Solr env vars are set for a country site.
    *
-   * Used only by dev ops scripts (init-cores, export-solr, verify-multisite).
-   * Drupal connector: config_ignore — drush config:set (see docs/MULTISITE_OPS.md).
+   * Used by dev ops scripts (init-cores, export-solr, verify-multisite) and by
+   * ps_apply_search_api_solr_connector_overrides() in local bootstrap.
+   * Prod/int: drush config:set (config_ignore — see docs/MULTISITE_OPS.md).
    */
   function ps_solr_is_configured(string $countryCode): bool {
     if (ps_app_env() !== 'dev') {
@@ -285,6 +286,32 @@ if (!function_exists('ps_solr_is_configured')) {
     $solrHost = ps_env('SOLR_HOST');
     $solrCore = ps_env('SOLR_CORE_' . strtoupper($countryCode));
     return $solrHost !== '' && $solrCore !== '';
+  }
+}
+
+if (!function_exists('ps_apply_search_api_solr_connector_overrides')) {
+  /**
+   * Applies Solr connector overrides from env in local dev only.
+   *
+   * SOLR_HOST differs by runtime (127.0.0.1 on WSL Drush vs solr in ps_php).
+   * Prod/int use drush config:set instead — backend_config is config_ignore.
+   *
+   * @param array<string, mixed> $config
+   *   Drupal $config overrides array from settings.php.
+   */
+  function ps_apply_search_api_solr_connector_overrides(array &$config, string $countryCode): void {
+    if (!ps_solr_is_configured($countryCode)) {
+      return;
+    }
+
+    $connector =& $config['search_api.server.ps_solr']['backend_config']['connector_config'];
+    $connector['scheme'] = 'http';
+    $connector['host'] = ps_env('SOLR_HOST');
+    $connector['port'] = (int) ps_env('SOLR_PORT', '8983');
+    $connector['path'] = ps_env('SOLR_PATH', '/');
+    $connector['core'] = ps_env('SOLR_CORE_' . strtoupper($countryCode));
+    $connector['timeout'] = 2;
+    $connector['index_timeout'] = 2;
   }
 }
 
