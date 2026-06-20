@@ -54,10 +54,9 @@
 }
 
 /* === Widget outer grid ===
- * [data-ps-diagnostic-widget] is set by PHP $element['#attributes'] and confirmed
- * present on the outer field wrapper div.
+ * [data-ps-diagnostic-widget] is set by PHP $element['#attributes'] on each delta wrapper.
  */
-.field--widget-diagnostic-item-default {
+.ps-diagnostic-widget {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
@@ -66,11 +65,18 @@
   margin-top: 0.2rem;
 }
 
+.field--widget-diagnostic-item-default > .ps-diagnostic-widget:first-child {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
 /* Full-width elements */
-.field--widget-diagnostic-item-default > .ps-diagnostic-widget__field-title,
-.field--widget-diagnostic-item-default > .ps-diagnostic-widget__intro-wrap,
-.field--widget-diagnostic-item-default > .ps-diagnostic-widget__value-item,
-.field--widget-diagnostic-item-default > .ps-diagnostic-widget__preview-wrap {
+.ps-diagnostic-widget > .ps-diagnostic-widget__field-title,
+.ps-diagnostic-widget > .ps-diagnostic-widget__intro-wrap,
+.ps-diagnostic-widget > .ps-diagnostic-widget__flags,
+.ps-diagnostic-widget > .ps-diagnostic-widget__value-item,
+.ps-diagnostic-widget > .ps-diagnostic-widget__preview-wrap {
   grid-column: 1 / -1;
 }
 
@@ -85,7 +91,7 @@
 }
 
 /* Hidden inputs: no layout impact */
-.field--widget-diagnostic-item-default > input[type="hidden"] {
+.ps-diagnostic-widget > input[type="hidden"] {
   display: none;
 }
 
@@ -109,20 +115,54 @@
   font-size: 0.92rem;
 }
 
-/* === Flag checkboxes (side by side in 2-col grid) === */
+/* === Flag checkboxes (paired row) === */
+.ps-diagnostic-widget__flags {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  align-items: stretch;
+}
+
+.ps-diagnostic-widget__flags > .ps-diagnostic-widget__flag-item {
+  margin: 0;
+  min-width: 0;
+  height: 100%;
+}
+
 .ps-diagnostic-widget__flag-item {
   margin: 0;
-  padding: 0.5rem 0.65rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.75rem;
   border: 1px solid #d7dee8;
   border-radius: 10px;
   background: #f8fafc;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
+  box-sizing: border-box;
+}
+
+.ps-diagnostic-widget__flag-item .form-item__label,
+.ps-diagnostic-widget__flag-item .form-checkbox {
+  margin: 0;
 }
 
 .ps-diagnostic-widget__flag-item .form-item__label {
-  margin: 0;
+  flex: 1 1 auto;
+  line-height: 1.25;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ps-diagnostic-widget__flag-item .form-checkbox {
+  flex: 0 0 auto;
+  margin-inline-end: 0;
+}
+
+.ps-diagnostic-widget__flag-item .help-icon,
+.ps-diagnostic-widget__flag-item .form-item__description {
+  display: none;
 }
 
 /* === Value field (full-width) === */
@@ -173,7 +213,7 @@
   text-transform: uppercase;
 }
 
-.field--widget-diagnostic-item-default.ps-diagnostic-widget--auto .ps-diagnostic-widget__status {
+.ps-diagnostic-widget.ps-diagnostic-widget--auto .ps-diagnostic-widget__status {
   background: color-mix(in srgb, var(--ps-diagnostic-accent, #5c6670) 12%, #ffffff 88%);
 }
 
@@ -245,11 +285,11 @@
 }
 
 /* === General resets inside widget === */
-.field--widget-diagnostic-item-default .form-item {
+.ps-diagnostic-widget .form-item {
   margin-top: 0;
 }
 
-.field--widget-diagnostic-item-default .form-item__description {
+.ps-diagnostic-widget .form-item__description {
   margin-top: 0.2rem;
   color: #5a6470;
   font-size: 0.875rem;
@@ -257,7 +297,11 @@
 
 /* === Responsive === */
 @media (max-width: 600px) {
-  .field--widget-diagnostic-item-default {
+  .ps-diagnostic-widget {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-diagnostic-widget__flags {
     grid-template-columns: 1fr;
   }
 
@@ -279,6 +323,10 @@
   margin-top: 0.85rem;
 }
 
+.ps-diagnostic-widget__flags .form-item + .form-item {
+  margin-top: 0;
+}
+
 .ps-diagnostic-widget .form-item__label {
   font-weight: 600;
 }
@@ -290,6 +338,10 @@
 
 @media (max-width: 780px) {
   .ps-diagnostic-widget {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-diagnostic-widget__flags {
     grid-template-columns: 1fr;
   }
 

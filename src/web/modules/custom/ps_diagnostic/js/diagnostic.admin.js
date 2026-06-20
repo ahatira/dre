@@ -62,7 +62,11 @@
     return classes[classes.length - 1] || null;
   }
 
-  function fallbackClassesForWidget(fieldName) {
+  function fallbackClassesForWidget(fieldName, typeId) {
+    if (typeId && fallbackClassScales[typeId]) {
+      return fallbackClassScales[typeId];
+    }
+
     if (fieldName.includes('field_diagnostics_dpe')) {
       return fallbackClassScales.dpe;
     }
@@ -72,6 +76,108 @@
     }
 
     return [];
+  }
+
+  function parseClassesByType(rawValue) {
+    if (!rawValue) {
+      return {};
+    }
+
+    try {
+      const classesByType = JSON.parse(rawValue);
+      return classesByType && typeof classesByType === 'object' ? classesByType : {};
+    }
+    catch (error) {
+      return {};
+    }
+  }
+
+  function getSelectedTypeId(wrapper) {
+    const typeSelect = wrapper.querySelector('select[name$="[diagnostic_type]"]');
+    if (typeSelect) {
+      return typeSelect.value || '';
+    }
+
+    const typeInput = wrapper.querySelector('input[name$="[diagnostic_type]"]');
+    return typeInput ? (typeInput.value || '') : (wrapper.dataset.psDiagnosticTypeId || '');
+  }
+
+  function resolveClassesForWidget(wrapper, valueInput) {
+    const typeId = getSelectedTypeId(wrapper);
+    const classesByType = parseClassesByType(wrapper.dataset.psDiagnosticClassesByType || '{}');
+    if (typeId && Array.isArray(classesByType[typeId]) && classesByType[typeId].length > 0) {
+      return classesByType[typeId];
+    }
+
+    const classes = parseClasses(wrapper.dataset.psDiagnosticClasses || '[]');
+    if (classes.length > 0) {
+      return classes;
+    }
+
+    return fallbackClassesForWidget(valueInput ? (valueInput.name || '') : '', typeId);
+  }
+
+  function formatRangeText(rangeMin, rangeMax) {
+    if (rangeMax !== null && rangeMax !== undefined && rangeMax !== '') {
+      return `${rangeMin}–${rangeMax}`;
+    }
+
+    return `≥${rangeMin}`;
+  }
+
+  function rebuildScalePreview(wrapper, classes, activeLabel) {
+    const preview = wrapper.querySelector('[data-ps-diagnostic-class-preview]');
+    if (!preview) {
+      return;
+    }
+
+    const sliderWrap = preview.querySelector('[data-ps-diagnostic-slider-wrap]');
+    const scale = preview.querySelector('[data-ps-diagnostic-scale]');
+    if (!sliderWrap || !scale) {
+      return;
+    }
+
+    if (!Array.isArray(classes) || classes.length === 0) {
+      scale.innerHTML = `<span class="ps-diagnostic-widget__scale-empty">${Drupal.t('No class scale configured.')}</span>`;
+      sliderWrap.dataset.psDiagnosticSliderInitial = '1';
+      sliderWrap.dataset.psDiagnosticSliderMax = '1';
+      sliderWrap.querySelector('[data-ps-diagnostic-class-slider]')?.remove();
+      return;
+    }
+
+    let rangeMin = 0;
+    let sliderValue = 1;
+    let classIndex = 1;
+    const chips = classes.map((classItem) => {
+      const label = String(classItem.label || '');
+      if (label === '') {
+        return '';
+      }
+
+      const rangeMax = classItem.range_max;
+      const rangeText = formatRangeText(rangeMin, rangeMax);
+      if (rangeMax !== null && rangeMax !== undefined && rangeMax !== '') {
+        rangeMin = Number.parseInt(String(rangeMax), 10) + 1;
+      }
+
+      const isActive = activeLabel !== '' && label.toLowerCase() === activeLabel.toLowerCase();
+      if (isActive) {
+        sliderValue = classIndex;
+      }
+
+      classIndex += 1;
+
+      return `<span class="ps-diagnostic-widget__scale-chip${isActive ? ' is-active' : ''}" data-ps-class-label="${label}" data-ps-class-color="${classItem.color || ''}">`
+        + `<strong class="ps-diagnostic-widget__chip-label">${label}</strong>`
+        + `<small class="ps-diagnostic-widget__chip-range">${rangeText}</small>`
+        + '</span>';
+    }).join('');
+
+    scale.innerHTML = chips;
+    sliderWrap.dataset.psDiagnosticSliderInitial = String(sliderValue);
+    sliderWrap.dataset.psDiagnosticSliderMax = String(Math.max(1, classes.length));
+    sliderWrap.querySelector('[data-ps-diagnostic-class-slider]')?.remove();
+    injectSlider(wrapper);
   }
 
   function buildStatusElement(wrapper) {
@@ -189,7 +295,7 @@
   }
 
   function updateWidget(wrapper) {
-    const classInput = wrapper.querySelector('select[name$="[class]"], input[name$="[class]"], textarea[name$="[class]"]');
+    const classInput = wrapper.querySelector('[data-ps-diagnostic-class-input], select[name$="[class]"], input[name$="[class]"], textarea[name$="[class]"]');
     const valueInput = wrapper.querySelector('input[name$="[value]"]');
     const nonApplicable = wrapper.querySelector('input[name$="[non_applicable]"]');
     const noClassification = wrapper.querySelector('input[name$="[no_classification]"]');
@@ -198,8 +304,13 @@
       return;
     }
 
-    const classes = parseClasses(wrapper.dataset.psDiagnosticClasses || '[]');
-    const activeClasses = classes.length > 0 ? classes : fallbackClassesForWidget(valueInput.name || '');
+    const activeClasses = resolveClassesForWidget(wrapper, valueInput);
+    const typeId = getSelectedTypeId(wrapper);
+    const scaleKey = `${typeId}:${activeClasses.map((classItem) => classItem.label).join('|')}`;
+    if (wrapper.dataset.psDiagnosticScaleKey !== scaleKey) {
+      rebuildScalePreview(wrapper, activeClasses, classInput.value || '');
+      wrapper.dataset.psDiagnosticScaleKey = scaleKey;
+    }
 
     const currentValue = valueInput.value || '';
     const currentClass = classInput.value || '';
@@ -264,12 +375,13 @@
   Drupal.behaviors.psDiagnosticAdminWidget = {
     attach(context) {
       const widgets = onceFn
-        ? onceFn('ps-diagnostic-admin-widget', '.field--widget-diagnostic-item-default', context)
-        : context.querySelectorAll('.field--widget-diagnostic-item-default');
+        ? onceFn('ps-diagnostic-admin-widget', '[data-ps-diagnostic-widget]', context)
+        : context.querySelectorAll('[data-ps-diagnostic-widget]');
 
       Array.from(widgets).forEach((wrapper) => {
-        const classInput = wrapper.querySelector('select[name$="[class]"], input[name$="[class]"], textarea[name$="[class]"]');
+        const classInput = wrapper.querySelector('[data-ps-diagnostic-class-input], select[name$="[class]"], input[name$="[class]"], textarea[name$="[class]"]');
         const valueInput = wrapper.querySelector('input[name$="[value]"]');
+        const typeSelect = wrapper.querySelector('select[name$="[diagnostic_type]"]');
         const nonApplicable = wrapper.querySelector('input[name$="[non_applicable]"]');
         const noClassification = wrapper.querySelector('input[name$="[no_classification]"]');
 
@@ -279,6 +391,7 @@
         updateWidget(wrapper);
 
         if (valueInput) {
+          valueInput.addEventListener('input', () => updateWidget(wrapper));
           valueInput.addEventListener('blur', () => updateWidget(wrapper));
           valueInput.addEventListener('change', () => updateWidget(wrapper));
         }
@@ -290,6 +403,10 @@
             }
             updateWidget(wrapper);
           });
+        }
+
+        if (typeSelect) {
+          typeSelect.addEventListener('change', () => updateWidget(wrapper));
         }
 
         if (nonApplicable) {

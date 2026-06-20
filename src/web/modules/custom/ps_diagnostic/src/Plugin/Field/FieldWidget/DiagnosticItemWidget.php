@@ -138,20 +138,22 @@ final class DiagnosticItemWidget extends WidgetBase implements ContainerFactoryP
       '#type' => 'checkbox',
       '#title' => $this->t('No classification'),
       '#default_value' => !empty($current['no_classification']),
-      '#weight' => 10,
+      '#prefix' => '<div class="ps-diagnostic-widget__flags">',
       '#wrapper_attributes' => [
         'class' => ['ps-diagnostic-widget__flag-item'],
       ],
+      '#weight' => 10,
     ];
 
     $element['non_applicable'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Non applicable'),
       '#default_value' => !empty($current['non_applicable']),
-      '#weight' => 11,
+      '#suffix' => '</div>',
       '#wrapper_attributes' => [
         'class' => ['ps-diagnostic-widget__flag-item'],
       ],
+      '#weight' => 11,
     ];
 
     $element['value'] = [
@@ -261,10 +263,21 @@ final class DiagnosticItemWidget extends WidgetBase implements ContainerFactoryP
       ],
     ];
 
+    $classes_by_type = [];
+    $type_ids_for_scale = $configured_types !== [] ? $configured_types : array_keys($type_options);
+    foreach ($type_ids_for_scale as $scale_type_id) {
+      $scale_type = $this->typeOptionsProvider->getType($scale_type_id);
+      if ($scale_type !== NULL) {
+        $classes_by_type[$scale_type_id] = $this->normalizeClasses($scale_type->getClasses() ?? []);
+      }
+    }
+
+    $element['#type'] = 'container';
     $element['#attributes']['class'][] = 'ps-diagnostic-widget';
     $element['#attributes']['data-ps-diagnostic-widget'] = '1';
     $element['#attributes']['data-ps-diagnostic-type-id'] = $type_id_for_widget;
     $element['#attributes']['data-ps-diagnostic-classes'] = Json::encode($classes);
+    $element['#attributes']['data-ps-diagnostic-classes-by-type'] = Json::encode($classes_by_type);
     $element['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
 
     return $element;
