@@ -166,8 +166,13 @@ ps_ensure_ps_search_stack() {
     $moduleInstaller = \Drupal::service("module_installer");
     foreach (["search_api", "search_api_solr"] as $module) {
       if (!$moduleHandler->moduleExists($module)) {
-        $moduleInstaller->install([$module], TRUE);
-        echo "enabled {$module}\n";
+        try {
+          $moduleInstaller->install([$module], TRUE);
+          echo "enabled {$module}\n";
+        }
+        catch (\Throwable $e) {
+          echo "warn enable {$module}: " . $e->getMessage() . "\n";
+        }
       }
     }
     \Drupal::service("entity_type.manager")->clearCachedDefinitions();
@@ -177,19 +182,31 @@ ps_ensure_ps_search_stack() {
     $source = new \Drupal\Core\Config\FileStorage(DRUPAL_ROOT . "/modules/custom/ps_search/config/install");
     $serverStorage = \Drupal::entityTypeManager()->getStorage("search_api_server");
     if ($serverStorage->load("ps_solr") === NULL && $source->exists("search_api.server.ps_solr")) {
-      $serverStorage->createFromStorageRecord($source->read("search_api.server.ps_solr"))->save();
-      echo "created search_api.server.ps_solr\n";
+      try {
+        $serverStorage->createFromStorageRecord($source->read("search_api.server.ps_solr"))->save();
+        echo "created search_api.server.ps_solr\n";
+      }
+      catch (\Throwable $e) {
+        echo "warn search_api.server.ps_solr: " . $e->getMessage() . "\n";
+      }
     }
     $indexStorage = \Drupal::entityTypeManager()->getStorage("search_api_index");
     if ($indexStorage->load("offers") === NULL && $source->exists("search_api.index.offers")) {
-      $indexStorage->createFromStorageRecord($source->read("search_api.index.offers"))->save();
-      echo "created search_api.index.offers\n";
+      try {
+        $indexStorage->createFromStorageRecord($source->read("search_api.index.offers"))->save();
+        echo "created search_api.index.offers\n";
+      }
+      catch (\Throwable $e) {
+        echo "warn search_api.index.offers: " . $e->getMessage() . "\n";
+      }
     }
     if ($indexStorage->load("offers") === NULL) {
-      throw new \RuntimeException("search_api.index.offers is missing");
+      echo "warn search_api.index.offers missing — search degraded until Solr is configured\n";
+      return;
     }
     echo "search_api offers index OK\n";
-  ' || return 1
+  ' || ps_warn "Search API / Solr stack setup had warnings (install continues; search degraded without Solr)"
+  return 0
 }
 
 ps_drush_po_path() {

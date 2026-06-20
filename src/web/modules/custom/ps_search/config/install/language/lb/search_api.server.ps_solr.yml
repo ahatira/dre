@@ -1,2 +1,2 @@
 name: "PS Solr-Server"
-description: "Solr-Sichserver fir Property Search (Docker-Service: solr, Core: ps_project)"
+description: "Solr-Sichserver fir Property Search (config_ignore — drush config:set pro Ëmfeld)"

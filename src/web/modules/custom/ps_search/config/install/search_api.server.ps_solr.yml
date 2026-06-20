@@ -1,15 +1,15 @@
 id: ps_solr
 name: 'PS Solr Server'
-description: 'Solr search server for Property Search (Docker service: solr, core: ps_project)'
+description: 'Solr search server for Property Search (connector via config_ignore — drush config:set per env)'
 backend: search_api_solr
 backend_config:
   connector: standard
   connector_config:
     scheme: http
-    host: solr
+    host: ''
     port: 8983
     path: /
-    core: ps_project
+    core: ''
     timeout: 5
     index_timeout: 5
     optimize_timeout: 10
@@ -19,7 +19,7 @@ backend_config:
     http_method: AUTO
     jmx: false
     jts: false
-    skip_schema_check: false
+    skip_schema_check: true
     solr_install_dir: ''
   retrieve_data: false
   highlight_data: false

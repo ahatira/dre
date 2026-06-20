@@ -224,35 +224,67 @@ if (!function_exists('ps_build_trusted_host_patterns')) {
   }
 }
 
-if (!function_exists('ps_apply_search_api_solr_connector_overrides')) {
+if (!function_exists('ps_tcp_endpoint_is_reachable')) {
   /**
-   * Applies per-environment Solr connector overrides via $config (settings.php).
-   *
-   * Only connector_config keys are set so other search_api.server.ps_solr
-   * backend_config values remain editable in the UI and exportable via CMI.
-   * config_ignore excludes backend_config from config import/export in prod.
-   *
-   * @param array<string, mixed> $config
-   *   Drupal $config overrides array from settings.php.
+   * Whether a TCP host:port accepts connections (short timeout).
    */
-  function ps_apply_search_api_solr_connector_overrides(array &$config, string $countryCode): void {
-    $solrHost = ps_env('SOLR_HOST', 'solr');
-    $solrPort = (int) ps_env('SOLR_PORT', '8983');
-    $solrPath = ps_env('SOLR_PATH', '/');
-    $solrCoreKey = 'SOLR_CORE_' . strtoupper($countryCode);
-    $solrCore = ps_env($solrCoreKey, 'ps_project');
-
-    $connector =& $config['search_api.server.ps_solr']['backend_config']['connector_config'];
-    $connector['scheme'] = 'http';
-    $connector['host'] = $solrHost;
-    $connector['port'] = $solrPort;
-    $connector['path'] = $solrPath;
-    $connector['core'] = $solrCore;
-
-    if (ps_app_env() === 'dev') {
-      $connector['timeout'] = 2;
-      $connector['index_timeout'] = 2;
+  function ps_tcp_endpoint_is_reachable(string $host, int $port, float $timeoutSeconds = 1.0): bool {
+    if ($host === '') {
+      return FALSE;
     }
+
+    $errno = 0;
+    $errstr = '';
+    $connection = @fsockopen($host, $port, $errno, $errstr, $timeoutSeconds);
+    if ($connection === FALSE) {
+      return FALSE;
+    }
+
+    fclose($connection);
+    return TRUE;
+  }
+}
+
+if (!function_exists('ps_memcache_bootstrap_enabled')) {
+  /**
+   * Whether MemcacheBackend should be wired in settings (module + reachable host).
+   *
+   * Falls back to database cache when CACHE_HOST is unset, memcache module is
+   * missing, or the server is unreachable — keeps install/runtime working.
+   */
+  function ps_memcache_bootstrap_enabled(string $appRoot): bool {
+    $host = ps_env('CACHE_HOST');
+    if ($host === '') {
+      $host = ps_env('CHACHE_HOST');
+    }
+    if ($host === '') {
+      return FALSE;
+    }
+
+    $moduleInfo = $appRoot . '/modules/contrib/memcache/memcache.info.yml';
+    if (!is_readable($moduleInfo)) {
+      return FALSE;
+    }
+
+    return ps_tcp_endpoint_is_reachable($host, 11211);
+  }
+}
+
+if (!function_exists('ps_solr_is_configured')) {
+  /**
+   * Whether dev Docker Solr env vars are set for a country site.
+   *
+   * Used only by dev ops scripts (init-cores, export-solr, verify-multisite).
+   * Drupal connector: config_ignore — drush config:set (see docs/MULTISITE_OPS.md).
+   */
+  function ps_solr_is_configured(string $countryCode): bool {
+    if (ps_app_env() !== 'dev') {
+      return FALSE;
+    }
+
+    $solrHost = ps_env('SOLR_HOST');
+    $solrCore = ps_env('SOLR_CORE_' . strtoupper($countryCode));
+    return $solrHost !== '' && $solrCore !== '';
   }
 }
 

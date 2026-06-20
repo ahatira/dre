@@ -72,28 +72,13 @@ docker compose -f docker/docker-compose.yml exec -T php sh -lc 'vendor/bin/drush
 
 Les webforms (`ps_form`) envoient via **Symfony Mailer** vers Mailpit en local.
 
-### `settings.local.php` (dev)
+1. Copier le template : `cp src/web/sites/default/settings.local.example.php src/web/sites/default/settings.local.php`
+2. `make drush-cr`
+3. Vérifier : <http://localhost:8025>
 
-Fichier **gitignoré**, conservé entre les `make reinstall`. Template versionné :
+Solr, mail prod et memcache : voir **`docs/MULTISITE_OPS.md`** (section Infrastructure / config_ignore).
 
-```bash
-cp src/web/sites/default/settings.local.example.php src/web/sites/default/settings.local.php
-```
-
-Contenu typique (voir le template) :
-
-- **Mailpit** — `MAILPIT_HOST` / `MAILPIT_PORT` depuis `src/.env`
-
-Le connecteur **Solr** (`SOLR_*`, `SOLR_CORE_{CODE}`) est appliqué dans `settings.bootstrap.php` pour tous les environnements — pas besoin de `settings.local.php` pour Solr. En prod/staging, `backend_config` est exclu du CMI via `config_ignore`.
-
-Après copie ou modification :
-
-```bash
-make drush-cr
-# ou: cd src && vendor/bin/drush @ps.com en -y symfony_mailer mailer_override
-```
-
-Vérifier les emails : <http://localhost:8025>
+Variables `SOLR_*` / `SOLR_CORE_{CODE}` dans `src/.env` → scripts Docker Solr uniquement (`init-cores.sh`, `export-solr.sh`).
 
 ## Validation rapide
 

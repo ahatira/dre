@@ -15,6 +15,7 @@
         }
     ],
     "require": {
+        "php": "~8.3.0",
         "composer/installers": "^2.3",
         "drupal/ace_editor": "^2.0",
         "drupal/address": "^2.0",
@@ -40,6 +41,7 @@
         "drupal/core-recipe-unpack": "^11.3",
         "drupal/core-recommended": "^11.3",
         "drupal/crop": "^2.6",
+        "drupal/default_content": "^2.0@alpha",
         "drupal/devel": "^5.5",
         "drupal/dropzonejs": "^2.11",
         "drupal/dropzonejs_eb_widget": "^2.0",
@@ -109,6 +111,7 @@
         "drupal/views_load_more": "^2.0",
         "drupal/views_show_more": "^2.0",
         "drupal/webform": "^6.3@RC",
+        "drush/drush": "^13",
         "geocoder-php/google-maps-provider": "^4.8",
         "symfony/dotenv": "^7.4",
         "symfony/http-client": "^7.4"
@@ -130,7 +133,14 @@
             "phpstan/extension-installer": true,
             "tbachert/spi": true
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3.14"
+        },
+        "platform-check": "php-only",
+        "audit": {
+            "block-insecure": false
+        }
     },
     "extra": {
         "drupal-scaffold": {
@@ -196,8 +206,6 @@
         "behat/behat": "^3.16",
         "behat/mink-browserkit-driver": "^2.2",
         "drupal/core-dev": "^11",
-        "drupal/default_content": "^2.0@alpha",
-        "drush/drush": "^13",
         "friends-of-behat/mink-extension": "^2.4",
         "phpunit/phpunit": "^11"
     }

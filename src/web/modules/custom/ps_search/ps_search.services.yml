@@ -215,6 +215,7 @@ services:
     arguments:
       - '@cache.default'
       - '@logger.channel.ps_search'
+      - '@config.factory'
 
   ps_search.result_counter:
     class: Drupal\ps_search\Service\SearchResultCounter

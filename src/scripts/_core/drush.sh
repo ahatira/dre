@@ -11,7 +11,18 @@ ps_drush() {
 }
 
 ps_drush_cr() {
-  ps_drush cache:rebuild "$@"
+  ps_drush cache:rebuild "$@" || ps_warn "Cache rebuild failed — continuing (check Memcache connectivity)"
+
+  ps_load_config
+  # WSL host Drush and ps_php FPM can diverge on the compiled DI container in dev.
+  if [[ "${PS_APP_ENV}" == "dev" && -d "${PS_REPO_ROOT}/docker" ]]; then
+    local php_container="${PS_PHP_CONTAINER:-ps_php}"
+    local alias="${PS_DRUSH_ALIAS:-@ps.com}"
+    if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' 2>/dev/null | grep -qx "${php_container}"; then
+      docker exec "${php_container}" sh -c "cd /var/www/html && vendor/bin/drush ${alias} cache:rebuild" >/dev/null \
+        || ps_warn "Container cache rebuild failed (${php_container}) — run: docker exec ${php_container} vendor/bin/drush ${alias} cr"
+    fi
+  fi
 }
 
 ps_drush_for_country() {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @file
- * Property Search environment bootstrap (dotenv, DB, Solr, files, trusted hosts).
+ * Property Search environment bootstrap (dotenv, DB, files, memcache, trusted hosts).
  *
  * Included from sites/default/settings.php after $ps_country_code is set.
  */
@@ -100,20 +100,16 @@ if ($noProxy !== '') {
   $settings['http_client_config']['proxy']['no'] = array_values(array_filter(array_map('trim', explode(',', $noProxy))));
 }
 
-// Memcached (when drupal/memcache is enabled).
-$cacheHost = ps_env('CACHE_HOST');
-if ($cacheHost === '') {
-  $cacheHost = ps_env('CHACHE_HOST');
-}
-if ($cacheHost !== '') {
+// Memcached — only when contrib module is present and the server is reachable.
+if (ps_memcache_bootstrap_enabled($app_root)) {
+  $cacheHost = ps_env('CACHE_HOST');
+  if ($cacheHost === '') {
+    $cacheHost = ps_env('CHACHE_HOST');
+  }
   $settings['memcache']['servers'] = [$cacheHost . ':11211' => 'default'];
   $settings['memcache']['bins'] = ['default' => 'default'];
   $settings['cache_default_class'] = 'MemcacheBackend';
 }
-
-// Solr connector — env-specific (SOLR_* / SOLR_CORE_{CODE}); not imported from CMI (config_ignore).
-// Applied in all environments so dev works without settings.local.php (Drush host vs PHP container).
-ps_apply_search_api_solr_connector_overrides($config, $ps_country_code);
 
 // Config Split: local dev overrides only (see config/env/local/).
 if (ps_env('APP_ENV', 'dev') === 'dev') {

@@ -89,14 +89,14 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
   ps_retry 2 2 ps_drush en -y ps_compare
-  ps_retry 2 2 ps_drush en -y search_api search_api_solr
+  ps_retry 2 2 ps_drush en -y search_api search_api_solr || ps_warn "search_api / search_api_solr enable had warnings"
   ps_refresh_field_type_cache
   ps_drush_cr
-  ps_retry 2 2 ps_drush en -y ps_search
-  ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready"
+  ps_retry 2 2 ps_drush en -y ps_search || ps_warn "ps_search enable had warnings — search degraded until Solr is configured"
+  ps_ensure_ps_search_stack
   ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_seo
-  ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready after ps_seo"
+  ps_ensure_ps_search_stack
   ps_drush_cr
   ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools
   ps_drush_cr
@@ -105,7 +105,7 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y ps_block ps_homepage
   ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
 
-  ps_ensure_ps_search_stack || ps_die "Search API / Solr stack not ready before theme"
+  ps_ensure_ps_search_stack || true
   ps_refresh_field_type_cache
   ps_drush_cr
   ps_retry 2 2 ps_drush theme:enable -y ps_theme

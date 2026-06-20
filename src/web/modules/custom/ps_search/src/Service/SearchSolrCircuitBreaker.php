@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -27,17 +28,37 @@ final class SearchSolrCircuitBreaker {
   public function __construct(
     private readonly CacheBackendInterface $cache,
     private readonly LoggerInterface $logger,
+    private readonly ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
    * Whether Solr queries should be skipped for this request.
    */
   public function isUnavailable(): bool {
+    if (!$this->isConfigured()) {
+      return TRUE;
+    }
+
     if (self::$failedThisRequest) {
       return TRUE;
     }
 
-    return $this->cache->get(self::CACHE_KEY) !== FALSE;
+    return $this->isCircuitOpenInCache();
+  }
+
+  /**
+   * Whether the Search API Solr connector has host and core configured.
+   */
+  private function isConfigured(): bool {
+    $connector = $this->configFactory->get('search_api.server.ps_solr')
+      ->get('backend_config.connector_config') ?? [];
+    if (!is_array($connector)) {
+      return FALSE;
+    }
+
+    $host = trim((string) ($connector['host'] ?? ''));
+    $core = trim((string) ($connector['core'] ?? ''));
+    return $host !== '' && $core !== '';
   }
 
   /**
@@ -45,7 +66,14 @@ final class SearchSolrCircuitBreaker {
    */
   public function recordFailure(\Throwable $exception): void {
     self::$failedThisRequest = TRUE;
-    $this->cache->set(self::CACHE_KEY, TRUE, time() + self::CACHE_TTL);
+    try {
+      $this->cache->set(self::CACHE_KEY, TRUE, time() + self::CACHE_TTL);
+    }
+    catch (\Throwable $cacheException) {
+      $this->logger->notice('Could not persist Solr circuit state: @message', [
+        '@message' => $cacheException->getMessage(),
+      ]);
+    }
     $this->logger->warning('Solr unavailable; skipping further search queries for @seconds s: @message', [
       '@seconds' => self::CACHE_TTL,
       '@message' => $exception->getMessage(),
@@ -57,7 +85,27 @@ final class SearchSolrCircuitBreaker {
    */
   public function recordSuccess(): void {
     self::$failedThisRequest = FALSE;
-    $this->cache->delete(self::CACHE_KEY);
+    try {
+      $this->cache->delete(self::CACHE_KEY);
+    }
+    catch (\Throwable) {
+      // Per-request success is enough when cache backend is down.
+    }
+  }
+
+  /**
+   * Whether a previous failure opened the circuit in cache.
+   */
+  private function isCircuitOpenInCache(): bool {
+    try {
+      return $this->cache->get(self::CACHE_KEY) !== FALSE;
+    }
+    catch (\Throwable $exception) {
+      $this->logger->notice('Could not read Solr circuit state: @message', [
+        '@message' => $exception->getMessage(),
+      ]);
+      return self::$failedThisRequest;
+    }
   }
 
 }

@@ -54,6 +54,6 @@ Each core is created with: `solr create -c {core_name} -d /opt/solr/conf-export/
 1. Run `make export-solr` and commit `conf/solr/{core_name}/` for each site.
 2. Copy each `{core_name}/` directory to the Solr server (or mount via your orchestrator).
 3. Create or reload the core using that instance directory.
-4. Set `SOLR_CORE_*` in Drupal env to match directory names.
+4. Configure the Drupal connector: `drush @ps.{code} config:set search_api.server.ps_solr backend_config.connector_config.core {core_name} -y` (see `docs/MULTISITE_OPS.md` § Infrastructure).
 
 Reload Solr after config updates when cores already exist.

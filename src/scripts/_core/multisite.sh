@@ -118,7 +118,7 @@ ps_crm_xml_target() {
   printf '%s/crm/offers.xml' "$(ps_public_files_dir "$1")"
 }
 
-# Solr core name for a country (SOLR_CORE_{CODE} in .env).
+# Solr core name for a country (SOLR_CORE_{CODE} in src/.env — dev Docker scripts only).
 ps_solr_core_name() {
   local country="$1"
   local upper var
