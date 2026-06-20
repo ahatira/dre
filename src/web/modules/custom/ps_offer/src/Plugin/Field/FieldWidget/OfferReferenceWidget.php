@@ -109,10 +109,17 @@ final class OfferReferenceWidget extends WidgetBase {
       '#parents' => [$items->getName(), $delta, 'value'],
       '#size' => 15,
       '#maxlength' => 128,
-      '#required' => $this->fieldDefinition->isRequired(),
+      // Auto mode generates the value on presave; do not block submit on empty input.
+      '#required' => $this->fieldDefinition->isRequired() && !$auto_enabled,
       '#disabled' => $auto_enabled,
       '#states' => [
         'disabled' => [
+          $mode_selector => ['checked' => TRUE],
+        ],
+        'required' => [
+          $mode_selector => ['checked' => FALSE],
+        ],
+        'optional' => [
           $mode_selector => ['checked' => TRUE],
         ],
       ],
@@ -132,8 +139,6 @@ final class OfferReferenceWidget extends WidgetBase {
       ],
       '#attributes' => [
         'class' => ['ps-offer-reference-auto-toggle'],
-        'role' => 'switch',
-        'style' => 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;margin:0;',
       ],
       '#weight' => 10,
     ];
@@ -191,6 +196,22 @@ final class OfferReferenceWidget extends WidgetBase {
     ];
 
     return $element;
+  }
+
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state): array {
+    $submitted_mode = $form_state->getValue(['field_reference_auto', 0, 'value']);
+    if ($this->isAutoModeEnabled($submitted_mode)) {
+      $current = trim((string) ($values[0]['value'] ?? ''));
+      if ($current === '') {
+        $context = $this->referenceManager->buildContextFromFormValues($form_state->getValues());
+        $generated = $this->referenceManager->generateForBundle('offer', $context);
+        if ($generated !== '') {
+          $values[0]['value'] = $generated;
+        }
+      }
+    }
+
+    return parent::massageFormValues($values, $form, $form_state);
   }
 
   private function isAutoModeEnabled(mixed $rawMode): bool {

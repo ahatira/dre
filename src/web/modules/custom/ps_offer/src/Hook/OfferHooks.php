@@ -167,7 +167,6 @@ final class OfferHooks {
   public function formNodeOfferFormAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
     $form['#validate'][] = [static::class, 'validateGallery'];
     $form['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
-    $this->ensureReferenceModeElement($form);
     $this->relaxRequiredFieldsOnTranslationForm($form, $form_state);
     $this->displayUnknownDictionaryWarnings($form, $form_state);
   }
@@ -176,7 +175,6 @@ final class OfferHooks {
   public function formNodeOfferEditFormAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
     $form['#validate'][] = [static::class, 'validateGallery'];
     $form['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
-    $this->ensureReferenceModeElement($form);
     $this->relaxRequiredFieldsOnTranslationForm($form, $form_state);
     $this->displayUnknownDictionaryWarnings($form, $form_state);
   }
@@ -317,21 +315,6 @@ final class OfferHooks {
         '#prefix' => '<h2 class="visually-hidden">' . t('Warning message') . '</h2>',
       ];
     }
-  }
-
-  private function ensureReferenceModeElement(array &$form): void {
-    if (isset($form['field_reference_auto'])) {
-      unset($form['field_reference_auto']);
-    }
-
-    $form['field_reference_auto'] = [
-      '#type' => 'container',
-      '#access' => FALSE,
-    ];
-    $form['field_reference_auto'][0]['value'] = [
-      '#type' => 'hidden',
-      '#value' => 1,
-    ];
   }
 
   /**

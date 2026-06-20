@@ -7,3 +7,8 @@ offers_carousel:
   dependencies:
     - core/drupal
     - core/once
+
+reference_widget:
+  css:
+    theme:
+      css/offer-reference-widget.css: {}
