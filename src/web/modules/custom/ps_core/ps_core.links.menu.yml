@@ -4,6 +4,13 @@ ps_core.hub:
   route_name: ps_core.hub
   parent: system.admin
   weight: -100
+  options:
+    icon:
+      pack_id: ps_core
+      icon_id: entrusting-a-property
+      settings:
+        class: toolbar-button__icon
+        size: 20
 
 ps_core.content:
   title: 'Contenu'
