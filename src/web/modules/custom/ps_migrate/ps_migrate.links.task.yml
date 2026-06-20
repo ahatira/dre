@@ -1,0 +1,35 @@
+ps_migrate.admin_overview:
+  title: 'Overview'
+  route_name: ps_migrate.admin_overview
+  base_route: ps_migrate.admin_overview
+  weight: -20
+
+entity.import_run.collection:
+  title: 'Import runs'
+  route_name: entity.import_run.collection
+  base_route: ps_migrate.admin_overview
+  weight: 0
+
+entity.import_run.canonical:
+  title: 'Run details'
+  route_name: entity.import_run.canonical
+  base_route: ps_migrate.admin_overview
+  weight: 1
+
+ps_migrate.import_upload:
+  title: 'Upload'
+  route_name: ps_migrate.import_upload
+  base_route: ps_migrate.admin_overview
+  weight: 5
+
+ps_migrate.import_pipeline_settings:
+  title: 'Pipeline settings'
+  route_name: ps_migrate.import_pipeline_settings
+  base_route: ps_migrate.admin_overview
+  weight: 10
+
+ps_migrate.post_import_report:
+  title: 'Rejections'
+  route_name: ps_migrate.post_import_report
+  base_route: ps_migrate.admin_overview
+  weight: 15

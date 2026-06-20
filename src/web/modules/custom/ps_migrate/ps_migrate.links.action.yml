@@ -1,0 +1,6 @@
+ps_migrate.import_upload:
+  route_name: ps_migrate.import_upload
+  title: 'Upload CRM XML'
+  appears_on:
+    - entity.import_run.collection
+    - ps_migrate.admin_overview

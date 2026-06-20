@@ -1,0 +1,38 @@
+ps_migrate.import_pipeline_settings:
+  type: config_object
+  label: 'CRM import pipeline settings'
+  mapping:
+    paths:
+      type: mapping
+      label: 'Pipeline folder paths'
+      mapping:
+        incoming:
+          type: string
+          label: 'Incoming folder'
+        processing:
+          type: string
+          label: 'Processing folder'
+        archive:
+          type: string
+          label: 'Archive folder'
+        failed:
+          type: string
+          label: 'Failed folder'
+    staging_uri:
+      type: string
+      label: 'Active XML staging URI for migrate'
+    mode:
+      type: string
+      label: 'Default import mode'
+    cron_enabled:
+      type: boolean
+      label: 'Cron polling enabled'
+    cron_interval:
+      type: integer
+      label: 'Cron interval in seconds'
+    batch_limit:
+      type: integer
+      label: 'Max files per run (0 = unlimited)'
+    max_upload_size:
+      type: integer
+      label: 'Max upload size in bytes (stored; configured in MB in the UI)'

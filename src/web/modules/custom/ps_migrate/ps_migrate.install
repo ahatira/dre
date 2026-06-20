@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for ps_migrate.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Installs the import_run entity and ensures pipeline directories exist.
+ */
+function ps_migrate_install(): void {
+  ps_migrate_install_import_pipeline_config();
+  ps_migrate_install_import_run_entity();
+  ps_migrate_ensure_pipeline_directories();
+  user_role_grant_permissions('administrator', [
+    'manage ps_migrate import pipeline',
+    'view ps_migrate import runs',
+    'upload ps_migrate xml',
+  ]);
+}
+
+/**
+ * Installs import_run entity on existing sites.
+ */
+function ps_migrate_update_11001(): void {
+  ps_migrate_install_import_pipeline_config();
+  ps_migrate_install_import_run_entity();
+  ps_migrate_ensure_pipeline_directories();
+}
+
+/**
+ * Grants import pipeline permissions to roles that manage migrations.
+ */
+function ps_migrate_update_11002(): void {
+  $permissions = [
+    'manage ps_migrate import pipeline',
+    'view ps_migrate import runs',
+    'upload ps_migrate xml',
+  ];
+  foreach (user_roles(FALSE) as $role) {
+    if ($role->hasPermission('manage ps_migrate')) {
+      user_role_grant_permissions($role->id(), $permissions);
+    }
+  }
+  user_role_grant_permissions('administrator', $permissions);
+}
+
+/**
+ * Imports pipeline settings config when missing.
+ */
+function ps_migrate_install_import_pipeline_config(): void {
+  $configFactory = \Drupal::configFactory();
+  if (!$configFactory->get('ps_migrate.import_pipeline_settings')->isNew()) {
+    return;
+  }
+  $storage = new \Drupal\Core\Config\FileStorage(\Drupal::service('extension.list.module')->getPath('ps_migrate') . '/config/install');
+  if (!$storage->exists('ps_migrate.import_pipeline_settings')) {
+    return;
+  }
+  $configFactory->getEditable('ps_migrate.import_pipeline_settings')
+    ->setData($storage->read('ps_migrate.import_pipeline_settings'))
+    ->save(TRUE);
+}
+
+/**
+ * Creates import_run database schema.
+ */
+function ps_migrate_install_import_run_entity(): void {
+  if (!\Drupal::entityTypeManager()->hasDefinition('import_run')) {
+    return;
+  }
+  $entity_type = \Drupal::entityTypeManager()->getDefinition('import_run');
+  \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+}
+
+/**
+ * Ensures configured pipeline directories exist (dev only).
+ */
+function ps_migrate_ensure_pipeline_directories(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('ps_migrate')) {
+    return;
+  }
+  /** @var \Drupal\ps_migrate\Service\ImportPipelinePathResolver $resolver */
+  $resolver = \Drupal::service('ps_migrate.import_pipeline_path_resolver');
+  $resolver->ensureConfiguredDirectories();
+}

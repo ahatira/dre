@@ -1,0 +1,72 @@
+.ps-migrate-import-runs__intro {
+  max-width: 72rem;
+  margin-bottom: 1.25rem;
+}
+
+.ps-migrate-import-runs__intro p {
+  margin: 0;
+  color: #444;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.ps-migrate-import-runs__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.ps-migrate-import-runs__stat {
+  padding: 1rem 1.125rem;
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ps-migrate-import-runs__stat-value {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  color: #1c2d37;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ps-migrate-import-runs__stat-label {
+  color: #1c2d37;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.ps-migrate-import-runs__stat-meta {
+  margin-top: 0.25rem;
+  color: #666;
+  font-size: 0.8125rem;
+}
+
+.ps-migrate-import-runs__help {
+  margin-bottom: 1.25rem;
+}
+
+.ps-migrate-import-runs__help .details-wrapper {
+  margin-bottom: 0.75rem;
+}
+
+.ps-migrate-import-runs__help .item-list {
+  margin: 0.5rem 0 0;
+}
+
+.ps-migrate-import-runs__help .item-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.45;
+}
+
+.ps-migrate-import-runs__help code {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  background: #f3f4f6;
+  font-size: 0.875rem;
+}

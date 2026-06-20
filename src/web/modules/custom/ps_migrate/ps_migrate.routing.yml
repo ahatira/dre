@@ -1,7 +1,51 @@
-ps_migrate.post_import_report:
-  path: '/admin/ps/content/import-rejections'
+ps_migrate.admin_overview:
+  path: '/admin/ps/import'
   defaults:
-    _title: 'Import Rejections Report'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'CRM import'
+  requirements:
+    _permission: 'manage ps_migrate+manage ps_migrate import pipeline+view ps_migrate import runs+access ps_core config section'
+
+ps_migrate.post_import_report:
+  path: '/admin/ps/import/rejections'
+  defaults:
+    _title: 'Import rejections'
     _controller: '\Drupal\ps_migrate\Controller\PostImportReportController'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'manage ps_migrate+manage ps_migrate import pipeline+access ps_core config section'
+
+entity.import_run.collection:
+  path: '/admin/ps/import/runs'
+  defaults:
+    _entity_list: 'import_run'
+    _title: 'Import runs'
+  requirements:
+    _permission: 'view ps_migrate import runs+manage ps_migrate import pipeline+manage ps_migrate'
+
+entity.import_run.canonical:
+  path: '/admin/ps/import/runs/{import_run}'
+  defaults:
+    _title_callback: '\Drupal\ps_migrate\Controller\ImportRunViewController::title'
+    _controller: '\Drupal\ps_migrate\Controller\ImportRunViewController::view'
+  requirements:
+    _entity_access: 'import_run.view'
+  options:
+    parameters:
+      import_run:
+        type: entity:import_run
+
+ps_migrate.import_upload:
+  path: '/admin/ps/import/upload'
+  defaults:
+    _title: 'Upload CRM XML'
+    _form: '\Drupal\ps_migrate\Form\ImportRunUploadForm'
+  requirements:
+    _permission: 'upload ps_migrate xml+manage ps_migrate import pipeline+manage ps_migrate'
+
+ps_migrate.import_pipeline_settings:
+  path: '/admin/ps/import/settings'
+  defaults:
+    _title: 'Pipeline settings'
+    _form: '\Drupal\ps_migrate\Form\ImportPipelineSettingsForm'
+  requirements:
+    _permission: 'manage ps_migrate import pipeline+manage ps_migrate'

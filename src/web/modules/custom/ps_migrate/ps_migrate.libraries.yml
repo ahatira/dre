@@ -1,0 +1,12 @@
+import_runs_admin:
+  version: 1.0.0
+  css:
+    theme:
+      css/import-runs-admin.css: {}
+      css/import-run-view.css: {}
+
+import_run_view:
+  version: 1.0.0
+  css:
+    theme:
+      css/import-run-view.css: {}

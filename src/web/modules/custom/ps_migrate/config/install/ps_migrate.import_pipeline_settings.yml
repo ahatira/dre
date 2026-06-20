@@ -1,0 +1,12 @@
+langcode: en
+paths:
+  incoming: 'private://crm/incoming'
+  processing: 'private://crm/processing'
+  archive: 'private://crm/archive'
+  failed: 'private://crm/failed'
+staging_uri: 'public://crm/offers.xml'
+mode: full
+cron_enabled: false
+cron_interval: 900
+batch_limit: 0
+max_upload_size: 52428800

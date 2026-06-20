@@ -1,0 +1,7 @@
+services:
+  Drupal\ps_migrate\Commands\ImportPipelineCommands:
+    class: Drupal\ps_migrate\Commands\ImportPipelineCommands
+    arguments:
+      - '@ps_migrate.import_pipeline'
+    tags:
+      - { name: drush.command }

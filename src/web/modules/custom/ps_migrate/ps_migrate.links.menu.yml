@@ -1,6 +1,34 @@
+ps_migrate.admin_overview:
+  title: 'CRM import'
+  description: 'CRM XML import pipeline, runs, upload and settings.'
+  route_name: ps_migrate.admin_overview
+  parent: ps_core.config
+  weight: 35
+
+entity.import_run.collection:
+  title: 'Import runs'
+  description: 'History of CRM XML import pipeline runs.'
+  route_name: entity.import_run.collection
+  parent: ps_migrate.admin_overview
+  weight: 0
+
+ps_migrate.import_upload:
+  title: 'Upload CRM XML'
+  description: 'Simulate external CRM XML deposit.'
+  route_name: ps_migrate.import_upload
+  parent: ps_migrate.admin_overview
+  weight: 5
+
+ps_migrate.import_pipeline_settings:
+  title: 'Pipeline settings'
+  description: 'Configure import folders and pipeline behaviour.'
+  route_name: ps_migrate.import_pipeline_settings
+  parent: ps_migrate.admin_overview
+  weight: 10
+
 ps_migrate.post_import_report:
   title: 'Import rejections'
-  description: 'Review post-import publication rejections for source data quality tracking.'
+  description: 'View offers rejected during CRM import.'
   route_name: ps_migrate.post_import_report
-  parent: ps_core.content
-  weight: 40
+  parent: ps_migrate.admin_overview
+  weight: 15

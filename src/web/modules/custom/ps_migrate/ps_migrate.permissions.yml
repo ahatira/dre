@@ -1,0 +1,12 @@
+manage ps_migrate import pipeline:
+  title: 'Manage CRM import pipeline'
+  description: 'Configure pipeline folders, view import runs, and manage settings.'
+  restrict access: true
+
+view ps_migrate import runs:
+  title: 'View CRM import runs'
+  description: 'View CRM XML import run history.'
+
+upload ps_migrate xml:
+  title: 'Upload CRM XML files'
+  description: 'Upload CRM offer XML files into the import incoming folder.'

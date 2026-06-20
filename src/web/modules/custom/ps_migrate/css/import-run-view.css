@@ -1,0 +1,113 @@
+.ps-migrate-import-run__summary {
+  width: 100%;
+  max-width: 56rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-migrate-import-run__summary td:first-child {
+  width: 12rem;
+  font-weight: 600;
+}
+
+.ps-migrate-import-run__panel {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ps-migrate-import-run__panel-title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ps-migrate-import-run__migrations {
+  width: 100%;
+}
+
+.ps-migrate-import-run__migrations td:first-child {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8125rem;
+}
+
+.ps-migrate-import-run__badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: capitalize;
+}
+
+.ps-migrate-import-run__badge--success,
+.ps-migrate-import-run__badge--completed {
+  color: #0f5132;
+  background: #d1e7dd;
+}
+
+.ps-migrate-import-run__badge--failed {
+  color: #842029;
+  background: #f8d7da;
+}
+
+.ps-migrate-import-run__badge--processing,
+.ps-migrate-import-run__badge--pending,
+.ps-migrate-import-run__badge--warning,
+.ps-migrate-import-run__badge--neutral {
+  color: #664d03;
+  background: #fff3cd;
+}
+
+.ps-migrate-import-run__messages,
+.ps-migrate-import-run__pipeline-error {
+  max-width: 72rem;
+  margin-bottom: 1rem;
+}
+
+.ps-migrate-import-run__raw-stats {
+  max-width: 72rem;
+  margin-bottom: 1rem;
+}
+
+.ps-migrate-import-run__json {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow: auto;
+  border-radius: 6px;
+  background: #f3f4f6;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.ps-migrate-import-run__actions {
+  margin-top: 1rem;
+}
+
+.ps-migrate-import-runs__status {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: capitalize;
+}
+
+.ps-migrate-import-runs__status--success {
+  color: #0f5132;
+  background: #d1e7dd;
+}
+
+.ps-migrate-import-runs__status--failed {
+  color: #842029;
+  background: #f8d7da;
+}
+
+.ps-migrate-import-runs__status--processing,
+.ps-migrate-import-runs__status--pending {
+  color: #664d03;
+  background: #fff3cd;
+}

@@ -6,6 +6,7 @@ core_version_requirement: ^11.3
 version: 1.0.0
 dependencies:
   - drupal:migrate
+  - drupal:file
   - migrate_plus:migrate_plus
   - migrate_tools:migrate_tools
   - ps_core:ps_core
