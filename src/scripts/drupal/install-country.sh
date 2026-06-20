@@ -98,9 +98,6 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y ps_seo
   ps_ensure_ps_search_stack
   ps_drush_cr
-  ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools
-  ps_drush_cr
-  ps_retry 2 2 ps_drush en -y ps_migrate
 
   ps_retry 2 2 ps_drush en -y ps_block ps_homepage
   ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
@@ -129,6 +126,9 @@ ps_install_country_site() {
 
   ps_import_active_language_config_overrides "${country}"
   ps_retry 2 2 ps_drush_cr
+
+  ps_info "Rebuilding content permissions..."
+  ps_drush_rebuild_permissions
 
   ps_success "Shell install complete: ${country}"
   ps_info "Next: make import ${country}  |  make demo ${country}"

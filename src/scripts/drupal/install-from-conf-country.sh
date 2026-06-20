@@ -55,6 +55,9 @@ ps_install_country_from_conf() {
 
   ps_retry 2 2 ps_drush_cr
 
+  ps_info "Rebuilding content permissions..."
+  ps_drush_rebuild_permissions
+
   ps_success "Install from config complete: ${country}"
   ps_info "Next: make rbac-sync ${country} | make import ${country} | make demo ${country}"
 }
