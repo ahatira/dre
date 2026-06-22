@@ -14,7 +14,8 @@ COUNTRY ?= com
 	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rebuild-permissions rbac-sec-e2e translations-fetch \
-	composer-install composer-update npm-install npm-audit
+	composer-install composer-update npm-install npm-audit \
+	os-setup guide-installation
 
 help:
 	@echo "PS Project — dev environment (repo root)"
@@ -22,13 +23,18 @@ help:
 	@echo "Docker (local dev only):"
 	@echo "  make up | down | restart | ps | logs | rebuild"
 	@echo "  make env | fix-permissions | init-solr-cores"
+	@echo "  make os-setup           = Configure OS-specific Docker files"
 	@echo ""
 	@echo "Multisite (repo root → syncs into src/):"
-	@echo "  make seed-site-configs | export-all-configs [country]"
+	@echo "  make generate-multisite | seed-site-configs | verify-multisite"
 	@echo ""
-	@echo "Project commands (delegate to src/Makefile, Drush on host):"
+	@echo "Project commands (delegate to src/Makefile, run in containers):"
 	@echo "  make bootstrap          = env + up + generate-multisite + build"
 	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
+	@echo "  make composer-install | composer-update"
+	@echo ""
+	@echo "Documentation:"
+	@echo "  make guide-installation = Display full installation guide"
 	@echo ""
 	@echo "See src/Makefile and README.md for full project command list."
 
@@ -61,6 +67,13 @@ fix-permissions:
 init-solr-cores:
 	bash "$(PROJECT_ROOT)/scripts/docker/index-solr.sh"
 
+os-setup:
+	chmod +x "$(PROJECT_ROOT)/setup-os.sh"
+	"$(PROJECT_ROOT)/setup-os.sh"
+
+guide-installation:
+	@bash "$(PROJECT_ROOT)/scripts/guide-installation.sh"
+
 # --- Multisite (repo root) ---
 
 generate-multisite:
@@ -74,10 +87,10 @@ bootstrap: env up generate-multisite build
 # --- Delegate to src/ ---
 
 build:
-	$(SRC_MAKE) build $(filter-out build,$(MAKECMDGOALS))
+	docker compose -f "$(COMPOSE_FILE)" exec -T php bash -c "bash scripts/main.sh tools build $(filter-out build,$(MAKECMDGOALS))"
 
 verify:
-	$(SRC_MAKE) verify
+	docker compose -f "$(COMPOSE_FILE)" exec -T php bash -c "bash scripts/main.sh tools check"
 
 composer-install:
 	$(SRC_MAKE) composer-install
@@ -86,10 +99,12 @@ composer-update:
 	$(SRC_MAKE) composer-update
 
 npm-install:
-	$(SRC_MAKE) npm-install
+	docker compose -f "$(COMPOSE_FILE)" exec -T php sh -c 'cd "/var/www/html" && npm ci --no-audit --no-fund'
+	docker compose -f "$(COMPOSE_FILE)" exec -T php sh -c 'cd "/var/www/html/web/themes/custom/ui_suite_bnp" && npm ci --no-audit --no-fund'
+	docker compose -f "$(COMPOSE_FILE)" exec -T php sh -c 'cd "/var/www/html/web/themes/custom/ps_theme" && npm ci --no-audit --no-fund'
 
 npm-audit:
-	$(SRC_MAKE) npm-audit
+	docker compose -f "$(COMPOSE_FILE)" exec -T php sh -c 'cd "/var/www/html" && npm audit'
 
 install:
 	$(SRC_MAKE) install $(filter-out install,$(MAKECMDGOALS))
@@ -127,14 +142,23 @@ index-solr: init-solr-cores
 export-solr:
 	$(SRC_MAKE) export-solr $(filter-out export-solr,$(MAKECMDGOALS))
 
+# Allow country as first argument: make rbac-sync com
 rbac-sync:
-	$(SRC_MAKE) rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))
+	@if [ "$(firstword $(MAKECMDGOALS))" = "com" ] || [ "$(firstword $(MAKECMDGOALS))" = "be" ] || [ "$(firstword $(MAKECMDGOALS))" = "fr" ]; then \
+		$(SRC_MAKE) rbac-sync COUNTRY="$(firstword $(MAKECMDGOALS))"; \
+	else \
+		$(SRC_MAKE) rbac-sync COUNTRY="$(COUNTRY)"; \
+	fi
 
 rbac-export:
-	$(SRC_MAKE) rbac-export $(filter-out rbac-export,$(MAKECMDGOALS))
+	@if [ "$(firstword $(MAKECMDGOALS))" = "com" ] || [ "$(firstword $(MAKECMDGOALS))" = "be" ] || [ "$(firstword $(MAKECMDGOALS))" = "fr" ]; then \
+		$(SRC_MAKE) rbac-export COUNTRY="$(firstword $(MAKECMDGOALS))"; \
+	else \
+		$(SRC_MAKE) rbac-export COUNTRY="$(COUNTRY)"; \
+	fi
 
 create-test-users:
-	$(SRC_MAKE) create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
+	$(SRC_MAKE) create-test-users COUNTRY="$(COUNTRY)"
 
 translations-fetch:
 	$(SRC_MAKE) translations-fetch $(filter-out translations-fetch,$(MAKECMDGOALS))
@@ -158,4 +182,3 @@ rbac-sec-e2e:
 	bash "$(SRC_DIR)/web/modules/custom/bnp_admin/tests/e2e_rbac_sec_ctx.sh"
 
 %:
-	@:

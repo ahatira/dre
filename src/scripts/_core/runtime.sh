@@ -47,6 +47,38 @@ ps_resolve_runtime() {
   ps_load_config
   [[ -x "${PS_SRC_DIR}/vendor/bin/drush" ]] \
     || ps_die "Drush not found. Run: composer install (in src/)"
+  # Check if we're in a container (/.dockerenv exists)
+  if [[ -f /.dockerenv ]]; then
+    PS_RUNTIME="container"
+    export PS_RUNTIME
+    return 0
+  fi
+  # Check if host PHP is not available
+  if ! command -v php >/dev/null 2>&1; then
+    # Check if container is running
+    if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' 2>/dev/null | grep -qx "ps_php"; then
+      PS_RUNTIME="container"
+      export PS_RUNTIME
+      return 0
+    fi
+  fi
   PS_RUNTIME="host"
   export PS_RUNTIME
+}
+
+ps_php_exec() {
+  local script="$1"
+  shift
+  # Try host PHP first, then fall back to Docker container
+  if command -v php >/dev/null 2>&1; then
+    php "${script}" "$@"
+  elif command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' 2>/dev/null | grep -qx "ps_php"; then
+    local args=""
+    for arg in "$@"; do
+      args="${args} $(printf '%s' "$arg" | sed "s/'/'\\\\''/g")"
+    done
+    docker exec ps_php sh -c "cd /var/www/html && php scripts/_core/$(basename "${script}")${args}"
+  else
+    ps_die "PHP not found on host and ps_php container not running"
+  fi
 }

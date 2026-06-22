@@ -6,7 +6,20 @@ _PS_COUNTRIES_CACHE=()
 
 ps_countries_cli() {
   [[ -f "${_PS_COUNTRIES_CLI}" ]] || ps_die "Missing countries CLI: ${_PS_COUNTRIES_CLI}"
-  php "${_PS_COUNTRIES_CLI}" "$@"
+  local action="$1"
+  shift
+  # Try host PHP first, then fall back to Docker container
+  if command -v php >/dev/null 2>&1; then
+    php "${_PS_COUNTRIES_CLI}" "${action}" "$@"
+  elif command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' 2>/dev/null | grep -qx "ps_php"; then
+    local args=""
+    for arg in "$@"; do
+      args="${args} $(printf '%s' "$arg" | sed "s/'/'\\\\''/g")"
+    done
+    docker exec ps_php sh -c "cd /var/www/html && php scripts/_core/countries-cli.php '${action}'${args}"
+  else
+    ps_die "PHP not found on host and ps_php container not running"
+  fi
 }
 
 ps_countries_init() {

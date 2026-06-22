@@ -31,7 +31,10 @@ Sites locaux : `http://fr.localhost:8083`, `http://com.localhost:8080`, etc.
 | **Racine** | `make up`, `make env`, `make generate-multisite`, délègue le reste à `src/` |
 | **src/** | `make build`, `make deploy`, `make drush` — utilisé aussi **en prod** |
 
-Drush s’exécute **sur l’hôte** (WSL). `src/.env` utilise `DB_HOST=127.0.0.1` ; le conteneur PHP reçoit `DB_HOST=postgres` via `docker-compose.yml`.
+**Exécution des commandes CLI :**
+- **Docker** : Toutes les commandes PHP/Composer/NPM/Drush s'exécutent dans les conteneurs (`ps_php`, `ps_solr`)
+- **Host** : Seul npm/node est requis sur l'hôte (WSL) pour les builds frontend
+- `src/.env` utilise `DB_HOST=postgres` (container) ; le conteneur PHP reçoit `DB_HOST=postgres` via `docker-compose.yml`
 
 ## Multisite
 

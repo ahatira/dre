@@ -7,7 +7,12 @@ ps_drush() {
   if [[ -n "${PS_DRUSH_ALIAS:-}" ]]; then
     cmd=("${PS_DRUSH_ALIAS}")
   fi
-  (cd "${PS_SRC_DIR}" && vendor/bin/drush "${cmd[@]}" "$@")
+  if [[ "${PS_RUNTIME}" == "container" ]]; then
+    # Already in container, run Drush directly
+    vendor/bin/drush "${cmd[@]}" "$@"
+  else
+    (cd "${PS_SRC_DIR}" && vendor/bin/drush "${cmd[@]}" "$@")
+  fi
 }
 
 ps_drush_cr() {
@@ -97,7 +102,29 @@ ps_drush_sql_create() {
     return $?
   fi
   ps_info "psql not on host — recreating database via PDO (dev/prod PHP)"
-  ps_drush_sql_recreate_pdo
+  if [[ "${PS_RUNTIME}" == "container" ]]; then
+    ps_drush ev '
+      $options = \Drush\Drush::config()->get("runtime.options");
+      $sql = \Drush\Sql\SqlBase::create($options);
+      $spec = $sql->getDbSpec();
+      $name = $spec["database"] ?? "";
+      if ($name === "") {
+        throw new \RuntimeException("Missing database name in Drush db spec.");
+      }
+      $pdo = new \PDO(
+        sprintf("pgsql:host=%s;port=%d;dbname=postgres", $spec["host"] ?? "postgres", (int) ($spec["port"] ?? 5432)),
+        $spec["username"] ?? "drupal",
+        $spec["password"] ?? "drupal"
+      );
+      $quoted = "\"" . str_replace("\"", "\"\"", $name) . "\"";
+      $pdo->exec("SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = " . $pdo->quote($name) . " AND pid <> pg_backend_pid()");
+      $pdo->exec("DROP DATABASE IF EXISTS {$quoted}");
+      $pdo->exec("CREATE DATABASE {$quoted}");
+      echo "recreated={$name}\n";
+    '
+  else
+    ps_drush_sql_recreate_pdo
+  fi
 }
 
 ps_ensure_country_database() {

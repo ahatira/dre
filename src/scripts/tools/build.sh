@@ -18,7 +18,7 @@ Options:
   --keep-npm     Keep node_modules after build
   -h, --help     Show this help
 
-Requires: composer, node, npm on the host (WSL).
+Requires: Docker (container ps_php), node, npm on the host (WSL).
 EOF
 }
 
@@ -30,8 +30,13 @@ ps_build_theme() {
   local npm_script="$2"
   local label="$3"
   ps_info "${label}..."
-  ps_npm_exec "${theme_dir}" sh -lc "$(ps_npm_install_cmd "${theme_dir}")"
-  ps_npm_exec "${theme_dir}" sh -lc "npm run ${npm_script}"
+  if [[ "${PS_RUNTIME}" == "container" ]]; then
+    cd "${theme_dir}" && npm ci --no-audit --no-fund 2>/dev/null || npm install --no-save --no-audit --no-fund
+    npm run "${npm_script}"
+  else
+    ps_npm_exec "${theme_dir}" sh -lc "$(ps_npm_install_cmd "${theme_dir}")"
+    ps_npm_exec "${theme_dir}" sh -lc "npm run ${npm_script}"
+  fi
   ps_success "${label} OK"
 }
 
@@ -50,22 +55,36 @@ while [[ $# -gt 0 ]]; do
 done
 
 ps_header "Build: project dependencies"
-ps_require_cmd composer
-ps_require_cmd npm
-ps_require_cmd node
-ps_npm_usable_on_host || ps_die "Host npm/node required (WSL Linux, not /mnt/c)"
+
+# Detect if we're in container or host
+if [[ -f /.dockerenv ]]; then
+  PS_RUNTIME="container"
+else
+  PS_RUNTIME="host"
+fi
 
 COMPOSER_OPTS=(install --no-interaction --optimize-autoloader)
 [[ ${NO_CACHE} -eq 1 ]] && COMPOSER_OPTS+=(--no-cache)
 [[ ${PRODUCTION} -eq 1 ]] && COMPOSER_OPTS+=(--no-dev)
 
 ps_info "Composer install..."
-( cd "${PS_SRC_DIR}" && composer "${COMPOSER_OPTS[@]}" )
+if [[ "${PS_RUNTIME}" == "container" ]]; then
+  composer "${COMPOSER_OPTS[@]}"
+else
+  ps_require_cmd docker
+  docker compose -f "${PS_REPO_ROOT}/docker/docker-compose.yml" exec -T php sh -c "cd ${PS_SRC_DIR} && COMPOSER_PROCESS_TIMEOUT=2000 composer ${COMPOSER_OPTS[@]}"
+fi
 ps_success "Composer OK"
 
 ps_info "NPM install + libs..."
-ps_npm_exec "${PS_SRC_DIR}" sh -lc "$(ps_npm_install_cmd "${PS_SRC_DIR}")"
-ps_npm_exec "${PS_SRC_DIR}" sh -lc 'npm run libs'
+if [[ "${PS_RUNTIME}" == "container" ]]; then
+  npm ci --no-audit --no-fund 2>/dev/null || npm install --no-save --no-audit --no-fund
+  npm run libs
+else
+  ps_npm_usable_on_host || ps_die "Host npm/node required (WSL Linux, not /mnt/c)"
+  ps_npm_exec "${PS_SRC_DIR}" sh -lc "$(ps_npm_install_cmd "${PS_SRC_DIR}")"
+  ps_npm_exec "${PS_SRC_DIR}" sh -lc 'npm run libs'
+fi
 touch "${PS_WEB_DIR}/libraries/.gitkeep" 2>/dev/null || true
 ps_success "NPM libraries OK"
 

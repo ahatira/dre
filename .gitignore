@@ -126,3 +126,5 @@ Thumbs.db
 /src/web/themes/*
 !/src/web/themes/custom/
 !/src/web/themes/custom/**
+
+/docker/docker-compose.yml

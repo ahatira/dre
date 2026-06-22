@@ -1,8 +1,13 @@
 SHELL := /usr/bin/env bash
 .DEFAULT_GOAL := help
 
-SRC_DIR := $(CURDIR)
-SCRIPTS_CLI := $(SRC_DIR)/scripts/main.sh
+# Paths for host (docker compose file location)
+PROJECT_ROOT_HOST := $(CURDIR)/..
+# Paths for container (working directory inside container)
+PROJECT_ROOT_CONTAINER := /var/www
+SRC_DIR_CONTAINER := /var/www/html
+
+SCRIPTS_CLI := $(SRC_DIR_CONTAINER)/scripts/main.sh
 COUNTRY ?= com
 
 .PHONY: \
@@ -31,90 +36,90 @@ help:
 	@echo "  make drush-uli | drush-status | drush-cex"
 	@echo "  make npm-install | npm-audit"
 	@echo ""
-	@echo "Drush runs on the host. Requires vendor/ (make build / composer-install)."
+	@echo "All commands run in Docker container (ps_php). Requires container running."
 
 build:
-	bash "$(SCRIPTS_CLI)" tools build $(filter-out build,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh tools build $(filter-out build,$(MAKECMDGOALS))"
 
 verify:
-	bash "$(SCRIPTS_CLI)" tools check
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh tools check"
 
 composer-install:
-	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction --prefer-dist
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php sh -c 'cd "$(SRC_DIR_CONTAINER)" && COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction --prefer-dist'
 
 composer-update:
-	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer update --no-interaction --prefer-dist
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php sh -c 'cd "$(SRC_DIR_CONTAINER)" && COMPOSER_PROCESS_TIMEOUT=2000 composer update --no-interaction --prefer-dist'
 
 npm-install:
-	cd "$(SRC_DIR)" && npm ci --no-audit --no-fund
-	cd "$(SRC_DIR)/web/themes/custom/ui_suite_bnp" && npm ci --no-audit --no-fund
-	cd "$(SRC_DIR)/web/themes/custom/ps_theme" && npm ci --no-audit --no-fund
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php sh -c 'cd "$(SRC_DIR_CONTAINER)" && npm ci --no-audit --no-fund'
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php sh -c 'cd "$(SRC_DIR_CONTAINER)/web/themes/custom/ui_suite_bnp" && npm ci --no-audit --no-fund'
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php sh -c 'cd "$(SRC_DIR_CONTAINER)/web/themes/custom/ps_theme" && npm ci --no-audit --no-fund'
 
 npm-audit:
-	bash "$(SCRIPTS_CLI)" tools npm-audit
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php sh -c 'cd "$(SRC_DIR_CONTAINER)" && npm audit'
 
 install:
-	bash "$(SCRIPTS_CLI)" drupal install $(filter-out install,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal install $(filter-out install,$(MAKECMDGOALS))"
 
 reinstall:
-	bash "$(SCRIPTS_CLI)" drupal install --force $(filter-out reinstall install,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal install --force $(filter-out reinstall install,$(MAKECMDGOALS))"
 
 install-from-conf:
-	bash "$(SCRIPTS_CLI)" drupal install-from-conf $(filter-out install-from-conf,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal install-from-conf $(filter-out install-from-conf,$(MAKECMDGOALS))"
 
 reinstall-from-conf:
-	bash "$(SCRIPTS_CLI)" drupal install-from-conf --force $(filter-out reinstall-from-conf install-from-conf,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal install-from-conf --force $(filter-out reinstall-from-conf install-from-conf,$(MAKECMDGOALS))"
 
 seed-site-configs:
-	bash "$(SRC_DIR)/../scripts/multisite/seed-site-configs.sh"
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/multisite/seed-site-configs.sh"
 
 export-all-configs:
-	bash "$(SCRIPTS_CLI)" drupal export-all-configs $(filter-out export-all-configs,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal export-all-configs $(filter-out export-all-configs,$(MAKECMDGOALS))"
 
 import:
-	bash "$(SCRIPTS_CLI)" drupal import $(filter-out import,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal import $(filter-out import,$(MAKECMDGOALS))"
 
 demo:
-	bash "$(SCRIPTS_CLI)" drupal demo $(filter-out demo,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal demo $(filter-out demo,$(MAKECMDGOALS))"
 
 deploy:
-	bash "$(SCRIPTS_CLI)" drupal deploy $(filter-out deploy,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal deploy $(filter-out deploy,$(MAKECMDGOALS))"
 
 drush-cr:
-	bash "$(SCRIPTS_CLI)" drupal cache-clear $(filter-out drush-cr,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal cache-clear $(filter-out drush-cr,$(MAKECMDGOALS))"
 
 index-solr:
-	bash "$(SCRIPTS_CLI)" drupal index-solr $(filter-out index-solr,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal index-solr $(filter-out index-solr,$(MAKECMDGOALS))"
 
 export-solr:
-	bash "$(SCRIPTS_CLI)" drupal export-solr $(filter-out export-solr,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal export-solr $(filter-out export-solr,$(MAKECMDGOALS))"
 
 rbac-sync:
-	bash "$(SCRIPTS_CLI)" drupal rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal rbac-sync $(filter-out rbac-sync,$(MAKECMDGOALS))"
 
 rbac-export:
-	bash "$(SCRIPTS_CLI)" drupal rbac-sync --export $(filter-out rbac-export,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal rbac-sync --export $(filter-out rbac-export,$(MAKECMDGOALS))"
 
 create-test-users:
-	bash "$(SCRIPTS_CLI)" drupal create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal create-test-users $(filter-out create-test-users,$(MAKECMDGOALS))"
 
 translations-fetch:
-	bash "$(SCRIPTS_CLI)" drupal translations-fetch $(filter-out translations-fetch,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal translations-fetch $(filter-out translations-fetch,$(MAKECMDGOALS))"
 
 drush:
-	bash "$(SCRIPTS_CLI)" drupal drush $(filter-out drush,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal drush $(filter-out drush,$(MAKECMDGOALS))"
 
 drush-uli:
-	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) uli
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal drush $(COUNTRY) uli"
 
 drush-status:
-	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) status --fields=bootstrap,db-status,drupal-version,drush-version
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal drush $(COUNTRY) status --fields=bootstrap,db-status,drupal-version,drush-version"
 
 drush-cex:
-	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) cex -y
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal drush $(COUNTRY) cex -y"
 
 rebuild-permissions:
-	bash "$(SCRIPTS_CLI)" drupal rebuild-permissions $(filter-out rebuild-permissions,$(MAKECMDGOALS))
+	docker compose -f "$(PROJECT_ROOT_HOST)/docker/docker-compose.yml" exec -T php bash -c "bash scripts/main.sh drupal rebuild-permissions $(filter-out rebuild-permissions,$(MAKECMDGOALS))"
 
 %:
 	@:

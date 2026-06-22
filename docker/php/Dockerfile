@@ -29,6 +29,16 @@ RUN apt-get update \
     && docker-php-ext-enable memcached \
     && rm -rf /var/lib/apt/lists/*
 
+# Add Node.js 20 (for npm operations inside container)
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+  curl \
+  gnupg \
+  && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+  && apt-get install -y --no-install-recommends \
+  nodejs \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY zz-performance.ini /usr/local/etc/php/conf.d/zz-performance.ini
 
