@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Api;
 
+use Drupal\ps_search\Service\AdministrativeRegionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -100,7 +101,7 @@ final class RequestValidator {
     }
 
     foreach ($localitiesRaw as $locality) {
-      if (!is_string($locality) || $this->sanitizeText($locality) === NULL) {
+      if (!is_string($locality) || $this->sanitizeLocationToken($locality) === NULL) {
         return $this->error('invalid_locality', 400);
       }
     }
@@ -138,6 +139,26 @@ final class RequestValidator {
     }
 
     return NULL;
+  }
+
+  /**
+   * Sanitizes a location filter token (city, postal, department, region).
+   */
+  public function sanitizeLocationToken(mixed $value): ?string {
+    if (!is_string($value) || trim($value) === '') {
+      return NULL;
+    }
+    $trimmed = trim(substr($value, 0, self::TEXT_MAX_LENGTH));
+    if (str_starts_with($trimmed, AdministrativeRegionRegistry::TOKEN_PREFIX)) {
+      $slug = substr($trimmed, strlen(AdministrativeRegionRegistry::TOKEN_PREFIX));
+      $slug = preg_replace('/[^a-z0-9\-]/', '', strtolower($slug));
+      return $slug !== '' ? AdministrativeRegionRegistry::TOKEN_PREFIX . $slug : NULL;
+    }
+    if (preg_match('/^\d{2,3}$/', $trimmed) === 1 || preg_match('/^\d{5}$/', $trimmed) === 1) {
+      return $trimmed;
+    }
+    $cleaned = preg_replace('/[^\p{L}\p{N}\s\-\']/u', '', $trimmed);
+    return $cleaned !== '' ? $cleaned : NULL;
   }
 
   /**

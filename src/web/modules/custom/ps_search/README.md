@@ -181,9 +181,14 @@ Alias : `ps-sfs`, `ps-sfs-index`.
 ## Tests
 
 ```bash
-cd src
-composer test:search-filter-htmx-count-e2e
-composer test:search-more-filters-e2e
+# Depuis la racine du repo
+make search-locality-seo-b2b   # Région / dept / ville — URLs SEO + APIs + chips
+make search-b2b              # Suite B2B recherche complète
+
+# Ou directement
+bash web/modules/custom/ps_search/tests/b2b_locality_seo.sh
+bash web/modules/custom/ps_search/tests/b2b_search_full.sh
+bash web/modules/custom/ps_search/tests/e2e_seo_urls.sh
 ```
 
 ## Translations

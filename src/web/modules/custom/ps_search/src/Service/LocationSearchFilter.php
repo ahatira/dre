@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Site\Settings;
 use Drupal\ps_dictionary\Service\DictionaryResolver;
+use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
+use Drupal\ps_search\GeoZone\GeoZoneType;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +35,8 @@ final class LocationSearchFilter {
   public function __construct(
     private readonly Connection $database,
     private readonly DictionaryResolver $dictionaryResolver,
+    private readonly AdministrativeRegionRegistry $regionRegistry,
+    private readonly GeoZoneRepositoryInterface $geoZoneRepository,
   ) {}
 
   /**
@@ -108,10 +113,13 @@ final class LocationSearchFilter {
       return 0;
     }
 
-    if (preg_match('/^\d{5}$/', $token) === 1) {
+    if ($this->regionRegistry->isRegionToken($token)) {
+      $meta = $this->resolveRegionContext($token) ?? ['label' => $token, 'locality' => '', 'admin_area' => ''];
+    }
+    elseif (preg_match('/^\d{5}$/', $token) === 1) {
       $meta = ['locality' => '', 'admin_area' => ''];
     }
-    elseif (preg_match('/^\d{2}$/', $token) === 1) {
+    elseif ($this->isDepartmentCode($token)) {
       $meta = [
         'locality' => '',
         'admin_area' => $this->getDepartmentName($token),
@@ -128,10 +136,10 @@ final class LocationSearchFilter {
   }
 
   /**
-   * Whether a token is a known 2-digit INSEE department code.
+   * Whether a token is a known INSEE department code (2 or 3 digits).
    */
   public function isDepartmentCode(string $token): bool {
-    return preg_match('/^\d{2}$/', $token) === 1
+    return preg_match('/^\d{2,3}$/', $token) === 1
       && $this->dictionaryResolver->isValid(self::DEPARTMENT_DICTIONARY_TYPE, $token);
   }
 
@@ -139,21 +147,15 @@ final class LocationSearchFilter {
    * Builds OR conditions for one location token.
    */
   private function buildTokenConditionGroup(QueryInterface $query, string $token): ?ConditionGroupInterface {
-    $tokenGroup = $query->createConditionGroup('OR');
+    if ($this->regionRegistry->isRegionToken($token)) {
+      return $this->buildRegionConditionGroup($query, $token);
+    }
 
     if ($this->isDepartmentCode($token)) {
-      $deptName = $this->getDepartmentName($token);
-      $tokenGroup->addCondition(
-        'field_address_postal_code',
-        [$token . '000', $token . '999'],
-        'BETWEEN',
-      );
-      if ($deptName !== '') {
-        $tokenGroup->addCondition('field_address_admin_area', $deptName);
-        $tokenGroup->addCondition('field_address_locality', $deptName);
-      }
-      return $tokenGroup;
+      return $this->buildDepartmentConditionGroup($query, $token);
     }
+
+    $tokenGroup = $query->createConditionGroup('OR');
 
     if (preg_match('/^\d{5}$/', $token) === 1) {
       $tokenGroup->addCondition('field_address_postal_code', $token);
@@ -194,10 +196,13 @@ final class LocationSearchFilter {
       'offer_count' => 0,
     ];
 
-    if (preg_match('/^\d{5}$/', $token) === 1) {
+    if ($this->regionRegistry->isRegionToken($token)) {
+      $meta = $this->resolveRegionToken($token, $meta);
+    }
+    elseif (preg_match('/^\d{5}$/', $token) === 1) {
       $meta = $this->resolvePostalToken($token, $meta);
     }
-    elseif (preg_match('/^\d{2}$/', $token) === 1) {
+    elseif ($this->isDepartmentCode($token)) {
       $meta = $this->resolveDepartmentToken($token, $meta);
     }
     else {
@@ -275,9 +280,137 @@ final class LocationSearchFilter {
     $meta['locality'] = '';
     $meta['admin_area'] = $deptName;
     $meta['postal_code'] = '';
-    $meta['label'] = $deptName !== '' ? "$deptName ($token)" : $token;
+    $meta['label'] = $this->buildDepartmentLabel($token, $deptName);
+    $region = $this->regionRegistry->getRegionLabelForDepartment($token);
+    if ($region !== NULL) {
+      $meta['region_name'] = $region;
+    }
 
     return $meta;
+  }
+
+  /**
+   * Builds a human label for a department filter token.
+   */
+  public function buildDepartmentLabel(string $token, ?string $deptName = NULL): string {
+    $deptName ??= $this->getDepartmentName($token);
+    if ($deptName !== '') {
+      return "$deptName ($token)";
+    }
+
+    return $token;
+  }
+
+  /**
+   * @param array<string, mixed> $meta
+   *
+   * @return array<string, mixed>
+   */
+  private function resolveRegionToken(string $token, array $meta): array {
+    $context = $this->resolveRegionContext($token);
+    if ($context === NULL) {
+      return $meta;
+    }
+
+    $meta['type'] = 'region';
+    $meta['locality'] = '';
+    $meta['admin_area'] = '';
+    $meta['postal_code'] = '';
+    $meta['label'] = $context['label'];
+    $meta['slug'] = $context['slug'];
+    $meta['region_slug'] = $context['slug'];
+
+    return $meta;
+  }
+
+  /**
+   * @return array{label: string, slug: string, departments: list<string>, postal_prefixes: list<string>}|null
+   */
+  private function resolveRegionContext(string $token): ?array {
+    if (!$this->regionRegistry->isRegionToken($token)) {
+      return NULL;
+    }
+
+    $slug = $this->regionRegistry->parseRegionToken($token);
+    if ($slug === NULL) {
+      return NULL;
+    }
+
+    $frenchRegion = $this->regionRegistry->findBySlug($slug);
+    if ($frenchRegion !== NULL) {
+      return [
+        'label' => $frenchRegion['label'],
+        'slug' => $frenchRegion['slug'],
+        'departments' => $frenchRegion['departments'],
+        'postal_prefixes' => [],
+      ];
+    }
+
+    $zone = $this->geoZoneRepository->findBySlug($slug, $this->resolveCountryCode());
+    if ($zone !== NULL && $zone->type === GeoZoneType::Region) {
+      return [
+        'label' => $zone->label,
+        'slug' => $zone->slug,
+        'departments' => [],
+        'postal_prefixes' => $zone->postalPrefixes,
+      ];
+    }
+
+    return NULL;
+  }
+
+  private function buildRegionConditionGroup(QueryInterface $query, string $token): ?ConditionGroupInterface {
+    $context = $this->resolveRegionContext($token);
+    if ($context === NULL) {
+      return NULL;
+    }
+
+    $regionGroup = $query->createConditionGroup('OR');
+    $hasConditions = FALSE;
+    if ($context['departments'] !== []) {
+      foreach ($context['departments'] as $departmentCode) {
+        $departmentGroup = $this->buildDepartmentConditionGroup($query, $departmentCode);
+        if ($departmentGroup !== NULL) {
+          $regionGroup->addConditionGroup($departmentGroup);
+          $hasConditions = TRUE;
+        }
+      }
+      return $hasConditions ? $regionGroup : NULL;
+    }
+
+    foreach ($context['postal_prefixes'] as $prefix) {
+      $prefixGroup = $query->createConditionGroup('OR');
+      $prefixGroup->addCondition(
+        'field_address_postal_code',
+        [$prefix . '000', $prefix . '999'],
+        'BETWEEN',
+      );
+      $regionGroup->addConditionGroup($prefixGroup);
+      $hasConditions = TRUE;
+    }
+
+    return $hasConditions ? $regionGroup : NULL;
+  }
+
+  private function buildDepartmentConditionGroup(QueryInterface $query, string $token): ?ConditionGroupInterface {
+    $tokenGroup = $query->createConditionGroup('OR');
+
+    if (!$this->isDepartmentCode($token)) {
+      return NULL;
+    }
+
+    $deptName = $this->getDepartmentName($token);
+    $tokenGroup->addCondition(
+      'field_address_postal_code',
+      [$token . '000', $token . '999'],
+      'BETWEEN',
+    );
+    if ($deptName !== '') {
+      $tokenGroup->addCondition('field_address_admin_area', $deptName);
+      $tokenGroup->addCondition('field_address_locality', $deptName);
+    }
+
+    return $tokenGroup;
   }
 
   /**
@@ -329,10 +462,34 @@ final class LocationSearchFilter {
     $select->innerJoin('node_field_data', 'n', 'n.nid = g.entity_id AND n.status = 1');
     $select->innerJoin('node__field_address', 'a', 'a.entity_id = g.entity_id');
 
-    if (preg_match('/^\d{5}$/', $token) === 1) {
+    if ($this->regionRegistry->isRegionToken($token)) {
+      $context = $this->resolveRegionContext($token);
+      if ($context !== NULL && $context['departments'] !== []) {
+        $or = $select->orConditionGroup();
+        foreach ($context['departments'] as $departmentCode) {
+          $deptName = $this->getDepartmentName($departmentCode);
+          $deptOr = $select->orConditionGroup()
+            ->condition('a.field_address_postal_code', $departmentCode . '%', 'LIKE');
+          if ($deptName !== '') {
+            $deptOr->condition('a.field_address_administrative_area', $deptName);
+            $deptOr->condition('a.field_address_locality', $deptName);
+          }
+          $or->condition($deptOr);
+        }
+        $select->condition($or);
+      }
+      elseif ($context !== NULL && $context['postal_prefixes'] !== []) {
+        $or = $select->orConditionGroup();
+        foreach ($context['postal_prefixes'] as $prefix) {
+          $or->condition('a.field_address_postal_code', $prefix . '%', 'LIKE');
+        }
+        $select->condition($or);
+      }
+    }
+    elseif (preg_match('/^\d{5}$/', $token) === 1) {
       $select->condition('a.field_address_postal_code', $token);
     }
-    elseif (preg_match('/^\d{2}$/', $token) === 1) {
+    elseif ($this->isDepartmentCode($token)) {
       $deptName = $this->getDepartmentName($token);
       $or = $select->orConditionGroup()
         ->condition('a.field_address_postal_code', $token . '%', 'LIKE');
@@ -400,6 +557,11 @@ final class LocationSearchFilter {
     return $this->dictionaryResolver->resolveLabel(self::DEPARTMENT_DICTIONARY_TYPE, $code) ?? '';
   }
 
+  private function resolveCountryCode(): string {
+    $code = Settings::get('ps_country_code');
+    return is_string($code) && $code !== '' ? strtolower($code) : 'com';
+  }
+
   /**
    * Sanitizes free text input.
    */
@@ -407,7 +569,13 @@ final class LocationSearchFilter {
     if (!is_string($value) || trim($value) === '') {
       return NULL;
     }
-    $cleaned = preg_replace('/[^\p{L}\p{N}\s\-\']/u', '', substr(trim($value), 0, 100));
+    $trimmed = trim($value);
+    if (str_starts_with($trimmed, AdministrativeRegionRegistry::TOKEN_PREFIX)) {
+      $slug = substr($trimmed, strlen(AdministrativeRegionRegistry::TOKEN_PREFIX));
+      $slug = preg_replace('/[^a-z0-9\-]/', '', strtolower($slug));
+      return $slug !== '' ? AdministrativeRegionRegistry::TOKEN_PREFIX . $slug : NULL;
+    }
+    $cleaned = preg_replace('/[^\p{L}\p{N}\s\-\']/u', '', substr($trimmed, 0, 100));
     return $cleaned !== '' ? $cleaned : NULL;
   }
 

@@ -9,6 +9,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_dictionary\Service\DictionaryResolver;
 use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
+use Drupal\ps_search\GeoZone\GeoZoneType;
 
 /**
  * Builds offer-derived location autocomplete groups for the search filter bar.
@@ -21,11 +22,14 @@ final class LocationSuggestBuilder {
 
   private const DEPARTMENT_SUGGEST_LIMIT = 5;
 
+  private const REGION_SUGGEST_LIMIT = 5;
+
   public function __construct(
     private readonly Connection $database,
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly DictionaryResolver $dictionaryResolver,
     private readonly GeoZoneRepositoryInterface $geoZoneRepository,
+    private readonly AdministrativeRegionRegistry $regionRegistry,
   ) {}
 
   /**
@@ -60,6 +64,7 @@ final class LocationSuggestBuilder {
     $isNumericQuery = preg_match('/^\d+$/', $query) === 1;
 
     if (!$isNumericQuery) {
+      $this->appendRegionGroups($query, $groups, $suggestions, $seen);
       $this->appendDepartmentGroups($query, $groups, $suggestions, $seen);
       $this->appendCityGroups($needle, $limit, $groups, $suggestions, $seen);
     }
@@ -261,6 +266,120 @@ final class LocationSuggestBuilder {
    * @param list<string> $suggestions
    * @param array<string, true> $seen
    */
+  private function appendRegionGroups(
+    string $query,
+    array &$groups,
+    array &$suggestions,
+    array &$seen,
+  ): void {
+    $regionItems = [];
+
+    foreach ($this->searchFrenchRegions($query) as $region) {
+      if (count($regionItems) >= self::REGION_SUGGEST_LIMIT) {
+        break;
+      }
+
+      $token = $this->regionRegistry->buildRegionToken($region['slug']);
+      $key = mb_strtolower($token);
+      if (isset($seen[$key])) {
+        continue;
+      }
+
+      if ($this->locationSearchFilter->countOffersForToken($token) <= 0) {
+        continue;
+      }
+
+      $seen[$key] = TRUE;
+      $regionItems[] = [
+        'label' => $region['label'],
+        'type' => 'region',
+        'region_slug' => $region['slug'],
+        'region_token' => $token,
+        'slug' => $region['slug'],
+        'locality' => '',
+        'admin_area' => '',
+        'postal_code' => '',
+      ];
+      $suggestions[] = $region['label'];
+    }
+
+    foreach ($this->searchGeoZoneRegions($query) as $zone) {
+      if (count($regionItems) >= self::REGION_SUGGEST_LIMIT) {
+        break;
+      }
+
+      $token = $this->regionRegistry->buildRegionToken($zone->slug);
+      $key = mb_strtolower($token);
+      if (isset($seen[$key])) {
+        continue;
+      }
+
+      if ($this->locationSearchFilter->countOffersForToken($token) <= 0) {
+        continue;
+      }
+
+      $seen[$key] = TRUE;
+      $regionItems[] = [
+        'label' => $zone->label,
+        'type' => 'region',
+        'region_slug' => $zone->slug,
+        'region_token' => $token,
+        'slug' => $zone->slug,
+        'id' => $zone->id,
+        'locality' => '',
+        'admin_area' => '',
+        'postal_code' => '',
+      ];
+      $suggestions[] = $zone->label;
+    }
+
+    if ($regionItems !== []) {
+      $groups[] = [
+        'key' => 'region',
+        'label' => (string) $this->t('Region'),
+        'items' => $this->sortItemsAlphabetically($regionItems),
+      ];
+    }
+  }
+
+  /**
+   * @return list<array{slug: string, label: string, departments: list<string>}>
+   */
+  private function searchFrenchRegions(string $query): array {
+    return $this->regionRegistry->searchByLabelPrefix($query, self::REGION_SUGGEST_LIMIT);
+  }
+
+  /**
+   * @return list<\Drupal\ps_search\ValueObject\GeoZone>
+   */
+  private function searchGeoZoneRegions(string $query): array {
+    $needle = $this->regionRegistry->normalizeForSearch($query);
+    if ($needle === '') {
+      return [];
+    }
+
+    $matches = [];
+    foreach ($this->geoZoneRepository->allForCountry($this->resolveCountryCode()) as $zone) {
+      if ($zone->type !== GeoZoneType::Region) {
+        continue;
+      }
+      if ($this->regionRegistry->matchesSearchNeedle($needle, $zone->label, $zone->slug)) {
+        $matches[] = $zone;
+      }
+    }
+
+    usort($matches, static function ($a, $b): int {
+      return strcasecmp($a->label, $b->label);
+    });
+
+    return array_slice($matches, 0, self::REGION_SUGGEST_LIMIT);
+  }
+
+  /**
+   * @param list<array<string, mixed>> $groups
+   * @param list<string> $suggestions
+   * @param array<string, true> $seen
+   */
   private function appendDepartmentGroups(
     string $query,
     array &$groups,
@@ -425,7 +544,7 @@ final class LocationSuggestBuilder {
     }
 
     return $this->enrichWithGeoZone([
-      'label' => "$name ($code)",
+      'label' => $this->locationSearchFilter->buildDepartmentLabel($code),
       'type' => 'department',
       'locality' => '',
       'admin_area' => $name,
@@ -483,10 +602,11 @@ final class LocationSuggestBuilder {
    */
   private function sortGroups(array $groups): array {
     $order = [
-      'arrondissement' => 0,
-      'department' => 1,
-      'city' => 2,
-      'postal_code' => 3,
+      'region' => 0,
+      'arrondissement' => 1,
+      'department' => 2,
+      'city' => 3,
+      'postal_code' => 4,
     ];
     usort($groups, static function (array $a, array $b) use ($order): int {
       return ($order[$a['key'] ?? ''] ?? 99) <=> ($order[$b['key'] ?? ''] ?? 99);

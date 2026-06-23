@@ -183,10 +183,53 @@ assert_canonical "$BASE/fr/bureaux/" "/fr/bureaux/" "FR asset-only canonical"
 echo ""
 echo "--- 6. Locality SEO segments ---"
 assert_http 200 "$BASE/for-rent/office/paris/" "EN locality slug paris"
+assert_http 200 "$BASE/for-rent/office/ile-de-france/" "EN LOC+BUR region slug ile-de-france"
 assert_http 200 "$BASE/for-sale/office/paris-75/" "EN dept slug paris-75"
-assert_http 200 "$BASE/fr/a-louer/bureaux/ile-de-france-75/paris-75008/" "FR dept+city postal"
-assert_http 200 "$BASE/for-rent/office/paris-12-75012/" "EN arrondissement segment"
+assert_http 200 "$BASE/for-sale/office/ile-de-france/" "EN region slug ile-de-france"
+assert_http 200 "$BASE/for-rent/office/paris-75/paris-9-75009/" "EN dept+city arrondissement"
+assert_http 200 "$BASE/office/ile-de-france/" "EN asset-only region slug"
+assert_http 200 "$BASE/office/bouches-du-rhone-13/" "EN asset-only dept slug"
+assert_http 200 "$BASE/office/bouches-du-rhone-13/marseille-1-13001/" "EN asset-only dept+city"
+assert_http 200 "$BASE/fr/a-louer/bureaux/paris-75/paris-9-75009/" "FR dept+city arrondissement"
+assert_http 200 "$BASE/fr/a-vendre/bureaux/ile-de-france/" "FR region-only slug"
+assert_drupal_setting "$BASE/for-sale/office/paris-75/" "initialLocality" "75" "EN dept slug sets locality token 75"
+assert_drupal_setting "$BASE/for-rent/office/ile-de-france/" "initialLocality" "region:ile-de-france" "EN region slug sets region token"
+assert_html_contains "$BASE/for-sale/office/paris-75/" "Paris (75)" "EN dept chip label"
+assert_html_contains "$BASE/for-sale/office/ile-de-france/" "Île-de-France" "EN region chip label (for-sale)"
+assert_html_contains "$BASE/for-rent/office/ile-de-france/" "Île-de-France" "EN region chip label (for-rent)"
+html_region=$(curl -sL -m 60 "$BASE/for-rent/office/ile-de-france/")
+if echo "$html_region" | grep -q 'regionile-de-france'; then
+  fail "EN region page must not show corrupted token regionile-de-france"
+else
+  pass "EN region page has no corrupted token regionile-de-france"
+fi
+assert_canonical "$BASE/for-rent/office/ile-de-france/" "/for-rent/office/ile-de-france/" "EN region canonical"
 assert_final_url "/fr/a-louer/bureaux/paris/" "$BASE/a-louer/bureaux/paris/" "FR locality preserved after cross-lang redirect"
+
+echo ""
+echo "--- 6b. Locality APIs (suggest + data) ---"
+SUGGEST_BODY=$(curl -sS -m 30 "$BASE/api/ps/location-suggest?q=ile")
+if python3 -c "import json,sys; d=json.loads(sys.argv[1]); sys.exit(0 if any(i.get('label')=='Île-de-France' for g in d.get('groups',[]) for i in g.get('items',[])) else 1)" "$SUGGEST_BODY" 2>/dev/null; then
+  pass "location-suggest q=ile returns Île-de-France"
+else
+  fail "location-suggest q=ile missing Île-de-France"
+fi
+if echo "$SUGGEST_BODY" | grep -q 'region:ile-de-france'; then
+  pass "location-suggest q=ile returns region_token"
+else
+  fail "location-suggest q=ile missing region:ile-de-france token"
+fi
+DATA_BODY=$(curl -sS -m 30 "$BASE/api/ps/location-data?localities%5B%5D=region%3Aile-de-france")
+if python3 -c "import json,sys; d=json.loads(sys.argv[1]); sys.exit(0 if d.get('data') and d['data'][0].get('label')=='Île-de-France' else 1)" "$DATA_BODY" 2>/dev/null; then
+  pass "location-data preserves region token label"
+else
+  fail "location-data region label (got: ${DATA_BODY:0:120})"
+fi
+if echo "$DATA_BODY" | grep -q 'regionile-de-france'; then
+  fail "location-data must not corrupt token to regionile-de-france"
+else
+  pass "location-data token not corrupted"
+fi
 
 echo ""
 echo "--- 7. Canonical tags ---"

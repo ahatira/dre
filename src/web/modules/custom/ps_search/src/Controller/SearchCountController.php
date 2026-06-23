@@ -121,7 +121,7 @@ final class SearchCountController extends ControllerBase {
       return new JsonResponse(['data' => []]);
     }
 
-    $localities = array_slice(array_map(fn($l) => $this->requestValidator->sanitizeText($l), $localitiesRaw), 0, 10);
+    $localities = array_slice(array_map(fn($l) => $this->requestValidator->sanitizeLocationToken($l), $localitiesRaw), 0, 10);
     $localities = array_filter($localities, fn($l) => $l !== NULL);
 
     if (empty($localities)) {

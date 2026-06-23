@@ -83,6 +83,9 @@
     if (item.type === 'department') {
       return item.department_code || item.admin_area || item.label || '';
     }
+    if (item.type === 'region') {
+      return item.region_token || ('region:' + (item.region_slug || item.slug || ''));
+    }
     return item.locality || item.label || '';
   }
 

@@ -14,6 +14,7 @@ COUNTRY ?= com
 	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rebuild-permissions rbac-sec-e2e translations-fetch \
+	search-locality-seo-b2b search-b2b \
 	composer-install composer-update npm-install npm-audit
 
 help:
@@ -29,6 +30,7 @@ help:
 	@echo "Project commands (delegate to src/Makefile, Drush on host):"
 	@echo "  make bootstrap          = env + up + generate-multisite + build"
 	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
+	@echo "  make search-locality-seo-b2b | search-b2b   # PS Search B2B (localité / région)"
 	@echo ""
 	@echo "See src/Makefile and README.md for full project command list."
 
@@ -156,6 +158,12 @@ rebuild-permissions:
 
 rbac-sec-e2e:
 	bash "$(SRC_DIR)/web/modules/custom/bnp_admin/tests/e2e_rbac_sec_ctx.sh"
+
+search-locality-seo-b2b:
+	bash "$(SRC_DIR)/web/modules/custom/ps_search/tests/b2b_locality_seo.sh"
+
+search-b2b:
+	bash "$(SRC_DIR)/web/modules/custom/ps_search/tests/b2b_search_full.sh"
 
 %:
 	@:

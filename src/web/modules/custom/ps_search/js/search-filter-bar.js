@@ -1232,6 +1232,10 @@
           return deptMatch[1];
         }
 
+        if (String(last).indexOf('-') === -1) {
+          return 'region:' + String(last).toLowerCase();
+        }
+
         return String(last)
           .replace(/-/g, ' ')
           .trim()
@@ -1291,7 +1295,18 @@
 
       function buildLocalitySeoPathSegments(primaryData) {
         if (!primaryData) {
-          return { dept: '', city: '' };
+          return { region: '', dept: '', city: '' };
+        }
+
+        if (primaryData.type === 'region') {
+          const regionSlug = primaryData.region_slug || primaryData.slug || '';
+          if (regionSlug) {
+            return { region: regionSlug, dept: '', city: '' };
+          }
+          const token = getPrimaryLocalityToken();
+          if (String(token).indexOf('region:') === 0) {
+            return { region: String(token).slice(7), dept: '', city: '' };
+          }
         }
 
         if (primaryData.type === 'department') {
@@ -1321,6 +1336,7 @@
         }
 
         return {
+          region: '',
           dept: (deptSlug && deptCode) ? deptSlug + '-' + deptCode : '',
           city: city,
         };
@@ -1362,7 +1378,7 @@
         if (primaryData && (primaryData.slug || settings.searchContext?.geo?.slug)) {
           Drupal.psSearchContext.setGeo({
             id: primaryData.id || settings.searchContext?.geo?.id || '',
-            slug: primaryData.slug || settings.searchContext?.geo?.slug || '',
+            slug: primaryData.region_slug || primaryData.slug || settings.searchContext?.geo?.slug || '',
             type: primaryData.type || settings.searchContext?.geo?.type || '',
             label: primaryData.label || primaryData.locality || primaryData.admin_area || getPrimaryLocalityToken(),
             lat: primaryData.lat ?? settings.searchContext?.geo?.lat ?? null,
@@ -1395,7 +1411,8 @@
         const primaryData = getPrimaryLocalityData();
         const singleLocation = selectedLocalityTokens.length === 1;
         const useSeoLocalityPath = usesSeoLocalityPath(base) && singleLocation && primaryData && (
-          primaryData.type === 'department'
+          primaryData.type === 'region'
+          || primaryData.type === 'department'
           || primaryData.locality
           || primaryData.postal_code
         );
@@ -1409,6 +1426,9 @@
         if (useSeoLocalityPath) {
           base = base.replace(/\/?$/, '/');
           const segments = buildLocalitySeoPathSegments(primaryData);
+          if (segments.region) {
+            base += segments.region + '/';
+          }
           if (segments.dept) {
             base += segments.dept + '/';
           }

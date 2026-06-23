@@ -17,7 +17,7 @@ search-context:
     - core/drupalSettings
 
 filter.bar:
-  version: 1.0.2
+  version: 1.0.5
   js:
     js/search-location-editor.js: {}
     js/search-filter-bar.js: {}

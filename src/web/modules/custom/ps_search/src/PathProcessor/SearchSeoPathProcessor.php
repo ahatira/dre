@@ -225,42 +225,22 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
    *   Remaining path segments after operation/asset slugs.
    */
   private function applyLocalitySegmentsToParams(array &$params, array $localitySegments): void {
-    $possibleDeptSegment = NULL;
-    $possibleCitySegment = NULL;
-
-    foreach ($localitySegments as $segment) {
-      if ($segment === '') {
-        continue;
-      }
-      $possibleDeptSegment = $possibleCitySegment;
-      $possibleCitySegment = $segment;
-    }
-
-    if ($possibleDeptSegment !== NULL && $possibleCitySegment !== NULL) {
-      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(
-        $possibleDeptSegment,
-        $possibleCitySegment,
-      );
-      if ($token !== NULL) {
-        $params['locality'] = $token;
-      }
-      return;
-    }
-
-    if ($possibleCitySegment === NULL) {
-      return;
-    }
-
-    $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(NULL, $possibleCitySegment);
-    if ($token === NULL) {
-      $token = $this->seoLocalityPathBuilder->deptSegmentToToken($possibleCitySegment);
-    }
-    if ($token !== NULL) {
+    $token = $this->seoLocalityPathBuilder->parseLocalitySegments($localitySegments);
+    if ($token !== NULL && $token !== '') {
       $params['locality'] = $token;
       return;
     }
 
-    $params['locality'] = $this->slugToCity($possibleCitySegment);
+    $lastSegment = NULL;
+    foreach ($localitySegments as $segment) {
+      if ($segment !== '') {
+        $lastSegment = $segment;
+      }
+    }
+
+    if ($lastSegment !== NULL) {
+      $params['locality'] = $this->slugToCity($lastSegment);
+    }
   }
 
   /**

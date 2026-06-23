@@ -220,33 +220,9 @@ final class SearchSeoCanonicalUrlBuilder {
       $query['asset_type'] = $facets['asset_type'];
     }
 
-    $possibleDeptSegment = NULL;
-    $possibleCitySegment = NULL;
-    foreach ($facets['locality_segments'] as $segment) {
-      if ($segment === '') {
-        continue;
-      }
-      $possibleDeptSegment = $possibleCitySegment;
-      $possibleCitySegment = $segment;
-    }
-
-    if ($possibleDeptSegment !== NULL && $possibleCitySegment !== NULL) {
-      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(
-        $possibleDeptSegment,
-        $possibleCitySegment,
-      );
-      if ($token !== NULL && $token !== '') {
-        $query['locality'] = $token;
-      }
-    }
-    elseif ($possibleCitySegment !== NULL) {
-      $token = $this->seoLocalityPathBuilder->pathSegmentsToToken(NULL, $possibleCitySegment);
-      if ($token === NULL) {
-        $token = $this->seoLocalityPathBuilder->deptSegmentToToken($possibleCitySegment);
-      }
-      if ($token !== NULL && $token !== '') {
-        $query['locality'] = $token;
-      }
+    $token = $this->seoLocalityPathBuilder->parseLocalitySegments($facets['locality_segments']);
+    if ($token !== NULL && $token !== '') {
+      $query['locality'] = $token;
     }
 
     return $query;
