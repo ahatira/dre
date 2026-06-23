@@ -155,6 +155,21 @@
       query.map_bounds = spatial.viewport;
     }
 
+    const moreCriteria = filters.moreCriteria || {};
+    Object.keys(moreCriteria).forEach(function (key) {
+      const value = moreCriteria[key];
+      if (Array.isArray(value)) {
+        value.forEach(function (item) {
+          if (item !== null && item !== undefined && item !== '') {
+            query[key] = item;
+          }
+        });
+      }
+      else if (value !== null && value !== undefined && value !== '') {
+        query[key] = value;
+      }
+    });
+
     return query;
   }
 
@@ -278,6 +293,7 @@
     }
     state = cloneState(settings.searchContext || {});
     state.filters = state.filters || {};
+    state.filters.moreCriteria = state.filters.moreCriteria || {};
     state.sort = state.sort || { sortBy: DEFAULT_SORT_BY, sortOrder: DEFAULT_SORT_ORDER };
     state.spatial = state.spatial || { mode: 'bbox_and_postal', viewport: null };
   }
@@ -302,6 +318,14 @@
       }
       state.filters = state.filters || {};
       state.filters[key] = value;
+    },
+
+    setMoreCriteria: function (criteria) {
+      if (!isEnabled()) {
+        return;
+      }
+      state.filters = state.filters || {};
+      state.filters.moreCriteria = criteria && typeof criteria === 'object' ? cloneState(criteria) : {};
     },
 
     setSort: function (sortBy, sortOrder) {
@@ -420,6 +444,41 @@
       state.filters.surface = readRangeFromParams(params, 'surface[min]', 'surface[max]', 'surface_min', 'surface_max');
       state.filters.budget = readRangeFromParams(params, 'budget[min]', 'budget[max]', 'budget_min', 'budget_max');
       state.filters.capacity = readRangeFromParams(params, 'capacity[min]', 'capacity[max]', 'capacity_min', 'capacity_max');
+
+      state.filters.moreCriteria = {};
+      params.forEach(function (value, key) {
+        if (
+          key === 'operation_type'
+          || key === 'asset_type'
+          || key === 'zone'
+          || key === 'sort_by'
+          || key === 'sort_order'
+          || key === 'map_bounds'
+          || key === 'lang'
+          || key.startsWith('surface')
+          || key.startsWith('budget')
+          || key.startsWith('capacity')
+          || key === 'locality'
+          || key === 'locations'
+          || key === 'page'
+        ) {
+          return;
+        }
+        if (key.endsWith('[]')) {
+          const baseKey = key.slice(0, -2);
+          if (!Array.isArray(state.filters.moreCriteria[baseKey])) {
+            state.filters.moreCriteria[baseKey] = [];
+          }
+          state.filters.moreCriteria[baseKey].push(value);
+        }
+        else if (state.filters.moreCriteria[key] !== undefined) {
+          const existing = state.filters.moreCriteria[key];
+          state.filters.moreCriteria[key] = Array.isArray(existing) ? existing.concat([value]) : [existing, value];
+        }
+        else {
+          state.filters.moreCriteria[key] = value;
+        }
+      });
 
       const sortBy = params.get('sort_by');
       const sortOrder = params.get('sort_order');

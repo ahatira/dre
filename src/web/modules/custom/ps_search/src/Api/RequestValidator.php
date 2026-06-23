@@ -88,6 +88,13 @@ final class RequestValidator {
   }
 
   /**
+   * Validates transport suggest query parameters.
+   */
+  public function validateTransportSuggest(Request $request): ?JsonResponse {
+    return $this->validateLocationSuggest($request);
+  }
+
+  /**
    * Validates location-data query parameters.
    */
   public function validateLocationData(Request $request): ?JsonResponse {

@@ -102,12 +102,7 @@ final class MoreCriteriaConditionApplier {
 
     $transport = $this->sanitizeText($request->query->get('nearby_transport'));
     if ($transport !== NULL) {
-      $query->addCondition('nearby_transport', $transport);
-    }
-
-    $coreGroup = $query->createConditionGroup('AND');
-    if ($this->applyRangeFilter($coreGroup, $request, 'ceiling_height', 'ceiling_height', 50.0)) {
-      $query->addConditionGroup($coreGroup);
+      $query->addCondition('nearby_transport', $transport, 'contains');
     }
   }
 

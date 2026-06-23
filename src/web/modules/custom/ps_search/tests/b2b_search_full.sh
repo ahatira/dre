@@ -23,7 +23,9 @@ run_suite() {
 
 for entry in \
   "b2b_locality_seo.sh:Locality / region SEO + APIs" \
+  "b2b_filter_apply_urls.sh:Filter apply URL matrix" \
   "b2b_more_filters.sh:More filters" \
+  "b2b_more_filters_features.sh:More filters feature types" \
   "b2b_filter_count_htmx.sh:HTMX filter count" \
   "e2e_seo_urls.sh:SEO URLs (EN/FR, redirects, canonical)"; do
   script="${entry%%:*}"

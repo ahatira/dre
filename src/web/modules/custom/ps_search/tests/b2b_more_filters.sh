@@ -148,6 +148,45 @@ echo "--- Lazy-load HTMX endpoint ---"
 assert_lazy_group "equipements" "HTMX equipements group"
 assert_lazy_group "amenagements" "HTMX amenagements group"
 
+echo "--- Transport group routed via Nearby transport (not lazy accordion) ---"
+assert_html_contains "$BASE/find-property" 'Nearby transport' "Nearby transport in Other criteria"
+assert_not_screaming_snake "$BASE/find-property" 'data-group-id="acces_vehicules"' "Transport group not in lazy accordion"
+TRANSPORT_HTMX=$(curl -s -m 60 -H "HX-Request: true" "${BASE}/api/ps/htmx/more-criteria/acces_vehicules" 2>/dev/null || echo "")
+if grep -q 'js-ps-more-filter' <<< "$TRANSPORT_HTMX"; then
+  fail "Transport HTMX group should not expose per-feature filters"
+else
+  pass "Transport HTMX group has no feature filter inputs"
+fi
+
+echo "--- Nearby transport contains search (count API) ---"
+BASE_OFFICE=$(count_api "operation_type=LOC&asset_type=BUR")
+TRANSPORT_COUNT=$(count_api "operation_type=LOC&asset_type=BUR&nearby_transport=bus")
+if [[ -n "$BASE_OFFICE" && "$BASE_OFFICE" -gt 0 && -n "$TRANSPORT_COUNT" && "$TRANSPORT_COUNT" -ge 0 && "$TRANSPORT_COUNT" -le "$BASE_OFFICE" ]]; then
+  pass "nearby_transport filter count (base=$BASE_OFFICE filtered=$TRANSPORT_COUNT)"
+else
+  fail "nearby_transport count API (base=$BASE_OFFICE filtered=$TRANSPORT_COUNT)"
+fi
+
+echo "--- Core criteria widgets present ---"
+assert_html_contains "$BASE/find-property" 'data-param="nearby_transport"' "nearby_transport input"
+assert_html_contains "$BASE/find-property" 'js-ps-transport-suggest' "transport autocomplete input"
+assert_html_contains "$BASE/find-property" 'data-param="reference"' "reference input"
+assert_html_contains "$BASE/find-property" 'data-param="has_immersive_tour"' "immersive tour checkbox"
+assert_html_contains "$BASE/find-property" 'data-param="has_video"' "video checkbox"
+
+TRANSPORT_SUGGEST=$(curl -s -m 30 "${BASE}/api/ps/transport-suggest?q=bus" 2>/dev/null || echo "")
+if grep -qE 'feature_name|feature_value|Bus|bus' <<< "$TRANSPORT_SUGGEST"; then
+  pass "transport-suggest API returns bus-related suggestions"
+else
+  fail "transport-suggest API (body=${TRANSPORT_SUGGEST:0:120})"
+fi
+
+if ! curl -s "$BASE/find-property" | grep -q 'data-param="ceiling_height"'; then
+  pass "ceiling height removed from more filters"
+else
+  fail "ceiling height still present in more filters"
+fi
+
 echo "--- Count API (per-feature filters) ---"
 BASE_COUNT=$(count_api "")
 if [[ -n "$BASE_COUNT" && "$BASE_COUNT" -gt 0 ]]; then

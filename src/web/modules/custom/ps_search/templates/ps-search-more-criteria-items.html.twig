@@ -93,6 +93,26 @@
         </div>
       </div>
     </div>
+  {% elseif widget == 'text_autocomplete' %}
+    <div class="ps-more-field ps-more-field--autocomplete">
+      <label class="ps-more-field__label" for="{{ field_id_prefix }}-{{ item.param }}">{{ item.label }}</label>
+      <div class="ps-transport-suggest">
+        <input
+          type="text"
+          id="{{ field_id_prefix }}-{{ item.param }}"
+          class="ps-more-group__text js-ps-more-filter js-ps-transport-suggest"
+          data-param="{{ item.param }}"
+          data-widget="text"
+          data-suggest-url="{{ item.suggest_url|default('') }}"
+          placeholder="{{ item.placeholder|default(item.label) }}"
+          autocomplete="off"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="false"
+        >
+        <div class="ps-transport-suggest__list js-ps-transport-suggest-list" role="listbox" hidden></div>
+      </div>
+    </div>
   {% elseif widget == 'date' %}
     <div class="ps-more-field">
       <label class="ps-more-field__label" for="{{ field_id_prefix }}-{{ item.param }}">{{ item.label }}</label>

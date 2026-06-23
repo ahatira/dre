@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 search-context:
-  version: 1.0.0
+  version: 1.0.1
   js:
     js/search-context.js: {}
   dependencies:
@@ -17,9 +17,10 @@ search-context:
     - core/drupalSettings
 
 filter.bar:
-  version: 1.0.5
+  version: 1.0.13
   js:
     js/search-location-editor.js: {}
+    js/search-transport-suggest.js: {}
     js/search-filter-bar.js: {}
   css:
     component:
@@ -61,7 +62,7 @@ homepage.search:
     - ps_theme/form
 
 search-page-map-utils:
-  version: 1.0.0
+  version: 1.0.2
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:

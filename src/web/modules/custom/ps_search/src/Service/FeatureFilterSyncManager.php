@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\search_api\Entity\Index;
 
 /**
@@ -21,7 +22,6 @@ final class FeatureFilterSyncManager {
    */
   private const CORE_MORE_FILTER_FIELDS = [
     'nearby_transport',
-    'ceiling_height',
     'has_immersive_tour',
     'has_video',
   ];
@@ -29,6 +29,7 @@ final class FeatureFilterSyncManager {
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly FeatureSearchFilterRegistry $featureFilterRegistry,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
   /**
@@ -88,6 +89,59 @@ final class FeatureFilterSyncManager {
 
     $stats['indexed'] = $indexed;
     return $stats;
+  }
+
+  /**
+   * Syncs index config and reindexes offers after a feature definition change.
+   *
+   * When sync alters index or view configuration, all pending offers are indexed.
+   * Otherwise only offers that reference the definition are reindexed.
+   *
+   * @return array
+   *   Sync stats plus indexed count when applicable.
+   */
+  public function handleFeatureDefinitionLifecycle(string $definitionId): array {
+    $stats = $this->sync(TRUE);
+
+    $index = Index::load('offers');
+    if (!$index) {
+      return $stats;
+    }
+
+    if ($stats['changed']) {
+      $stats['indexed'] = (int) $index->indexItems();
+      return $stats;
+    }
+
+    $nids = $this->findOfferIdsWithFeatureDefinition($definitionId);
+    if ($nids === []) {
+      $stats['indexed'] = 0;
+      return $stats;
+    }
+
+    $item_ids = [];
+    foreach ($nids as $nid) {
+      $item_ids[] = 'entity:node/' . $nid;
+    }
+    $index->trackItemsUpdated('entity:node', $item_ids);
+    $stats['indexed'] = (int) $index->indexItems(count($item_ids));
+
+    return $stats;
+  }
+
+  /**
+   * Returns offer node IDs that reference a feature definition.
+   *
+   * @return int[]
+   */
+  private function findOfferIdsWithFeatureDefinition(string $definitionId): array {
+    $nids = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'offer')
+      ->condition('field_features.feature_definition_id', $definitionId)
+      ->accessCheck(FALSE)
+      ->execute();
+
+    return array_map('intval', $nids);
   }
 
   /**

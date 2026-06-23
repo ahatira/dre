@@ -32,7 +32,7 @@
         class="ps-filter-bar__toggle d-flex align-items-center w-100{% if active_op or active_asset %} is-active{% endif %}"
         type="button"
         data-bs-toggle="dropdown"
-        data-bs-auto-close="outside"
+        data-bs-auto-close="false"
         aria-haspopup="dialog"
         aria-controls="ps-filter-type-menu"
         aria-expanded="false"
@@ -90,7 +90,7 @@
         class="ps-filter-bar__toggle d-flex align-items-center w-100"
         type="button"
         data-bs-toggle="dropdown"
-        data-bs-auto-close="outside"
+        data-bs-auto-close="false"
         aria-haspopup="dialog"
         aria-controls="ps-filter-surface-menu"
         aria-expanded="false"
@@ -120,7 +120,7 @@
         class="ps-filter-bar__toggle d-flex align-items-center w-100"
         type="button"
         data-bs-toggle="dropdown"
-        data-bs-auto-close="outside"
+        data-bs-auto-close="false"
         aria-haspopup="dialog"
         aria-controls="ps-filter-capacity-menu"
         aria-expanded="false"
@@ -154,7 +154,7 @@
         class="ps-filter-bar__toggle d-flex align-items-center w-100"
         type="button"
         data-bs-toggle="dropdown"
-        data-bs-auto-close="outside"
+        data-bs-auto-close="false"
         aria-haspopup="dialog"
         aria-controls="ps-filter-budget-menu"
         aria-expanded="false"
@@ -213,7 +213,7 @@
 
     <div class="offcanvas-footer ps-filter-popin__footer border-top">
       <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="more">{{ 'Clear'|t }}</button>
-      <button class="ps-apply-btn js-ps-apply-btn" type="button" disabled>
+      <button class="ps-apply-btn js-ps-apply-btn js-ps-apply-btn--more" type="button" disabled data-ps-htmx-apply="more">
         {{ 'Show'|t }} <span id="ps-filter-more-count-label" class="js-ps-count-label js-ps-count-label--htmx-more">…</span> {{ 'results'|t }}
       </button>
     </div>

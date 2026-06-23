@@ -104,6 +104,16 @@ ps_search.api.location_suggest:
   options:
     no_cache: TRUE
 
+ps_search.api.transport_suggest:
+  path: '/api/ps/transport-suggest'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchCountController::transportSuggest'
+    _title: 'Transport suggestions'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
 ps_search.api.location_resolve:
   path: '/api/ps/location/resolve'
   defaults:
@@ -192,6 +202,16 @@ ps_search.api.filter_htmx.apply_mobile:
   defaults:
     _controller: '\Drupal\ps_search\Controller\Htmx\FilterMobileApplyHtmxController::applyMobile'
     _title: 'Apply mobile filters'
+  requirements:
+    _access: 'TRUE'
+  options:
+    _htmx_route: TRUE
+
+ps_search.api.filter_htmx.apply_more:
+  path: '/api/ps/htmx/apply-more'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\Htmx\FilterMoreApplyHtmxController::applyMore'
+    _title: 'Apply more filters'
   requirements:
     _access: 'TRUE'
   options:

@@ -139,6 +139,13 @@ services:
       - '@ps_search.geo_zone.repository'
       - '@ps_search.administrative_region_registry'
 
+  ps_search.transport_suggest_builder:
+    class: Drupal\ps_search\Service\TransportSuggestBuilder
+    arguments:
+      - '@ps_search.transport_feature_search_text_builder'
+      - '@entity_type.manager'
+      - '@database'
+
   ps_search.views_query_gate:
     class: Drupal\ps_search\Service\SearchViewsQueryGate
     arguments:
@@ -372,6 +379,14 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@ps_feature.feature_group_display_label'
+      - '@ps_core.section_registry'
+
+  ps_search.transport_feature_search_text_builder:
+    class: Drupal\ps_search\Service\TransportFeatureSearchTextBuilder
+    arguments:
+      - '@ps_core.section_registry'
+      - '@entity_type.manager'
+      - '@ps_feature.type_manager'
 
   ps_search.filter_more_criteria_builder:
     class: Drupal\ps_search\Search\Filter\MoreCriteriaBuilder
@@ -465,6 +480,14 @@ services:
     arguments:
       - '@config.factory'
       - '@ps_search.feature_filter_registry'
+      - '@entity_type.manager'
+
+  Drupal\ps_search\Hook\FeatureFilterEntityHooks:
+    class: Drupal\ps_search\Hook\FeatureFilterEntityHooks
+    arguments:
+      - '@ps_search.feature_filter_sync_manager'
+      - '@config.factory'
+      - '@logger.factory'
 
   Drupal\ps_search\Hook\FeatureFilterQueryHooks:
     class: Drupal\ps_search\Hook\FeatureFilterQueryHooks

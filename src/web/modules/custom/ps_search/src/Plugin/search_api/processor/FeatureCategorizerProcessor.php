@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Plugin\search_api\processor;
 
+use Drupal\ps_search\Service\TransportFeatureSearchTextBuilder;
 use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Processor\ProcessorPluginBase;
 use Drupal\search_api\Processor\ProcessorProperty;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Adds derived offer fields used by More-filters (core criteria group).
  *
  * Per-feature filters use FeatureProcessor (feature_* fields). This processor
  * only indexes cross-cutting fields not tied to a single definition:
- * - nearby_transport: extracted from body text
- * - ceiling_height: hauteurs features
+ * - nearby_transport: searchable text from transport-group features (BO config)
  * - has_immersive_tour / has_video: media and feature flags.
  *
  * @SearchApiProcessor(
@@ -30,14 +31,16 @@ use Drupal\search_api\Processor\ProcessorProperty;
  */
 final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
+  private TransportFeatureSearchTextBuilder $transportTextBuilder;
+
   /**
-   * Ceiling height feature definition IDs (meters).
+   * {@inheritdoc}
    */
-  private const CEILING_HEIGHT_FEATURES = [
-    'hauteurs__tec_hauteur_sous_plafond',
-    'hauteurs__tec_hauteur_libre',
-    'hauteurs__tec_hauteur_sous_poutre',
-  ];
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->transportTextBuilder = $container->get('ps_search.transport_feature_search_text_builder');
+    return $instance;
+  }
 
   /**
    * Immersive tour feature definition IDs.
@@ -81,14 +84,7 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
       'nearby_transport' => new ProcessorProperty([
         'label' => $this->t('Nearby transport'),
         'description' => $this->t('Nearby public transport information.'),
-        'type' => 'string',
-        'processor_id' => $this->getPluginId(),
-        'is_list' => FALSE,
-      ]),
-      'ceiling_height' => new ProcessorProperty([
-        'label' => $this->t('Ceiling height'),
-        'description' => $this->t('Ceiling height in meters.'),
-        'type' => 'decimal',
+        'type' => 'text',
         'processor_id' => $this->getPluginId(),
         'is_list' => FALSE,
       ]),
@@ -118,23 +114,16 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
       return;
     }
 
+    $featureNode = $this->transportTextBuilder->resolveNodeForFeatureIndexing($node);
     $fields = $item->getFields(FALSE);
 
-    if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
-      $body_value = $node->get('body')->value ?? '';
-      $transport_info = $this->extractTransportInfo($body_value);
-      if ($transport_info) {
-        $this->addScalarValue($fields, 'nearby_transport', $transport_info);
-      }
+    $transportText = $this->transportTextBuilder->buildFromNode($featureNode);
+    if ($transportText !== '') {
+      $this->addScalarValue($fields, 'nearby_transport', $transportText);
     }
 
-    $ceiling_height = $this->extractCeilingHeight($node);
-    if ($ceiling_height !== NULL) {
-      $this->addScalarValue($fields, 'ceiling_height', $ceiling_height);
-    }
-
-    $this->addBooleanValue($fields, 'has_immersive_tour', $this->checkForImmersiveTour($node));
-    $this->addBooleanValue($fields, 'has_video', $this->checkForVideo($node));
+    $this->addBooleanValue($fields, 'has_immersive_tour', $this->checkForImmersiveTour($featureNode));
+    $this->addBooleanValue($fields, 'has_video', $this->checkForVideo($featureNode));
   }
 
   /**
@@ -158,55 +147,6 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
     foreach ($matching_fields as $field) {
       $field->addValue($value);
     }
-  }
-
-  /**
-   * Extract transport information from body text.
-   */
-  private function extractTransportInfo(string $body): ?string {
-    $transport_keywords = ['métro', 'metro', 'bus', 'tram', 'train', 'RER', 'station', 'transport'];
-
-    foreach ($transport_keywords as $keyword) {
-      if (stripos($body, $keyword) !== FALSE) {
-        $sentences = preg_split('/[.!?]/', $body);
-        foreach ($sentences as $sentence) {
-          if (stripos($sentence, $keyword) !== FALSE) {
-            return trim($sentence);
-          }
-        }
-      }
-    }
-
-    return NULL;
-  }
-
-  /**
-   * Extract ceiling height from features payload.
-   */
-  private function extractCeilingHeight($node): ?float {
-    if (!$node->hasField('field_features')) {
-      return NULL;
-    }
-
-    foreach ($node->get('field_features') as $feature_item) {
-      $feature_id = (string) $feature_item->feature_definition_id;
-
-      if (!in_array($feature_id, self::CEILING_HEIGHT_FEATURES, TRUE)) {
-        continue;
-      }
-
-      $payload = $feature_item->payload;
-      if (!$payload) {
-        continue;
-      }
-
-      $data = json_decode($payload, TRUE);
-      if (isset($data['value']) && is_numeric($data['value'])) {
-        return (float) $data['value'];
-      }
-    }
-
-    return NULL;
   }
 
   /**

@@ -132,10 +132,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_features
-  ceiling_height:
-    label: 'Ceiling height'
-    property_path: ceiling_height
-    type: decimal
   has_immersive_tour:
     label: 'Immersive tour'
     property_path: has_immersive_tour
@@ -147,7 +143,7 @@ field_settings:
   nearby_transport:
     label: 'Nearby transport'
     property_path: nearby_transport
-    type: string
+    type: text
   field_geo:
     label: Geo
     datasource_id: 'entity:node'

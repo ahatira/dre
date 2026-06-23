@@ -147,6 +147,9 @@ ps_search.feature_filter_sync:
     feature_filters_combine:
       type: string
       label: 'Combine mode for active feature filters'
+    auto_sync_on_definition_change:
+      type: boolean
+      label: 'Auto sync search index when feature definitions change'
 
 ps_search.api_rate_limit_settings:
   type: config_object

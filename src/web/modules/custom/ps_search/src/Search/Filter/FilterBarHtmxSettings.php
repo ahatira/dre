@@ -27,6 +27,8 @@ final class FilterBarHtmxSettings {
 
   public const APPLY_MOBILE_ROUTE = ApiRoutePaths::HTMX_APPLY_MOBILE;
 
+  public const APPLY_MORE_ROUTE = ApiRoutePaths::HTMX_APPLY_MORE;
+
   public const RESULTS_HEADER_ROUTE = ApiRoutePaths::HTMX_RESULTS_HEADER;
 
   /**
@@ -89,6 +91,7 @@ final class FilterBarHtmxSettings {
           'targetId' => 'ps-filter-more-count-label',
           'openSelector' => '#ps-more-offcanvas.show',
           'offcanvasId' => 'ps-more-offcanvas',
+          'applyUrl' => self::APPLY_MORE_ROUTE,
         ],
       ],
     ];

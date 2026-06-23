@@ -225,17 +225,6 @@
   };
 
   /**
-   * Refreshes a popin count label via HTMX fragment route.
-   *
-   * @param {string} popinKey
-   *   Registry key.
-   * @param {string} queryString
-   *   URL-encoded filter query (without leading "?").
-   *
-   * @return {boolean}
-   *   TRUE when an HTMX request was started.
-   */
-  /**
    * Refreshes the live count for the active popin, or a default target.
    *
    * @param {string} queryString
@@ -250,6 +239,17 @@
     return api.refreshCount(popinKey, queryString);
   };
 
+  /**
+   * Refreshes a popin count label via HTMX fragment route.
+   *
+   * @param {string} popinKey
+   *   Registry key.
+   * @param {string} queryString
+   *   URL-encoded filter query (without leading "?").
+   *
+   * @return {boolean}
+   *   TRUE when an HTMX request was started.
+   */
   api.refreshCount = function (popinKey, queryString) {
     const popin = api.getPopin(popinKey);
     if (!popin || !api.isAvailable()) {

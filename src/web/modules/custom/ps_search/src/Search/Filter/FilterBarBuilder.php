@@ -305,6 +305,7 @@ final class FilterBarBuilder {
       'activeAsset' => $data['active_asset'],
       'initialLocality' => $data['initial_locality'],
       'locationSuggestUrl' => ApiRoutePaths::LOCATION_SUGGEST,
+      'transportSuggestUrl' => ApiRoutePaths::TRANSPORT_SUGGEST,
       'locationDataUrl' => ApiRoutePaths::LOCATION_DATA,
       'locationResolveUrl' => ApiRoutePaths::LOCATION_RESOLVE,
       'filterVisibilityByAsset' => $data['visibility_by_asset'],

@@ -597,3 +597,29 @@ body > .offcanvas-backdrop {
 .ps-filter-bar .dropdown-menu.ps-filter-popin--range {
   max-width: min(420px, calc(100vw - 2rem));
 }
+
+.ps-more-field--autocomplete .ps-transport-suggest {
+  position: relative;
+}
+
+.ps-transport-suggest__list {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  right: 0;
+  margin-top: 0.25rem;
+  max-height: 240px;
+  overflow-y: auto;
+  background: var(--bs-body-bg, #fff);
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ps-transport-suggest__list[hidden] {
+  display: none;
+}
+
+.ps-transport-suggest__list .ps-location-suggest__item.is-active {
+  background: var(--ps-location-suggest-hover-bg, #f2f2f2);
+}

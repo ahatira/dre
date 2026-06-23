@@ -21,6 +21,8 @@ final class ApiRoutePaths {
 
   public const LOCATION_SUGGEST = self::BASE . '/location-suggest';
 
+  public const TRANSPORT_SUGGEST = self::BASE . '/transport-suggest';
+
   public const LOCATION_RESOLVE = self::BASE . '/location/resolve';
 
   public const LOCATION_DATA = self::BASE . '/location-data';
@@ -41,6 +43,8 @@ final class ApiRoutePaths {
 
   public const HTMX_APPLY_MOBILE = self::BASE . '/htmx/apply-mobile';
 
+  public const HTMX_APPLY_MORE = self::BASE . '/htmx/apply-more';
+
   public const HTMX_MORE_CRITERIA = self::BASE . '/htmx/more-criteria';
 
   public const HTMX_RESULTS_HEADER = self::BASE . '/htmx/results-header';
@@ -55,6 +59,7 @@ final class ApiRoutePaths {
       'ps_search.api.markers' => 'markers',
       'ps_search.api.isochrone' => 'isochrone',
       'ps_search.api.location_suggest' => 'location_suggest',
+      'ps_search.api.transport_suggest' => 'transport_suggest',
       'ps_search.api.location_resolve' => 'location_resolve',
       'ps_search.api.location_data' => 'location_data',
       'ps_search.api.count' => 'count',
@@ -63,6 +68,7 @@ final class ApiRoutePaths {
       'ps_search.api.filter_htmx.apply_location' => 'htmx',
       'ps_search.api.filter_htmx.apply_range' => 'htmx',
       'ps_search.api.filter_htmx.apply_mobile' => 'htmx',
+      'ps_search.api.filter_htmx.apply_more' => 'htmx',
       'ps_search.api.filter_htmx.results_header' => 'htmx',
       'ps_search.api.filter_htmx.more_criteria_group' => 'htmx',
     ];

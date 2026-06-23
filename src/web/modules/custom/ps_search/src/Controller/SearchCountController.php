@@ -10,6 +10,7 @@ use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\ps_search\Service\LocationSuggestBuilder;
 use Drupal\ps_search\Service\SearchFilterQueryBuilder;
 use Drupal\ps_search\Service\SearchSolrCircuitBreaker;
+use Drupal\ps_search\Service\TransportSuggestBuilder;
 use Drupal\search_api\Entity\Index;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,6 +25,7 @@ final class SearchCountController extends ControllerBase {
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly SearchFilterQueryBuilder $filterQueryBuilder,
     private readonly LocationSuggestBuilder $locationSuggestBuilder,
+    private readonly TransportSuggestBuilder $transportSuggestBuilder,
     private readonly RequestValidator $requestValidator,
     private readonly ?SearchSolrCircuitBreaker $circuitBreaker = NULL,
   ) {}
@@ -36,6 +38,7 @@ final class SearchCountController extends ControllerBase {
       $container->get('ps_search.location_filter'),
       $container->get('ps_search.filter_query_builder'),
       $container->get('ps_search.location_suggest_builder'),
+      $container->get('ps_search.transport_suggest_builder'),
       $container->get('ps_search.api.request_validator'),
       $container->get('ps_search.solr_circuit_breaker'),
     );
@@ -99,6 +102,32 @@ final class SearchCountController extends ControllerBase {
     $limit = is_numeric($limitRaw) ? (int) $limitRaw : 8;
 
     $payload = $this->locationSuggestBuilder->build($query, $limit);
+
+    $response = new JsonResponse($payload);
+    $response->setPrivate();
+    $response->setMaxAge(60);
+    $response->headers->set('X-Content-Type-Options', 'nosniff');
+    return $response;
+  }
+
+  /**
+   * Returns transport suggestions for the Nearby transport filter.
+   */
+  public function transportSuggest(Request $request): JsonResponse {
+    $validationError = $this->requestValidator->validateTransportSuggest($request);
+    if ($validationError !== NULL) {
+      return $validationError;
+    }
+
+    $query = $this->requestValidator->sanitizeText($request->query->get('q'));
+    if ($query === NULL || mb_strlen($query) < 2) {
+      return new JsonResponse(['groups' => []]);
+    }
+
+    $limitRaw = $request->query->get('limit');
+    $limit = is_numeric($limitRaw) ? (int) $limitRaw : 8;
+
+    $payload = $this->transportSuggestBuilder->build($query, $limit);
 
     $response = new JsonResponse($payload);
     $response->setPrivate();

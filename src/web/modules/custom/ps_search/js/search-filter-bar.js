@@ -107,7 +107,7 @@
       function initMoreFiltersFromUrl() {
         moreFilterSchema.forEach(function (schema) {
           const param = schema.param;
-          const widget = schema.widget;
+          const widget = normalizeMoreFilterWidget(schema.widget);
           if (!param) {
             return;
           }
@@ -233,11 +233,18 @@
         syncActiveFilterCount();
       }
 
+      function normalizeMoreFilterWidget(widget) {
+        if (widget === 'text_autocomplete') {
+          return 'text';
+        }
+        return widget || 'text';
+      }
+
       function getMoreFilterWidget(param) {
         const schema = moreFilterSchema.find(function (entry) {
           return entry.param === param;
         });
-        return schema ? schema.widget : 'text';
+        return normalizeMoreFilterWidget(schema ? schema.widget : 'text');
       }
 
       function countMoreActive() {
@@ -320,7 +327,7 @@
       function syncMoreInputsFromState() {
         document.querySelectorAll('.js-ps-more-filter').forEach(function (input) {
           const param = input.dataset.param;
-          const widget = input.dataset.widget || getMoreFilterWidget(param);
+          const widget = normalizeMoreFilterWidget(input.dataset.widget || getMoreFilterWidget(param));
           const state = moreFilters[param];
 
           if (widget === 'checkbox') {
@@ -392,7 +399,7 @@
 
       function handleMoreFilterChange(input) {
         const param = input.dataset.param;
-        const widget = input.dataset.widget || getMoreFilterWidget(param);
+        const widget = normalizeMoreFilterWidget(input.dataset.widget || getMoreFilterWidget(param));
         if (widget === 'checkbox') {
           if (input.checked) {
             moreFilters[param] = true;
@@ -433,9 +440,32 @@
         scheduleCountUpdate();
       }
 
+      function isInactiveMoreFilterInput(input) {
+        const offcanvas = input.closest('.offcanvas');
+        return offcanvas && !offcanvas.classList.contains('show');
+      }
+
+      function commitMoreFiltersFromDom() {
+        document.querySelectorAll('.js-ps-more-filter').forEach(function (input) {
+          if (isInactiveMoreFilterInput(input)) {
+            return;
+          }
+          const param = input.dataset.param;
+          if (!param) {
+            return;
+          }
+          const widget = normalizeMoreFilterWidget(input.dataset.widget || getMoreFilterWidget(param));
+          if (widget === 'text' || widget === 'date' || widget === 'range') {
+            handleMoreFilterInputEvent(input);
+            return;
+          }
+          handleMoreFilterChange(input);
+        });
+      }
+
       function handleMoreFilterInputEvent(input) {
         const param = input.dataset.param;
-        const widget = input.dataset.widget || getMoreFilterWidget(param);
+        const widget = normalizeMoreFilterWidget(input.dataset.widget || getMoreFilterWidget(param));
         if (widget === 'range') {
           const range = moreFilters[param] || { min: '', max: '' };
           if (input.dataset.bound === 'min') {
@@ -510,6 +540,9 @@
               panel.dataset.loaded = '1';
               loadedMoreGroups[scopeKey] = true;
               syncMoreInputsFromState();
+              if (typeof Drupal !== 'undefined' && typeof Drupal.attachBehaviors === 'function') {
+                Drupal.attachBehaviors(content);
+              }
             })
             .catch(function () {
               if (loading) {
@@ -654,7 +687,7 @@
         const toggle = getFilterItemToggle(item);
         const bs = getBootstrap();
         if (toggle && bs?.Dropdown) {
-          bs.Dropdown.getOrCreateInstance(toggle, { autoClose: 'outside' }).show();
+          bs.Dropdown.getOrCreateInstance(toggle, { autoClose: false }).show();
         }
       }
 
@@ -697,6 +730,10 @@
 
           if (targetItem.classList.contains('dropdown') && !isFilterItemOpen(targetItem)) {
             closeOtherFilterPanels(targetItem);
+            // Clicks on Bootstrap toggles (including child spans/chevrons): let data-bs-toggle handle show/hide.
+            if (e.target.closest('[data-bs-toggle="dropdown"]')) {
+              return;
+            }
             openFilterItemDropdown(targetItem);
           }
         });
@@ -901,6 +938,23 @@
         });
       });
 
+      once('ps-filter-bar-outside-click', 'body', context).forEach(function (body) {
+        body.addEventListener('click', function (event) {
+          const openItems = document.querySelectorAll('.ps-filter-bar .dropdown.show');
+          if (!openItems.length) {
+            return;
+          }
+          openItems.forEach(function (item) {
+            if (item.contains(event.target)) {
+              return;
+            }
+            closeFilterItemDropdown(item);
+            hideAllLocationSuggestions();
+          });
+          syncFilterBarBackdrop();
+        });
+      });
+
       once('ps-filter-backdrop-resize', 'html', context).forEach(function () {
         window.addEventListener('resize', function () {
           const activeBackdrop = getFilterBarBackdrop();
@@ -938,6 +992,13 @@
         offcanvasEl.addEventListener('shown.bs.offcanvas', function () {
           if (offcanvasEl.id === 'ps-mobile-filters') {
             setupMobileMoreCriteriaLazyLoad(offcanvasEl);
+          }
+          if (offcanvasEl.id === 'ps-more-offcanvas') {
+            const countLabel = document.getElementById('ps-filter-more-count-label');
+            const applyBtn = offcanvasEl.querySelector('.js-ps-apply-btn');
+            if (applyBtn && countLabel && /^\d+$/.test(String(countLabel.textContent || '').trim())) {
+              applyBtn.disabled = false;
+            }
           }
           document.querySelectorAll('.js-ps-surface-min').forEach(function (el) {
             el.value = surfaceMin;
@@ -1120,7 +1181,7 @@
         if (!bs?.Dropdown || !toggle || !dropdownEl) {
           return null;
         }
-        return bs.Dropdown.getOrCreateInstance(toggle, { autoClose: 'outside' });
+        return bs.Dropdown.getOrCreateInstance(toggle, { autoClose: false });
       }
 
       function removeLocationTokenAt(index) {
@@ -1355,6 +1416,24 @@
         return normalized !== searchBase && normalized.indexOf(searchBase) === -1;
       }
 
+      function buildMoreCriteriaObject() {
+        const p = new URLSearchParams();
+        appendMoreFiltersToParams(p, true);
+        const criteria = {};
+        p.forEach(function (value, key) {
+          if (criteria[key] !== undefined) {
+            if (!Array.isArray(criteria[key])) {
+              criteria[key] = [criteria[key]];
+            }
+            criteria[key].push(value);
+          }
+          else {
+            criteria[key] = value;
+          }
+        });
+        return criteria;
+      }
+
       function syncStoreFromUiState() {
         if (!useSearchContext) {
           return;
@@ -1373,6 +1452,10 @@
         Drupal.psSearchContext.setFilter('budget', (budgetMin || budgetMax)
           ? { min: budgetMin ? Number(budgetMin) : null, max: budgetMax ? Number(budgetMax) : null }
           : null);
+
+        if (typeof Drupal.psSearchContext.setMoreCriteria === 'function') {
+          Drupal.psSearchContext.setMoreCriteria(buildMoreCriteriaObject());
+        }
 
         const primaryData = getPrimaryLocalityData();
         if (primaryData && (primaryData.slug || settings.searchContext?.geo?.slug)) {
@@ -1487,6 +1570,8 @@
 
         const navigationUrl = buildNavigationUrl();
         const resolved = new URL(navigationUrl, window.location.origin);
+        const browserUrl = resolved.pathname + resolved.search;
+
         const params = new URLSearchParams(resolved.search);
 
         if (selectedOp) {
@@ -1502,9 +1587,10 @@
         }
 
         params.delete('page');
+        appendMoreFiltersToParams(params, false);
 
         return {
-          browserUrl: resolved.pathname + resolved.search,
+          browserUrl: browserUrl,
           params: params,
         };
       }
@@ -1675,10 +1761,14 @@
         if (count !== null) {
           updateCountDisplays(count);
         }
+        else {
+          setApplyBtnsLoading(false);
+        }
       };
-      const HTMX_POPIN_KEYS = ['type', 'location', 'surface', 'capacity', 'budget', 'mobile'];
+      const HTMX_POPIN_KEYS = ['type', 'location', 'surface', 'capacity', 'budget', 'mobile', 'more'];
 
       htmxApi.callbacks.onApply = function (detail) {
+        commitMoreFiltersFromDom();
         if (detail && HTMX_POPIN_KEYS.indexOf(detail.popinKey) !== -1) {
           htmxApi.closePopinDropdown(detail.popinKey);
         }
@@ -1743,6 +1833,7 @@
       }
 
       function navigate() {
+        commitMoreFiltersFromDom();
         applyFilters();
       }
 
@@ -1761,6 +1852,7 @@
         btn.addEventListener('click', function () {
           if (!btn.disabled) {
             commitAllLocationDrafts();
+            commitMoreFiltersFromDom();
             const htmxApplyKey = btn.getAttribute('data-ps-htmx-apply');
             if (htmxApplyKey && htmxApi.isHtmxPopin(htmxApplyKey)) {
               applyPopinViaHtmx(htmxApplyKey);

@@ -6,6 +6,7 @@ namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\ps_core\Service\OfferSectionRegistry;
 use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Entity\FeatureGroup;
 use Drupal\ps_feature\Service\FeatureGroupDisplayLabelResolver;
@@ -23,7 +24,6 @@ final class FeatureSearchFilterRegistry {
   public const CORE_FILTER_FIELDS = [
     'reference',
     'nearby_transport',
-    'ceiling_height',
     'has_immersive_tour',
     'has_video',
   ];
@@ -31,6 +31,7 @@ final class FeatureSearchFilterRegistry {
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly FeatureGroupDisplayLabelResolver $groupLabelResolver,
+    private readonly OfferSectionRegistry $offerSectionRegistry,
   ) {}
 
   /**
@@ -288,10 +289,27 @@ final class FeatureSearchFilterRegistry {
     if (!$definition->status() || !$definition->isExposeAsFilter()) {
       return FALSE;
     }
+    if ($this->isTransportGroupDefinition($definition)) {
+      return FALSE;
+    }
     if ($activeAsset !== NULL && !$definition->isApplicableToAssetType($activeAsset)) {
       return FALSE;
     }
     return TRUE;
+  }
+
+  /**
+   * Transport features are searched via Nearby transport (core criteria), not per-feature filters.
+   */
+  private function isTransportGroupDefinition(FeatureDefinition $definition): bool {
+    return (string) $definition->getGroup() === $this->offerSectionRegistry->getLocationTransportGroup();
+  }
+
+  /**
+   * Returns the transport feature group ID (shared with offer location section).
+   */
+  public function getTransportGroupId(): string {
+    return $this->offerSectionRegistry->getLocationTransportGroup();
   }
 
   /**

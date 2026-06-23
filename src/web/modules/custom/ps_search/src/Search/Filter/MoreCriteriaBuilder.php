@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Search\Filter;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\ps_search\Api\ApiRoutePaths;
 use Drupal\ps_search\Service\FeatureSearchFilterRegistry;
 
 /**
@@ -52,10 +53,14 @@ final class MoreCriteriaBuilder {
   public function buildFilterSchema(?string $activeAsset = NULL): array {
     $schema = $this->featureFilterRegistry->buildFilterSchema($activeAsset);
     foreach ($this->buildCoreGroup()['items'] as $item) {
+      $widget = $item['widget'];
+      if ($widget === 'text_autocomplete') {
+        $widget = 'text';
+      }
       $schema[] = [
         'param' => $item['param'],
         'field' => $item['field'],
-        'widget' => $item['widget'],
+        'widget' => $widget,
       ];
     }
     return $schema;
@@ -72,14 +77,16 @@ final class MoreCriteriaBuilder {
       'label' => (string) $this->t('Other criteria'),
       'weight' => 10000,
       'lazy' => FALSE,
-      'item_count' => 5,
+      'item_count' => 4,
       'items' => [
         [
           'id' => 'nearby_transport',
           'label' => (string) $this->t('Nearby transport'),
-          'widget' => 'text',
+          'widget' => 'text_autocomplete',
           'param' => 'nearby_transport',
           'field' => 'nearby_transport',
+          'suggest_url' => ApiRoutePaths::TRANSPORT_SUGGEST,
+          'placeholder' => (string) $this->t('Metro, bus, train…'),
         ],
         [
           'id' => 'reference',
@@ -87,15 +94,6 @@ final class MoreCriteriaBuilder {
           'widget' => 'text',
           'param' => 'reference',
           'field' => 'field_reference',
-        ],
-        [
-          'id' => 'ceiling_height',
-          'label' => (string) $this->t('Ceiling height (m)'),
-          'widget' => 'range',
-          'param' => 'ceiling_height',
-          'field' => 'ceiling_height',
-          'unit' => 'm',
-          'step' => '0.5',
         ],
         [
           'id' => 'has_immersive_tour',

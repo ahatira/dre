@@ -127,14 +127,6 @@ display:
                   placeholder_text: 'Metro, bus, train...'
                   collapsible: false
                   is_secondary: true
-              ceiling_height:
-                plugin_id: bef_sliders
-                min: '0'
-                max: '20'
-                step: '0.5'
-                advanced:
-                  collapsible: false
-                  is_secondary: true
               has_immersive_tour:
                 plugin_id: bef_single
                 treat_as_false: false
@@ -690,47 +682,6 @@ display:
             operator_limit_selection: false
             operator_list: {  }
             identifier: nearby_transport
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        ceiling_height:
-          id: ceiling_height
-          table: search_api_index_offers
-          field: ceiling_height
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_numeric
-          operator: between
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ceiling_height_op
-            label: 'Ceiling height (m)'
-            description: ''
-            use_operator: false
-            operator: ceiling_height_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ceiling_height
             required: false
             remember: false
             multiple: false

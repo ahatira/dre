@@ -62,6 +62,13 @@ final class FeatureFilterSyncSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('cron_index_only_on_change'),
     ];
 
+    $form['auto_sync_on_definition_change'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Auto sync when feature definitions are created, updated or deleted'),
+      '#description' => $this->t('Keeps Solr fields, More filters and affected offers in sync without waiting for cron or running Drush manually.'),
+      '#default_value' => $config->get('auto_sync_on_definition_change'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -74,6 +81,7 @@ final class FeatureFilterSyncSettingsForm extends ConfigFormBase {
       ->set('feature_filters_combine', $form_state->getValue('feature_filters_combine'))
       ->set('cron_run_immediate_index', (bool) $form_state->getValue('cron_run_immediate_index'))
       ->set('cron_index_only_on_change', (bool) $form_state->getValue('cron_index_only_on_change'))
+      ->set('auto_sync_on_definition_change', (bool) $form_state->getValue('auto_sync_on_definition_change'))
       ->save();
 
     parent::submitForm($form, $form_state);

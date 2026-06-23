@@ -770,6 +770,12 @@
     return facets;
   }
 
+  function isFacetBracketParamKey(key) {
+    return FACET_PARAM_KEYS.some(function (facetKey) {
+      return key.indexOf(facetKey + '[') === 0 && key.charAt(key.length - 1) === ']';
+    });
+  }
+
   /**
    * Persists active facet filters into drupalSettings.path.currentQuery.
    *
@@ -784,9 +790,46 @@
     }
     drupalSettings.path = drupalSettings.path || {};
     const currentQuery = Object.assign({}, drupalSettings.path.currentQuery || {});
+    const pathFacets = resolveSeoFacetsFromPath();
 
     FACET_PARAM_KEYS.forEach(function (key) {
+      const pathValue = pathFacets[key];
+      if (pathValue) {
+        currentQuery[key] = pathValue;
+        return;
+      }
       const value = readFacetValue(params, key);
+      if (value) {
+        currentQuery[key] = value;
+      }
+      else {
+        delete currentQuery[key];
+      }
+    });
+
+    Object.keys(currentQuery).forEach(function (key) {
+      if (isFacetBracketParamKey(key)) {
+        delete currentQuery[key];
+      }
+    });
+
+    const skipKeys = ['page', 'lang', '_drupal_ajax'];
+    params.forEach(function (value, key) {
+      if (FACET_PARAM_KEYS.indexOf(key) !== -1 || isFacetBracketParamKey(key)) {
+        return;
+      }
+      if (skipKeys.indexOf(key) !== -1 || key.indexOf('view_') === 0) {
+        return;
+      }
+      if (key.indexOf('[') !== -1) {
+        if (value) {
+          currentQuery[key] = value;
+        }
+        else {
+          delete currentQuery[key];
+        }
+        return;
+      }
       if (value) {
         currentQuery[key] = value;
       }
