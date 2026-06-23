@@ -86,7 +86,7 @@ assert_page_has_one_of() {
 drush_build_columns() {
   local expected="$1"
   ps_e2e_drush php:eval "
-\$expected = '"$expected"';
+\$expected = (int) '"$expected"';
 \$account = \\Drupal\\user\\Entity\\User::load(1);
 \\Drupal::service(\"account_switcher\")->switchTo(\$account);
 \\Drupal::database()->delete(\"ps_compare_item\")->condition(\"uid\", (int) \$account->id())->execute();

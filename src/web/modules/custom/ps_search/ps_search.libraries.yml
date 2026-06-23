@@ -8,6 +8,14 @@ filter.htmx:
     - core/drupalSettings
     - core/once
 
+search-context:
+  version: 1.0.0
+  js:
+    js/search-context.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+
 filter.bar:
   version: 1.0.0
   js:
@@ -19,6 +27,7 @@ filter.bar:
       css/search-filters-mobile.css: {}
   dependencies:
     - ps_search/filter.htmx
+    - ps_search/search-context
     - core/drupal
     - core/drupal.locale
     - core/drupalSettings
@@ -58,6 +67,7 @@ search-page-map-utils:
   dependencies:
     - core/drupal
     - core/drupalSettings
+    - ps_search/search-context
 
 marker-cluster:
   version: 1.0.0

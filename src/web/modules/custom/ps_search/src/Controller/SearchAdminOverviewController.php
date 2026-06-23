@@ -25,6 +25,12 @@ final class SearchAdminOverviewController extends ControllerBase {
       ],
       [
         '#type' => 'link',
+        '#title' => $this->t('SEO migration redirects'),
+        '#url' => Url::fromRoute('ps_search.seo_redirects_form'),
+        '#attributes' => ['class' => ['admin-item__link']],
+      ],
+      [
+        '#type' => 'link',
         '#title' => $this->t('Map zone settings'),
         '#url' => Url::fromRoute('ps_search.map_zone_settings_form'),
         '#attributes' => ['class' => ['admin-item__link']],

@@ -1,0 +1,296 @@
+country: nl
+default_zone: region.nl.nh
+zones:
+  region.nl.dr:
+    type: region
+    code: DR
+    label: Drenthe
+    slug: drenthe
+    lat: 52.9068
+    lng: 6.6368
+    bbox:
+      sw_lat: 52.501394594595
+      sw_lng: 5.9646122219318
+      ne_lat: 53.312205405405
+      ne_lng: 7.3089877780682
+    postal_prefixes:
+      - '78'
+      - '79'
+    weight: 1
+  region.nl.fl:
+    type: region
+    code: FL
+    label: Flevoland
+    slug: flevoland
+    lat: 52.4484
+    lng: 5.4235
+    bbox:
+      sw_lat: 52.133084684685
+      sw_lng: 4.9061449490121
+      ne_lat: 52.763715315315
+      ne_lng: 5.9408550509879
+    postal_prefixes:
+      - '13'
+      - '82'
+    weight: 2
+  region.nl.fr:
+    type: region
+    code: FR
+    label: Friesland
+    slug: friesland
+    lat: 53.0924
+    lng: 5.777
+    bbox:
+      sw_lat: 52.686994594595
+      sw_lng: 5.1019164785984
+      ne_lat: 53.497805405405
+      ne_lng: 6.4520835214016
+    postal_prefixes:
+      - '84'
+      - '85'
+      - '86'
+      - '87'
+      - '88'
+      - '89'
+      - '90'
+      - '91'
+      - '92'
+    weight: 3
+  region.nl.ge:
+    type: region
+    code: GE
+    label: Gelderland
+    slug: gelderland
+    lat: 52.1014
+    lng: 5.9516
+    bbox:
+      sw_lat: 51.605904504505
+      sw_lng: 5.1449534317854
+      ne_lat: 52.596895495495
+      ne_lng: 6.7582465682146
+    postal_prefixes:
+      - '38'
+      - '39'
+      - '40'
+      - '41'
+      - '42'
+      - '43'
+      - '44'
+      - '45'
+      - '46'
+      - '47'
+      - '48'
+      - '49'
+      - '50'
+      - '51'
+      - '52'
+      - '53'
+      - '54'
+      - '55'
+      - '56'
+      - '57'
+      - '58'
+      - '59'
+      - '60'
+      - '61'
+      - '62'
+      - '63'
+      - '64'
+      - '65'
+      - '66'
+      - '67'
+      - '68'
+      - '69'
+      - '70'
+      - '71'
+      - '72'
+      - '73'
+      - '74'
+    weight: 4
+  region.nl.gr:
+    type: region
+    code: GR
+    label: Groningen
+    slug: groningen
+    lat: 53.2194
+    lng: 6.5665
+    bbox:
+      sw_lat: 52.813994594595
+      sw_lng: 5.8894164887799
+      ne_lat: 53.624805405405
+      ne_lng: 7.2435835112201
+    postal_prefixes:
+      - '93'
+      - '94'
+      - '95'
+      - '96'
+      - '97'
+      - '98'
+      - '99'
+    weight: 5
+  region.nl.li:
+    type: region
+    code: LI
+    label: Limburg
+    slug: limburg-nl
+    lat: 50.8514
+    lng: 5.691
+    bbox:
+      sw_lat: 50.49103963964
+      sw_lng: 5.1202079183496
+      ne_lat: 51.21176036036
+      ne_lng: 6.2617920816504
+    postal_prefixes:
+      - '60'
+      - '61'
+      - '62'
+      - '63'
+      - '64'
+    weight: 6
+  region.nl.nb:
+    type: region
+    code: NB
+    label: 'North Brabant'
+    slug: north-brabant
+    lat: 51.6978
+    lng: 5.3037
+    bbox:
+      sw_lat: 51.24734954955
+      sw_lng: 4.5769433203854
+      ne_lat: 52.14825045045
+      ne_lng: 6.0304566796146
+    postal_prefixes:
+      - '46'
+      - '47'
+      - '48'
+      - '49'
+      - '50'
+      - '51'
+      - '52'
+      - '53'
+      - '54'
+      - '55'
+      - '56'
+      - '57'
+      - '58'
+      - '59'
+    weight: 7
+  region.nl.nh:
+    type: region
+    code: NH
+    label: 'North Holland'
+    slug: north-holland
+    lat: 52.3874
+    lng: 4.6462
+    bbox:
+      sw_lat: 51.981994594595
+      sw_lng: 3.9819487622528
+      ne_lat: 52.792805405405
+      ne_lng: 5.3104512377472
+    postal_prefixes:
+      - '10'
+      - '11'
+      - '12'
+      - '13'
+      - '14'
+      - '15'
+      - '16'
+      - '17'
+      - '18'
+      - '19'
+      - '20'
+      - '21'
+      - '22'
+      - '23'
+      - '24'
+      - '25'
+      - '26'
+      - '27'
+      - '28'
+      - '29'
+    weight: 8
+  region.nl.ov:
+    type: region
+    code: OV
+    label: Overijssel
+    slug: overijssel
+    lat: 52.5168
+    lng: 6.083
+    bbox:
+      sw_lat: 52.111394594595
+      sw_lng: 5.4167941950048
+      ne_lat: 52.922205405405
+      ne_lng: 6.7492058049952
+    postal_prefixes:
+      - '75'
+      - '76'
+      - '77'
+      - '80'
+      - '81'
+    weight: 9
+  region.nl.zh:
+    type: region
+    code: ZH
+    label: 'South Holland'
+    slug: south-holland
+    lat: 52.0705
+    lng: 4.3007
+    bbox:
+      sw_lat: 51.665094594595
+      sw_lng: 3.641173271625
+      ne_lat: 52.475905405405
+      ne_lng: 4.960226728375
+    postal_prefixes:
+      - '22'
+      - '23'
+      - '24'
+      - '25'
+      - '26'
+      - '27'
+      - '28'
+      - '29'
+      - '30'
+      - '31'
+      - '32'
+      - '33'
+      - '34'
+      - '35'
+    weight: 10
+  region.nl.ut:
+    type: region
+    code: UT
+    label: Utrecht
+    slug: utrecht
+    lat: 52.0907
+    lng: 5.1214
+    bbox:
+      sw_lat: 51.775384684685
+      sw_lng: 4.6082025654127
+      ne_lat: 52.406015315315
+      ne_lng: 5.6345974345873
+    postal_prefixes:
+      - '34'
+      - '35'
+      - '36'
+      - '37'
+      - '38'
+      - '39'
+    weight: 11
+  region.nl.ze:
+    type: region
+    code: ZE
+    label: Zeeland
+    slug: zeeland
+    lat: 51.4988
+    lng: 3.6136
+    bbox:
+      sw_lat: 51.13843963964
+      sw_lng: 3.0347367072565
+      ne_lat: 51.85916036036
+      ne_lng: 4.1924632927435
+    postal_prefixes:
+      - '43'
+      - '44'
+      - '45'
+      - '46'
+    weight: 12

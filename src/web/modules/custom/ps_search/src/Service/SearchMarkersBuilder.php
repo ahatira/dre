@@ -144,13 +144,9 @@ final class SearchMarkersBuilder {
     $fetchLimit = $pageSize > 0 ? $pageSize : max(1, min($listLimit, $max));
     $query = $index->query();
     $query->range($listOffset, min($fetchLimit, $max));
-    $this->filterQueryBuilder->applyBusinessFilters($query, $request);
-    $this->filterQueryBuilder->applyListSort($query, $request);
-
     $bounds = $this->mapBoundsResolver->resolveActiveBounds($request);
-    if ($bounds instanceof MapBounds) {
-      $this->filterQueryBuilder->applyMapBounds($query, $bounds);
-    }
+    $this->filterQueryBuilder->apply($query, $request, $bounds);
+    $this->filterQueryBuilder->applyListSort($query, $request);
 
     $query->addCondition('field_geo_lat', NULL, '<>');
     $query->addCondition('field_geo_lng', NULL, '<>');
@@ -205,9 +201,8 @@ final class SearchMarkersBuilder {
     $fetchLimit = min($zoneCount, self::CLUSTER_FETCH_MAX);
     $query = $index->query();
     $query->range(0, $fetchLimit);
-    $this->filterQueryBuilder->applyBusinessFilters($query, $request);
+    $this->filterQueryBuilder->apply($query, $request, $bounds);
     $this->filterQueryBuilder->applyListSort($query, $request);
-    $this->filterQueryBuilder->applyMapBounds($query, $bounds);
     $query->addCondition('field_geo_lat', NULL, '<>');
     $query->addCondition('field_geo_lng', NULL, '<>');
 

@@ -14,6 +14,14 @@ ps_search.seo_url_mappings_form:
   requirements:
     _permission: 'access ps_core config section'
 
+ps_search.seo_redirects_form:
+  path: '/admin/ps/config/search/seo-redirects'
+  defaults:
+    _form: '\Drupal\ps_search\Form\SeoRedirectsForm'
+    _title: 'SEO migration redirects'
+  requirements:
+    _permission: 'access ps_core config section'
+
 ps_search.map_zone_settings_form:
   path: '/admin/ps/config/search/map-zone'
   defaults:
@@ -76,11 +84,31 @@ ps_search.api.count:
   options:
     no_cache: TRUE
 
+ps_search.api.search_context:
+  path: '/api/ps/search-context'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchContextDebugController::context'
+    _title: 'Search context debug'
+  requirements:
+    _permission: 'access ps_core config section'
+  options:
+    no_cache: TRUE
+
 ps_search.api.location_suggest:
   path: '/api/ps/location-suggest'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchCountController::suggest'
     _title: 'Location suggestions'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+ps_search.api.location_resolve:
+  path: '/api/ps/location/resolve'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\LocationResolveController::resolve'
+    _title: 'Location resolve'
   requirements:
     _access: 'TRUE'
   options:

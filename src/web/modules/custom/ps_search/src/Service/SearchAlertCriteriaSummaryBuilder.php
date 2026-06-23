@@ -67,6 +67,14 @@ final class SearchAlertCriteriaSummaryBuilder {
   private function buildZones(array $criteria): array {
     $zones = [];
 
+    if ($this->isContextCriteria($criteria)) {
+      $label = trim((string) ($criteria['context']['geo']['label'] ?? ''));
+      if ($label !== '') {
+        $zones[] = $label;
+      }
+      return $zones;
+    }
+
     if (!empty($criteria['locality']) && is_array($criteria['locality'])) {
       foreach ($criteria['locality'] as $token) {
         $meta = $this->locationSearchFilter->resolveTokenMetadata((string) $token);
@@ -96,11 +104,23 @@ final class SearchAlertCriteriaSummaryBuilder {
   private function buildCriteriaTags(array $criteria): array {
     $tags = [];
 
-    if (!empty($criteria['operation_type'])) {
-      $tags[] = $this->dictionaryLabel('operation_type', (string) $criteria['operation_type']);
+    $operationType = $this->isContextCriteria($criteria)
+      ? ($criteria['context']['filters']['operationType'] ?? NULL)
+      : ($criteria['operation_type'] ?? NULL);
+    $assetType = $this->isContextCriteria($criteria)
+      ? ($criteria['context']['filters']['assetType'] ?? NULL)
+      : ($criteria['asset_type'] ?? NULL);
+
+    if (!empty($operationType)) {
+      $tags[] = $this->dictionaryLabel('operation_type', (string) $operationType);
     }
-    if (!empty($criteria['asset_type'])) {
-      $tags[] = $this->dictionaryLabel('asset_type', (string) $criteria['asset_type']);
+    if (!empty($assetType)) {
+      $tags[] = $this->dictionaryLabel('asset_type', (string) $assetType);
+    }
+
+    if ($this->isContextCriteria($criteria)) {
+      $this->appendContextRangeTags($tags, $criteria['context']['filters'] ?? []);
+      return $tags;
     }
 
     $this->appendRangeTags($tags, $criteria, 'surface', (string) $this->t('Surface'), ' m²');
@@ -166,11 +186,18 @@ final class SearchAlertCriteriaSummaryBuilder {
   private function buildDefaultTitle(array $criteria, array $zones): string {
     $parts = [];
 
-    if (!empty($criteria['operation_type'])) {
-      $parts[] = $this->dictionaryLabel('operation_type', (string) $criteria['operation_type']);
+    $operationType = $this->isContextCriteria($criteria)
+      ? ($criteria['context']['filters']['operationType'] ?? NULL)
+      : ($criteria['operation_type'] ?? NULL);
+    $assetType = $this->isContextCriteria($criteria)
+      ? ($criteria['context']['filters']['assetType'] ?? NULL)
+      : ($criteria['asset_type'] ?? NULL);
+
+    if (!empty($operationType)) {
+      $parts[] = $this->dictionaryLabel('operation_type', (string) $operationType);
     }
-    if (!empty($criteria['asset_type'])) {
-      $parts[] = $this->dictionaryLabel('asset_type', (string) $criteria['asset_type']);
+    if (!empty($assetType)) {
+      $parts[] = $this->dictionaryLabel('asset_type', (string) $assetType);
     }
     if ($zones !== []) {
       $parts[] = implode(', ', $zones);
@@ -181,6 +208,78 @@ final class SearchAlertCriteriaSummaryBuilder {
     }
 
     return implode(', ', $parts);
+  }
+
+  /**
+   * @param list<string> $tags
+   * @param array<string, mixed> $filters
+   */
+  private function appendContextRangeTags(array &$tags, array $filters): void {
+    $this->appendContextRange($tags, $filters['surface'] ?? NULL, (string) $this->t('Surface'), ' m²');
+    $this->appendContextRange($tags, $filters['budget'] ?? NULL, (string) $this->t('Budget'), ' €');
+    $this->appendCapacityTagsFromValues(
+      $tags,
+      $filters['capacity']['min'] ?? NULL,
+      $filters['capacity']['max'] ?? NULL,
+    );
+  }
+
+  /**
+   * @param list<string> $tags
+   * @param array<string, float|null>|null $range
+   */
+  private function appendContextRange(array &$tags, ?array $range, string $label, string $unit): void {
+    if (!is_array($range)) {
+      return;
+    }
+
+    $min = $range['min'] ?? NULL;
+    $max = $range['max'] ?? NULL;
+    if ($min !== NULL && $min !== '') {
+      $tags[] = (string) $this->t('Minimum @label: @value@unit', [
+        '@label' => mb_strtolower($label),
+        '@value' => $min,
+        '@unit' => $unit,
+      ]);
+    }
+    if ($max !== NULL && $max !== '') {
+      $tags[] = (string) $this->t('Maximum @label: @value@unit', [
+        '@label' => mb_strtolower($label),
+        '@value' => $max,
+        '@unit' => $unit,
+      ]);
+    }
+  }
+
+  /**
+   * @param list<string> $tags
+   */
+  private function appendCapacityTagsFromValues(array &$tags, mixed $min, mixed $max): void {
+    if (($min === NULL || $min === '') && ($max === NULL || $max === '')) {
+      return;
+    }
+
+    $unit = ucfirst((string) ($this->configFactory->get('ps_offer.settings')->get('surface_capacity_unit') ?: 'seats'));
+    if ($min !== NULL && $min !== '') {
+      $tags[] = (string) $this->t('Minimum @unit: @value', [
+        '@unit' => $unit,
+        '@value' => $min,
+      ]);
+    }
+    if ($max !== NULL && $max !== '') {
+      $tags[] = (string) $this->t('Maximum @unit: @value', [
+        '@unit' => $unit,
+        '@value' => $max,
+      ]);
+    }
+  }
+
+  /**
+   * @param array<string, mixed> $criteria
+   */
+  private function isContextCriteria(array $criteria): bool {
+    return (int) ($criteria['schema_version'] ?? 1) >= 2
+      && is_array($criteria['context'] ?? NULL);
   }
 
   /**

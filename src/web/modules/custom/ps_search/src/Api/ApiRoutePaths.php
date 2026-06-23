@@ -17,7 +17,11 @@ final class ApiRoutePaths {
 
   public const COUNT = self::BASE . '/count';
 
+  public const SEARCH_CONTEXT = self::BASE . '/search-context';
+
   public const LOCATION_SUGGEST = self::BASE . '/location-suggest';
+
+  public const LOCATION_RESOLVE = self::BASE . '/location/resolve';
 
   public const LOCATION_DATA = self::BASE . '/location-data';
 
@@ -51,6 +55,7 @@ final class ApiRoutePaths {
       'ps_search.api.markers' => 'markers',
       'ps_search.api.isochrone' => 'isochrone',
       'ps_search.api.location_suggest' => 'location_suggest',
+      'ps_search.api.location_resolve' => 'location_resolve',
       'ps_search.api.location_data' => 'location_data',
       'ps_search.api.count' => 'count',
       'ps_search.api.filter_htmx.count_label' => 'htmx',

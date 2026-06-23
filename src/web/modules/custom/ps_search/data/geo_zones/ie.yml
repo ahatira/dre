@@ -1,0 +1,469 @@
+country: ie
+default_zone: region.ie.d
+zones:
+  region.ie.cw:
+    type: region
+    code: CW
+    label: Carlow
+    slug: carlow
+    lat: 52.8365
+    lng: -6.9264
+    bbox:
+      sw_lat: 52.47613963964
+      sw_lng: -7.5229326785558
+      ne_lat: 53.19686036036
+      ne_lng: -6.3298673214442
+    postal_prefixes:
+      - R93
+    weight: 1
+  region.ie.cn:
+    type: region
+    code: CN
+    label: Cavan
+    slug: cavan
+    lat: 53.9908
+    lng: -7.3601
+    bbox:
+      sw_lat: 53.585394594595
+      sw_lng: -8.0496644826073
+      ne_lat: 54.396205405405
+      ne_lng: -6.6705355173927
+    postal_prefixes:
+      - H12
+    weight: 2
+  region.ie.ce:
+    type: region
+    code: CE
+    label: Clare
+    slug: clare
+    lat: 52.8436
+    lng: -8.9864
+    bbox:
+      sw_lat: 52.348104504505
+      sw_lng: -9.8067665467425
+      ne_lat: 53.339095495495
+      ne_lng: -8.1660334532575
+    postal_prefixes:
+      - V95
+    weight: 3
+  region.ie.co:
+    type: region
+    code: CO
+    label: Cork
+    slug: cork
+    lat: 51.8985
+    lng: -8.4756
+    bbox:
+      sw_lat: 51.267869369369
+      sw_lng: -9.4975982356561
+      ne_lat: 52.529130630631
+      ne_lng: -7.4536017643439
+    postal_prefixes:
+      - P12
+      - P14
+      - P17
+      - P24
+      - P25
+      - P31
+      - P32
+      - P36
+      - P43
+      - P47
+      - P48
+      - P51
+      - P56
+      - P61
+      - P67
+      - P72
+      - P75
+      - P81
+      - P85
+      - P86
+    weight: 4
+  region.ie.dl:
+    type: region
+    code: DL
+    label: Donegal
+    slug: donegal
+    lat: 54.6538
+    lng: -8.1098
+    bbox:
+      sw_lat: 54.023169369369
+      sw_lng: -9.1998842000493
+      ne_lat: 55.284430630631
+      ne_lng: -7.0197157999507
+    postal_prefixes:
+      - F92
+      - F93
+      - F94
+    weight: 5
+  region.ie.d:
+    type: region
+    code: D
+    label: Dublin
+    slug: dublin
+    lat: 53.3498
+    lng: -6.2603
+    bbox:
+      sw_lat: 53.034484684685
+      sw_lng: -6.7885300291126
+      ne_lat: 53.665115315315
+      ne_lng: -5.7320699708874
+    postal_prefixes:
+      - D01
+      - D02
+      - D03
+      - D04
+      - D05
+      - D06
+      - D07
+      - D08
+      - D09
+      - D10
+      - D11
+      - D12
+      - D13
+      - D14
+      - D15
+      - D16
+      - D17
+      - D18
+      - D20
+      - D22
+      - D24
+    weight: 6
+  region.ie.g:
+    type: region
+    code: G
+    label: Galway
+    slug: galway
+    lat: 53.2707
+    lng: -9.0568
+    bbox:
+      sw_lat: 52.640069369369
+      sw_lng: -10.111304408834
+      ne_lat: 53.901330630631
+      ne_lng: -8.0022955911662
+    postal_prefixes:
+      - H54
+      - H62
+      - H65
+      - H71
+      - H91
+    weight: 7
+  region.ie.ky:
+    type: region
+    code: KY
+    label: Kerry
+    slug: kerry
+    lat: 52.0599
+    lng: -9.5044
+    bbox:
+      sw_lat: 51.474314414414
+      sw_lng: -10.456823632556
+      ne_lat: 52.645485585586
+      ne_lng: -8.5519763674441
+    postal_prefixes:
+      - V23
+      - V31
+      - V92
+      - V93
+    weight: 8
+  region.ie.ke:
+    type: region
+    code: KE
+    label: Kildare
+    slug: kildare
+    lat: 53.1579
+    lng: -6.909
+    bbox:
+      sw_lat: 52.752494594595
+      sw_lng: -7.5851131196859
+      ne_lat: 53.563305405405
+      ne_lng: -6.2328868803141
+    postal_prefixes:
+      - R14
+      - R51
+      - R56
+      - W12
+      - W23
+      - W34
+    weight: 9
+  region.ie.kk:
+    type: region
+    code: KK
+    label: Kilkenny
+    slug: kilkenny
+    lat: 52.6541
+    lng: -7.2448
+    bbox:
+      sw_lat: 52.248694594595
+      sw_lng: -7.9130960561019
+      ne_lat: 53.059505405405
+      ne_lng: -6.5765039438981
+    postal_prefixes:
+      - R95
+    weight: 10
+  region.ie.ls:
+    type: region
+    code: LS
+    label: Laois
+    slug: laois
+    lat: 53.0345
+    lng: -7.3042
+    bbox:
+      sw_lat: 52.629094594595
+      sw_lng: -7.9783767281956
+      ne_lat: 53.439905405405
+      ne_lng: -6.6300232718044
+    postal_prefixes:
+      - R32
+    weight: 11
+  region.ie.lm:
+    type: region
+    code: LM
+    label: Leitrim
+    slug: leitrim
+    lat: 54.002
+    lng: -8.0581
+    bbox:
+      sw_lat: 53.55154954955
+      sw_lng: -8.8244889010591
+      ne_lat: 54.45245045045
+      ne_lng: -7.2917110989409
+    postal_prefixes:
+      - N41
+    weight: 12
+  region.ie.lk:
+    type: region
+    code: LK
+    label: Limerick
+    slug: limerick
+    lat: 52.6638
+    lng: -8.6267
+    bbox:
+      sw_lat: 52.168304504505
+      sw_lng: -9.4436875634916
+      ne_lat: 53.159295495495
+      ne_lng: -7.8097124365084
+    postal_prefixes:
+      - V94
+    weight: 13
+  region.ie.ld:
+    type: region
+    code: LD
+    label: Longford
+    slug: longford
+    lat: 53.7275
+    lng: -7.7986
+    bbox:
+      sw_lat: 53.36713963964
+      sw_lng: -8.4077013275362
+      ne_lat: 54.08786036036
+      ne_lng: -7.1894986724638
+    postal_prefixes:
+      - N39
+    weight: 14
+  region.ie.lh:
+    type: region
+    code: LH
+    label: Louth
+    slug: louth
+    lat: 53.992
+    lng: -6.5413
+    bbox:
+      sw_lat: 53.63163963964
+      sw_lng: -7.1542638707645
+      ne_lat: 54.35236036036
+      ne_lng: -5.9283361292355
+    postal_prefixes:
+      - A91
+      - A92
+    weight: 15
+  region.ie.mo:
+    type: region
+    code: MO
+    label: Mayo
+    slug: mayo
+    lat: 53.8555
+    lng: -9.3042
+    bbox:
+      sw_lat: 53.224869369369
+      sw_lng: -10.373384922164
+      ne_lat: 54.486130630631
+      ne_lng: -8.2350150778362
+    postal_prefixes:
+      - F23
+      - F26
+      - F28
+      - F35
+      - F45
+    weight: 16
+  region.ie.mh:
+    type: region
+    code: MH
+    label: Meath
+    slug: meath
+    lat: 53.6539
+    lng: -6.6873
+    bbox:
+      sw_lat: 53.248494594595
+      sw_lng: -7.3713421560604
+      ne_lat: 54.059305405405
+      ne_lng: -6.0032578439396
+    postal_prefixes:
+      - A82
+      - A83
+      - A85
+      - C15
+    weight: 17
+  region.ie.mn:
+    type: region
+    code: MN
+    label: Monaghan
+    slug: monaghan
+    lat: 54.2479
+    lng: -6.9719
+    bbox:
+      sw_lat: 53.842494594595
+      sw_lng: -7.665755367455
+      ne_lat: 54.653305405405
+      ne_lng: -6.278044632545
+    postal_prefixes:
+      - H18
+    weight: 18
+  region.ie.oy:
+    type: region
+    code: OY
+    label: Offaly
+    slug: offaly
+    lat: 53.2754
+    lng: -7.4944
+    bbox:
+      sw_lat: 52.869994594595
+      sw_lng: -8.1723702262989
+      ne_lat: 53.680805405405
+      ne_lng: -6.8164297737011
+    postal_prefixes:
+      - R35
+      - R42
+    weight: 19
+  region.ie.rn:
+    type: region
+    code: RN
+    label: Roscommon
+    slug: roscommon
+    lat: 53.634
+    lng: -8.189
+    bbox:
+      sw_lat: 53.18354954955
+      sw_lng: -8.9486882954545
+      ne_lat: 54.08445045045
+      ne_lng: -7.4293117045455
+    postal_prefixes:
+      - F42
+    weight: 20
+  region.ie.so:
+    type: region
+    code: SO
+    label: Sligo
+    slug: sligo
+    lat: 54.2695
+    lng: -8.4696
+    bbox:
+      sw_lat: 53.81904954955
+      sw_lng: -9.2409543698605
+      ne_lat: 54.71995045045
+      ne_lng: -7.6982456301395
+    postal_prefixes:
+      - F91
+    weight: 21
+  region.ie.ta:
+    type: region
+    code: TA
+    label: Tipperary
+    slug: tipperary
+    lat: 52.4731
+    lng: -8.1619
+    bbox:
+      sw_lat: 51.977604504505
+      sw_lng: -8.9753427379574
+      ne_lat: 52.968595495495
+      ne_lng: -7.3484572620426
+    postal_prefixes:
+      - E21
+      - E25
+      - E32
+      - E34
+      - E41
+      - E45
+      - E91
+    weight: 22
+  region.ie.wd:
+    type: region
+    code: WD
+    label: Waterford
+    slug: waterford
+    lat: 52.2593
+    lng: -7.1101
+    bbox:
+      sw_lat: 51.80884954955
+      sw_lng: -7.8460232096131
+      ne_lat: 52.70975045045
+      ne_lng: -6.3741767903869
+    postal_prefixes:
+      - X35
+      - X42
+      - X91
+    weight: 23
+  region.ie.wh:
+    type: region
+    code: WH
+    label: Westmeath
+    slug: westmeath
+    lat: 53.5256
+    lng: -7.3386
+    bbox:
+      sw_lat: 53.120194594595
+      sw_lng: -8.0205684707503
+      ne_lat: 53.931005405405
+      ne_lng: -6.6566315292497
+    postal_prefixes:
+      - N37
+      - N91
+    weight: 24
+  region.ie.wx:
+    type: region
+    code: WX
+    label: Wexford
+    slug: wexford
+    lat: 52.3369
+    lng: -6.4633
+    bbox:
+      sw_lat: 51.841404504505
+      sw_lng: -7.2742352377155
+      ne_lat: 52.832395495495
+      ne_lng: -5.6523647622845
+    postal_prefixes:
+      - Y21
+      - Y25
+      - Y34
+      - Y35
+    weight: 25
+  region.ie.ww:
+    type: region
+    code: WW
+    label: Wicklow
+    slug: wicklow
+    lat: 52.9808
+    lng: -6.0441
+    bbox:
+      sw_lat: 52.575394594595
+      sw_lng: -6.7174385012578
+      ne_lat: 53.386205405405
+      ne_lng: -5.3707614987422
+    postal_prefixes:
+      - A63
+      - A67
+      - A98
+    weight: 26

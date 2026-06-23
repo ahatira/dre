@@ -12,6 +12,13 @@ ps_search.seo_url_mappings:
   parent: ps_search.admin_overview
   weight: 0
 
+ps_search.seo_redirects:
+  title: 'SEO migration redirects'
+  description: 'Configure 301 redirects for legacy search URLs (clean break).'
+  route_name: ps_search.seo_redirects_form
+  parent: ps_search.admin_overview
+  weight: 1
+
 ps_search.map_zone_settings:
   title: 'Map zone settings'
   description: 'Default map zone, pager threshold and markers cap.'

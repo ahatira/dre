@@ -4,6 +4,12 @@ ps_search.seo_url_mappings_form:
   base_route: ps_search.admin_overview
   weight: 0
 
+ps_search.seo_redirects_form:
+  title: 'SEO redirects'
+  route_name: ps_search.seo_redirects_form
+  base_route: ps_search.admin_overview
+  weight: 1
+
 ps_search.map_zone_settings_form:
   title: 'Map zone'
   route_name: ps_search.map_zone_settings_form

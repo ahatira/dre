@@ -856,7 +856,7 @@ display:
             'entity:node':
               offer: search
       query:
-        type: search_api_query
+        type: ps_search_context
         options:
           bypass_access: false
           skip_access: false

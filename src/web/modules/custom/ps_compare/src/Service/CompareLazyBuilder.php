@@ -68,20 +68,7 @@ final class CompareLazyBuilder implements TrustedCallbackInterface {
       '#context' => $context,
       '#label_add' => t('Compare'),
       '#label_remove' => t('Remove from comparison'),
-      '#attached' => [
-        'library' => ['ps_compare/compare-toggle'],
-        'drupalSettings' => [
-          'psCompare' => [
-            'csrfToken' => $this->csrfToken->get('ps_compare.toggle'),
-            'countEndpoint' => Url::fromRoute('ps_compare.count')->toString(),
-            'stateEndpoint' => Url::fromRoute('ps_compare.state')->toString(),
-            'compareUrl' => $this->comparePathResolver->getPublicPath(),
-            'maxItems' => $this->compareManager->getMaxItems(),
-            'minItems' => $this->compareManager->getMinItems(),
-            'undoRemoval' => $this->displaySettings->undoRemoval(),
-          ],
-        ],
-      ],
+      '#attached' => $this->buildClientAttachments(),
       '#cache' => [
         'tags' => array_merge($entity->getCacheTags(), [
           'ps_compare:list',
@@ -90,6 +77,29 @@ final class CompareLazyBuilder implements TrustedCallbackInterface {
         ]),
         'contexts' => ['session', 'user'],
         'max-age' => 0,
+      ],
+    ];
+  }
+
+  /**
+   * Client-side library and settings for compare toggle buttons.
+   *
+   * @return array<string, mixed>
+   *   Render #attached payload.
+   */
+  public function buildClientAttachments(): array {
+    return [
+      'library' => ['ps_compare/compare-toggle'],
+      'drupalSettings' => [
+        'psCompare' => [
+          'csrfToken' => $this->csrfToken->get('ps_compare.toggle'),
+          'countEndpoint' => Url::fromRoute('ps_compare.count')->toString(),
+          'stateEndpoint' => Url::fromRoute('ps_compare.state')->toString(),
+          'compareUrl' => $this->comparePathResolver->getPublicPath(),
+          'maxItems' => $this->compareManager->getMaxItems(),
+          'minItems' => $this->compareManager->getMinItems(),
+          'undoRemoval' => $this->displaySettings->undoRemoval(),
+        ],
       ],
     ];
   }

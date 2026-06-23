@@ -1,0 +1,4 @@
+enabled: true
+redirects:
+  '/a-louer/bureaux/paris/': '/a-louer/bureaux/paris-75/'
+  '/a-louer/bureaux/paris': '/a-louer/bureaux/paris-75/'

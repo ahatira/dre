@@ -833,6 +833,16 @@
    *   Merged query parameters for markers API and Views AJAX.
    */
   Drupal.psSearchPage.buildSearchParams = function (overrides) {
+    if (typeof Drupal.psSearchContext !== 'undefined' && Drupal.psSearchContext.isEnabled()) {
+      const params = Drupal.psSearchContext.buildApiParams();
+      if (overrides instanceof URLSearchParams) {
+        overrides.forEach(function (value, key) {
+          params.set(key, value);
+        });
+      }
+      return params;
+    }
+
     const params = new URLSearchParams(window.location.search);
     const serverQuery = (typeof drupalSettings !== 'undefined' && drupalSettings.path?.currentQuery) || {};
 

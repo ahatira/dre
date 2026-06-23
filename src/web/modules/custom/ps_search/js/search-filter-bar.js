@@ -26,6 +26,8 @@
 
       once('ps-filter-bar-init', '.ps-search-view', context).forEach(function () {
       const settings = drupalSettings.psSearch || {};
+      const useSearchContext = typeof Drupal.psSearchContext !== 'undefined'
+        && Drupal.psSearchContext.isEnabled();
       const langPrefix = settings.langPrefix || '';
       const opSlugs = settings.opSlugs || {};
       const assetSlugs = settings.assetSlugs || {};
@@ -75,12 +77,25 @@
       let selectedLocalityTokens = [];
       let selectedLocalityData = [];
       let selectedLocality = '';
-      let surfaceMin = currentParams.get('surface[min]') || '';
-      let surfaceMax = currentParams.get('surface[max]') || '';
-      let budgetMin = currentParams.get('budget[min]') || '';
-      let budgetMax = currentParams.get('budget[max]') || '';
-      let capacityMin = currentParams.get('capacity[min]') || '';
-      let capacityMax = currentParams.get('capacity[max]') || '';
+      if (useSearchContext && settings.searchContext?.geo) {
+        const geo = settings.searchContext.geo;
+        selectedLocalityTokens = [geo.slug || geo.label];
+        selectedLocalityData = [{
+          slug: geo.slug,
+          id: geo.id,
+          type: geo.type,
+          label: geo.label,
+          lat: geo.lat,
+          lng: geo.lng,
+        }];
+        selectedLocality = geo.label || geo.slug || '';
+      }
+      let surfaceMin = currentParams.get('surface[min]') || currentParams.get('surface_min') || '';
+      let surfaceMax = currentParams.get('surface[max]') || currentParams.get('surface_max') || '';
+      let budgetMin = currentParams.get('budget[min]') || currentParams.get('budget_min') || '';
+      let budgetMax = currentParams.get('budget[max]') || currentParams.get('budget_max') || '';
+      let capacityMin = currentParams.get('capacity[min]') || currentParams.get('capacity_min') || '';
+      let capacityMax = currentParams.get('capacity[max]') || currentParams.get('capacity_max') || '';
       let moreFilterSchema = settings.moreFilterSchema || [];
       let moreFilters = {};
       const localityArrayParams = currentParams.getAll('locality[]');
@@ -1022,6 +1037,9 @@
       }
 
       function resolveInitialLocalityValue() {
+        if (useSearchContext && settings.searchContext?.geo?.label) {
+          return settings.searchContext.geo.label;
+        }
         if (localityArrayParams.length) {
           return localityArrayParams.join(',');
         }
@@ -1115,7 +1133,57 @@
         return normalized !== searchBase && normalized.indexOf(searchBase) === -1;
       }
 
+      function syncStoreFromUiState() {
+        if (!useSearchContext) {
+          return;
+        }
+
+        Drupal.psSearchContext.setFilter('operationType', selectedOp || null);
+        Drupal.psSearchContext.setFilter('assetType', selectedAsset || null);
+
+        const visibility = getFilterVisibility(selectedAsset);
+        Drupal.psSearchContext.setFilter('surface', visibility.show_surface && (surfaceMin || surfaceMax)
+          ? { min: surfaceMin ? Number(surfaceMin) : null, max: surfaceMax ? Number(surfaceMax) : null }
+          : null);
+        Drupal.psSearchContext.setFilter('capacity', visibility.show_capacity && (capacityMin || capacityMax)
+          ? { min: capacityMin ? Number(capacityMin) : null, max: capacityMax ? Number(capacityMax) : null }
+          : null);
+        Drupal.psSearchContext.setFilter('budget', (budgetMin || budgetMax)
+          ? { min: budgetMin ? Number(budgetMin) : null, max: budgetMax ? Number(budgetMax) : null }
+          : null);
+
+        const primaryData = getPrimaryLocalityData();
+        if (primaryData && (primaryData.slug || settings.searchContext?.geo?.slug)) {
+          Drupal.psSearchContext.setGeo({
+            id: primaryData.id || settings.searchContext?.geo?.id || '',
+            slug: primaryData.slug || settings.searchContext?.geo?.slug || '',
+            type: primaryData.type || settings.searchContext?.geo?.type || '',
+            label: primaryData.label || primaryData.locality || primaryData.admin_area || getPrimaryLocalityToken(),
+            lat: primaryData.lat ?? settings.searchContext?.geo?.lat ?? null,
+            lng: primaryData.lng ?? settings.searchContext?.geo?.lng ?? null,
+          });
+        }
+        else if (!selectedLocalityTokens.length) {
+          Drupal.psSearchContext.setGeo(null);
+        }
+
+        if (hasLocalityChanged()) {
+          Drupal.psSearchContext.clearSpatialViewport();
+        }
+        else {
+          const activeMapBounds = new URLSearchParams(window.location.search).get('map_bounds');
+          if (activeMapBounds) {
+            Drupal.psSearchContext.setSpatialViewport(activeMapBounds);
+          }
+        }
+      }
+
       function buildNavigationUrl() {
+        if (useSearchContext) {
+          syncStoreFromUiState();
+          return Drupal.psSearchContext.buildUrl();
+        }
+
         let base = buildSeoBase();
         const p = new URLSearchParams();
         const primaryData = getPrimaryLocalityData();
@@ -1179,6 +1247,18 @@
        *   Browser URL and AJAX query parameters.
        */
       function buildViewAjaxParams() {
+        if (useSearchContext) {
+          syncStoreFromUiState();
+          const browserUrl = Drupal.psSearchContext.buildUrl();
+          const resolved = new URL(browserUrl, window.location.origin);
+          const params = Drupal.psSearchContext.buildApiParams();
+          params.delete('page');
+          return {
+            browserUrl: resolved.pathname + resolved.search,
+            params: params,
+          };
+        }
+
         const navigationUrl = buildNavigationUrl();
         const resolved = new URL(navigationUrl, window.location.origin);
         const params = new URLSearchParams(resolved.search);
@@ -1291,6 +1371,10 @@
        *   TRUE when pathname differs or canonical facet query needs server redirect.
        */
       function requiresFullNavigation(browserUrl) {
+        if (useSearchContext) {
+          return Drupal.psSearchContext.requiresFullNavigation(browserUrl);
+        }
+
         const next = new URL(browserUrl, window.location.origin);
         if (normalizePathname(next.pathname) !== normalizePathname(window.location.pathname)) {
           return true;
@@ -1314,6 +1398,11 @@
       }
 
       function buildCountParams() {
+        if (useSearchContext) {
+          syncStoreFromUiState();
+          return Drupal.psSearchContext.buildApiParams();
+        }
+
         const p = new URLSearchParams();
         if (selectedOp) p.set('operation_type', selectedOp);
         if (selectedAsset) p.set('asset_type', selectedAsset);

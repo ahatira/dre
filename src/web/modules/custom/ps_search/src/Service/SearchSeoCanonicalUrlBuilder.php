@@ -7,6 +7,7 @@ namespace Drupal\ps_search\Service;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
+use Drupal\ps_search\Contract\SearchContextSerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -24,6 +25,8 @@ final class SearchSeoCanonicalUrlBuilder {
     private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
     private readonly LanguageManagerInterface $languageManager,
     private readonly RequestStack $requestStack,
+    private readonly SearchEngineSettingsReader $engineSettings,
+    private readonly SearchContextSerializerInterface $contextSerializer,
   ) {}
 
   /**
@@ -95,6 +98,13 @@ final class SearchSeoCanonicalUrlBuilder {
 
     $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
     $pathInfo = $request->getPathInfo();
+
+    if ($this->engineSettings->isSearchContextEnabled()) {
+      $context = $this->contextSerializer->fromRequest($request);
+      return $this->normalizePath(
+        $this->languagePrefix($langcode) . $this->contextSerializer->buildSeoPath($context, $langcode),
+      );
+    }
 
     if ($this->isSeoSearchPath($pathInfo, $langcode)) {
       $query = $this->parseSeoPathFilterQuery($pathInfo, $langcode);

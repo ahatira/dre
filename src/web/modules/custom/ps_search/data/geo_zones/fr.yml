@@ -1,0 +1,1443 @@
+country: fr
+default_zone: department.fr.75
+zones:
+  department.fr.01:
+    type: department
+    code: '01'
+    label: Ain
+    slug: ain-01
+    lat: 46.2027
+    lng: 5.2469
+    bbox:
+      sw_lat: 45.797294594595
+      sw_lng: 4.6611464393225
+      ne_lat: 46.608105405405
+      ne_lng: 5.8326535606775
+    postal_prefixes:
+      - '01'
+    weight: 1
+  department.fr.02:
+    type: department
+    code: '02'
+    label: Aisne
+    slug: aisne-02
+    lat: 49.8475
+    lng: 3.279
+    bbox:
+      sw_lat: 49.442094594595
+      sw_lng: 2.6502931822915
+      ne_lat: 50.252905405405
+      ne_lng: 3.9077068177085
+    postal_prefixes:
+      - '02'
+    weight: 2
+  department.fr.03:
+    type: department
+    code: '03'
+    label: Allier
+    slug: allier-03
+    lat: 46.3428
+    lng: 2.608
+    bbox:
+      sw_lat: 45.937394594595
+      sw_lng: 2.0207471445831
+      ne_lat: 46.748205405405
+      ne_lng: 3.1952528554169
+    postal_prefixes:
+      - '03'
+    weight: 3
+  department.fr.04:
+    type: department
+    code: '04'
+    label: Alpes-de-Haute-Provence
+    slug: alpes-de-haute-provence-04
+    lat: 43.8293
+    lng: 5.7896
+    bbox:
+      sw_lat: 43.423894594595
+      sw_lng: 5.2276344747656
+      ne_lat: 44.234705405405
+      ne_lng: 6.3515655252344
+    postal_prefixes:
+      - '04'
+    weight: 4
+  department.fr.05:
+    type: department
+    code: '05'
+    label: Hautes-Alpes
+    slug: hautes-alpes-05
+    lat: 44.5797
+    lng: 6.0616
+    bbox:
+      sw_lat: 44.174294594595
+      sw_lng: 5.4924300400356
+      ne_lat: 44.985105405405
+      ne_lng: 6.6307699599644
+    postal_prefixes:
+      - '05'
+    weight: 5
+  department.fr.06:
+    type: department
+    code: '06'
+    label: Alpes-Maritimes
+    slug: alpes-maritimes-06
+    lat: 43.7032
+    lng: 7.2528
+    bbox:
+      sw_lat: 43.297794594595
+      sw_lng: 6.6920178859634
+      ne_lat: 44.108605405405
+      ne_lng: 7.8135821140366
+    postal_prefixes:
+      - '06'
+    weight: 6
+  department.fr.07:
+    type: department
+    code: '07'
+    label: Ardèche
+    slug: ardeche-07
+    lat: 45.2449
+    lng: 4.6419
+    bbox:
+      sw_lat: 44.839494594595
+      sw_lng: 4.0661037928389
+      ne_lat: 45.650305405405
+      ne_lng: 5.2176962071611
+    postal_prefixes:
+      - '07'
+    weight: 7
+  department.fr.08:
+    type: department
+    code: '08'
+    label: Ardennes
+    slug: ardennes-08
+    lat: 49.7802
+    lng: 4.7304
+    bbox:
+      sw_lat: 49.374794594595
+      sw_lng: 4.1025668803163
+      ne_lat: 50.185605405405
+      ne_lng: 5.3582331196837
+    postal_prefixes:
+      - '08'
+    weight: 8
+  department.fr.09:
+    type: department
+    code: '09'
+    label: Ariège
+    slug: ariege-09
+    lat: 43.1278
+    lng: 1.6168
+    bbox:
+      sw_lat: 42.722394594595
+      sw_lng: 1.0613212776968
+      ne_lat: 43.533205405405
+      ne_lng: 2.1722787223032
+    postal_prefixes:
+      - '09'
+    weight: 9
+  department.fr.10:
+    type: department
+    code: '10'
+    label: Aube
+    slug: aube-10
+    lat: 48.2924
+    lng: 4.0761
+    bbox:
+      sw_lat: 47.886994594595
+      sw_lng: 3.4667696238802
+      ne_lat: 48.697805405405
+      ne_lng: 4.6854303761198
+    postal_prefixes:
+      - '10'
+    weight: 10
+  department.fr.11:
+    type: department
+    code: '11'
+    label: Aude
+    slug: aude-11
+    lat: 43.1493
+    lng: 3.0337
+    bbox:
+      sw_lat: 42.743894594595
+      sw_lng: 2.4780259244425
+      ne_lat: 43.554705405405
+      ne_lng: 3.5893740755575
+    postal_prefixes:
+      - '11'
+    weight: 11
+  department.fr.12:
+    type: department
+    code: '12'
+    label: Aveyron
+    slug: aveyron-12
+    lat: 44.3591
+    lng: 2.5699
+    bbox:
+      sw_lat: 43.953694594595
+      sw_lng: 2.0028771842918
+      ne_lat: 44.764505405405
+      ne_lng: 3.1369228157082
+    postal_prefixes:
+      - '12'
+    weight: 12
+  department.fr.13:
+    type: department
+    code: '13'
+    label: Bouches-du-Rhône
+    slug: bouches-du-rhone-13
+    lat: 43.2803
+    lng: 5.3806
+    bbox:
+      sw_lat: 42.874894594595
+      sw_lng: 4.8237309599183
+      ne_lat: 43.685705405405
+      ne_lng: 5.9374690400817
+    postal_prefixes:
+      - '13'
+    weight: 13
+  department.fr.14:
+    type: department
+    code: '14'
+    label: Calvados
+    slug: calvados-14
+    lat: 49.1846
+    lng: -0.3722
+    bbox:
+      sw_lat: 48.779194594595
+      sw_lng: -0.99244248932632
+      ne_lat: 49.590005405405
+      ne_lng: 0.24804248932632
+    postal_prefixes:
+      - '14'
+    weight: 14
+  department.fr.15:
+    type: department
+    code: '15'
+    label: Cantal
+    slug: cantal-15
+    lat: 44.9281
+    lng: 2.4416
+    bbox:
+      sw_lat: 44.522694594595
+      sw_lng: 1.8689882920647
+      ne_lat: 45.333505405405
+      ne_lng: 3.0142117079353
+    postal_prefixes:
+      - '15'
+    weight: 15
+  department.fr.16:
+    type: department
+    code: '16'
+    label: Charente
+    slug: charente-16
+    lat: 45.6458
+    lng: 0.145
+    bbox:
+      sw_lat: 45.240394594595
+      sw_lng: -0.4349027995794
+      ne_lat: 46.051205405405
+      ne_lng: 0.7249027995794
+    postal_prefixes:
+      - '16'
+    weight: 16
+  department.fr.17:
+    type: department
+    code: '17'
+    label: Charente-Maritime
+    slug: charente-maritime-17
+    lat: 46.162
+    lng: -1.1765
+    bbox:
+      sw_lat: 45.756594594595
+      sw_lng: -1.7618200944994
+      ne_lat: 46.567405405405
+      ne_lng: -0.59117990550056
+    postal_prefixes:
+      - '17'
+    weight: 17
+  department.fr.18:
+    type: department
+    code: '18'
+    label: Cher
+    slug: cher-18
+    lat: 47.078
+    lng: 2.3983
+    bbox:
+      sw_lat: 46.672594594595
+      sw_lng: 1.8029928660704
+      ne_lat: 47.483405405405
+      ne_lng: 2.9936071339296
+    postal_prefixes:
+      - '18'
+    weight: 18
+  department.fr.19:
+    type: department
+    code: '19'
+    label: Corrèze
+    slug: correze-19
+    lat: 45.145
+    lng: 1.5144
+    bbox:
+      sw_lat: 44.739594594595
+      sw_lng: 0.93961371091749
+      ne_lat: 45.550405405405
+      ne_lng: 2.0891862890825
+    postal_prefixes:
+      - '19'
+    weight: 19
+  department.fr.21:
+    type: department
+    code: '21'
+    label: "Côte-d'Or"
+    slug: cote-d-or-21
+    lat: 47.3319
+    lng: 5.0322
+    bbox:
+      sw_lat: 46.926494594595
+      sw_lng: 4.4340367098429
+      ne_lat: 47.737305405405
+      ne_lng: 5.6303632901571
+    postal_prefixes:
+      - '21'
+    weight: 21
+  department.fr.22:
+    type: department
+    code: '22'
+    label: "Côtes-d'Armor"
+    slug: cotes-d-armor-22
+    lat: 48.5108
+    lng: -2.7657
+    bbox:
+      sw_lat: 48.105394594595
+      sw_lng: -3.377652212959
+      ne_lat: 48.916205405405
+      ne_lng: -2.153747787041
+    postal_prefixes:
+      - '22'
+    weight: 22
+  department.fr.23:
+    type: department
+    code: '23'
+    label: Creuse
+    slug: creuse-23
+    lat: 46.1585
+    lng: 1.8705
+    bbox:
+      sw_lat: 45.753094594595
+      sw_lng: 1.2852171377203
+      ne_lat: 46.563905405405
+      ne_lng: 2.4557828622797
+    postal_prefixes:
+      - '23'
+    weight: 23
+  department.fr.24:
+    type: department
+    code: '24'
+    label: Dordogne
+    slug: dordogne-24
+    lat: 45.1939
+    lng: 0.7105
+    bbox:
+      sw_lat: 44.788494594595
+      sw_lng: 0.1352200281673
+      ne_lat: 45.599305405405
+      ne_lng: 1.2857799718327
+    postal_prefixes:
+      - '24'
+    weight: 24
+  department.fr.25:
+    type: department
+    code: '25'
+    label: Doubs
+    slug: doubs-25
+    lat: 47.2602
+    lng: 6.0123
+    bbox:
+      sw_lat: 46.854794594595
+      sw_lng: 5.4149472356297
+      ne_lat: 47.665605405405
+      ne_lng: 6.6096527643703
+    postal_prefixes:
+      - '25'
+    weight: 25
+  department.fr.26:
+    type: department
+    code: '26'
+    label: Drôme
+    slug: drome-26
+    lat: 44.9234
+    lng: 4.9164
+    bbox:
+      sw_lat: 44.517994594595
+      sw_lng: 4.3438351401744
+      ne_lat: 45.328805405405
+      ne_lng: 5.4889648598256
+    postal_prefixes:
+      - '26'
+    weight: 26
+  department.fr.27:
+    type: department
+    code: '27'
+    label: Eure
+    slug: eure-27
+    lat: 49.018
+    lng: 1.1406
+    bbox:
+      sw_lat: 48.612594594595
+      sw_lng: 0.52243612520162
+      ne_lat: 49.423405405405
+      ne_lng: 1.7587638747984
+    postal_prefixes:
+      - '27'
+    weight: 27
+  department.fr.28:
+    type: department
+    code: '28'
+    label: Eure-et-Loir
+    slug: eure-et-loir-28
+    lat: 48.4481
+    lng: 1.5046
+    bbox:
+      sw_lat: 48.042694594595
+      sw_lng: 0.89340370012059
+      ne_lat: 48.853505405405
+      ne_lng: 2.1157962998794
+    postal_prefixes:
+      - '28'
+    weight: 28
+  department.fr.29:
+    type: department
+    code: '29'
+    label: Finistère
+    slug: finistere-29
+    lat: 48.4085
+    lng: -4.4996
+    bbox:
+      sw_lat: 48.003094594595
+      sw_lng: -5.1103202190072
+      ne_lat: 48.813905405405
+      ne_lng: -3.8888797809928
+    postal_prefixes:
+      - '29'
+    weight: 29
+  department.fr.2a:
+    type: department
+    code: 2A
+    label: Corse-du-Sud
+    slug: corse-du-sud-2a
+    lat: 41.9228
+    lng: 8.7058
+    bbox:
+      sw_lat: 41.517394594595
+      sw_lng: 8.1609337542106
+      ne_lat: 42.328205405405
+      ne_lng: 9.2506662457894
+    postal_prefixes:
+      - '200'
+    weight: 2
+  department.fr.2b:
+    type: department
+    code: 2B
+    label: Haute-Corse
+    slug: haute-corse-2b
+    lat: 42.6861
+    lng: 9.424
+    bbox:
+      sw_lat: 42.280694594595
+      sw_lng: 8.8724873698018
+      ne_lat: 43.091505405405
+      ne_lng: 9.9755126301982
+    postal_prefixes:
+      - '202'
+    weight: 2
+  department.fr.30:
+    type: department
+    code: '30'
+    label: Gard
+    slug: gard-30
+    lat: 43.8322
+    lng: 4.3429
+    bbox:
+      sw_lat: 43.426794594595
+      sw_lng: 3.7809071683218
+      ne_lat: 44.237605405405
+      ne_lng: 4.9048928316782
+    postal_prefixes:
+      - '30'
+    weight: 30
+  department.fr.31:
+    type: department
+    code: '31'
+    label: Haute-Garonne
+    slug: haute-garonne-31
+    lat: 43.6007
+    lng: 1.4328
+    bbox:
+      sw_lat: 43.195294594595
+      sw_lng: 0.87297415793097
+      ne_lat: 44.006105405405
+      ne_lng: 1.992625842069
+    postal_prefixes:
+      - '31'
+    weight: 31
+  department.fr.32:
+    type: department
+    code: '32'
+    label: Gers
+    slug: gers-32
+    lat: 43.6602
+    lng: 0.5673
+    bbox:
+      sw_lat: 43.254794594595
+      sw_lng: 0.0069196696051746
+      ne_lat: 44.065605405405
+      ne_lng: 1.1276803303948
+    postal_prefixes:
+      - '32'
+    weight: 32
+  department.fr.33:
+    type: department
+    code: '33'
+    label: Gironde
+    slug: gironde-33
+    lat: 44.8624
+    lng: -0.5848
+    bbox:
+      sw_lat: 44.456994594595
+      sw_lng: -1.156757874684
+      ne_lat: 45.267805405405
+      ne_lng: -0.012842125316012
+    postal_prefixes:
+      - '33'
+    weight: 33
+  department.fr.34:
+    type: department
+    code: '34'
+    label: Hérault
+    slug: herault-34
+    lat: 43.61
+    lng: 3.8742
+    bbox:
+      sw_lat: 43.204594594595
+      sw_lng: 3.3142876021762
+      ne_lat: 44.015405405405
+      ne_lng: 4.4341123978238
+    postal_prefixes:
+      - '34'
+    weight: 34
+  department.fr.35:
+    type: department
+    code: '35'
+    label: Ille-et-Vilaine
+    slug: ille-et-vilaine-35
+    lat: 48.1159
+    lng: -1.6884
+    bbox:
+      sw_lat: 47.710494594595
+      sw_lng: -2.2956343181151
+      ne_lat: 48.521305405405
+      ne_lng: -1.0811656818849
+    postal_prefixes:
+      - '35'
+    weight: 35
+  department.fr.36:
+    type: department
+    code: '36'
+    label: Indre
+    slug: indre-36
+    lat: 46.8023
+    lng: 1.6903
+    bbox:
+      sw_lat: 46.396894594595
+      sw_lng: 1.0980504191771
+      ne_lat: 47.207705405405
+      ne_lng: 2.2825495808229
+    postal_prefixes:
+      - '36'
+    weight: 36
+  department.fr.37:
+    type: department
+    code: '37'
+    label: Indre-et-Loire
+    slug: indre-et-loire-37
+    lat: 47.3943
+    lng: 0.6949
+    bbox:
+      sw_lat: 46.988894594595
+      sw_lng: 0.096028758591768
+      ne_lat: 47.799705405405
+      ne_lng: 1.2937712414082
+    postal_prefixes:
+      - '37'
+    weight: 37
+  department.fr.38:
+    type: department
+    code: '38'
+    label: Isère
+    slug: isere-38
+    lat: 45.1842
+    lng: 5.7155
+    bbox:
+      sw_lat: 44.778794594595
+      sw_lng: 5.140318057788
+      ne_lat: 45.589605405405
+      ne_lng: 6.290681942212
+    postal_prefixes:
+      - '38'
+    weight: 38
+  department.fr.39:
+    type: department
+    code: '39'
+    label: Jura
+    slug: jura-39
+    lat: 47.0739
+    lng: 5.5024
+    bbox:
+      sw_lat: 46.668494594595
+      sw_lng: 4.9071386680279
+      ne_lat: 47.479305405405
+      ne_lng: 6.0976613319721
+    postal_prefixes:
+      - '39'
+    weight: 39
+  department.fr.40:
+    type: department
+    code: '40'
+    label: Landes
+    slug: landes-40
+    lat: 43.8931
+    lng: -0.5009
+    bbox:
+      sw_lat: 43.487694594595
+      sw_lng: -1.0634672137774
+      ne_lat: 44.298505405405
+      ne_lng: 0.061667213777398
+    postal_prefixes:
+      - '40'
+    weight: 40
+  department.fr.41:
+    type: department
+    code: '41'
+    label: Loir-et-Cher
+    slug: loir-et-cher-41
+    lat: 47.5813
+    lng: 1.3049
+    bbox:
+      sw_lat: 47.175894594595
+      sw_lng: 0.70389282132568
+      ne_lat: 47.986705405405
+      ne_lng: 1.9059071786743
+    postal_prefixes:
+      - '41'
+    weight: 41
+  department.fr.42:
+    type: department
+    code: '42'
+    label: Loire
+    slug: loire-42
+    lat: 45.4241
+    lng: 4.3665
+    bbox:
+      sw_lat: 45.018694594595
+      sw_lng: 3.7888788752723
+      ne_lat: 45.829505405405
+      ne_lng: 4.9441211247277
+    postal_prefixes:
+      - '42'
+    weight: 42
+  department.fr.43:
+    type: department
+    code: '43'
+    label: Haute-Loire
+    slug: haute-loire-43
+    lat: 45.0283
+    lng: 3.8973
+    bbox:
+      sw_lat: 44.622894594595
+      sw_lng: 3.3236867837261
+      ne_lat: 45.433705405405
+      ne_lng: 4.4709132162739
+    postal_prefixes:
+      - '43'
+    weight: 43
+  department.fr.44:
+    type: department
+    code: '44'
+    label: Loire-Atlantique
+    slug: loire-atlantique-44
+    lat: 47.2382
+    lng: -1.5603
+    bbox:
+      sw_lat: 46.832794594595
+      sw_lng: -2.1574046950195
+      ne_lat: 47.643605405405
+      ne_lng: -0.96319530498046
+    postal_prefixes:
+      - '44'
+    weight: 44
+  department.fr.45:
+    type: department
+    code: '45'
+    label: Loiret
+    slug: loiret-45
+    lat: 47.8734
+    lng: 1.9122
+    bbox:
+      sw_lat: 47.467994594595
+      sw_lng: 1.3078128148382
+      ne_lat: 48.278805405405
+      ne_lng: 2.5165871851618
+    postal_prefixes:
+      - '45'
+    weight: 45
+  department.fr.46:
+    type: department
+    code: '46'
+    label: Lot
+    slug: lot-46
+    lat: 44.4565
+    lng: 1.439
+    bbox:
+      sw_lat: 44.051094594595
+      sw_lng: 0.87103220897468
+      ne_lat: 44.861905405405
+      ne_lng: 2.0069677910253
+    postal_prefixes:
+      - '46'
+    weight: 46
+  department.fr.47:
+    type: department
+    code: '47'
+    label: Lot-et-Garonne
+    slug: lot-et-garonne-47
+    lat: 44.201
+    lng: 0.6302
+    bbox:
+      sw_lat: 43.795594594595
+      sw_lng: 0.064700923775652
+      ne_lat: 44.606405405405
+      ne_lng: 1.1956990762243
+    postal_prefixes:
+      - '47'
+    weight: 47
+  department.fr.48:
+    type: department
+    code: '48'
+    label: Lozère
+    slug: lozere-48
+    lat: 44.5349
+    lng: 3.4909
+    bbox:
+      sw_lat: 44.129494594595
+      sw_lng: 2.9221680850464
+      ne_lat: 44.940305405405
+      ne_lng: 4.0596319149536
+    postal_prefixes:
+      - '48'
+    weight: 48
+  department.fr.49:
+    type: department
+    code: '49'
+    label: Maine-et-Loire
+    slug: maine-et-loire-49
+    lat: 47.4819
+    lng: -0.5629
+    bbox:
+      sw_lat: 47.076494594595
+      sw_lng: -1.1627691306697
+      ne_lat: 47.887305405405
+      ne_lng: 0.036969130669721
+    postal_prefixes:
+      - '49'
+    weight: 49
+  department.fr.50:
+    type: department
+    code: '50'
+    label: Manche
+    slug: manche-50
+    lat: 49.6277
+    lng: -1.6356
+    bbox:
+      sw_lat: 49.222294594595
+      sw_lng: -2.2614654876886
+      ne_lat: 50.033105405405
+      ne_lng: -1.0097345123114
+    postal_prefixes:
+      - '50'
+    weight: 50
+  department.fr.51:
+    type: department
+    code: '51'
+    label: Marne
+    slug: marne-51
+    lat: 49.2535
+    lng: 4.0551
+    bbox:
+      sw_lat: 48.848094594595
+      sw_lng: 3.4339922376981
+      ne_lat: 49.658905405405
+      ne_lng: 4.6762077623019
+    postal_prefixes:
+      - '51'
+    weight: 51
+  department.fr.52:
+    type: department
+    code: '52'
+    label: Haute-Marne
+    slug: haute-marne-52
+    lat: 48.6319
+    lng: 4.9399
+    bbox:
+      sw_lat: 48.226494594595
+      sw_lng: 4.3264804122046
+      ne_lat: 49.037305405405
+      ne_lng: 5.5533195877954
+    postal_prefixes:
+      - '52'
+    weight: 52
+  department.fr.53:
+    type: department
+    code: '53'
+    label: Mayenne
+    slug: mayenne-53
+    lat: 48.0578
+    lng: -0.7692
+    bbox:
+      sw_lat: 47.652394594595
+      sw_lng: -1.3757487489634
+      ne_lat: 48.463205405405
+      ne_lng: -0.16265125103662
+    postal_prefixes:
+      - '53'
+    weight: 53
+  department.fr.54:
+    type: department
+    code: '54'
+    label: Meurthe-et-Moselle
+    slug: meurthe-et-moselle-54
+    lat: 48.6881
+    lng: 6.1734
+    bbox:
+      sw_lat: 48.282694594595
+      sw_lng: 5.5592961071849
+      ne_lat: 49.093505405405
+      ne_lng: 6.7875038928151
+    postal_prefixes:
+      - '54'
+    weight: 54
+  department.fr.55:
+    type: department
+    code: '55'
+    label: Meuse
+    slug: meuse-55
+    lat: 49.144
+    lng: 5.3609
+    bbox:
+      sw_lat: 48.738594594595
+      sw_lng: 4.7411658341054
+      ne_lat: 49.549405405405
+      ne_lng: 5.9806341658946
+    postal_prefixes:
+      - '55'
+    weight: 55
+  department.fr.56:
+    type: department
+    code: '56'
+    label: Morbihan
+    slug: morbihan-56
+    lat: 47.7494
+    lng: -3.3799
+    bbox:
+      sw_lat: 47.343994594595
+      sw_lng: -3.9828457837343
+      ne_lat: 48.154805405405
+      ne_lng: -2.7769542162657
+    postal_prefixes:
+      - '56'
+    weight: 56
+  department.fr.57:
+    type: department
+    code: '57'
+    label: Moselle
+    slug: moselle-57
+    lat: 49.1048
+    lng: 6.1962
+    bbox:
+      sw_lat: 48.699394594595
+      sw_lng: 5.5769555443697
+      ne_lat: 49.510205405405
+      ne_lng: 6.8154444556303
+    postal_prefixes:
+      - '57'
+    weight: 57
+  department.fr.58:
+    type: department
+    code: '58'
+    label: Nièvre
+    slug: nievre-58
+    lat: 46.9852
+    lng: 3.1598
+    bbox:
+      sw_lat: 46.579794594595
+      sw_lng: 2.565527087384
+      ne_lat: 47.390605405405
+      ne_lng: 3.754072912616
+    postal_prefixes:
+      - '58'
+    weight: 58
+  department.fr.59:
+    type: department
+    code: '59'
+    label: Nord
+    slug: nord-59
+    lat: 50.6311
+    lng: 3.0468
+    bbox:
+      sw_lat: 50.225694594595
+      sw_lng: 2.4076727943475
+      ne_lat: 51.036505405405
+      ne_lng: 3.6859272056525
+    postal_prefixes:
+      - '59'
+    weight: 59
+  department.fr.60:
+    type: department
+    code: '60'
+    label: Oise
+    slug: oise-60
+    lat: 49.4425
+    lng: 2.0877
+    bbox:
+      sw_lat: 49.037094594595
+      sw_lng: 1.4642016175487
+      ne_lat: 49.847905405405
+      ne_lng: 2.7111983824513
+    postal_prefixes:
+      - '60'
+    weight: 60
+  department.fr.61:
+    type: department
+    code: '61'
+    label: Orne
+    slug: orne-61
+    lat: 48.431
+    lng: 0.0923
+    bbox:
+      sw_lat: 48.025594594595
+      sw_lng: -0.51869059267186
+      ne_lat: 48.836405405405
+      ne_lng: 0.70329059267186
+    postal_prefixes:
+      - '61'
+    weight: 61
+  department.fr.62:
+    type: department
+    code: '62'
+    label: Pas-de-Calais
+    slug: pas-de-calais-62
+    lat: 50.9523
+    lng: 1.869
+    bbox:
+      sw_lat: 50.546894594595
+      sw_lng: 1.2254658151277
+      ne_lat: 51.357705405405
+      ne_lng: 2.5125341848723
+    postal_prefixes:
+      - '62'
+    weight: 62
+  department.fr.63:
+    type: department
+    code: '63'
+    label: Puy-de-Dôme
+    slug: puy-de-dome-63
+    lat: 45.787
+    lng: 3.1127
+    bbox:
+      sw_lat: 45.381594594595
+      sw_lng: 2.5313300383341
+      ne_lat: 46.192405405405
+      ne_lng: 3.6940699616659
+    postal_prefixes:
+      - '63'
+    weight: 63
+  department.fr.64:
+    type: department
+    code: '64'
+    label: Pyrénées-Atlantiques
+    slug: pyrenees-atlantiques-64
+    lat: 43.3219
+    lng: -0.3435
+    bbox:
+      sw_lat: 42.916494594595
+      sw_lng: -0.90075019577168
+      ne_lat: 43.727305405405
+      ne_lng: 0.21375019577168
+    postal_prefixes:
+      - '64'
+    weight: 64
+  department.fr.65:
+    type: department
+    code: '65'
+    label: Hautes-Pyrénées
+    slug: hautes-pyrenees-65
+    lat: 43.2387
+    lng: 0.0653
+    bbox:
+      sw_lat: 42.833294594595
+      sw_lng: -0.49118869860887
+      ne_lat: 43.644105405405
+      ne_lng: 0.62178869860887
+    postal_prefixes:
+      - '65'
+    weight: 65
+  department.fr.66:
+    type: department
+    code: '66'
+    label: Pyrénées-Orientales
+    slug: pyrenees-orientales-66
+    lat: 42.699
+    lng: 2.9045
+    bbox:
+      sw_lat: 42.293594594595
+      sw_lng: 2.3528728054696
+      ne_lat: 43.104405405405
+      ne_lng: 3.4561271945304
+    postal_prefixes:
+      - '66'
+    weight: 66
+  department.fr.67:
+    type: department
+    code: '67'
+    label: Bas-Rhin
+    slug: bas-rhin-67
+    lat: 48.5691
+    lng: 7.7621
+    bbox:
+      sw_lat: 48.163694594595
+      sw_lng: 7.1494425819521
+      ne_lat: 48.974505405405
+      ne_lng: 8.3747574180479
+    postal_prefixes:
+      - '67'
+    weight: 67
+  department.fr.68:
+    type: department
+    code: '68'
+    label: Haut-Rhin
+    slug: haut-rhin-68
+    lat: 47.7526
+    lng: 7.3255
+    bbox:
+      sw_lat: 47.347194594595
+      sw_lng: 6.7225171407124
+      ne_lat: 48.158005405405
+      ne_lng: 7.9284828592876
+    postal_prefixes:
+      - '68'
+    weight: 68
+  department.fr.69:
+    type: department
+    code: '69'
+    label: Rhône
+    slug: rhone-69
+    lat: 45.758
+    lng: 4.8351
+    bbox:
+      sw_lat: 45.352594594595
+      sw_lng: 4.2540322612436
+      ne_lat: 46.163405405405
+      ne_lng: 5.4161677387564
+    postal_prefixes:
+      - '69'
+    weight: 69
+  department.fr.70:
+    type: department
+    code: '70'
+    label: Haute-Saône
+    slug: haute-saone-70
+    lat: 47.6323
+    lng: 6.1523
+    bbox:
+      sw_lat: 47.226894594595
+      sw_lng: 5.5507065318999
+      ne_lat: 48.037705405405
+      ne_lng: 6.7538934681001
+    postal_prefixes:
+      - '70'
+    weight: 70
+  department.fr.71:
+    type: department
+    code: '71'
+    label: Saône-et-Loire
+    slug: saone-et-loire-71
+    lat: 46.7896
+    lng: 4.8509
+    bbox:
+      sw_lat: 46.384194594595
+      sw_lng: 4.2587901777922
+      ne_lat: 47.195005405405
+      ne_lng: 5.4430098222078
+    postal_prefixes:
+      - '71'
+    weight: 71
+  department.fr.72:
+    type: department
+    code: '72'
+    label: Sarthe
+    slug: sarthe-72
+    lat: 47.9819
+    lng: 0.1957
+    bbox:
+      sw_lat: 47.576494594595
+      sw_lng: -0.40995640869607
+      ne_lat: 48.387305405405
+      ne_lng: 0.80135640869607
+    postal_prefixes:
+      - '72'
+    weight: 72
+  department.fr.73:
+    type: department
+    code: '73'
+    label: Savoie
+    slug: savoie-73
+    lat: 45.5822
+    lng: 5.9064
+    bbox:
+      sw_lat: 45.176794594595
+      sw_lng: 5.3271544833184
+      ne_lat: 45.987605405405
+      ne_lng: 6.4856455166816
+    postal_prefixes:
+      - '73'
+    weight: 73
+  department.fr.74:
+    type: department
+    code: '74'
+    label: Haute-Savoie
+    slug: haute-savoie-74
+    lat: 45.9024
+    lng: 6.1264
+    bbox:
+      sw_lat: 45.496994594595
+      sw_lng: 5.543822797602
+      ne_lat: 46.307805405405
+      ne_lng: 6.708977202398
+    postal_prefixes:
+      - '74'
+    weight: 74
+  department.fr.75:
+    type: department
+    code: '75'
+    label: Paris
+    slug: paris-75
+    lat: 48.8589
+    lng: 2.347
+    bbox:
+      sw_lat: 48.453494594595
+      sw_lng: 1.730803353168
+      ne_lat: 49.264305405405
+      ne_lng: 2.963196646832
+    postal_prefixes:
+      - '75'
+    weight: 75
+  department.fr.76:
+    type: department
+    code: '76'
+    label: Seine-Maritime
+    slug: seine-maritime-76
+    lat: 49.4958
+    lng: 0.1312
+    bbox:
+      sw_lat: 49.090394594595
+      sw_lng: -0.49297712315354
+      ne_lat: 49.901205405405
+      ne_lng: 0.75537712315354
+    postal_prefixes:
+      - '76'
+    weight: 76
+  department.fr.77:
+    type: department
+    code: '77'
+    label: Seine-et-Marne
+    slug: seine-et-marne-77
+    lat: 48.9573
+    lng: 2.9035
+    bbox:
+      sw_lat: 48.551894594595
+      sw_lng: 2.2860887060539
+      ne_lat: 49.362705405405
+      ne_lng: 3.5209112939461
+    postal_prefixes:
+      - '77'
+    weight: 77
+  department.fr.78:
+    type: department
+    code: '78'
+    label: Yvelines
+    slug: yvelines-78
+    lat: 48.8039
+    lng: 2.1191
+    bbox:
+      sw_lat: 48.398494594595
+      sw_lng: 1.5035794019963
+      ne_lat: 49.209305405405
+      ne_lng: 2.7346205980037
+    postal_prefixes:
+      - '78'
+    weight: 78
+  department.fr.79:
+    type: department
+    code: '79'
+    label: Deux-Sèvres
+    slug: deux-sevres-79
+    lat: 46.3274
+    lng: -0.4613
+    bbox:
+      sw_lat: 45.921994594595
+      sw_lng: -1.0483875035214
+      ne_lat: 46.732805405405
+      ne_lng: 0.12578750352143
+    postal_prefixes:
+      - '79'
+    weight: 79
+  department.fr.80:
+    type: department
+    code: '80'
+    label: Somme
+    slug: somme-80
+    lat: 49.8987
+    lng: 2.2847
+    bbox:
+      sw_lat: 49.493294594595
+      sw_lng: 1.6553262840345
+      ne_lat: 50.304105405405
+      ne_lng: 2.9140737159655
+    postal_prefixes:
+      - '80'
+    weight: 80
+  department.fr.81:
+    type: department
+    code: '81'
+    label: Tarn
+    slug: tarn-81
+    lat: 43.929
+    lng: 2.1323
+    bbox:
+      sw_lat: 43.523594594595
+      sw_lng: 1.569393344613
+      ne_lat: 44.334405405405
+      ne_lng: 2.695206655387
+    postal_prefixes:
+      - '81'
+    weight: 81
+  department.fr.82:
+    type: department
+    code: '82'
+    label: Tarn-et-Garonne
+    slug: tarn-et-garonne-82
+    lat: 44.0217
+    lng: 1.3646
+    bbox:
+      sw_lat: 43.616294594595
+      sw_lng: 0.8008139253889
+      ne_lat: 44.427105405405
+      ne_lng: 1.9283860746111
+    postal_prefixes:
+      - '82'
+    weight: 82
+  department.fr.83:
+    type: department
+    code: '83'
+    label: Var
+    slug: var-83
+    lat: 43.1364
+    lng: 5.9334
+    bbox:
+      sw_lat: 42.730994594595
+      sw_lng: 5.3778431622674
+      ne_lat: 43.541805405405
+      ne_lng: 6.4889568377326
+    postal_prefixes:
+      - '83'
+    weight: 83
+  department.fr.84:
+    type: department
+    code: '84'
+    label: Vaucluse
+    slug: vaucluse-84
+    lat: 43.9416
+    lng: 4.8333
+    bbox:
+      sw_lat: 43.536194594595
+      sw_lng: 4.2702740595617
+      ne_lat: 44.347005405405
+      ne_lng: 5.3963259404383
+    postal_prefixes:
+      - '84'
+    weight: 84
+  department.fr.85:
+    type: department
+    code: '85'
+    label: Vendée
+    slug: vendee-85
+    lat: 46.6659
+    lng: -1.4162
+    bbox:
+      sw_lat: 46.260494594595
+      sw_lng: -2.0069535091661
+      ne_lat: 47.071305405405
+      ne_lng: -0.82544649083391
+    postal_prefixes:
+      - '85'
+    weight: 85
+  department.fr.86:
+    type: department
+    code: '86'
+    label: Vienne
+    slug: vienne-86
+    lat: 46.5846
+    lng: 0.3715
+    bbox:
+      sw_lat: 46.179194594595
+      sw_lng: -0.21836696599001
+      ne_lat: 46.990005405405
+      ne_lng: 0.96136696599001
+    postal_prefixes:
+      - '86'
+    weight: 86
+  department.fr.87:
+    type: department
+    code: '87'
+    label: Haute-Vienne
+    slug: haute-vienne-87
+    lat: 45.8567
+    lng: 1.226
+    bbox:
+      sw_lat: 45.451294594595
+      sw_lng: 0.64390176323664
+      ne_lat: 46.262105405405
+      ne_lng: 1.8080982367634
+    postal_prefixes:
+      - '87'
+    weight: 87
+  department.fr.88:
+    type: department
+    code: '88'
+    label: Vosges
+    slug: vosges-88
+    lat: 48.1637
+    lng: 6.4867
+    bbox:
+      sw_lat: 47.758294594595
+      sw_lng: 5.8789000186474
+      ne_lat: 48.569105405405
+      ne_lng: 7.0944999813526
+    postal_prefixes:
+      - '88'
+    weight: 88
+  department.fr.89:
+    type: department
+    code: '89'
+    label: Yonne
+    slug: yonne-89
+    lat: 47.7939
+    lng: 3.5821
+    bbox:
+      sw_lat: 47.388494594595
+      sw_lng: 2.9786380558394
+      ne_lat: 48.199305405405
+      ne_lng: 4.1855619441606
+    postal_prefixes:
+      - '89'
+    weight: 89
+  department.fr.90:
+    type: department
+    code: '90'
+    label: 'Territoire de Belfort'
+    slug: territoire-de-belfort-90
+    lat: 47.6458
+    lng: 6.841
+    bbox:
+      sw_lat: 47.240394594595
+      sw_lng: 6.2392510662767
+      ne_lat: 48.051205405405
+      ne_lng: 7.4427489337233
+    postal_prefixes:
+      - '90'
+    weight: 90
+  department.fr.91:
+    type: department
+    code: '91'
+    label: Essonne
+    slug: essonne-91
+    lat: 48.6287
+    lng: 2.4313
+    bbox:
+      sw_lat: 48.223294594595
+      sw_lng: 1.8179193125535
+      ne_lat: 49.034105405405
+      ne_lng: 3.0446806874465
+    postal_prefixes:
+      - '91'
+    weight: 91
+  department.fr.92:
+    type: department
+    code: '92'
+    label: Hauts-de-Seine
+    slug: hauts-de-seine-92
+    lat: 48.8375
+    lng: 2.2429
+    bbox:
+      sw_lat: 48.432094594595
+      sw_lng: 1.6269666415045
+      ne_lat: 49.242905405405
+      ne_lng: 2.8588333584955
+    postal_prefixes:
+      - '92'
+    weight: 92
+  department.fr.93:
+    type: department
+    code: '93'
+    label: Seine-Saint-Denis
+    slug: seine-saint-denis-93
+    lat: 48.9378
+    lng: 2.3657
+    bbox:
+      sw_lat: 48.532394594595
+      sw_lng: 1.7485299385485
+      ne_lat: 49.343205405405
+      ne_lng: 2.9828700614515
+    postal_prefixes:
+      - '93'
+    weight: 93
+  department.fr.94:
+    type: department
+    code: '94'
+    label: Val-de-Marne
+    slug: val-de-marne-94
+    lat: 48.7893
+    lng: 2.3951
+    bbox:
+      sw_lat: 48.383894594595
+      sw_lng: 1.7797585179628
+      ne_lat: 49.194705405405
+      ne_lng: 3.0104414820372
+    postal_prefixes:
+      - '94'
+    weight: 94
+  department.fr.95:
+    type: department
+    code: '95'
+    label: "Val-d'Oise"
+    slug: val-d-oise-95
+    lat: 48.9501
+    lng: 2.2478
+    bbox:
+      sw_lat: 48.544694594595
+      sw_lng: 1.6304778067974
+      ne_lat: 49.355505405405
+      ne_lng: 2.8651221932026
+    postal_prefixes:
+      - '95'
+    weight: 95

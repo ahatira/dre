@@ -1,0 +1,291 @@
+country: es
+default_zone: region.es.md
+zones:
+  region.es.an:
+    type: region
+    code: AN
+    label: Andalusia
+    slug: andalusia
+    lat: 37.34
+    lng: -4.5812
+    bbox:
+      sw_lat: 36.258918918919
+      sw_lng: -5.9409645078587
+      ne_lat: 38.421081081081
+      ne_lng: -3.2214354921413
+    postal_prefixes:
+      - '04'
+      - '11'
+      - '14'
+      - '18'
+      - '21'
+      - '23'
+      - '29'
+      - '41'
+    weight: 1
+  region.es.ar:
+    type: region
+    code: AR
+    label: Aragon
+    slug: aragon
+    lat: 41.3787
+    lng: -0.7639
+    bbox:
+      sw_lat: 40.567889189189
+      sw_lng: -1.8444669273533
+      ne_lat: 42.189510810811
+      ne_lng: 0.31666692735329
+    postal_prefixes:
+      - '22'
+      - '44'
+      - '50'
+    weight: 2
+  region.es.as:
+    type: region
+    code: AS
+    label: Asturias
+    slug: asturias
+    lat: 43.3134
+    lng: -5.9419
+    bbox:
+      sw_lat: 42.682769369369
+      sw_lng: -6.8086123875119
+      ne_lat: 43.944030630631
+      ne_lng: -5.0751876124881
+    postal_prefixes:
+      - '33'
+    weight: 3
+  region.es.ib:
+    type: region
+    code: IB
+    label: 'Balearic Islands'
+    slug: balearic-islands
+    lat: 39.6134
+    lng: 2.8829
+    bbox:
+      sw_lat: 38.892679279279
+      sw_lng: 1.9473415038642
+      ne_lat: 40.334120720721
+      ne_lng: 3.8184584961358
+    postal_prefixes:
+      - '07'
+    weight: 4
+  region.es.pv:
+    type: region
+    code: PV
+    label: 'Basque Country'
+    slug: basque-country
+    lat: 42.9912
+    lng: -2.5543
+    bbox:
+      sw_lat: 42.360569369369
+      sw_lng: -3.4164551079068
+      ne_lat: 43.621830630631
+      ne_lng: -1.6921448920932
+    postal_prefixes:
+      - '01'
+      - '20'
+      - '48'
+    weight: 5
+  region.es.cn:
+    type: region
+    code: CN
+    label: 'Canary Islands'
+    slug: canary-islands
+    lat: 28.2936
+    lng: -16.6214
+    bbox:
+      sw_lat: 26.942248648649
+      sw_lng: -18.156101696171
+      ne_lat: 29.644951351351
+      ne_lng: -15.086698303829
+    postal_prefixes:
+      - '35'
+      - '38'
+    weight: 6
+  region.es.cb:
+    type: region
+    code: CB
+    label: Cantabria
+    slug: cantabria
+    lat: 43.1596
+    lng: -4.0878
+    bbox:
+      sw_lat: 42.619059459459
+      sw_lng: -4.8288236530894
+      ne_lat: 43.700140540541
+      ne_lng: -3.3467763469106
+    postal_prefixes:
+      - '39'
+    weight: 7
+  region.es.cl:
+    type: region
+    code: CL
+    label: 'Castile and León'
+    slug: castile-and-leon
+    lat: 41.5501
+    lng: -5.1387
+    bbox:
+      sw_lat: 40.378928828829
+      sw_lng: -6.7036501314445
+      ne_lat: 42.721271171171
+      ne_lng: -3.5737498685555
+    postal_prefixes:
+      - '05'
+      - '09'
+      - '24'
+      - '34'
+      - '37'
+      - '40'
+      - '42'
+      - '47'
+      - '49'
+    weight: 8
+  region.es.cm:
+    type: region
+    code: CM
+    label: 'Castilla-La Mancha'
+    slug: castilla-la-mancha
+    lat: 39.4178
+    lng: -2.6232
+    bbox:
+      sw_lat: 38.426809009009
+      sw_lng: -3.9059758809476
+      ne_lat: 40.408790990991
+      ne_lng: -1.3404241190524
+    postal_prefixes:
+      - '02'
+      - '13'
+      - '16'
+      - '19'
+      - '45'
+    weight: 9
+  region.es.ct:
+    type: region
+    code: CT
+    label: Catalonia
+    slug: catalonia
+    lat: 41.8523
+    lng: 1.5745
+    bbox:
+      sw_lat: 40.951399099099
+      sw_lng: 0.36502156957203
+      ne_lat: 42.753200900901
+      ne_lng: 2.783978430428
+    postal_prefixes:
+      - '08'
+      - '17'
+      - '25'
+      - '43'
+    weight: 10
+  region.es.ex:
+    type: region
+    code: EX
+    label: Extremadura
+    slug: extremadura
+    lat: 39.1748
+    lng: -6.153
+    bbox:
+      sw_lat: 38.273899099099
+      sw_lng: -7.3151192924838
+      ne_lat: 40.075700900901
+      ne_lng: -4.9908807075162
+    postal_prefixes:
+      - '06'
+      - '10'
+    weight: 11
+  region.es.ga:
+    type: region
+    code: GA
+    label: Galicia
+    slug: galicia
+    lat: 42.6195
+    lng: -7.8631
+    bbox:
+      sw_lat: 41.718599099099
+      sw_lng: -9.0873719081877
+      ne_lat: 43.520400900901
+      ne_lng: -6.6388280918123
+    postal_prefixes:
+      - '15'
+      - '27'
+      - '32'
+      - '36'
+    weight: 12
+  region.es.ri:
+    type: region
+    code: RI
+    label: 'La Rioja'
+    slug: la-rioja
+    lat: 42.4627
+    lng: -2.4449
+    bbox:
+      sw_lat: 41.967204504505
+      sw_lng: -3.116560675871
+      ne_lat: 42.958195495495
+      ne_lng: -1.773239324129
+    postal_prefixes:
+      - '26'
+    weight: 13
+  region.es.md:
+    type: region
+    code: MD
+    label: 'Community of Madrid'
+    slug: madrid
+    lat: 40.4168
+    lng: -3.7038
+    bbox:
+      sw_lat: 39.786169369369
+      sw_lng: -4.5321077318766
+      ne_lat: 41.047430630631
+      ne_lng: -2.8754922681234
+    postal_prefixes:
+      - '28'
+    weight: 14
+  region.es.mc:
+    type: region
+    code: MC
+    label: 'Region of Murcia'
+    slug: murcia
+    lat: 37.9922
+    lng: -1.1307
+    bbox:
+      sw_lat: 37.361569369369
+      sw_lng: -1.9308966550708
+      ne_lat: 38.622830630631
+      ne_lng: -0.33050334492923
+    postal_prefixes:
+      - '30'
+    weight: 15
+  region.es.nc:
+    type: region
+    code: NC
+    label: Navarre
+    slug: navarre
+    lat: 42.8125
+    lng: -1.6458
+    bbox:
+      sw_lat: 42.226914414414
+      sw_lng: -2.4440555353865
+      ne_lat: 43.398085585586
+      ne_lng: -0.84754446461352
+    postal_prefixes:
+      - '31'
+    weight: 16
+  region.es.vc:
+    type: region
+    code: VC
+    label: 'Valencian Community'
+    slug: valencian-community
+    lat: 39.4699
+    lng: -0.3763
+    bbox:
+      sw_lat: 38.659089189189
+      sw_lng: -1.4266293468331
+      ne_lat: 40.280710810811
+      ne_lng: 0.67402934683311
+    postal_prefixes:
+      - '03'
+      - '12'
+      - '46'
+    weight: 17

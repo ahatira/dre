@@ -31,7 +31,11 @@ status_code() {
 
 count_api() {
   local qs="$1"
-  curl -s -m 60 "${BASE}/api/ps/count?${qs}" 2>/dev/null | sed -n 's/.*"count":\([0-9]*\).*/\1/p' | head -1
+  local url="${BASE}/api/ps/count"
+  if [[ -n "$qs" ]]; then
+    url="${url}?${qs}"
+  fi
+  curl -s -m 60 "$url" 2>/dev/null | sed -n 's/.*"count":\([0-9]*\).*/\1/p' | head -1
 }
 
 assert_http_200() {

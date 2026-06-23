@@ -22,9 +22,12 @@
 if (ps_env('APP_ENV', 'dev') === 'dev') {
 
   // --- Mailpit (Symfony Mailer → SMTP) --------------------------------------
-  // Env: MAILPIT_HOST (default mailpit), MAILPIT_PORT (default 1025).
-  // Listed in config_ignore — configure via settings.local.php (dev) or drush config:set (prod).
-  $mailpitHost = ps_env('MAILPIT_HOST', 'mailpit');
+  // Env: MAILPIT_HOST (default: 127.0.0.1 on host Drush, mailpit in PHP container).
+  $mailpitHost = ps_env('MAILPIT_HOST', '');
+  if ($mailpitHost === '') {
+    $dbHost = ps_env('DB_HOST', '127.0.0.1');
+    $mailpitHost = ($dbHost === '127.0.0.1' || $dbHost === 'localhost') ? '127.0.0.1' : 'mailpit';
+  }
   $mailpitPort = (int) ps_env('MAILPIT_PORT', '1025');
   $config['mailer_transport.settings']['default_transport'] = 'sendmail';
   $config['mailer_transport.mailer_transport.sendmail']['plugin'] = 'smtp';

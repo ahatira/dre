@@ -48,6 +48,21 @@ ps_search.seo_url_mappings:
           type: label
           label: 'Canonical asset slug'
 
+ps_search.seo_redirects:
+  type: config_object
+  label: 'PS Search SEO migration redirects'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable configured 301 redirects'
+    redirects:
+      type: mapping
+      label: 'Source path to target path map'
+      mapping:
+        '*':
+          type: string
+          label: 'Target path'
+
 ps_search.map_zone_settings:
   type: config_object
   label: 'PS Search map zone settings'
@@ -216,3 +231,130 @@ views.filter.ps_search_location_tokens:
 views.filter_value.ps_search_location_tokens:
   type: views.filter_value.search_api_string
   label: 'PS Search location tokens filter value'
+
+ps_search.geo_zones.*:
+  type: config_object
+  label: 'PS Search geo zones per country'
+  mapping:
+    country:
+      type: string
+      label: 'Country code'
+    default_zone:
+      type: string
+      label: 'Default geo zone id for this country'
+    zones:
+      type: mapping
+      label: 'Geo zones keyed by stable id'
+      mapping:
+        '*':
+          type: mapping
+          mapping:
+            id:
+              type: string
+              label: 'Canonical zone id (dots allowed in value)'
+            type:
+              type: string
+              label: 'Zone type'
+            code:
+              type: string
+              label: 'Administrative or semantic code'
+            label:
+              type: string
+              label: 'Human label'
+            slug:
+              type: string
+              label: 'URL slug'
+            lat:
+              type: float
+              label: 'Centroid latitude'
+            lng:
+              type: float
+              label: 'Centroid longitude'
+            bbox:
+              type: mapping
+              label: 'Bounding box'
+              mapping:
+                sw_lat:
+                  type: float
+                sw_lng:
+                  type: float
+                ne_lat:
+                  type: float
+                ne_lng:
+                  type: float
+            postal_prefixes:
+              type: sequence
+              label: 'Postal code prefixes'
+              sequence:
+                type: string
+            parent:
+              type: string
+              label: 'Parent zone id'
+            weight:
+              type: integer
+              label: 'Sort weight'
+
+ps_search.engine_settings:
+  type: config_object
+  label: 'PS Search engine v2 settings'
+  mapping:
+    location_required:
+      type: boolean
+      label: 'Require a geo context for search'
+    default_geo_zone_by_country:
+      type: mapping
+      label: 'Default geo zone id per country'
+      mapping:
+        '*':
+          type: string
+          label: 'Geo zone id'
+    geocoding_providers:
+      type: sequence
+      label: 'Geocoding provider stack'
+      sequence:
+        type: mapping
+        mapping:
+          id:
+            type: string
+            label: 'Provider id'
+          enabled:
+            type: boolean
+            label: 'Enabled'
+          weight:
+            type: integer
+            label: 'Weight'
+          api_key:
+            type: string
+            label: 'Optional API key'
+    default_radius_by_geo_type:
+      type: mapping
+      label: 'Default search radius by geo type (metres)'
+      mapping:
+        address:
+          type: integer
+          label: 'Address radius'
+        city:
+          type: integer
+          label: 'City radius'
+        postal:
+          type: integer
+          label: 'Postal radius'
+        coordinates:
+          type: integer
+          label: 'Coordinates radius'
+    expand_search_factor:
+      type: float
+      label: 'BBox expansion factor for widen search CTA'
+    feature_filters_combine:
+      type: string
+      label: 'More filters combine mode (and|or)'
+    features:
+      type: mapping
+      label: 'Feature flags'
+      mapping:
+        use_search_context:
+          type: boolean
+          label: 'Attach SearchContext to search requests'
+        legacy_location_filter:
+          type: boolean
+          label: 'Keep legacy LocationSearchFilter path'

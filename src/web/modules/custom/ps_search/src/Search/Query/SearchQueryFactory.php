@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Search\Query;
 
 use Drupal\ps_search\Contract\SearchQueryFactoryInterface;
+use Drupal\ps_search\Contract\SearchQueryExecutorInterface;
 use Drupal\ps_search\Service\LocationSearchFilter;
 use Drupal\ps_search\Service\MoreCriteriaConditionApplier;
 use Drupal\ps_search\Service\SearchContentLanguageResolver;
+use Drupal\ps_search\Service\SearchEngineSettingsReader;
 use Drupal\ps_search\ValueObject\MapBounds;
+use Drupal\ps_search\ValueObject\SearchContext;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -39,6 +42,8 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
     private readonly SearchContentLanguageResolver $contentLanguageResolver,
     private readonly SearchListSortApplier $sortApplier,
+    private readonly SearchQueryExecutorInterface $queryExecutor,
+    private readonly SearchEngineSettingsReader $engineSettings,
   ) {}
 
   /**
@@ -60,6 +65,79 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
    * {@inheritdoc}
    */
   public function applyBusinessFilters(QueryInterface $query, Request $request): void {
+    if ($this->applyFromSearchContext($query, $request, FALSE, NULL)) {
+      return;
+    }
+
+    $this->applyLegacyBusinessFilters($query, $request);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function applyListSort(QueryInterface $query, Request $request): void {
+    $context = $this->getSearchContext($request);
+    if ($context instanceof SearchContext && $this->engineSettings->isSearchContextEnabled()) {
+      $this->queryExecutor->applyListSort($query, $context);
+      return;
+    }
+
+    $this->sortApplier->apply($query, $request);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function applyMapBounds(QueryInterface $query, MapBounds $bounds): void {
+    $query->addCondition('field_geo_lat', $bounds->swLat, '>=');
+    $query->addCondition('field_geo_lat', $bounds->neLat, '<=');
+    $query->addCondition('field_geo_lng', $bounds->swLng, '>=');
+    $query->addCondition('field_geo_lng', $bounds->neLng, '<=');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function apply(QueryInterface $query, Request $request, ?MapBounds $bounds = NULL): void {
+    if ($this->applyFromSearchContext($query, $request, TRUE, $bounds)) {
+      return;
+    }
+
+    $this->applyLegacyBusinessFilters($query, $request);
+    if ($bounds instanceof MapBounds) {
+      $this->applyMapBounds($query, $bounds);
+    }
+  }
+
+  /**
+   * Applies SearchContext-driven filters when the v2 feature flag is enabled.
+   */
+  private function applyFromSearchContext(
+    QueryInterface $query,
+    Request $request,
+    bool $withSpatial,
+    ?MapBounds $bounds,
+  ): bool {
+    $context = $this->getSearchContext($request);
+    if (!$context instanceof SearchContext || !$this->engineSettings->isSearchContextEnabled()) {
+      return FALSE;
+    }
+
+    $this->queryExecutor->applyBusinessFilters($query, $context);
+    if ($withSpatial) {
+      $legacyBounds = $this->queryExecutor->shouldSkipLegacyMapBounds($context)
+        ? NULL
+        : $bounds;
+      $this->queryExecutor->applySpatial($query, $context, $legacyBounds);
+    }
+
+    return TRUE;
+  }
+
+  /**
+   * Legacy business filter path (LocationSearchFilter + query params).
+   */
+  private function applyLegacyBusinessFilters(QueryInterface $query, Request $request): void {
     $this->applyContentLanguageFilter($query, $request);
 
     $operationType = $this->queryFacetCode($request, 'operation_type');
@@ -78,7 +156,7 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
     if ($assetType !== NULL) {
       $query->addCondition('field_asset_type', $assetType);
     }
-    if ($localityTokens !== []) {
+    if ($localityTokens !== [] && $this->shouldApplyLegacyLocationFilter($request)) {
       $this->locationSearchFilter->applyToQuery($query, $localityTokens);
     }
     if ($surfaceMin !== NULL) {
@@ -103,31 +181,20 @@ final class SearchQueryFactory implements SearchQueryFactoryInterface {
     $this->moreCriteriaApplier->apply($query, $request);
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function applyListSort(QueryInterface $query, Request $request): void {
-    $this->sortApplier->apply($query, $request);
+  private function getSearchContext(Request $request): ?SearchContext {
+    $context = $request->attributes->get(SearchContext::REQUEST_ATTRIBUTE);
+    return $context instanceof SearchContext ? $context : NULL;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function applyMapBounds(QueryInterface $query, MapBounds $bounds): void {
-    $query->addCondition('field_geo_lat', $bounds->swLat, '>=');
-    $query->addCondition('field_geo_lat', $bounds->neLat, '<=');
-    $query->addCondition('field_geo_lng', $bounds->swLng, '>=');
-    $query->addCondition('field_geo_lng', $bounds->neLng, '<=');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function apply(QueryInterface $query, Request $request, ?MapBounds $bounds = NULL): void {
-    $this->applyBusinessFilters($query, $request);
-    if ($bounds instanceof MapBounds) {
-      $this->applyMapBounds($query, $bounds);
+  private function shouldApplyLegacyLocationFilter(Request $request): bool {
+    if (!$this->engineSettings->isSearchContextEnabled()) {
+      return TRUE;
     }
+    if ($this->engineSettings->isLegacyLocationFilterEnabled()) {
+      return TRUE;
+    }
+
+    return $this->getSearchContext($request)?->geo === NULL;
   }
 
   /**

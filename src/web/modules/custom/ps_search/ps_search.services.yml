@@ -18,6 +18,9 @@ services:
       - '@language_manager'
       - '@ps_search.search_path_resolver'
       - '@ps_search.seo_locality_path_builder'
+      - '@ps_search.engine_settings_reader'
+      - '@ps_search.geo_zone.repository'
+      - '@ps_search.context_serializer'
     tags:
       - { name: path_processor_inbound, priority: 290 }
       - { name: path_processor_outbound, priority: 110 }
@@ -36,8 +39,23 @@ services:
     arguments:
       - '@ps_search.search_path_resolver'
       - '@ps_search.seo_locality_path_builder'
+      - '@ps_search.engine_settings_reader'
+      - '@ps_search.context_resolver'
+      - '@ps_search.context_serializer'
     tags:
       - { name: event_subscriber }
+
+  ps_search.seo_redirects_subscriber:
+    class: Drupal\ps_search\EventSubscriber\SearchSeoRedirectsSubscriber
+    arguments:
+      - '@ps_search.seo_redirects_reader'
+    tags:
+      - { name: event_subscriber }
+
+  ps_search.seo_redirects_reader:
+    class: Drupal\ps_search\Service\SearchSeoRedirectsReader
+    arguments:
+      - '@config.factory'
 
   ps_search.cross_language_slug_redirect_subscriber:
     class: Drupal\ps_search\EventSubscriber\SearchCrossLanguageSlugRedirectSubscriber
@@ -71,6 +89,8 @@ services:
       - '@ps_search.seo_locality_path_builder'
       - '@language_manager'
       - '@request_stack'
+      - '@ps_search.engine_settings_reader'
+      - '@ps_search.context_serializer'
 
   Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder: '@ps_search.seo_canonical_url_builder'
 
@@ -80,6 +100,10 @@ services:
       - '@ps_search.seo_canonical_url_builder'
       - '@ps_search.search_path_resolver'
       - '@language_manager'
+      - '@ps_search.engine_settings_reader'
+      - '@ps_search.context_serializer'
+      - '@ps_search.context_resolver'
+      - '@ps_search.geo_zone.repository'
 
   ps_search.preset_options_provider:
     class: Drupal\ps_search\Service\SearchPresetOptionsProvider
@@ -102,6 +126,46 @@ services:
       - '@database'
       - '@ps_search.location_filter'
       - '@ps_dictionary.resolver'
+      - '@ps_search.geo_zone.repository'
+
+  ps_search.views_query_gate:
+    class: Drupal\ps_search\Service\SearchViewsQueryGate
+    arguments:
+      - '@ps_search.engine_settings_reader'
+
+  ps_search.geocoding.geo_zone:
+    class: Drupal\ps_search\Geocoding\GeoZoneGeocodingProvider
+    arguments:
+      - '@ps_search.geo_zone.repository'
+    tags:
+      - { name: ps_search.geocoding_provider }
+
+  ps_search.geocoding.offers:
+    class: Drupal\ps_search\Geocoding\OfferDerivedGeocodingProvider
+    arguments:
+      - '@ps_search.location_filter'
+      - '@ps_search.geo_zone.repository'
+    tags:
+      - { name: ps_search.geocoding_provider }
+
+  ps_search.geocoding.google:
+    class: Drupal\ps_search\Geocoding\GoogleGeocodingProvider
+    tags:
+      - { name: ps_search.geocoding_provider }
+
+  ps_search.geocoding.osm:
+    class: Drupal\ps_search\Geocoding\OsmNominatimGeocodingProvider
+    tags:
+      - { name: ps_search.geocoding_provider }
+
+  ps_search.location_resolver:
+    class: Drupal\ps_search\Location\LocationResolver
+    arguments:
+      - !tagged_iterator ps_search.geocoding_provider
+      - '@ps_search.geo_zone.repository'
+      - '@config.factory'
+
+  Drupal\ps_search\Contract\LocationResolverInterface: '@ps_search.location_resolver'
 
   ps_search.isochrone.approximation:
     class: Drupal\ps_search\Service\Isochrone\IsochroneApproximationProvider
@@ -169,14 +233,59 @@ services:
       - '@ps_search.more_criteria_applier'
       - '@ps_search.content_language_resolver'
       - '@ps_search.list_sort_applier'
+      - '@ps_search.query_executor'
+      - '@ps_search.engine_settings_reader'
 
   Drupal\ps_search\Contract\SearchQueryFactoryInterface: '@ps_search.query_factory'
+
+  ps_search.engine_settings_reader:
+    class: Drupal\ps_search\Service\SearchEngineSettingsReader
+    arguments:
+      - '@config.factory'
+
+  ps_search.query_condition_stripper:
+    class: Drupal\ps_search\Search\Query\SearchQueryConditionStripper
+
+  ps_search.spatial_applier:
+    class: Drupal\ps_search\Search\Query\SearchSpatialApplier
+
+  ps_search.business_filter_applier:
+    class: Drupal\ps_search\Search\Query\SearchBusinessFilterApplier
+    arguments:
+      - '@ps_search.content_language_resolver'
+      - '@ps_search.more_criteria_applier'
+      - '@request_stack'
+
+  ps_search.context_sort_applier:
+    class: Drupal\ps_search\Search\Query\SearchContextSortApplier
+
+  ps_search.query_executor:
+    class: Drupal\ps_search\Search\Query\SearchQueryExecutor
+    arguments:
+      - '@ps_search.business_filter_applier'
+      - '@ps_search.spatial_applier'
+      - '@ps_search.context_sort_applier'
+      - '@ps_search.query_condition_stripper'
+
+  Drupal\ps_search\Contract\SearchQueryExecutorInterface: '@ps_search.query_executor'
+
+  Drupal\ps_search\Hook\SearchContextQueryHooks:
+    class: Drupal\ps_search\Hook\SearchContextQueryHooks
+    arguments:
+      - '@ps_search.query_executor'
+      - '@ps_search.engine_settings_reader'
+      - '@ps_search.map_bounds_resolver'
+      - '@request_stack'
+      - '@ps_search.views_query_gate'
 
   Drupal\ps_search\Hook\SearchListSortQueryHooks:
     class: Drupal\ps_search\Hook\SearchListSortQueryHooks
     arguments:
       - '@ps_search.list_sort_applier'
+      - '@ps_search.query_executor'
+      - '@ps_search.engine_settings_reader'
       - '@request_stack'
+      - '@ps_search.views_query_gate'
 
   ps_search.more_criteria_applier:
     class: Drupal\ps_search\Service\MoreCriteriaConditionApplier
@@ -235,7 +344,10 @@ services:
     arguments:
       - '@ps_search.map_bounds_resolver'
       - '@ps_search.query_factory'
+      - '@ps_search.query_executor'
+      - '@ps_search.engine_settings_reader'
       - '@request_stack'
+      - '@ps_search.views_query_gate'
 
   Drupal\ps_search\Hook\SearchListPagerHooks:
     class: Drupal\ps_search\Hook\SearchListPagerHooks
@@ -272,6 +384,7 @@ services:
       - '@ps_context.search_budget_filter'
       - '@ps_search.search_path_resolver'
       - '@ps_search.filter_bar_htmx_settings'
+      - '@ps_search.context_js_settings'
 
   ps_search.filter_results_header_builder:
     class: Drupal\ps_search\Search\Filter\SearchResultsHeaderBuilder
@@ -348,6 +461,7 @@ services:
       - '@ps_search.more_criteria_applier'
       - '@ps_search.feature_filter_registry'
       - '@request_stack'
+      - '@ps_search.views_query_gate'
 
   Drupal\ps_search\Hook\FeatureFilterCronHooks:
     class: Drupal\ps_search\Hook\FeatureFilterCronHooks
@@ -404,6 +518,9 @@ services:
     arguments:
       - '@ps_search.location_filter'
       - '@language_manager'
+      - '@ps_search.context_serializer'
+      - '@ps_search.context_storage_mapper'
+      - '@ps_search.engine_settings_reader'
 
   ps_search.alert_criteria_summary_builder:
     class: Drupal\ps_search\Service\SearchAlertCriteriaSummaryBuilder
@@ -466,3 +583,91 @@ services:
     arguments:
       - '@ps_search.preset_query_builder'
       - '@language_manager'
+
+  ps_search.geo_zone.slug_generator:
+    class: Drupal\ps_search\GeoZone\GeoZoneSlugGenerator
+
+  ps_search.geo_zone.postal_prefix_builder:
+    class: Drupal\ps_search\GeoZone\GeoZonePostalPrefixBuilder
+
+  ps_search.geo_zone.validator:
+    class: Drupal\ps_search\GeoZone\GeoZoneValidator
+
+  ps_search.geo_zone.repository:
+    class: Drupal\ps_search\GeoZone\GeoZoneRepository
+    arguments:
+      - '@config.factory'
+
+  Drupal\ps_search\Contract\GeoZoneRepositoryInterface: '@ps_search.geo_zone.repository'
+
+  ps_search.geo_zone.importer:
+    class: Drupal\ps_search\GeoZone\GeoZoneImporter
+    arguments:
+      - '@config.factory'
+      - '@config.storage'
+      - '@extension.list.module'
+      - '@ps_search.geo_zone.validator'
+      - '@ps_search.geo_zone.repository'
+
+  ps_search.geo_zone.definition_provider:
+    class: Drupal\ps_search\GeoZone\GeoZoneDefinitionProvider
+    arguments:
+      - '@ps_search.geo_zone.slug_generator'
+      - '@ps_search.geo_zone.postal_prefix_builder'
+      - 'modules/custom/ps_search'
+
+  ps_search.geo_zone.builder:
+    class: Drupal\ps_search\GeoZone\GeoZoneBuilder
+    arguments:
+      - '@ps_search.geo_zone.definition_provider'
+      - '@ps_search.geo_zone.com_builder'
+      - 'modules/custom/ps_search'
+
+  ps_search.geo_zone.com_builder:
+    class: Drupal\ps_search\GeoZone\GeoZoneComBuilder
+    arguments:
+      - 'modules/custom/ps_search'
+
+  ps_search.filters_parser:
+    class: Drupal\ps_search\Search\Context\SearchFiltersParser
+    arguments:
+      - '@ps_search.content_language_resolver'
+
+  ps_search.context_resolver:
+    class: Drupal\ps_search\Search\Context\SearchContextResolver
+    arguments:
+      - '@ps_search.search_path_resolver'
+      - '@ps_search.geo_zone.repository'
+      - '@ps_search.filters_parser'
+      - '@config.factory'
+      - '@language_manager'
+
+  Drupal\ps_search\Contract\SearchContextResolverInterface: '@ps_search.context_resolver'
+
+  ps_search.context_serializer:
+    class: Drupal\ps_search\Search\Context\SearchContextSerializer
+    arguments:
+      - '@ps_search.context_resolver'
+      - '@ps_search.search_path_resolver'
+      - '@ps_search.geo_zone.repository'
+      - '@language_manager'
+
+  Drupal\ps_search\Contract\SearchContextSerializerInterface: '@ps_search.context_serializer'
+
+  ps_search.context_storage_mapper:
+    class: Drupal\ps_search\Search\Context\SearchContextStorageMapper
+
+  ps_search.context_js_settings:
+    class: Drupal\ps_search\Search\Context\SearchContextJsSettingsBuilder
+    arguments:
+      - '@ps_search.engine_settings_reader'
+      - '@ps_search.context_serializer'
+      - '@config.factory'
+      - '@request_stack'
+
+  Drupal\ps_search\EventSubscriber\SearchContextRequestSubscriber:
+    arguments:
+      - '@ps_search.context_resolver'
+      - '@config.factory'
+    tags:
+      - { name: event_subscriber }

@@ -63,8 +63,8 @@ if [[ "$COMPARE_COUNT" -ge 1 ]]; then
   assert_html_contains 'data-ps-compare-toggle' "Compare toggle on homepage cards"
   assert_html_contains 'ps-compare-button--teaser' "Teaser compare button variant on homepage"
   assert_html_contains '/api/compare/toggle/node/' "Toggle URL on homepage cards"
-  assert_html_contains 'ps-compare-toast.js' "Compare toast JS attached on homepage"
-  assert_html_contains 'ps-compare-toggle.js' "Compare toggle JS attached on homepage"
+  assert_html_contains '"psCompare":' "Compare drupalSettings attached on homepage"
+  assert_html_contains '"countEndpoint":"\/api\/compare\/count"' "Compare count API in drupalSettings on homepage"
 else
   pass "Homepage has no featured offer carousel in current demo (teaser validated via Drush)"
 fi

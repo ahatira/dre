@@ -9,6 +9,10 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\PathProcessor\InboundPathProcessorInterface;
 use Drupal\Core\PathProcessor\OutboundPathProcessorInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Site\Settings;
+use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
+use Drupal\ps_search\Contract\SearchContextSerializerInterface;
+use Drupal\ps_search\Service\SearchEngineSettingsReader;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +41,9 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
     private readonly LanguageManagerInterface $languageManager,
     private readonly SearchPathResolver $searchPathResolver,
     private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
+    private readonly SearchEngineSettingsReader $engineSettings,
+    private readonly GeoZoneRepositoryInterface $geoZoneRepository,
+    private readonly SearchContextSerializerInterface $contextSerializer,
   ) {}
 
   /**
@@ -79,7 +86,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
       $params['asset_type'] = $facets['asset_type'];
     }
 
-    $this->applyLocalitySegmentsToParams($params, $facets['locality_segments']);
+    $this->applyLocationParams($params, $facets['locality_segments']);
 
     $request->query->add($params);
     $this->syncLocationsQueryParam($request);
@@ -121,24 +128,68 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
 
     $seoPath = $seoPrefix;
 
-    $locality = $query['locality'] ?? NULL;
-    $locations = $query['locations'] ?? NULL;
-    $locationValue = is_string($locations) && $locations !== '' ? $locations : $locality;
-    if (is_string($locationValue) && $locationValue !== '') {
-      $tokens = $this->extractLocationTokens($locationValue);
-      if (count($tokens) === 1) {
-        $seoPath = $this->seoLocalityPathBuilder->appendSegmentsToPath($seoPath, $tokens[0]);
-        unset($query['locality'], $query['locations']);
+    if ($this->engineSettings->isSearchContextEnabled()) {
+      $pathQuery = $query;
+      if ($rawOp !== NULL) {
+        $pathQuery['operation_type'] = $rawOp;
       }
-      elseif (count($tokens) > 1) {
-        $query['locations'] = implode(',', $tokens);
-        unset($query['locality']);
+      if ($rawAsset !== NULL) {
+        $pathQuery['asset_type'] = $rawAsset;
+      }
+      $built = $this->contextSerializer->buildSeoPathFromQuery($langcode, $pathQuery);
+      if ($built !== NULL) {
+        $seoPath = $built;
+        unset($query['zone'], $query['locality'], $query['locations']);
+      }
+    }
+    else {
+      $locality = $query['locality'] ?? NULL;
+      $locations = $query['locations'] ?? NULL;
+      $locationValue = is_string($locations) && $locations !== '' ? $locations : $locality;
+      if (is_string($locationValue) && $locationValue !== '') {
+        $tokens = $this->extractLocationTokens($locationValue);
+        if (count($tokens) === 1) {
+          $seoPath = $this->seoLocalityPathBuilder->appendSegmentsToPath($seoPath, $tokens[0]);
+          unset($query['locality'], $query['locations']);
+        }
+        elseif (count($tokens) > 1) {
+          $query['locations'] = implode(',', $tokens);
+          unset($query['locality']);
+        }
       }
     }
 
     $options['query'] = $query;
 
     return $seoPath . '/';
+  }
+
+  /**
+   * Adds geo zone or legacy locality params from SEO path tail segments.
+   *
+   * @param array<string, string> $params
+   * @param list<string> $localitySegments
+   */
+  private function applyLocationParams(array &$params, array $localitySegments): void {
+    if ($localitySegments === []) {
+      return;
+    }
+
+    if ($this->engineSettings->isSearchContextEnabled()) {
+      $slug = strtolower((string) end($localitySegments));
+      $zone = $this->geoZoneRepository->findBySlug($slug, $this->resolveCountryCode());
+      if ($zone !== NULL) {
+        $params['zone'] = $zone->slug;
+        return;
+      }
+    }
+
+    $this->applyLocalitySegmentsToParams($params, $localitySegments);
+  }
+
+  private function resolveCountryCode(): string {
+    $code = Settings::get('ps_country_code');
+    return is_string($code) && $code !== '' ? strtolower($code) : 'com';
   }
 
   /**

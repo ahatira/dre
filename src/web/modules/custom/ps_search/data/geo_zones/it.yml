@@ -1,0 +1,372 @@
+country: it
+default_zone: region.it.laz
+zones:
+  region.it.abr:
+    type: region
+    code: ABR
+    label: Abruzzo
+    slug: abruzzo
+    lat: 42.2277
+    lng: 13.855
+    bbox:
+      sw_lat: 41.597069369369
+      sw_lng: 13.003348593994
+      ne_lat: 42.858330630631
+      ne_lng: 14.706651406006
+    postal_prefixes:
+      - '65'
+      - '66'
+      - '67'
+    weight: 1
+  region.it.vda:
+    type: region
+    code: VDA
+    label: 'Aosta Valley'
+    slug: aosta-valley
+    lat: 45.7301
+    lng: 7.3874
+    bbox:
+      sw_lat: 45.27964954955
+      sw_lng: 6.7420917597233
+      ne_lat: 46.18055045045
+      ne_lng: 8.0327082402767
+    postal_prefixes:
+      - '11'
+    weight: 2
+  region.it.pug:
+    type: region
+    code: PUG
+    label: Apulia
+    slug: apulia
+    lat: 40.9843
+    lng: 16.621
+    bbox:
+      sw_lat: 40.173489189189
+      sw_lng: 15.54692094484
+      ne_lat: 41.795110810811
+      ne_lng: 17.69507905516
+    postal_prefixes:
+      - '70'
+      - '71'
+      - '72'
+      - '73'
+      - '74'
+      - '75'
+      - '76'
+    weight: 3
+  region.it.bas:
+    type: region
+    code: BAS
+    label: Basilicata
+    slug: basilicata
+    lat: 40.5006
+    lng: 16.082
+    bbox:
+      sw_lat: 39.869969369369
+      sw_lng: 15.252658438321
+      ne_lat: 41.131230630631
+      ne_lng: 16.911341561679
+    postal_prefixes:
+      - '85'
+    weight: 4
+  region.it.cal:
+    type: region
+    code: CAL
+    label: Calabria
+    slug: calabria
+    lat: 39.0566
+    lng: 16.525
+    bbox:
+      sw_lat: 38.335879279279
+      sw_lng: 15.596862801896
+      ne_lat: 39.777320720721
+      ne_lng: 17.453137198104
+    postal_prefixes:
+      - '87'
+      - '88'
+      - '89'
+    weight: 5
+  region.it.cam:
+    type: region
+    code: CAM
+    label: Campania
+    slug: campania
+    lat: 40.8607
+    lng: 14.844
+    bbox:
+      sw_lat: 40.139979279279
+      sw_lng: 13.891046878794
+      ne_lat: 41.581420720721
+      ne_lng: 15.796953121206
+    postal_prefixes:
+      - '80'
+      - '81'
+      - '82'
+      - '83'
+      - '84'
+    weight: 6
+  region.it.emr:
+    type: region
+    code: EMR
+    label: Emilia-Romagna
+    slug: emilia-romagna
+    lat: 44.5257
+    lng: 11.0394
+    bbox:
+      sw_lat: 43.714889189189
+      sw_lng: 9.9021158285413
+      ne_lat: 45.336510810811
+      ne_lng: 12.176684171459
+    postal_prefixes:
+      - '40'
+      - '41'
+      - '42'
+      - '43'
+      - '44'
+      - '47'
+      - '48'
+    weight: 7
+  region.it.fvg:
+    type: region
+    code: FVG
+    label: 'Friuli-Venezia Giulia'
+    slug: friuli-venezia-giulia
+    lat: 46.151
+    lng: 13.0559
+    bbox:
+      sw_lat: 45.520369369369
+      sw_lng: 12.145584063163
+      ne_lat: 46.781630630631
+      ne_lng: 13.966215936837
+    postal_prefixes:
+      - '33'
+      - '34'
+    weight: 8
+  region.it.laz:
+    type: region
+    code: LAZ
+    label: Lazio
+    slug: lazio
+    lat: 41.9802
+    lng: 12.7668
+    bbox:
+      sw_lat: 41.259479279279
+      sw_lng: 11.797276225796
+      ne_lat: 42.700920720721
+      ne_lng: 13.736323774204
+    postal_prefixes:
+      - '00'
+      - '01'
+      - '02'
+      - '03'
+      - '04'
+    weight: 9
+  region.it.lig:
+    type: region
+    code: LIG
+    label: Liguria
+    slug: liguria
+    lat: 44.4778
+    lng: 8.7026
+    bbox:
+      sw_lat: 43.937259459459
+      sw_lng: 7.945033223234
+      ne_lat: 45.018340540541
+      ne_lng: 9.460166776766
+    postal_prefixes:
+      - '16'
+      - '17'
+      - '18'
+      - '19'
+    weight: 10
+  region.it.lom:
+    type: region
+    code: LOM
+    label: Lombardy
+    slug: lombardy
+    lat: 45.5704
+    lng: 9.7733
+    bbox:
+      sw_lat: 44.759589189189
+      sw_lng: 8.615052379526
+      ne_lat: 46.381210810811
+      ne_lng: 10.931547620474
+    postal_prefixes:
+      - '20'
+      - '21'
+      - '22'
+      - '23'
+      - '24'
+      - '25'
+      - '26'
+      - '27'
+      - '28'
+      - '29'
+    weight: 11
+  region.it.mar:
+    type: region
+    code: MAR
+    label: Marche
+    slug: marche
+    lat: 43.3458
+    lng: 13.1416
+    bbox:
+      sw_lat: 42.715169369369
+      sw_lng: 12.274425150484
+      ne_lat: 43.976430630631
+      ne_lng: 14.008774849516
+    postal_prefixes:
+      - '60'
+      - '61'
+      - '62'
+      - '63'
+    weight: 12
+  region.it.mol:
+    type: region
+    code: MOL
+    label: Molise
+    slug: molise
+    lat: 41.6847
+    lng: 14.5956
+    bbox:
+      sw_lat: 41.23424954955
+      sw_lng: 13.992438613961
+      ne_lat: 42.13515045045
+      ne_lng: 15.198761386039
+    postal_prefixes:
+      - '86'
+    weight: 13
+  region.it.pmn:
+    type: region
+    code: PMN
+    label: Piedmont
+    slug: piedmont
+    lat: 45.0607
+    lng: 7.9235
+    bbox:
+      sw_lat: 44.249889189189
+      sw_lng: 6.7756236336197
+      ne_lat: 45.871510810811
+      ne_lng: 9.0713763663803
+    postal_prefixes:
+      - '10'
+      - '12'
+      - '13'
+      - '14'
+      - '15'
+    weight: 14
+  region.it.sar:
+    type: region
+    code: SAR
+    label: Sardinia
+    slug: sardinia
+    lat: 40.0913
+    lng: 9.0306
+    bbox:
+      sw_lat: 39.280489189189
+      sw_lng: 7.9707431849812
+      ne_lat: 40.902110810811
+      ne_lng: 10.090456815019
+    postal_prefixes:
+      - '07'
+      - '08'
+      - '09'
+    weight: 15
+  region.it.sic:
+    type: region
+    code: SIC
+    label: Sicily
+    slug: sicily
+    lat: 37.5878
+    lng: 14.155
+    bbox:
+      sw_lat: 36.596809009009
+      sw_lng: 12.904411219269
+      ne_lat: 38.578790990991
+      ne_lng: 15.405588780731
+    postal_prefixes:
+      - '90'
+      - '91'
+      - '92'
+      - '93'
+      - '94'
+      - '95'
+      - '96'
+      - '97'
+      - '98'
+    weight: 16
+  region.it.tos:
+    type: region
+    code: TOS
+    label: Tuscany
+    slug: tuscany
+    lat: 43.4587
+    lng: 11.1389
+    bbox:
+      sw_lat: 42.647889189189
+      sw_lng: 10.021881242653
+      ne_lat: 44.269510810811
+      ne_lng: 12.255918757347
+    postal_prefixes:
+      - '50'
+      - '51'
+      - '52'
+      - '53'
+      - '54'
+      - '55'
+      - '56'
+      - '57'
+      - '58'
+      - '59'
+    weight: 17
+  region.it.taa:
+    type: region
+    code: TAA
+    label: 'Trentino-Alto Adige'
+    slug: trentino-alto-adige
+    lat: 46.4415
+    lng: 11.2821
+    bbox:
+      sw_lat: 45.810869369369
+      sw_lng: 10.366942031932
+      ne_lat: 47.072130630631
+      ne_lng: 12.197257968068
+    postal_prefixes:
+      - '38'
+      - '39'
+    weight: 18
+  region.it.umb:
+    type: region
+    code: UMB
+    label: Umbria
+    slug: umbria
+    lat: 42.9659
+    lng: 12.4902
+    bbox:
+      sw_lat: 42.425359459459
+      sw_lng: 11.751513909943
+      ne_lat: 43.506440540541
+      ne_lng: 13.228886090057
+    postal_prefixes:
+      - '06'
+    weight: 19
+  region.it.ven:
+    type: region
+    code: VEN
+    label: Veneto
+    slug: veneto
+    lat: 45.6477
+    lng: 11.8665
+    bbox:
+      sw_lat: 44.836889189189
+      sw_lng: 10.706655061333
+      ne_lat: 46.458510810811
+      ne_lng: 13.026344938667
+    postal_prefixes:
+      - '30'
+      - '31'
+      - '32'
+      - '35'
+      - '36'
+      - '37'
+    weight: 20

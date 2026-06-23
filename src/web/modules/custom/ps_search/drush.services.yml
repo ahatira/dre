@@ -13,3 +13,12 @@ services:
       - '@ps_search.alert_matcher'
     tags:
       - { name: drush.command }
+
+  Drupal\ps_search\Commands\SearchGeoZoneCommands:
+    class: Drupal\ps_search\Commands\SearchGeoZoneCommands
+    arguments:
+      - '@ps_search.geo_zone.importer'
+      - '@ps_search.geo_zone.builder'
+      - '@ps_search.geo_zone.validator'
+    tags:
+      - { name: drush.command }

@@ -7,6 +7,7 @@ namespace Drupal\ps_search\Hook;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\ps_search\Service\FeatureSearchFilterRegistry;
 use Drupal\ps_search\Service\MoreCriteriaConditionApplier;
+use Drupal\ps_search\Service\SearchViewsQueryGate;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\ConditionInterface;
 use Drupal\search_api\Query\QueryInterface;
@@ -25,6 +26,7 @@ final class FeatureFilterQueryHooks {
     private readonly MoreCriteriaConditionApplier $moreCriteriaApplier,
     private readonly FeatureSearchFilterRegistry $featureFilterRegistry,
     private readonly RequestStack $requestStack,
+    private readonly SearchViewsQueryGate $viewsQueryGate,
   ) {}
 
   /**
@@ -32,6 +34,10 @@ final class FeatureFilterQueryHooks {
    */
   #[Hook('search_api_query_alter')]
   public function searchApiQueryAlter(QueryInterface $query): void {
+    if ($this->viewsQueryGate->isHandledByContextQuery($query)) {
+      return;
+    }
+
     if (!str_contains((string) $query->getSearchId(), 'ps_search_offers')) {
       return;
     }

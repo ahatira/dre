@@ -95,8 +95,7 @@ final class SearchResultCounter {
 
     $query = $index->query();
     $query->range(0, 0);
-    $this->filterQueryBuilder->applyBusinessFilters($query, $request);
-    $this->filterQueryBuilder->applyMapBounds($query, $bounds);
+    $this->filterQueryBuilder->apply($query, $request, $bounds);
 
     try {
       $count = (int) $query->execute()->getResultCount();

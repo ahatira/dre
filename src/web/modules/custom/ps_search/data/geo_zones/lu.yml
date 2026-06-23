@@ -1,0 +1,199 @@
+country: lu
+default_zone: region.lu.lu
+zones:
+  region.lu.ca:
+    type: region
+    code: CA
+    label: Capellen
+    slug: capellen
+    lat: 49.6411
+    lng: 5.9994
+    bbox:
+      sw_lat: 49.46091981982
+      sw_lng: 5.7211610180868
+      ne_lat: 49.82128018018
+      ne_lng: 6.2776389819132
+    postal_prefixes:
+      - '83'
+    weight: 1
+  region.lu.cl:
+    type: region
+    code: CL
+    label: Clervaux
+    slug: clervaux
+    lat: 50.0547
+    lng: 6.0289
+    bbox:
+      sw_lat: 49.829474774775
+      sw_lng: 5.6781124784341
+      ne_lat: 50.279925225225
+      ne_lng: 6.3796875215659
+    postal_prefixes:
+      - '97'
+    weight: 2
+  region.lu.di:
+    type: region
+    code: DI
+    label: Diekirch
+    slug: diekirch
+    lat: 49.8678
+    lng: 6.1556
+    bbox:
+      sw_lat: 49.68761981982
+      sw_lng: 5.8760573319126
+      ne_lat: 50.04798018018
+      ne_lng: 6.4351426680874
+    postal_prefixes:
+      - '92'
+    weight: 3
+  region.lu.ec:
+    type: region
+    code: EC
+    label: Echternach
+    slug: echternach
+    lat: 49.8125
+    lng: 6.4219
+    bbox:
+      sw_lat: 49.63231981982
+      sw_lng: 6.1426768749419
+      ne_lat: 49.99268018018
+      ne_lng: 6.7011231250581
+    postal_prefixes:
+      - '64'
+    weight: 4
+  region.lu.es:
+    type: region
+    code: ES
+    label: Esch-sur-Alzette
+    slug: esch-sur-alzette
+    lat: 49.4958
+    lng: 5.9806
+    bbox:
+      sw_lat: 49.31561981982
+      sw_lng: 5.7031879452651
+      ne_lat: 49.67598018018
+      ne_lng: 6.2580120547349
+    postal_prefixes:
+      - '43'
+    weight: 5
+  region.lu.gr:
+    type: region
+    code: GR
+    label: Grevenmacher
+    slug: grevenmacher
+    lat: 49.6808
+    lng: 6.4408
+    bbox:
+      sw_lat: 49.50061981982
+      sw_lng: 6.1623339083983
+      ne_lat: 49.86098018018
+      ne_lng: 6.7192660916017
+    postal_prefixes:
+      - '67'
+    weight: 6
+  region.lu.lu:
+    type: region
+    code: LU
+    label: Luxembourg
+    slug: luxembourg
+    lat: 49.6116
+    lng: 6.1319
+    bbox:
+      sw_lat: 49.43141981982
+      sw_lng: 5.8538294510116
+      ne_lat: 49.79178018018
+      ne_lng: 6.4099705489884
+    postal_prefixes:
+      - '12'
+      - '13'
+      - '14'
+      - '15'
+      - '16'
+      - '17'
+      - '18'
+      - '19'
+      - '20'
+      - '21'
+      - '22'
+      - '23'
+      - '24'
+      - '25'
+      - '26'
+      - '27'
+      - '28'
+    weight: 7
+  region.lu.me:
+    type: region
+    code: ME
+    label: Mersch
+    slug: mersch
+    lat: 49.7489
+    lng: 6.1061
+    bbox:
+      sw_lat: 49.56871981982
+      sw_lng: 5.8272431554972
+      ne_lat: 49.92908018018
+      ne_lng: 6.3849568445028
+    postal_prefixes:
+      - '75'
+    weight: 8
+  region.lu.rd:
+    type: region
+    code: RD
+    label: Redange
+    slug: redange
+    lat: 49.7656
+    lng: 5.8903
+    bbox:
+      sw_lat: 49.58541981982
+      sw_lng: 5.6113471043941
+      ne_lat: 49.94578018018
+      ne_lng: 6.1692528956059
+    postal_prefixes:
+      - '85'
+    weight: 9
+  region.lu.rm:
+    type: region
+    code: RM
+    label: Remich
+    slug: remich
+    lat: 49.5447
+    lng: 6.3669
+    bbox:
+      sw_lat: 49.36451981982
+      sw_lng: 6.0892103955979
+      ne_lat: 49.72488018018
+      ne_lng: 6.6445896044021
+    postal_prefixes:
+      - '55'
+    weight: 10
+  region.lu.vd:
+    type: region
+    code: VD
+    label: Vianden
+    slug: vianden
+    lat: 49.9347
+    lng: 6.2078
+    bbox:
+      sw_lat: 49.75451981982
+      sw_lng: 5.9278694320148
+      ne_lat: 50.11488018018
+      ne_lng: 6.4877305679852
+    postal_prefixes:
+      - '94'
+    weight: 11
+  region.lu.wi:
+    type: region
+    code: WI
+    label: Wiltz
+    slug: wiltz
+    lat: 49.9669
+    lng: 5.9319
+    bbox:
+      sw_lat: 49.741674774775
+      sw_lng: 5.5817527619137
+      ne_lat: 50.192125225225
+      ne_lng: 6.2820472380863
+    postal_prefixes:
+      - '95'
+    weight: 12

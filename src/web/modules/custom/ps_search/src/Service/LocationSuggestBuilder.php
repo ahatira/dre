@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_dictionary\Service\DictionaryResolver;
+use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
 
 /**
  * Builds offer-derived location autocomplete groups for the search filter bar.
@@ -23,6 +25,7 @@ final class LocationSuggestBuilder {
     private readonly Connection $database,
     private readonly LocationSearchFilter $locationSearchFilter,
     private readonly DictionaryResolver $dictionaryResolver,
+    private readonly GeoZoneRepositoryInterface $geoZoneRepository,
   ) {}
 
   /**
@@ -280,14 +283,14 @@ final class LocationSuggestBuilder {
         continue;
       }
 
-      $deptItems[] = [
+      $deptItems[] = $this->enrichWithGeoZone([
         'label' => "{$match['name']} ({$match['code']})",
         'type' => 'department',
         'locality' => '',
         'admin_area' => $match['name'],
         'postal_code' => '',
         'department_code' => $match['code'],
-      ];
+      ]);
       $suggestions[] = $match['name'];
     }
 
@@ -421,14 +424,44 @@ final class LocationSuggestBuilder {
       return NULL;
     }
 
-    return [
+    return $this->enrichWithGeoZone([
       'label' => "$name ($code)",
       'type' => 'department',
       'locality' => '',
       'admin_area' => $name,
       'postal_code' => '',
       'department_code' => $code,
-    ];
+    ]);
+  }
+
+  /**
+   * Adds GeoZone slug/id when a referential match exists (L3 suggest).
+   *
+   * @param array<string, mixed> $item
+   *
+   * @return array<string, mixed>
+   */
+  private function enrichWithGeoZone(array $item): array {
+    $countryCode = $this->resolveCountryCode();
+    $deptCode = is_string($item['department_code'] ?? NULL) ? $item['department_code'] : '';
+    if ($deptCode === '' && is_string($item['postal_code'] ?? NULL) && strlen($item['postal_code']) >= 2) {
+      $deptCode = substr($item['postal_code'], 0, 2);
+    }
+
+    if ($deptCode !== '') {
+      $zone = $this->geoZoneRepository->findByPostalPrefix($deptCode, $countryCode);
+      if ($zone !== NULL) {
+        $item['slug'] = $zone->slug;
+        $item['id'] = $zone->id;
+      }
+    }
+
+    return $item;
+  }
+
+  private function resolveCountryCode(): string {
+    $code = Settings::get('ps_country_code');
+    return is_string($code) && $code !== '' ? strtolower($code) : 'com';
   }
 
   /**

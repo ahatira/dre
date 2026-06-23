@@ -1,0 +1,29 @@
+location_required: false
+default_geo_zone_by_country: {}
+geocoding_providers:
+  -
+    id: geo_zone
+    enabled: true
+    weight: -30
+  -
+    id: offers
+    enabled: true
+    weight: -20
+  -
+    id: google
+    enabled: true
+    weight: 0
+  -
+    id: osm
+    enabled: true
+    weight: 10
+default_radius_by_geo_type:
+  address: null
+  city: null
+  postal: null
+  coordinates: null
+expand_search_factor: 1.5
+feature_filters_combine: and
+features:
+  use_search_context: false
+  legacy_location_filter: true

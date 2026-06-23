@@ -14,6 +14,7 @@ use Drupal\ps_context\Service\SearchBudgetFilterResolver;
 use Drupal\ps_context\Service\SearchFilterVisibilityResolver;
 use Drupal\ps_dictionary\Service\DictionaryEntryIconResolver;
 use Drupal\ps_search\Api\ApiRoutePaths;
+use Drupal\ps_search\Search\Context\SearchContextJsSettingsBuilder;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -36,6 +37,7 @@ final class FilterBarBuilder {
     private readonly SearchBudgetFilterResolver $searchBudgetFilter,
     private readonly SearchPathResolver $searchPathResolver,
     private readonly FilterBarHtmxSettings $htmxSettings,
+    private readonly SearchContextJsSettingsBuilder $searchContextJsSettings,
   ) {}
 
   /**
@@ -292,7 +294,7 @@ final class FilterBarBuilder {
    * @return array<string, mixed>
    */
   private function buildPsSearchSettings(array $data): array {
-    return [
+    return array_merge([
       'apiBase' => ApiRoutePaths::BASE,
       'langPrefix' => $data['lang_prefix'],
       'searchPath' => $data['search_path'],
@@ -304,13 +306,14 @@ final class FilterBarBuilder {
       'initialLocality' => $data['initial_locality'],
       'locationSuggestUrl' => ApiRoutePaths::LOCATION_SUGGEST,
       'locationDataUrl' => ApiRoutePaths::LOCATION_DATA,
+      'locationResolveUrl' => ApiRoutePaths::LOCATION_RESOLVE,
       'filterVisibilityByAsset' => $data['visibility_by_asset'],
       'capacityFilterLabel' => $data['capacity_filter_label'],
       'capacityUnit' => $data['capacity_unit'],
       'budgetFilterConfig' => $data['budget_config'],
       'budgetFilterByAsset' => $data['budget_filter_by_asset'],
       'moreFilterSchema' => $data['more_filter_schema'],
-    ];
+    ], $this->searchContextJsSettings->build());
   }
 
   /**
@@ -321,6 +324,7 @@ final class FilterBarBuilder {
       'contexts' => [
         'url.path',
         'url.query_args:locality',
+        'url.query_args:zone',
         'url.query_args:operation_type',
         'url.query_args:asset_type',
         'languages:language_interface',

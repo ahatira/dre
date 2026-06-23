@@ -514,6 +514,10 @@
       Drupal.psSearchPage.syncPathCurrentQueryFromParams(params);
     }
 
+    if (typeof Drupal.psSearchContext !== 'undefined' && Drupal.psSearchContext.isEnabled()) {
+      Drupal.psSearchContext.syncPathCurrentQuery();
+    }
+
     return reloadListPane(root, params)
       .then(function () {
         return completeSearchReload(root, params, {
@@ -537,6 +541,10 @@
    *   Resolves when the zone reload completed.
    */
   Drupal.psSearchPage.reloadZoneSearch = function (root, mapBoundsValue) {
+    if (typeof Drupal.psSearchContext !== 'undefined' && Drupal.psSearchContext.isEnabled() && mapBoundsValue) {
+      Drupal.psSearchContext.setSpatialViewport(mapBoundsValue);
+    }
+
     const params = typeof Drupal.psSearchPage?.buildSearchParams === 'function'
       ? Drupal.psSearchPage.buildSearchParams()
       : new URLSearchParams(window.location.search);

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\EventSubscriber;
 
+use Drupal\ps_search\Contract\SearchContextResolverInterface;
+use Drupal\ps_search\Contract\SearchContextSerializerInterface;
+use Drupal\ps_search\Service\SearchEngineSettingsReader;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,6 +33,9 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
   public function __construct(
     private readonly SearchPathResolver $searchPathResolver,
     private readonly SearchSeoLocalityPathBuilder $seoLocalityPathBuilder,
+    private readonly SearchEngineSettingsReader $engineSettings,
+    private readonly SearchContextResolverInterface $contextResolver,
+    private readonly SearchContextSerializerInterface $contextSerializer,
   ) {}
 
   public static function getSubscribedEvents(): array {
@@ -58,7 +64,8 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     // processor. We set it here (priority 31, every request, no caching) instead.
     //
     // Match /[lang]/operation-slug[/...] or /[lang]/asset-slug[/...] (Indifférent).
-    if (preg_match('#^((?:/[a-z]{2,8}(?:-[a-z]{2,4})?)?)/([-a-z]+)((?:/[-a-z]*)*?)/?$#', $pathInfo, $seoCheck)) {
+    // Tail segments allow digits for geo slugs (paris-75, paris-75008, loire-42).
+    if (preg_match('#^((?:/[a-z]{2,8}(?:-[a-z]{2,4})?)?)/([-a-z]+)((?:/[a-z0-9-]+)*)/?$#', $pathInfo, $seoCheck)) {
       $langPrefix = $seoCheck[1];
       $firstSegment = strtolower($seoCheck[2]);
       $restSegments = trim($seoCheck[3] ?? '', '/');
@@ -109,6 +116,15 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     $langcode = $langPrefix ? ltrim($langPrefix, '/') : $this->getDefaultLangcode();
     $seoPrefix = $this->searchPathResolver->buildSeoFilterPathPrefix($langcode, $operationType, $assetType);
     if ($seoPrefix === NULL) {
+      return;
+    }
+
+    if ($this->engineSettings->isSearchContextEnabled()) {
+      $context = $this->contextResolver->resolve($request);
+      $remainingQuery = $this->filterNonEmptyQueryParams($request->query->all());
+      unset($remainingQuery['operation_type'], $remainingQuery['asset_type'], $remainingQuery['locality'], $remainingQuery['locations'], $remainingQuery['zone']);
+      $seoPath = $this->contextSerializer->buildRedirectTarget($context, $langcode, $remainingQuery);
+      $event->setResponse(new RedirectResponse($seoPath, 301));
       return;
     }
 
