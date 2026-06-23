@@ -7,7 +7,6 @@ namespace Drupal\ps_search\Service;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\ps_dictionary\Service\DictionaryResolver;
 use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
 use Drupal\ps_search\GeoZone\GeoZoneType;
 
@@ -18,8 +17,6 @@ final class LocationSuggestBuilder {
 
   use StringTranslationTrait;
 
-  private const DEPARTMENT_DICTIONARY_TYPE = 'department';
-
   private const DEPARTMENT_SUGGEST_LIMIT = 5;
 
   private const REGION_SUGGEST_LIMIT = 5;
@@ -27,9 +24,7 @@ final class LocationSuggestBuilder {
   public function __construct(
     private readonly Connection $database,
     private readonly LocationSearchFilter $locationSearchFilter,
-    private readonly DictionaryResolver $dictionaryResolver,
     private readonly GeoZoneRepositoryInterface $geoZoneRepository,
-    private readonly AdministrativeRegionRegistry $regionRegistry,
   ) {}
 
   /**
@@ -274,41 +269,13 @@ final class LocationSuggestBuilder {
   ): void {
     $regionItems = [];
 
-    foreach ($this->searchFrenchRegions($query) as $region) {
-      if (count($regionItems) >= self::REGION_SUGGEST_LIMIT) {
-        break;
-      }
-
-      $token = $this->regionRegistry->buildRegionToken($region['slug']);
-      $key = mb_strtolower($token);
-      if (isset($seen[$key])) {
-        continue;
-      }
-
-      if ($this->locationSearchFilter->countOffersForToken($token) <= 0) {
-        continue;
-      }
-
-      $seen[$key] = TRUE;
-      $regionItems[] = [
-        'label' => $region['label'],
-        'type' => 'region',
-        'region_slug' => $region['slug'],
-        'region_token' => $token,
-        'slug' => $region['slug'],
-        'locality' => '',
-        'admin_area' => '',
-        'postal_code' => '',
-      ];
-      $suggestions[] = $region['label'];
-    }
-
-    foreach ($this->searchGeoZoneRegions($query) as $zone) {
-      if (count($regionItems) >= self::REGION_SUGGEST_LIMIT) {
-        break;
-      }
-
-      $token = $this->regionRegistry->buildRegionToken($zone->slug);
+    foreach ($this->geoZoneRepository->searchByLabelPrefix(
+      $query,
+      $this->resolveCountryCode(),
+      GeoZoneType::Region,
+      self::REGION_SUGGEST_LIMIT,
+    ) as $zone) {
+      $token = $this->geoZoneRepository->buildRegionToken($zone->slug);
       $key = mb_strtolower($token);
       if (isset($seen[$key])) {
         continue;
@@ -343,36 +310,29 @@ final class LocationSuggestBuilder {
   }
 
   /**
-   * @return list<array{slug: string, label: string, departments: list<string>}>
+   * @return array<array{name: string, code: string}>
    */
-  private function searchFrenchRegions(string $query): array {
-    return $this->regionRegistry->searchByLabelPrefix($query, self::REGION_SUGGEST_LIMIT);
+  private function searchDepartments(string $query): array {
+    $results = [];
+    foreach ($this->geoZoneRepository->searchByLabelPrefix(
+      $query,
+      $this->resolveCountryCode(),
+      GeoZoneType::Department,
+      self::DEPARTMENT_SUGGEST_LIMIT,
+    ) as $zone) {
+      $results[] = [
+        'name' => $zone->label,
+        'code' => $zone->code,
+      ];
+    }
+
+    return $results;
   }
 
-  /**
-   * @return list<\Drupal\ps_search\ValueObject\GeoZone>
-   */
-  private function searchGeoZoneRegions(string $query): array {
-    $needle = $this->regionRegistry->normalizeForSearch($query);
-    if ($needle === '') {
-      return [];
-    }
+  private function getDepartmentName(string $code): ?string {
+    $zone = $this->geoZoneRepository->findDepartmentByCode($code, $this->resolveCountryCode());
 
-    $matches = [];
-    foreach ($this->geoZoneRepository->allForCountry($this->resolveCountryCode()) as $zone) {
-      if ($zone->type !== GeoZoneType::Region) {
-        continue;
-      }
-      if ($this->regionRegistry->matchesSearchNeedle($needle, $zone->label, $zone->slug)) {
-        $matches[] = $zone;
-      }
-    }
-
-    usort($matches, static function ($a, $b): int {
-      return strcasecmp($a->label, $b->label);
-    });
-
-    return array_slice($matches, 0, self::REGION_SUGGEST_LIMIT);
+    return $zone?->label;
   }
 
   /**
@@ -612,25 +572,6 @@ final class LocationSuggestBuilder {
       return ($order[$a['key'] ?? ''] ?? 99) <=> ($order[$b['key'] ?? ''] ?? 99);
     });
     return $groups;
-  }
-
-  /**
-   * @return array<array{name: string, code: string}>
-   */
-  private function searchDepartments(string $query): array {
-    $matches = $this->dictionaryResolver->searchByLabelPrefix(self::DEPARTMENT_DICTIONARY_TYPE, $query, 5);
-    $results = [];
-    foreach ($matches as $match) {
-      $results[] = [
-        'name' => $match['label'],
-        'code' => $match['code'],
-      ];
-    }
-    return $results;
-  }
-
-  private function getDepartmentName(string $code): ?string {
-    return $this->dictionaryResolver->resolveLabel(self::DEPARTMENT_DICTIONARY_TYPE, $code);
   }
 
   /**

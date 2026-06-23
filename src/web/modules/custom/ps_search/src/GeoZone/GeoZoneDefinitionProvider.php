@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\GeoZone;
 
-use Symfony\Component\Yaml\Yaml;
-
 /**
- * Provides geo zone country definitions (static or derived from referentials).
+ * Provides geo zone country definitions (static seed data for non-FR countries).
  */
 final class GeoZoneDefinitionProvider {
-
-  private const DEFAULT_BBOX_RADIUS_KM = 45.0;
 
   /**
    * @var array<string, array<string, mixed>>|null
@@ -19,8 +15,6 @@ final class GeoZoneDefinitionProvider {
   private ?array $staticDefinitions = NULL;
 
   public function __construct(
-    private readonly GeoZoneSlugGenerator $slugGenerator,
-    private readonly GeoZonePostalPrefixBuilder $postalPrefixBuilder,
     private readonly string $moduleRelativePath,
   ) {}
 
@@ -44,7 +38,7 @@ final class GeoZoneDefinitionProvider {
     }
 
     if ($countryCode === 'fr') {
-      return $this->buildFrDefinition();
+      throw new \InvalidArgumentException('FR geo zones are maintained in data/geo_zones/fr.yml; use merge_fr_regions.php or GeoZoneBuilder::buildPayload("fr").');
     }
 
     $definitions = $this->getStaticDefinitions();
@@ -81,122 +75,6 @@ final class GeoZoneDefinitionProvider {
     $this->staticDefinitions = $definitions;
 
     return $this->staticDefinitions;
-  }
-
-  /**
-   * @return array<string, mixed>
-   */
-  private function buildFrDefinition(): array {
-    $centroids = $this->loadCentroids();
-    $divisions = [];
-    foreach ($this->loadDictionaryDepartments() as $department) {
-      $code = $department['code'];
-      $label = $department['label'];
-      $centroid = $centroids[$code] ?? NULL;
-      if (!is_array($centroid)) {
-        throw new \RuntimeException(sprintf('Missing centroid for French department "%s".', $code));
-      }
-
-      $divisions[] = [
-        'code' => $code,
-        'label' => $label,
-        'slug' => $this->slugGenerator->build($label, $code),
-        'lat' => (float) $centroid['lat'],
-        'lng' => (float) $centroid['lng'],
-        'radius_km' => (float) ($centroid['radius_km'] ?? self::DEFAULT_BBOX_RADIUS_KM),
-        'postal_prefixes' => $this->postalPrefixBuilder->forDepartmentCode('fr', $code),
-        'weight' => $this->departmentWeight($code),
-      ];
-    }
-
-    return [
-      'zone_type' => GeoZoneType::Department->value,
-      'default_code' => '75',
-      'divisions' => $divisions,
-    ];
-  }
-
-  /**
-   * @return list<array{code: string, label: string}>
-   */
-  private function loadDictionaryDepartments(): array {
-    $csvPath = \Drupal::root() . '/modules/custom/ps_dictionary/data/dictionary_entries.csv';
-    if (!is_file($csvPath)) {
-      throw new \RuntimeException(sprintf('Dictionary CSV not found: %s', $csvPath));
-    }
-
-    $departments = [];
-    $handle = fopen($csvPath, 'rb');
-    if ($handle === FALSE) {
-      throw new \RuntimeException('Unable to open dictionary CSV.');
-    }
-
-    while (($row = fgetcsv($handle)) !== FALSE) {
-      if (($row[0] ?? '') !== 'department') {
-        continue;
-      }
-      $code = strtoupper(trim((string) ($row[1] ?? '')));
-      $label = trim((string) ($row[2] ?? ''));
-      if ($code !== '' && $label !== '') {
-        $departments[] = [
-          'code' => $this->normalizeDepartmentCode($code),
-          'label' => $label,
-        ];
-      }
-    }
-
-    fclose($handle);
-
-    if ($departments === []) {
-      throw new \RuntimeException('No department entries found in dictionary CSV.');
-    }
-
-    return $departments;
-  }
-
-  /**
-   * @return array<string, array<string, float>>
-   */
-  private function loadCentroids(): array {
-    $path = $this->getModuleDataPath('centroids/fr.departments.yml');
-    if (!is_file($path)) {
-      throw new \RuntimeException(sprintf('French centroids file not found: %s', $path));
-    }
-
-    $parsed = Yaml::parse((string) file_get_contents($path));
-    if (!is_array($parsed)) {
-      throw new \RuntimeException('French centroids file is invalid.');
-    }
-
-    $centroids = [];
-    foreach ($parsed as $code => $data) {
-      if (!is_array($data) || !isset($data['lat'], $data['lng'])) {
-        continue;
-      }
-      $normalizedCode = $this->normalizeDepartmentCode($code);
-      $centroids[$normalizedCode] = [
-        'lat' => (float) $data['lat'],
-        'lng' => (float) $data['lng'],
-        'radius_km' => isset($data['radius_km']) ? (float) $data['radius_km'] : self::DEFAULT_BBOX_RADIUS_KM,
-      ];
-    }
-
-    return $centroids;
-  }
-
-  private function normalizeDepartmentCode(mixed $code): string {
-    $code = strtoupper(trim((string) $code));
-    if (preg_match('/^\d{1,2}$/', $code) === 1) {
-      return str_pad($code, 2, '0', STR_PAD_LEFT);
-    }
-
-    return $code;
-  }
-
-  private function departmentWeight(string $code): int {
-    $digits = preg_replace('/\D/', '', $code);
-
-    return $digits !== '' ? (int) $digits : 0;
   }
 
   private function getModuleDataPath(string $relative): string {

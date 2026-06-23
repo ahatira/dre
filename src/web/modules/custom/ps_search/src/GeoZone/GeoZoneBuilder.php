@@ -38,6 +38,10 @@ final class GeoZoneBuilder {
       return $this->comBuilder->buildPayload();
     }
 
+    if ($countryCode === 'fr') {
+      return $this->loadPayloadFromModuleData('fr');
+    }
+
     return $this->buildFromDefinition(
       $countryCode,
       $this->definitionProvider->getDefinition($countryCode),
@@ -131,6 +135,23 @@ final class GeoZoneBuilder {
       'default_zone' => $defaultZone,
       'zones' => $zones,
     ];
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  private function loadPayloadFromModuleData(string $countryCode): array {
+    $path = $this->getModuleDataPath($countryCode . '.yml');
+    if (!is_file($path)) {
+      throw new \RuntimeException(sprintf('Geo zone YAML not found: %s', $path));
+    }
+
+    $payload = Yaml::parse((string) file_get_contents($path));
+    if (!is_array($payload)) {
+      throw new \RuntimeException(sprintf('Invalid geo zone YAML: %s', $path));
+    }
+
+    return $payload;
   }
 
   private function getModuleDataPath(string $relative): string {

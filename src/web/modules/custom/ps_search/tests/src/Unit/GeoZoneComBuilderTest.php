@@ -36,7 +36,24 @@ final class GeoZoneComBuilderTest extends UnitTestCase {
             'ne_lng' => 3.0,
           ],
           'postal_prefixes' => ['75'],
+          'parent' => 'region.fr.ile-de-france',
           'weight' => 75,
+        ],
+        'region.fr.ile-de-france' => [
+          'type' => 'region',
+          'code' => 'ILE_DE_FRANCE',
+          'label' => 'Île-de-France',
+          'slug' => 'ile-de-france',
+          'lat' => 48.5,
+          'lng' => 2.5,
+          'bbox' => [
+            'sw_lat' => 48.0,
+            'sw_lng' => 2.0,
+            'ne_lat' => 49.0,
+            'ne_lng' => 3.0,
+          ],
+          'postal_prefixes' => ['75', '77'],
+          'weight' => 1,
         ],
       ],
     ]);
@@ -45,6 +62,8 @@ final class GeoZoneComBuilderTest extends UnitTestCase {
     self::assertSame('department.com.75', $payload['default_zone']);
     self::assertArrayHasKey('department.com.75', $payload['zones']);
     self::assertSame('paris-75', $payload['zones']['department.com.75']['slug']);
+    self::assertSame('region.com.ile-de-france', $payload['zones']['department.com.75']['parent']);
+    self::assertArrayHasKey('region.com.ile-de-france', $payload['zones']);
 
     $validator = new GeoZoneValidator();
     $errors = $validator->validateCountryPayload(

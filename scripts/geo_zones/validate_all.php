@@ -26,7 +26,11 @@ use Symfony\Component\Yaml\Yaml;
 $validator = new GeoZoneValidator();
 $dataDir = $root . '/src/web/modules/custom/ps_search/data/geo_zones';
 $files = glob($dataDir . '/*.yml') ?: [];
-$files = array_filter($files, static fn(string $path): bool => !str_contains($path, '/centroids/'));
+$files = array_filter(
+  $files,
+  static fn(string $path): bool => !str_contains($path, '/centroids/')
+    && !str_contains(basename($path), 'seed'),
+);
 
 $failed = FALSE;
 foreach ($files as $file) {

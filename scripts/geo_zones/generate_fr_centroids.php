@@ -6,34 +6,51 @@ declare(strict_types=1);
 /**
  * Generates French department centroids from geo.api.gouv.fr (prefecture proxy).
  *
+ * Department codes and labels are read from data/geo_zones/fr.yml (not ps_dictionary).
+ *
  * Usage (repo root):
  *   php scripts/geo_zones/generate_fr_centroids.php
  */
 
 $root = dirname(__DIR__, 2);
-$csvPath = $root . '/src/web/modules/custom/ps_dictionary/data/dictionary_entries.csv';
+$autoload = $root . '/src/vendor/autoload.php';
+if (!is_file($autoload)) {
+  fwrite(STDERR, "Composer autoload not found.\n");
+  exit(1);
+}
+require $autoload;
+
+use Symfony\Component\Yaml\Yaml;
+
+$frYamlPath = $root . '/src/web/modules/custom/ps_search/data/geo_zones/fr.yml';
 $outputPath = $root . '/src/web/modules/custom/ps_search/data/geo_zones/centroids/fr.departments.yml';
 
-if (!is_file($csvPath)) {
-  fwrite(STDERR, "Dictionary CSV not found: {$csvPath}\n");
+if (!is_file($frYamlPath)) {
+  fwrite(STDERR, "FR geo zones YAML not found: {$frYamlPath}\n");
+  exit(1);
+}
+
+$payload = Yaml::parse((string) file_get_contents($frYamlPath));
+if (!is_array($payload)) {
+  fwrite(STDERR, "Invalid YAML: {$frYamlPath}\n");
   exit(1);
 }
 
 $codes = [];
-$handle = fopen($csvPath, 'rb');
-while (($row = fgetcsv($handle)) !== false) {
-  if (($row[0] ?? '') !== 'department') {
+foreach (is_array($payload['zones'] ?? NULL) ? $payload['zones'] : [] as $zoneId => $zone) {
+  if (!is_array($zone) || ($zone['type'] ?? '') !== 'department') {
     continue;
   }
-  $code = strtoupper(trim((string) ($row[1] ?? '')));
-  if ($code !== '') {
-    $codes[$code] = trim((string) ($row[2] ?? ''));
+  $code = strtoupper(trim((string) ($zone['code'] ?? '')));
+  if ($code === '') {
+    fwrite(STDERR, "Missing department code on zone {$zoneId}\n");
+    exit(1);
   }
+  $codes[$code] = trim((string) ($zone['label'] ?? ''));
 }
-fclose($handle);
 
 if ($codes === []) {
-  fwrite(STDERR, "No department codes found.\n");
+  fwrite(STDERR, "No department zones found in fr.yml.\n");
   exit(1);
 }
 

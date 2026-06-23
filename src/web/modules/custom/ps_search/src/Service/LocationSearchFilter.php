@@ -6,7 +6,6 @@ namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Site\Settings;
-use Drupal\ps_dictionary\Service\DictionaryResolver;
 use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
 use Drupal\ps_search\GeoZone\GeoZoneType;
 use Drupal\search_api\Query\ConditionGroupInterface;
@@ -21,8 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class LocationSearchFilter {
 
-  private const DEPARTMENT_DICTIONARY_TYPE = 'department';
-
   /**
    * Address-related fields indexed for offers.
    */
@@ -34,8 +31,6 @@ final class LocationSearchFilter {
 
   public function __construct(
     private readonly Connection $database,
-    private readonly DictionaryResolver $dictionaryResolver,
-    private readonly AdministrativeRegionRegistry $regionRegistry,
     private readonly GeoZoneRepositoryInterface $geoZoneRepository,
   ) {}
 
@@ -113,7 +108,7 @@ final class LocationSearchFilter {
       return 0;
     }
 
-    if ($this->regionRegistry->isRegionToken($token)) {
+    if ($this->geoZoneRepository->isRegionToken($token)) {
       $meta = $this->resolveRegionContext($token) ?? ['label' => $token, 'locality' => '', 'admin_area' => ''];
     }
     elseif (preg_match('/^\d{5}$/', $token) === 1) {
@@ -140,14 +135,14 @@ final class LocationSearchFilter {
    */
   public function isDepartmentCode(string $token): bool {
     return preg_match('/^\d{2,3}$/', $token) === 1
-      && $this->dictionaryResolver->isValid(self::DEPARTMENT_DICTIONARY_TYPE, $token);
+      && $this->geoZoneRepository->findDepartmentByCode($token, $this->resolveCountryCode()) !== NULL;
   }
 
   /**
    * Builds OR conditions for one location token.
    */
   private function buildTokenConditionGroup(QueryInterface $query, string $token): ?ConditionGroupInterface {
-    if ($this->regionRegistry->isRegionToken($token)) {
+    if ($this->geoZoneRepository->isRegionToken($token)) {
       return $this->buildRegionConditionGroup($query, $token);
     }
 
@@ -196,7 +191,7 @@ final class LocationSearchFilter {
       'offer_count' => 0,
     ];
 
-    if ($this->regionRegistry->isRegionToken($token)) {
+    if ($this->geoZoneRepository->isRegionToken($token)) {
       $meta = $this->resolveRegionToken($token, $meta);
     }
     elseif (preg_match('/^\d{5}$/', $token) === 1) {
@@ -281,7 +276,7 @@ final class LocationSearchFilter {
     $meta['admin_area'] = $deptName;
     $meta['postal_code'] = '';
     $meta['label'] = $this->buildDepartmentLabel($token, $deptName);
-    $region = $this->regionRegistry->getRegionLabelForDepartment($token);
+    $region = $this->getRegionLabelForDepartment($token);
     if ($region !== NULL) {
       $meta['region_name'] = $region;
     }
@@ -327,36 +322,33 @@ final class LocationSearchFilter {
    * @return array{label: string, slug: string, departments: list<string>, postal_prefixes: list<string>}|null
    */
   private function resolveRegionContext(string $token): ?array {
-    if (!$this->regionRegistry->isRegionToken($token)) {
+    if (!$this->geoZoneRepository->isRegionToken($token)) {
       return NULL;
     }
 
-    $slug = $this->regionRegistry->parseRegionToken($token);
+    $slug = $this->geoZoneRepository->parseRegionToken($token);
     if ($slug === NULL) {
       return NULL;
     }
 
-    $frenchRegion = $this->regionRegistry->findBySlug($slug);
-    if ($frenchRegion !== NULL) {
-      return [
-        'label' => $frenchRegion['label'],
-        'slug' => $frenchRegion['slug'],
-        'departments' => $frenchRegion['departments'],
-        'postal_prefixes' => [],
-      ];
-    }
-
     $zone = $this->geoZoneRepository->findBySlug($slug, $this->resolveCountryCode());
-    if ($zone !== NULL && $zone->type === GeoZoneType::Region) {
-      return [
-        'label' => $zone->label,
-        'slug' => $zone->slug,
-        'departments' => [],
-        'postal_prefixes' => $zone->postalPrefixes,
-      ];
+    if ($zone === NULL || $zone->type !== GeoZoneType::Region) {
+      return NULL;
     }
 
-    return NULL;
+    $departments = [];
+    foreach ($this->geoZoneRepository->children($zone->id) as $child) {
+      if ($child->type === GeoZoneType::Department) {
+        $departments[] = $child->code;
+      }
+    }
+
+    return [
+      'label' => $zone->label,
+      'slug' => $zone->slug,
+      'departments' => $departments,
+      'postal_prefixes' => $departments === [] ? $zone->postalPrefixes : [],
+    ];
   }
 
   private function buildRegionConditionGroup(QueryInterface $query, string $token): ?ConditionGroupInterface {
@@ -462,7 +454,7 @@ final class LocationSearchFilter {
     $select->innerJoin('node_field_data', 'n', 'n.nid = g.entity_id AND n.status = 1');
     $select->innerJoin('node__field_address', 'a', 'a.entity_id = g.entity_id');
 
-    if ($this->regionRegistry->isRegionToken($token)) {
+    if ($this->geoZoneRepository->isRegionToken($token)) {
       $context = $this->resolveRegionContext($token);
       if ($context !== NULL && $context['departments'] !== []) {
         $or = $select->orConditionGroup();
@@ -554,7 +546,20 @@ final class LocationSearchFilter {
    * Returns department name from a 2-digit INSEE code.
    */
   private function getDepartmentName(string $code): string {
-    return $this->dictionaryResolver->resolveLabel(self::DEPARTMENT_DICTIONARY_TYPE, $code) ?? '';
+    $zone = $this->geoZoneRepository->findDepartmentByCode($code, $this->resolveCountryCode());
+
+    return $zone?->label ?? '';
+  }
+
+  private function getRegionLabelForDepartment(string $departmentCode): ?string {
+    $zone = $this->geoZoneRepository->findDepartmentByCode($departmentCode, $this->resolveCountryCode());
+    if ($zone === NULL) {
+      return NULL;
+    }
+
+    $region = $this->geoZoneRepository->getRegionForZone($zone);
+
+    return $region?->label;
   }
 
   private function resolveCountryCode(): string {
@@ -570,10 +575,10 @@ final class LocationSearchFilter {
       return NULL;
     }
     $trimmed = trim($value);
-    if (str_starts_with($trimmed, AdministrativeRegionRegistry::TOKEN_PREFIX)) {
-      $slug = substr($trimmed, strlen(AdministrativeRegionRegistry::TOKEN_PREFIX));
+    if (str_starts_with($trimmed, GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX)) {
+      $slug = substr($trimmed, strlen(GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX));
       $slug = preg_replace('/[^a-z0-9\-]/', '', strtolower($slug));
-      return $slug !== '' ? AdministrativeRegionRegistry::TOKEN_PREFIX . $slug : NULL;
+      return $slug !== '' ? GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX . $slug : NULL;
     }
     $cleaned = preg_replace('/[^\p{L}\p{N}\s\-\']/u', '', substr($trimmed, 0, 100));
     return $cleaned !== '' ? $cleaned : NULL;

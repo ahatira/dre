@@ -66,8 +66,9 @@ Hub : **`/admin/ps/config/search`** (permission `access ps_core config section`)
 Scripts CLI (sans site bootstrappé) :
 
 ```bash
-php scripts/geo_zones/generate_fr_centroids.php   # centroids depuis geo.api.gouv.fr
-php scripts/geo_zones/build_countries.php         # build tous les pays (ou: fr com be nl …)
+php scripts/geo_zones/merge_fr_regions.php        # régions FR + parent dept → fr.yml, regen com.yml
+php scripts/geo_zones/generate_fr_centroids.php   # centroids depuis geo.api.gouv.fr (lit fr.yml)
+php scripts/geo_zones/build_countries.php         # build pays statiques (be nl es … ; fr/com via merge)
 php scripts/geo_zones/validate_all.php            # validate 9 pays YAML sources
 ```
 
@@ -80,8 +81,8 @@ Inventaire `data/geo_zones/` (9 pays multisite) :
 
 | Fichier | Zones | Granularité |
 |---------|------:|-------------|
-| `fr.yml` | 96 | Départements FR |
-| `com.yml` | 96 | Clone FR (`department.com.*`) — site international |
+| `fr.yml` | 114 | 18 régions + 96 départements FR (`parent` → région) |
+| `com.yml` | 114 | Clone FR (`region.com.*` + `department.com.*`) — site international |
 | `be.yml` | 11 | Provinces belges |
 | `nl.yml` | 12 | Provinces néerlandaises |
 | `es.yml` | 17 | Communautés autonomes |
@@ -92,9 +93,10 @@ Inventaire `data/geo_zones/` (9 pays multisite) :
 | `centroids/fr.departments.yml` | 96 | Centroids API geo.gouv.fr (build FR) |
 
 Source métier :
-- **FR** : dictionnaire `ps_dictionary` + centroids `centroids/fr.departments.yml` (via `GeoZoneDefinitionProvider`)
-- **COM** : clone de `fr.yml` (`GeoZoneComBuilder`)
+- **FR** : `data/geo_zones/fr.yml` (source de vérité) — régions via `fr.regions_seed.yml` + `merge_fr_regions.php`
+- **COM** : clone de `fr.yml` (`GeoZoneComBuilder`, régénéré par `merge_fr_regions.php`)
 - **Autres pays** : `data/geo_zones/country_definitions.php` → `GeoZoneBuilder`
+- **Centroids FR** (optionnel) : `centroids/fr.departments.yml` via `generate_fr_centroids.php` (lit `fr.yml`, API geo.gouv.fr)
 
 ### SearchContext (search v2 — M1)
 
@@ -189,6 +191,7 @@ make search-b2b                # Suite B2B recherche complète
 bash web/modules/custom/ps_search/tests/b2b_locality_seo.sh
 bash web/modules/custom/ps_search/tests/b2b_search_full.sh
 bash web/modules/custom/ps_search/tests/e2e_seo_urls.sh
+bash web/modules/custom/ps_search/tests/e2e_es_locality_seo.sh   # ES régions (Madrid, Catalonia, Andalusia)
 bash web/modules/custom/ps_search/tests/b2b_more_filters.sh
 bash web/modules/custom/ps_search/tests/b2b_more_filters_features.sh
 bash web/modules/custom/ps_search/tests/b2b_filter_apply_urls.sh

@@ -7,8 +7,10 @@ namespace Drupal\Tests\ps_search\Unit;
 use Drupal\Core\Database\Connection;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
-use Drupal\ps_search\Service\AdministrativeRegionRegistry;
+use Drupal\ps_search\GeoZone\GeoZoneType;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
+use Drupal\ps_search\ValueObject\GeoBoundingBox;
+use Drupal\ps_search\ValueObject\GeoZone;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -18,7 +20,7 @@ use PHPUnit\Framework\MockObject\MockObject;
  */
 final class SearchSeoLocalityPathBuilderTest extends KernelTestBase {
 
-  protected static $modules = ['ps_dictionary', 'ps_search'];
+  protected static $modules = ['ps_search'];
 
   private SearchSeoLocalityPathBuilder $builder;
 
@@ -26,13 +28,9 @@ final class SearchSeoLocalityPathBuilderTest extends KernelTestBase {
     parent::setUp();
     /** @var \Drupal\Core\Database\Connection&MockObject $database */
     $database = $this->createMock(Connection::class);
-    /** @var \Drupal\ps_search\Contract\GeoZoneRepositoryInterface&MockObject $geoZoneRepository */
-    $geoZoneRepository = $this->createMock(GeoZoneRepositoryInterface::class);
     $this->builder = new SearchSeoLocalityPathBuilder(
       $database,
-      $this->container->get('ps_dictionary.resolver'),
-      $geoZoneRepository,
-      new AdministrativeRegionRegistry('modules/custom/ps_search'),
+      $this->createGeoZoneRepository(),
     );
   }
 
@@ -94,6 +92,114 @@ final class SearchSeoLocalityPathBuilderTest extends KernelTestBase {
    */
   public function testLegacyRegionDeptSlugStillParsesAsDepartment(): void {
     self::assertSame('75', $this->builder->singleSegmentToToken('ile-de-france-75'));
+  }
+
+  /**
+   * @return \Drupal\ps_search\Contract\GeoZoneRepositoryInterface&MockObject
+   */
+  private function createGeoZoneRepository(): GeoZoneRepositoryInterface {
+    $bbox = GeoBoundingBox::fromCenterAndRadiusKm(48.8566, 2.3522, 20.0);
+    $zones = [
+      'paris-75' => new GeoZone(
+        id: 'department.com.75',
+        type: GeoZoneType::Department,
+        countryCode: 'com',
+        code: '75',
+        label: 'Paris',
+        slug: 'paris-75',
+        lat: 48.8566,
+        lng: 2.3522,
+        bbox: $bbox,
+        postalPrefixes: ['75'],
+      ),
+      'rhone-69' => new GeoZone(
+        id: 'department.com.69',
+        type: GeoZoneType::Department,
+        countryCode: 'com',
+        code: '69',
+        label: 'Rhône',
+        slug: 'rhone-69',
+        lat: 45.7640,
+        lng: 4.8357,
+        bbox: $bbox,
+        postalPrefixes: ['69'],
+      ),
+      'bouches-du-rhone-13' => new GeoZone(
+        id: 'department.com.13',
+        type: GeoZoneType::Department,
+        countryCode: 'com',
+        code: '13',
+        label: 'Bouches-du-Rhône',
+        slug: 'bouches-du-rhone-13',
+        lat: 43.3,
+        lng: 5.4,
+        bbox: $bbox,
+        postalPrefixes: ['13'],
+      ),
+      'ile-de-france' => new GeoZone(
+        id: 'region.com.ile-de-france',
+        type: GeoZoneType::Region,
+        countryCode: 'com',
+        code: 'ILE_DE_FRANCE',
+        label: 'Île-de-France',
+        slug: 'ile-de-france',
+        lat: 48.5,
+        lng: 2.5,
+        bbox: $bbox,
+        postalPrefixes: ['75'],
+      ),
+    ];
+
+    /** @var \Drupal\ps_search\Contract\GeoZoneRepositoryInterface&MockObject $repository */
+    $repository = $this->createMock(GeoZoneRepositoryInterface::class);
+    $repository->method('findBySlug')->willReturnCallback(
+      static function (string $slug, string $countryCode) use ($zones): ?GeoZone {
+        return $countryCode === 'com' ? ($zones[$slug] ?? NULL) : NULL;
+      },
+    );
+    $repository->method('findByPostalPrefix')->willReturnCallback(
+      static function (string $prefix, string $countryCode) use ($zones): ?GeoZone {
+        if ($countryCode !== 'com') {
+          return NULL;
+        }
+        foreach ($zones as $zone) {
+          if ($zone->type === GeoZoneType::Department && $zone->code === $prefix) {
+            return $zone;
+          }
+        }
+        return NULL;
+      },
+    );
+    $repository->method('findDepartmentByCode')->willReturnCallback(
+      static function (string $code, string $countryCode) use ($zones): ?GeoZone {
+        if ($countryCode !== 'com') {
+          return NULL;
+        }
+        foreach ($zones as $zone) {
+          if ($zone->type === GeoZoneType::Department && $zone->code === $code) {
+            return $zone;
+          }
+        }
+        return NULL;
+      },
+    );
+    $repository->method('buildRegionToken')->willReturnCallback(
+      static fn (string $slug): string => GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX . $slug,
+    );
+    $repository->method('isRegionToken')->willReturnCallback(
+      static fn (string $token): bool => str_starts_with($token, GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX),
+    );
+    $repository->method('parseRegionToken')->willReturnCallback(
+      static function (string $token): ?string {
+        if (!str_starts_with($token, GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX)) {
+          return NULL;
+        }
+        $slug = substr($token, strlen(GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX));
+        return $slug !== '' ? $slug : NULL;
+      },
+    );
+
+    return $repository;
   }
 
 }

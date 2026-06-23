@@ -16,6 +16,7 @@ zones:
     postal_prefixes:
       - '01'
     weight: 1
+    parent: region.com.auvergne-rhone-alpes
   department.com.02:
     type: department
     code: '02'
@@ -31,6 +32,7 @@ zones:
     postal_prefixes:
       - '02'
     weight: 2
+    parent: region.com.hauts-de-france
   department.com.03:
     type: department
     code: '03'
@@ -46,6 +48,7 @@ zones:
     postal_prefixes:
       - '03'
     weight: 3
+    parent: region.com.auvergne-rhone-alpes
   department.com.04:
     type: department
     code: '04'
@@ -61,6 +64,7 @@ zones:
     postal_prefixes:
       - '04'
     weight: 4
+    parent: region.com.provence-alpes-cote-dazur
   department.com.05:
     type: department
     code: '05'
@@ -76,6 +80,7 @@ zones:
     postal_prefixes:
       - '05'
     weight: 5
+    parent: region.com.provence-alpes-cote-dazur
   department.com.06:
     type: department
     code: '06'
@@ -91,6 +96,7 @@ zones:
     postal_prefixes:
       - '06'
     weight: 6
+    parent: region.com.provence-alpes-cote-dazur
   department.com.07:
     type: department
     code: '07'
@@ -106,6 +112,7 @@ zones:
     postal_prefixes:
       - '07'
     weight: 7
+    parent: region.com.auvergne-rhone-alpes
   department.com.08:
     type: department
     code: '08'
@@ -121,6 +128,7 @@ zones:
     postal_prefixes:
       - '08'
     weight: 8
+    parent: region.com.grand-est
   department.com.09:
     type: department
     code: '09'
@@ -136,6 +144,7 @@ zones:
     postal_prefixes:
       - '09'
     weight: 9
+    parent: region.com.occitanie
   department.com.10:
     type: department
     code: '10'
@@ -151,6 +160,7 @@ zones:
     postal_prefixes:
       - '10'
     weight: 10
+    parent: region.com.grand-est
   department.com.11:
     type: department
     code: '11'
@@ -166,6 +176,7 @@ zones:
     postal_prefixes:
       - '11'
     weight: 11
+    parent: region.com.occitanie
   department.com.12:
     type: department
     code: '12'
@@ -181,6 +192,7 @@ zones:
     postal_prefixes:
       - '12'
     weight: 12
+    parent: region.com.occitanie
   department.com.13:
     type: department
     code: '13'
@@ -196,6 +208,7 @@ zones:
     postal_prefixes:
       - '13'
     weight: 13
+    parent: region.com.provence-alpes-cote-dazur
   department.com.14:
     type: department
     code: '14'
@@ -211,6 +224,7 @@ zones:
     postal_prefixes:
       - '14'
     weight: 14
+    parent: region.com.normandie
   department.com.15:
     type: department
     code: '15'
@@ -226,6 +240,7 @@ zones:
     postal_prefixes:
       - '15'
     weight: 15
+    parent: region.com.auvergne-rhone-alpes
   department.com.16:
     type: department
     code: '16'
@@ -241,6 +256,7 @@ zones:
     postal_prefixes:
       - '16'
     weight: 16
+    parent: region.com.nouvelle-aquitaine
   department.com.17:
     type: department
     code: '17'
@@ -256,6 +272,7 @@ zones:
     postal_prefixes:
       - '17'
     weight: 17
+    parent: region.com.nouvelle-aquitaine
   department.com.18:
     type: department
     code: '18'
@@ -271,6 +288,7 @@ zones:
     postal_prefixes:
       - '18'
     weight: 18
+    parent: region.com.centre-val-de-loire
   department.com.19:
     type: department
     code: '19'
@@ -286,6 +304,7 @@ zones:
     postal_prefixes:
       - '19'
     weight: 19
+    parent: region.com.nouvelle-aquitaine
   department.com.21:
     type: department
     code: '21'
@@ -301,6 +320,7 @@ zones:
     postal_prefixes:
       - '21'
     weight: 21
+    parent: region.com.bourgogne-franche-comte
   department.com.22:
     type: department
     code: '22'
@@ -316,6 +336,7 @@ zones:
     postal_prefixes:
       - '22'
     weight: 22
+    parent: region.com.bretagne
   department.com.23:
     type: department
     code: '23'
@@ -331,6 +352,7 @@ zones:
     postal_prefixes:
       - '23'
     weight: 23
+    parent: region.com.nouvelle-aquitaine
   department.com.24:
     type: department
     code: '24'
@@ -346,6 +368,7 @@ zones:
     postal_prefixes:
       - '24'
     weight: 24
+    parent: region.com.nouvelle-aquitaine
   department.com.25:
     type: department
     code: '25'
@@ -361,6 +384,7 @@ zones:
     postal_prefixes:
       - '25'
     weight: 25
+    parent: region.com.bourgogne-franche-comte
   department.com.26:
     type: department
     code: '26'
@@ -376,6 +400,7 @@ zones:
     postal_prefixes:
       - '26'
     weight: 26
+    parent: region.com.auvergne-rhone-alpes
   department.com.27:
     type: department
     code: '27'
@@ -391,6 +416,7 @@ zones:
     postal_prefixes:
       - '27'
     weight: 27
+    parent: region.com.normandie
   department.com.28:
     type: department
     code: '28'
@@ -406,6 +432,7 @@ zones:
     postal_prefixes:
       - '28'
     weight: 28
+    parent: region.com.centre-val-de-loire
   department.com.29:
     type: department
     code: '29'
@@ -421,6 +448,7 @@ zones:
     postal_prefixes:
       - '29'
     weight: 29
+    parent: region.com.bretagne
   department.com.2a:
     type: department
     code: 2A
@@ -436,6 +464,7 @@ zones:
     postal_prefixes:
       - '200'
     weight: 2
+    parent: region.com.corse
   department.com.2b:
     type: department
     code: 2B
@@ -451,6 +480,7 @@ zones:
     postal_prefixes:
       - '202'
     weight: 2
+    parent: region.com.corse
   department.com.30:
     type: department
     code: '30'
@@ -466,6 +496,7 @@ zones:
     postal_prefixes:
       - '30'
     weight: 30
+    parent: region.com.occitanie
   department.com.31:
     type: department
     code: '31'
@@ -481,6 +512,7 @@ zones:
     postal_prefixes:
       - '31'
     weight: 31
+    parent: region.com.occitanie
   department.com.32:
     type: department
     code: '32'
@@ -496,6 +528,7 @@ zones:
     postal_prefixes:
       - '32'
     weight: 32
+    parent: region.com.occitanie
   department.com.33:
     type: department
     code: '33'
@@ -511,6 +544,7 @@ zones:
     postal_prefixes:
       - '33'
     weight: 33
+    parent: region.com.nouvelle-aquitaine
   department.com.34:
     type: department
     code: '34'
@@ -526,6 +560,7 @@ zones:
     postal_prefixes:
       - '34'
     weight: 34
+    parent: region.com.occitanie
   department.com.35:
     type: department
     code: '35'
@@ -541,6 +576,7 @@ zones:
     postal_prefixes:
       - '35'
     weight: 35
+    parent: region.com.bretagne
   department.com.36:
     type: department
     code: '36'
@@ -556,6 +592,7 @@ zones:
     postal_prefixes:
       - '36'
     weight: 36
+    parent: region.com.centre-val-de-loire
   department.com.37:
     type: department
     code: '37'
@@ -571,6 +608,7 @@ zones:
     postal_prefixes:
       - '37'
     weight: 37
+    parent: region.com.centre-val-de-loire
   department.com.38:
     type: department
     code: '38'
@@ -586,6 +624,7 @@ zones:
     postal_prefixes:
       - '38'
     weight: 38
+    parent: region.com.auvergne-rhone-alpes
   department.com.39:
     type: department
     code: '39'
@@ -601,6 +640,7 @@ zones:
     postal_prefixes:
       - '39'
     weight: 39
+    parent: region.com.bourgogne-franche-comte
   department.com.40:
     type: department
     code: '40'
@@ -616,6 +656,7 @@ zones:
     postal_prefixes:
       - '40'
     weight: 40
+    parent: region.com.nouvelle-aquitaine
   department.com.41:
     type: department
     code: '41'
@@ -631,6 +672,7 @@ zones:
     postal_prefixes:
       - '41'
     weight: 41
+    parent: region.com.centre-val-de-loire
   department.com.42:
     type: department
     code: '42'
@@ -646,6 +688,7 @@ zones:
     postal_prefixes:
       - '42'
     weight: 42
+    parent: region.com.auvergne-rhone-alpes
   department.com.43:
     type: department
     code: '43'
@@ -661,6 +704,7 @@ zones:
     postal_prefixes:
       - '43'
     weight: 43
+    parent: region.com.auvergne-rhone-alpes
   department.com.44:
     type: department
     code: '44'
@@ -676,6 +720,7 @@ zones:
     postal_prefixes:
       - '44'
     weight: 44
+    parent: region.com.pays-de-la-loire
   department.com.45:
     type: department
     code: '45'
@@ -691,6 +736,7 @@ zones:
     postal_prefixes:
       - '45'
     weight: 45
+    parent: region.com.centre-val-de-loire
   department.com.46:
     type: department
     code: '46'
@@ -706,6 +752,7 @@ zones:
     postal_prefixes:
       - '46'
     weight: 46
+    parent: region.com.occitanie
   department.com.47:
     type: department
     code: '47'
@@ -721,6 +768,7 @@ zones:
     postal_prefixes:
       - '47'
     weight: 47
+    parent: region.com.nouvelle-aquitaine
   department.com.48:
     type: department
     code: '48'
@@ -736,6 +784,7 @@ zones:
     postal_prefixes:
       - '48'
     weight: 48
+    parent: region.com.occitanie
   department.com.49:
     type: department
     code: '49'
@@ -751,6 +800,7 @@ zones:
     postal_prefixes:
       - '49'
     weight: 49
+    parent: region.com.pays-de-la-loire
   department.com.50:
     type: department
     code: '50'
@@ -766,6 +816,7 @@ zones:
     postal_prefixes:
       - '50'
     weight: 50
+    parent: region.com.normandie
   department.com.51:
     type: department
     code: '51'
@@ -781,6 +832,7 @@ zones:
     postal_prefixes:
       - '51'
     weight: 51
+    parent: region.com.grand-est
   department.com.52:
     type: department
     code: '52'
@@ -796,6 +848,7 @@ zones:
     postal_prefixes:
       - '52'
     weight: 52
+    parent: region.com.grand-est
   department.com.53:
     type: department
     code: '53'
@@ -811,6 +864,7 @@ zones:
     postal_prefixes:
       - '53'
     weight: 53
+    parent: region.com.pays-de-la-loire
   department.com.54:
     type: department
     code: '54'
@@ -826,6 +880,7 @@ zones:
     postal_prefixes:
       - '54'
     weight: 54
+    parent: region.com.grand-est
   department.com.55:
     type: department
     code: '55'
@@ -841,6 +896,7 @@ zones:
     postal_prefixes:
       - '55'
     weight: 55
+    parent: region.com.grand-est
   department.com.56:
     type: department
     code: '56'
@@ -856,6 +912,7 @@ zones:
     postal_prefixes:
       - '56'
     weight: 56
+    parent: region.com.bretagne
   department.com.57:
     type: department
     code: '57'
@@ -871,6 +928,7 @@ zones:
     postal_prefixes:
       - '57'
     weight: 57
+    parent: region.com.grand-est
   department.com.58:
     type: department
     code: '58'
@@ -886,6 +944,7 @@ zones:
     postal_prefixes:
       - '58'
     weight: 58
+    parent: region.com.bourgogne-franche-comte
   department.com.59:
     type: department
     code: '59'
@@ -901,6 +960,7 @@ zones:
     postal_prefixes:
       - '59'
     weight: 59
+    parent: region.com.hauts-de-france
   department.com.60:
     type: department
     code: '60'
@@ -916,6 +976,7 @@ zones:
     postal_prefixes:
       - '60'
     weight: 60
+    parent: region.com.hauts-de-france
   department.com.61:
     type: department
     code: '61'
@@ -931,6 +992,7 @@ zones:
     postal_prefixes:
       - '61'
     weight: 61
+    parent: region.com.normandie
   department.com.62:
     type: department
     code: '62'
@@ -946,6 +1008,7 @@ zones:
     postal_prefixes:
       - '62'
     weight: 62
+    parent: region.com.hauts-de-france
   department.com.63:
     type: department
     code: '63'
@@ -961,6 +1024,7 @@ zones:
     postal_prefixes:
       - '63'
     weight: 63
+    parent: region.com.auvergne-rhone-alpes
   department.com.64:
     type: department
     code: '64'
@@ -976,6 +1040,7 @@ zones:
     postal_prefixes:
       - '64'
     weight: 64
+    parent: region.com.nouvelle-aquitaine
   department.com.65:
     type: department
     code: '65'
@@ -991,6 +1056,7 @@ zones:
     postal_prefixes:
       - '65'
     weight: 65
+    parent: region.com.occitanie
   department.com.66:
     type: department
     code: '66'
@@ -1006,6 +1072,7 @@ zones:
     postal_prefixes:
       - '66'
     weight: 66
+    parent: region.com.occitanie
   department.com.67:
     type: department
     code: '67'
@@ -1021,6 +1088,7 @@ zones:
     postal_prefixes:
       - '67'
     weight: 67
+    parent: region.com.grand-est
   department.com.68:
     type: department
     code: '68'
@@ -1036,6 +1104,7 @@ zones:
     postal_prefixes:
       - '68'
     weight: 68
+    parent: region.com.grand-est
   department.com.69:
     type: department
     code: '69'
@@ -1051,6 +1120,7 @@ zones:
     postal_prefixes:
       - '69'
     weight: 69
+    parent: region.com.auvergne-rhone-alpes
   department.com.70:
     type: department
     code: '70'
@@ -1066,6 +1136,7 @@ zones:
     postal_prefixes:
       - '70'
     weight: 70
+    parent: region.com.bourgogne-franche-comte
   department.com.71:
     type: department
     code: '71'
@@ -1081,6 +1152,7 @@ zones:
     postal_prefixes:
       - '71'
     weight: 71
+    parent: region.com.bourgogne-franche-comte
   department.com.72:
     type: department
     code: '72'
@@ -1096,6 +1168,7 @@ zones:
     postal_prefixes:
       - '72'
     weight: 72
+    parent: region.com.pays-de-la-loire
   department.com.73:
     type: department
     code: '73'
@@ -1111,6 +1184,7 @@ zones:
     postal_prefixes:
       - '73'
     weight: 73
+    parent: region.com.auvergne-rhone-alpes
   department.com.74:
     type: department
     code: '74'
@@ -1126,6 +1200,7 @@ zones:
     postal_prefixes:
       - '74'
     weight: 74
+    parent: region.com.auvergne-rhone-alpes
   department.com.75:
     type: department
     code: '75'
@@ -1141,6 +1216,7 @@ zones:
     postal_prefixes:
       - '75'
     weight: 75
+    parent: region.com.ile-de-france
   department.com.76:
     type: department
     code: '76'
@@ -1156,6 +1232,7 @@ zones:
     postal_prefixes:
       - '76'
     weight: 76
+    parent: region.com.normandie
   department.com.77:
     type: department
     code: '77'
@@ -1171,6 +1248,7 @@ zones:
     postal_prefixes:
       - '77'
     weight: 77
+    parent: region.com.ile-de-france
   department.com.78:
     type: department
     code: '78'
@@ -1186,6 +1264,7 @@ zones:
     postal_prefixes:
       - '78'
     weight: 78
+    parent: region.com.ile-de-france
   department.com.79:
     type: department
     code: '79'
@@ -1201,6 +1280,7 @@ zones:
     postal_prefixes:
       - '79'
     weight: 79
+    parent: region.com.nouvelle-aquitaine
   department.com.80:
     type: department
     code: '80'
@@ -1216,6 +1296,7 @@ zones:
     postal_prefixes:
       - '80'
     weight: 80
+    parent: region.com.hauts-de-france
   department.com.81:
     type: department
     code: '81'
@@ -1231,6 +1312,7 @@ zones:
     postal_prefixes:
       - '81'
     weight: 81
+    parent: region.com.occitanie
   department.com.82:
     type: department
     code: '82'
@@ -1246,6 +1328,7 @@ zones:
     postal_prefixes:
       - '82'
     weight: 82
+    parent: region.com.occitanie
   department.com.83:
     type: department
     code: '83'
@@ -1261,6 +1344,7 @@ zones:
     postal_prefixes:
       - '83'
     weight: 83
+    parent: region.com.provence-alpes-cote-dazur
   department.com.84:
     type: department
     code: '84'
@@ -1276,6 +1360,7 @@ zones:
     postal_prefixes:
       - '84'
     weight: 84
+    parent: region.com.provence-alpes-cote-dazur
   department.com.85:
     type: department
     code: '85'
@@ -1291,6 +1376,7 @@ zones:
     postal_prefixes:
       - '85'
     weight: 85
+    parent: region.com.pays-de-la-loire
   department.com.86:
     type: department
     code: '86'
@@ -1306,6 +1392,7 @@ zones:
     postal_prefixes:
       - '86'
     weight: 86
+    parent: region.com.nouvelle-aquitaine
   department.com.87:
     type: department
     code: '87'
@@ -1321,6 +1408,7 @@ zones:
     postal_prefixes:
       - '87'
     weight: 87
+    parent: region.com.nouvelle-aquitaine
   department.com.88:
     type: department
     code: '88'
@@ -1336,6 +1424,7 @@ zones:
     postal_prefixes:
       - '88'
     weight: 88
+    parent: region.com.grand-est
   department.com.89:
     type: department
     code: '89'
@@ -1351,6 +1440,7 @@ zones:
     postal_prefixes:
       - '89'
     weight: 89
+    parent: region.com.bourgogne-franche-comte
   department.com.90:
     type: department
     code: '90'
@@ -1366,6 +1456,7 @@ zones:
     postal_prefixes:
       - '90'
     weight: 90
+    parent: region.com.bourgogne-franche-comte
   department.com.91:
     type: department
     code: '91'
@@ -1381,6 +1472,7 @@ zones:
     postal_prefixes:
       - '91'
     weight: 91
+    parent: region.com.ile-de-france
   department.com.92:
     type: department
     code: '92'
@@ -1396,6 +1488,7 @@ zones:
     postal_prefixes:
       - '92'
     weight: 92
+    parent: region.com.ile-de-france
   department.com.93:
     type: department
     code: '93'
@@ -1411,6 +1504,7 @@ zones:
     postal_prefixes:
       - '93'
     weight: 93
+    parent: region.com.ile-de-france
   department.com.94:
     type: department
     code: '94'
@@ -1426,6 +1520,7 @@ zones:
     postal_prefixes:
       - '94'
     weight: 94
+    parent: region.com.ile-de-france
   department.com.95:
     type: department
     code: '95'
@@ -1441,3 +1536,358 @@ zones:
     postal_prefixes:
       - '95'
     weight: 95
+    parent: region.com.ile-de-france
+  region.com.auvergne-rhone-alpes:
+    type: region
+    code: AUVERGNE_RHONE_ALPES
+    label: Auvergne-Rhône-Alpes
+    slug: auvergne-rhone-alpes
+    lat: 45.5257
+    lng: 4.4846
+    bbox:
+      sw_lat: 44.517994594595
+      sw_lng: 1.8689882920647
+      ne_lat: 46.748205405405
+      ne_lng: 6.708977202398
+    postal_prefixes:
+      - '01'
+      - '03'
+      - '07'
+      - '15'
+      - '26'
+      - '38'
+      - '42'
+      - '43'
+      - '63'
+      - '69'
+      - '73'
+      - '74'
+    weight: 2
+  region.com.bourgogne-franche-comte:
+    type: region
+    code: BOURGOGNE_FRANCHE_COMTE
+    label: Bourgogne-Franche-Comté
+    slug: bourgogne-franche-comte
+    lat: 47.3141
+    lng: 5.1416
+    bbox:
+      sw_lat: 46.384194594595
+      sw_lng: 2.565527087384
+      ne_lat: 48.199305405405
+      ne_lng: 7.4427489337233
+    postal_prefixes:
+      - '21'
+      - '25'
+      - '39'
+      - '58'
+      - '70'
+      - '71'
+      - '89'
+      - '90'
+    weight: 3
+  region.com.bretagne:
+    type: region
+    code: BRETAGNE
+    label: Bretagne
+    slug: bretagne
+    lat: 48.1962
+    lng: -3.0834
+    bbox:
+      sw_lat: 47.343994594595
+      sw_lng: -5.1103202190072
+      ne_lat: 48.916205405405
+      ne_lng: -1.0811656818849
+    postal_prefixes:
+      - '22'
+      - '29'
+      - '35'
+      - '56'
+    weight: 4
+  region.com.centre-val-de-loire:
+    type: region
+    code: CENTRE_VAL_DE_LOIRE
+    label: 'Centre-Val de Loire'
+    slug: centre-val-de-loire
+    lat: 47.5296
+    lng: 1.5842
+    bbox:
+      sw_lat: 46.396894594595
+      sw_lng: 0.096028758591768
+      ne_lat: 48.853505405405
+      ne_lng: 2.9936071339296
+    postal_prefixes:
+      - '18'
+      - '28'
+      - '36'
+      - '37'
+      - '41'
+      - '45'
+    weight: 5
+  region.com.corse:
+    type: region
+    code: CORSE
+    label: Corse
+    slug: corse
+    lat: 42.3045
+    lng: 9.0649
+    bbox:
+      sw_lat: 41.517394594595
+      sw_lng: 8.1609337542106
+      ne_lat: 43.091505405405
+      ne_lng: 9.9755126301982
+    postal_prefixes:
+      - '200'
+      - '202'
+    weight: 6
+  region.com.grand-est:
+    type: region
+    code: GRAND_EST
+    label: 'Grand Est'
+    slug: grand-est
+    lat: 48.738
+    lng: 5.7106
+    bbox:
+      sw_lat: 47.347194594595
+      sw_lng: 3.4339922376981
+      ne_lat: 50.185605405405
+      ne_lng: 8.3747574180479
+    postal_prefixes:
+      - '08'
+      - '10'
+      - '51'
+      - '52'
+      - '54'
+      - '55'
+      - '57'
+      - '67'
+      - '68'
+      - '88'
+    weight: 7
+  region.com.guadeloupe:
+    type: region
+    code: GUADELOUPE
+    label: Guadeloupe
+    slug: guadeloupe
+    lat: 46.6034
+    lng: 1.8883
+    bbox:
+      sw_lat: 46.153354
+      sw_lng: 1.438334
+      ne_lat: 47.053354
+      ne_lng: 2.338334
+    postal_prefixes:
+      - '971'
+    weight: 14
+  region.com.guyane:
+    type: region
+    code: GUYANE
+    label: Guyane
+    slug: guyane
+    lat: 46.6034
+    lng: 1.8883
+    bbox:
+      sw_lat: 46.153354
+      sw_lng: 1.438334
+      ne_lat: 47.053354
+      ne_lng: 2.338334
+    postal_prefixes:
+      - '973'
+    weight: 16
+  region.com.hauts-de-france:
+    type: region
+    code: HAUTS_DE_FRANCE
+    label: Hauts-de-France
+    slug: hauts-de-france
+    lat: 50.1544
+    lng: 2.5134
+    bbox:
+      sw_lat: 49.037094594595
+      sw_lng: 1.2254658151277
+      ne_lat: 51.357705405405
+      ne_lng: 3.9077068177085
+    postal_prefixes:
+      - '02'
+      - '59'
+      - '60'
+      - '62'
+      - '80'
+    weight: 8
+  region.com.ile-de-france:
+    type: region
+    code: ILE_DE_FRANCE
+    label: Île-de-France
+    slug: ile-de-france
+    lat: 48.8454
+    lng: 2.3816
+    bbox:
+      sw_lat: 48.223294594595
+      sw_lng: 1.5035794019963
+      ne_lat: 49.362705405405
+      ne_lng: 3.5209112939461
+    postal_prefixes:
+      - '75'
+      - '77'
+      - '78'
+      - '91'
+      - '92'
+      - '93'
+      - '94'
+      - '95'
+    weight: 1
+  region.com.la-reunion:
+    type: region
+    code: LA_REUNION
+    label: 'La Réunion'
+    slug: la-reunion
+    lat: 46.6034
+    lng: 1.8883
+    bbox:
+      sw_lat: 46.153354
+      sw_lng: 1.438334
+      ne_lat: 47.053354
+      ne_lng: 2.338334
+    postal_prefixes:
+      - '974'
+    weight: 17
+  region.com.martinique:
+    type: region
+    code: MARTINIQUE
+    label: Martinique
+    slug: martinique
+    lat: 46.6034
+    lng: 1.8883
+    bbox:
+      sw_lat: 46.153354
+      sw_lng: 1.438334
+      ne_lat: 47.053354
+      ne_lng: 2.338334
+    postal_prefixes:
+      - '972'
+    weight: 15
+  region.com.mayotte:
+    type: region
+    code: MAYOTTE
+    label: Mayotte
+    slug: mayotte
+    lat: 46.6034
+    lng: 1.8883
+    bbox:
+      sw_lat: 46.153354
+      sw_lng: 1.438334
+      ne_lat: 47.053354
+      ne_lng: 2.338334
+    postal_prefixes:
+      - '976'
+    weight: 18
+  region.com.normandie:
+    type: region
+    code: NORMANDIE
+    label: Normandie
+    slug: normandie
+    lat: 49.1514
+    lng: -0.1287
+    bbox:
+      sw_lat: 48.025594594595
+      sw_lng: -2.2614654876886
+      ne_lat: 50.033105405405
+      ne_lng: 1.7587638747984
+    postal_prefixes:
+      - '14'
+      - '27'
+      - '50'
+      - '61'
+      - '76'
+    weight: 9
+  region.com.nouvelle-aquitaine:
+    type: region
+    code: NOUVELLE_AQUITAINE
+    label: Nouvelle-Aquitaine
+    slug: nouvelle-aquitaine
+    lat: 45.2794
+    lng: 0.2834
+    bbox:
+      sw_lat: 42.916494594595
+      sw_lng: -1.7618200944994
+      ne_lat: 46.990005405405
+      ne_lng: 2.4557828622797
+    postal_prefixes:
+      - '16'
+      - '17'
+      - '19'
+      - '23'
+      - '24'
+      - '33'
+      - '40'
+      - '47'
+      - '64'
+      - '79'
+      - '86'
+      - '87'
+    weight: 10
+  region.com.occitanie:
+    type: region
+    code: OCCITANIE
+    label: Occitanie
+    slug: occitanie
+    lat: 43.6785
+    lng: 2.4439
+    bbox:
+      sw_lat: 42.293594594595
+      sw_lng: -0.49118869860887
+      ne_lat: 44.940305405405
+      ne_lng: 5.9374690400817
+    postal_prefixes:
+      - '09'
+      - '11'
+      - '12'
+      - '13'
+      - '30'
+      - '31'
+      - '32'
+      - '34'
+      - '46'
+      - '48'
+      - '65'
+      - '66'
+      - '81'
+      - '82'
+    weight: 11
+  region.com.pays-de-la-loire:
+    type: region
+    code: PAYS_DE_LA_LOIRE
+    label: 'Pays de la Loire'
+    slug: pays-de-la-loire
+    lat: 47.4851
+    lng: -0.8226
+    bbox:
+      sw_lat: 46.260494594595
+      sw_lng: -2.1574046950195
+      ne_lat: 48.463205405405
+      ne_lng: 0.80135640869607
+    postal_prefixes:
+      - '44'
+      - '49'
+      - '53'
+      - '72'
+      - '85'
+    weight: 12
+  region.com.provence-alpes-cote-dazur:
+    type: region
+    code: PROVENCE_ALPES_COTE_DAZUR
+    label: "Provence-Alpes-Côte d'Azur"
+    slug: provence-alpes-cote-dazur
+    lat: 43.7451
+    lng: 5.8752
+    bbox:
+      sw_lat: 42.730994594595
+      sw_lng: 4.2702740595617
+      ne_lat: 44.985105405405
+      ne_lng: 7.8135821140366
+    postal_prefixes:
+      - '04'
+      - '05'
+      - '06'
+      - '13'
+      - '83'
+      - '84'
+    weight: 13

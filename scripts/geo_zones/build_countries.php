@@ -24,8 +24,6 @@ $moduleSrc = $root . '/src/web/modules/custom/ps_search/src';
 require $moduleSrc . '/GeoZone/GeoZoneType.php';
 require $moduleSrc . '/ValueObject/GeoBoundingBox.php';
 require $moduleSrc . '/ValueObject/GeoZone.php';
-require $moduleSrc . '/GeoZone/GeoZoneSlugGenerator.php';
-require $moduleSrc . '/GeoZone/GeoZonePostalPrefixBuilder.php';
 require $moduleSrc . '/GeoZone/GeoZoneValidator.php';
 require $moduleSrc . '/GeoZone/GeoZoneComBuilder.php';
 require $moduleSrc . '/GeoZone/GeoZoneDefinitionProvider.php';
@@ -34,8 +32,6 @@ require $moduleSrc . '/GeoZone/GeoZoneBuilder.php';
 use Drupal\ps_search\GeoZone\GeoZoneBuilder;
 use Drupal\ps_search\GeoZone\GeoZoneComBuilder;
 use Drupal\ps_search\GeoZone\GeoZoneDefinitionProvider;
-use Drupal\ps_search\GeoZone\GeoZonePostalPrefixBuilder;
-use Drupal\ps_search\GeoZone\GeoZoneSlugGenerator;
 use Drupal\ps_search\GeoZone\GeoZoneValidator;
 
 if (!class_exists('Drupal', FALSE)) {
@@ -46,11 +42,7 @@ if (!class_exists('Drupal', FALSE)) {
   }
 }
 
-$definitionProvider = new GeoZoneDefinitionProvider(
-  new GeoZoneSlugGenerator(),
-  new GeoZonePostalPrefixBuilder(),
-  'modules/custom/ps_search',
-);
+$definitionProvider = new GeoZoneDefinitionProvider('modules/custom/ps_search');
 $builder = new GeoZoneBuilder(
   $definitionProvider,
   new GeoZoneComBuilder('modules/custom/ps_search'),

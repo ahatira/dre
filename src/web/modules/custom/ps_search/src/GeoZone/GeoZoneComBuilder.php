@@ -7,7 +7,7 @@ namespace Drupal\ps_search\GeoZone;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Builds COM geo zones from the French referential (international FR site).
+ * Builds COM geo zones from the French YAML source (international FR site).
  */
 final class GeoZoneComBuilder {
 
@@ -49,39 +49,50 @@ final class GeoZoneComBuilder {
    *   COM geo zone payload.
    */
   public function clonePayloadForCountry(array $frPayload): array {
-    $sourcePrefix = 'department.' . self::SOURCE_COUNTRY . '.';
-    $targetPrefix = 'department.' . self::TARGET_COUNTRY . '.';
-
     $zones = [];
     foreach ($frPayload['zones'] ?? [] as $id => $data) {
       if (!is_string($id) || !is_array($data)) {
         continue;
       }
 
-      if (!str_starts_with($id, $sourcePrefix)) {
+      $parts = explode('.', $id, 3);
+      if (count($parts) !== 3 || $parts[1] !== self::SOURCE_COUNTRY) {
         throw new \RuntimeException(sprintf('Unexpected French zone id "%s".', $id));
       }
 
-      $suffix = substr($id, strlen($sourcePrefix));
-      $zones[$targetPrefix . $suffix] = $data;
+      $comId = $parts[0] . '.' . self::TARGET_COUNTRY . '.' . $parts[2];
+      $zoneData = $data;
+      if (isset($zoneData['parent']) && is_string($zoneData['parent'])) {
+        $zoneData['parent'] = $this->translateZoneId($zoneData['parent']);
+      }
+      $zones[$comId] = $zoneData;
     }
 
     if ($zones === []) {
-      throw new \RuntimeException('French geo zones source has no department zones.');
+      throw new \RuntimeException('French geo zones source has no zones.');
     }
 
     ksort($zones);
 
     $defaultZone = (string) ($frPayload['default_zone'] ?? '');
-    if ($defaultZone === '' || !str_starts_with($defaultZone, $sourcePrefix)) {
+    if ($defaultZone === '' || !str_contains($defaultZone, '.' . self::SOURCE_COUNTRY . '.')) {
       throw new \RuntimeException('French geo zones source has an invalid default_zone.');
     }
 
     return [
       'country' => self::TARGET_COUNTRY,
-      'default_zone' => $targetPrefix . substr($defaultZone, strlen($sourcePrefix)),
+      'default_zone' => $this->translateZoneId($defaultZone),
       'zones' => $zones,
     ];
+  }
+
+  private function translateZoneId(string $id): string {
+    return (string) preg_replace(
+      '/\.' . self::SOURCE_COUNTRY . '\./',
+      '.' . self::TARGET_COUNTRY . '.',
+      $id,
+      1,
+    );
   }
 
   /**

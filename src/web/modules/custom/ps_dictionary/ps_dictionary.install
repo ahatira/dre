@@ -8,11 +8,28 @@
 declare(strict_types=1);
 
 /**
- * Imports INSEE department dictionary entries on first install.
+ * Imports dictionary entries from the module fixture on first enable.
  */
 function ps_dictionary_install(): void {
   /** @var \Drupal\ps_dictionary\Service\DictionaryCsvImporterInterface $importer */
   $importer = \Drupal::service('Drupal\ps_dictionary\Service\DictionaryCsvImporter');
   $fixture = dirname(__FILE__) . '/data/dictionary_entries.csv';
-  $importer->importFromCsv($fixture, 'department');
+  $importer->importFromCsv($fixture);
+}
+
+/**
+ * Removes legacy department dictionary (geo zones are the search referential).
+ */
+function ps_dictionary_update_10001(): void {
+  $entryStorage = \Drupal::entityTypeManager()->getStorage('ps_dictionary_entry');
+  $entries = $entryStorage->loadByProperties(['type' => 'department']);
+  if ($entries !== []) {
+    $entryStorage->delete($entries);
+  }
+
+  $typeStorage = \Drupal::entityTypeManager()->getStorage('ps_dictionary_type');
+  $departmentType = $typeStorage->load('department');
+  if ($departmentType !== NULL) {
+    $typeStorage->delete([$departmentType]);
+  }
 }

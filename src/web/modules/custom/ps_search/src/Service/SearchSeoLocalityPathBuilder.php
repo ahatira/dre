@@ -6,7 +6,6 @@ namespace Drupal\ps_search\Service;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Site\Settings;
-use Drupal\ps_dictionary\Service\DictionaryResolver;
 use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
 use Drupal\ps_search\GeoZone\GeoZoneType;
 use Drupal\ps_search\ValueObject\GeoZone;
@@ -25,9 +24,7 @@ final class SearchSeoLocalityPathBuilder {
 
   public function __construct(
     private readonly Connection $database,
-    private readonly DictionaryResolver $dictionaryResolver,
     private readonly GeoZoneRepositoryInterface $geoZoneRepository,
-    private readonly AdministrativeRegionRegistry $regionRegistry,
   ) {}
 
   /**
@@ -36,8 +33,8 @@ final class SearchSeoLocalityPathBuilder {
    * @return array{region?: string, dept?: string, city?: string}
    */
   public function tokenToPathSegments(string $token): array {
-    if ($this->regionRegistry->isRegionToken($token)) {
-      $slug = $this->regionRegistry->parseRegionToken($token);
+    if ($this->geoZoneRepository->isRegionToken($token)) {
+      $slug = $this->geoZoneRepository->parseRegionToken($token);
       if ($slug !== NULL) {
         return ['region' => $slug];
       }
@@ -164,10 +161,6 @@ final class SearchSeoLocalityPathBuilder {
       return $this->geoZoneToToken($zone);
     }
 
-    if ($this->regionRegistry->findBySlug($segment) !== NULL) {
-      return $this->regionRegistry->buildRegionToken($segment);
-    }
-
     return $this->citySegmentToToken($segment);
   }
 
@@ -235,15 +228,15 @@ final class SearchSeoLocalityPathBuilder {
 
   private function geoZoneToToken(GeoZone $zone): string {
     return match ($zone->type) {
-      GeoZoneType::Region => $this->regionRegistry->buildRegionToken($zone->slug),
+      GeoZoneType::Region => $this->geoZoneRepository->buildRegionToken($zone->slug),
       GeoZoneType::Department => $zone->code,
       default => $zone->slug,
     };
   }
 
   private function findGeoZoneForToken(string $token, string $countryCode): ?GeoZone {
-    if ($this->regionRegistry->isRegionToken($token)) {
-      $slug = $this->regionRegistry->parseRegionToken($token);
+    if ($this->geoZoneRepository->isRegionToken($token)) {
+      $slug = $this->geoZoneRepository->parseRegionToken($token);
       return $slug !== NULL ? $this->geoZoneRepository->findBySlug($slug, $countryCode) : NULL;
     }
 
@@ -283,7 +276,8 @@ final class SearchSeoLocalityPathBuilder {
 
     if (preg_match('/^\d{2,3}$/', $token) === 1) {
       $meta['type'] = 'department';
-      $meta['admin_area'] = $this->dictionaryResolver->resolveLabel('department', $token) ?? '';
+      $zone = $this->geoZoneRepository->findDepartmentByCode($token, $this->resolveCountryCode());
+      $meta['admin_area'] = $zone?->label ?? '';
       return $meta;
     }
 

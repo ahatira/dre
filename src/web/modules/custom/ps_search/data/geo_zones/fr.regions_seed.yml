@@ -1,5 +1,5 @@
-# French administrative regions (2016 reform) — source for SEO region slugs.
-# Slug keys are used in URLs: /a-vendre/bureau/ile-de-france/
+# French administrative regions (2016 reform) — seed for merge_fr_regions.php only.
+# Slug keys match SEO region URLs: /ile-de-france/
 ile-de-france:
   label: Île-de-France
   departments: ['75', '77', '78', '91', '92', '93', '94', '95']

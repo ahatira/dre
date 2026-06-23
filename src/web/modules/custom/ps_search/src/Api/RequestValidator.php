@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Api;
 
-use Drupal\ps_search\Service\AdministrativeRegionRegistry;
+use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -156,10 +156,10 @@ final class RequestValidator {
       return NULL;
     }
     $trimmed = trim(substr($value, 0, self::TEXT_MAX_LENGTH));
-    if (str_starts_with($trimmed, AdministrativeRegionRegistry::TOKEN_PREFIX)) {
-      $slug = substr($trimmed, strlen(AdministrativeRegionRegistry::TOKEN_PREFIX));
+    if (str_starts_with($trimmed, GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX)) {
+      $slug = substr($trimmed, strlen(GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX));
       $slug = preg_replace('/[^a-z0-9\-]/', '', strtolower($slug));
-      return $slug !== '' ? AdministrativeRegionRegistry::TOKEN_PREFIX . $slug : NULL;
+      return $slug !== '' ? GeoZoneRepositoryInterface::REGION_TOKEN_PREFIX . $slug : NULL;
     }
     if (preg_match('/^\d{2,3}$/', $trimmed) === 1 || preg_match('/^\d{5}$/', $trimmed) === 1) {
       return $trimmed;

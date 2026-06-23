@@ -71,26 +71,17 @@ services:
     arguments:
       - '@language_manager'
 
-  ps_search.administrative_region_registry:
-    class: Drupal\ps_search\Service\AdministrativeRegionRegistry
-    arguments:
-      - 'modules/custom/ps_search'
-
   ps_search.location_filter:
     class: Drupal\ps_search\Service\LocationSearchFilter
     arguments:
       - '@database'
-      - '@ps_dictionary.resolver'
-      - '@ps_search.administrative_region_registry'
       - '@ps_search.geo_zone.repository'
 
   ps_search.seo_locality_path_builder:
     class: Drupal\ps_search\Service\SearchSeoLocalityPathBuilder
     arguments:
       - '@database'
-      - '@ps_dictionary.resolver'
       - '@ps_search.geo_zone.repository'
-      - '@ps_search.administrative_region_registry'
 
   ps_search.seo_canonical_url_builder:
     class: Drupal\ps_search\Service\SearchSeoCanonicalUrlBuilder
@@ -135,9 +126,7 @@ services:
     arguments:
       - '@database'
       - '@ps_search.location_filter'
-      - '@ps_dictionary.resolver'
       - '@ps_search.geo_zone.repository'
-      - '@ps_search.administrative_region_registry'
 
   ps_search.transport_suggest_builder:
     class: Drupal\ps_search\Service\TransportSuggestBuilder
@@ -646,8 +635,6 @@ services:
   ps_search.geo_zone.definition_provider:
     class: Drupal\ps_search\GeoZone\GeoZoneDefinitionProvider
     arguments:
-      - '@ps_search.geo_zone.slug_generator'
-      - '@ps_search.geo_zone.postal_prefix_builder'
       - 'modules/custom/ps_search'
 
   ps_search.geo_zone.builder:

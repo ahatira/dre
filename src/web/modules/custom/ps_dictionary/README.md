@@ -119,6 +119,8 @@ Les entrées peuvent ensuite être chargées:
 - via l'interface BO d'import CSV (`Import CSV` sur la page des types)
 - ou via la commande Drush `ps:dictionary:import`
 
+**Note** : les départements français ne sont plus un type de dictionnaire — le référentiel géo est `ps_search` (`data/geo_zones/fr.yml`). Sur sites existants, `ps_dictionary_update_10001()` supprime le type legacy `department`.
+
 ## Tests
 
 | Classe | Type | Scénarios couverts |
