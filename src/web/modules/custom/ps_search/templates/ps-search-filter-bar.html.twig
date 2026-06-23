@@ -33,13 +33,15 @@
         type="button"
         data-bs-toggle="dropdown"
         data-bs-auto-close="outside"
+        aria-haspopup="dialog"
+        aria-controls="ps-filter-type-menu"
         aria-expanded="false"
       >
         <span class="ps-filter-bar__toggle-label text-truncate">{{ type_value }}</span>
         <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
       </button>
 
-      <div class="dropdown-menu ps-filter-popin ps-filter-popin--type">
+      <div id="ps-filter-type-menu" class="dropdown-menu ps-filter-popin ps-filter-popin--type" role="dialog" aria-modal="false" aria-labelledby="ps-filter-type-trigger">
         {% include '@ps_search/ps-search-filter-section-type-fields.twig' %}
         <div class="ps-filter-popin__footer ps-filter-popin__footer--type">
           <button class="ps-apply-btn ps-apply-btn--full js-ps-apply-btn js-ps-apply-btn--type" type="button" disabled data-ps-htmx-apply="type">
@@ -59,9 +61,10 @@
       {% include '@ps_search/ps-search-filter-section-location-fields.twig' with {
         id_suffix: '',
         layout: 'dropdown',
+        popin_controls: 'ps-filter-location-menu',
       } only %}
 
-      <div class="dropdown-menu ps-filter-popin ps-filter-popin--location">
+      <div id="ps-filter-location-menu" class="dropdown-menu ps-filter-popin ps-filter-popin--location" role="dialog" aria-modal="false" aria-labelledby="ps-filter-location-input">
         <div class="ps-location-popin__selected js-ps-location-selected-panel" hidden>
           <h3 class="ps-filter-popin__heading ps-location-popin__heading">{{ 'Location'|t }} :</h3>
           <div class="ps-location-popin__chips js-ps-location-popin-chips"></div>
@@ -88,12 +91,14 @@
         type="button"
         data-bs-toggle="dropdown"
         data-bs-auto-close="outside"
+        aria-haspopup="dialog"
+        aria-controls="ps-filter-surface-menu"
         aria-expanded="false"
       >
         <span class="ps-filter-bar__toggle-label js-ps-surface-label text-truncate">{{ 'Surface'|t }}</span>
         <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
       </button>
-      <div class="dropdown-menu ps-filter-popin ps-filter-popin--surface ps-filter-popin--range">
+      <div id="ps-filter-surface-menu" class="dropdown-menu ps-filter-popin ps-filter-popin--surface ps-filter-popin--range" role="dialog" aria-modal="false" aria-labelledby="ps-filter-surface-trigger">
         {% include '@ps_search/ps-search-filter-section-range-fields.twig' with { section: 'surface', id_suffix: '' } only %}
         <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
           <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="surface">{{ 'Delete all'|t }}</button>
@@ -116,12 +121,14 @@
         type="button"
         data-bs-toggle="dropdown"
         data-bs-auto-close="outside"
+        aria-haspopup="dialog"
+        aria-controls="ps-filter-capacity-menu"
         aria-expanded="false"
       >
         <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ capacity_filter_label|capitalize }}</span>
         <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
       </button>
-      <div class="dropdown-menu ps-filter-popin ps-filter-popin--capacity ps-filter-popin--range">
+      <div id="ps-filter-capacity-menu" class="dropdown-menu ps-filter-popin ps-filter-popin--capacity ps-filter-popin--range" role="dialog" aria-modal="false" aria-labelledby="ps-filter-capacity-trigger">
         {% include '@ps_search/ps-search-filter-section-range-fields.twig' with {
           section: 'capacity',
           id_suffix: '',
@@ -148,12 +155,14 @@
         type="button"
         data-bs-toggle="dropdown"
         data-bs-auto-close="outside"
+        aria-haspopup="dialog"
+        aria-controls="ps-filter-budget-menu"
         aria-expanded="false"
       >
         <span class="ps-filter-bar__toggle-label js-ps-budget-label text-truncate">{{ budget_config.toggle_default|default('Budget'|t) }}</span>
         <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
       </button>
-      <div class="dropdown-menu ps-filter-popin ps-filter-popin--budget ps-filter-popin--range">
+      <div id="ps-filter-budget-menu" class="dropdown-menu ps-filter-popin ps-filter-popin--budget ps-filter-popin--range" role="dialog" aria-modal="false" aria-labelledby="ps-filter-budget-trigger">
         {% include '@ps_search/ps-search-filter-section-range-fields.twig' with {
           section: 'budget',
           id_suffix: '',
@@ -177,6 +186,8 @@
         data-bs-toggle="offcanvas"
         data-bs-target="#ps-more-offcanvas"
         aria-controls="ps-more-offcanvas"
+        aria-haspopup="dialog"
+        aria-expanded="false"
       >
         <span class="ps-filter-bar__toggle-label js-ps-more-label">{{ 'More filters'|t }}</span>
         <span class="ps-filter-bar__chevron ps-filter-bar__chevron--primary flex-shrink-0" aria-hidden="true"></span>

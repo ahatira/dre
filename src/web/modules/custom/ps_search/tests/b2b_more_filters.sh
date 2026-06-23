@@ -129,6 +129,9 @@ assert_html_contains "$BASE/find-property" 'js-ps-more-group-panel' "Lazy group 
 assert_html_contains "$BASE/find-property" 'ps-filter-mobile-count-label' "Mobile HTMX count label present"
 assert_html_contains "$BASE/find-property" 'data-ps-htmx-popin="mobile"' "Mobile HTMX popin marker"
 assert_html_contains "$BASE/find-property" 'Other criteria' "Core filters section (EN)"
+assert_html_contains "$BASE/find-property" 'ps-filter-type-menu' "Desktop filter popin menu ids"
+assert_html_contains "$BASE/find-property" 'aria-haspopup="dialog"' "Filter toggles expose aria-haspopup"
+assert_html_contains "$BASE/find-property" 'role="dialog"' "Filter popins expose dialog role"
 
 echo "--- Group labels (human-readable, not CRM machine names) ---"
 assert_not_screaming_snake "$BASE/find-property" 'AMENAGEMENTS' "EN no AMENAGEMENTS machine label"

@@ -74,7 +74,14 @@
 }
 
 .ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-chips {
-  display: none;
+  // Keep chips out of layout without display:none — that breaks focus on chip
+  // buttons (Tab order) and triggers the a11y focusout close handler.
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+  width: 0;
 }
 
 .ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {

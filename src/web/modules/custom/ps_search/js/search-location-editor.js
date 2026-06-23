@@ -276,6 +276,11 @@
       clearBtn.className = 'ps-location-chip__clear';
       clearBtn.setAttribute('aria-label', Drupal.t('Remove @value', { '@value': displayLabel }));
       clearBtn.textContent = '×';
+      // Inline chips are duplicated in the popin; skip them in tab order so focus
+      // lands on the input (display:none on open used to drop focus and close popin).
+      if (container === chipsContainer) {
+        clearBtn.tabIndex = -1;
+      }
       clearBtn.addEventListener('mousedown', function (e) {
         e.preventDefault();
       });
@@ -356,6 +361,17 @@
       }
       const active = document.activeElement;
       return active instanceof Node && rootEl.contains(active);
+    }
+
+    function bindLocationPanelCloseHandler() {
+      if (!isDropdown || !rootEl) {
+        return;
+      }
+
+      rootEl.addEventListener('hide.bs.dropdown', function () {
+        hideSuggestions();
+        commitDraftTokens();
+      });
     }
 
     function hideSuggestions() {
@@ -676,25 +692,22 @@
     });
 
     input.addEventListener('focus', function () {
-      if (isDropdown) {
-        closeOtherPanels(rootEl);
-        openDropdown(rootEl);
-      }
       fetchLocationSuggestions(input.value.trim());
     });
 
-    input.addEventListener('blur', function () {
-      setTimeout(function () {
-        if (isFocusInsideLocation()) {
-          return;
-        }
-        hideSuggestions();
-        commitDraftTokens();
-        if (isDropdown) {
-          closeDropdown(rootEl);
-        }
-      }, 150);
-    });
+    bindLocationPanelCloseHandler();
+
+    if (!isDropdown) {
+      input.addEventListener('blur', function () {
+        setTimeout(function () {
+          if (isFocusInsideLocation()) {
+            return;
+          }
+          hideSuggestions();
+          commitDraftTokens();
+        }, 150);
+      });
+    }
 
     input.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowDown') {
@@ -741,11 +754,12 @@
         return;
       }
       if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
         hideSuggestions();
         if (isDropdown) {
           closeDropdown(rootEl);
         }
-        input.blur();
       }
     });
 

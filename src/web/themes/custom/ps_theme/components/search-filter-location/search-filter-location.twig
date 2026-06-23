@@ -6,10 +6,12 @@
 #}
 {% set input_id = 'ps-filter-location-input' ~ id_suffix|default('') %}
 {% set suggest_controls = suggest_id|default('ps-location-suggest' ~ id_suffix|default('')) %}
+{% set popin_controls = popin_controls|default('') %}
 
 <div
   class="ps-filter-bar__toggle ps-filter-bar__toggle--location js-ps-location-toggle d-flex align-items-center w-100{% if layout|default('dropdown') == 'stacked' %} ps-filter-bar__toggle--stacked{% endif %}"
   aria-expanded="false"
+  {% if popin_controls %}aria-haspopup="dialog" aria-controls="{{ popin_controls }}"{% endif %}
 >
   <div class="ps-filter-bar__location-editor js-ps-location-editor min-w-0 flex-grow-1">
     <div class="ps-filter-bar__location-chips js-ps-location-chips"></div>

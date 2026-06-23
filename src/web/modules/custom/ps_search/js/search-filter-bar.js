@@ -14,6 +14,8 @@
  *  - Navigating builds a SEO URL (for type+op) + query params (for other filters).
  *  - "Clear" in each section resets only that section's values.
  *  - Outside click / Escape closes all open popins.
+ *  - Tab / focus entering a filter section opens its popin; leaving closes it (150 ms delay).
+ *  - Escape closes the open popin and restores focus on its toggle/input.
  */
 
 (function (Drupal, drupalSettings, once) {
@@ -593,6 +595,195 @@
         syncFilterBarBackdrop();
       }
 
+      function getFilterItemToggle(item) {
+        if (!item) {
+          return null;
+        }
+        return item.querySelector('[data-bs-toggle="dropdown"], .js-ps-location-toggle');
+      }
+
+      function isFilterItemOpen(item) {
+        if (!item) {
+          return false;
+        }
+        return item.classList.contains('show') || !!item.querySelector('.dropdown-menu.show');
+      }
+
+      function closeFilterItemDropdown(item) {
+        if (!item) {
+          return;
+        }
+        const toggle = getFilterItemToggle(item);
+        const bs = getBootstrap();
+        if (toggle && bs?.Dropdown) {
+          const instance = bs.Dropdown.getInstance(toggle);
+          if (instance) {
+            instance.hide();
+            return;
+          }
+        }
+        if (item.classList.contains('ps-filter-bar__item--location')) {
+          closeLocationDropdown(item);
+        }
+      }
+
+      function syncFilterItemExpandedState(item, expanded) {
+        const toggle = getFilterItemToggle(item);
+        if (toggle) {
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
+        if (item?.classList.contains('ps-filter-bar__item--location')) {
+          item.querySelectorAll('.js-ps-locality-input').forEach(function (input) {
+            if (input.getAttribute('aria-controls') === 'ps-location-suggest' || input.id === 'ps-filter-location-input') {
+              if (!expanded) {
+                input.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+        }
+      }
+
+      function openFilterItemDropdown(item) {
+        if (!item || item.hasAttribute('hidden')) {
+          return;
+        }
+        if (item.classList.contains('ps-filter-bar__item--location')) {
+          openLocationDropdown(item);
+          return;
+        }
+        const toggle = getFilterItemToggle(item);
+        const bs = getBootstrap();
+        if (toggle && bs?.Dropdown) {
+          bs.Dropdown.getOrCreateInstance(toggle, { autoClose: 'outside' }).show();
+        }
+      }
+
+      function isFocusInsideFilterItem(item) {
+        if (!item) {
+          return false;
+        }
+        const active = document.activeElement;
+        return active instanceof Node && item.contains(active);
+      }
+
+      function bindFilterBarAccessibility(filterBar) {
+        const FILTER_FOCUS_CLOSE_DELAY_MS = 150;
+
+        filterBar.addEventListener('focusin', function (e) {
+          const targetItem = e.target.closest('.ps-filter-bar__item');
+          if (!targetItem || !filterBar.contains(targetItem)) {
+            return;
+          }
+
+          if (targetItem.classList.contains('ps-filter-bar__item--location')) {
+            const locationInput = targetItem.querySelector('.js-ps-locality-input');
+            const inlineChip = e.target.closest('.ps-filter-bar__location-chips .ps-location-chip');
+            if (inlineChip && locationInput && e.target !== locationInput) {
+              if (!isFilterItemOpen(targetItem)) {
+                closeOtherFilterPanels(targetItem);
+                openFilterItemDropdown(targetItem);
+              }
+              locationInput.focus();
+              return;
+            }
+          }
+
+          filterBar.querySelectorAll('.ps-filter-bar__item.dropdown').forEach(function (item) {
+            if (item === targetItem || !isFilterItemOpen(item)) {
+              return;
+            }
+            closeFilterItemDropdown(item);
+          });
+
+          if (targetItem.classList.contains('dropdown') && !isFilterItemOpen(targetItem)) {
+            closeOtherFilterPanels(targetItem);
+            openFilterItemDropdown(targetItem);
+          }
+        });
+
+        filterBar.querySelectorAll('.ps-filter-bar__item.dropdown').forEach(function (item) {
+          item.addEventListener('focusout', function () {
+            setTimeout(function () {
+              if (!isFilterItemOpen(item)) {
+                return;
+              }
+              if (isFocusInsideFilterItem(item)) {
+                return;
+              }
+              closeFilterItemDropdown(item);
+            }, FILTER_FOCUS_CLOSE_DELAY_MS);
+          });
+        });
+
+        filterBar.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape') {
+            return;
+          }
+
+          const bs = getBootstrap();
+          const moreOffcanvas = document.getElementById('ps-more-offcanvas');
+          if (moreOffcanvas?.classList.contains('show') && bs?.Offcanvas) {
+            e.preventDefault();
+            e.stopPropagation();
+            bs.Offcanvas.getInstance(moreOffcanvas)?.hide();
+            document.querySelector('.js-ps-more-trigger')?.focus();
+            syncFilterBarBackdrop();
+            return;
+          }
+
+          const openItems = Array.from(filterBar.querySelectorAll('.ps-filter-bar__item.dropdown'))
+            .filter(isFilterItemOpen);
+          if (openItems.length === 0) {
+            return;
+          }
+          e.preventDefault();
+          e.stopPropagation();
+          const item = openItems[0];
+          let focusTarget = getFilterItemToggle(item);
+          if (item.classList.contains('ps-filter-bar__item--location')) {
+            focusTarget = item.querySelector('.js-ps-locality-input') || focusTarget;
+          }
+          closeFilterItemDropdown(item);
+          hideAllLocationSuggestions();
+          syncFilterBarBackdrop();
+          if (focusTarget && typeof focusTarget.focus === 'function') {
+            focusTarget.focus();
+          }
+        });
+      }
+
+      function bindMoreOffcanvasAccessibility() {
+        const FILTER_FOCUS_CLOSE_DELAY_MS = 150;
+        const offcanvasEl = document.getElementById('ps-more-offcanvas');
+        const trigger = document.querySelector('.js-ps-more-trigger');
+        if (!offcanvasEl || !trigger) {
+          return;
+        }
+
+        trigger.addEventListener('focus', function () {
+          const bs = getBootstrap();
+          if (!bs?.Offcanvas || offcanvasEl.classList.contains('show')) {
+            return;
+          }
+          closeAllDropdowns();
+          hideAllLocationSuggestions();
+          bs.Offcanvas.getOrCreateInstance(offcanvasEl).show();
+        });
+
+        offcanvasEl.addEventListener('focusout', function () {
+          setTimeout(function () {
+            if (!offcanvasEl.classList.contains('show')) {
+              return;
+            }
+            const active = document.activeElement;
+            if (active instanceof Node && (offcanvasEl.contains(active) || trigger.contains(active))) {
+              return;
+            }
+            getBootstrap()?.Offcanvas.getInstance(offcanvasEl)?.hide();
+          }, FILTER_FOCUS_CLOSE_DELAY_MS);
+        });
+      }
+
       function getFilterBarBackdrop() {
         return document.querySelector('.js-ps-filter-bar-backdrop');
       }
@@ -670,27 +861,35 @@
         });
         dropdownEl.addEventListener('shown.bs.dropdown', function () {
           syncFilterBarBackdrop();
-          if (!dropdownEl.classList.contains('ps-filter-bar__item--location')) {
-            return;
-          }
-          const toggle = dropdownEl.querySelector('.js-ps-location-toggle');
-          if (toggle) {
-            toggle.setAttribute('aria-expanded', 'true');
+          syncFilterItemExpandedState(dropdownEl, true);
+          if (dropdownEl.classList.contains('ps-filter-bar__item--location')) {
+            const locationInput = dropdownEl.querySelector('.js-ps-locality-input');
+            const active = document.activeElement;
+            if (locationInput && active instanceof Node
+              && active !== locationInput
+              && active.closest('.ps-filter-bar__location-chips')) {
+              locationInput.focus();
+            }
           }
         });
         dropdownEl.addEventListener('hidden.bs.dropdown', function () {
           syncFilterBarBackdrop();
+          syncFilterItemExpandedState(dropdownEl, false);
           if (dropdownEl.classList.contains('ps-filter-bar__item--type')) {
             updateTypeOpBtnLabel(dropdownEl);
           }
           if (dropdownEl.classList.contains('ps-filter-bar__item--location')) {
             hideAllLocationSuggestions();
-            const toggle = dropdownEl.querySelector('.js-ps-location-toggle');
-            if (toggle) {
-              toggle.setAttribute('aria-expanded', 'false');
-            }
           }
         });
+      });
+
+      once('ps-filter-bar-a11y', '.ps-filter-bar', context).forEach(function (filterBar) {
+        bindFilterBarAccessibility(filterBar);
+      });
+
+      once('ps-more-offcanvas-a11y', '#ps-more-offcanvas', context).forEach(function () {
+        bindMoreOffcanvasAccessibility();
       });
 
       once('ps-filter-bar-backdrop', '.js-ps-filter-bar-backdrop', context).forEach(function (backdrop) {
@@ -717,15 +916,22 @@
           hideAllLocationSuggestions();
           syncFilterBarBackdrop();
           if (offcanvasEl.id === 'ps-more-offcanvas') {
+            const trigger = document.querySelector('.js-ps-more-trigger');
+            trigger?.setAttribute('aria-expanded', 'true');
             htmxApi.refreshCount('more', buildCountParams().toString());
           }
           if (offcanvasEl.id === 'ps-mobile-filters') {
+            document.querySelector('.js-ps-mobile-filters-trigger')?.setAttribute('aria-expanded', 'true');
             htmxApi.refreshCount('mobile', buildCountParams().toString());
           }
         });
         offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
           if (offcanvasEl.id === 'ps-mobile-filters') {
             teardownMobileMoreCriteriaLazyLoad();
+            document.querySelector('.js-ps-mobile-filters-trigger')?.setAttribute('aria-expanded', 'false');
+          }
+          if (offcanvasEl.id === 'ps-more-offcanvas') {
+            document.querySelector('.js-ps-more-trigger')?.setAttribute('aria-expanded', 'false');
           }
           syncFilterBarBackdrop();
         });
