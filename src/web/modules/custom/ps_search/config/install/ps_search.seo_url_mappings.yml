@@ -8,6 +8,5 @@ asset_types:
   ACT: activity
   COM: retail
   TER: land
-  LOG: logistics
   COW: coworking
 asset_slug_aliases: {}

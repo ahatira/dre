@@ -50,7 +50,7 @@ final class OfferReferenceGeneratorTest extends UnitTestCase {
           'source_field' => 'field_asset_type',
           'resolution_mode' => 'manual_then_alias',
           'alias_set_ids' => [],
-          'mapping' => ['BUR' => 'BUR', 'ENT' => 'LOG'],
+          'mapping' => ['BUR' => 'BUR', 'ENT' => 'ENT'],
           'fallback_value' => '',
         ],
         [

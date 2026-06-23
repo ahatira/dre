@@ -22,7 +22,7 @@ Example target pattern:
 
 1. position 1: offer kind (`O` for offer, `D` for request)
 2. position 2: operation alias (`L`, `V`, `C`)
-3. positions 3-5: asset alias (`BUR`, `ACT`, `LOG`, `COM`)
+3. positions 3-5: asset alias (`BUR`, `ACT`, `ENT`, `COM`)
 4. positions 6-7: creation year on 2 digits
 5. positions 8-12: sequence number on 5 digits
 
@@ -137,7 +137,7 @@ The default install pattern is:
 
 1. `Offer type`: `O`
 2. `Operation code`: `field_operation_type` mapped to `RENT => L`, `SALE => V`, `CESSION => C`
-3. `Asset code`: `field_asset_type` mapped to `BUR => BUR`, `ACT => ACT`, `ENT => LOG`, `COM => COM`
+3. `Asset code`: `field_asset_type` mapped to `BUR => BUR`, `ACT => ACT`, `ENT => ENT`, `COM => COM`
 4. `Creation year`: current year on 2 digits
 5. `Counter`: 5 digits, left padded with `0`
 

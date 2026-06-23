@@ -39,7 +39,7 @@ final class DictionaryEntryIconResolverTest extends UnitTestCase {
     $resolver = new DictionaryEntryIconResolver($this->createMock(EntityTypeManagerInterface::class));
 
     $this->assertSame('bnp_custom:offices', $resolver->getDefaultIconId('asset_type', 'BUR'));
-    $this->assertSame('bnp_custom:logistic-warehouses', $resolver->getDefaultIconId('asset_type', 'LOG'));
+    $this->assertSame('bnp_custom:logistic-warehouses', $resolver->getDefaultIconId('asset_type', 'ENT'));
     $this->assertSame('', $resolver->getDefaultIconId('operation_type', 'LOC'));
   }
 
@@ -85,11 +85,11 @@ final class DictionaryEntryIconResolverTest extends UnitTestCase {
 
     $this->assertSame('bnp_custom:terrain', $parts['full_id']);
 
-    $logParts = $resolver->resolveParts(NULL, [
+    $entParts = $resolver->resolveParts(NULL, [
       'type' => 'asset_type',
-      'code' => 'LOG',
+      'code' => 'ENT',
     ]);
-    $this->assertSame('bnp_custom:logistic-warehouses', $logParts['full_id']);
+    $this->assertSame('bnp_custom:logistic-warehouses', $entParts['full_id']);
   }
 
   /**

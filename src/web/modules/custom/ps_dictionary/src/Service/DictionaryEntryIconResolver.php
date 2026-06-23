@@ -36,7 +36,6 @@ final class DictionaryEntryIconResolver implements CacheableDependencyInterface 
     'ps-asset-icon--act' => 'bnp_custom:business-premises',
     'ps-asset-icon--com' => 'bnp_custom:shops',
     'ps-asset-icon--ter' => 'bnp_custom:terrain',
-    'ps-asset-icon--log' => 'bnp_custom:logistic-warehouses',
   ];
 
   /**
@@ -48,7 +47,6 @@ final class DictionaryEntryIconResolver implements CacheableDependencyInterface 
     'BUR' => 'bnp_custom:offices',
     'COW' => 'bnp_custom:coworking',
     'ENT' => 'bnp_custom:logistic-warehouses',
-    'LOG' => 'bnp_custom:logistic-warehouses',
     'ACT' => 'bnp_custom:business-premises',
     'COM' => 'bnp_custom:shops',
     'TER' => 'bnp_custom:terrain',

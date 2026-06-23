@@ -34,9 +34,6 @@ ps_search.seo_url_mappings:
         TER:
           type: label
           label: 'Slug for TER (land)'
-        LOG:
-          type: label
-          label: 'Slug for LOG (logistics)'
         COW:
           type: label
           label: 'Slug for COW (coworking)'

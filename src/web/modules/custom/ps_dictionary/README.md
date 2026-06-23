@@ -103,7 +103,7 @@ Colonnes de traduction optionnelles : `label_{langcode}` (ex : `label_fr`, `labe
 
 | Type | Code machine | Entrées |
 |---|---|---|
-| Types d'actifs | `asset_type` | BUR, COW, LOG, ACT, COM, TER |
+| Types d'actifs | `asset_type` | BUR, COW, ENT, ACT, COM, TER |
 | Types d'opérations | `operation_type` | RENT, SALE |
 | Unités de surface | `surface_unit` | M2, HA |
 | Devises | `currency` | EUR |

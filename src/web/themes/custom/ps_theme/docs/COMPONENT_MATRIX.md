@@ -76,5 +76,5 @@ Déjà disponibles : accordion, alert, badge, breadcrumb, button, button_group, 
 |---|---|
 | Investir / flexible | `transaction-toggle`, filtres |
 | Hôtellerie | Nouveau asset type + tuiles homepage |
-| LOG vs ENT URLs SEO | `ps_search` mappings, pas le thème |
+| Asset type SEO URLs | `ps_search` mappings, pas le thème |
 | Alertes recherche | Nouveau module + modal |

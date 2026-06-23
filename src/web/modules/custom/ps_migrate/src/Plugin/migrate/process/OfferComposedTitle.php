@@ -89,10 +89,6 @@ final class OfferComposedTitle extends ProcessPluginBase implements ContainerFac
     $forced_langcode = strtolower(trim($this->firstScalarString($source[5] ?? NULL)));
     $langcode = $forced_langcode !== '' ? $forced_langcode : $this->langcodeFromCountry($country_code);
 
-    if ($asset_code === 'LOG') {
-      $asset_code = 'ENT';
-    }
-
     $operation_label = $this->resolveDictionaryLabel('operation_type', $operation_code, $langcode) ?? $this->operationLabelFallback($operation_code);
     $asset_label_lower = $this->resolveDictionaryLabel('asset_type', $asset_code, $langcode);
     if ($asset_label_lower === NULL || $asset_label_lower === '') {
@@ -216,7 +212,7 @@ final class OfferComposedTitle extends ProcessPluginBase implements ContainerFac
     return match ($asset_code) {
       'BUR' => 'office',
       'ACT' => 'activity unit',
-      'ENT', 'LOG' => 'warehouse',
+      'ENT' => 'warehouse',
       'COM' => 'retail unit',
       'COW' => 'coworking',
       'TER' => 'land',

@@ -130,7 +130,7 @@ ps_search_search_shortcuts_block:
         link_label: 'Ver anuncios'
         link_type: search_preset
         preset_operation: LOC
-        preset_asset: LOG
+        preset_asset: ENT
         preset_locality: ''
         url: ''
       - weight: 2

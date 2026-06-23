@@ -264,7 +264,7 @@ ps_search_search_shortcuts_block:
         link_label: 'View listings'
         link_type: search_preset
         preset_operation: LOC
-        preset_asset: LOG
+        preset_asset: ENT
         preset_locality: ''
         url: ''
       - weight: 2
@@ -304,7 +304,7 @@ ps_search_search_shortcuts_block:
         link_label: 'Voir les annonces'
         link_type: search_preset
         preset_operation: LOC
-        preset_asset: LOG
+        preset_asset: ENT
         preset_locality: ''
         url: ''
       - weight: 2

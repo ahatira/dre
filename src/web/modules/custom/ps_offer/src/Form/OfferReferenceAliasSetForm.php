@@ -54,7 +54,7 @@ final class OfferReferenceAliasSetForm extends EntityForm {
       '#type' => 'textarea',
       '#title' => $this->t('Alias entries'),
       '#default_value' => $this->encodeEntries($entity->getEntries()),
-      '#description' => $this->t('One alias per line: source_field|source_value|reference_code|weight|description. Example: field_asset_type|ENT|LOG|0|Warehouse alias'),
+      '#description' => $this->t('One alias per line: source_field|source_value|reference_code|weight|description. Example: field_asset_type|ENT|ENT|0|Warehouse alias'),
       '#rows' => 12,
     ];
 

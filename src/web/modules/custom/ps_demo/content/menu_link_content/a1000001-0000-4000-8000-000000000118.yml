@@ -24,7 +24,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/find-property?operation_type=VEN&asset_type=LOG'
+      uri: 'internal:/find-property?operation_type=VEN&asset_type=ENT'
       title: null
       options: {  }
   external:
@@ -64,7 +64,7 @@ translations:
         value: main
     link:
       -
-        uri: 'internal:/find-property?operation_type=VEN&asset_type=LOG'
+        uri: 'internal:/find-property?operation_type=VEN&asset_type=ENT'
         title: null
         options: {  }
     external:

@@ -129,7 +129,7 @@ echo ""
 echo "--- 3. EN operation + asset SEO paths (200) ---"
 declare -A EN_ASSETS=(
   [BUR]=office [ENT]=warehouse [ACT]=activity [COM]=retail
-  [TER]=land [LOG]=logistics [COW]=coworking
+  [TER]=land [COW]=coworking
 )
 for code in "${!EN_ASSETS[@]}"; do
   slug="${EN_ASSETS[$code]}"
@@ -144,7 +144,7 @@ echo ""
 echo "--- 4. FR operation + asset SEO paths (200) ---"
 declare -A FR_ASSETS=(
   [BUR]=bureaux [ENT]=entrepot [ACT]=activite [COM]=commerce
-  [TER]=terrain [LOG]=logistique
+  [TER]=terrain
 )
 for code in "${!FR_ASSETS[@]}"; do
   slug="${FR_ASSETS[$code]}"

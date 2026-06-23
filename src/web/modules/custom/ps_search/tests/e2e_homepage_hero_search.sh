@@ -44,11 +44,11 @@ echo ""
 
 LOCALITY="Paris"
 
-declare -A EN_SLUGS=( [BUR]=office [ENT]=warehouse [ACT]=activity [COM]=retail [TER]=land [LOG]=logistics [COW]=coworking )
-declare -A FR_SLUGS=( [BUR]=bureaux [ENT]=entrepot [ACT]=activite [COM]=commerce [TER]=terrain [LOG]=logistique [COW]=coworking )
+declare -A EN_SLUGS=( [BUR]=office [ENT]=warehouse [ACT]=activity [COM]=retail [TER]=land [COW]=coworking )
+declare -A FR_SLUGS=( [BUR]=bureaux [ENT]=entrepot [ACT]=activite [COM]=commerce [TER]=terrain [COW]=coworking )
 
 echo "--- EN — Rent (LOC) ---"
-for code in BUR ENT ACT COM TER LOG COW; do
+for code in BUR ENT ACT COM TER COW; do
   slug="${EN_SLUGS[$code]}"
   assert_hero_redirect "EN Rent+$code" \
     "$BASE/find-property?operation_type=LOC&asset_type=${code}&locality[]=${LOCALITY}" \
@@ -57,7 +57,7 @@ done
 
 echo ""
 echo "--- EN — Buy (VEN) ---"
-for code in BUR ENT ACT COM TER LOG COW; do
+for code in BUR ENT ACT COM TER COW; do
   slug="${EN_SLUGS[$code]}"
   assert_hero_redirect "EN Buy+$code" \
     "$BASE/find-property?operation_type=VEN&asset_type=${code}&locality[]=${LOCALITY}" \
@@ -66,7 +66,7 @@ done
 
 echo ""
 echo "--- EN — Indifférent (no operation slug) ---"
-for code in BUR ENT ACT COM TER LOG COW; do
+for code in BUR ENT ACT COM TER COW; do
   slug="${EN_SLUGS[$code]}"
   assert_hero_redirect "EN Indiff+$code" \
     "$BASE/find-property?asset_type=${code}&locality[]=${LOCALITY}" \
@@ -82,7 +82,7 @@ done
 
 echo ""
 echo "--- FR — Louer (LOC) ---"
-for code in BUR ENT ACT COM TER LOG COW; do
+for code in BUR ENT ACT COM TER COW; do
   slug="${FR_SLUGS[$code]}"
   assert_hero_redirect "FR Rent+$code" \
     "$BASE/fr/recherche-immobiliere?operation_type=LOC&asset_type=${code}&locality[]=${LOCALITY}" \
@@ -91,7 +91,7 @@ done
 
 echo ""
 echo "--- FR — Acheter (VEN) ---"
-for code in BUR ENT ACT COM TER LOG COW; do
+for code in BUR ENT ACT COM TER COW; do
   slug="${FR_SLUGS[$code]}"
   assert_hero_redirect "FR Buy+$code" \
     "$BASE/fr/recherche-immobiliere?operation_type=VEN&asset_type=${code}&locality[]=${LOCALITY}" \
@@ -100,7 +100,7 @@ done
 
 echo ""
 echo "--- FR — Indifférent (no operation slug) ---"
-for code in BUR ENT ACT COM TER LOG COW; do
+for code in BUR ENT ACT COM TER COW; do
   slug="${FR_SLUGS[$code]}"
   assert_hero_redirect "FR Indiff+$code" \
     "$BASE/fr/recherche-immobiliere?asset_type=${code}&locality[]=${LOCALITY}" \

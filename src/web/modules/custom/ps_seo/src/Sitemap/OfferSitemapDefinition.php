@@ -20,7 +20,6 @@ final class OfferSitemapDefinition {
     'offer_ent' => 'ENT',
     'offer_act' => 'ACT',
     'offer_ter' => 'TER',
-    'offer_log' => 'LOG',
     'offer_cow' => 'COW',
   ];
 
@@ -33,7 +32,6 @@ final class OfferSitemapDefinition {
     'offer_ent' => 'Offers — Warehouse (ENT)',
     'offer_act' => 'Offers — Activity (ACT)',
     'offer_ter' => 'Offers — Land (TER)',
-    'offer_log' => 'Offers — Logistics (LOG)',
     'offer_cow' => 'Offers — Coworking (COW)',
   ];
 

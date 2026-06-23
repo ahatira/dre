@@ -8,5 +8,4 @@ asset_types:
   ACT: local-actividad
   COM: local-comercial
   TER: terreno
-  LOG: logistica
   COW: coworking

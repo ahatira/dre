@@ -53,7 +53,7 @@ segments:
     mapping:
       BUR: BUR
       ACT: ACT
-      ENT: LOG
+      ENT: ENT
       COM: COM
       COW: COW
     fallback_value: BUR

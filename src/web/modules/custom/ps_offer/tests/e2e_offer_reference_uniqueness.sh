@@ -24,7 +24,7 @@ echo "== PS Offer reference uniqueness E2E =="
 echo "Scenario: operation=${OP_CODE}, asset=${ASSET_CODE}, mode=${MODE}"
 
 # Ensure a default reference pattern exists.
-run_eval '$storage=\Drupal::entityTypeManager()->getStorage("ps_offer_reference_pattern"); $pattern=$storage->load("default"); if (!$pattern) { $pattern=$storage->create(["id"=>"default","label"=>"Default offer reference pattern","status"=>TRUE,"weight"=>0,"target_bundles"=>["offer"],"allow_manual_override"=>TRUE,"require_uniqueness"=>TRUE,"validate_manual_value_against_pattern"=>TRUE,"generate_on_create"=>TRUE,"regenerate_on_source_change"=>TRUE,"counter_scope_mode"=>"prefix","segments"=>[["uuid"=>"seg-literal-o","label"=>"Offer type","type"=>"literal","weight"=>0,"length"=>1,"fallback_value"=>"O"],["uuid"=>"seg-op","label"=>"Operation code","type"=>"field_map","weight"=>10,"length"=>1,"source_field"=>"field_operation_type","resolution_mode"=>"manual_then_alias","mapping"=>["LOC"=>"L","VEN"=>"V","CESSION"=>"C"],"fallback_value"=>"L"],["uuid"=>"seg-asset","label"=>"Asset code","type"=>"field_map","weight"=>20,"length"=>3,"source_field"=>"field_asset_type","resolution_mode"=>"manual_then_alias","mapping"=>["BUR"=>"BUR","ACT"=>"ACT","ENT"=>"LOG","COM"=>"COM","COW"=>"COW"],"fallback_value"=>"BUR"],["uuid"=>"seg-year","label"=>"Year","type"=>"year_2_digits","weight"=>30,"length"=>2,"fallback_value"=>"00"],["uuid"=>"seg-counter","label"=>"Counter","type"=>"counter","weight"=>40,"length"=>5,"fallback_value"=>"1"]]]); $pattern->save(); print "pattern_created\n"; } else { print "pattern_exists\n"; }'
+run_eval '$storage=\Drupal::entityTypeManager()->getStorage("ps_offer_reference_pattern"); $pattern=$storage->load("default"); if (!$pattern) { $pattern=$storage->create(["id"=>"default","label"=>"Default offer reference pattern","status"=>TRUE,"weight"=>0,"target_bundles"=>["offer"],"allow_manual_override"=>TRUE,"require_uniqueness"=>TRUE,"validate_manual_value_against_pattern"=>TRUE,"generate_on_create"=>TRUE,"regenerate_on_source_change"=>TRUE,"counter_scope_mode"=>"prefix","segments"=>[["uuid"=>"seg-literal-o","label"=>"Offer type","type"=>"literal","weight"=>0,"length"=>1,"fallback_value"=>"O"],["uuid"=>"seg-op","label"=>"Operation code","type"=>"field_map","weight"=>10,"length"=>1,"source_field"=>"field_operation_type","resolution_mode"=>"manual_then_alias","mapping"=>["LOC"=>"L","VEN"=>"V","CESSION"=>"C"],"fallback_value"=>"L"],["uuid"=>"seg-asset","label"=>"Asset code","type"=>"field_map","weight"=>20,"length"=>3,"source_field"=>"field_asset_type","resolution_mode"=>"manual_then_alias","mapping"=>["BUR"=>"BUR","ACT"=>"ACT","ENT"=>"ENT","COM"=>"COM","COW"=>"COW"],"fallback_value"=>"BUR"],["uuid"=>"seg-year","label"=>"Year","type"=>"year_2_digits","weight"=>30,"length"=>2,"fallback_value"=>"00"],["uuid"=>"seg-counter","label"=>"Counter","type"=>"counter","weight"=>40,"length"=>5,"fallback_value"=>"1"]]]); $pattern->save(); print "pattern_created\n"; } else { print "pattern_exists\n"; }'
 
 if [[ "${MODE}" == "parallel-roundtrip-two" ]]; then
   UNIQUENESS_CHECK_PHP=$(cat <<'PHP'
@@ -116,7 +116,7 @@ if ($phase1A === $phase1B || $phase2A === $phase2B) {
 print "PASS: parallel logical roundtrip keeps references unique between existing offers\n";
 
 $op_map = ['LOC' => 'L', 'VEN' => 'V', 'CESSION' => 'C'];
-$asset_map = ['BUR' => 'BUR', 'ACT' => 'ACT', 'ENT' => 'LOG', 'COM' => 'COM', 'COW' => 'COW'];
+$asset_map = ['BUR' => 'BUR', 'ACT' => 'ACT', 'ENT' => 'ENT', 'COM' => 'COM', 'COW' => 'COW'];
 $expected_prefix = 'O' . ($op_map[$operation] ?? 'L') . ($asset_map[$asset] ?? 'BUR');
 
 foreach ($all as $ref) {
@@ -198,7 +198,7 @@ if (count(array_unique($refs)) !== 3) {
 print "PASS: logical concurrency uniqueness across 3 auto-generated references\n";
 
 $op_map = ['LOC' => 'L', 'VEN' => 'V', 'CESSION' => 'C'];
-$asset_map = ['BUR' => 'BUR', 'ACT' => 'ACT', 'ENT' => 'LOG', 'COM' => 'COM', 'COW' => 'COW'];
+$asset_map = ['BUR' => 'BUR', 'ACT' => 'ACT', 'ENT' => 'ENT', 'COM' => 'COM', 'COW' => 'COW'];
 $expected_prefix = 'O' . ($op_map[$operation] ?? 'L') . ($asset_map[$asset] ?? 'BUR');
 
 foreach ($refs as $ref) {

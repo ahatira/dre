@@ -46,7 +46,7 @@ final class SearchFilterVisibilityResolver {
     $showSurface = $state->isTabVisible(self::TAB_SURFACE);
     $showCapacity = $state->isTabVisible(self::TAB_CAPACITY);
 
-    // Asset codes not covered by seed rules (e.g. LOG) — default to surface.
+    // Asset codes not covered by seed rules — default to surface.
     if (!$showSurface && !$showCapacity) {
       return [
         'show_surface' => TRUE,

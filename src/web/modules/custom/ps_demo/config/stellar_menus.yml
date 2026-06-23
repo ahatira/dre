@@ -38,7 +38,7 @@ menus:
             - id: find_rent_logistics
               uuid: a1000001-0000-4000-8000-000000000114
               weight: 20
-              link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=LOG' }
+              link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=ENT' }
               translations:
                 en: { title: 'Logistics' }
                 fr: { title: 'Logistique' }
@@ -74,7 +74,7 @@ menus:
             - id: find_buy_logistics
               uuid: a1000001-0000-4000-8000-000000000118
               weight: 20
-              link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=LOG' }
+              link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=ENT' }
               translations:
                 en: { title: 'Logistics' }
                 fr: { title: 'Logistique' }
@@ -281,14 +281,14 @@ menus:
         - id: logistics_rent
           uuid: a1000002-0000-4000-8000-000000000221
           weight: 0
-          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=LOG' }
+          link: { uri: 'internal:/find-property?operation_type=LOC&asset_type=ENT' }
           translations:
             en: { title: 'Rent' }
             fr: { title: 'Louer' }
         - id: logistics_buy
           uuid: a1000002-0000-4000-8000-000000000222
           weight: 10
-          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=LOG' }
+          link: { uri: 'internal:/find-property?operation_type=VEN&asset_type=ENT' }
           translations:
             en: { title: 'Buy' }
             fr: { title: 'Acheter' }

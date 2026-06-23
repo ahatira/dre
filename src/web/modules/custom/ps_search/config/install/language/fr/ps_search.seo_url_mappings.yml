@@ -8,7 +8,6 @@ asset_types:
   ACT: activite
   COM: commerce
   TER: terrain
-  LOG: logistique
   COW: coworking
 asset_slug_aliases:
   bureau: bureaux

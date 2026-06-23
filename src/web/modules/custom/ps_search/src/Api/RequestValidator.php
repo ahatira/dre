@@ -15,7 +15,7 @@ final class RequestValidator {
 
   private const OPERATION_TYPES = ['LOC', 'VEN'];
 
-  private const ASSET_TYPES = ['BUR', 'ENT', 'ACT', 'COM', 'TER', 'LOG', 'COW'];
+  private const ASSET_TYPES = ['BUR', 'ENT', 'ACT', 'COM', 'TER', 'COW'];
 
   private const TRANSPORTS = ['walking', 'transports', 'bike', 'car'];
 
