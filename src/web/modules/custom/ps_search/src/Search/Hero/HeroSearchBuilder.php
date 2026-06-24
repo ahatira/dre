@@ -34,7 +34,13 @@ final class HeroSearchBuilder {
    */
   public function build(array $heroProps): array {
     $labels = is_array($heroProps['labels'] ?? NULL) ? $heroProps['labels'] : [];
-    $panel = $this->homepageSearchPanelBuilder->buildPanelContent($labels);
+    $panelOptions = [
+      'hero_background_default' => (string) ($heroProps['hero_background_default'] ?? ''),
+      'hero_background_by_asset' => is_array($heroProps['hero_background_by_asset'] ?? NULL)
+        ? $heroProps['hero_background_by_asset']
+        : [],
+    ];
+    $panel = $this->homepageSearchPanelBuilder->buildPanelContent($labels, $panelOptions);
     $delegate = $this->heroDelegateBarBuilder->build($labels);
 
     $promoCtaUrl = (string) ($heroProps['promo_cta_url'] ?? '/find-property');

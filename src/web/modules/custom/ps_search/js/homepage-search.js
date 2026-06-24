@@ -1,6 +1,6 @@
 /**
  * @file
- * Homepage hero search — transaction toggles, location chips, GET submit.
+ * Homepage hero search — Figma layout, context matrix rules, hero backgrounds.
  */
 (function (Drupal, drupalSettings, once) {
   'use strict';
@@ -8,9 +8,15 @@
   Drupal.behaviors.psHomepageSearch = {
     attach(context) {
       const settings = drupalSettings.psSearch || {};
+      const filterVisibilityByAsset = settings.filterVisibilityByAsset || {};
+      const homepageBudgetByAsset = settings.homepageBudgetByAsset || {};
+      const homepageBudgetConfig = settings.homepageBudgetFilterConfig || {};
+      const heroBackgroundByAsset = settings.heroBackgroundByAsset || {};
+      const heroBackgroundDefault = settings.heroBackgroundDefault || '';
 
       once('ps-homepage-search-form', '.ps-homepage-search-form', context).forEach((form) => {
         const root = form.closest('[data-ps-homepage-search-entry]') || form.parentElement;
+        const heroShell = form.closest('.ps-search-hero');
         const opInput = form.querySelector('.js-ps-homepage-operation');
         const opGroup = form.querySelector('.js-ps-homepage-op-group');
         const assetSelect = form.querySelector('.js-ps-homepage-asset-select');
@@ -18,6 +24,11 @@
         const locationSection = form.querySelector('.js-ps-homepage-location-section');
         const locationRoot = form.querySelector('.ps-filter-bar__item--location');
         const assetSection = form.querySelector('.js-ps-homepage-asset-section');
+        const surfaceField = form.querySelector('.js-ps-homepage-surface-field');
+        const capacityField = form.querySelector('.js-ps-homepage-capacity-field');
+        const surfaceInput = form.querySelector('.js-ps-homepage-surface-min');
+        const capacityInput = form.querySelector('.js-ps-homepage-capacity-min');
+        const budgetMaxInput = form.querySelector('.js-ps-homepage-budget-max');
         const hiddenLocality = root ? root.querySelector('.js-ps-homepage-locality-hidden') : null;
         const errorsBox = root ? root.querySelector('.js-ps-homepage-errors') : null;
         let locationEditor = null;
@@ -46,6 +57,93 @@
           });
         }
 
+        const getSelectedOp = () => {
+          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
+          const code = activeBtn ? activeBtn.dataset.code : '';
+          if (!code || code === 'FLEX') {
+            return null;
+          }
+          return code;
+        };
+
+        const getActiveOperationCode = () => {
+          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
+          return activeBtn ? activeBtn.dataset.code : '';
+        };
+
+        const getFilterVisibility = (assetCode) => {
+          const key = assetCode || '';
+          return filterVisibilityByAsset[key] || {
+            show_surface: true,
+            show_capacity: false,
+            primary_filter: 'surface',
+          };
+        };
+
+        const getHomepageBudgetConfig = () => {
+          const assetKey = assetSelect && assetSelect.value ? assetSelect.value : '';
+          const opKey = getSelectedOp() || '';
+          const assetMap = homepageBudgetByAsset[assetKey] || homepageBudgetByAsset[''] || {};
+          return assetMap[opKey] || assetMap[''] || homepageBudgetConfig;
+        };
+
+        const setFieldHidden = (fieldEl, inputEl, hidden) => {
+          if (!fieldEl) {
+            return;
+          }
+          fieldEl.hidden = hidden;
+          if (inputEl && hidden) {
+            inputEl.value = '';
+          }
+        };
+
+        const updateHeroBackground = () => {
+          if (!heroShell) {
+            return;
+          }
+          const assetCode = assetSelect && assetSelect.value ? assetSelect.value : '';
+          const nextUrl = heroBackgroundByAsset[assetCode] || heroBackgroundDefault;
+          if (!nextUrl) {
+            return;
+          }
+
+          heroShell.querySelectorAll('.ps-search-hero__image, .ps-search-hero__promo-image').forEach((img) => {
+            if (img.src === nextUrl || img.getAttribute('src') === nextUrl) {
+              return;
+            }
+            img.classList.add('is-fading');
+            const preload = new Image();
+            preload.onload = () => {
+              img.src = nextUrl;
+              img.classList.remove('is-fading');
+            };
+            preload.onerror = () => {
+              img.classList.remove('is-fading');
+            };
+            preload.src = nextUrl;
+          });
+        };
+
+        const updateContextFilters = () => {
+          const assetCode = assetSelect && assetSelect.value ? assetSelect.value : '';
+          const visibility = getFilterVisibility(assetCode);
+          const showSurface = visibility.show_surface;
+          const showCapacity = visibility.show_capacity;
+
+          setFieldHidden(surfaceField, surfaceInput, !showSurface);
+          setFieldHidden(capacityField, capacityInput, !showCapacity);
+
+          const config = getHomepageBudgetConfig();
+          if (budgetMaxInput && config.max_placeholder) {
+            budgetMaxInput.placeholder = config.max_placeholder;
+          }
+          if (budgetMaxInput && config.step) {
+            budgetMaxInput.step = config.step;
+          }
+
+          updateHeroBackground();
+        };
+
         const setActiveOpButton = (button) => {
           form.querySelectorAll('.js-ps-op-btn').forEach((btn) => {
             const active = btn === button;
@@ -61,9 +159,8 @@
           if (!opInput) {
             return;
           }
-          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
-          const code = activeBtn ? activeBtn.dataset.code : '';
-          if (!code || code === 'FLEX') {
+          const code = getSelectedOp();
+          if (!code) {
             opInput.value = '';
             opInput.disabled = true;
             return;
@@ -104,7 +201,12 @@
         };
 
         const stripEmptyOptionalFields = () => {
-          form.querySelectorAll('.js-ps-homepage-surface-min, .js-ps-homepage-budget-max').forEach((input) => {
+          form.querySelectorAll('.js-ps-homepage-surface-min, .js-ps-homepage-capacity-min, .js-ps-homepage-budget-max').forEach((input) => {
+            const field = input.closest('.ps-homepage-search-entry__field');
+            if (field && field.hidden) {
+              input.removeAttribute('name');
+              return;
+            }
             if (!String(input.value || '').trim()) {
               input.removeAttribute('name');
             }
@@ -115,16 +217,12 @@
           return locationEditor ? locationEditor.getTokens() : [];
         };
 
-        const getActiveOperationCode = () => {
-          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
-          return activeBtn ? activeBtn.dataset.code : '';
-        };
-
         const validateForm = () => {
           if (locationEditor) {
             locationEditor.commitDraft();
           }
           syncOperationField();
+          updateContextFilters();
           clearErrors();
 
           const messages = [];
@@ -168,6 +266,7 @@
           button.addEventListener('click', () => {
             setActiveOpButton(button);
             syncOperationField();
+            updateContextFilters();
           });
         });
 
@@ -177,6 +276,7 @@
             if (assetSection) {
               assetSection.classList.remove('is-invalid');
             }
+            updateContextFilters();
           });
         }
 
@@ -201,6 +301,7 @@
         });
 
         syncOperationField();
+        updateContextFilters();
       });
 
       once('ps-homepage-delegate-info', '[data-ps-delegate-info]', context).forEach((trigger) => {

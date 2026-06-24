@@ -93,10 +93,12 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
     $defaultBackground = $this->heroSearchBuilder->defaultHeroBackgroundUrl();
     $backgroundMedia = $this->mediaResolver->resolve($this->configuration['background_image'] ?? NULL, $langcode);
     $promoMedia = $this->mediaResolver->resolve($this->configuration['promo_background_image'] ?? NULL, $langcode);
+    $backgroundUrl = ($backgroundMedia->url ?? '') !== '' ? (string) $backgroundMedia->url : $defaultBackground;
+    $promoUrl = ($promoMedia->url ?? '') !== '' ? (string) $promoMedia->url : $backgroundUrl;
 
     return $this->heroSearchBuilder->build([
       'title' => $editorial['title'],
-      'background_image' => $backgroundMedia->url ?? $defaultBackground,
+      'background_image' => $backgroundUrl,
       'background_alt' => $backgroundMedia->alt !== '' ? $backgroundMedia->alt : $editorial['title'],
       'promo_title' => $editorial['promo_title'],
       'promo_offers_line' => $editorial['promo_offers_line'],
@@ -106,12 +108,41 @@ final class SearchHeroBlock extends BlockBase implements ContainerFactoryPluginI
         $editorial['promo_cta_url'] ?: $this->searchPathResolver->getPublicPath($langcode),
         $langcode,
       ),
-      'promo_background_image' => $promoMedia->url ?? ($backgroundMedia->url ?? $defaultBackground),
+      'promo_background_image' => $promoUrl,
       'promo_background_alt' => $promoMedia->alt !== '' ? $promoMedia->alt : $editorial['promo_title'],
+      'hero_background_default' => $backgroundUrl,
+      'hero_background_by_asset' => $this->buildAssetBackgroundMap($langcode),
       'labels' => $editorial + [
         'delegate_url' => Url::fromUserInput($editorial['delegate_url'] ?: '/contact')->toString(),
       ],
     ]);
+  }
+
+  /**
+   * Resolves optional per-asset hero backgrounds configured in the block.
+   *
+   * Only explicitly configured asset types are returned; others reuse
+   * hero_background_default on the client.
+   *
+   * @return array<string, string>
+   */
+  private function buildAssetBackgroundMap(string $langcode): array {
+    $configured = is_array($this->configuration['asset_background_images'] ?? NULL)
+      ? $this->configuration['asset_background_images']
+      : [];
+    $map = [];
+
+    foreach ($configured as $code => $mid) {
+      if (!is_string($code) || $code === '' || !is_numeric($mid) || (int) $mid <= 0) {
+        continue;
+      }
+      $media = $this->mediaResolver->resolve((int) $mid, $langcode);
+      if (($media->url ?? '') !== '') {
+        $map[strtoupper($code)] = (string) $media->url;
+      }
+    }
+
+    return $map;
   }
 
 }
