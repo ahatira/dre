@@ -73,13 +73,13 @@
       <text x="{{ cursor_x + 20 }}" y="28.35" fill="{{ badge_text }}" font-size="24px" stroke-width="1.2977" text-anchor="middle">{{ display_text|upper }}</text>
     </svg>
 
-    <div class="ps-diagnostic__legend-track" aria-hidden="{{ show_legend ? 'false' : 'true' }}">
-      {% if show_legend %}
-        <span class="ps-diagnostic__legend" style="--legend-x: {{ legend_x_percent }}%;">
-          {{ raw_value }} {{ unit }}
-        </span>
-      {% endif %}
+    {% if show_legend %}
+    <div class="ps-diagnostic__legend-track">
+      <span class="ps-diagnostic__legend" style="--legend-x: {{ legend_x_percent }}%;">
+        {{ raw_value }} {{ unit }}
+      </span>
     </div>
+    {% endif %}
   </div>
 
   {% if show_dates and (diagnostic_date_display or validity_end_date_display) %}

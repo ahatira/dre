@@ -901,7 +901,7 @@ body:has(.node--type-offer.node--view-mode-full) {
   > .field--items {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     column-gap: 0;
     row-gap: 0;
     align-items: start;
@@ -913,7 +913,7 @@ body:has(.node--type-offer.node--view-mode-full) {
   > .field--items > .field--item {
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 2;
+    grid-row: span 3;
     min-width: 0;
 
     &:first-child {
@@ -924,8 +924,8 @@ body:has(.node--type-offer.node--view-mode-full) {
   figure.ps-diagnostic {
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 2;
-    gap: 0.5rem;
+    grid-row: span 3;
+    gap: 0;
     width: 100%;
     height: auto;
     margin: 0;
@@ -933,11 +933,24 @@ body:has(.node--type-offer.node--view-mode-full) {
     background: transparent;
 
     > figcaption {
+      grid-row: 1;
       min-width: 0;
     }
 
     > .ps-diagnostic__scale {
+      grid-row: 2;
       align-self: start;
+    }
+
+    > .ps-diagnostic__dates {
+      grid-row: 3;
+      align-self: start;
+    }
+
+    > .ps-diagnostic__message {
+      grid-row: 3;
+      align-self: start;
+      margin-top: 0.5rem;
     }
   }
 
