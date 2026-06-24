@@ -27,6 +27,8 @@ for entry in \
   "b2b_more_filters.sh:More filters" \
   "b2b_more_filters_features.sh:More filters feature types" \
   "b2b_filter_count_htmx.sh:HTMX filter count" \
+  "e2e_flat_range_query_params.sh:Flat range query params (NumericFilter regression)" \
+  "e2e_homepage_hero_search.sh:Homepage hero → SEO search" \
   "e2e_seo_urls.sh:SEO URLs (EN/FR, redirects, canonical)"; do
   script="${entry%%:*}"
   name="${entry#*:}"

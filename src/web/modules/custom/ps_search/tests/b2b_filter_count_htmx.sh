@@ -101,6 +101,22 @@ else
   fail "HTMX surface count mismatch (htmx=$SURF_HTMX_COUNT json=$SURF_JSON_COUNT)"
 fi
 
+echo ""
+echo "--- SEO page + flat surface_min (Views exposed filter regression) ---"
+SEO_SURF_CODE=$(curl -sL -m 60 -o /dev/null -w '%{http_code}' \
+  "$BASE/for-rent/office/paris-75/?surface_min=100" 2>/dev/null || echo "000")
+if [[ "$SEO_SURF_CODE" == "200" ]]; then
+  pass "SEO path + flat surface_min loads (HTTP 200)"
+  SEO_SURF_HTML=$(curl -sL -m 60 "$BASE/for-rent/office/paris-75/?surface_min=100" 2>/dev/null || echo "")
+  if [[ "$SEO_SURF_HTML" == *'"globalCount"'* ]]; then
+    pass "SEO path + flat surface_min has globalCount"
+  else
+    fail "SEO path + flat surface_min missing globalCount"
+  fi
+else
+  fail "SEO path + flat surface_min (HTTP $SEO_SURF_CODE)"
+fi
+
 SURF_APPLY_HEADERS=$(curl -sI -m 60 -H "HX-Request: true" \
   "$BASE/api/ps/htmx/apply-range/surface?surface_min=100" 2>/dev/null || echo "")
 if echo "$SURF_APPLY_HEADERS" | grep -qi 'trigger-after-settle.*ps-search-filter-htmx-apply'; then

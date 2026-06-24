@@ -7,6 +7,7 @@ namespace Drupal\ps_search\EventSubscriber;
 use Drupal\ps_search\Contract\SearchContextResolverInterface;
 use Drupal\ps_search\Contract\SearchContextSerializerInterface;
 use Drupal\ps_search\Service\SearchEngineSettingsReader;
+use Drupal\ps_search\Service\SearchExposedFiltersQueryNormalizer;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -50,6 +51,10 @@ final class SearchCanonicalRedirectSubscriber implements EventSubscriberInterfac
     }
 
     $request = $event->getRequest();
+
+    if ($this->contextResolver->isSearchRequest($request)) {
+      SearchExposedFiltersQueryNormalizer::normalizeRequest($request);
+    }
 
     // Skip AJAX / XHR requests (BEF autosubmit, Views AJAX pagination, etc.).
     if ($request->isXmlHttpRequest()) {

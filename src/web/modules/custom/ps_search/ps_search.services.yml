@@ -692,3 +692,13 @@ services:
       - '@config.factory'
     tags:
       - { name: event_subscriber }
+
+  ps_search.exposed_filters_query_normalizer:
+    class: Drupal\ps_search\Service\SearchExposedFiltersQueryNormalizer
+
+  Drupal\ps_search\EventSubscriber\SearchExposedFiltersQuerySubscriber:
+    arguments:
+      - '@ps_search.context_resolver'
+      - '@ps_search.exposed_filters_query_normalizer'
+    tags:
+      - { name: event_subscriber }

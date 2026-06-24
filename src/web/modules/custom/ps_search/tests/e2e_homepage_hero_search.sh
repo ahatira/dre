@@ -124,6 +124,23 @@ assert_hero_redirect "EN Indiff+BUR empty optional" \
   "/office/"
 
 echo ""
+echo "--- Hero optional fields with values (flat surface_min / budget_max) ---"
+assert_hero_http "EN Rent+BUR surface+budget" \
+  "$BASE/find-property?operation_type=LOC&asset_type=BUR&locality[]=${LOCALITY}&surface_min=200&budget_max=500"
+assert_hero_http "EN Rent+BUR surface_min only" \
+  "$BASE/find-property?operation_type=LOC&asset_type=BUR&locality[]=${LOCALITY}&surface_min=200"
+FR_BASE="http://fr.localhost:8083"
+FR_PROBE=$(curl -s -m 15 -o /dev/null -w '%{http_code}' "$FR_BASE/a-louer/bureaux/" 2>/dev/null || echo "000")
+if [[ "$FR_PROBE" == "200" ]]; then
+  assert_hero_http "FR Louer+BUR surface+budget" \
+    "$FR_BASE/recherche-immobiliere?operation_type=LOC&asset_type=BUR&locality[]=${LOCALITY}&surface_min=200&budget_max=50"
+  assert_hero_http "FR SEO direct surface_min" \
+    "$FR_BASE/a-louer/bureaux/paris-12-75012/?surface_min=200&budget_max=50"
+else
+  echo "  SKIP: FR hero range tests (HTTP $FR_PROBE)"
+fi
+
+echo ""
 echo "--- Search page renders results (sample) ---"
 for url in \
   "$BASE/for-rent/office/" \

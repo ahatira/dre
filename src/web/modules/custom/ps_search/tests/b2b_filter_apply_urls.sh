@@ -196,9 +196,42 @@ assert_apply_more_trigger "$TRANSPORT_API_QS" "apply-more with transport"
 assert_apply_more_trigger "${API_M1}" "apply-more with transport+surface"
 
 echo ""
+echo "--- Flat range params on SEO path (NumericFilter / hero regression) ---"
+assert_search_page_flat() {
+  local url="$1" label="$2"
+  local html code
+  html=$(fetch "$url")
+  code=$(status_code "$url")
+  if [[ "$code" != "200" ]]; then
+    fail "$label (HTTP $code) — $url"
+    return
+  fi
+  if [[ "$html" == *"unexpected error"* ]]; then
+    fail "$label (error page) — $url"
+    return
+  fi
+  if [[ "$html" != *'"globalCount"'* ]]; then
+    fail "$label (missing globalCount) — $url"
+    return
+  fi
+  pass "$label (HTTP 200 + globalCount)"
+}
+assert_search_page_flat "${BASE}/for-rent/office/paris-75/?surface_min=200" "EN flat surface_min on dept path"
+assert_search_page_flat "${BASE}/for-rent/office/paris-75/?surface_min=200&budget_max=500" "EN flat surface_min + budget_max"
+assert_search_page_flat "${BASE}/for-rent/office/?surface_min=100" "EN flat surface_min on op+asset path"
+FR_BASE="http://fr.localhost:8083"
+FR_FLAT_CODE=$(status_code "${FR_BASE}/a-louer/bureaux/paris-12-75012/?surface_min=200")
+if [[ "$FR_FLAT_CODE" == "200" ]]; then
+  assert_search_page_flat "${FR_BASE}/a-louer/bureaux/paris-12-75012/?surface_min=200" "FR flat surface_min on arrondissement path"
+  assert_search_page_flat "${FR_BASE}/a-louer/bureaux/paris-12-75012/?surface_min=200&budget_max=50" "FR flat surface_min + budget_max"
+else
+  echo "  SKIP: FR flat range tests (HTTP $FR_FLAT_CODE)"
+fi
+
+echo ""
 echo "--- FR smoke (optional) ---"
 FR_BASE="http://fr.localhost:8083"
-FR_URL="${FR_BASE}/fr/a-louer/bureaux/?nearby_transport=bus"
+FR_URL="${FR_BASE}/a-louer/bureaux/?nearby_transport=bus"
 FR_CODE=$(curl -sL -m 60 -o /dev/null -w '%{http_code}' "$FR_URL" 2>/dev/null || echo "000")
 if [[ "$FR_CODE" == "200" ]]; then
   pass "FR a-louer/bureaux + transport (HTTP 200)"

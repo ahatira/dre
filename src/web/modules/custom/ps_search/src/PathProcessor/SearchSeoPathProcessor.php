@@ -13,6 +13,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\ps_search\Contract\GeoZoneRepositoryInterface;
 use Drupal\ps_search\Contract\SearchContextSerializerInterface;
 use Drupal\ps_search\Service\SearchEngineSettingsReader;
+use Drupal\ps_search\Service\SearchExposedFiltersQueryNormalizer;
 use Drupal\ps_search\Service\SearchPathResolver;
 use Drupal\ps_search\Service\SearchSeoLocalityPathBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,6 +91,7 @@ final class SearchSeoPathProcessor implements InboundPathProcessorInterface, Out
 
     $request->query->add($params);
     $this->syncLocationsQueryParam($request);
+    SearchExposedFiltersQueryNormalizer::normalizeRequest($request);
     $request->attributes->set('_disable_route_normalizer', TRUE);
 
     return $this->searchPathResolver->getInternalPath();
