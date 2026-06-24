@@ -15,7 +15,7 @@ COUNTRY ?= com
 	rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rebuild-permissions rbac-sec-e2e translations-fetch \
 	search-locality-seo-b2b search-b2b \
-	composer-install composer-update npm-install npm-audit
+	composer-install composer-update npm-install npm-audit build-npm
 
 help:
 	@echo "PS Project — dev environment (repo root)"
@@ -29,6 +29,7 @@ help:
 	@echo ""
 	@echo "Project commands (delegate to src/Makefile, Drush on host):"
 	@echo "  make bootstrap          = env + up + generate-multisite + build"
+	@echo "  make build-npm          — NPM/themes only, skip Composer (preferred over make build --npm-only)"
 	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
 	@echo "  make search-locality-seo-b2b | search-b2b   # PS Search B2B (localité / région)"
 	@echo ""
@@ -77,6 +78,9 @@ bootstrap: env up generate-multisite build
 
 build:
 	$(SRC_MAKE) build $(filter-out build,$(MAKECMDGOALS))
+
+build-npm:
+	$(SRC_MAKE) build-npm $(filter-out build-npm,$(MAKECMDGOALS))
 
 verify:
 	$(SRC_MAKE) verify

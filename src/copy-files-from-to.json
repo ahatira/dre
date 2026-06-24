@@ -77,6 +77,13 @@
       "toFlat": true
     },
     {
+      "//": "--- Bootstrap (ui_suite_bnp theme dependency) ---",
+      "from": [
+        "web/themes/custom/ui_suite_bnp/node_modules/bootstrap/**/*"
+      ],
+      "to": "web/libraries/bootstrap/"
+    },
+    {
       "//": "--- CKEditor 5 Media Embed Plugin (structure préservée) ---",
       "from": [
         "node_modules/@ckeditor/ckeditor5-media-embed/**/*"

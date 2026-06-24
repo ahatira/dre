@@ -6,7 +6,7 @@ SCRIPTS_CLI := $(SRC_DIR)/scripts/main.sh
 COUNTRY ?= com
 
 .PHONY: \
-	help build verify install reinstall install-from-conf import demo deploy drush-cr \
+	help build build-npm verify install reinstall install-from-conf import demo deploy drush-cr \
 	index-solr export-solr rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rebuild-permissions composer-install composer-update npm-install npm-audit \
 	seed-site-configs export-all-configs translations-fetch translations-fetch
@@ -14,7 +14,9 @@ COUNTRY ?= com
 help:
 	@echo "Property Search — src/ (deployable artefact)"
 	@echo ""
-	@echo "  make build [--production via scripts/main.sh tools build --production]"
+	@echo "  make build [--production]             — full build (Composer + NPM)"
+	@echo "  make build-npm [--production]         — NPM/themes only (skip Composer)"
+	@echo "  make build -- --npm-only              — same as build-npm (GNU make: -- required)"
 	@echo "  make verify"
 	@echo "  make install [country...] | reinstall [country...]"
 	@echo "  make install-from-conf [country...]  — CMI from config/sites/{code}"
@@ -35,6 +37,9 @@ help:
 
 build:
 	bash "$(SCRIPTS_CLI)" tools build $(filter-out build,$(MAKECMDGOALS))
+
+build-npm:
+	bash "$(SCRIPTS_CLI)" tools build --npm-only $(filter-out build-npm,$(MAKECMDGOALS))
 
 verify:
 	bash "$(SCRIPTS_CLI)" tools check
