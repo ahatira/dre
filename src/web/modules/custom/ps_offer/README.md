@@ -62,7 +62,7 @@ Ce module **ne fait pas** :
 
 | Champ | Type | Description |
 |---|---|---|
-| `field_address` | `address` | Adresse structurée (module Address, pays FR) |
+| `field_address` | `address` | Adresse structurée (module Address, pays du site via CMI) |
 | `field_geo` | `geofield` | Coordonnées WKT (géocodage via Geocoder) |
 | `field_show_address` | `boolean` | Afficher l'adresse en front |
 

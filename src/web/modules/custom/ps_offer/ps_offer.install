@@ -20,6 +20,21 @@ const PS_OFFER_AGENT_CARD_COMPONENT_UUID = 'a1000001-0000-4000-8000-000000000030
 function ps_offer_install(): void {
   ps_offer_register_pathauto_safe_tokens();
   ps_offer_apply_full_layout_display();
+  ps_offer_apply_address_country_config();
+}
+
+/**
+ * Applies allowed address countries for the current multisite country.
+ */
+function ps_offer_apply_address_country_config(): void {
+  \Drupal::service('ps_offer.address_country_configurator')->applyForCurrentSite();
+}
+
+/**
+ * Sets offer address allowed countries from the active PS country code.
+ */
+function ps_offer_update_9001(): void {
+  ps_offer_apply_address_country_config();
 }
 
 /**

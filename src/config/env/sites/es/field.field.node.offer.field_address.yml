@@ -1,0 +1,6 @@
+# GENERATED — do not edit directly.
+# Source: scripts/multisite/countries.yml via make generate-multisite
+# Partial CMI override (merged at seed / install-from-conf).
+settings:
+  available_countries:
+    - ES

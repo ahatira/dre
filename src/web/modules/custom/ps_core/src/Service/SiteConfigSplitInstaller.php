@@ -19,6 +19,24 @@ use Psr\Log\LoggerInterface;
 final class SiteConfigSplitInstaller {
 
   /**
+   * Partial config overrides stored under config/env/sites/{country}/.
+   *
+   * @var string[]
+   */
+  private const PARTIAL_CONFIG_NAMES = [
+    'field.field.node.offer.field_address',
+  ];
+
+  /**
+   * Install YAML used as merge base for partial overrides.
+   *
+   * @var array<string, string>
+   */
+  private const PARTIAL_CONFIG_BASE = [
+    'field.field.node.offer.field_address' => '../web/modules/custom/ps_offer/config/install/field.field.node.offer.field_address.yml',
+  ];
+
+  /**
    * File storage for versioned Config Split entity YAML.
    */
   private readonly FileStorage $splitStorage;
@@ -73,6 +91,8 @@ final class SiteConfigSplitInstaller {
       if (!is_array($data)) {
         continue;
       }
+      unset($data['_comment']);
+      $data = $this->resolveConfigData($configName, $data);
       $this->configFactory->getEditable($configName)->setData($data)->save(TRUE);
       $imported++;
     }
@@ -81,6 +101,32 @@ final class SiteConfigSplitInstaller {
       'count' => $imported,
       'country' => $country,
     ]);
+  }
+
+  /**
+   * Resolves partial overrides against active or install config.
+   *
+   * @param array<string, mixed> $override
+   *   Override data from config/env/sites.
+   *
+   * @return array<string, mixed>
+   *   Full config data ready for import.
+   */
+  private function resolveConfigData(string $configName, array $override): array {
+    if (!in_array($configName, self::PARTIAL_CONFIG_NAMES, TRUE)) {
+      return $override;
+    }
+
+    $base = $this->configFactory->get($configName)->getRawData();
+    if ($base === [] && isset(self::PARTIAL_CONFIG_BASE[$configName])) {
+      $basePath = DRUPAL_ROOT . '/' . self::PARTIAL_CONFIG_BASE[$configName];
+      if (is_file($basePath)) {
+        $parsed = \Symfony\Component\Yaml\Yaml::parseFile($basePath);
+        $base = is_array($parsed) ? $parsed : [];
+      }
+    }
+
+    return array_replace_recursive($base, $override);
   }
 
   /**

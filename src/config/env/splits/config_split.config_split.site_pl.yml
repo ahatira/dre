@@ -15,6 +15,7 @@ complete_list:
   - language.entity.pl
 partial_list:
   - language.negotiation
+  - field.field.node.offer.field_address
   - system.site
   - ps_homepage.homepage
   - ps_homepage.settings

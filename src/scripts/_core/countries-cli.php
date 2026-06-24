@@ -8,7 +8,9 @@
 
 declare(strict_types=1);
 
+require dirname(__DIR__, 2) . '/vendor/autoload.php';
 require dirname(__DIR__, 2) . '/web/sites/countries.php';
+require __DIR__ . '/config-merge.php';
 
 $action = $argv[1] ?? '';
 
@@ -53,8 +55,16 @@ try {
       ps_cli_generate_site_splits($argv);
       break;
 
+    case 'generate-address-field-overrides':
+      ps_cli_generate_address_field_overrides($argv);
+      break;
+
+    case 'merge-partial-config':
+      ps_cli_merge_partial_config($argv);
+      break;
+
     default:
-      fwrite(STDERR, "Usage: countries-cli.php codes|default_lang|languages|dev_port|site_dir|is_valid|drush-site-yml|generate-site-splits [splitsDir sitesDir]\n");
+      fwrite(STDERR, "Usage: countries-cli.php codes|default_lang|languages|dev_port|site_dir|is_valid|drush-site-yml|generate-site-splits|generate-address-field-overrides|merge-partial-config [args]\n");
       exit(1);
   }
 }
@@ -97,6 +107,7 @@ function ps_cli_generate_site_splits(array $argv): void {
 
   $partialList = [
     'language.negotiation',
+    'field.field.node.offer.field_address',
     'system.site',
     'ps_homepage.homepage',
     'ps_homepage.settings',
@@ -197,4 +208,46 @@ function ps_cli_yaml_list(string $key, array $items): string {
  */
 function ps_cli_yaml_escape(string $value): string {
   return str_replace("'", "''", $value);
+}
+
+/**
+ * Generates partial offer address field overrides for each country site.
+ *
+ * @param array<int, string> $argv
+ *   CLI arguments: generate-address-field-overrides envSitesDir.
+ */
+function ps_cli_generate_address_field_overrides(array $argv): void {
+  $envSitesDir = $argv[2] ?? '';
+  if ($envSitesDir === '') {
+    fwrite(STDERR, "Usage: countries-cli.php generate-address-field-overrides ENV_SITES_DIR\n");
+    exit(1);
+  }
+
+  foreach (ps_country_codes() as $code) {
+    $siteDir = $envSitesDir . '/' . $code;
+    if (!is_dir($siteDir) && !mkdir($siteDir, 0775, TRUE) && !is_dir($siteDir)) {
+      throw new \RuntimeException(sprintf('Could not create directory: %s', $siteDir));
+    }
+
+    $path = $siteDir . '/field.field.node.offer.field_address.yml';
+    file_put_contents($path, ps_config_render_offer_address_override_yaml($code));
+  }
+}
+
+/**
+ * Merges a partial override YAML file into a target CMI export file.
+ *
+ * @param array<int, string> $argv
+ *   CLI arguments: merge-partial-config targetPath overridePath srcRoot.
+ */
+function ps_cli_merge_partial_config(array $argv): void {
+  $targetPath = $argv[2] ?? '';
+  $overridePath = $argv[3] ?? '';
+  $srcRoot = $argv[4] ?? '';
+  if ($targetPath === '' || $overridePath === '' || $srcRoot === '') {
+    fwrite(STDERR, "Usage: countries-cli.php merge-partial-config TARGET_PATH OVERRIDE_PATH SRC_ROOT\n");
+    exit(1);
+  }
+
+  ps_config_merge_yaml_files($targetPath, $overridePath, $srcRoot);
 }

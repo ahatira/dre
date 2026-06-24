@@ -134,6 +134,11 @@ services:
       - '@ps_offer.default_image_resolver'
       - '@file_url_generator'
 
+  ps_offer.address_country_configurator:
+    class: Drupal\ps_offer\Service\OfferAddressCountryConfigurator
+    arguments:
+      - '@config.factory'
+
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks
     arguments:
