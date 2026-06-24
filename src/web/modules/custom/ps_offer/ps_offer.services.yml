@@ -69,7 +69,20 @@ services:
     arguments:
       - '@messenger'
       - '@entity_type.manager'
+      - '@ps_offer.contact_resolver'
       - '@?Drupal\ps_offer\OfferContextResolverInterface'
+
+  ps_offer.contact_resolver:
+    class: Drupal\ps_offer\Service\OfferContactResolver
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+
+  ps_offer.default_contact_agent_installer:
+    class: Drupal\ps_offer\Service\OfferDefaultContactAgentInstaller
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
 
   Drupal\ps_offer\Service\OfferValidationManagerInterface:
     alias: Drupal\ps_offer\Service\OfferValidationManager
@@ -138,6 +151,11 @@ services:
     class: Drupal\ps_offer\Service\OfferAddressCountryConfigurator
     arguments:
       - '@config.factory'
+
+  ps_offer.offer_primary_agent_field_block_subscriber:
+    class: Drupal\ps_offer\EventSubscriber\OfferPrimaryAgentFieldBlockSubscriber
+    tags:
+      - { name: event_subscriber }
 
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks

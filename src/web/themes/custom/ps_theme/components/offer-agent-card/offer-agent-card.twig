@@ -19,32 +19,23 @@
     {% endif %}
   </div>
 
-  <div class="ps-offer-agent-card__visit">
-    {% if visit_title %}
-      <h3 class="ps-offer-agent-card__visit-title">{{ visit_title }}</h3>
-    {% endif %}
-    {% if visit_enabled and visit_phone %}
+  {% if visit_enabled and visit_phone %}
+    <div class="ps-offer-agent-card__visit">
+      {% if visit_title %}
+        <h3 class="ps-offer-agent-card__visit-title">{{ visit_title }}</h3>
+      {% endif %}
       <a href="{{ visit_phone }}" class="btn ps-offer-agent-card__visit-btn">
         {{ icon('bootstrap', 'calendar', {'size': '20px', 'class': 'ps-offer-agent-card__visit-icon'}) }}
         {{ visit_label }}
       </a>
-    {% else %}
-      <button type="button" class="btn ps-offer-agent-card__visit-btn" disabled aria-disabled="true">
-        {{ icon('bootstrap', 'calendar', {'size': '20px', 'class': 'ps-offer-agent-card__visit-icon'}) }}
-        {{ visit_label }}
-      </button>
-    {% endif %}
-  </div>
+    </div>
+  {% endif %}
 
-  <div class="ps-offer-agent-card__mobile-actions" role="group" aria-label="{{ 'Offer actions'|t }}">
+  <div class="ps-offer-agent-card__mobile-actions{% if not (visit_enabled and visit_phone) %} ps-offer-agent-card__mobile-actions--contact-only{% endif %}" role="group" aria-label="{{ 'Offer actions'|t }}">
     {% if visit_enabled and visit_phone %}
       <a href="{{ visit_phone }}" class="btn ps-offer-agent-card__mobile-visit">
         {{ visit_label_mobile }}
       </a>
-    {% else %}
-      <button type="button" class="btn ps-offer-agent-card__mobile-visit" disabled aria-disabled="true">
-        {{ visit_label_mobile }}
-      </button>
     {% endif %}
     {% if contact_url %}
       <a href="{{ contact_url }}"

@@ -69,6 +69,9 @@ ps_offer.settings:
       type: label
       label: 'Default offer image alt text'
       translatable: true
+    default_contact_agent:
+      type: integer
+      label: 'Default contact agent entity ID'
 
 ps_offer.map_settings:
   type: config_object

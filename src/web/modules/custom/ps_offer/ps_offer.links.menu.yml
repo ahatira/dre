@@ -47,6 +47,13 @@ ps_offer.map_settings:
   parent: ps_offer.admin_overview
   weight: 5
 
+ps_offer.contact_settings:
+  title: 'Contact'
+  description: 'Configure the default consultant shown when an offer has no agent.'
+  route_name: ps_offer.contact_settings
+  parent: ps_offer.admin_overview
+  weight: 6
+
 ps_offer.reference_config:
   title: 'Reference generation'
   description: 'Configure offer reference generation patterns and aliases.'

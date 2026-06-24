@@ -21,6 +21,22 @@ function ps_offer_install(): void {
   ps_offer_register_pathauto_safe_tokens();
   ps_offer_apply_full_layout_display();
   ps_offer_apply_address_country_config();
+  ps_offer_install_default_contact_agent();
+  ps_offer_apply_webform_contact_recipients();
+}
+
+/**
+ * Creates the default site contact agent and stores it in ps_offer.settings.
+ */
+function ps_offer_install_default_contact_agent(): void {
+  \Drupal::service('ps_offer.default_contact_agent_installer')->ensureDefaultAgent();
+}
+
+/**
+ * Points offer webform agent handlers to the resolved contact email token.
+ */
+function ps_offer_apply_webform_contact_recipients(): void {
+  ps_offer_update_webform_contact_recipients();
 }
 
 /**
@@ -35,6 +51,38 @@ function ps_offer_apply_address_country_config(): void {
  */
 function ps_offer_update_9001(): void {
   ps_offer_apply_address_country_config();
+}
+
+/**
+ * Ensures default contact agent and webform recipient tokens on existing sites.
+ */
+function ps_offer_update_9002(): void {
+  ps_offer_install_default_contact_agent();
+  ps_offer_update_webform_contact_recipients();
+}
+
+/**
+ * Updates offer webform handlers to use the contact resolver token.
+ */
+function ps_offer_update_webform_contact_recipients(): void {
+  $token = '[webform_submission:source-entity:ps-offer-contact-email]';
+  $config_factory = \Drupal::configFactory();
+
+  foreach (['offer_contact', 'schedule_visit'] as $webform_id) {
+    $config_name = 'webform.webform.' . $webform_id;
+    if (!$config_factory->get($config_name)->get('id')) {
+      continue;
+    }
+
+    $editable = $config_factory->getEditable($config_name);
+    $handlers = $editable->get('handlers');
+    if (!is_array($handlers) || !isset($handlers['email_agent']['settings'])) {
+      continue;
+    }
+
+    $handlers['email_agent']['settings']['to_mail'] = $token;
+    $editable->set('handlers', $handlers)->save(TRUE);
+  }
 }
 
 /**

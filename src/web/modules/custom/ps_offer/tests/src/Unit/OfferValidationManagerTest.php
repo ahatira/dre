@@ -15,6 +15,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\node\NodeInterface;
 use Drupal\ps_offer\OfferContextResolverInterface;
+use Drupal\ps_offer\Service\OfferContactResolver;
 use Drupal\ps_offer\Service\OfferValidationManager;
 use Drupal\Tests\UnitTestCase;
 
@@ -50,7 +51,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
     $manager->apply($node);
   }
 
@@ -84,11 +85,11 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
     $manager->apply($node);
   }
 
-  public function testPublishedWithoutPrimaryAgentIsUnpublishedWithWarning(): void {
+  public function testPublishedWithoutResolvedAgentShowsWarning(): void {
     $messenger = $this->createMock(MessengerInterface::class);
     $node = $this->createMock(NodeInterface::class);
     $this->mockDefaultLanguageContext($node);
@@ -96,22 +97,21 @@ final class OfferValidationManagerTest extends UnitTestCase {
     $messenger
       ->expects($this->once())
       ->method('addWarning')
-      ->with($this->callback(static fn ($message): bool => $message instanceof TranslatableMarkup && $message->getUntranslatedString() === 'The offer has been saved as a draft because no primary agent is set.'));
+      ->with($this->callback(static fn ($message): bool => $message instanceof TranslatableMarkup && str_contains($message->getUntranslatedString(), 'default contact agent')));
 
     $node->method('bundle')->willReturn('offer');
     $node->method('isPublished')->willReturn(TRUE);
-    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, ['field_budget_period', 'field_budget_value', 'field_primary_agent'], TRUE));
-    $node->expects($this->once())->method('setUnpublished');
+    $node->method('hasField')->willReturnCallback(static fn (string $field): bool => in_array($field, ['field_budget_period', 'field_budget_value'], TRUE));
+    $node->expects($this->never())->method('setUnpublished');
     $node->method('get')->willReturnCallback(function (string $field): FieldItemListInterface {
       return match ($field) {
         'field_budget_period' => $this->emptyFieldList(),
         'field_budget_value' => $this->emptyFieldList(),
-        'field_primary_agent' => $this->emptyFieldList(),
         default => throw new \InvalidArgumentException('Unexpected field requested in test.'),
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(FALSE));
     $manager->apply($node);
   }
 
@@ -141,7 +141,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
 
     $this->expectException(EntityStorageException::class);
     $this->expectExceptionMessage('Capacity total must be greater than 0 for seat-based offers.');
@@ -174,7 +174,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
     $manager->apply($node);
   }
 
@@ -204,7 +204,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
 
     $this->expectException(EntityStorageException::class);
     $this->expectExceptionMessage('Capacity available must be lower than or equal to capacity total.');
@@ -238,7 +238,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
 
     $this->expectException(EntityStorageException::class);
     $this->expectExceptionMessage('Capacity total must be greater than 0 when budget unit is PER_POSTE.');
@@ -275,7 +275,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(1));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(1), $this->contactResolverWithResolvedAgent(TRUE));
 
     $this->expectException(EntityStorageException::class);
     $this->expectExceptionMessage('Manual reference value is already used by another offer.');
@@ -309,7 +309,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
       };
     });
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
     $manager->apply($node);
   }
 
@@ -324,7 +324,7 @@ final class OfferValidationManagerTest extends UnitTestCase {
     $node->expects($this->never())->method('hasField');
     $node->expects($this->never())->method('get');
 
-    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0));
+    $manager = new OfferValidationManager($messenger, $this->entityTypeManagerWithManualReferenceDuplicateCount(0), $this->contactResolverWithResolvedAgent(TRUE));
     $manager->apply($node);
   }
 
@@ -375,9 +375,16 @@ final class OfferValidationManagerTest extends UnitTestCase {
     $manager = new OfferValidationManager(
       $messenger,
       $this->entityTypeManagerWithManualReferenceDuplicateCount(0),
+      $this->contactResolverWithResolvedAgent(TRUE),
       $contextResolver,
     );
     $manager->apply($node);
+  }
+
+  private function contactResolverWithResolvedAgent(bool $resolved): OfferContactResolver {
+    $resolver = $this->createMock(OfferContactResolver::class);
+    $resolver->method('hasResolvedAgent')->willReturn($resolved);
+    return $resolver;
   }
 
   private function entityTypeManagerWithManualReferenceDuplicateCount(int $duplicateCount): EntityTypeManagerInterface {

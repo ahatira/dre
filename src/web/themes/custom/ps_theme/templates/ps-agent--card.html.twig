@@ -20,7 +20,8 @@
         {{ content.display_name }}
       </div>
     {% endif %}
-    {% if content.phone %}
+    {% set agent_phone_markup = content.phone|render|striptags|trim %}
+    {% if agent_phone_markup %}
       <div class="ps-agent-card-profile__phone">
         <span class="ps-agent-card-profile__phone-icon" aria-hidden="true">
           {{ icon('bnp_custom', 'phone', {'size': '20px'}) }}

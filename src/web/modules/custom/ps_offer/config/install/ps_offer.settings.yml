@@ -15,3 +15,4 @@ surface_capacity_unit: 'seats'
 surface_kpi_separator: ' · '
 default_image_fid: 0
 default_image_alt: 'Default offer image'
+default_contact_agent: 0

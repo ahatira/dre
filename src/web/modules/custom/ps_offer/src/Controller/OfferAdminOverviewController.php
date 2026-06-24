@@ -170,6 +170,11 @@ final class OfferAdminOverviewController extends ControllerBase {
             'description' => $this->t('Map behaviour, markers and surrounding area on the location section.'),
             'route' => 'ps_offer.map_settings',
           ],
+          [
+            'title' => $this->t('Contact'),
+            'description' => $this->t('Default consultant when an offer has no primary or secondary agent.'),
+            'route' => 'ps_offer.contact_settings',
+          ],
         ],
       ],
       [

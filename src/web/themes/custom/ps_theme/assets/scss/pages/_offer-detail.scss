@@ -1410,6 +1410,10 @@ body:has(.node--type-offer.node--view-mode-full) {
         border-radius: 0;
       }
 
+      &__mobile-actions--contact-only &__mobile-contact {
+        flex: 1 1 100%;
+      }
+
       &__mobile-visit {
         color: var(--re-color-primary, #00915a);
         background: var(--re-color-surface, #fff);

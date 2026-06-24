@@ -173,7 +173,7 @@ Fichier tokens : `ps_offer.tokens.inc` (`ps-offer-operation`, `ps-offer-asset`, 
 | `validateCapacity()` | SEAT_BASED / PER_POSTE ; requis si onglet Capacity visible (matrix) | Warning | **Blocant** |
 | `validateSurface()` | Au moins une surface TOTAL > 0 ; **skip si matrix masque Surface** | Warning | **Blocant** |
 | `validateDivisibility()` | Non divisible + DISPO < TOTAL → warning UX ; skip si Surface masquée | Warning | Warning |
-| `validatePrimaryAgent()` | Pas d'agent principal → dépublication | N/A | Dépublication auto |
+| `warnMissingContactAgent()` | Offre publiée sans agent résolu (primary/secondary/default) | Warning | Warning |
 | `validateManualReferenceUniqueness()` | Mode manuel + doublon `field_reference` | **Blocant** | **Blocant** |
 
 **Form validate (hors manager) :** `validateGallery()` — galerie non vide requise à la publication.

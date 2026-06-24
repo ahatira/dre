@@ -77,6 +77,16 @@ ps_offer.map_settings:
   options:
     _admin_route: TRUE
 
+ps_offer.contact_settings:
+  path: '/admin/ps/config/offer/contact'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferContactSettingsForm'
+    _title: 'Contact'
+  requirements:
+    _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
+
 ps_offer.reference_config:
   path: '/admin/ps/config/offer/reference'
   defaults:

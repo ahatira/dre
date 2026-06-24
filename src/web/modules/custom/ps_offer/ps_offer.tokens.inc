@@ -36,6 +36,10 @@ function ps_offer_token_info(): array {
           'name' => t('Offer SEO prefix path'),
           'description' => t('Returns operation/asset/locality segments aligned with property search SEO URLs.'),
         ],
+        'ps-offer-contact-email' => [
+          'name' => t('Offer contact notification email'),
+          'description' => t('Returns the resolved consultant notification email for this offer.'),
+        ],
       ],
     ],
   ];
@@ -62,13 +66,15 @@ function ps_offer_tokens(string $type, array $tokens, array $data, array $option
     'languages:language_content',
     'languages:language_url',
   ]);
-  $bubbleable_metadata->addCacheTags(['config:ps_search.seo_url_mappings']);
+  $bubbleable_metadata->addCacheTags(['config:ps_search.seo_url_mappings', 'config:ps_offer.settings', 'config:system.site']);
 
   $langcode = isset($options['langcode']) && is_string($options['langcode'])
     ? $options['langcode']
     : $node->language()->getId();
   /** @var \Drupal\ps_offer\Service\OfferPathTokenProvider $provider */
   $provider = \Drupal::service('ps_offer.path_token_provider');
+  /** @var \Drupal\ps_offer\Service\OfferContactResolver $contact_resolver */
+  $contact_resolver = \Drupal::service('ps_offer.contact_resolver');
 
   foreach ($tokens as $name => $original) {
     $replacement = match ($name) {
@@ -78,6 +84,7 @@ function ps_offer_tokens(string $type, array $tokens, array $data, array $option
       'ps-offer-department' => $provider->getDepartmentSegment($node, $langcode),
       'ps-offer-city' => $provider->getCitySegment($node, $langcode),
       'ps-offer-seo-prefix' => $provider->getSeoPrefixPath($node, $langcode),
+      'ps-offer-contact-email' => $contact_resolver->resolveContactEmail($node),
       default => NULL,
     };
 

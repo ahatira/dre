@@ -11,7 +11,7 @@ OfferHooks::nodePresave()
         → validateCapacity()      ← matrix : requis si group_capacity visible
         → validateSurface()       ← matrix : skip si group_surface masqué
         → validateDivisibility()  ← matrix : skip si group_surface masqué
-        → validatePrimaryAgent()
+        → warnMissingContactAgent()
         → validateManualReferenceUniqueness()
 ```
 
@@ -49,9 +49,10 @@ Si `ps_context` est actif, `OfferContextResolverInterface` est injecté. Détail
 - Non divisible + DISPO < TOTAL → warning UX
 - **Matrix** : ignoré si `group_surface` masqué
 
-### Publication sans agent principal
+### Publication sans agent résolu
 
-- Publication sans agent → `setUnpublished()` + warning (pas d'exception)
+- Offre publiée sans agent principal, secondaire ni contact par défaut → warning admin (pas de dépublication)
+- Le front et les webforms utilisent le contact par défaut site (`ps_offer.settings:default_contact_agent`) puis l’email du site
 
 ### `validateManualReferenceUniqueness()`
 

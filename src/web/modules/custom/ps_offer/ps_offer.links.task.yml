@@ -40,6 +40,12 @@ ps_offer.map_settings:
   base_route: ps_offer.admin_overview
   weight: 5
 
+ps_offer.contact_settings:
+  title: 'Contact'
+  route_name: ps_offer.contact_settings
+  base_route: ps_offer.admin_overview
+  weight: 6
+
 ps_offer.reference_config:
   title: 'Reference'
   route_name: ps_offer.reference_config
