@@ -33,11 +33,46 @@ const sassOptions = {
 };
 
 const stylesPaths = {
-  src: './assets/scss/**/*.{scss,sass}',
+  src: [
+    './assets/scss/**/*.{scss,sass}',
+    '!./assets/scss/bootstrap-sdc-bundle.scss',
+  ],
   dest: './assets/css',
 };
+
+// Starterkit split Bootstrap SDCs — compiled once in bootstrap_sdc_bundle (Option D).
+const bootstrapSdcDirs = [
+  'accordion',
+  'alert',
+  'badge',
+  'breadcrumb',
+  'button_group',
+  'card',
+  'carousel',
+  'close_button',
+  'dropdown',
+  'list_group',
+  'modal',
+  'nav',
+  'navbar',
+  'offcanvas',
+  'pagination',
+  'progress',
+  'spinner',
+  'table',
+  'toast',
+];
+
+const bootstrapSdcBundlePaths = {
+  src: './assets/scss/bootstrap-sdc-bundle.scss',
+  dest: './assets/css',
+};
+
 const componentsStylesPaths = {
-  src: './components/**/styles/*.{scss,sass}',
+  src: [
+    './components/**/styles/*.{scss,sass}',
+    ...bootstrapSdcDirs.map((dir) => `!./components/${dir}/styles/*.{scss,sass}`),
+  ],
 };
 
 /// /////////////////////////////////////////////////////////////////////////////
@@ -61,6 +96,7 @@ function compileSass(dir) {
 /// /////////////////////////////////////////////////////////////////////////////
 
 gulp.task('styles', () => compileSass(stylesPaths));
+gulp.task('bootstrap_sdc_bundle', () => compileSass(bootstrapSdcBundlePaths));
 gulp.task('components_styles', () => compileSass(componentsStylesPaths));
 
 gulp.task('watch', (done) => {
@@ -69,7 +105,8 @@ gulp.task('watch', (done) => {
   }
 
   gulp.watch(stylesPaths.src, gulp.series('styles'));
+  gulp.watch(bootstrapSdcBundlePaths.src, gulp.series('bootstrap_sdc_bundle'));
   gulp.watch(componentsStylesPaths.src, gulp.series('components_styles'));
 });
 
-gulp.task('default', gulp.series('styles', 'components_styles', 'watch'));
+gulp.task('default', gulp.series('styles', 'bootstrap_sdc_bundle', 'components_styles', 'watch'));
