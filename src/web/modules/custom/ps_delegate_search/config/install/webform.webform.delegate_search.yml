@@ -1,0 +1,619 @@
+langcode: en
+status: open
+dependencies:
+  enforced:
+    module:
+      - ps_delegate_search
+open: null
+close: null
+uid: null
+template: false
+archive: false
+id: delegate_search
+title: 'Delegate my search'
+description: 'Real estate search delegation form in 3 steps'
+categories: []
+elements: |-
+  page_project:
+    '#type': webform_page
+    '#title': Project
+    '#prev_button_label': ''
+    '#next_button_label': Continue
+    '#states':
+      visible: []
+    transaction_type:
+      '#type': radios
+      '#title': 'What type of transaction?'
+      '#options':
+        Rent: Rent
+        Buy: Buy
+        Indifferent: Indifferent
+      '#default_value': Indifferent
+      '#required': true
+      '#attributes':
+        class:
+          - btn-group
+          - btn-group-toggle
+      '#wrapper_attributes':
+        class:
+          - btn-group-container
+      '#options_attributes':
+        Rent:
+          class:
+            - btn
+            - btn-outline-primary
+        Buy:
+          class:
+            - btn
+            - btn-outline-primary
+        Indifferent:
+          class:
+            - btn
+            - btn-outline-primary
+    property_type:
+      '#type': radios
+      '#title': 'What type of property are you looking for?'
+      '#options':
+        Office: Office
+        Coworking: Coworking
+        'Warehouse / Logistics': 'Warehouse / Logistics'
+        'Commercial premises': 'Commercial premises'
+        Retail: Retail
+        Land: Land
+        Mixed: Mixed
+        Residential: Residential
+        Hospitality: Hospitality
+      '#default_value': Office
+      '#required': true
+      '#attributes':
+        class:
+          - btn-group
+          - btn-group-toggle
+      '#wrapper_attributes':
+        class:
+          - btn-group-container
+      '#options_attributes':
+        Office:
+          class:
+            - btn
+            - btn-outline-primary
+        Coworking:
+          class:
+            - btn
+            - btn-outline-primary
+        'Warehouse / Logistics':
+          class:
+            - btn
+            - btn-outline-primary
+        'Commercial premises':
+          class:
+            - btn
+            - btn-outline-primary
+        Retail:
+          class:
+            - btn
+            - btn-outline-primary
+        Land:
+          class:
+            - btn
+            - btn-outline-primary
+        Mixed:
+          class:
+            - btn
+            - btn-outline-primary
+        Residential:
+          class:
+            - btn
+            - btn-outline-primary
+        Hospitality:
+          class:
+            - btn
+            - btn-outline-primary
+    # Fields for 'Coworking' type
+    price_min:
+      '#type': number
+      '#title': 'Min price (HT/HH/HD)'
+      '#suffix': ' €'
+      '#step': any
+      '#min': 0
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - value: Coworking
+    price_max:
+      '#type': number
+      '#title': 'Max price (HT/HH/HD)'
+      '#suffix': ' €'
+      '#step': any
+      '#min': 0
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - value: Coworking
+    seat_min:
+      '#type': number
+      '#title': 'Min number of seats'
+      '#min': 0
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - value: Coworking
+    seat_max:
+      '#type': number
+      '#title': 'Max number of seats'
+      '#min': 0
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - value: Coworking
+    # Fields for other property types
+    rent_min:
+      '#type': number
+      '#title': 'Min rent (HT/HC/m²/year)'
+      '#suffix': ' €'
+      '#step': any
+      '#min': 0
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - '!value': Coworking
+    rent_max:
+      '#type': number
+      '#title': 'Max rent (HT/HC/m²/year)'
+      '#suffix': ' €'
+      '#step': any
+      '#min': 0
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - '!value': Coworking
+    surface_min:
+      '#type': number
+      '#title': 'Min surface'
+      '#suffix': ' m²'
+      '#min': 0
+      '#step': any
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - '!value': Coworking
+    surface_max:
+      '#type': number
+      '#title': 'Max surface'
+      '#suffix': ' m²'
+      '#min': 0
+      '#step': any
+      '#required': false
+      '#states':
+        visible:
+          - ':input[name="property_type"]':
+              - '!value': Coworking
+    location:
+      '#type': textfield
+      '#title': 'Location'
+      '#description': 'City, district, postal code or building name'
+      '#required': true
+      '#placeholder': 'Enter a location'
+
+  page_contact:
+    '#type': webform_page
+    '#title': 'Contact details'
+    '#prev_button_label': Back
+    '#next_button_label': Continue
+    '#states':
+      visible: []
+    first_name:
+      '#type': textfield
+      '#title': 'First name'
+      '#required': true
+      '#maxlength': 50
+    last_name:
+      '#type': textfield
+      '#title': 'Last name'
+      '#required': true
+      '#maxlength': 50
+    company:
+      '#type': textfield
+      '#title': 'Company'
+      '#required': false
+      '#maxlength': 100
+    function:
+      '#type': select
+      '#title': 'Function'
+      '#options':
+        asset_manager: 'Asset manager'
+        consultant: Consultant
+        investor: Investor
+        other: Other
+      '#empty_option': '-- Select --'
+      '#required': false
+    professional_phone:
+      '#type': tel
+      '#title': 'Professional phone'
+      '#required': true
+      '#placeholder': '06 XX XX XX XX'
+      '#pattern': '^[0-9\s\+\-\(\)]{10,}$'
+    professional_email:
+      '#type': email
+      '#title': 'Professional email'
+      '#required': true
+      '#placeholder': 'name@domain.com'
+    # Opt-out options
+    opt_out_group:
+      '#type': fieldset
+      '#title': 'I object to receiving commercial communications'
+      '#states':
+        visible: []
+      opt_out_email:
+        '#type': checkbox
+        '#title': Email
+        '#description': 'I object to receiving commercial communications by email'
+        '#return_value': 1
+        '#default_value': 0
+      opt_out_sms:
+        '#type': checkbox
+        '#title': 'SMS / MMS'
+        '#description': 'I object to receiving commercial communications by SMS / MMS'
+        '#return_value': 1
+        '#default_value': 0
+      opt_out_phone:
+        '#type': checkbox
+        '#title': Phone
+        '#description': 'I object to receiving commercial communications by phone'
+        '#return_value': 1
+        '#default_value': 0
+
+  page_message:
+    '#type': webform_page
+    '#title': Message
+    '#prev_button_label': Back
+    '#next_button_label': Send
+    '#states':
+      visible: []
+    message:
+      '#type': textarea
+      '#title': 'Would you like to specify your project?'
+      '#description': 'Specify your project here'
+      '#required': false
+      '#rows': 5
+      '#placeholder': 'Describe your project in a few words...'
+
+settings:
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  form_submit_label: Send
+  form_exception_message: ''
+  form_closed_message: 'This form is closed.'
+  form_archive_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_convert_anonymous: false
+  form_prepopulate: true
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: true
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_message: ''
+  form_access_denied_attributes: []
+  form_file_limit: ''
+  form_submit_label_display: ''
+  form_submit_limit: ''
+  form_submit_limit_interval: ''
+  form_submit_limit_text: 'You have exceeded the allowed number of submissions.'
+  form_submit_limit_reached: ''
+  form_open_message: ''
+  form_attributes: []
+  form_method: ''
+  form_action: ''
+  form_autocomplete: 'on'
+  wizard_progress_bar: true
+  wizard_progress_pages: true
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_auto_forward: false
+  wizard_auto_forward_skip: false
+  wizard_auto_forward_toggle: false
+  wizard_keyboard: true
+  wizard_start_label: Project
+  wizard_confirmation_label: Completed
+  wizard_track: ''
+  wizard_prev_button_label: Back
+  wizard_next_button_label: Continue
+  wizard_toggle_show_label: 'Show steps'
+  wizard_toggle_hide_label: 'Hide steps'
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: []
+  preview_excluded_elements: []
+  preview_exclude_empty: true
+  preview_exclude_empty_multiple: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: 'Your draft has been saved.'
+  draft_loaded_message: 'Your draft has been loaded.'
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_title: 'Thank you for your trust.'
+  confirmation_message: |
+    Your request has been successfully submitted.
+    <br><br>
+    <a href="#" class="button button--primary" onclick="window.closeModal(); return false;">I understand</a>
+  confirmation_attributes: []
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: []
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+  view_any:
+    roles:
+      - administrator
+  update_any:
+    roles:
+      - administrator
+  delete_any:
+    roles:
+      - administrator
+  purge_any:
+    roles:
+      - administrator
+  view_own:
+    roles:
+      - authenticated
+  update_own:
+    roles:
+      - authenticated
+  delete_own:
+    roles:
+      - authenticated
+  administer:
+    roles:
+      - administrator
+  test:
+    roles:
+      - administrator
+  configuration:
+    roles:
+      - administrator
+
+handlers:
+  email_confirmation:
+    id: email
+    label: 'Email confirmation'
+    handler_id: email_confirmation
+    status: true
+    weight: 1
+    settings:
+      to_mail: '[webform_submission:values:professional_email]'
+      to_options: []
+      bcc_mail: ''
+      bcc_options: []
+      cc_mail: ''
+      cc_options: []
+      from_mail: 'no-reply@your-site.com'
+      from_options: []
+      from_name: 'BNP Paribas Real Estate'
+      subject: 'Your request has been sent'
+      body: |
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #004a8f; color: white; padding: 20px; text-align: center; }
+            .content { padding: 20px; background: #f9f9f9; }
+            .field { margin-bottom: 10px; }
+            .field-label { font-weight: bold; display: inline-block; width: 220px; }
+            .field-value { display: inline-block; }
+            .footer { text-align: center; padding: 20px; font-size: 12px; color: #666; border-top: 1px solid #ddd; margin-top: 20px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Your request has been sent</h1>
+            </div>
+            <div class="content">
+              <p>Hello,</p>
+              <p>Your request has been successfully transmitted. We will contact you very shortly.</p>
+
+              <h3>For your reference, your request is as follows:</h3>
+
+              <div class="field">
+                <span class="field-label">Your request:</span>
+                <span class="field-value">I would like to delegate my search</span>
+              </div>
+
+              <div class="field">
+                <span class="field-label">Search type:</span>
+                <span class="field-value">[webform_submission:values:transaction_type] - [webform_submission:values:property_type]</span>
+              </div>
+
+              {# Display criteria based on property type #}
+              {% if data.property_type == 'Coworking' %}
+                <div class="field">
+                  <span class="field-label">Min Price:</span>
+                  <span class="field-value">[webform_submission:values:price_min] €</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Max Price:</span>
+                  <span class="field-value">[webform_submission:values:price_max] €</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Min Seats:</span>
+                  <span class="field-value">[webform_submission:values:seat_min]</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Max Seats:</span>
+                  <span class="field-value">[webform_submission:values:seat_max]</span>
+                </div>
+              {% else %}
+                <div class="field">
+                  <span class="field-label">Min Rent:</span>
+                  <span class="field-value">[webform_submission:values:rent_min] €</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Max Rent:</span>
+                  <span class="field-value">[webform_submission:values:rent_max] €</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Min Surface:</span>
+                  <span class="field-value">[webform_submission:values:surface_min] m²</span>
+                </div>
+                <div class="field">
+                  <span class="field-label">Max Surface:</span>
+                  <span class="field-value">[webform_submission:values:surface_max] m²</span>
+                </div>
+              {% endif %}
+
+              <div class="field">
+                <span class="field-label">Location:</span>
+                <span class="field-value">[webform_submission:values:location]</span>
+              </div>
+
+              <hr>
+
+              <div class="field">
+                <span class="field-label">First name:</span>
+                <span class="field-value">[webform_submission:values:first_name]</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Last name:</span>
+                <span class="field-value">[webform_submission:values:last_name]</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Company:</span>
+                <span class="field-value">[webform_submission:values:company]</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Function:</span>
+                <span class="field-value">[webform_submission:values:function]</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Professional email:</span>
+                <span class="field-value">[webform_submission:values:professional_email]</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Professional phone:</span>
+                <span class="field-value">[webform_submission:values:professional_phone]</span>
+              </div>
+
+              {% if data.message %}
+                <div class="field">
+                  <span class="field-label">Message:</span>
+                  <span class="field-value">[webform_submission:values:message]</span>
+                </div>
+              {% endif %}
+
+              <hr>
+
+              <div class="field">
+                <span class="field-label">Opt-out Email:</span>
+                <span class="field-value">[webform_submission:values:opt_out_email]</span>
+              </div>
+              {% if data.opt_out_email == '1' %}
+                <div class="field">
+                  <span class="field-label">Email opt-out text:</span>
+                  <span class="field-value">I object to receiving commercial communications from BNP Paribas Real Estate Advisory France</span>
+                </div>
+              {% endif %}
+
+              <div class="field">
+                <span class="field-label">Opt-out SMS/MMS:</span>
+                <span class="field-value">[webform_submission:values:opt_out_sms]</span>
+              </div>
+              {% if data.opt_out_sms == '1' %}
+                <div class="field">
+                  <span class="field-label">SMS/MMS opt-out text:</span>
+                  <span class="field-value">I object to receiving commercial communications from BNP Paribas Real Estate Advisory France</span>
+                </div>
+              {% endif %}
+
+              <div class="field">
+                <span class="field-label">Opt-out Phone:</span>
+                <span class="field-value">[webform_submission:values:opt_out_phone]</span>
+              </div>
+              {% if data.opt_out_phone == '1' %}
+                <div class="field">
+                  <span class="field-label">Phone opt-out text:</span>
+                  <span class="field-value">I object to receiving commercial communications from BNP Paribas Real Estate Advisory France</span>
+                </div>
+              {% endif %}
+
+              <p>Thank you for your interest in BNP Paribas Real Estate.</p>
+              <p>Best regards,</p>
+              <p><strong>Your Customer Service Team</strong><br>BNP Paribas Real Estate</p>
+            </div>
+            <div class="footer">
+              © BNP Paribas Real Estate
+            </div>
+          </div>
+        </body>
+        </html>
+      reply_to: '[webform_submission:values:professional_email]'
+      return_path: 'no-reply@your-site.com'
+      sender_mail: ''
+      sender_name: ''
+      html: true
+      attachments: []
+      exclude_empty: false
+      exclude_empty_multiple: false
+      exclude_files: false
+      exclude_files_empty: false
+      exclude_attachments: false
+      exclude_attachments_empty: false
+      exclude_private: false
+      ignore_access: false
+      debug: false
+
+variants: []

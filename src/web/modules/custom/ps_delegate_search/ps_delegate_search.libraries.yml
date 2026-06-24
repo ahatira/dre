@@ -1,0 +1,11 @@
+delegate_search_modal:
+  js:
+    js/delegate-search-modal.js: { preprocess: false }
+  css:
+    component:
+      css/delegate-search-modal.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupal.dialog
+    - webform/webform.dialog

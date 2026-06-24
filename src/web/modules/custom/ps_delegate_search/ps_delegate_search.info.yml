@@ -1,0 +1,9 @@
+name: 'PS Delegate Search'
+type: module
+description: 'Delegate my search functionality — independent from ps_search.'
+core_version_requirement: ^11
+package: 'Property Search'
+version: 1.0.0
+dependencies:
+  - webform:webform
+  - webform:webform_ui

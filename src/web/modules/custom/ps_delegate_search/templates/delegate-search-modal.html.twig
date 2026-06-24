@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Custom modal template for delegate search.
+ * Adds header/footer specific to BNPPRE.
+ */
+#}
+<div class="modal-header ps-modal__header">
+  <h2 class="modal-title">{{ 'Confier ma recherche'|t }}</h2>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+</div>
+<div class="modal-body ps-modal__body">
+  {{ element }}
+</div>
+<div class="modal-footer ps-modal__footer">
+  <div class="ps-modal__contact">
+    <span>{{ 'Appelez-nous'|t }} : 01 87 58 60 52</span>
+    <span class="ps-modal__hours">{{ 'Lundi-Vendredi 9h-19h'|t }}</span>
+  </div>
+</div>

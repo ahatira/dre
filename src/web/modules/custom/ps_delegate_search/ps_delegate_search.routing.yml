@@ -1,0 +1,10 @@
+ps_delegate_search.modal:
+  path: '/delegate-search/modal'
+  defaults:
+    _title: 'Confier ma recherche'
+    _controller: '\Drupal\ps_delegate_search\Controller\DelegateSearchController::modal'
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      _title_callback: '\Drupal\ps_delegate_search\Controller\DelegateSearchController::title'

@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Email template for delegate search confirmation.
+ */
+#}
+<!DOCTYPE html>
+<html lang="{{ langcode }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ 'Votre demande a été envoyée'|t }}</title>
+</head>
+<body>
+  <h1 style="font-size: 24px; text-align: center;">{{ 'Votre demande a été envoyée'|t }}</h1>
+
+  <p>{{ 'Bonjour,'|t }}</p>
+  <p>{{ 'Votre demande a bien été transmise. Nous reviendrons vers vous dans les plus brefs délais.'|t }}</p>
+
+  <h2 style="font-size: 18px; margin-top: 24px;">{{ 'Pour rappel, votre demande est la suivante :' }}</h2>
+
+  <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #eee; font-weight: bold;">{{ 'Votre demande'|t }}</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{ 'Je souhaite confier ma recherche'|t }}</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #eee; font-weight: bold;">{{ 'Type de recherche'|t }}</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{ values.transaction_type|raw }} - {{ values.property_type|raw }}</td>
+    </tr>
+    {% if values.property_type == 'coworking' %}
+      <tr><td style="font-weight: bold;">{{ 'Prix Minimum'|t }}</td><td>{{ values.price_min|raw }} €</td></tr>
+      <tr><td style="font-weight: bold;">{{ 'Prix Maximum'|t }}</td><td>{{ values.price_max|raw }} €</td></tr>
+      <tr><td style="font-weight: bold;">{{ 'Nombre de postes Minimum'|t }}</td><td>{{ values.seat_min|raw }}</td></tr>
+      <tr><td style="font-weight: bold;">{{ 'Nombre de postes Maximum'|t }}</td><td>{{ values.seat_max|raw }}</td></tr>
+    {% else %}
+      <tr><td style="font-weight: bold;">{{ 'Loyer Minimum'|t }}</td><td>{{ values.rent_min|raw }} €/m²/an</td></tr>
+      <tr><td style="font-weight: bold;">{{ 'Loyer Maximum'|t }}</td><td>{{ values.rent_max|raw }} €/m²/an</td></tr>
+      <tr><td style="font-weight: bold;">{{ 'Surface Minimum'|t }}</td><td>{{ values.surface_min|raw }} m²</td></tr>
+      <tr><td style="font-weight: bold;">{{ 'Surface Maximum'|t }}</td><td>{{ values.surface_max|raw }} m²</td></tr>
+    {% endif %}
+    <tr><td style="font-weight: bold;">{{ 'Localisation'|t }}</td><td>{{ values.location|raw }}</td></tr>
+
+    <tr><td style="font-weight: bold;">{{ 'Nom'|t }}</td><td>{{ values.last_name|raw }}</td></tr>
+    <tr><td style="font-weight: bold;">{{ 'Prénom'|t }}</td><td>{{ values.first_name|raw }}</td></tr>
+    <tr><td style="font-weight: bold;">{{ 'Société'|t }}</td><td>{{ values.company|raw }}</td></tr>
+    <tr><td style="font-weight: bold;">{{ 'Fonction'|t }}</td><td>{{ values.function|raw }}</td></tr>
+    <tr><td style="font-weight: bold;">{{ 'Email professionnel'|t }}</td><td>{{ values.professional_email|raw }}</td></tr>
+    <tr><td style="font-weight: bold;">{{ 'Téléphone professionnel'|t }}</td><td>{{ values.professional_phone|raw }}</td></tr>
+
+    {% if values.message %}
+      <tr><td style="font-weight: bold;">{{ 'Message'|t }}</td><td>{{ values.message|raw }}</td></tr>
+    {% endif %}
+  </table>
+
+  <p style="margin-top: 24px;">{{ 'Nous vous remercions de l''intérêt que vous portez à BNP Paribas Real Estate.'|t }}</p>
+  <p style="margin-top: 8px;">{{ 'Cordialement,'|t }}</p>
+  <p style="margin-top: 8px; font-weight: bold;">{{ 'Votre équipe Service Clients'|t }}</p>
+  <p style="margin-top: 4px; font-weight: bold;">{{ 'BNP Paribas Real Estate'|t }}</p>
+</body>
+</html>

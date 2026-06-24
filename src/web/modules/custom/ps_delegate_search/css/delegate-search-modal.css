@@ -1,0 +1,80 @@
+/**
+ * @file
+ * Styles for delegate search modal.
+ */
+
+.ps-modal__header {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 1rem 1.5rem;
+}
+
+.ps-modal__header .modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ps-modal__body {
+  padding: 1.5rem;
+}
+
+.ps-modal__footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e5e5e5;
+  padding: 1rem 1.5rem;
+}
+
+.ps-modal__contact {
+  font-size: 0.875rem;
+  color: #6c757d;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ps-modal__hours {
+  font-weight: 500;
+  color: #495057;
+}
+/* Transforme les radios en boutons */
+.btn-group-toggle .form-radio {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.btn-group-toggle .form-radio input[type="radio"] {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+.btn-group-toggle .form-radio label.btn {
+  padding: 10px 25px;
+  border: 2px solid #004a8f;
+  border-radius: 30px;
+  background: transparent;
+  color: #004a8f;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.btn-group-toggle .form-radio input[type="radio"]:checked+label.btn {
+  background: #004a8f;
+  color: #fff;
+  border-color: #004a8f;
+}
+
+.btn-group-toggle .form-radio label.btn:hover {
+  background: #e6f0fa;
+}
+
+/* Pour une disposition en grille (si besoin) */
+.btn-group-container .form-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
