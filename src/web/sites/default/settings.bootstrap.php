@@ -101,14 +101,15 @@ if ($noProxy !== '') {
 }
 
 // Memcached — only when contrib module is present and the server is reachable.
-if (ps_memcache_bootstrap_enabled($app_root)) {
+if (ps_memcache_bootstrap_enabled($app_root, $databases['default']['default'])) {
   $cacheHost = ps_env('CACHE_HOST');
   if ($cacheHost === '') {
     $cacheHost = ps_env('CHACHE_HOST');
   }
   $settings['memcache']['servers'] = [$cacheHost . ':11211' => 'default'];
   $settings['memcache']['bins'] = ['default' => 'default'];
-  $settings['cache_default_class'] = 'MemcacheBackend';
+  $settings['memcache']['key_prefix'] = ps_memcache_key_prefix($ps_country_code);
+  $settings['cache']['default'] = 'cache.backend.memcache';
 }
 
 // Solr connector — dev only (SOLR_* in src/.env; ps_php overrides SOLR_HOST=solr).

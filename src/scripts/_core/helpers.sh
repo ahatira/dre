@@ -47,6 +47,43 @@ ps_enable_module_robust() {
   done
 }
 
+ps_memcache_modules_enabled() {
+  local enabled
+  enabled="$(ps_drush pm:list --status=enabled --filter=memcache --format=list 2>/dev/null || true)"
+  grep -q '^memcache$' <<< "${enabled}" && grep -q '^memcache_admin$' <<< "${enabled}"
+}
+
+ps_enable_memcache_if_available() {
+  local module_info="${PS_WEB_DIR}/modules/contrib/memcache/memcache.info.yml"
+  if [[ ! -f "${module_info}" ]]; then
+    ps_warn "memcache module not found (run: make build or composer install) — using database cache"
+    return 0
+  fi
+  if ps_memcache_modules_enabled; then
+    ps_info "memcache + memcache_admin already enabled"
+    return 0
+  fi
+
+  ps_info "Enabling memcache + memcache_admin..."
+  if ps_memcache_php_extension_available; then
+    ps_enable_module_robust memcache 2 2 && ps_enable_module_robust memcache_admin 2 2 && return 0
+  elif ps_php_container_drush_available; then
+    local php_container="${PS_PHP_CONTAINER:-ps_php}"
+    ps_info "Host PHP lacks memcache extension — enabling via ${php_container} container..."
+    if ps_drush_in_php_container en -y memcache memcache_admin; then
+      ps_drush_cr
+      return 0
+    fi
+  else
+    ps_warn "Host PHP lacks memcache extension and ps_php is unavailable — trying host Drush..."
+    if ps_enable_module_robust memcache 2 2 && ps_enable_module_robust memcache_admin 2 2; then
+      return 0
+    fi
+  fi
+
+  ps_warn "memcache enable failed — using database cache (web container still uses Memcache when reachable)"
+}
+
 ps_verify_ps_offer_install() {
   ps_drush ev '
     if (!\Drupal::moduleHandler()->moduleExists("ps_offer")) {

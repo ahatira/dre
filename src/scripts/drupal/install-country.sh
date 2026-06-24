@@ -32,6 +32,8 @@ ps_install_country_site() {
     --locale="${default_lang}" \
     --yes
 
+  ps_enable_memcache_if_available
+
   ps_drush_cr
 
   # Orphan update.settings from a partial install blocks bnp_admin (update is a dependency).
