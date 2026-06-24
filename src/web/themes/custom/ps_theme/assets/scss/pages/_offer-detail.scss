@@ -900,32 +900,45 @@ body:has(.node--type-offer.node--view-mode-full) {
   > .field__items,
   > .field--items {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 50%));
-    gap: 0;
-    align-items: stretch;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    column-gap: 0;
+    row-gap: 0;
+    align-items: start;
     background: #f9f9fb;
     padding: 1rem 1.25rem;
   }
 
   > .field__items > .field__item,
   > .field--items > .field--item {
-    display: flex;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
     min-width: 0;
-    height: 100%;
+
+    &:first-child {
+      padding-right: 30px;
+    }
   }
 
   figure.ps-diagnostic {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    gap: 0.5rem;
     width: 100%;
-    height: 100%;
-    flex: 1 1 auto;
+    height: auto;
+    margin: 0;
+    padding: 0.25rem 0;
     background: transparent;
-    padding: 0.25rem 0.75rem 0.25rem 0;
-  }
 
-  > .field__items > .field__item:last-child figure.ps-diagnostic,
-  > .field--items > .field--item:last-child figure.ps-diagnostic {
-    padding-left: 0.75rem;
-    padding-right: 0;
+    > figcaption {
+      min-width: 0;
+    }
+
+    > .ps-diagnostic__scale {
+      align-self: start;
+    }
   }
 
   figure.ps-diagnostic .ps-diagnostic__svg {
@@ -1504,7 +1517,15 @@ body:has(.node--type-offer.node--view-mode-full) {
     .ps-offer-section--energy > .field--items,
     .ps-offer-section--energy > .field__items {
       grid-template-columns: 1fr;
-      gap: 0;
+
+      > .field--item,
+      > .field__item {
+        padding-inline: 0;
+
+        &:not(:last-child) {
+          padding-bottom: 30px;
+        }
+      }
     }
 
     .ps-offer-section--surface-table .ps-surface-division-table {
