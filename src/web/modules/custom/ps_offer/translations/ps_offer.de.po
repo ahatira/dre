@@ -91,7 +91,7 @@ msgid "BNPPRE real estate offer"
 msgstr "BNPPRE-Immobilienangebot"
 
 msgid "Budget display"
-msgstr "Budget display"
+msgstr "Budgetanzeige"
 
 msgid "Budget display labels"
 msgstr "Budget-Anzeigelabels"
@@ -166,7 +166,7 @@ msgid "Commercial title"
 msgstr "Kommerzieller Titel"
 
 msgid "Configure budget popover labels and default fees text."
-msgstr "Configure budget popover labels and default fees text."
+msgstr "Budget-Popover-Labels und Standard-Honorartexte konfigurieren."
 
 msgid "Configure headings and icons for offer detail page sections. Sections "
 "are registered by modules; only installed sections appear below."
@@ -547,7 +547,7 @@ msgid "Offers by feature"
 msgstr "Angebote nach Merkmal"
 
 msgid "On request"
-msgstr "On request"
+msgstr "Auf Anfrage"
 
 msgid "On request label"
 msgstr "Label Preis auf Anfrage"
@@ -856,7 +856,7 @@ msgid "Surfaces"
 msgstr "Flächen"
 
 msgid "TTC"
-msgstr "TTC"
+msgstr "inkl. MwSt."
 
 msgid "TTC label"
 msgstr "Brutto-Label"
@@ -1027,3 +1027,159 @@ msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CR
 msgstr "⚠️ <strong>Aktivieren Sie diese Sperre, um manuelle Bearbeitungen vor "
 "automatisierten CRM-Importen zu schützen.</strong> Wenn gesperrt, wird"
 " dieses Angebot bei der Importsynchronisierung nicht überschrieben."
+
+msgid "3D visit badge icon"
+msgstr "3D-Besuch-Badge-Symbol"
+
+msgid "Back to PS configuration hub"
+msgstr "Zurück zum PS-Konfigurationshub"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Configure default offer image and gallery badge icons."
+msgstr "Standard-Angebotsbild und Galerie-Badge-Symbole konfigurieren."
+
+msgid "Configure HT/HC/CC/HD definitions and default fees text."
+msgstr "HT/HC/CC/HD-Definitionen und Standard-Honorartexte konfigurieren."
+
+msgid "Configure offer display on cards, search results and detail pages."
+msgstr "Angebotsdarstellung auf Karten, in Suchergebnissen und auf Detailseiten konfigurieren."
+
+msgid "Configure offer display, sections, map, media and references."
+msgstr "Angebotsdarstellung, Abschnitte, Karte, Medien und Referenzen konfigurieren."
+
+msgid "Configure offer reference generation patterns and aliases."
+msgstr "Muster und Aliase für Angebotsreferenzgenerierung konfigurieren."
+
+msgid "Configure on request, TTC and price info labels."
+msgstr "Labels für Auf Anfrage, inkl. MwSt. und Preisinformationen konfigurieren."
+
+msgid "Configure surface KPI and divisibility labels."
+msgstr "Flächen-KPI- und Teilbarkeitslabels konfigurieren."
+
+msgid "Configure the offer detail interactive map."
+msgstr "Interaktive Karte auf der Angebotsdetailseite konfigurieren."
+
+msgid "Content shown in the budget information popover on offer detail pages."
+msgstr "Inhalt im Budgetinformations-Popover auf Angebotsdetailseiten."
+
+msgid "Default image"
+msgstr "Standardbild"
+
+msgid "Default image alt text"
+msgstr "Alt-Text des Standardbilds"
+
+msgid "Default offer image"
+msgstr "Standard-Angebotsbild"
+
+msgid "Default offer image, alt text and photo/video/3D/plan badge icons."
+msgstr "Standardbild, Alt-Text und Badge-Symbole Foto/Video/3D-Besuch/Grundriss."
+
+msgid "Display labels"
+msgstr "Anzeigelabels"
+
+msgid "Displayed when an offer has no photo in its gallery. Allowed formats: png jpg jpeg webp."
+msgstr "Wird angezeigt, wenn ein Angebot kein Foto in der Galerie hat. Erlaubte Formate: png jpg jpeg webp."
+
+msgid "Fallback image and gallery badge icons."
+msgstr "Fallback-Bild und Galerie-Badge-Symbole."
+
+msgid "Gallery badge icons"
+msgstr "Galerie-Badge-Symbole"
+
+msgid "HT/HC/CC/HD definitions and default agency fees text."
+msgstr "HT/HC/CC/HD-Definitionen und Standard-Maklerhonorartext."
+
+msgid "Icons displayed on offer gallery badges (photos, videos, 3D visit, plan)."
+msgstr "Symbole auf Galerie-Badges (Fotos, Videos, 3D-Besuch, Grundriss)."
+
+msgid "Interactive map"
+msgstr "Interaktive Karte"
+
+msgid "Labels and templates used when rendering offer surface KPIs."
+msgstr "Labels und Vorlagen für Flächen-KPIs von Angeboten."
+
+msgid "Labels used when rendering offer prices on cards, search results and detail headers."
+msgstr "Labels für Preisanzeige auf Karten, in Suchergebnissen und Detailköpfen."
+
+msgid "Manage patterns and alias sets used when generating offer references."
+msgstr "Muster und Alias-Sets für Angebotsreferenzen verwalten."
+
+msgid "Manage reference alias sets."
+msgstr "Referenz-Alias-Sets verwalten."
+
+msgid "Manage reference patterns."
+msgstr "Referenzmuster verwalten."
+
+msgid "Map"
+msgstr "Karte"
+
+msgid "Map behaviour, markers and surrounding area on the location section."
+msgstr "Kartenverhalten, Marker und Umgebung im Standortabschnitt."
+
+msgid "Media"
+msgstr "Medien"
+
+msgid "Media and gallery"
+msgstr "Medien und Galerie"
+
+msgid "Offer detail page"
+msgstr "Angebotsdetailseite"
+
+msgid "On request, TTC, \"from\" prefix and price info aria-label."
+msgstr "Auf Anfrage, inkl. MwSt., Präfix «ab» und Aria-Label Preisinformation."
+
+msgid "Overview"
+msgstr "Übersicht"
+
+msgid "Patterns and alias sets for CRM offer references."
+msgstr "Muster und Alias-Sets für CRM-Angebotsreferenzen."
+
+msgid "Photos badge icon"
+msgstr "Foto-Badge-Symbol"
+
+msgid "Plan badge icon"
+msgstr "Grundriss-Badge-Symbol"
+
+msgid "Popover"
+msgstr "Popover"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Reference generation"
+msgstr "Referenzgenerierung"
+
+msgid "Reference aliases"
+msgstr "Referenz-Aliase"
+
+msgid "Reference patterns"
+msgstr "Referenzmuster"
+
+msgid "Sections"
+msgstr "Abschnitte"
+
+msgid "Structure and content blocks on the full offer page."
+msgstr "Struktur und Inhaltsblöcke auf der vollständigen Angebotsseite."
+
+msgid "Surface"
+msgstr "Fläche"
+
+msgid "Surface KPI and divisibility labels on cards and detail blocks."
+msgstr "Flächen-KPI- und Teilbarkeitslabels auf Karten und Detailblöcken."
+
+msgid "This site is multilingual. Edit wording in the default site language in each settings tab. Use the Translate tab for other enabled languages. Budget, Popover, Surface and Media share one display-labels form."
+msgstr "Diese Website ist mehrsprachig. Bearbeiten Sie Texte in der Standardsprache in jedem Einstellungs-Tab. Nutzen Sie den Tab Übersetzen für andere aktive Sprachen. Budget, Popover, Fläche und Medien teilen ein Label-Formular."
+
+msgid "Titles, icons and transport feature group for detail sections."
+msgstr "Titel, Symbole und Transportmerkmalsgruppe für Detailabschnitte."
+
+msgid "Translate"
+msgstr "Übersetzen"
+
+msgid "Videos badge icon"
+msgstr "Video-Badge-Symbol"
+
+msgid "Wording shown with prices and surfaces."
+msgstr "Texte neben Preisen und Flächen."

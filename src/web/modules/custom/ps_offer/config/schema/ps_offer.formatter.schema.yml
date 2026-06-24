@@ -1,0 +1,34 @@
+field.formatter.settings.ps_offer_agent_card:
+  type: mapping
+  label: 'Offer agent card formatter settings'
+  mapping:
+    view_mode:
+      type: string
+      label: 'View mode'
+    consultant_label:
+      type: label
+      label: 'Consultant label'
+      translatable: true
+    contact_label:
+      type: label
+      label: 'Contact button label'
+      translatable: true
+    contact_label_mobile:
+      type: label
+      label: 'Contact button label (mobile)'
+      translatable: true
+    visit_title:
+      type: label
+      label: 'Visit section title'
+      translatable: true
+    visit_label:
+      type: label
+      label: 'Visit button label'
+      translatable: true
+    visit_label_mobile:
+      type: label
+      label: 'Visit button label (mobile)'
+      translatable: true
+    contact_dialog_options:
+      type: string
+      label: 'Contact modal dialog options (JSON)'

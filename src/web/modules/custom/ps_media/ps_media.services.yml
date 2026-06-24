@@ -5,3 +5,8 @@ services:
   ps_media.gallery_badge_icon_resolver:
     class: Drupal\ps_media\Service\GalleryBadgeIconResolver
     arguments: ['@config.factory']
+
+  ps_media.offer_gallery_field_block_subscriber:
+    class: Drupal\ps_media\EventSubscriber\OfferGalleryFieldBlockSubscriber
+    tags:
+      - { name: event_subscriber }

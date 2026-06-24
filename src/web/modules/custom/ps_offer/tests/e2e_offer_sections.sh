@@ -43,7 +43,7 @@ ROUTE_PERMISSION="$(echo "$ROUTE_DATA" | sed -n 's/^permission=//p' | head -n1)"
 assert_eq '\Drupal\ps_offer\Form\OfferSectionSettingsForm' "${ROUTE_FORM}" "section settings route uses OfferSectionSettingsForm"
 assert_eq 'manage ps_offer' "${ROUTE_PERMISSION}" "section settings route requires manage ps_offer"
 
-# Submit the admin form programmatically (same contract as /admin/ps/config/offer-sections).
+# Submit the admin form programmatically (same contract as /admin/ps/config/offer/sections).
 ps_e2e_drush php:eval '
 use Drupal\Core\Form\FormState;
 use Drupal\ps_offer\Form\OfferSectionSettingsForm;

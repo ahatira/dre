@@ -1,0 +1,16 @@
+langcode: pl
+third_party_settings:
+  layout_builder:
+    sections:
+      0:
+        components:
+          a1000001-0000-4000-8000-000000000030:
+            configuration:
+              formatter:
+                settings:
+                  consultant_label: 'Twój doradca'
+                  contact_label: 'Skontaktuj się z agencją'
+                  contact_label_mobile: 'Kontakt'
+                  visit_title: 'Chcesz odwiedzić nieruchomość?'
+                  visit_label: 'Umów wizytę'
+                  visit_label_mobile: 'Wizyta'

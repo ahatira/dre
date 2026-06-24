@@ -118,8 +118,26 @@ services:
       - '@?ps_search.search_path_resolver'
       - '@language_manager'
 
+  ps_offer.default_image_resolver:
+    class: Drupal\ps_offer\Service\OfferDefaultImageResolver
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@file_url_generator'
+      - '@extension.list.theme'
+      - '@request_stack'
+      - '@string_translation'
+
+  ps_offer.gallery_image_resolver:
+    class: Drupal\ps_offer\Service\OfferGalleryImageResolver
+    arguments:
+      - '@ps_offer.default_image_resolver'
+      - '@file_url_generator'
+
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks
     arguments:
       - '@Drupal\ps_offer\Service\OfferValidationManagerInterface'
       - '@Drupal\ps_offer\Service\OfferReferenceManagerInterface'
+
+  Drupal\ps_offer\Hook\OfferAdminHooks: {}

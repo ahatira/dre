@@ -13,3 +13,5 @@ price_information: 'Price information'
 surface_divisible_template: 'Divisible from @surface'
 surface_capacity_unit: 'seats'
 surface_kpi_separator: ' · '
+default_image_fid: 0
+default_image_alt: 'Default offer image'

@@ -1,30 +1,58 @@
-ps_offer.budget_settings:
-  title: 'Offer display settings'
-  description: 'Configure offer budget, surface and popover display labels.'
-  route_name: ps_offer.budget_settings
+ps_offer.admin_overview:
+  title: 'Offer'
+  description: 'Configure offer display, sections, map, media and references.'
+  route_name: ps_offer.admin_overview
   parent: ps_core.config
   weight: 25
 
+ps_offer.budget_display_settings:
+  title: 'Budget display labels'
+  description: 'Configure on request, TTC and price info labels.'
+  route_name: ps_offer.budget_display_settings
+  parent: ps_offer.admin_overview
+  weight: 0
+
+ps_offer.budget_popover_settings:
+  title: 'Budget info popover'
+  description: 'Configure HT/HC/CC/HD definitions and default fees text.'
+  route_name: ps_offer.budget_popover_settings
+  parent: ps_offer.admin_overview
+  weight: 1
+
+ps_offer.surface_display_settings:
+  title: 'Surface display labels'
+  description: 'Configure surface KPI and divisibility labels.'
+  route_name: ps_offer.surface_display_settings
+  parent: ps_offer.admin_overview
+  weight: 2
+
+ps_offer.media_settings:
+  title: 'Media and gallery'
+  description: 'Configure default offer image and gallery badge icons.'
+  route_name: ps_offer.media_settings
+  parent: ps_offer.admin_overview
+  weight: 3
+
 ps_offer.section_settings:
-  title: 'Offer section headings'
+  title: 'Section headings'
   description: 'Configure offer detail section titles and icons.'
   route_name: ps_offer.section_settings
-  parent: ps_core.config
-  weight: 26
+  parent: ps_offer.admin_overview
+  weight: 4
 
 ps_offer.map_settings:
-  title: 'Offer map settings'
+  title: 'Interactive map'
   description: 'Configure the offer detail interactive map.'
   route_name: ps_offer.map_settings
-  parent: ps_core.config
-  weight: 27
+  parent: ps_offer.admin_overview
+  weight: 5
 
 ps_offer.reference_config:
-  title: 'Offer Reference'
-  description: 'Configure offer reference generation.'
+  title: 'Reference generation'
+  description: 'Configure offer reference generation patterns and aliases.'
   route_name: ps_offer.reference_config
-  parent: ps_core.config
-  weight: 30
+  parent: ps_offer.admin_overview
+  weight: 10
 
 ps_offer.reference_patterns:
   title: 'Reference patterns'

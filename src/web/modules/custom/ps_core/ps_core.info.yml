@@ -9,7 +9,6 @@ dependencies:
   - drupal:user
   - drupal:field
   - drupal:views
-  - drupal:config_translation
   - config_ignore:config_ignore
   - config_split:config_split
   - ui_icons_picker:ui_icons_picker

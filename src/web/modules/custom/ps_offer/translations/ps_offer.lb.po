@@ -91,7 +91,7 @@ msgid "BNPPRE real estate offer"
 msgstr "BNPPRE-Immobilie-Offer"
 
 msgid "Budget display"
-msgstr "Budget display"
+msgstr "Budget-Uweisung"
 
 msgid "Budget display labels"
 msgstr "Budget-Duerstellung-Labelen"
@@ -166,7 +166,7 @@ msgid "Commercial title"
 msgstr "Kommerzielle Titel"
 
 msgid "Configure budget popover labels and default fees text."
-msgstr "Configure budget popover labels and default fees text."
+msgstr "Budget-Popover-Labelen an Standard-Honorartexter configuréieren."
 
 msgid "Configure headings and icons for offer detail page sections. Sections "
 "are registered by modules; only installed sections appear below."
@@ -538,7 +538,7 @@ msgid "Offers by feature"
 msgstr "Offeren no Feature"
 
 msgid "On request"
-msgstr "On request"
+msgstr "Op Ufro"
 
 msgid "On request label"
 msgstr "Label Präis op Ufro"
@@ -841,7 +841,7 @@ msgid "Surfaces"
 msgstr "Flächen"
 
 msgid "TTC"
-msgstr "TTC"
+msgstr "inkl. MwSt."
 
 msgid "TTC label"
 msgstr "TVA-inkl.-Label"
@@ -1005,3 +1005,159 @@ msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CR
 "ing import synchronization."
 msgstr "⚠️ <strong>Aktivéiert dës Spär fir manuell Ännerungen ze schützen.</st"
 "rong>"
+
+msgid "3D visit badge icon"
+msgstr "3D-Besuch-Badge-Symbol"
+
+msgid "Back to PS configuration hub"
+msgstr "Zréck op de PS-Konfiguratiounshub"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Configure default offer image and gallery badge icons."
+msgstr "Standard-Offertbild a Galerie-Badge-Symboler configuréieren."
+
+msgid "Configure HT/HC/CC/HD definitions and default fees text."
+msgstr "HT/HC/CC/HD-Definitiounen a Standard-Honorartexter configuréieren."
+
+msgid "Configure offer display on cards, search results and detail pages."
+msgstr "Offert-Uweisung op Kaarten, Sichresultater a Detail-Säiten configuréieren."
+
+msgid "Configure offer display, sections, map, media and references."
+msgstr "Offert-Uweisung, Sektiounen, Kaart, Medien a Referenzen configuréieren."
+
+msgid "Configure offer reference generation patterns and aliases."
+msgstr "Mustere an Alias-Setzer fir Offert-Referenzgeneratioun configuréieren."
+
+msgid "Configure on request, TTC and price info labels."
+msgstr "Labelen fir Op Ufro, inkl. MwSt. a Präisinformatiounen configuréieren."
+
+msgid "Configure surface KPI and divisibility labels."
+msgstr "Flächen-KPI- a Deelbarkeetslabelen configuréieren."
+
+msgid "Configure the offer detail interactive map."
+msgstr "Interaktiv Kaart op der Offert-Detail-Säit configuréieren."
+
+msgid "Content shown in the budget information popover on offer detail pages."
+msgstr "Inhalt am Budget-Informatiouns-Popover op Offert-Detail-Säiten."
+
+msgid "Default image"
+msgstr "Standardbild"
+
+msgid "Default image alt text"
+msgstr "Alt-Text vum Standardbild"
+
+msgid "Default offer image"
+msgstr "Standard-Offertbild"
+
+msgid "Default offer image, alt text and photo/video/3D/plan badge icons."
+msgstr "Standardbild, Alt-Text a Badge-Symboler Foto/Video/3D-Besuch/Plang."
+
+msgid "Display labels"
+msgstr "Uweisungslabelen"
+
+msgid "Displayed when an offer has no photo in its gallery. Allowed formats: png jpg jpeg webp."
+msgstr "Gewise wann eng Offert kee Foto an der Galerie huet. Erlaabt Formater: png jpg jpeg webp."
+
+msgid "Fallback image and gallery badge icons."
+msgstr "Fallback-Bild a Galerie-Badge-Symboler."
+
+msgid "Gallery badge icons"
+msgstr "Galerie-Badge-Symboler"
+
+msgid "HT/HC/CC/HD definitions and default agency fees text."
+msgstr "HT/HC/CC/HD-Definitiounen a Standard-Makler-Honorartext."
+
+msgid "Icons displayed on offer gallery badges (photos, videos, 3D visit, plan)."
+msgstr "Symboler op Galerie-Badges (Fotoen, Videoen, 3D-Besuch, Plang)."
+
+msgid "Interactive map"
+msgstr "Interaktiv Kaart"
+
+msgid "Labels and templates used when rendering offer surface KPIs."
+msgstr "Labelen a Schablounen fir Flächen-KPIen vun Offerten."
+
+msgid "Labels used when rendering offer prices on cards, search results and detail headers."
+msgstr "Labelen fir Präis-Uweisung op Kaarten, Sichresultater a Detail-Käpp."
+
+msgid "Manage patterns and alias sets used when generating offer references."
+msgstr "Mustere an Alias-Setzer fir Offert-Referenzen geréieren."
+
+msgid "Manage reference alias sets."
+msgstr "Referenz-Alias-Setzer geréieren."
+
+msgid "Manage reference patterns."
+msgstr "Referenz-Mustere geréieren."
+
+msgid "Map"
+msgstr "Kaart"
+
+msgid "Map behaviour, markers and surrounding area on the location section."
+msgstr "Kaartverhalen, Marker an Ëmgéigend an der Standuert-Sektioun."
+
+msgid "Media"
+msgstr "Medien"
+
+msgid "Media and gallery"
+msgstr "Medien a Galerie"
+
+msgid "Offer detail page"
+msgstr "Offert-Detail-Säit"
+
+msgid "On request, TTC, \"from\" prefix and price info aria-label."
+msgstr "Op Ufro, inkl. MwSt., Präfix «of» an Aria-Label Präisinformatioun."
+
+msgid "Overview"
+msgstr "Iwwersiicht"
+
+msgid "Patterns and alias sets for CRM offer references."
+msgstr "Mustere an Alias-Setzer fir CRM-Offert-Referenzen."
+
+msgid "Photos badge icon"
+msgstr "Foto-Badge-Symbol"
+
+msgid "Plan badge icon"
+msgstr "Plang-Badge-Symbol"
+
+msgid "Popover"
+msgstr "Popover"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Reference generation"
+msgstr "Referenz-Generatioun"
+
+msgid "Reference aliases"
+msgstr "Referenz-Aliase"
+
+msgid "Reference patterns"
+msgstr "Referenz-Mustere"
+
+msgid "Sections"
+msgstr "Sektiounen"
+
+msgid "Structure and content blocks on the full offer page."
+msgstr "Struktur an Inhaltsblécker op der kompletter Offert-Säit."
+
+msgid "Surface"
+msgstr "Fläch"
+
+msgid "Surface KPI and divisibility labels on cards and detail blocks."
+msgstr "Flächen-KPI- a Deelbarkeetslabelen op Kaarten a Detail-Blécker."
+
+msgid "This site is multilingual. Edit wording in the default site language in each settings tab. Use the Translate tab for other enabled languages. Budget, Popover, Surface and Media share one display-labels form."
+msgstr "Dës Site ass méisproocheg. Beaarbecht Texten an der Standard-Sprooch an all Astellungs-Tab. Benotzt de Tab Iwwersetzen fir aner aktiv Sproochen. Budget, Popover, Fläch a Medien deelen ee Label-Formulaire."
+
+msgid "Titles, icons and transport feature group for detail sections."
+msgstr "Titelen, Symboler a Transport-Merkmalsgrupp fir Detail-Sektiounen."
+
+msgid "Translate"
+msgstr "Iwwersetzen"
+
+msgid "Videos badge icon"
+msgstr "Video-Badge-Symbol"
+
+msgid "Wording shown with prices and surfaces."
+msgstr "Texter niewent Präisser a Flächen."

@@ -40,10 +40,7 @@ final class OfferCardPropsBuilder {
     $operationCode = (string) ($node->get('field_operation_type')->value ?? '');
     $surfaceParts = $this->formatSurfaceParts($node);
 
-    $imageUrl = $this->resolvePrimaryImageUrl($node);
-    if ($imageUrl === NULL) {
-      $imageUrl = $this->placeholderImageUrl();
-    }
+    $imageUrl = $this->resolvePrimaryImageUrlWithFallback($node);
 
     $budget = $this->buildBudgetParts($node);
 
@@ -51,7 +48,7 @@ final class OfferCardPropsBuilder {
       'title' => $this->formatTeaserTitle($node),
       'url' => $node->toUrl()->toString(),
       'image' => $imageUrl,
-      'image_alt' => $this->formatTeaserTitle($node),
+      'image_alt' => $this->resolveImageAlt($node, $this->formatTeaserTitle($node)),
       'location' => $this->formatGridLocation($node),
       'surface' => $this->formatSurface($node),
       'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
@@ -100,10 +97,7 @@ final class OfferCardPropsBuilder {
       $badges[] = $this->dictionaryLabel('asset_type', $assetCode);
     }
 
-    $imageUrl = $this->resolvePrimaryImageUrl($node);
-    if ($imageUrl === NULL) {
-      $imageUrl = $this->placeholderImageUrl();
-    }
+    $imageUrl = $this->resolvePrimaryImageUrlWithFallback($node);
 
     $budget = $this->buildBudgetParts($node);
     $price = $budget['qualifiers'] === ''
@@ -115,7 +109,7 @@ final class OfferCardPropsBuilder {
       'title' => $title,
       'url' => $node->toUrl()->toString(),
       'image' => $imageUrl,
-      'image_alt' => $title,
+      'image_alt' => $this->resolveImageAlt($node, $title),
       'location' => $this->formatGridLocation($node),
       'surface' => $this->formatSurface($node),
       'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,

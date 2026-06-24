@@ -15,7 +15,7 @@ OfferHooks::nodePresave()
         → validateManualReferenceUniqueness()
 ```
 
-Form validate séparé : `OfferHooks::validateGallery()` — galerie obligatoire à la publication.
+Form validate séparé : aucune (galerie photo optionnelle à la publication).
 
 ## Pattern Hook OOP
 
@@ -49,17 +49,13 @@ Si `ps_context` est actif, `OfferContextResolverInterface` est injecté. Détail
 - Non divisible + DISPO < TOTAL → warning UX
 - **Matrix** : ignoré si `group_surface` masqué
 
-### `validatePrimaryAgent()`
+### Publication sans agent principal
 
 - Publication sans agent → `setUnpublished()` + warning (pas d'exception)
 
 ### `validateManualReferenceUniqueness()`
 
 - Mode manuel + doublon `field_reference` → blocant (brouillon et publication)
-
-### `validateGallery()` (form)
-
-- Publication sans `field_media_gallery` → erreur formulaire
 
 ## Comportement brouillon vs publication
 

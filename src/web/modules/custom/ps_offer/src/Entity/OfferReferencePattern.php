@@ -42,10 +42,10 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *     "weight" = "weight"
  *   },
  *   links = {
- *     "collection" = "/admin/ps/config/offer-reference/patterns",
- *     "add-form" = "/admin/ps/config/offer-reference/patterns/add",
- *     "edit-form" = "/admin/ps/config/offer-reference/patterns/{ps_offer_reference_pattern}",
- *     "delete-form" = "/admin/ps/config/offer-reference/patterns/{ps_offer_reference_pattern}/delete"
+ *     "collection" = "/admin/ps/config/offer/reference/patterns",
+ *     "add-form" = "/admin/ps/config/offer/reference/patterns/add",
+ *     "edit-form" = "/admin/ps/config/offer/reference/patterns/{ps_offer_reference_pattern}",
+ *     "delete-form" = "/admin/ps/config/offer/reference/patterns/{ps_offer_reference_pattern}/delete"
  *   },
  *   config_export = {
  *     "id",

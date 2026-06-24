@@ -1,31 +1,88 @@
-ps_offer.reference_config:
-  path: '/admin/ps/config/offer-reference'
+ps_offer.admin:
+  path: '/admin/ps/config/offer'
   defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Offer Reference'
+    _controller: '\Drupal\ps_offer\Controller\OfferAdminOverviewController::redirectToOverview'
   requirements:
-    _permission: 'administer ps offer reference patterns'
+    _permission: 'manage ps_offer, administer ps offer reference patterns'
+  options:
+    _admin_route: TRUE
 
-ps_offer.budget_settings:
-  path: '/admin/ps/config/offer-budget'
+ps_offer.admin_overview:
+  path: '/admin/ps/config/offer/overview'
   defaults:
-    _form: '\Drupal\ps_offer\Form\OfferBudgetSettingsForm'
-    _title: 'Offer display settings'
+    _controller: '\Drupal\ps_offer\Controller\OfferAdminOverviewController::overview'
+    _title: 'Offer'
+  requirements:
+    _permission: 'manage ps_offer, administer ps offer reference patterns'
+  options:
+    _admin_route: TRUE
+
+ps_offer.budget_display_settings:
+  path: '/admin/ps/config/offer/budget'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferBudgetDisplaySettingsForm'
+    _title: 'Budget display labels'
   requirements:
     _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
+
+ps_offer.budget_popover_settings:
+  path: '/admin/ps/config/offer/budget/popover'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferBudgetPopoverSettingsForm'
+    _title: 'Budget info popover'
+  requirements:
+    _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
+
+ps_offer.surface_display_settings:
+  path: '/admin/ps/config/offer/surface'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferSurfaceDisplaySettingsForm'
+    _title: 'Surface display labels'
+  requirements:
+    _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
+
+ps_offer.media_settings:
+  path: '/admin/ps/config/offer/media'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferMediaSettingsForm'
+    _title: 'Media and gallery'
+  requirements:
+    _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
 
 ps_offer.section_settings:
-  path: '/admin/ps/config/offer-sections'
+  path: '/admin/ps/config/offer/sections'
   defaults:
     _form: '\Drupal\ps_offer\Form\OfferSectionSettingsForm'
-    _title: 'Offer section headings'
+    _title: 'Section headings'
   requirements:
     _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
 
 ps_offer.map_settings:
-  path: '/admin/ps/config/offer-map'
+  path: '/admin/ps/config/offer/map'
   defaults:
     _form: '\Drupal\ps_offer\Form\OfferMapSettingsForm'
-    _title: 'Offer map settings'
+    _title: 'Interactive map'
   requirements:
     _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE
+
+ps_offer.reference_config:
+  path: '/admin/ps/config/offer/reference'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Reference generation'
+  requirements:
+    _permission: 'administer ps offer reference patterns'
+  options:
+    _admin_route: TRUE

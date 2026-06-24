@@ -165,7 +165,6 @@ final class OfferHooks {
 
   #[Hook('form_node_offer_form_alter')]
   public function formNodeOfferFormAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
-    $form['#validate'][] = [static::class, 'validateGallery'];
     $form['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
     $this->relaxRequiredFieldsOnTranslationForm($form, $form_state);
     $this->displayUnknownDictionaryWarnings($form, $form_state);
@@ -173,7 +172,6 @@ final class OfferHooks {
 
   #[Hook('form_node_offer_edit_form_alter')]
   public function formNodeOfferEditFormAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
-    $form['#validate'][] = [static::class, 'validateGallery'];
     $form['#attached']['library'][] = 'ps_diagnostic/diagnostic_admin';
     $this->relaxRequiredFieldsOnTranslationForm($form, $form_state);
     $this->displayUnknownDictionaryWarnings($form, $form_state);
@@ -314,53 +312,6 @@ final class OfferHooks {
         '#items' => $warnings,
         '#prefix' => '<h2 class="visually-hidden">' . t('Warning message') . '</h2>',
       ];
-    }
-  }
-
-  /**
-   * Validation handler: ensures at least 1 media item in Gallery before publishing.
-   */
-  public static function validateGallery(array &$form, FormStateInterface $form_state): void {
-    $form_object = $form_state->getFormObject();
-    if (method_exists($form_object, 'getEntity')) {
-      $entity = $form_object->getEntity();
-      if ($entity instanceof NodeInterface && $entity->bundle() === 'offer') {
-        $default_langcode = $entity->getUntranslated()->language()->getId();
-        $current_langcode = $entity->language()->getId();
-        if ($current_langcode !== $default_langcode) {
-          // On translation forms, non-translatable fields are inherited.
-          // Do not block translation save because gallery input is empty.
-          return;
-        }
-      }
-    }
-
-    $values = $form_state->getValues();
-
-    $status_value = $values['status']['value'] ?? $values['status'] ?? 0;
-    if ((int) $status_value !== 1) {
-      return;
-    }
-
-    // Entity Browser stores selected media in a hidden target_id string.
-    $target_ids = trim((string) ($values['field_media_gallery']['target_id'] ?? ''));
-    if ($target_ids !== '') {
-      return;
-    }
-
-    // Fallback for standard entity reference widgets that submit delta arrays.
-    $gallery_items = $values['field_media_gallery'] ?? [];
-    if (is_array($gallery_items)) {
-      $gallery_items = array_filter($gallery_items, static function ($item) {
-        return is_array($item) && !empty($item['target_id']);
-      });
-    }
-
-    if (empty($gallery_items)) {
-      $form_state->setErrorByName(
-        'field_media_gallery',
-        t('Gallery must contain at least one media item before publishing the offer.')
-      );
     }
   }
 

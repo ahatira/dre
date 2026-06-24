@@ -1,0 +1,16 @@
+langcode: de
+third_party_settings:
+  layout_builder:
+    sections:
+      0:
+        components:
+          a1000001-0000-4000-8000-000000000030:
+            configuration:
+              formatter:
+                settings:
+                  consultant_label: 'Ihr Berater'
+                  contact_label: 'Die Beratung kontaktieren'
+                  contact_label_mobile: 'Kontakt'
+                  visit_title: 'Möchten Sie einen Besichtigungstermin?'
+                  visit_label: 'Besichtigung vereinbaren'
+                  visit_label_mobile: 'Besichtigung'

@@ -11,6 +11,8 @@
  * - use_thumbnail: Whether to use thumbnail images
  * - lazy_load: Whether to enable lazy loading
  * - styled_urls: Optional map of precomputed styled URLs keyed by media ID
+ * - default_image_url: Configured fallback image when the gallery is empty
+ * - default_image_alt: Alt text for the configured fallback image
  */
 #}
 <div class="gallery-container ps-media-gallery" data-order="{{ order }}">
@@ -174,6 +176,18 @@
           {% endif %}
         </figure>
       {% endfor %}
+    </div>
+  {% elseif default_image_url %}
+    <div class="gallery-items">
+      <figure class="gallery-item gallery-item--default">
+        <div class="gallery-item__image">
+          <img
+            src="{{ default_image_url }}"
+            alt="{{ default_image_alt|default('') }}"
+            loading="{{ lazy_load ? 'lazy' : 'eager' }}"
+          />
+        </div>
+      </figure>
     </div>
   {% else %}
     <div class="gallery-empty">

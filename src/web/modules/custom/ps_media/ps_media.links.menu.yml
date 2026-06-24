@@ -1,6 +1,0 @@
-ps_media.gallery_settings:
-  title: 'Offer gallery'
-  description: 'Configure offer gallery badge icons.'
-  route_name: ps_media.gallery_settings
-  parent: ps_core.config
-  weight: 25

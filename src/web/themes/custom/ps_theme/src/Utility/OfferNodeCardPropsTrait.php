@@ -6,9 +6,8 @@ namespace Drupal\ps_theme\Utility;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\image\Entity\ImageStyle;
-use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferGalleryImageResolver;
 
 /**
  * Shared offer node data helpers for card prop builders.
@@ -188,58 +187,34 @@ trait OfferNodeCardPropsTrait {
    * @return list<string>
    */
   private function resolveGalleryImageUrls(NodeInterface $node): array {
-    if (!$node->hasField('field_media_gallery') || $node->get('field_media_gallery')->isEmpty()) {
-      return [];
-    }
-
-    $style = ImageStyle::load(self::IMAGE_STYLE);
-    if ($style === NULL) {
-      return [];
-    }
-
-    $urls = [];
-    foreach ($node->get('field_media_gallery')->referencedEntities() as $media) {
-      if (!$media instanceof MediaInterface) {
-        continue;
-      }
-      $uri = $this->resolveMediaUri($media);
-      if ($uri !== NULL) {
-        $urls[] = $style->buildUrl($uri);
-      }
-    }
-
-    return $urls;
+    return $this->galleryImageResolver()->resolveGalleryImageUrls($node, self::IMAGE_STYLE);
   }
 
   private function resolvePrimaryImageUrl(NodeInterface $node): ?string {
-    $urls = $this->resolveGalleryImageUrls($node);
-    return $urls[0] ?? NULL;
+    return $this->galleryImageResolver()->resolvePrimaryImageUrl($node, self::IMAGE_STYLE);
   }
 
-  private function placeholderImageUrl(): string {
-    $theme = \Drupal::theme()->getActiveTheme()->getPath();
-    return '/' . $theme . '/assets/images/offer-placeholder.svg';
+  private function resolvePrimaryImageUrlWithFallback(NodeInterface $node): string {
+    return $this->galleryImageResolver()->resolvePrimaryImageUrlWithFallback($node, self::IMAGE_STYLE);
   }
 
-  private function resolveMediaUri(MediaInterface $media): ?string {
-    $bundle = $media->bundle();
-    $candidates = match ($bundle) {
-      'image', 'visite_guided' => ['field_media_image'],
-      'gallery' => ['field_media_gallery_image'],
-      default => ['thumbnail', 'field_media_image'],
-    };
+  private function resolveGalleryImageUrlsWithFallback(NodeInterface $node): array {
+    return $this->galleryImageResolver()->resolveGalleryImageUrlsWithFallback($node, self::IMAGE_STYLE);
+  }
 
-    foreach ($candidates as $fieldName) {
-      if (!$media->hasField($fieldName) || $media->get($fieldName)->isEmpty()) {
-        continue;
-      }
-      $file = $media->get($fieldName)->entity;
-      if ($file !== NULL) {
-        return $file->getFileUri();
-      }
+  /**
+   * Uses configured default alt text when the card falls back to the site image.
+   */
+  private function resolveImageAlt(NodeInterface $node, string $fallback): string {
+    if ($this->resolvePrimaryImageUrl($node) !== NULL) {
+      return $fallback;
     }
 
-    return NULL;
+    return $this->galleryImageResolver()->getDefaultImageAlt();
+  }
+
+  private function galleryImageResolver(): OfferGalleryImageResolver {
+    return \Drupal::service('ps_offer.gallery_image_resolver');
   }
 
   private function dictionaryLabel(string $type, string $code): string {

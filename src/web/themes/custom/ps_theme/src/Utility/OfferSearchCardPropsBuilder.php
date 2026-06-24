@@ -29,18 +29,19 @@ final class OfferSearchCardPropsBuilder {
    */
   private function buildProps(NodeInterface $node): array {
     $operationCode = (string) ($node->get('field_operation_type')->value ?? '');
-    $images = $this->resolveGalleryImageUrls($node);
-    $primaryImage = $images[0] ?? $this->placeholderImageUrl();
+    $images = $this->resolveGalleryImageUrlsWithFallback($node);
+    $primaryImage = $images[0] ?? $this->resolvePrimaryImageUrlWithFallback($node);
     $budget = $this->buildBudgetParts($node);
     $qualifiers = $budget['qualifiers'];
     $surfaceParts = $this->formatSurfaceParts($node);
+    $title = $this->formatListTitle($node, $operationCode);
 
     return [
-      'title' => $this->formatListTitle($node, $operationCode),
+      'title' => $title,
       'url' => $node->toUrl()->toString(),
       'image' => $primaryImage,
-      'images' => $images !== [] ? $images : [$primaryImage],
-      'image_alt' => $this->formatListTitle($node, $operationCode),
+      'images' => $images,
+      'image_alt' => $this->resolveImageAlt($node, $title),
       'location' => $this->formatListLocation($node),
       'surface' => $this->formatSurface($node),
       'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,

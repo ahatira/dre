@@ -1,0 +1,16 @@
+langcode: fr
+third_party_settings:
+  layout_builder:
+    sections:
+      0:
+        components:
+          a1000001-0000-4000-8000-000000000030:
+            configuration:
+              formatter:
+                settings:
+                  consultant_label: 'Votre consultant'
+                  contact_label: 'Contacter le conseil'
+                  contact_label_mobile: 'Contact'
+                  visit_title: 'Souhaitez-vous visiter ?'
+                  visit_label: 'Planifier une visite'
+                  visit_label_mobile: 'Visite'

@@ -1,0 +1,34 @@
+ps_offer.display_labels_budget:
+  title: 'Display labels'
+  names:
+    - ps_offer.settings
+  base_route_name: ps_offer.budget_display_settings
+  weight: 15
+
+ps_offer.display_labels_popover:
+  title: 'Display labels'
+  names:
+    - ps_offer.settings
+  base_route_name: ps_offer.budget_popover_settings
+  weight: 15
+
+ps_offer.display_labels_surface:
+  title: 'Display labels'
+  names:
+    - ps_offer.settings
+  base_route_name: ps_offer.surface_display_settings
+  weight: 15
+
+ps_offer.display_labels_media:
+  title: 'Display labels'
+  names:
+    - ps_offer.settings
+  base_route_name: ps_offer.media_settings
+  weight: 15
+
+ps_offer.offer_section_settings:
+  title: 'Section headings'
+  names:
+    - ps_core.offer_section_settings
+  base_route_name: ps_offer.section_settings
+  weight: 10
