@@ -21,7 +21,15 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const sassOptions = {
   outputStyle: mode.production() ? 'compressed' : 'expanded',
-  silenceDeprecations: ['legacy-js-api'],
+  // Bootstrap 5.3 + starterkit split still use @import and global Sass builtins.
+  // Silence until upstream migrates to @use (Dart Sass 3.0 timeline).
+  silenceDeprecations: [
+    'legacy-js-api',
+    'import',
+    'global-builtin',
+    'color-functions',
+    'if-function',
+  ],
 };
 
 const stylesPaths = {
