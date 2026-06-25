@@ -1,0 +1,36 @@
+# Property Search — build gate for deployable src/ artefact.
+# Requires: PHP 8.3, Composer 2, Node.js 20+ (native Linux, not Windows path).
+#
+# Local equivalent:
+#   cd src && make build --production && make verify
+
+stages:
+  - build
+
+variables:
+  COMPOSER_ALLOW_SUPERUSER: "1"
+  COMPOSER_NO_INTERACTION: "1"
+
+build-and-verify:
+  stage: build
+  image: php:8.3-cli-bookworm
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq git unzip curl ca-certificates gnupg
+    - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    - apt-get install -y -qq nodejs
+    - node --version && npm --version && php --version
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  script:
+    - cd "${CI_PROJECT_DIR}"
+    - composer install --no-interaction --optimize-autoloader --no-dev
+    - bash scripts/main.sh tools build --production --keep-npm
+    - bash scripts/main.sh tools check
+  artifacts:
+    when: on_success
+    expire_in: 1 week
+    paths:
+      - web/themes/custom/ui_suite_bnp/assets/
+      - web/themes/custom/ps_theme/assets/css/
+      - web/themes/custom/ps_theme/components/**/styles/*.css
+      - web/libraries/

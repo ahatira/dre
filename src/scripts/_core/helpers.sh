@@ -453,3 +453,44 @@ ps_index_offers_solr() {
   ps_retry 2 2 ps_drush ps:search:features:sync-index --rebuild-tracker=1 -y \
     || ps_warn "Feature filter sync failed"
 }
+
+# ps_theme source-only: compiled CSS must not be tracked (CI builds artefacts).
+ps_check_ps_theme_source_only() {
+  command -v git >/dev/null 2>&1 || return 0
+
+  local git_root theme_prefix tracked
+  git_root="$(git -C "${PS_REPO_ROOT}" rev-parse --show-toplevel 2>/dev/null)" || return 0
+  theme_prefix="$(git -C "${git_root}" ls-files '**/ps_theme/ps_theme.info.yml' 2>/dev/null | head -1)"
+  [[ -n "${theme_prefix}" ]] || return 0
+  theme_prefix="${theme_prefix%/ps_theme.info.yml}"
+
+  local tracked_compiled=()
+  while IFS= read -r rel; do
+    [[ -z "${rel}" ]] && continue
+    if [[ "${rel}" == "${theme_prefix}/assets/css/"* ]]; then
+      tracked_compiled+=("${rel}")
+      continue
+    fi
+    if [[ "${rel}" == *".css.map" ]]; then
+      tracked_compiled+=("${rel}")
+      continue
+    fi
+    if [[ "${rel}" =~ ${theme_prefix}/components/.+/styles/.+\.css$ ]]; then
+      local abs="${git_root}/${rel}"
+      if [[ -f "${abs%.css}.scss" ]]; then
+        tracked_compiled+=("${rel}")
+      fi
+    fi
+  done < <(git -C "${git_root}" ls-files "${theme_prefix}/assets/css" "${theme_prefix}/components" 2>/dev/null \
+    | grep -E '\.(css|css\.map)$' || true)
+
+  if [[ ${#tracked_compiled[@]} -gt 0 ]]; then
+    ps_error "ps_theme compiled CSS tracked in Git (source-only mode):"
+    printf '  - %s\n' "${tracked_compiled[@]}" >&2
+    ps_error "Run: git rm --cached <paths> — see ps_theme/.gitignore"
+    return 1
+  fi
+
+  ps_success "ps_theme source-only Git OK"
+  return 0
+}

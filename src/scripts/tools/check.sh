@@ -12,6 +12,7 @@ Checks:
   - src/vendor/autoload.php
   - Required web/libraries/* paths (ace, swiper, photoswipe, bootstrap, …)
   - Compiled theme CSS (ui_suite_bnp, ps_theme)
+  - ps_theme compiled CSS not tracked in Git (source-only mode)
 
 Does not install anything. Run: scripts/main.sh tools build
 EOF
@@ -73,6 +74,10 @@ if [[ ${#MISSING_FILES[@]} -gt 0 ]]; then
   ERRORS=$((ERRORS + 1))
 else
   ps_success "Theme build artefacts OK"
+fi
+
+if ! ps_check_ps_theme_source_only; then
+  ERRORS=$((ERRORS + 1))
 fi
 
 [[ ${ERRORS} -eq 0 ]] || ps_die "Verify failed (${ERRORS} error(s)). Run: make build"
