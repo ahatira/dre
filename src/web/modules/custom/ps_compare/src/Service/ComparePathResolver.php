@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\ps_compare\Service;
 
-use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
@@ -14,6 +13,11 @@ use Drupal\ps_compare\Contract\ComparePathResolverInterface;
  * Resolves internal and public (translated) compare page path slugs.
  */
 final class ComparePathResolver implements ComparePathResolverInterface {
+
+  /**
+   * Machine route slug — must match ps_compare.routing.yml (never translated).
+   */
+  private const MACHINE_ROUTE_SLUG = 'compare';
 
   /**
    * @var array<string, string>
@@ -30,7 +34,6 @@ final class ComparePathResolver implements ComparePathResolverInterface {
   public function __construct(
     private readonly LanguageManagerInterface $languageManager,
     private readonly LanguageConfigFactoryOverrideInterface $langConfigOverride,
-    private readonly StorageInterface $configStorage,
   ) {}
 
   /**
@@ -106,9 +109,9 @@ final class ComparePathResolver implements ComparePathResolverInterface {
       return $this->machineSlug;
     }
 
-    $data = $this->configStorage->read('ps_compare.seo_url_mappings') ?: [];
-    $slug = strtolower(trim((string) ($data['compare_path'] ?? 'compare'), '/'));
-    $this->machineSlug = $slug !== '' ? $slug : 'compare';
+    // Base config can carry a translated slug after config export on multilingual
+    // sites — the Drupal route is always /compare (see ps_compare.routing.yml).
+    $this->machineSlug = self::MACHINE_ROUTE_SLUG;
     return $this->machineSlug;
   }
 

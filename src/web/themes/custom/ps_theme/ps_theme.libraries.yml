@@ -64,7 +64,7 @@ component_accordion:
 
 component_alert:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_badge:
   dependencies:
@@ -92,7 +92,7 @@ component_close_button:
 
 component_dropdown:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
     - ps_theme/contextual
 
 component_list_group:
@@ -113,7 +113,7 @@ component_navbar:
 
 component_offcanvas:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_pagination:
   dependencies:

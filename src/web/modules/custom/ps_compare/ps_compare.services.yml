@@ -23,7 +23,6 @@ services:
     arguments:
       - '@language_manager'
       - '@language.config_factory_override'
-      - '@config.storage'
 
   Drupal\ps_compare\Contract\ComparePathResolverInterface:
     alias: ps_compare.path_resolver
