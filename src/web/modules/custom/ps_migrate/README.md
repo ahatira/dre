@@ -258,10 +258,17 @@ Protected entities will be excluded from migration rollbacks to prevent accident
 
 ## Testing
 
-Run module tests:
+Runbook ops : [docs/IMPORT_OPS.md](docs/IMPORT_OPS.md)
 
 ```bash
-vendor/bin/phpunit --group ps_migrate
+# B2B shell (BO + Drush + Mailpit)
+bash web/modules/custom/ps_migrate/tests/b2b_import_full.sh
+
+# Kernel (PostgreSQL — uses src/.env DB_NAME_{COUNTRY})
+bash web/modules/custom/ps_migrate/tests/run-kernel.sh
+
+# Unit
+bash web/modules/custom/ps_migrate/tests/run-unit.sh
 ```
 
 Test a migration:
