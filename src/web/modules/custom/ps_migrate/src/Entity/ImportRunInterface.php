@@ -23,6 +23,14 @@ interface ImportRunInterface extends ContentEntityInterface {
 
   public const MODE_DELTA = 'delta';
 
+  public const ROLLBACK_NONE = 'none';
+
+  public const ROLLBACK_ROLLED_BACK = 'rolled_back';
+
+  public const ROLLBACK_PARTIAL = 'partial';
+
+  public const ROLLBACK_UNAVAILABLE = 'unavailable';
+
   /**
    * Gets the source XML filename.
    */
@@ -49,5 +57,22 @@ interface ImportRunInterface extends ContentEntityInterface {
    * Gets human-readable messages.
    */
   public function getMessages(): string;
+
+  /**
+   * Gets decoded snapshot array for rollback.
+   *
+   * @return array<string, mixed>
+   */
+  public function getSnapshot(): array;
+
+  /**
+   * Gets rollback status.
+   */
+  public function getRollbackStatus(): string;
+
+  /**
+   * Gets stored duration in milliseconds, or 0 when unavailable.
+   */
+  public function getDurationMs(): int;
 
 }

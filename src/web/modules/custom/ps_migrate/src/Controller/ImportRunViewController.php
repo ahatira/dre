@@ -10,6 +10,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\ps_migrate\Entity\ImportRunInterface;
+use Drupal\ps_migrate\Service\ImportPipelineRollbackService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,6 +20,7 @@ final class ImportRunViewController extends ControllerBase {
 
   public function __construct(
     private readonly DateFormatterInterface $dateFormatter,
+    private readonly ImportPipelineRollbackService $rollbackService,
   ) {}
 
   /**
@@ -27,6 +29,7 @@ final class ImportRunViewController extends ControllerBase {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('date.formatter'),
+      $container->get('ps_migrate.import_pipeline_rollback'),
     );
   }
 
@@ -105,6 +108,16 @@ final class ImportRunViewController extends ControllerBase {
       '#weight' => 40,
     ];
 
+    if ($this->rollbackService->canRollback($import_run)) {
+      $build['actions']['rollback'] = Link::fromTextAndUrl(
+        $this->t('Roll back this run'),
+        Url::fromRoute('ps_migrate.import_run_rollback', ['import_run' => $import_run->id()]),
+      )->toRenderable();
+      $build['actions']['rollback']['#weight'] = 10;
+      $build['actions']['rollback']['#attributes']['class'][] = 'button';
+      $build['actions']['rollback']['#attributes']['class'][] = 'button--danger';
+    }
+
     return $build;
   }
 
@@ -130,6 +143,14 @@ final class ImportRunViewController extends ControllerBase {
       [
         $this->t('Post-run Solr'),
         $this->formatSolrSummary($stats),
+      ],
+      [
+        $this->t('Rollback status'),
+        $this->formatRollbackStatus($import_run),
+      ],
+      [
+        $this->t('Snapshot'),
+        $this->formatSnapshotSummary($import_run),
       ],
       [$this->t('Source URI'), $this->formatUri($import_run->get('source_uri')->value)],
       [$this->t('Final URI'), $this->formatUri($import_run->get('file_uri')->value)],
@@ -283,6 +304,35 @@ final class ImportRunViewController extends ControllerBase {
   }
 
   /**
+   * Formats rollback status for display.
+   */
+  private function formatRollbackStatus(ImportRunInterface $import_run): string {
+    return match ($import_run->getRollbackStatus()) {
+      ImportRunInterface::ROLLBACK_ROLLED_BACK => (string) $this->t('Rolled back'),
+      ImportRunInterface::ROLLBACK_PARTIAL => (string) $this->t('Partial rollback'),
+      ImportRunInterface::ROLLBACK_UNAVAILABLE => (string) $this->t('Unavailable'),
+      default => (string) $this->t('None'),
+    };
+  }
+
+  /**
+   * Formats snapshot counters for display.
+   */
+  private function formatSnapshotSummary(ImportRunInterface $import_run): string {
+    $snapshot = $import_run->getSnapshot();
+    if ($snapshot === []) {
+      return (string) $this->t('N/A');
+    }
+
+    $created = count($snapshot['offers']['created'] ?? []);
+    $updated = count($snapshot['offers']['updated'] ?? []);
+    return (string) $this->t('@created created, @updated updated', [
+      '@created' => $created,
+      '@updated' => $updated,
+    ]);
+  }
+
+  /**
    * Formats Solr post-run stats for display.
    *
    * @param array<string, mixed> $stats
@@ -328,7 +378,7 @@ final class ImportRunViewController extends ControllerBase {
    * @param array<string, mixed> $stats
    */
   private function formatDuration(ImportRunInterface $import_run, int $started, int $finished, array $stats): string {
-    $durationMs = (int) $import_run->get('duration_ms')->value;
+    $durationMs = $import_run->getDurationMs();
     if ($durationMs > 0) {
       $slaBreached = !empty($stats['sla_breached']);
       $interval = (string) $this->dateFormatter->formatInterval((int) round($durationMs / 1000));

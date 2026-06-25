@@ -93,6 +93,41 @@ final class ImportRun extends ContentEntityBase implements ImportRunInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSnapshot(): array {
+    if (!$this->hasField('snapshot')) {
+      return [];
+    }
+    $raw = (string) $this->get('snapshot')->value;
+    if ($raw === '') {
+      return [];
+    }
+    $decoded = json_decode($raw, TRUE);
+    return is_array($decoded) ? $decoded : [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRollbackStatus(): string {
+    if (!$this->hasField('rollback_status')) {
+      return ImportRunInterface::ROLLBACK_NONE;
+    }
+    return (string) ($this->get('rollback_status')->value ?: ImportRunInterface::ROLLBACK_NONE);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDurationMs(): int {
+    if (!$this->hasField('duration_ms')) {
+      return 0;
+    }
+    return (int) $this->get('duration_ms')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -154,6 +189,20 @@ final class ImportRun extends ContentEntityBase implements ImportRunInterface {
     $fields['duration_ms'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Duration (ms)'))
       ->setDescription(t('Total pipeline duration in milliseconds.'));
+
+    $fields['snapshot'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Rollback snapshot'))
+      ->setDescription(t('JSON snapshot of entities changed during this run.'));
+
+    $fields['rollback_status'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Rollback status'))
+      ->setSetting('allowed_values', [
+        self::ROLLBACK_NONE => 'None',
+        self::ROLLBACK_ROLLED_BACK => 'Rolled back',
+        self::ROLLBACK_PARTIAL => 'Partial rollback',
+        self::ROLLBACK_UNAVAILABLE => 'Unavailable',
+      ])
+      ->setDefaultValue(self::ROLLBACK_NONE);
 
     return $fields;
   }

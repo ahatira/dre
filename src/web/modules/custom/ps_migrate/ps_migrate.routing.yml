@@ -49,3 +49,16 @@ ps_migrate.import_pipeline_settings:
     _form: '\Drupal\ps_migrate\Form\ImportPipelineSettingsForm'
   requirements:
     _permission: 'manage ps_migrate import pipeline+manage ps_migrate'
+
+ps_migrate.import_run_rollback:
+  path: '/admin/ps/import/runs/{import_run}/rollback'
+  defaults:
+    _title: 'Roll back import run'
+    _form: '\Drupal\ps_migrate\Form\ImportRunRollbackForm'
+  requirements:
+    _permission: 'manage ps_migrate import pipeline+manage ps_migrate'
+    _entity_access: 'import_run.view'
+  options:
+    parameters:
+      import_run:
+        type: entity:import_run

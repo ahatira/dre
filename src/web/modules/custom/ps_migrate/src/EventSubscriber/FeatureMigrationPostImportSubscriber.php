@@ -11,6 +11,7 @@ use Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder;
 use Drupal\ps_migrate\Service\FeaturePayloadDefaultsNormalizer;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementSourceLoader;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementValidator;
+use Drupal\ps_migrate\Service\ImportRunSnapshotCollector;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -28,6 +29,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
     private readonly FeatureTechnicalElementValidator $validator,
     private readonly FeaturePayloadDefaultsNormalizer $payloadDefaultsNormalizer,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ImportRunSnapshotCollector $snapshotCollector,
     private readonly LoggerInterface $logger,
   ) {}
 
@@ -84,11 +86,13 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
       if ($should_be_active && !$is_active) {
         $group->set('status', TRUE);
         $group->save();
+        $this->snapshotCollector->recordFeatureGroupStatusChange($group_id, FALSE, TRUE);
         $this->logger->info('Reactivated feature group @group_id from XML snapshot.', ['@group_id' => $group_id]);
       }
       elseif (!$should_be_active && $is_active) {
         $group->set('status', FALSE);
         $group->save();
+        $this->snapshotCollector->recordFeatureGroupStatusChange($group_id, TRUE, FALSE);
         $this->logger->warning('Deactivated feature group @group_id because it disappeared from XML.', ['@group_id' => $group_id]);
       }
 
@@ -118,11 +122,13 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
       if ($should_be_active && !$is_active) {
         $definition->set('status', TRUE);
         $definition->save();
+        $this->snapshotCollector->recordFeatureDefinitionStatusChange($definition_id, FALSE, TRUE);
         $this->logger->info('Reactivated feature definition @definition_id from XML snapshot.', ['@definition_id' => $definition_id]);
       }
       elseif (!$should_be_active && $is_active) {
         $definition->set('status', FALSE);
         $definition->save();
+        $this->snapshotCollector->recordFeatureDefinitionStatusChange($definition_id, TRUE, FALSE);
         $this->logger->warning('Deactivated feature definition @definition_id because it disappeared from XML.', ['@definition_id' => $definition_id]);
       }
 

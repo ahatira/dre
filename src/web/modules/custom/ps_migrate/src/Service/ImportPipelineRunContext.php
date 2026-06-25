@@ -14,6 +14,8 @@ final class ImportPipelineRunContext {
 
   private ?string $mode = NULL;
 
+  private ?int $importRunId = NULL;
+
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
   ) {}
@@ -21,10 +23,11 @@ final class ImportPipelineRunContext {
   /**
    * Starts tracking context for a pipeline run.
    */
-  public function begin(string $mode): void {
+  public function begin(string $mode, int $importRunId): void {
     $this->mode = in_array($mode, [ImportRunInterface::MODE_FULL, ImportRunInterface::MODE_DELTA], TRUE)
       ? $mode
       : ImportRunInterface::MODE_FULL;
+    $this->importRunId = $importRunId;
   }
 
   /**
@@ -32,6 +35,21 @@ final class ImportPipelineRunContext {
    */
   public function clear(): void {
     $this->mode = NULL;
+    $this->importRunId = NULL;
+  }
+
+  /**
+   * Whether a pipeline run is currently active.
+   */
+  public function isActive(): bool {
+    return $this->importRunId !== NULL;
+  }
+
+  /**
+   * Returns the active import run ID, if any.
+   */
+  public function getImportRunId(): ?int {
+    return $this->importRunId;
   }
 
   /**

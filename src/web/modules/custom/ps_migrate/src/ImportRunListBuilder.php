@@ -19,6 +19,7 @@ use Drupal\ps_migrate\Service\ImportPipeline;
 use Drupal\ps_migrate\Service\ImportPipelineLock;
 use Drupal\ps_migrate\Service\ImportPipelineLockStrategy;
 use Drupal\ps_migrate\Service\ImportPipelinePathResolver;
+use Drupal\ps_migrate\Service\ImportPipelineRollbackService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -35,6 +36,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
     private readonly QueueFactory $queueFactory,
     private readonly ImportPipelineLock $pipelineLock,
     private readonly ImportPipelineLockStrategy $lockStrategy,
+    private readonly ImportPipelineRollbackService $rollbackService,
   ) {
     parent::__construct($entity_type, $storage);
   }
@@ -52,6 +54,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
       $container->get('queue'),
       $container->get('ps_migrate.import_pipeline_lock'),
       $container->get('ps_migrate.import_pipeline_lock_strategy'),
+      $container->get('ps_migrate.import_pipeline_rollback'),
     );
   }
 
@@ -64,6 +67,13 @@ final class ImportRunListBuilder extends EntityListBuilder {
     unset($operations['clone']);
     if (isset($operations['view'])) {
       $operations['view']['weight'] = 0;
+    }
+    if ($entity instanceof ImportRunInterface && $this->rollbackService->canRollback($entity)) {
+      $operations['rollback'] = [
+        'title' => $this->t('Roll back'),
+        'weight' => 5,
+        'url' => Url::fromRoute('ps_migrate.import_run_rollback', ['import_run' => $entity->id()]),
+      ];
     }
     return $operations;
   }
@@ -332,7 +342,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
    * Formats duration for a list table cell.
    */
   private function formatDurationCell(ImportRunInterface $entity, int $started, int $finished): string {
-    $durationMs = (int) $entity->get('duration_ms')->value;
+    $durationMs = $entity->getDurationMs();
     if ($durationMs > 0) {
       $interval = (string) $this->dateFormatter->formatInterval((int) round($durationMs / 1000));
       $stats = $entity->getStats();

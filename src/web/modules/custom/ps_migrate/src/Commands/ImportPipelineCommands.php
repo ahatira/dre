@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\ps_migrate\Commands;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\ps_migrate\Service\ImportPipeline;
+use Drupal\ps_migrate\Service\ImportPipelineRollbackService;
 use Drush\Attributes as CLI;
 use Drush\Commands\DrushCommands;
 
@@ -15,8 +17,57 @@ final class ImportPipelineCommands extends DrushCommands {
 
   public function __construct(
     private readonly ImportPipeline $importPipeline,
+    private readonly ImportPipelineRollbackService $rollbackService,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {
     parent::__construct();
+  }
+
+  /**
+   * Rolls back a CRM import run using its stored snapshot.
+   */
+  #[CLI\Command(name: 'ps:import:rollback', aliases: ['ps-import-rollback'])]
+  #[CLI\Option(name: 'run-id', description: 'Import run entity ID to roll back.')]
+  #[CLI\Option(name: 'force', description: 'Skip newer-run guard (1/0).')]
+  #[CLI\Usage(name: 'drush ps:import:rollback --run-id=42', description: 'Roll back import run 42.')]
+  public function rollback(array $options = ['run-id' => NULL, 'force' => NULL]): void {
+    $runId = (int) ($options['run-id'] ?? 0);
+    if ($runId <= 0) {
+      throw new \InvalidArgumentException('Missing or invalid --run-id.');
+    }
+
+    /** @var \Drupal\ps_migrate\Entity\ImportRunInterface|null $run */
+    $run = $this->entityTypeManager->getStorage('import_run')->load($runId);
+    if ($run === NULL) {
+      throw new \InvalidArgumentException(sprintf('Import run %d not found.', $runId));
+    }
+
+    $force = (int) ($options['force'] ?? 0) === 1;
+    $summary = $this->rollbackService->rollback($run, $force);
+
+    if (!empty($summary['blocked'])) {
+      $this->io()->error('Rollback blocked: a newer successful import run exists. Use --force=1 to override.');
+      throw new \RuntimeException('Rollback blocked.');
+    }
+
+    foreach ($summary['warnings'] ?? [] as $warning) {
+      $this->logger()->warning($warning);
+    }
+    foreach ($summary['errors'] ?? [] as $error) {
+      $this->io()->error($error);
+    }
+
+    if (($summary['status'] ?? '') === 'failed') {
+      throw new \RuntimeException('Import run rollback failed.');
+    }
+
+    $this->io()->success(sprintf(
+      'Rollback run %d: unpublished=%d restored=%d skipped_locked=%d',
+      $runId,
+      $summary['offers_unpublished'] ?? 0,
+      $summary['offers_restored'] ?? 0,
+      $summary['offers_skipped_locked'] ?? 0,
+    ));
   }
 
   /**

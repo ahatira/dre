@@ -87,6 +87,8 @@ function ps_migrate_update_11003(): void {
       $field_definitions[$field_name],
     );
   }
+
+  \Drupal::entityTypeManager()->clearCachedDefinitions();
 }
 
 /**
@@ -163,6 +165,33 @@ function ps_migrate_update_11005_sync_migration_plugins(): void {
     'source' => 'business_id',
   ]] + $process;
   $offer->set('process', $process)->save(TRUE);
+}
+
+/**
+ * Phase 4 pipeline: rollback snapshot and status fields on import_run.
+ */
+function ps_migrate_update_11006(): void {
+  if (!\Drupal::entityTypeManager()->hasDefinition('import_run')) {
+    return;
+  }
+
+  $entity_type = \Drupal::entityTypeManager()->getDefinition('import_run');
+  $field_definitions = \Drupal\ps_migrate\Entity\ImportRun::baseFieldDefinitions($entity_type);
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+
+  foreach (['snapshot', 'rollback_status'] as $field_name) {
+    if ($update_manager->getFieldStorageDefinition($field_name, 'import_run')) {
+      continue;
+    }
+    $update_manager->installFieldStorageDefinition(
+      $field_name,
+      'import_run',
+      'ps_migrate',
+      $field_definitions[$field_name],
+    );
+  }
+
+  \Drupal::entityTypeManager()->clearCachedDefinitions();
 }
 
 /**

@@ -40,6 +40,7 @@ final class ImportPipeline {
     private readonly ImportPipelinePostRunIndexer $postRunIndexer,
     private readonly XmlParseCacheService $xmlParseCache,
     private readonly ImportPipelineRunContext $runContext,
+    private readonly ImportRunSnapshotCollector $snapshotCollector,
     private readonly TimeInterface $time,
   ) {}
 
@@ -463,7 +464,8 @@ final class ImportPipeline {
 
       $stagingUri = $this->pathResolver->getStagingUri();
       $this->xmlParseCache->beginRun($stagingUri);
-      $this->runContext->begin($mode);
+      $this->runContext->begin($mode, (int) $run->id());
+      $this->snapshotCollector->begin((int) $run->id(), $mode);
 
       $migrateStats = $this->migrateRunner->run($mode, TRUE);
 
@@ -479,10 +481,20 @@ final class ImportPipeline {
       $migrateStats = $this->enrichStats($migrateStats, $durationMs);
       $migrateStats['solr'] = $this->postRunIndexer->indexOffers();
 
+      $snapshot = $this->snapshotCollector->buildSnapshot();
+      if ($run->hasField('snapshot')) {
+        $run->set('snapshot', json_encode($snapshot, JSON_THROW_ON_ERROR));
+      }
+      if ($run->hasField('rollback_status')) {
+        $run->set('rollback_status', ImportRunInterface::ROLLBACK_NONE);
+      }
+
       $run->set('pipeline_status', ImportRunInterface::STATUS_SUCCESS);
       $run->set('file_uri', $archiveUri);
       $run->set('finished', $finished);
-      $run->set('duration_ms', $durationMs);
+      if ($run->hasField('duration_ms')) {
+        $run->set('duration_ms', $durationMs);
+      }
       $run->set('stats', json_encode($migrateStats, JSON_THROW_ON_ERROR));
       $run->save();
 
@@ -509,9 +521,14 @@ final class ImportPipeline {
       $durationMs = (int) round((hrtime(TRUE) - $startedHr) / 1_000_000);
 
       $run->set('pipeline_status', ImportRunInterface::STATUS_FAILED);
+      if ($run->hasField('rollback_status')) {
+        $run->set('rollback_status', ImportRunInterface::ROLLBACK_UNAVAILABLE);
+      }
       $run->set('file_uri', $failedUri);
       $run->set('finished', $finished);
-      $run->set('duration_ms', $durationMs);
+      if ($run->hasField('duration_ms')) {
+        $run->set('duration_ms', $durationMs);
+      }
       $run->set('messages', $exception->getMessage());
       $run->save();
 
@@ -533,6 +550,7 @@ final class ImportPipeline {
     }
     finally {
       $this->xmlParseCache->clearRun();
+      $this->snapshotCollector->clear();
       $this->runContext->clear();
       $this->lock->release();
     }

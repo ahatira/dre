@@ -33,9 +33,31 @@ services:
       - '@ps_migrate.feature_technical_element_validator'
       - '@ps_migrate.feature_payload_defaults_normalizer'
       - '@entity_type.manager'
+      - '@ps_migrate.import_run_snapshot_collector'
       - '@logger.channel.ps_migrate'
     tags:
       - { name: event_subscriber }
+
+  ps_migrate.import_run_snapshot_collector:
+    class: Drupal\ps_migrate\Service\ImportRunSnapshotCollector
+
+  ps_migrate.import_run_snapshot_subscriber:
+    class: Drupal\ps_migrate\EventSubscriber\ImportRunSnapshotSubscriber
+    arguments:
+      - '@ps_migrate.import_run_snapshot_collector'
+      - '@entity_type.manager'
+    tags:
+      - { name: event_subscriber }
+
+  ps_migrate.import_pipeline_rollback:
+    class: Drupal\ps_migrate\Service\ImportPipelineRollbackService
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_core.entity_protection_manager'
+      - '@ps_migrate.import_pipeline_post_run_indexer'
+      - '@current_user'
+      - '@datetime.time'
+      - '@logger.channel.ps_migrate'
 
   ps_migrate.entity_protection_subscriber:
     class: Drupal\ps_migrate\EventSubscriber\EntityProtectionSubscriber
@@ -131,6 +153,7 @@ services:
       - '@ps_migrate.import_pipeline_post_run_indexer'
       - '@ps_migrate.xml_parse_cache'
       - '@ps_migrate.import_pipeline_run_context'
+      - '@ps_migrate.import_run_snapshot_collector'
       - '@datetime.time'
 
   Drupal\ps_migrate\Hook\ImportPipelineCronHooks:

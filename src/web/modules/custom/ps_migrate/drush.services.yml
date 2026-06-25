@@ -3,5 +3,7 @@ services:
     class: Drupal\ps_migrate\Commands\ImportPipelineCommands
     arguments:
       - '@ps_migrate.import_pipeline'
+      - '@ps_migrate.import_pipeline_rollback'
+      - '@entity_type.manager'
     tags:
       - { name: drush.command }
