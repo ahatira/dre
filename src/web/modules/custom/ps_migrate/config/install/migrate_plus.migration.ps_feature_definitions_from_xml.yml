@@ -15,9 +15,9 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Feature Definitions from CRM XML'
 source:
-  plugin: ps_feature_technical_elements
-  mode: definitions
-  files:
+  plugin: ps_crm_offer_xml
+  mode: feature_definitions
+  urls:
     - 'public://crm/offers.xml'
   fields:
     -

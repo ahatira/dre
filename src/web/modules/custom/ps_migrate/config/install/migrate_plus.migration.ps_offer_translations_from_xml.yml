@@ -15,7 +15,8 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Offer Translations from CRM XML (dynamic)'
 source:
-  plugin: ps_offer_translation_targets
+  plugin: ps_crm_offer_xml
+  mode: offer_translations
   urls:
     - 'public://crm/offers.xml'
   fields:

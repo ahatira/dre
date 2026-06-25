@@ -13,13 +13,11 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Agents from CRM XML (Config-First)'
 source:
-  plugin: url
-  data_fetcher_plugin: file
-  data_parser_plugin: simple_xml
+  plugin: ps_crm_offer_xml
+  mode: agent
   urls:
     - 'public://crm/offers.xml'
   # Deduplicate by UID at source level so dependency completion is deterministic.
-  item_selector: /OFFERS_LIST/OFFER/BUSINESS_LEADERS_LIST/BUSINESS_LEADER[normalize-space(UID) != '' and not(UID = preceding::BUSINESS_LEADER/UID)]
   fields:
     -
       name: uid

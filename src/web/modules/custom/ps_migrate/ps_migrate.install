@@ -195,6 +195,67 @@ function ps_migrate_update_11006(): void {
 }
 
 /**
+ * Phase 5 pipeline: unified CRM offer XML source plugin on active migrations.
+ */
+function ps_migrate_update_11007(): void {
+  ps_migrate_update_11007_sync_unified_source_plugin();
+}
+
+/**
+ * Switches active CRM migrations to the ps_crm_offer_xml source plugin.
+ */
+function ps_migrate_update_11007_sync_unified_source_plugin(): void {
+  $configFactory = \Drupal::configFactory();
+  $modeByMigration = [
+    'ps_offer_from_xml' => 'offer',
+    'ps_agent_from_xml' => 'agent',
+    'ps_agent_avatar_file_from_xml' => 'agent_avatar',
+    'ps_file_from_xml' => 'file',
+    'ps_media_from_xml' => 'media_ext',
+    'ps_media_virtual_tour_from_xml' => 'media_vis',
+    'ps_surface_division_from_xml' => 'surface_division',
+    'ps_feature_groups_from_xml' => 'feature_groups',
+    'ps_feature_definitions_from_xml' => 'feature_definitions',
+    'ps_offer_translations_from_xml' => 'offer_translations',
+  ];
+
+  foreach ($modeByMigration as $migrationId => $mode) {
+    $configName = 'migrate_plus.migration.' . $migrationId;
+    $editable = $configFactory->getEditable($configName);
+    if ($editable->isNew()) {
+      continue;
+    }
+
+    $source = $editable->get('source');
+    if (!is_array($source)) {
+      continue;
+    }
+
+    if (($source['plugin'] ?? '') === 'ps_crm_offer_xml' && ($source['mode'] ?? '') === $mode) {
+      continue;
+    }
+
+    $urls = $source['urls'] ?? ($source['files'] ?? ['public://crm/offers.xml']);
+    if (!is_array($urls)) {
+      $urls = [$urls];
+    }
+
+    unset(
+      $source['data_fetcher_plugin'],
+      $source['data_parser_plugin'],
+      $source['item_selector'],
+      $source['files'],
+    );
+
+    $source['plugin'] = 'ps_crm_offer_xml';
+    $source['mode'] = $mode;
+    $source['urls'] = $urls;
+
+    $editable->set('source', $source)->save(TRUE);
+  }
+}
+
+/**
  * Imports pipeline settings config when missing.
  */
 function ps_migrate_install_import_pipeline_config(): void {

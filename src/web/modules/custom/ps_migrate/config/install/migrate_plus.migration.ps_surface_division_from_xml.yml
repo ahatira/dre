@@ -21,15 +21,12 @@ migration_tags:
 migration_group: ps_crm_import
 
 source:
-  plugin: url
-  data_fetcher_plugin: file
-  data_parser_plugin: simple_xml
+  plugin: ps_crm_offer_xml
+  mode: surface_division
   urls:
     - 'public://crm/offers.xml'
   # Keep one source row per non-empty LOT to avoid duplicate-source leftovers
   # that can block required dependency completion.
-  item_selector: /OFFERS_LIST/OFFER/DIVISIONS_LIST/DIVISION[normalize-space(LOT) != '' and not(LOT = preceding::DIVISION/LOT)]
-  
   fields:
     # Unique identifier
     -

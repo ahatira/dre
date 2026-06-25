@@ -13,14 +13,12 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Files from CRM XML (Step 1: Download images)'
 source:
-  plugin: url
-  data_fetcher_plugin: file
-  data_parser_plugin: xml
+  plugin: ps_crm_offer_xml
+  mode: file
   urls:
     - 'public://crm/offers.xml'
   # Selector: image media only (TYPE_CODE=EXT).
   # Explicitly exclude the known broken remote asset to keep dataset import clean.
-  item_selector: /OFFERS_LIST/OFFER/MEDIA_LIST/MEDIA[TYPE_CODE = 'EXT' and not(contains(URL, 'J%C3%A9r%C3%B4me_Blanche.JPG.png'))]
   fields:
     -
       name: business_id_parent

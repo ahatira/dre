@@ -25,6 +25,10 @@ final class ImportPipelineMigrationSourceAlterer {
     }
 
     $source = $migration->getSourceConfiguration();
+    if (($source['plugin'] ?? '') === 'ps_crm_offer_xml') {
+      return;
+    }
+
     $changed = FALSE;
 
     if (($source['data_fetcher_plugin'] ?? '') === 'file') {

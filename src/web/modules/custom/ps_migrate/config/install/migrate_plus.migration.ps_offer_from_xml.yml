@@ -15,12 +15,10 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Offers from CRM XML (Config-First - Phase 1)'
 source:
-  plugin: url
-  data_fetcher_plugin: file
-  data_parser_plugin: simple_xml
+  plugin: ps_crm_offer_xml
+  mode: offer
   urls:
     - 'public://crm/offers.xml'
-  item_selector: /OFFERS_LIST/OFFER
   fields:
     -
       name: business_id

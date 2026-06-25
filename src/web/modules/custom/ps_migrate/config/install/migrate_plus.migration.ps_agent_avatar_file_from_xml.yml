@@ -13,14 +13,12 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Agent Avatar Files from CRM XML (Step 1: Download avatar images)'
 source:
-  plugin: url
-  data_fetcher_plugin: file
-  data_parser_plugin: simple_xml
+  plugin: ps_crm_offer_xml
+  mode: agent_avatar
   urls:
     - 'public://crm/offers.xml'
   # Select only unique leaders with non-empty avatar URL.
   # Deduplicate by UID at source level so dependency completion is deterministic.
-  item_selector: /OFFERS_LIST/OFFER/BUSINESS_LEADERS_LIST/BUSINESS_LEADER[normalize-space(UID) != '' and normalize-space(AVATAR_URL) != '' and not(UID = preceding::BUSINESS_LEADER/UID)]
   fields:
     -
       name: uid

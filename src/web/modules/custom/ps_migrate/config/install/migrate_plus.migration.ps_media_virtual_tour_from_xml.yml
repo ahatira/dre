@@ -13,12 +13,10 @@ migration_tags:
 migration_group: ps_crm_import
 label: 'Import Virtual Tour Media from CRM XML (TYPE_CODE=VIS)'
 source:
-  plugin: url
-  data_fetcher_plugin: file
-  data_parser_plugin: xml
+  plugin: ps_crm_offer_xml
+  mode: media_vis
   urls:
     - 'public://crm/offers.xml'
-  item_selector: /OFFERS_LIST/OFFER/MEDIA_LIST/MEDIA[TYPE_CODE = 'VIS']
   fields:
     -
       name: business_id_parent

@@ -88,6 +88,29 @@ services:
       - '@file_system'
       - '@stream_wrapper_manager'
 
+  ps_migrate.crm_offer_xml_document_loader:
+    class: Drupal\ps_migrate\Service\CrmOfferXmlDocumentLoader
+    arguments:
+      - '@ps_migrate.xml_parse_cache'
+      - '@file_system'
+
+  ps_migrate.crm_offer_xml_xpath_row_builder:
+    class: Drupal\ps_migrate\Service\CrmOfferXmlXpathRowBuilder
+
+  ps_migrate.feature_technical_element_row_provider:
+    class: Drupal\ps_migrate\Service\FeatureTechnicalElementRowProvider
+    arguments:
+      - '@ps_migrate.feature_technical_element_source_loader'
+      - '@ps_migrate.feature_migration_key_builder'
+      - '@ps_migrate.feature_technical_element_validator'
+
+  ps_migrate.offer_translation_row_provider:
+    class: Drupal\ps_migrate\Service\OfferTranslationRowProvider
+    arguments:
+      - '@ps_migrate.crm_offer_xml_document_loader'
+      - '@ps_migrate.canonical_country_language_resolver'
+      - '@language_manager'
+
   ps_migrate.import_pipeline_migrate_runner:
     class: Drupal\ps_migrate\Service\ImportPipelineMigrateRunner
     arguments:
