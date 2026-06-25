@@ -109,8 +109,8 @@ final class ComparePathResolver implements ComparePathResolverInterface {
       return $this->machineSlug;
     }
 
-    // Base config can carry a translated slug after config export on multilingual
-    // sites — the Drupal route is always /compare (see ps_compare.routing.yml).
+    // Base config can carry a translated slug after config export on
+    // multilingual sites — the Drupal route is always /compare.
     $this->machineSlug = self::MACHINE_ROUTE_SLUG;
     return $this->machineSlug;
   }
