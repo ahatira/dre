@@ -21,12 +21,12 @@ final class ImportPipelineCronHooks {
   ) {}
 
   /**
-   * Polls incoming/ when cron is enabled in pipeline settings.
+   * Enqueues incoming files and optionally processes the import queue.
    */
   #[Hook('cron')]
   public function cron(): void {
     $config = $this->configFactory->get('ps_migrate.import_pipeline_settings');
-    if (!$config->get('cron_enabled')) {
+    if (!(bool) $config->get('cron_enabled')) {
       return;
     }
 
@@ -37,7 +37,13 @@ final class ImportPipelineCronHooks {
     }
 
     $this->state->set('ps_migrate.import_pipeline.last_cron', time());
-    $this->importPipeline->run();
+
+    $this->importPipeline->enqueueIncoming();
+
+    if ((bool) $config->get('queue_process_on_cron')) {
+      $count = max(1, (int) $config->get('queue_items_per_cron'));
+      $this->importPipeline->processQueue($count);
+    }
   }
 
 }

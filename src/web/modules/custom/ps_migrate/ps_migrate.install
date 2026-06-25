@@ -48,6 +48,66 @@ function ps_migrate_update_11002(): void {
 }
 
 /**
+ * Phase 1 pipeline: queue settings, import_run fields, CMI-ready config defaults.
+ */
+function ps_migrate_update_11003(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_migrate.import_pipeline_settings');
+  $defaults = [
+    'queue_enabled' => TRUE,
+    'queue_process_on_cron' => TRUE,
+    'queue_items_per_cron' => 1,
+    'alert_email_enabled' => TRUE,
+    'alert_email_recipients' => '',
+    'alert_email_on_warning' => FALSE,
+    'alert_skip_threshold_percent' => 10,
+  ];
+  foreach ($defaults as $key => $value) {
+    if ($config->get($key) === NULL) {
+      $config->set($key, $value);
+    }
+  }
+  $config->save(TRUE);
+
+  if (!\Drupal::entityTypeManager()->hasDefinition('import_run')) {
+    return;
+  }
+
+  $entity_type = \Drupal::entityTypeManager()->getDefinition('import_run');
+  $field_definitions = \Drupal\ps_migrate\Entity\ImportRun::baseFieldDefinitions($entity_type);
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+
+  foreach (['source_checksum', 'duration_ms'] as $field_name) {
+    if ($update_manager->getFieldStorageDefinition($field_name, 'import_run')) {
+      continue;
+    }
+    $update_manager->installFieldStorageDefinition(
+      $field_name,
+      'import_run',
+      'ps_migrate',
+      $field_definitions[$field_name],
+    );
+  }
+}
+
+/**
+ * Phase 2 pipeline: Solr post-run, lock strategy settings.
+ */
+function ps_migrate_update_11004(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_migrate.import_pipeline_settings');
+  $defaults = [
+    'post_run_index_solr' => TRUE,
+    'lock_strategy_default' => 'log_only',
+    'lock_field_strategies' => [],
+  ];
+  foreach ($defaults as $key => $value) {
+    if ($config->get($key) === NULL) {
+      $config->set($key, $value);
+    }
+  }
+  $config->save(TRUE);
+}
+
+/**
  * Imports pipeline settings config when missing.
  */
 function ps_migrate_install_import_pipeline_config(): void {

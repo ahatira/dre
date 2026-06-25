@@ -42,6 +42,8 @@ services:
       - '@ps_core.entity_protection_manager'
       - '@entity_type.manager'
       - '@logger.channel.ps_migrate'
+      - '@datetime.time'
+      - '@ps_migrate.import_pipeline_lock_strategy'
     tags:
       - { name: event_subscriber }
 
@@ -70,6 +72,31 @@ services:
       - '@module_handler'
       - '@logger.channel.ps_migrate'
 
+  ps_migrate.import_pipeline_lock:
+    class: Drupal\ps_migrate\Service\ImportPipelineLock
+    arguments:
+      - '@state'
+      - '@datetime.time'
+
+  ps_migrate.import_pipeline_lock_strategy:
+    class: Drupal\ps_migrate\Service\ImportPipelineLockStrategy
+    arguments:
+      - '@config.factory'
+
+  ps_migrate.import_pipeline_post_run_indexer:
+    class: Drupal\ps_migrate\Service\ImportPipelinePostRunIndexer
+    arguments:
+      - '@config.factory'
+      - '@logger.channel.ps_migrate'
+
+  ps_migrate.import_pipeline_alert_notifier:
+    class: Drupal\ps_migrate\Service\ImportPipelineAlertNotifier
+    arguments:
+      - '@config.factory'
+      - '@plugin.manager.mail'
+      - '@language_manager'
+      - '@logger.channel.ps_migrate'
+
   ps_migrate.import_pipeline:
     class: Drupal\ps_migrate\Service\ImportPipeline
     arguments:
@@ -80,6 +107,12 @@ services:
       - '@ps_migrate.import_pipeline_migrate_runner'
       - '@current_user'
       - '@logger.channel.ps_migrate'
+      - '@queue'
+      - '@state'
+      - '@ps_migrate.import_pipeline_lock'
+      - '@ps_migrate.import_pipeline_alert_notifier'
+      - '@ps_migrate.import_pipeline_post_run_indexer'
+      - '@datetime.time'
 
   Drupal\ps_migrate\Hook\ImportPipelineCronHooks:
     class: Drupal\ps_migrate\Hook\ImportPipelineCronHooks
@@ -87,3 +120,6 @@ services:
       - '@ps_migrate.import_pipeline'
       - '@config.factory'
       - '@state'
+
+  Drupal\ps_migrate\Hook\ImportPipelineMailHooks:
+    class: Drupal\ps_migrate\Hook\ImportPipelineMailHooks

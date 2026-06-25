@@ -13,9 +13,12 @@ cck_plugin_method: null
 
 label: 'Surface divisions from CRM XML'
 migration_tags:
+  - ps_crm_import
   - ps_project
   - xml
   - divisions
+
+migration_group: ps_crm_import
 
 source:
   plugin: url

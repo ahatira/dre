@@ -10,3 +10,13 @@ cron_enabled: false
 cron_interval: 900
 batch_limit: 0
 max_upload_size: 52428800
+queue_enabled: true
+queue_process_on_cron: true
+queue_items_per_cron: 1
+alert_email_enabled: true
+alert_email_recipients: ''
+alert_email_on_warning: false
+alert_skip_threshold_percent: 10
+post_run_index_solr: true
+lock_strategy_default: log_only
+lock_field_strategies: {  }

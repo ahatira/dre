@@ -102,6 +102,93 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       '#min' => 60,
     ];
 
+    $form['queue'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Queue'),
+      '#open' => TRUE,
+    ];
+    $form['queue']['queue_enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enqueue incoming files for async processing'),
+      '#default_value' => $config->get('queue_enabled'),
+    ];
+    $form['queue']['queue_process_on_cron'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Process queue items during cron'),
+      '#default_value' => $config->get('queue_process_on_cron'),
+    ];
+    $form['queue']['queue_items_per_cron'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Queue items processed per cron run'),
+      '#default_value' => $config->get('queue_items_per_cron'),
+      '#min' => 1,
+    ];
+
+    $form['alerts'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Alerts'),
+      '#open' => TRUE,
+    ];
+    $form['alerts']['alert_email_enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Send email alerts on import failure'),
+      '#default_value' => $config->get('alert_email_enabled'),
+    ];
+    $form['alerts']['alert_email_recipients'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Alert email recipients'),
+      '#default_value' => $config->get('alert_email_recipients'),
+      '#description' => $this->t('Comma-separated email addresses.'),
+    ];
+    $form['alerts']['alert_email_on_warning'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Send email alerts on high skip rate'),
+      '#default_value' => $config->get('alert_email_on_warning'),
+    ];
+    $form['alerts']['alert_skip_threshold_percent'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Skip rate threshold (%)'),
+      '#default_value' => $config->get('alert_skip_threshold_percent'),
+      '#min' => 1,
+      '#max' => 100,
+    ];
+
+    $form['execution'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Execution'),
+      '#open' => TRUE,
+    ];
+    $form['execution']['post_run_index_solr'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Index Solr offers after successful import'),
+      '#default_value' => $config->get('post_run_index_solr'),
+      '#description' => $this->t('Runs Search API indexing on the offers index when a pipeline run completes successfully.'),
+    ];
+
+    $form['governance'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Data governance'),
+      '#open' => TRUE,
+    ];
+    $form['governance']['lock_strategy_default'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Default lock strategy'),
+      '#options' => [
+        'log_only' => $this->t('Log only — CRM overwrites protected entities'),
+        'skip_row' => $this->t('Skip row — do not update protected entities'),
+        'skip_field' => $this->t('Skip field — preserve non-empty internal field values'),
+      ],
+      '#default_value' => $config->get('lock_strategy_default') ?: 'log_only',
+      '#description' => $this->t('Applies when an entity has field_internal_lock enabled.'),
+    ];
+    $form['governance']['lock_field_strategies'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Per-field lock strategy overrides'),
+      '#default_value' => $this->formatFieldStrategies($config->get('lock_field_strategies')),
+      '#rows' => 4,
+      '#description' => $this->t('One field per line: field_name=strategy (log_only, skip_row, skip_field).'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -120,6 +207,16 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       ->set('max_upload_size', (int) $form_state->getValue('max_upload_size') * self::BYTES_PER_MB)
       ->set('cron_enabled', (bool) $form_state->getValue('cron_enabled'))
       ->set('cron_interval', (int) $form_state->getValue('cron_interval'))
+      ->set('queue_enabled', (bool) $form_state->getValue('queue_enabled'))
+      ->set('queue_process_on_cron', (bool) $form_state->getValue('queue_process_on_cron'))
+      ->set('queue_items_per_cron', (int) $form_state->getValue('queue_items_per_cron'))
+      ->set('alert_email_enabled', (bool) $form_state->getValue('alert_email_enabled'))
+      ->set('alert_email_recipients', trim((string) $form_state->getValue('alert_email_recipients')))
+      ->set('alert_email_on_warning', (bool) $form_state->getValue('alert_email_on_warning'))
+      ->set('alert_skip_threshold_percent', (int) $form_state->getValue('alert_skip_threshold_percent'))
+      ->set('post_run_index_solr', (bool) $form_state->getValue('post_run_index_solr'))
+      ->set('lock_strategy_default', (string) $form_state->getValue('lock_strategy_default'))
+      ->set('lock_field_strategies', $this->parseFieldStrategies((string) $form_state->getValue('lock_field_strategies')))
       ->save();
 
     /** @var \Drupal\ps_migrate\Service\ImportPipelinePathResolver $resolver */
@@ -127,6 +224,39 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
     $resolver->ensureConfiguredDirectories();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * @param mixed $strategies
+   */
+  private function formatFieldStrategies(mixed $strategies): string {
+    if (!is_array($strategies) || $strategies === []) {
+      return '';
+    }
+    $lines = [];
+    foreach ($strategies as $field => $strategy) {
+      $lines[] = $field . '=' . $strategy;
+    }
+    return implode("\n", $lines);
+  }
+
+  /**
+   * @return array<string, string>
+   */
+  private function parseFieldStrategies(string $raw): array {
+    $mapping = [];
+    foreach (preg_split('/\R/', $raw) ?: [] as $line) {
+      $line = trim($line);
+      if ($line === '' || !str_contains($line, '=')) {
+        continue;
+      }
+      [$field, $strategy] = array_map('trim', explode('=', $line, 2));
+      if ($field === '' || $strategy === '') {
+        continue;
+      }
+      $mapping[$field] = $strategy;
+    }
+    return $mapping;
   }
 
 }

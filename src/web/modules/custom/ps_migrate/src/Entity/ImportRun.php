@@ -146,6 +146,15 @@ final class ImportRun extends ContentEntityBase implements ImportRunInterface {
     $fields['messages'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Messages'));
 
+    $fields['source_checksum'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Source file checksum'))
+      ->setDescription(t('SHA256 hash of the source XML file.'))
+      ->setSetting('max_length', 64);
+
+    $fields['duration_ms'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Duration (ms)'))
+      ->setDescription(t('Total pipeline duration in milliseconds.'));
+
     return $fields;
   }
 

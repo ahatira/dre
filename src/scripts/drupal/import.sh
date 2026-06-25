@@ -56,7 +56,7 @@ if [[ -n "${MODE}" ]]; then
 fi
 
 ps_info "Running CRM import pipeline..."
-ps_retry 2 2 ps_drush ps:import:run "${IMPORT_OPTS[@]}" \
+ps_retry 2 2 ps_drush ps:import:run --sync=1 "${IMPORT_OPTS[@]}" \
   || ps_die "Import pipeline failed"
 
 count="$(ps_drush_published_offer_count)"

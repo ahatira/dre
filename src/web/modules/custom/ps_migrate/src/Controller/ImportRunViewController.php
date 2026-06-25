@@ -112,6 +112,7 @@ final class ImportRunViewController extends ControllerBase {
    * Builds summary table rows for an import run.
    */
   private function buildSummaryRows(ImportRunInterface $import_run, int $started, int $finished): array {
+    $stats = $import_run->getStats();
     $rows = [
       [$this->t('Filename'), $import_run->getFilename()],
       [
@@ -121,7 +122,15 @@ final class ImportRunViewController extends ControllerBase {
       [$this->t('Mode'), $this->formatMode($import_run->getImportMode())],
       [$this->t('Started'), $this->formatTimestamp($started)],
       [$this->t('Finished'), $this->formatTimestamp($finished)],
-      [$this->t('Duration'), $this->formatDuration($started, $finished)],
+      [$this->t('Duration'), $this->formatDuration($import_run, $started, $finished, $stats)],
+      [
+        $this->t('Source checksum'),
+        $import_run->get('source_checksum')->value ?: (string) $this->t('N/A'),
+      ],
+      [
+        $this->t('Post-run Solr'),
+        $this->formatSolrSummary($stats),
+      ],
       [$this->t('Source URI'), $this->formatUri($import_run->get('source_uri')->value)],
       [$this->t('Final URI'), $this->formatUri($import_run->get('file_uri')->value)],
     ];
@@ -274,6 +283,25 @@ final class ImportRunViewController extends ControllerBase {
   }
 
   /**
+   * Formats Solr post-run stats for display.
+   *
+   * @param array<string, mixed> $stats
+   */
+  private function formatSolrSummary(array $stats): string {
+    $solr = $stats['solr'] ?? NULL;
+    if (!is_array($solr)) {
+      return (string) $this->t('N/A');
+    }
+    if (empty($solr['enabled'])) {
+      return (string) $this->t('Disabled');
+    }
+    if (!empty($solr['error'])) {
+      return (string) $this->t('Failed: @error', ['@error' => (string) $solr['error']]);
+    }
+    return (string) $this->t('@count item(s) indexed', ['@count' => (int) ($solr['indexed'] ?? 0)]);
+  }
+
+  /**
    * Formats a URI for display.
    */
   private function formatUri(?string $uri): string {
@@ -296,8 +324,20 @@ final class ImportRunViewController extends ControllerBase {
 
   /**
    * Formats elapsed time between two timestamps.
+   *
+   * @param array<string, mixed> $stats
    */
-  private function formatDuration(int $started, int $finished): string {
+  private function formatDuration(ImportRunInterface $import_run, int $started, int $finished, array $stats): string {
+    $durationMs = (int) $import_run->get('duration_ms')->value;
+    if ($durationMs > 0) {
+      $slaBreached = !empty($stats['sla_breached']);
+      $interval = (string) $this->dateFormatter->formatInterval((int) round($durationMs / 1000));
+      if ($slaBreached) {
+        return $interval . ' (' . (string) $this->t('SLA breached') . ')';
+      }
+      return $interval;
+    }
+
     if ($started <= 0 || $finished <= 0 || $finished < $started) {
       return (string) $this->t('N/A');
     }

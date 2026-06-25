@@ -12,8 +12,12 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Url;
 use Drupal\ps_migrate\Entity\ImportRunInterface;
+use Drupal\ps_migrate\Service\ImportPipeline;
+use Drupal\ps_migrate\Service\ImportPipelineLock;
+use Drupal\ps_migrate\Service\ImportPipelineLockStrategy;
 use Drupal\ps_migrate\Service\ImportPipelinePathResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -28,6 +32,9 @@ final class ImportRunListBuilder extends EntityListBuilder {
     private readonly ImportPipelinePathResolver $pathResolver,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly DateFormatterInterface $dateFormatter,
+    private readonly QueueFactory $queueFactory,
+    private readonly ImportPipelineLock $pipelineLock,
+    private readonly ImportPipelineLockStrategy $lockStrategy,
   ) {
     parent::__construct($entity_type, $storage);
   }
@@ -42,6 +49,9 @@ final class ImportRunListBuilder extends EntityListBuilder {
       $container->get('ps_migrate.import_pipeline_path_resolver'),
       $container->get('config.factory'),
       $container->get('date.formatter'),
+      $container->get('queue'),
+      $container->get('ps_migrate.import_pipeline_lock'),
+      $container->get('ps_migrate.import_pipeline_lock_strategy'),
     );
   }
 
@@ -87,6 +97,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
       'import_mode' => $this->t('Mode'),
       'started' => $this->t('Started'),
       'finished' => $this->t('Finished'),
+      'duration' => $this->t('Duration'),
     ] + parent::buildHeader();
   }
 
@@ -114,6 +125,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
       : $this->t('Full');
     $row['started'] = $started > 0 ? $this->dateFormatter->format($started, 'short') : $this->t('N/A');
     $row['finished'] = $finished > 0 ? $this->dateFormatter->format($finished, 'short') : $this->t('N/A');
+    $row['duration'] = $this->formatDurationCell($entity, $started, $finished);
     return $row + parent::buildRow($entity);
   }
 
@@ -123,20 +135,33 @@ final class ImportRunListBuilder extends EntityListBuilder {
   private function buildHelp(): array {
     $config = $this->configFactory->get('ps_migrate.import_pipeline_settings');
     $pendingCount = count($this->pathResolver->listIncomingXmlFiles());
+    $queueDepth = $this->queueFactory->get(ImportPipeline::QUEUE_NAME)->numberOfItems();
+    $failedCount = (int) $this->getStorage()->getQuery()
+      ->accessCheck(TRUE)
+      ->condition('pipeline_status', ImportRunInterface::STATUS_FAILED)
+      ->count()
+      ->execute();
     $totalRuns = (int) $this->getStorage()->getQuery()
       ->accessCheck(TRUE)
       ->count()
       ->execute();
     $lastRun = $this->loadLastRun();
     $cronEnabled = (bool) $config->get('cron_enabled');
+    $queueEnabled = (bool) $config->get('queue_enabled');
+    $postRunSolr = (bool) $config->get('post_run_index_solr');
+    $lockActive = $this->pipelineLock->isLocked();
+    $lockStrategy = $this->lockStrategy->getDefaultStrategy();
 
     $lastRunMeta = $this->t('No runs recorded yet.');
     if ($lastRun instanceof ImportRunInterface) {
       $finished = (int) $lastRun->get('finished')->value;
-      $lastRunMeta = $this->t('@status — @file (@time)', [
+      $stats = $lastRun->getStats();
+      $slaSuffix = !empty($stats['sla_breached']) ? ' — SLA breached' : '';
+      $lastRunMeta = $this->t('@status — @file (@time)@sla', [
         '@status' => $lastRun->getPipelineStatus(),
         '@file' => $lastRun->getFilename(),
         '@time' => $finished > 0 ? $this->dateFormatter->format($finished, 'short') : $this->t('in progress'),
+        '@sla' => $slaSuffix,
       ]);
     }
 
@@ -162,6 +187,20 @@ final class ImportRunListBuilder extends EntityListBuilder {
             ? $this->t('Waiting for pipeline')
             : $this->t('Folder empty'),
         ),
+        'queue' => $this->buildStatCard(
+          (string) $queueDepth,
+          (string) $this->t('Queue depth'),
+          $queueEnabled
+            ? ($lockActive ? $this->t('Worker lock active') : $this->t('Async processing enabled'))
+            : $this->t('Sync mode (queue disabled)'),
+        ),
+        'failed' => $this->buildStatCard(
+          (string) $failedCount,
+          (string) $this->t('Failed runs'),
+          $failedCount > 0
+            ? $this->t('Review run details')
+            : $this->t('No failures recorded'),
+        ),
         'runs' => $this->buildStatCard(
           (string) $totalRuns,
           (string) $this->t('Recorded runs'),
@@ -173,6 +212,20 @@ final class ImportRunListBuilder extends EntityListBuilder {
           $cronEnabled
             ? $this->t('Automatic pickup enabled')
             : $this->t('Manual or Drush only'),
+        ),
+        'solr' => $this->buildStatCard(
+          $postRunSolr ? (string) $this->t('On') : (string) $this->t('Off'),
+          (string) $this->t('Post-run Solr'),
+          $postRunSolr
+            ? $this->t('Offers index after success')
+            : $this->t('Manual index required'),
+        ),
+        'lock' => $this->buildStatCard(
+          $lockStrategy,
+          (string) $this->t('Lock strategy'),
+          $lockActive
+            ? $this->t('Import currently locked')
+            : $this->t('No active import lock'),
         ),
         'last' => [
           '#type' => 'container',
@@ -230,7 +283,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
         'cli' => [
           '#type' => 'html_tag',
           '#tag' => 'code',
-          '#value' => 'drush ps:import:run',
+          '#value' => "drush ps:import:enqueue\ndrush ps:import:queue-process --count=1\ndrush ps:import:queue-status",
         ],
         'settings' => [
           '#type' => 'html_tag',
@@ -273,6 +326,25 @@ final class ImportRunListBuilder extends EntityListBuilder {
         '#attributes' => ['class' => ['ps-migrate-import-runs__stat-meta']],
       ],
     ];
+  }
+
+  /**
+   * Formats duration for a list table cell.
+   */
+  private function formatDurationCell(ImportRunInterface $entity, int $started, int $finished): string {
+    $durationMs = (int) $entity->get('duration_ms')->value;
+    if ($durationMs > 0) {
+      $interval = (string) $this->dateFormatter->formatInterval((int) round($durationMs / 1000));
+      $stats = $entity->getStats();
+      if (!empty($stats['sla_breached'])) {
+        return $interval . ' (!)';
+      }
+      return $interval;
+    }
+    if ($started > 0 && $finished > $started) {
+      return (string) $this->dateFormatter->formatInterval($finished - $started);
+    }
+    return (string) $this->t('N/A');
   }
 
   /**

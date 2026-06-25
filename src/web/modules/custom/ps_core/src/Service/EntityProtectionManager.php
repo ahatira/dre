@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_core\Service;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -26,20 +27,22 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
    * {@inheritdoc}
    */
   public function isProtected(EntityInterface $entity): bool {
-    if (!$entity->hasField('internal_lock')) {
+    $field = $this->resolveLockField($entity);
+    if ($field === NULL) {
       return FALSE;
     }
 
-    return (bool) $entity->get('internal_lock')->value;
+    return (bool) $entity->get($field)->value;
   }
 
   /**
    * {@inheritdoc}
    */
   public function protect(EntityInterface $entity): void {
-    if (!$entity->hasField('internal_lock')) {
+    $field = $this->resolveLockField($entity);
+    if ($field === NULL) {
       $this->logger->warning(
-        'Entity @type:@id does not have internal_lock field.',
+        'Entity @type:@id does not have an internal lock field.',
         [
           '@type' => $entity->getEntityTypeId(),
           '@id' => $entity->id(),
@@ -48,29 +51,31 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
       return;
     }
 
-    $entity->set('internal_lock', TRUE);
+    $entity->set($field, TRUE);
   }
 
   /**
    * {@inheritdoc}
    */
   public function unprotect(EntityInterface $entity): void {
-    if (!$entity->hasField('internal_lock')) {
+    $field = $this->resolveLockField($entity);
+    if ($field === NULL) {
       return;
     }
 
-    $entity->set('internal_lock', FALSE);
+    $entity->set($field, FALSE);
   }
 
   /**
    * {@inheritdoc}
    */
   public function hasConflict(EntityInterface $entity, array $externalData): bool {
-    if (!$entity->hasField('checksum')) {
+    $field = $this->resolveChecksumField($entity);
+    if ($field === NULL) {
       return FALSE;
     }
 
-    $internalChecksum = (string) $entity->get('checksum')->value;
+    $internalChecksum = (string) $entity->get($field)->value;
     $externalChecksum = (string) ($externalData['checksum'] ?? '');
 
     if ($internalChecksum === '' || $externalChecksum === '') {
@@ -185,9 +190,10 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
    * {@inheritdoc}
    */
   public function trackSource(EntityInterface $entity, array $metadata): void {
-    if (!$entity->hasField('source_tracking')) {
+    $field = $this->resolveTrackingField($entity);
+    if ($field === NULL) {
       $this->logger->warning(
-        'Entity @type:@id does not have source_tracking field.',
+        'Entity @type:@id does not have a source tracking field.',
         [
           '@type' => $entity->getEntityTypeId(),
           '@id' => $entity->id(),
@@ -196,12 +202,11 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
       return;
     }
 
-    // Add timestamp if not provided.
     if (!isset($metadata['tracked_at'])) {
       $metadata['tracked_at'] = \Drupal::time()->getRequestTime();
     }
 
-    $entity->set('source_tracking', json_encode($metadata, JSON_THROW_ON_ERROR));
+    $entity->set($field, json_encode($metadata, JSON_THROW_ON_ERROR));
   }
 
   /**
@@ -227,11 +232,70 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
   private function sortArrayRecursive(array $array): array {
     ksort($array);
     foreach ($array as $key => $value) {
-      if (is_array($value)) {
-        $array[$key] = $this->sortArrayRecursive($value);
-      }
+      $array[$key] = $this->normalizeChecksumValue($value);
     }
     return $array;
+  }
+
+  /**
+   * Normalizes a value so it can be safely serialized for checksum hashing.
+   */
+  private function normalizeChecksumValue(mixed $value): mixed {
+    if ($value instanceof \SimpleXMLElement) {
+      return (string) $value;
+    }
+    if (is_array($value)) {
+      return $this->sortArrayRecursive($value);
+    }
+    if (is_object($value)) {
+      return method_exists($value, '__toString') ? (string) $value : $value::class;
+    }
+    return $value;
+  }
+
+  /**
+   * Resolves the internal lock field name for an entity.
+   */
+  private function resolveLockField(EntityInterface $entity): ?string {
+    if (!$entity instanceof FieldableEntityInterface) {
+      return NULL;
+    }
+    foreach (['internal_lock', 'field_internal_lock'] as $field) {
+      if ($entity->hasField($field)) {
+        return $field;
+      }
+    }
+    return NULL;
+  }
+
+  /**
+   * Resolves the checksum field name for an entity.
+   */
+  private function resolveChecksumField(EntityInterface $entity): ?string {
+    if (!$entity instanceof FieldableEntityInterface) {
+      return NULL;
+    }
+    foreach (['checksum', 'field_source_checksum'] as $field) {
+      if ($entity->hasField($field)) {
+        return $field;
+      }
+    }
+    return NULL;
+  }
+
+  /**
+   * Resolves the source tracking field name for an entity.
+   */
+  private function resolveTrackingField(EntityInterface $entity): ?string {
+    if (!$entity instanceof FieldableEntityInterface) {
+      return NULL;
+    }
+    foreach (['source_tracking', 'field_source_tracking'] as $field) {
+      if ($entity->hasField($field)) {
+        return $field;
+      }
+    }
+    return NULL;
   }
 
 }

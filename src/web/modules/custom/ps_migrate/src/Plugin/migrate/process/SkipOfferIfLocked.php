@@ -10,6 +10,7 @@ use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
+use Drupal\ps_migrate\Service\ImportPipelineLockStrategy;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,6 +27,7 @@ final class SkipOfferIfLocked extends ProcessPluginBase implements ContainerFact
     $plugin_id,
     $plugin_definition,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ImportPipelineLockStrategy $lockStrategy,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -36,6 +38,7 @@ final class SkipOfferIfLocked extends ProcessPluginBase implements ContainerFact
       $plugin_id,
       $plugin_definition,
       $container->get('entity_type.manager'),
+      $container->get('ps_migrate.import_pipeline_lock_strategy'),
     );
   }
 
@@ -62,7 +65,9 @@ final class SkipOfferIfLocked extends ProcessPluginBase implements ContainerFact
     $nid = (int) reset($ids);
     $offer = $this->entityTypeManager->getStorage('node')->load($nid);
     if ($offer && $offer->hasField('field_internal_lock') && (bool) $offer->get('field_internal_lock')->value) {
-      throw new MigrateSkipRowException(sprintf('Offer %s is protected by field_internal_lock.', $businessId));
+      if ($this->lockStrategy->shouldSkipRow('field_internal_lock')) {
+        throw new MigrateSkipRowException(sprintf('Offer %s is protected by field_internal_lock.', $businessId));
+      }
     }
 
     return $value;

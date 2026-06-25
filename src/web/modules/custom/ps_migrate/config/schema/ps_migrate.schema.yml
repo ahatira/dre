@@ -36,3 +36,35 @@ ps_migrate.import_pipeline_settings:
     max_upload_size:
       type: integer
       label: 'Max upload size in bytes (stored; configured in MB in the UI)'
+    queue_enabled:
+      type: boolean
+      label: 'Enqueue incoming files for async processing'
+    queue_process_on_cron:
+      type: boolean
+      label: 'Process queue items during cron'
+    queue_items_per_cron:
+      type: integer
+      label: 'Queue items processed per cron run'
+    alert_email_enabled:
+      type: boolean
+      label: 'Send email alerts on import failure'
+    alert_email_recipients:
+      type: string
+      label: 'Alert email recipients (comma-separated)'
+    alert_email_on_warning:
+      type: boolean
+      label: 'Send email alerts on high skip rate'
+    alert_skip_threshold_percent:
+      type: integer
+      label: 'Skip rate threshold for warning emails'
+    post_run_index_solr:
+      type: boolean
+      label: 'Index Solr offers after successful import'
+    lock_strategy_default:
+      type: string
+      label: 'Default lock strategy for protected entities'
+    lock_field_strategies:
+      type: mapping
+      label: 'Per-field lock strategy overrides'
+      mapping:
+        type: string
