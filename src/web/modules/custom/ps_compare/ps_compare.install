@@ -63,6 +63,7 @@ function ps_compare_schema(): array {
  */
 function ps_compare_install(): void {
   ps_compare_fix_seo_url_mappings_base_config();
+  ps_compare_sync_seo_url_mappings_language_overrides();
 }
 
 /**
@@ -70,6 +71,13 @@ function ps_compare_install(): void {
  */
 function ps_compare_update_11001(): void {
   ps_compare_fix_seo_url_mappings_base_config();
+}
+
+/**
+ * Seeds missing per-language compare slugs from config/install/language/*.
+ */
+function ps_compare_update_11002(): void {
+  ps_compare_sync_seo_url_mappings_language_overrides();
 }
 
 /**
@@ -111,4 +119,36 @@ function ps_compare_fix_seo_url_mappings_base_config(): void {
 
   $editable->set('langcode', 'en');
   $editable->save();
+}
+
+/**
+ * Applies install language overlays for enabled languages when missing.
+ */
+function ps_compare_sync_seo_url_mappings_language_overrides(): void {
+  $installPath = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_compare');
+  $languageManager = \Drupal::languageManager();
+
+  foreach ($languageManager->getLanguages() as $langcode => $_language) {
+    if ($langcode === 'en') {
+      continue;
+    }
+
+    $langFile = $installPath . '/config/install/language/' . $langcode . '/ps_compare.seo_url_mappings.yml';
+    if (!is_readable($langFile)) {
+      continue;
+    }
+
+    $defaults = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($langFile));
+    if (!is_array($defaults) || !isset($defaults['compare_path'])) {
+      continue;
+    }
+
+    $override = $languageManager->getLanguageConfigOverride($langcode, 'ps_compare.seo_url_mappings');
+    if ($override->get('compare_path') !== NULL) {
+      continue;
+    }
+
+    $override->set('compare_path', $defaults['compare_path']);
+    $override->save();
+  }
 }
