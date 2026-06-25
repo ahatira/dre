@@ -57,3 +57,58 @@ function ps_compare_schema(): array {
 
   return $schema;
 }
+
+/**
+ * Implements hook_install().
+ */
+function ps_compare_install(): void {
+  ps_compare_fix_seo_url_mappings_base_config();
+}
+
+/**
+ * Restores machine compare slug in base config on multilingual sites.
+ */
+function ps_compare_update_11001(): void {
+  ps_compare_fix_seo_url_mappings_base_config();
+}
+
+/**
+ * Ensures ps_compare.seo_url_mappings base config uses the route machine path.
+ *
+ * Country sites installed with a non-EN default locale merge install/language/*
+ * overlays into active config, which breaks inbound routing (/comparer → 404).
+ */
+function ps_compare_fix_seo_url_mappings_base_config(): void {
+  $configFactory = \Drupal::configFactory();
+  $editable = $configFactory->getEditable('ps_compare.seo_url_mappings');
+
+  $machineSlug = 'compare';
+  $currentSlug = strtolower(trim((string) $editable->get('compare_path'), '/'));
+  if ($currentSlug === $machineSlug && (string) $editable->get('langcode') === 'en') {
+    return;
+  }
+
+  $configLangcode = (string) $editable->get('langcode');
+  if ($configLangcode !== '' && $configLangcode !== 'en') {
+    $override = \Drupal::languageManager()->getLanguageConfigOverride($configLangcode, 'ps_compare.seo_url_mappings');
+    if ($override->get('compare_path') === NULL && $editable->get('compare_path') !== NULL) {
+      $override->set('compare_path', $editable->get('compare_path'));
+      $override->save();
+    }
+  }
+
+  $installPath = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_compare');
+  $defaultsFile = $installPath . '/config/install/ps_compare.seo_url_mappings.yml';
+  if (is_readable($defaultsFile)) {
+    $defaults = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($defaultsFile));
+    if (is_array($defaults) && array_key_exists('compare_path', $defaults)) {
+      $editable->set('compare_path', $defaults['compare_path']);
+    }
+  }
+  else {
+    $editable->set('compare_path', $machineSlug);
+  }
+
+  $editable->set('langcode', 'en');
+  $editable->save();
+}
