@@ -15,7 +15,7 @@ COUNTRY ?= com
 	rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rebuild-permissions rbac-sec-e2e translations-fetch \
 	search-locality-seo-b2b search-b2b \
-	composer-install composer-update npm-install npm-audit build-npm
+	composer-install composer-update npm-install npm-audit build-composer build-npm
 
 help:
 	@echo "PS Project — dev environment (repo root)"
@@ -29,7 +29,9 @@ help:
 	@echo ""
 	@echo "Project commands (delegate to src/Makefile, Drush on host):"
 	@echo "  make bootstrap          = env + up + generate-multisite + build"
-	@echo "  make build-npm          — NPM/themes only, skip Composer (preferred over make build --npm-only)"
+	@echo "  make build              — Composer + NPM (full build, dev)"
+	@echo "  make build-composer     — Composer only (vendor/)"
+	@echo "  make build-npm          — NPM/themes only (CSS compile, libs)"
 	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
 	@echo "  make search-locality-seo-b2b | search-b2b   # PS Search B2B (localité / région)"
 	@echo ""
@@ -76,11 +78,14 @@ bootstrap: env up generate-multisite build
 
 # --- Delegate to src/ ---
 
-build:
-	$(SRC_MAKE) build $(filter-out build,$(MAKECMDGOALS))
+build: build-composer build-npm
+	@:
+
+build-composer:
+	$(SRC_MAKE) build-composer $(filter-out build build-composer build-npm,$(MAKECMDGOALS))
 
 build-npm:
-	$(SRC_MAKE) build-npm $(filter-out build-npm,$(MAKECMDGOALS))
+	$(SRC_MAKE) build-npm $(filter-out build build-composer build-npm,$(MAKECMDGOALS))
 
 verify:
 	$(SRC_MAKE) verify

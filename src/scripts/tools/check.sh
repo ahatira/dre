@@ -4,7 +4,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Check — verify build artefacts (CI gate, no Drupal bootstrap).
+Check — verify build artefacts (Jenkins gate, no Drupal bootstrap).
 
 Usage: scripts/main.sh tools check
 

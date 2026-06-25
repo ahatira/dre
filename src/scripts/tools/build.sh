@@ -7,28 +7,35 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_core/bootstrap.sh"
 
 show_help() {
   cat <<'EOF'
-Build — install Composer + NPM dependencies, copy front libraries, compile themes.
+Build — Composer (PHP) and/or NPM (themes/assets).
 
-Usage: make build-npm [OPTIONS]
-       make build -- --npm-only [OPTIONS]   (GNU make: -- required before script options)
-       scripts/main.sh tools build [OPTIONS]
+Dev (single command):
+  make build [OPTIONS]              — Composer + NPM
+
+Jenkins (two stages):
+  make build-composer [OPTIONS]     — stage 1: Composer only
+  make build-npm [OPTIONS]           — stage 2: NPM/themes/libs only
+
+Usage: scripts/main.sh tools build [OPTIONS]
 
 Options:
-  --npm-only     Skip Composer install (NPM/themes/libs only)
-  --production   composer install --no-dev; cleanup node_modules after build
-  --no-cache     composer install --no-cache
-  --keep-npm     Keep node_modules after build
-  -h, --help     Show this help
+  --composer-only  Composer install only (PHP vendor/)
+  --npm-only       NPM install + libs + theme compile only
+  --production     composer install --no-dev; cleanup node_modules after NPM build
+  --no-cache       composer install --no-cache
+  --keep-npm       Keep node_modules after build
+  -h, --help       Show this help
 
 Environment:
-  NPM_ONLY=0|1   Same as omitting or passing --npm-only (default: 0)
+  NPM_ONLY=0|1     Same as --npm-only (default: 0)
 
 Examples:
-  make build-npm
-  make build -- --npm-only --production
-  NPM_ONLY=1 scripts/main.sh tools build
+  make build                         # dev: Composer + NPM
+  make build-composer --production   # Jenkins stage 1
+  make build-npm --production        # Jenkins stage 2
+  make build --production            # dev/prod local: both
 
-Requires: node, npm on the host (WSL Linux native, not /mnt/c). Composer required unless --npm-only / NPM_ONLY=1.
+Requires: node/npm on the host for NPM steps; Composer for PHP steps.
 EOF
 }
 
@@ -43,6 +50,18 @@ ps_build_theme() {
   ps_npm_exec "${theme_dir}" sh -lc "$(ps_npm_install_cmd "${theme_dir}")"
   ps_npm_exec "${theme_dir}" sh -lc "npm run ${npm_script}"
   ps_success "${label} OK"
+}
+
+ps_build_composer() {
+  ps_require_cmd composer
+
+  local composer_opts=(install --no-interaction --optimize-autoloader --prefer-dist)
+  [[ ${NO_CACHE} -eq 1 ]] && composer_opts+=(--no-cache)
+  [[ ${PRODUCTION} -eq 1 ]] && composer_opts+=(--no-dev)
+
+  ps_info "Composer install..."
+  ( cd "${PS_SRC_DIR}" && COMPOSER_PROCESS_TIMEOUT=2000 composer "${composer_opts[@]}" )
+  ps_success "Composer OK"
 }
 
 ps_build_npm_assets() {
@@ -63,6 +82,7 @@ ps_build_npm_assets() {
 PRODUCTION=0
 NO_CACHE=0
 KEEP_NPM=0
+COMPOSER_ONLY=0
 NPM_ONLY="${NPM_ONLY:-0}"
 
 while [[ $# -gt 0 ]]; do
@@ -70,6 +90,7 @@ while [[ $# -gt 0 ]]; do
     --production) PRODUCTION=1; shift ;;
     --no-cache) NO_CACHE=1; shift ;;
     --keep-npm) KEEP_NPM=1; shift ;;
+    --composer-only) COMPOSER_ONLY=1; shift ;;
     --npm-only) NPM_ONLY=1; shift ;;
     -h|--help) show_help; exit 0 ;;
     *) ps_die "Unknown option: $1" ;;
@@ -81,36 +102,46 @@ case "${NPM_ONLY}" in
   *) ps_die "Invalid NPM_ONLY=${NPM_ONLY} (use 0 or 1, or pass --npm-only)" ;;
 esac
 
-if [[ ${NPM_ONLY} -eq 1 ]]; then
-  ps_header "Build: NPM assets only (--npm-only)"
+if [[ ${COMPOSER_ONLY} -eq 1 && ${NPM_ONLY} -eq 1 ]]; then
+  ps_die "Use only one of --composer-only or --npm-only"
+fi
+
+RUN_COMPOSER=0
+RUN_NPM=0
+if [[ ${COMPOSER_ONLY} -eq 1 ]]; then
+  RUN_COMPOSER=1
+elif [[ ${NPM_ONLY} -eq 1 ]]; then
+  RUN_NPM=1
 else
-  ps_header "Build: project dependencies"
+  RUN_COMPOSER=1
+  RUN_NPM=1
 fi
 
-ps_require_cmd npm
-ps_require_cmd node
-ps_npm_usable_on_host || ps_die "Host npm/node required (WSL Linux, not /mnt/c)"
-
-if [[ ${NPM_ONLY} -eq 0 ]]; then
-  ps_require_cmd composer
-
-  COMPOSER_OPTS=(install --no-interaction --optimize-autoloader)
-  [[ ${NO_CACHE} -eq 1 ]] && COMPOSER_OPTS+=(--no-cache)
-  [[ ${PRODUCTION} -eq 1 ]] && COMPOSER_OPTS+=(--no-dev)
-
-  ps_info "Composer install..."
-  ( cd "${PS_SRC_DIR}" && composer "${COMPOSER_OPTS[@]}" )
-  ps_success "Composer OK"
+if [[ ${RUN_COMPOSER} -eq 1 && ${RUN_NPM} -eq 1 ]]; then
+  ps_header "Build: Composer + NPM"
+elif [[ ${RUN_COMPOSER} -eq 1 ]]; then
+  ps_header "Build: Composer only"
+else
+  ps_header "Build: NPM assets only"
 fi
 
-ps_build_npm_assets
+if [[ ${RUN_COMPOSER} -eq 1 ]]; then
+  ps_build_composer
+fi
 
-if [[ ${PRODUCTION} -eq 1 && ${KEEP_NPM} -eq 0 ]]; then
-  rm -rf \
-    "${PS_SRC_DIR}/node_modules" \
-    "${PS_UI_SUITE_THEME}/node_modules" \
-    "${PS_PS_THEME}/node_modules"
-  ps_success "node_modules cleaned"
+if [[ ${RUN_NPM} -eq 1 ]]; then
+  ps_require_cmd npm
+  ps_require_cmd node
+  ps_npm_usable_on_host || ps_die "Host npm/node required (WSL Linux, not /mnt/c)"
+  ps_build_npm_assets
+
+  if [[ ${PRODUCTION} -eq 1 && ${KEEP_NPM} -eq 0 ]]; then
+    rm -rf \
+      "${PS_SRC_DIR}/node_modules" \
+      "${PS_UI_SUITE_THEME}/node_modules" \
+      "${PS_PS_THEME}/node_modules"
+    ps_success "node_modules cleaned"
+  fi
 fi
 
 ps_success "Build complete"

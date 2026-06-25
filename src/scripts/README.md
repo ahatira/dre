@@ -8,17 +8,31 @@ CLI bash + Drush — **host only** (WSL dev et serveurs prod). Pas de Docker ici
 make env                  # scripts/docker/env.sh → src/.env
 make generate-multisite   # scripts/multisite/ → src/web/sites/countries.yml
 make verify-multisite
-make build
+make build                # Composer + NPM (une commande)
 make install fr
 make deploy
 ```
 
-## Depuis `src/` (prod ou direct)
+## Depuis `src/` — dev
 
 ```bash
-make build
+make build                # Composer + NPM
+make build-npm            # CSS/themes uniquement
+make verify
 make deploy fr
-bash scripts/main.sh drupal drush fr status
+```
+
+## Depuis `src/` — Jenkins (2 stages)
+
+```bash
+# Stage 1 — Composer (PHP 8.3 + Composer)
+make build-composer --production
+
+# Stage 2 — NPM (Node.js 20+)
+make build-npm --production
+
+# Gate avant packaging / deploy
+make verify
 ```
 
 ## Structure
@@ -42,7 +56,7 @@ E2E modules : `scripts/e2e/common.sh` — Drush hôte (`@ps.com`) et URL par dé
 | dev | `dev` | `src/.env` (`make env` depuis la racine) |
 | int / staging / prod | — | Variables système |
 
-`DB_HOST=127.0.0.1` dans `src/.env` pour Drush sur l’hôte ; le conteneur PHP utilise `DB_HOST=postgres` (override docker-compose).
+`DB_HOST=127.0.0.1` dans `src/.env` pour Drush sur l'hôte ; le conteneur PHP utilise `DB_HOST=postgres` (override docker-compose).
 
 Mail, Solr connector, memcache : `docs/MULTISITE_OPS.md` § Infrastructure (config_ignore + `drush config:set`).
 
