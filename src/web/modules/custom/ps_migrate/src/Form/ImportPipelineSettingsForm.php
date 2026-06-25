@@ -188,6 +188,41 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       '#rows' => 4,
       '#description' => $this->t('One field per line: field_name=strategy (log_only, skip_row, skip_field).'),
     ];
+    $form['governance']['skip_unchanged_offers'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Skip unchanged offers (delta mode only)'),
+      '#default_value' => $config->get('skip_unchanged_offers'),
+      '#description' => $this->t('Compares source checksum with field_source_checksum and skips rows with no changes during delta imports.'),
+    ];
+
+    $form['performance'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Performance'),
+      '#open' => FALSE,
+    ];
+    $form['performance']['media_download_timeout'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Media download timeout (seconds)'),
+      '#default_value' => $config->get('media_download_timeout') ?? 30,
+      '#min' => 5,
+      '#max' => 300,
+    ];
+    $form['performance']['media_download_retry_count'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Media download retries'),
+      '#default_value' => $config->get('media_download_retry_count') ?? 2,
+      '#min' => 0,
+      '#max' => 5,
+      '#description' => $this->t('Number of retries after the first failed HTTP download attempt.'),
+    ];
+    $form['performance']['media_download_max_failures_percent'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Media failure warning threshold (%)'),
+      '#default_value' => $config->get('media_download_max_failures_percent') ?? 5,
+      '#min' => 1,
+      '#max' => 100,
+      '#description' => $this->t('Reserved for post-run warning KPI when media failure rate exceeds this threshold.'),
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -217,6 +252,10 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       ->set('post_run_index_solr', (bool) $form_state->getValue('post_run_index_solr'))
       ->set('lock_strategy_default', (string) $form_state->getValue('lock_strategy_default'))
       ->set('lock_field_strategies', $this->parseFieldStrategies((string) $form_state->getValue('lock_field_strategies')))
+      ->set('skip_unchanged_offers', (bool) $form_state->getValue('skip_unchanged_offers'))
+      ->set('media_download_timeout', (int) $form_state->getValue('media_download_timeout'))
+      ->set('media_download_retry_count', (int) $form_state->getValue('media_download_retry_count'))
+      ->set('media_download_max_failures_percent', (int) $form_state->getValue('media_download_max_failures_percent'))
       ->save();
 
     /** @var \Drupal\ps_migrate\Service\ImportPipelinePathResolver $resolver */

@@ -70,7 +70,7 @@ process:
   # ===== FILE COPY =====
   # Plugin natif file_copy pour télécharger depuis URL
   uri:
-    plugin: file_copy
+    plugin: retry_file_copy
     source:
       - avatar_url
       - '@psf_destination_full_path'

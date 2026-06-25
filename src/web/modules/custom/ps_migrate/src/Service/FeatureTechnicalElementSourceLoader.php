@@ -17,6 +17,7 @@ final class FeatureTechnicalElementSourceLoader {
   public function __construct(
     private readonly FeatureTechnicalElementParser $parser,
     private readonly CanonicalCountryLanguageResolver $canonicalCountryLanguageResolver,
+    private readonly XmlParseCacheService $xmlParseCache,
   ) {}
 
   /**
@@ -26,7 +27,15 @@ final class FeatureTechnicalElementSourceLoader {
    *   Parsed technical elements.
    */
   public function loadFromFile(string $filePath): array {
-    if (!is_file($filePath)) {
+    if ($this->xmlParseCache->isActive() && $this->xmlParseCache->matchesUrl($filePath)) {
+      $offers = $this->xmlParseCache->getOffers();
+      if ($offers === []) {
+        return $this->parser->parseString($this->xmlParseCache->getRawContent($filePath), $filePath);
+      }
+      return $this->loadFromOffers($offers, $filePath);
+    }
+
+    if (!is_file($filePath) && !$this->isReadableUri($filePath)) {
       throw new \InvalidArgumentException(sprintf('XML file not found: %s', $filePath));
     }
 
@@ -59,6 +68,20 @@ final class FeatureTechnicalElementSourceLoader {
       return $this->parser->parseString($contents, $filePath);
     }
 
+    $elements = $this->loadFromOffers($offers, $filePath);
+
+    libxml_clear_errors();
+    libxml_use_internal_errors($previous);
+
+    return $elements;
+  }
+
+  /**
+   * @param \SimpleXMLElement[] $offers
+   *
+   * @return array<int, \Drupal\ps_migrate\ValueObject\FeatureTechnicalElement>
+   */
+  private function loadFromOffers(array $offers, string $filePath): array {
     $elements = [];
     $index = 0;
 
@@ -72,10 +95,11 @@ final class FeatureTechnicalElementSourceLoader {
       }
     }
 
-    libxml_clear_errors();
-    libxml_use_internal_errors($previous);
-
     return $elements;
+  }
+
+  private function isReadableUri(string $uri): bool {
+    return @is_readable($uri);
   }
 
   /**

@@ -20,3 +20,7 @@ alert_skip_threshold_percent: 10
 post_run_index_solr: true
 lock_strategy_default: log_only
 lock_field_strategies: {  }
+skip_unchanged_offers: false
+media_download_timeout: 30
+media_download_retry_count: 2
+media_download_max_failures_percent: 5

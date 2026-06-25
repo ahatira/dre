@@ -108,6 +108,64 @@ function ps_migrate_update_11004(): void {
 }
 
 /**
+ * Phase 3 pipeline: XML parse cache settings, skip unchanged, media retry.
+ */
+function ps_migrate_update_11005(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_migrate.import_pipeline_settings');
+  $defaults = [
+    'skip_unchanged_offers' => FALSE,
+    'media_download_timeout' => 30,
+    'media_download_retry_count' => 2,
+    'media_download_max_failures_percent' => 5,
+  ];
+  foreach ($defaults as $key => $value) {
+    if ($config->get($key) === NULL) {
+      $config->set($key, $value);
+    }
+  }
+  $config->save(TRUE);
+
+  ps_migrate_update_11005_sync_migration_plugins();
+}
+
+/**
+ * Syncs active migration configs with Phase 3 process plugin changes.
+ */
+function ps_migrate_update_11005_sync_migration_plugins(): void {
+  $configFactory = \Drupal::configFactory();
+
+  foreach (['ps_file_from_xml', 'ps_agent_avatar_file_from_xml'] as $migrationId) {
+    $editable = $configFactory->getEditable('migrate_plus.migration.' . $migrationId);
+    if ($editable->isNew()) {
+      continue;
+    }
+    $process = $editable->get('process');
+    if (!is_array($process) || !isset($process['uri']) || !is_array($process['uri'])) {
+      continue;
+    }
+    if (($process['uri']['plugin'] ?? '') === 'file_copy') {
+      $process['uri']['plugin'] = 'retry_file_copy';
+      $editable->set('process', $process)->save(TRUE);
+    }
+  }
+
+  $offer = $configFactory->getEditable('migrate_plus.migration.ps_offer_from_xml');
+  if ($offer->isNew()) {
+    return;
+  }
+  $process = $offer->get('process');
+  if (!is_array($process) || isset($process['_skip_unchanged'])) {
+    return;
+  }
+
+  $process = ['_skip_unchanged' => [
+    'plugin' => 'skip_unchanged_offer',
+    'source' => 'business_id',
+  ]] + $process;
+  $offer->set('process', $process)->save(TRUE);
+}
+
+/**
  * Imports pipeline settings config when missing.
  */
 function ps_migrate_install_import_pipeline_config(): void {

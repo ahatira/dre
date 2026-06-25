@@ -38,6 +38,8 @@ final class ImportPipeline {
     private readonly ImportPipelineLock $lock,
     private readonly ImportPipelineAlertNotifier $alertNotifier,
     private readonly ImportPipelinePostRunIndexer $postRunIndexer,
+    private readonly XmlParseCacheService $xmlParseCache,
+    private readonly ImportPipelineRunContext $runContext,
     private readonly TimeInterface $time,
   ) {}
 
@@ -458,6 +460,11 @@ final class ImportPipeline {
     try {
       $this->moveAbsoluteFile($absoluteIncomingPath, $processingUri);
       $this->stageForMigrate($processingUri);
+
+      $stagingUri = $this->pathResolver->getStagingUri();
+      $this->xmlParseCache->beginRun($stagingUri);
+      $this->runContext->begin($mode);
+
       $migrateStats = $this->migrateRunner->run($mode, TRUE);
 
       if (!empty($migrateStats['failed'])) {
@@ -525,6 +532,8 @@ final class ImportPipeline {
       ];
     }
     finally {
+      $this->xmlParseCache->clearRun();
+      $this->runContext->clear();
       $this->lock->release();
     }
   }

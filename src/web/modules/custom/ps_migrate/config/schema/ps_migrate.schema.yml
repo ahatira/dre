@@ -68,3 +68,15 @@ ps_migrate.import_pipeline_settings:
       label: 'Per-field lock strategy overrides'
       mapping:
         type: string
+    skip_unchanged_offers:
+      type: boolean
+      label: 'Skip unchanged offers in delta mode'
+    media_download_timeout:
+      type: integer
+      label: 'Media download timeout in seconds'
+    media_download_retry_count:
+      type: integer
+      label: 'Media download retry count'
+    media_download_max_failures_percent:
+      type: integer
+      label: 'Media download failure threshold percent for warnings'

@@ -14,6 +14,7 @@ services:
     arguments:
       - '@ps_migrate.feature_technical_element_parser'
       - '@ps_migrate.canonical_country_language_resolver'
+      - '@ps_migrate.xml_parse_cache'
 
   ps_migrate.feature_migration_key_builder:
     class: Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder
@@ -71,6 +72,22 @@ services:
       - '@plugin.manager.migration'
       - '@module_handler'
       - '@logger.channel.ps_migrate'
+      - '@ps_migrate.import_pipeline_migration_source_alterer'
+
+  ps_migrate.xml_parse_cache:
+    class: Drupal\ps_migrate\Service\XmlParseCacheService
+    arguments:
+      - '@file_system'
+
+  ps_migrate.import_pipeline_run_context:
+    class: Drupal\ps_migrate\Service\ImportPipelineRunContext
+    arguments:
+      - '@config.factory'
+
+  ps_migrate.import_pipeline_migration_source_alterer:
+    class: Drupal\ps_migrate\Service\ImportPipelineMigrationSourceAlterer
+    arguments:
+      - '@ps_migrate.xml_parse_cache'
 
   ps_migrate.import_pipeline_lock:
     class: Drupal\ps_migrate\Service\ImportPipelineLock
@@ -112,6 +129,8 @@ services:
       - '@ps_migrate.import_pipeline_lock'
       - '@ps_migrate.import_pipeline_alert_notifier'
       - '@ps_migrate.import_pipeline_post_run_indexer'
+      - '@ps_migrate.xml_parse_cache'
+      - '@ps_migrate.import_pipeline_run_context'
       - '@datetime.time'
 
   Drupal\ps_migrate\Hook\ImportPipelineCronHooks:

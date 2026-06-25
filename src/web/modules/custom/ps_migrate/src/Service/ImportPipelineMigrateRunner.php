@@ -44,6 +44,7 @@ final class ImportPipelineMigrateRunner {
     private readonly MigrationPluginManagerInterface $migrationPluginManager,
     private readonly ModuleHandlerInterface $moduleHandler,
     private readonly LoggerInterface $logger,
+    private readonly ImportPipelineMigrationSourceAlterer $sourceAlterer,
   ) {}
 
   /**
@@ -105,6 +106,8 @@ final class ImportPipelineMigrateRunner {
       throw new \RuntimeException(sprintf('Migration not found: %s', $migrationId));
     }
 
+    $this->sourceAlterer->applyXmlParseCache($migration);
+
     if ($update) {
       $migration->getIdMap()->prepareUpdate();
     }
@@ -116,6 +119,8 @@ final class ImportPipelineMigrateRunner {
     return [
       'result' => $result,
       'imported' => $migration->getIdMap()->importedCount(),
+      'updated' => $migration->getIdMap()->updateCount(),
+      'skipped' => $migration->getIdMap()->messageCount(),
       'failed' => $migration->getIdMap()->errorCount(),
     ];
   }

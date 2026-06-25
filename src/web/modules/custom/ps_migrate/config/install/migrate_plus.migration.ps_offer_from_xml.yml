@@ -167,6 +167,11 @@ source:
     point_space: ' '
     point_suffix: ')'
 process:
+  # Skip unchanged offers when enabled (delta mode only).
+  _skip_unchanged:
+    plugin: skip_unchanged_offer
+    source: business_id
+
   # ===== NODE BUNDLE =====
   type:
     plugin: default_value
