@@ -77,11 +77,19 @@
       return;
     }
 
+    // Preserve sibling order (e.g. icon span before label text).
+    const insertBefore = textNodes[0].nextSibling;
     const $label = $(`<span class="${LABEL_CLASS}"></span>`);
     textNodes.forEach((node) => {
       $label.append(node);
     });
-    $element.prepend($label);
+
+    if (insertBefore) {
+      element.insertBefore($label[0], insertBefore);
+    }
+    else {
+      element.appendChild($label[0]);
+    }
   };
 
   /**

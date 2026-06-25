@@ -15,7 +15,13 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const sassOptions = {
   outputStyle: mode.production() ? 'compressed' : 'expanded',
-  silenceDeprecations: ['legacy-js-api'],
+  silenceDeprecations: [
+    'legacy-js-api',
+    'import',
+    'global-builtin',
+    'color-functions',
+    'if-function',
+  ],
 };
 
 const paths = {

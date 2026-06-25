@@ -10,6 +10,7 @@ DEST_MANIFEST="${SRC}/web/sites/countries.yml"
 DEST_DRUSH="${SRC}/drush/sites/ps.site.yml"
 SITES_ROOT="${SRC}/config/sites"
 ENV_SITES="${SRC}/config/env/sites"
+SPLITS_DIR="${SRC}/config/env/splits"
 
 [[ -f "${MANIFEST}" ]] || { echo "Missing: ${MANIFEST}" >&2; exit 1; }
 [[ -f "${CLI}" ]] || { echo "Missing: ${CLI}" >&2; exit 1; }
@@ -25,6 +26,8 @@ EOF
 } > "${DEST_MANIFEST}"
 
 php "${CLI}" drush-site-yml > "${DEST_DRUSH}"
+php "${CLI}" generate-address-field-overrides "${ENV_SITES}"
+php "${CLI}" generate-site-splits "${SPLITS_DIR}" "${ENV_SITES}"
 
 mkdir -p "${SITES_ROOT}"
 for code in $(php "${CLI}" codes); do
@@ -37,5 +40,7 @@ done
 
 echo "Synced countries.yml → src/web/sites/countries.yml"
 echo "Generated src/drush/sites/ps.site.yml"
+echo "Generated config/env/sites/{code}/field.field.node.offer.field_address.yml"
+echo "Regenerated config/env/splits/config_split.config_split.site_{code}.yml"
 echo "Scaffolded config/sites/{code}/ directories"
 echo "Seed CMI: make seed-site-configs (from legacy config/sync) or make export-all-configs"

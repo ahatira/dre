@@ -27,19 +27,6 @@ ps_npm_exec() {
   ( cd "${cwd}" && "$@" )
 }
 
-ps_link_theme_bootstrap_library() {
-  local bootstrap_src="${PS_WEB_DIR}/themes/custom/ui_suite_bnp/node_modules/bootstrap"
-  local lib_dest="${PS_WEB_DIR}/libraries/bootstrap"
-
-  ps_require_file "${bootstrap_src}/scss/_functions.scss" \
-    "Bootstrap not found in ui_suite_bnp (build ui_suite_bnp theme first)"
-
-  mkdir -p "${PS_WEB_DIR}/libraries"
-  rm -rf "${lib_dest}"
-  cp -a "${bootstrap_src}" "${lib_dest}"
-  ps_success "Bootstrap copied to web/libraries/bootstrap"
-}
-
 ps_resolve_runtime() {
   if [[ -n "${PS_RUNTIME:-}" ]]; then
     return 0

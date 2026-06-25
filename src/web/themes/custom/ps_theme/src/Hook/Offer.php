@@ -74,6 +74,7 @@ final class Offer {
         ];
       }
 
+      $this->applyOfferCardCache($component, $node);
       $variables['offer_card_component'] = $component;
       return;
     }
@@ -105,6 +106,7 @@ final class Offer {
         ];
       }
 
+      $this->applyOfferCardCache($component, $node);
       $variables['offer_search_card_component'] = $component;
       return;
     }
@@ -116,6 +118,27 @@ final class Offer {
       $variables['#attached']['drupalSettings']['psOfferViewed']['currentId'] = (int) $node->id();
       return;
     }
+  }
+
+  /**
+   * Adds cache tags so card images refresh when the default image config changes.
+   *
+   * @param array<string, mixed> $component
+   *   Offer card component render array.
+   */
+  private function applyOfferCardCache(array &$component, NodeInterface $node): void {
+    if (!\Drupal::hasService('ps_offer.gallery_image_resolver')) {
+      return;
+    }
+
+    $tags = array_merge(
+      $node->getCacheTags(),
+      \Drupal::service('ps_offer.gallery_image_resolver')->getDefaultImageCacheTags(),
+    );
+    $component['#cache']['tags'] = array_values(array_unique(array_merge(
+      $component['#cache']['tags'] ?? [],
+      $tags,
+    )));
   }
 
   /**

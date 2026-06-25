@@ -8,7 +8,7 @@ Modèle de données, validations métier et orchestration presave pour les offre
 
 `ps_offer` définit le bundle node `offer` (~44 champs custom + `body`), ses displays BO/FO, ses règles de validation, la génération de références auto/manuel, la sync diagnostics DPE/GES et l'intégration avec les modules PS satellites (features, surfaces, agents, diagnostics, médias, favoris).
 
-L'édition des contenus reste sous `/node/add/offer` et `/node/{nid}/edit`. La configuration des références est sous `/admin/ps/config/offer-reference`.
+L'édition des contenus reste sous `/node/add/offer` et `/node/{nid}/edit`. La configuration admin est centralisée sous `/admin/ps/config/offer`.
 
 Ce module **ne fait pas** :
 - le catalogue features (`ps_feature`) ;
@@ -62,7 +62,7 @@ Ce module **ne fait pas** :
 
 | Champ | Type | Description |
 |---|---|---|
-| `field_address` | `address` | Adresse structurée (module Address, pays FR) |
+| `field_address` | `address` | Adresse structurée (module Address, pays du site via CMI) |
 | `field_geo` | `geofield` | Coordonnées WKT (géocodage via Geocoder) |
 | `field_show_address` | `boolean` | Afficher l'adresse en front |
 
@@ -95,7 +95,7 @@ Ce module **ne fait pas** :
 | `field_budget_cc` | `boolean` | Charges comprises |
 | `field_budget_fees` | `string_long` | Honoraires (texte libre, popover budget) |
 
-Configuration site : `/admin/ps/config/offer-budget` (`ps_offer.settings`) — libellés popover, défauts honoraires, « Prix sur demande », TTC.
+Configuration site : `/admin/ps/config/offer` — hub avec onglets (budget, surface, médias, sections, carte, références). Objet config `ps_offer.settings` (libellés budget/surface, image par défaut).
 
 #### Features & diagnostics
 
@@ -173,7 +173,7 @@ Fichier tokens : `ps_offer.tokens.inc` (`ps-offer-operation`, `ps-offer-asset`, 
 | `validateCapacity()` | SEAT_BASED / PER_POSTE ; requis si onglet Capacity visible (matrix) | Warning | **Blocant** |
 | `validateSurface()` | Au moins une surface TOTAL > 0 ; **skip si matrix masque Surface** | Warning | **Blocant** |
 | `validateDivisibility()` | Non divisible + DISPO < TOTAL → warning UX ; skip si Surface masquée | Warning | Warning |
-| `validatePrimaryAgent()` | Pas d'agent principal → dépublication | N/A | Dépublication auto |
+| `warnMissingContactAgent()` | Offre publiée sans agent résolu (primary/secondary/default) | Warning | Warning |
 | `validateManualReferenceUniqueness()` | Mode manuel + doublon `field_reference` | **Blocant** | **Blocant** |
 
 **Form validate (hors manager) :** `validateGallery()` — galerie non vide requise à la publication.
@@ -182,11 +182,20 @@ Fichier tokens : `ps_offer.tokens.inc` (`ps-offer-operation`, `ps-offer-asset`, 
 
 ## Routes & Accès
 
+Hub : **`/admin/ps/config/offer`** (`ps_offer.admin_overview`) — permission `manage ps_offer` ou `administer ps offer reference patterns`.
+
 | Route | Chemin | Permission |
 |---|---|---|
-| `ps_offer.reference_config` | `/admin/ps/config/offer-reference` | `administer ps offer reference patterns` |
-| `entity.ps_offer_reference_pattern.collection` | `/admin/ps/config/offer-reference/patterns` | `administer ps offer reference patterns` |
-| `entity.ps_offer_reference_alias_set.collection` | `/admin/ps/config/offer-reference/aliases` | `administer ps offer reference patterns` |
+| `ps_offer.admin_overview` | `/admin/ps/config/offer` | `manage ps_offer` ou `administer ps offer reference patterns` |
+| `ps_offer.budget_display_settings` | `/admin/ps/config/offer/budget` | `manage ps_offer` |
+| `ps_offer.budget_popover_settings` | `/admin/ps/config/offer/budget/popover` | `manage ps_offer` |
+| `ps_offer.surface_display_settings` | `/admin/ps/config/offer/surface` | `manage ps_offer` |
+| `ps_offer.media_settings` | `/admin/ps/config/offer/media` | `manage ps_offer` |
+| `ps_offer.section_settings` | `/admin/ps/config/offer/sections` | `manage ps_offer` |
+| `ps_offer.map_settings` | `/admin/ps/config/offer/map` | `manage ps_offer` |
+| `ps_offer.reference_config` | `/admin/ps/config/offer/reference` | `administer ps offer reference patterns` |
+| `entity.ps_offer_reference_pattern.collection` | `/admin/ps/config/offer/reference/patterns` | `administer ps offer reference patterns` |
+| `entity.ps_offer_reference_alias_set.collection` | `/admin/ps/config/offer/reference/aliases` | `administer ps offer reference patterns` |
 | Node add/edit | `/node/add/offer`, `/node/{nid}/edit` | Permissions node standard |
 | Vue admin features | `/admin/ps/content/offers-by-feature` | `manage ps_offer` |
 

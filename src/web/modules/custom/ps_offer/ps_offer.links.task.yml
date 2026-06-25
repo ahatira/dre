@@ -1,0 +1,53 @@
+ps_offer.admin_overview:
+  title: 'Overview'
+  route_name: ps_offer.admin_overview
+  base_route: ps_offer.admin_overview
+  weight: -20
+
+ps_offer.budget_display_settings:
+  title: 'Budget'
+  route_name: ps_offer.budget_display_settings
+  base_route: ps_offer.admin_overview
+  weight: 0
+
+ps_offer.budget_popover_settings:
+  title: 'Popover'
+  route_name: ps_offer.budget_popover_settings
+  base_route: ps_offer.admin_overview
+  weight: 1
+
+ps_offer.surface_display_settings:
+  title: 'Surface'
+  route_name: ps_offer.surface_display_settings
+  base_route: ps_offer.admin_overview
+  weight: 2
+
+ps_offer.media_settings:
+  title: 'Media'
+  route_name: ps_offer.media_settings
+  base_route: ps_offer.admin_overview
+  weight: 3
+
+ps_offer.section_settings:
+  title: 'Sections'
+  route_name: ps_offer.section_settings
+  base_route: ps_offer.admin_overview
+  weight: 4
+
+ps_offer.map_settings:
+  title: 'Map'
+  route_name: ps_offer.map_settings
+  base_route: ps_offer.admin_overview
+  weight: 5
+
+ps_offer.contact_settings:
+  title: 'Contact'
+  route_name: ps_offer.contact_settings
+  base_route: ps_offer.admin_overview
+  weight: 6
+
+ps_offer.reference_config:
+  title: 'Reference'
+  route_name: ps_offer.reference_config
+  base_route: ps_offer.admin_overview
+  weight: 10

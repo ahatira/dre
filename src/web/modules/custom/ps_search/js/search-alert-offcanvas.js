@@ -19,9 +19,10 @@
     return query ? `${OFFCANVAS_URL}?${query}` : OFFCANVAS_URL;
   }
 
-  function openAlertDialog() {
+  function openAlertDialog(trigger) {
     Drupal.ajax({
       url: buildOffcanvasUrl(),
+      element: trigger,
       dialogType: 'dialog',
       dialogRenderer: 'off_canvas',
       dialog: {
@@ -38,7 +39,7 @@
       once('ps-search-alert-open', '[data-ps-search-alert-open]', context).forEach(function (trigger) {
         trigger.addEventListener('click', function (event) {
           event.preventDefault();
-          openAlertDialog();
+          openAlertDialog(trigger);
         });
       });
     },

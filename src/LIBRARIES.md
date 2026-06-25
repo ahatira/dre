@@ -198,18 +198,20 @@ cd ps-project/src
 rsync -av . user@server:/var/www/html/
 ```
 
-**CI/CD Pipeline (GitLab CI, GitHub Actions, etc.):**
+**CI/CD (Jenkins) — 2 stages depuis `src/` :**
 
-```yaml
-build:
-  script:
-    - cd src
-    - ./scripts/build.sh --production --no-cache
-    - tar -czf ../build.tar.gz .
-  artifacts:
-    paths:
-      - build.tar.gz
+```bash
+# Stage 1 — Composer
+bash scripts/main.sh tools build --composer-only --production
+
+# Stage 2 — NPM (vendor/ requis depuis stage 1)
+bash scripts/main.sh tools build --npm-only --production --keep-npm
+
+# Gate
+bash scripts/main.sh tools check
 ```
+
+Dev local : `make build` (les deux enchaînés). Équivalent prod local : `make build --production && make verify`
 
 **Docker Compose deployment:**
 

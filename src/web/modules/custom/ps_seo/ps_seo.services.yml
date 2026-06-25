@@ -16,6 +16,7 @@ services:
       - '@language_manager'
       - '@ps_offer.surface_kpi_builder'
       - '@file_url_generator'
+      - '@ps_offer.gallery_image_resolver'
 
   Drupal\ps_seo\Offer\OfferSeoHeadBuilder: '@ps_seo.offer_head_builder'
 

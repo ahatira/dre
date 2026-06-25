@@ -48,4 +48,28 @@ final class SearchBudgetFilterResolverTest extends UnitTestCase {
     ];
   }
 
+  /**
+   * @covers ::resolveHomepageEntry
+   * @dataProvider homepageEntryProvider
+   */
+  public function testResolveHomepageEntry(?string $asset, ?string $op, string $expectedPlaceholder, int $expectedStep): void {
+    $config = $this->resolver->resolveHomepageEntry($asset, $op);
+
+    self::assertSame('Prix max. (HT/HD)', $config['max_label']);
+    self::assertSame($expectedPlaceholder, $config['max_placeholder']);
+    self::assertSame($expectedStep, $config['step']);
+  }
+
+  /**
+   * @return array<string, array{0: ?string, 1: ?string, 2: string, 3: int}>
+   */
+  public static function homepageEntryProvider(): array {
+    return [
+      'flexible' => [NULL, NULL, 'Budget max. (HT)', 10],
+      'rent bur' => ['BUR', 'LOC', 'Loyer max. (HT/HC/m²/an)', 10],
+      'rent cow' => ['COW', 'LOC', 'Loyer max. (€/poste/an)', 1],
+      'sale' => [NULL, 'VEN', 'Prix max. (HT/HD)', 1000],
+    ];
+  }
+
 }

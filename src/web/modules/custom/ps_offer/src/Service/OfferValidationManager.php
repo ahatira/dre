@@ -17,6 +17,7 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
   public function __construct(
     private readonly MessengerInterface $messenger,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly OfferContactResolver $contactResolver,
     private readonly ?OfferContextResolverInterface $contextResolver = NULL,
   ) {}
 
@@ -35,7 +36,7 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
     $this->validateCapacity($node);
     $this->validateSurface($node);
     $this->validateDivisibility($node);
-    $this->validatePrimaryAgent($node);
+    $this->warnMissingContactAgent($node);
     $this->validateManualReferenceUniqueness($node);
   }
 
@@ -134,15 +135,18 @@ final class OfferValidationManager implements OfferValidationManagerInterface {
     }
   }
 
-  private function validatePrimaryAgent(NodeInterface $offer): void {
-    if (!$offer->isPublished() || !$offer->hasField('field_primary_agent')) {
+  private function warnMissingContactAgent(NodeInterface $offer): void {
+    if (!$offer->isPublished()) {
       return;
     }
 
-    if ($offer->get('field_primary_agent')->isEmpty()) {
-      $offer->setUnpublished();
-      $this->messenger->addWarning(new TranslatableMarkup('The offer has been saved as a draft because no primary agent is set.'));
+    if ($this->contactResolver->hasResolvedAgent($offer)) {
+      return;
     }
+
+    $this->messenger->addWarning(new TranslatableMarkup(
+      'This published offer has no primary agent, secondary agent or default contact agent configured. Contact notifications will use the site email address.'
+    ));
   }
 
   private function validateCapacity(NodeInterface $offer): void {

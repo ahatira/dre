@@ -99,6 +99,8 @@ final class SearchThemeHooks {
           'search_path' => '',
           'budget_config' => [],
           'show_surface_filter' => TRUE,
+          'show_capacity_filter' => FALSE,
+          'capacity_filter_label' => '',
           'labels' => [],
         ],
         'template' => 'ps-search-homepage-entry',

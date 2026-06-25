@@ -6,15 +6,22 @@ SCRIPTS_CLI := $(SRC_DIR)/scripts/main.sh
 COUNTRY ?= com
 
 .PHONY: \
-	help build verify install reinstall install-from-conf import demo deploy drush-cr \
+	help build build-composer build-npm verify install reinstall install-from-conf import demo deploy drush-cr \
 	index-solr export-solr rbac-sync rbac-export create-test-users \
 	drush drush-uli drush-status drush-cex rebuild-permissions composer-install composer-update npm-install npm-audit \
 	seed-site-configs export-all-configs translations-fetch translations-fetch
 
+# Shared flags for build targets (e.g. make build --production).
+BUILD_OPTS := $(filter-out build build-composer build-npm composer-install,$(MAKECMDGOALS))
+
 help:
 	@echo "Property Search — src/ (deployable artefact)"
 	@echo ""
-	@echo "  make build [--production via scripts/main.sh tools build --production]"
+	@echo "  make build [OPTIONS]                  — Composer + NPM (dev: full build)"
+	@echo "  make build-composer [OPTIONS]         — Composer only (Jenkins stage 1)"
+	@echo "  make build-npm [OPTIONS]                — NPM/themes only (Jenkins stage 2)"
+	@echo "  make composer-install                   — alias for build-composer"
+	@echo "  OPTIONS: --production --no-cache --keep-npm"
 	@echo "  make verify"
 	@echo "  make install [country...] | reinstall [country...]"
 	@echo "  make install-from-conf [country...]  — CMI from config/sites/{code}"
@@ -31,16 +38,22 @@ help:
 	@echo "  make drush-uli | drush-status | drush-cex"
 	@echo "  make npm-install | npm-audit"
 	@echo ""
-	@echo "Drush runs on the host. Requires vendor/ (make build / composer-install)."
+	@echo "Drush runs on the host. Requires vendor/ (make build-composer / make build)."
 
-build:
-	bash "$(SCRIPTS_CLI)" tools build $(filter-out build,$(MAKECMDGOALS))
+build-composer:
+	bash "$(SCRIPTS_CLI)" tools build --composer-only $(BUILD_OPTS)
+
+build-npm:
+	bash "$(SCRIPTS_CLI)" tools build --npm-only $(BUILD_OPTS)
+
+build: build-composer build-npm
+	@:
 
 verify:
 	bash "$(SCRIPTS_CLI)" tools check
 
-composer-install:
-	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction --prefer-dist
+composer-install: build-composer
+	@:
 
 composer-update:
 	cd "$(SRC_DIR)" && COMPOSER_PROCESS_TIMEOUT=2000 composer update --no-interaction --prefer-dist

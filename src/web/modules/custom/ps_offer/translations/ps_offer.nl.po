@@ -91,7 +91,7 @@ msgid "BNPPRE real estate offer"
 msgstr "BNPPRE-vastgoedaanbieding"
 
 msgid "Budget display"
-msgstr "Budget display"
+msgstr "Budgetweergave"
 
 msgid "Budget display labels"
 msgstr "Budgetweergavelabels"
@@ -166,7 +166,7 @@ msgid "Commercial title"
 msgstr "Commerciële titel"
 
 msgid "Configure budget popover labels and default fees text."
-msgstr "Configure budget popover labels and default fees text."
+msgstr "Configureer popover-budgetlabels en standaard honoraria-teksten."
 
 msgid "Configure headings and icons for offer detail page sections. Sections "
 "are registered by modules; only installed sections appear below."
@@ -547,7 +547,7 @@ msgid "Offers by feature"
 msgstr "Aanbiedingen per kenmerk"
 
 msgid "On request"
-msgstr "On request"
+msgstr "Op aanvraag"
 
 msgid "On request label"
 msgstr "Label prijs op aanvraag"
@@ -1027,3 +1027,159 @@ msgid "⚠️ <strong>Enable this lock to protect manual edits from automated CR
 msgstr "⚠️ <strong>Schakel dit slot in om handmatige wijzigingen te beschermen"
 " tegen geautomatiseerde CRM-imports.</strong> Wanneer vergrendeld, wor"
 "dt deze aanbieding niet overschreven tijdens importsynchronisatie."
+
+msgid "3D visit badge icon"
+msgstr "3D-bezoek badgepictogram"
+
+msgid "Back to PS configuration hub"
+msgstr "Terug naar PS-configuratiehub"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Configure default offer image and gallery badge icons."
+msgstr "Configureer standaard aanbiedingsafbeelding en galerij-badgepictogrammen."
+
+msgid "Configure HT/HC/CC/HD definitions and default fees text."
+msgstr "Configureer HT/HC/CC/HD-definities en standaard honoraria-teksten."
+
+msgid "Configure offer display on cards, search results and detail pages."
+msgstr "Configureer weergave van aanbiedingen op kaarten, zoekresultaten en detailpagina's."
+
+msgid "Configure offer display, sections, map, media and references."
+msgstr "Configureer weergave van aanbiedingen, secties, kaart, media en referenties."
+
+msgid "Configure offer reference generation patterns and aliases."
+msgstr "Configureer patronen en aliassen voor generatie van aanbiedingsreferenties."
+
+msgid "Configure on request, TTC and price info labels."
+msgstr "Configureer labels voor op aanvraag, incl. btw en prijsinformatie."
+
+msgid "Configure surface KPI and divisibility labels."
+msgstr "Configureer oppervlakte-KPI- en deelbaarheidslabels."
+
+msgid "Configure the offer detail interactive map."
+msgstr "Configureer de interactieve kaart op de aanbiedingsdetailpagina."
+
+msgid "Content shown in the budget information popover on offer detail pages."
+msgstr "Inhoud getoond in de budgetinformatie-popover op aanbiedingsdetailpagina's."
+
+msgid "Default image"
+msgstr "Standaardafbeelding"
+
+msgid "Default image alt text"
+msgstr "Alt-tekst standaardafbeelding"
+
+msgid "Default offer image"
+msgstr "Standaard aanbiedingsafbeelding"
+
+msgid "Default offer image, alt text and photo/video/3D/plan badge icons."
+msgstr "Standaardafbeelding, alt-tekst en badgepictogrammen foto/video/3D-bezoek/plattegrond."
+
+msgid "Display labels"
+msgstr "Weergavelabels"
+
+msgid "Displayed when an offer has no photo in its gallery. Allowed formats: png jpg jpeg webp."
+msgstr "Getoond wanneer een aanbieding geen foto in de galerij heeft. Toegestane formaten: png jpg jpeg webp."
+
+msgid "Fallback image and gallery badge icons."
+msgstr "Fallback-afbeelding en galerij-badgepictogrammen."
+
+msgid "Gallery badge icons"
+msgstr "Galerij-badgepictogrammen"
+
+msgid "HT/HC/CC/HD definitions and default agency fees text."
+msgstr "HT/HC/CC/HD-definities en standaardtekst makelaarshonoraria."
+
+msgid "Icons displayed on offer gallery badges (photos, videos, 3D visit, plan)."
+msgstr "Pictogrammen op galerij-badges (foto's, video's, 3D-bezoek, plattegrond)."
+
+msgid "Interactive map"
+msgstr "Interactieve kaart"
+
+msgid "Labels and templates used when rendering offer surface KPIs."
+msgstr "Labels en sjablonen voor oppervlakte-KPI's van aanbiedingen."
+
+msgid "Labels used when rendering offer prices on cards, search results and detail headers."
+msgstr "Labels gebruikt bij prijsweergave op kaarten, zoekresultaten en detailkoppen."
+
+msgid "Manage patterns and alias sets used when generating offer references."
+msgstr "Beheer patronen en aliassets gebruikt bij het genereren van aanbiedingsreferenties."
+
+msgid "Manage reference alias sets."
+msgstr "Beheer referentie-aliassets."
+
+msgid "Manage reference patterns."
+msgstr "Beheer referentiepatronen."
+
+msgid "Map"
+msgstr "Kaart"
+
+msgid "Map behaviour, markers and surrounding area on the location section."
+msgstr "Kaartgedrag, markers en omgeving in de locatiesectie."
+
+msgid "Media"
+msgstr "Media"
+
+msgid "Media and gallery"
+msgstr "Media en galerij"
+
+msgid "Offer detail page"
+msgstr "Aanbiedingsdetailpagina"
+
+msgid "On request, TTC, \"from\" prefix and price info aria-label."
+msgstr "Op aanvraag, incl. btw, prefix «vanaf» en aria-label prijsinformatie."
+
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Patterns and alias sets for CRM offer references."
+msgstr "Patronen en aliassets voor CRM-aanbiedingsreferenties."
+
+msgid "Photos badge icon"
+msgstr "Foto-badgepictogram"
+
+msgid "Plan badge icon"
+msgstr "Plattegrond-badgepictogram"
+
+msgid "Popover"
+msgstr "Popover"
+
+msgid "Reference"
+msgstr "Referentie"
+
+msgid "Reference generation"
+msgstr "Referentiegeneratie"
+
+msgid "Reference aliases"
+msgstr "Referentie-aliassen"
+
+msgid "Reference patterns"
+msgstr "Referentiepatronen"
+
+msgid "Sections"
+msgstr "Secties"
+
+msgid "Structure and content blocks on the full offer page."
+msgstr "Structuur en contentblokken op de volledige aanbiedingspagina."
+
+msgid "Surface"
+msgstr "Oppervlakte"
+
+msgid "Surface KPI and divisibility labels on cards and detail blocks."
+msgstr "Oppervlakte-KPI- en deelbaarheidslabels op kaarten en detailblokken."
+
+msgid "This site is multilingual. Edit wording in the default site language in each settings tab. Use the Translate tab for other enabled languages. Budget, Popover, Surface and Media share one display-labels form."
+msgstr "Deze site is meertalig. Bewerk teksten in de standaardtaal van de site in elk instellingen-tabblad. Gebruik het tabblad Vertalen voor andere actieve talen. Budget, Popover, Oppervlakte en Media delen één labelformulier."
+
+msgid "Titles, icons and transport feature group for detail sections."
+msgstr "Titels, pictogrammen en transportkenmerkgroep voor detailsecties."
+
+msgid "Translate"
+msgstr "Vertalen"
+
+msgid "Videos badge icon"
+msgstr "Video-badgepictogram"
+
+msgid "Wording shown with prices and surfaces."
+msgstr "Teksten getoond bij prijzen en oppervlakten."

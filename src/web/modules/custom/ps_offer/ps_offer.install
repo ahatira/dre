@@ -10,11 +10,79 @@ declare(strict_types=1);
 use Drupal\Core\Config\FileStorage;
 
 /**
+ * UUID of the primary agent card block in the offer full Layout Builder display.
+ */
+const PS_OFFER_AGENT_CARD_COMPONENT_UUID = 'a1000001-0000-4000-8000-000000000030';
+
+/**
  * Implements hook_install().
  */
 function ps_offer_install(): void {
   ps_offer_register_pathauto_safe_tokens();
   ps_offer_apply_full_layout_display();
+  ps_offer_apply_address_country_config();
+  ps_offer_install_default_contact_agent();
+  ps_offer_apply_webform_contact_recipients();
+}
+
+/**
+ * Creates the default site contact agent and stores it in ps_offer.settings.
+ */
+function ps_offer_install_default_contact_agent(): void {
+  \Drupal::service('ps_offer.default_contact_agent_installer')->ensureDefaultAgent();
+}
+
+/**
+ * Points offer webform agent handlers to the resolved contact email token.
+ */
+function ps_offer_apply_webform_contact_recipients(): void {
+  ps_offer_update_webform_contact_recipients();
+}
+
+/**
+ * Applies allowed address countries for the current multisite country.
+ */
+function ps_offer_apply_address_country_config(): void {
+  \Drupal::service('ps_offer.address_country_configurator')->applyForCurrentSite();
+}
+
+/**
+ * Sets offer address allowed countries from the active PS country code.
+ */
+function ps_offer_update_9001(): void {
+  ps_offer_apply_address_country_config();
+}
+
+/**
+ * Ensures default contact agent and webform recipient tokens on existing sites.
+ */
+function ps_offer_update_9002(): void {
+  ps_offer_install_default_contact_agent();
+  ps_offer_update_webform_contact_recipients();
+}
+
+/**
+ * Updates offer webform handlers to use the contact resolver token.
+ */
+function ps_offer_update_webform_contact_recipients(): void {
+  $token = '[webform_submission:source-entity:ps-offer-contact-email]';
+  $config_factory = \Drupal::configFactory();
+
+  foreach (['offer_contact', 'schedule_visit'] as $webform_id) {
+    $config_name = 'webform.webform.' . $webform_id;
+    if (!$config_factory->get($config_name)->get('id')) {
+      continue;
+    }
+
+    $editable = $config_factory->getEditable($config_name);
+    $handlers = $editable->get('handlers');
+    if (!is_array($handlers) || !isset($handlers['email_agent']['settings'])) {
+      continue;
+    }
+
+    $handlers['email_agent']['settings']['to_mail'] = $token;
+    $editable->set('handlers', $handlers)->save(TRUE);
+  }
 }
 
 /**
@@ -24,19 +92,31 @@ function ps_offer_install(): void {
  * during module enable; defer to hook_install once dependencies are ready.
  */
 function ps_offer_apply_full_layout_display(): void {
-  $modulePath = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_offer');
-  $storage = new FileStorage($modulePath . '/config/optional');
-  $configName = 'core.entity_view_display.node.offer.full';
-  if (!$storage->exists($configName)) {
+  $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'ps_offer');
+  $storage = new FileStorage($module_path . '/config/optional');
+  $config_name = 'core.entity_view_display.node.offer.full';
+  if (!$storage->exists($config_name)) {
     return;
   }
 
-  $data = $storage->read($configName);
+  $data = $storage->read($config_name);
   if (!is_array($data)) {
     return;
   }
 
-  \Drupal::configFactory()->getEditable($configName)->setData($data)->save(TRUE);
+  $langcode = \Drupal::languageManager()->getDefaultLanguage()->getId();
+  if ($langcode !== 'en') {
+    $localized_storage = new FileStorage($module_path . '/config/optional/language/' . $langcode);
+    if ($localized_storage->exists($config_name)) {
+      $localized_settings = ps_offer_extract_agent_card_formatter_settings($localized_storage->read($config_name));
+      $current_settings = ps_offer_extract_agent_card_formatter_settings($data);
+      if ($localized_settings !== NULL && $current_settings !== NULL) {
+        ps_offer_write_agent_card_formatter_settings($data, array_merge($current_settings, $localized_settings));
+      }
+    }
+  }
+
+  \Drupal::configFactory()->getEditable($config_name)->setData($data)->save(TRUE);
 }
 
 /**
@@ -56,4 +136,84 @@ function ps_offer_register_pathauto_safe_tokens(): void {
 
   $config->set('safe_tokens', array_values(array_unique(array_merge($safe_tokens, $offer_tokens))));
   $config->save();
+}
+
+/**
+ * Extracts agent card formatter settings from a view display config array.
+ *
+ * @param array<string, mixed>|null $display_data
+ *   View display config data.
+ *
+ * @return array<string, mixed>|null
+ *   Formatter settings or NULL when the agent card block is missing.
+ */
+function ps_offer_extract_agent_card_formatter_settings(?array $display_data): ?array {
+  if ($display_data === NULL) {
+    return NULL;
+  }
+
+  $sections = $display_data['third_party_settings']['layout_builder']['sections'] ?? [];
+  if (!is_array($sections)) {
+    return NULL;
+  }
+
+  foreach ($sections as $section) {
+    if (!is_array($section)) {
+      continue;
+    }
+    $components = $section['components'] ?? [];
+    if (!is_array($components)) {
+      continue;
+    }
+    foreach ($components as $component_id => $component) {
+      if (!is_array($component)) {
+        continue;
+      }
+      $uuid = (string) ($component['uuid'] ?? (is_string($component_id) ? $component_id : ''));
+      if ($uuid !== PS_OFFER_AGENT_CARD_COMPONENT_UUID) {
+        continue;
+      }
+      $settings = $component['configuration']['formatter']['settings'] ?? NULL;
+      return is_array($settings) ? $settings : NULL;
+    }
+  }
+
+  return NULL;
+}
+
+/**
+ * Writes agent card formatter settings back into a view display config array.
+ *
+ * @param array<string, mixed> $display_data
+ *   View display config data, passed by reference.
+ * @param array<string, mixed> $settings
+ *   Formatter settings to persist.
+ *
+ * @return bool
+ *   TRUE when the agent card block was found and updated.
+ */
+function ps_offer_write_agent_card_formatter_settings(array &$display_data, array $settings): bool {
+  if (!isset($display_data['third_party_settings']['layout_builder']['sections'])
+    || !is_array($display_data['third_party_settings']['layout_builder']['sections'])) {
+    return FALSE;
+  }
+
+  foreach ($display_data['third_party_settings']['layout_builder']['sections'] as &$section) {
+    if (!is_array($section) || !isset($section['components']) || !is_array($section['components'])) {
+      continue;
+    }
+    foreach ($section['components'] as $component_id => &$component) {
+      if (!is_array($component)) {
+        continue;
+      }
+      $uuid = (string) ($component['uuid'] ?? (is_string($component_id) ? $component_id : ''));
+      if ($uuid !== PS_OFFER_AGENT_CARD_COMPONENT_UUID) {
+        continue;
+      }
+      $component['configuration']['formatter']['settings'] = $settings;
+      return TRUE;
+    }
+  }
+
+  return FALSE;
 }

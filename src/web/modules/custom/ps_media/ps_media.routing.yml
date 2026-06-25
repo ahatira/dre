@@ -1,7 +1,0 @@
-ps_media.gallery_settings:
-  path: '/admin/ps/config/media/gallery'
-  defaults:
-    _form: '\Drupal\ps_media\Form\GallerySettingsForm'
-    _title: 'Offer gallery settings'
-  requirements:
-    _permission: 'administer ps_media'

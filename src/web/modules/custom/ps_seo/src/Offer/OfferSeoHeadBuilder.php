@@ -10,8 +10,8 @@ use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferGalleryImageResolver;
 use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
@@ -28,6 +28,7 @@ final class OfferSeoHeadBuilder {
     private readonly LanguageManagerInterface $languageManager,
     private readonly OfferSurfaceKpiBuilder $surfaceKpiBuilder,
     private readonly FileUrlGeneratorInterface $fileUrlGenerator,
+    private readonly OfferGalleryImageResolver $galleryImageResolver,
   ) {}
 
   /**
@@ -55,7 +56,7 @@ final class OfferSeoHeadBuilder {
     $reference = trim((string) ($node->get('field_reference')->value ?? ''));
     $commercialTitle = trim((string) ($node->get('field_commercial_title')->value ?? ''));
     $canonicalUrl = $node->toUrl('canonical', ['absolute' => TRUE, 'language' => $node->language()])->toString();
-    $imageUrl = $this->resolvePrimaryImageUrl($node);
+    $imageUrl = $this->galleryImageResolver->resolvePrimaryImageUrlOrConfiguredDefault($node);
 
     $location = trim($city . ($postalCode !== '' ? ' ' . $postalCode : ''));
     $titleParts = array_values(array_filter([
@@ -406,33 +407,6 @@ final class OfferSeoHeadBuilder {
       'latitude' => $coordinates[1],
       'longitude' => $coordinates[0],
     ]);
-  }
-
-  /**
-   * Resolves the first gallery image absolute URL for OG/Schema tags.
-   */
-  private function resolvePrimaryImageUrl(NodeInterface $node): ?string {
-    if (!$node->hasField('field_media_gallery') || $node->get('field_media_gallery')->isEmpty()) {
-      return NULL;
-    }
-
-    foreach ($node->get('field_media_gallery') as $item) {
-      $media = $item->entity;
-      if (!$media instanceof MediaInterface || !$media->hasField('field_media_image')) {
-        continue;
-      }
-      if ($media->get('field_media_image')->isEmpty()) {
-        continue;
-      }
-      $file = $media->get('field_media_image')->entity;
-      if ($file === NULL) {
-        continue;
-      }
-
-      return $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
-    }
-
-    return NULL;
   }
 
   /**

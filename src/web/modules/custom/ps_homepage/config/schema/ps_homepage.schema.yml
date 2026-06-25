@@ -10,6 +10,14 @@ block.settings.ps_homepage_search_hero_block:
       type: integer
       label: 'Promo background file ID'
       nullable: true
+    asset_background_images:
+      type: mapping
+      label: 'Hero backgrounds by asset type'
+      mapping:
+        '*':
+          type: integer
+          label: 'Asset background media ID'
+          nullable: true
     background_alt:
       type: string
       label: 'Hero background alt'

@@ -13,7 +13,9 @@ use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\media\MediaInterface;
 use Drupal\media\IFrameUrlHelper;
+use Drupal\node\NodeInterface;
 use Drupal\ps_media\Service\GalleryBadgeIconResolver;
+use Drupal\ps_offer\Service\OfferDefaultImageResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -43,6 +45,7 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
     string $view_mode,
     array $third_party_settings,
     private readonly GalleryBadgeIconResolver $badgeIconResolver,
+    private readonly ?OfferDefaultImageResolver $defaultImageResolver,
   ) {
     parent::__construct(
       $plugin_id,
@@ -68,6 +71,9 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $container->get('ps_media.gallery_badge_icon_resolver'),
+      $container->has('ps_offer.default_image_resolver')
+        ? $container->get('ps_offer.default_image_resolver')
+        : NULL,
     );
   }
 
@@ -189,8 +195,18 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
+    $displayTemplate = (string) $this->getSetting('display_template');
+    $offer = $items->getEntity();
 
     if ($items->isEmpty()) {
+      if ($offer instanceof NodeInterface) {
+        if ($displayTemplate === 'hero') {
+          return $this->buildDefaultImageHeroElements($offer);
+        }
+        if ($displayTemplate === 'summary') {
+          return $this->buildDefaultImageSummaryElements($offer);
+        }
+      }
       return $elements;
     }
 
@@ -198,6 +214,14 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
     $entities = $this->getEntitiesToView($items, $langcode);
 
     if (empty($entities)) {
+      if ($offer instanceof NodeInterface) {
+        if ($displayTemplate === 'hero') {
+          return $this->buildDefaultImageHeroElements($offer);
+        }
+        if ($displayTemplate === 'summary') {
+          return $this->buildDefaultImageSummaryElements($offer);
+        }
+      }
       return $elements;
     }
 
@@ -212,7 +236,6 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
     }
 
     $imageStyle = trim((string) $this->getSetting('image_style'));
-    $displayTemplate = (string) $this->getSetting('display_template');
 
     if ($displayTemplate === 'hero') {
       $thumbImageStyle = $imageStyle !== '' ? $imageStyle : 'ps_offer_gallery_thumb';
@@ -223,8 +246,11 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
       $heroStyledUrls = $this->buildStyledUrls($entities, $heroImageStyle);
       $thumbStyledUrls = $this->buildStyledUrls($entities, $thumbImageStyle);
 
-      $offer = $items->getEntity();
       $heroData = $this->buildHeroData($entities, $heroStyledUrls, $thumbStyledUrls);
+      if ($heroData['props']['photo_count'] === 0 && $offer instanceof NodeInterface) {
+        return $this->buildDefaultImageHeroElements($offer, $heroImageStyle, $thumbImageStyle);
+      }
+
       $heroData['props']['offer_id'] = $offer ? (int) $offer->id() : 0;
       $heroData['props']['offer_type'] = $offer ? $offer->getEntityTypeId() : 'node';
 
@@ -272,6 +298,42 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
         'library' => ['ps_media/gallery'],
       ],
     ];
+
+    return $elements;
+  }
+
+  /**
+   * Builds summary gallery render array using the configured default offer image.
+   *
+   * @return array<int, array<string, mixed>>
+   */
+  private function buildDefaultImageSummaryElements(NodeInterface $offer): array {
+    if ($this->defaultImageResolver === NULL || !$this->defaultImageResolver->hasConfiguredImage()) {
+      return [];
+    }
+
+    $imageStyle = trim((string) $this->getSetting('image_style'));
+    $url = $this->defaultImageResolver->buildUrl($imageStyle !== '' ? $imageStyle : NULL);
+    $alt = $this->defaultImageResolver->getAlt();
+
+    $elements = [[
+      '#theme' => 'gallery_summary',
+      '#offer' => $offer,
+      '#medias' => [],
+      '#order' => $this->getSetting('order'),
+      '#show_titles' => $this->getSetting('show_titles'),
+      '#use_thumbnail' => $this->getSetting('use_thumbnail'),
+      '#lazy_load' => $this->getSetting('lazy_load'),
+      '#styled_urls' => [],
+      '#default_image_url' => $url,
+      '#default_image_alt' => $alt,
+      '#attached' => [
+        'library' => ['ps_media/gallery'],
+      ],
+      '#cache' => [
+        'tags' => $this->defaultImageResolver->getCacheTags(),
+      ],
+    ]];
 
     return $elements;
   }
@@ -340,6 +402,89 @@ class GalleryFormatter extends EntityReferenceFormatterBase implements Container
     }
 
     return $urls;
+  }
+
+  /**
+   * Builds hero gallery render array using the configured default offer image.
+   *
+   * @return array<int, array<string, mixed>>
+   */
+  private function buildDefaultImageHeroElements(
+    NodeInterface $offer,
+    ?string $heroImageStyle = NULL,
+    ?string $thumbImageStyle = NULL,
+  ): array {
+    if ($this->defaultImageResolver === NULL) {
+      return [];
+    }
+
+    $heroImageStyle ??= trim((string) $this->getSetting('hero_image_style')) ?: 'ps_offer_gallery_hero';
+    $thumbImageStyle ??= trim((string) $this->getSetting('image_style')) ?: 'ps_offer_gallery_thumb';
+
+    $heroUrl = $this->defaultImageResolver->buildUrl($heroImageStyle);
+    $thumbUrl = $this->defaultImageResolver->buildUrl($thumbImageStyle);
+    $alt = $this->defaultImageResolver->getAlt();
+
+    $images = [[
+      'url' => $heroUrl,
+      'alt' => $alt,
+      'media_id' => '0',
+    ]];
+    $slides = [[
+      'type' => 'image',
+      'url' => $heroUrl,
+      'thumb_url' => $thumbUrl,
+      'alt' => $alt,
+      'label' => $alt,
+    ]];
+    $entryIndexes = [
+      'photos' => 0,
+      'video' => NULL,
+      'visit_3d' => NULL,
+      'plan' => NULL,
+    ];
+
+    $elements = [[
+      '#type' => 'component',
+      '#component' => 'ps_theme:media-gallery-hero',
+      '#props' => [
+        'images' => $images,
+        'photo_count' => 1,
+        'video_count' => 0,
+        'has_visit_3d' => FALSE,
+        'has_plan' => FALSE,
+        'slides' => $slides,
+        'entry_indexes' => $entryIndexes,
+        'offer_id' => (int) $offer->id(),
+        'offer_type' => $offer->getEntityTypeId(),
+        'badge_icons' => $this->badgeIconResolver->resolve(),
+      ],
+      '#attached' => [
+        'library' => ['ps_theme/offer-gallery'],
+        'drupalSettings' => [
+          'psOfferGallery' => [
+            'slides' => $slides,
+            'entry_indexes' => $entryIndexes,
+          ],
+        ],
+      ],
+      '#cache' => [
+        'tags' => $this->defaultImageResolver->getCacheTags(),
+      ],
+    ]];
+
+    if (\Drupal::moduleHandler()->moduleExists('ps_favorite')) {
+      $elements[0]['#slots']['favorite'] = [
+        '#lazy_builder' => ['ps_favorite.lazy_builder:buildButton', [$offer->getEntityTypeId(), (int) $offer->id(), 'gallery']],
+        '#create_placeholder' => TRUE,
+      ];
+    }
+
+    CacheableMetadata::createFromObject($this->badgeIconResolver)
+      ->addCacheTags($this->defaultImageResolver->getCacheTags())
+      ->applyTo($elements[0]);
+
+    return $elements;
   }
 
   private function resolvePreviewUri(MediaInterface $media): ?string {

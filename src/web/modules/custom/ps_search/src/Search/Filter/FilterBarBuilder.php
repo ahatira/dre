@@ -55,7 +55,7 @@ final class FilterBarBuilder {
    *
    * @return array<string, mixed>
    */
-  public function buildHomepageEntryPanel(array $labels = []): array {
+  public function buildHomepageEntryPanel(array $labels = [], array $options = []): array {
     $data = $this->resolveFilterData([
       'active_op' => NULL,
       'active_asset' => NULL,
@@ -73,8 +73,10 @@ final class FilterBarBuilder {
       '#active_op_label' => $data['active_op_label'],
       '#active_asset_label' => $data['active_asset_label'],
       '#search_path' => $data['search_path'],
-      '#budget_config' => $data['budget_config'],
+      '#budget_config' => $this->searchBudgetFilter->resolveHomepageEntry(NULL, NULL),
       '#show_surface_filter' => $data['show_surface_filter'],
+      '#show_capacity_filter' => $data['show_capacity_filter'],
+      '#capacity_filter_label' => $data['capacity_filter_label'],
       '#labels' => $labels,
       '#attached' => [
         'library' => [
@@ -83,7 +85,14 @@ final class FilterBarBuilder {
         ],
         'drupalSettings' => [
           'psSearchFilterHtmx' => $this->htmxSettings->buildJsSettings(),
-          'psSearch' => $this->buildPsSearchSettings($data),
+          'psSearch' => array_merge($this->buildPsSearchSettings($data), [
+            'homepageBudgetFilterConfig' => $this->searchBudgetFilter->resolveHomepageEntry(NULL, NULL),
+            'homepageBudgetByAsset' => $this->searchBudgetFilter->buildHomepageConfigMap(array_keys($data['asset_types'])),
+            'heroBackgroundDefault' => (string) ($options['hero_background_default'] ?? ''),
+            'heroBackgroundByAsset' => is_array($options['hero_background_by_asset'] ?? NULL)
+              ? $options['hero_background_by_asset']
+              : [],
+          ]),
         ],
       ],
       '#cache' => $this->buildFilterCacheTags(),

@@ -42,6 +42,26 @@ final class SearchHeroBlockFormBuilder {
     );
     $form['media']['promo_background_image']['#description'] = $this->t('Right column promotional panel. Leave empty to reuse the hero background.');
 
+    $assetOptions = \Drupal::service('ps_search.preset_options_provider')->getAssetOptions();
+    $form['media']['asset_backgrounds'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Hero backgrounds by asset type'),
+      '#description' => $this->t('Optional overrides when the visitor changes property type. On install only the default hero background is used; add images here only when a property type needs its own visual.'),
+      '#open' => FALSE,
+    ];
+    $configuredAssets = is_array($config['asset_background_images'] ?? NULL)
+      ? $config['asset_background_images']
+      : [];
+    foreach ($assetOptions as $code => $label) {
+      if ($code === '') {
+        continue;
+      }
+      $form['media']['asset_backgrounds'][$code] = $this->buildMediaLibraryElement(
+        $this->t('@asset background', ['@asset' => $label]),
+        $configuredAssets[$code] ?? NULL,
+      );
+    }
+
     $form['promo_offers'] = [
       '#type' => 'details',
       '#title' => $this->t('Promo offers line'),
@@ -176,6 +196,21 @@ final class SearchHeroBlockFormBuilder {
 
     $configuration['background_image'] = $this->persistMediaReference($form_state->getValue(['media', 'background_image']));
     $configuration['promo_background_image'] = $this->persistMediaReference($form_state->getValue(['media', 'promo_background_image']));
+
+    $assetBackgrounds = [];
+    $assetValues = $form_state->getValue(['media', 'asset_backgrounds']);
+    if (is_array($assetValues)) {
+      foreach ($assetValues as $code => $value) {
+        if (!is_string($code) || $code === '') {
+          continue;
+        }
+        $mid = $this->persistMediaReference($value);
+        if ($mid !== NULL) {
+          $assetBackgrounds[$code] = $mid;
+        }
+      }
+    }
+    $configuration['asset_background_images'] = $assetBackgrounds;
   }
 
   /**
@@ -183,20 +218,20 @@ final class SearchHeroBlockFormBuilder {
    */
   private function searchFormFieldDefinitions(): array {
     return [
-      'transaction_type_label' => ['title' => 'Transaction type — section label', 'max_length' => 128],
-      'op_buy_label' => ['title' => 'Transaction — Buy button', 'max_length' => 64],
-      'op_rent_label' => ['title' => 'Transaction — Rent button', 'max_length' => 64],
-      'op_flexible_label' => ['title' => "Transaction — I'm flexible button", 'max_length' => 64],
-      'location_label' => ['title' => 'Location(s) — field label', 'max_length' => 128],
-      'location_placeholder' => ['title' => 'Location(s) — placeholder', 'max_length' => 255],
-      'property_type_label' => ['title' => 'Property type — field label', 'max_length' => 128],
+      'transaction_type_label' => ['title' => 'Need — section label (Quel est votre besoin ?)', 'max_length' => 128],
+      'op_buy_label' => ['title' => 'Need — Buy button', 'max_length' => 64],
+      'op_rent_label' => ['title' => 'Need — Rent button', 'max_length' => 64],
+      'op_flexible_label' => ['title' => "Need — I'm flexible button", 'max_length' => 64],
+      'location_label' => ['title' => 'Location — field label (Où ?)', 'max_length' => 128],
+      'location_placeholder' => ['title' => 'Location — placeholder', 'max_length' => 255],
+      'property_type_label' => ['title' => 'Property type — field label (Que recherchez-vous ?)', 'max_length' => 128],
       'property_type_placeholder' => ['title' => 'Property type — placeholder', 'max_length' => 255],
-      'surface_min_label' => ['title' => 'Minimum surface (m²) — field label', 'max_length' => 128],
-      'surface_min_placeholder' => ['title' => 'Minimum surface (m²) — placeholder', 'max_length' => 64],
-      'price_max_label' => ['title' => 'Maximum price — field label', 'max_length' => 128],
-      'price_max_placeholder' => ['title' => 'Maximum price — placeholder', 'max_length' => 64],
-      'optional_label' => ['title' => 'Optional hint label', 'max_length' => 64],
-      'search_button_label' => ['title' => 'Search button label', 'max_length' => 64],
+      'surface_min_label' => ['title' => 'Surface min. — field label', 'max_length' => 128],
+      'surface_min_placeholder' => ['title' => 'Surface min. — placeholder', 'max_length' => 64],
+      'price_max_label' => ['title' => 'Max price — field label (Prix max. HT/HD)', 'max_length' => 128],
+      'price_max_placeholder' => ['title' => 'Max price — default placeholder', 'max_length' => 64],
+      'optional_label' => ['title' => 'Optional hint label (Facultatif)', 'max_length' => 64],
+      'search_button_label' => ['title' => 'Search button label (Rechercher des annonces)', 'max_length' => 64],
     ];
   }
 

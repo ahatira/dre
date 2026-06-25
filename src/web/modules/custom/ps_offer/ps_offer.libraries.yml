@@ -12,3 +12,9 @@ reference_widget:
   css:
     theme:
       css/offer-reference-widget.css: {}
+
+admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/offer-admin-overview.css: {}

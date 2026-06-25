@@ -245,14 +245,93 @@ if (!function_exists('ps_tcp_endpoint_is_reachable')) {
   }
 }
 
+if (!function_exists('ps_memcache_key_prefix')) {
+  /**
+   * Memcache key prefix for multisite isolation on a shared Memcached pool.
+   *
+   * Each country is a separate Drupal install (own DB). Without a unique prefix,
+   * cache entries collide when all vhosts share the same Memcached instance.
+   *
+   * @see https://www.drupal.org/project/memcache — Prefixing
+   */
+  function ps_memcache_key_prefix(string $countryCode): string {
+    $countryCode = strtolower($countryCode);
+    $prefix = 'ps_' . $countryCode;
+    $env = ps_app_env();
+    if ($env !== 'prod') {
+      return $env . '_' . $prefix;
+    }
+    return $prefix;
+  }
+}
+
+if (!function_exists('ps_memcache_is_enabled_in_database')) {
+  /**
+   * Whether memcache is listed in core.extension (active config).
+   *
+   * Avoids wiring cache.backend.memcache when the module files exist but the
+   * module is not enabled (e.g. during uninstall/reinstall).
+   */
+  function ps_memcache_is_enabled_in_database(array $databaseInfo): bool {
+    if (($databaseInfo['driver'] ?? '') !== 'pgsql' || ($databaseInfo['database'] ?? '') === '') {
+      return FALSE;
+    }
+
+    try {
+      $pdo = new PDO(
+        sprintf(
+          'pgsql:host=%s;port=%d;dbname=%s',
+          $databaseInfo['host'] ?? '127.0.0.1',
+          (int) ($databaseInfo['port'] ?? 5432),
+          $databaseInfo['database']
+        ),
+        (string) ($databaseInfo['username'] ?? ''),
+        (string) ($databaseInfo['password'] ?? ''),
+        [PDO::ATTR_TIMEOUT => 2]
+      );
+      $tableCheck = $pdo->query(
+        "SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'config' LIMIT 1"
+      );
+      if ($tableCheck === FALSE || $tableCheck->fetchColumn() === FALSE) {
+        return FALSE;
+      }
+
+      $stmt = $pdo->prepare("SELECT data FROM config WHERE name = :name AND collection = ''");
+      $stmt->execute(['name' => 'core.extension']);
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($row === FALSE) {
+        return FALSE;
+      }
+
+      $raw = $row['data'];
+      if (is_resource($raw)) {
+        $raw = stream_get_contents($raw);
+      }
+      if (!is_string($raw) || $raw === '') {
+        return FALSE;
+      }
+
+      $data = unserialize($raw, ['allowed_classes' => FALSE]);
+      return is_array($data) && isset($data['module']['memcache']);
+    }
+    catch (\Throwable) {
+      return FALSE;
+    }
+  }
+}
+
 if (!function_exists('ps_memcache_bootstrap_enabled')) {
   /**
    * Whether MemcacheBackend should be wired in settings (module + reachable host).
    *
    * Falls back to database cache when CACHE_HOST is unset, memcache module is
-   * missing, or the server is unreachable — keeps install/runtime working.
+   * missing/disabled, or the server is unreachable — keeps install/runtime working.
+   *
+   * @param array<string, mixed>|null $databaseInfo
+   *   Default DB connection from settings.php; when provided, memcache must be
+   *   enabled in core.extension before the backend is wired.
    */
-  function ps_memcache_bootstrap_enabled(string $appRoot): bool {
+  function ps_memcache_bootstrap_enabled(string $appRoot, ?array $databaseInfo = NULL): bool {
     $host = ps_env('CACHE_HOST');
     if ($host === '') {
       $host = ps_env('CHACHE_HOST');
@@ -263,6 +342,10 @@ if (!function_exists('ps_memcache_bootstrap_enabled')) {
 
     $moduleInfo = $appRoot . '/modules/contrib/memcache/memcache.info.yml';
     if (!is_readable($moduleInfo)) {
+      return FALSE;
+    }
+
+    if ($databaseInfo !== NULL && !ps_memcache_is_enabled_in_database($databaseInfo)) {
       return FALSE;
     }
 

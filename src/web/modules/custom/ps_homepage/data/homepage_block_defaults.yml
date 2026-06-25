@@ -6,21 +6,21 @@ ps_homepage_search_hero_block:
     promo_background_alt: ''
     promo_offers_use_dynamic: true
     title: 'What are you looking for?'
-    transaction_type_label: 'Transaction type'
+    transaction_type_label: 'What is your need?'
     op_buy_label: Buy
     op_rent_label: Rent
     op_flexible_label: "I'm flexible"
-    location_label: 'Location(s)'
-    location_placeholder: 'City, district or zip code'
-    property_type_label: 'Property type'
-    property_type_placeholder: 'Type of property'
-    surface_min_label: 'Minimum surface (m²)'
-    surface_min_placeholder: '200 m²'
-    price_max_label: 'Maximum price'
-    price_max_placeholder: '10 000'
+    location_label: 'Where?'
+    location_placeholder: 'City, district, postal code, building name...'
+    property_type_label: 'What are you looking for?'
+    property_type_placeholder: 'Property type'
+    surface_min_label: 'Min. surface'
+    surface_min_placeholder: 'Min. surface'
+    price_max_label: 'Max. price (excl. tax/charges)'
+    price_max_placeholder: 'Max. rent (excl. tax/charges/m²/year)'
     optional_label: Optional
-    search_button_label: Search
-    delegate_prompt: 'Would you like to delegate your search?'
+    search_button_label: 'Search listings'
+    delegate_prompt: 'Entrust us with your project'
     delegate_tooltip: 'To find your next business premises, contact our BNP Paribas Real Estate experts and delegate your search.'
     delegate_button_label: 'Delegate my search'
     delegate_url: /contact
@@ -37,21 +37,21 @@ ps_homepage_search_hero_block:
     promo_background_alt: ''
     promo_offers_use_dynamic: true
     title: 'Que recherchez-vous ?'
-    transaction_type_label: 'Type de transaction'
+    transaction_type_label: 'Quel est votre besoin ?'
     op_buy_label: Acheter
     op_rent_label: Louer
     op_flexible_label: Indifférent
-    location_label: 'Localisation(s)'
-    location_placeholder: 'Ville, quartier ou code postal'
-    property_type_label: 'Type de bien'
+    location_label: 'Où ?'
+    location_placeholder: "Ville, quartier, code postal, nom d'immeuble..."
+    property_type_label: 'Que recherchez-vous ?'
     property_type_placeholder: 'Type de bien'
-    surface_min_label: 'Surface minimum (m²)'
-    surface_min_placeholder: '200 m²'
-    price_max_label: 'Prix maximum'
-    price_max_placeholder: '10 000'
+    surface_min_label: 'Surface min.'
+    surface_min_placeholder: 'Surface min.'
+    price_max_label: 'Prix max. (HT/HD)'
+    price_max_placeholder: 'Loyer max. (HT/HC/m²/an)'
     optional_label: Facultatif
-    search_button_label: Rechercher
-    delegate_prompt: 'Souhaitez-vous déléguer votre recherche ?'
+    search_button_label: 'Rechercher des annonces'
+    delegate_prompt: 'Confiez-nous votre projet'
     delegate_tooltip: 'Pour trouver votre prochain local professionnel, contactez nos experts BNP Paribas Real Estate et déléguez votre recherche.'
     delegate_button_label: 'Déléguer ma recherche'
     delegate_url: /contact

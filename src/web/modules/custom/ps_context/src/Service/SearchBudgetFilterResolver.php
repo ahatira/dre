@@ -51,6 +51,93 @@ final class SearchBudgetFilterResolver {
   }
 
   /**
+   * Homepage hero budget field — bnppre.fr entry point rules.
+   *
+   * Static label "Prix max. (HT/HD)" (editorial override in hero block).
+   * Placeholder varies by operation; COW + LOC uses per-seat placeholder.
+   *
+   * @return array{max_label: string, max_placeholder: string, step: int}
+   *   Homepage budget field presentation.
+   */
+  public function resolveHomepageEntry(?string $assetType, ?string $operationType = NULL): array {
+    $asset = $assetType !== NULL && $assetType !== '' ? strtoupper($assetType) : NULL;
+    $op = $operationType !== NULL && $operationType !== '' ? strtoupper($operationType) : NULL;
+    $baseLabel = (string) $this->t('Prix max. (HT/HD)');
+
+    if ($op === self::OP_SALE) {
+      return [
+        'max_label' => $baseLabel,
+        'max_placeholder' => (string) $this->t('Prix max. (HT/HD)'),
+        'step' => 1000,
+      ];
+    }
+
+    if ($op !== NULL && in_array($op, self::OP_RENT_CODES, TRUE)) {
+      if ($asset === self::ASSET_COW) {
+        return [
+          'max_label' => $baseLabel,
+          'max_placeholder' => (string) $this->t('Loyer max. (€/poste/an)'),
+          'step' => 1,
+        ];
+      }
+
+      return [
+        'max_label' => $baseLabel,
+        'max_placeholder' => (string) $this->t('Loyer max. (HT/HC/m²/an)'),
+        'step' => 10,
+      ];
+    }
+
+    return [
+      'max_label' => $baseLabel,
+      'max_placeholder' => (string) $this->t('Budget max. (HT)'),
+      'step' => 10,
+    ];
+  }
+
+  /**
+   * Asset × operation map for homepage hero budget placeholders.
+   *
+   * @param list<string> $assetCodes
+   *   Asset type codes from SEO mappings.
+   *
+   * @return array<string, array<string, array{max_label: string, max_placeholder: string, step: int}>>
+   */
+  public function buildHomepageConfigMap(array $assetCodes): array {
+    $operations = ['', 'LOC', 'VEN'];
+    $map = [
+      '' => [],
+    ];
+
+    foreach ($operations as $op) {
+      $map[''][$op] = $this->resolveHomepageEntry(NULL, $op !== '' ? $op : NULL);
+    }
+
+    foreach ($assetCodes as $code) {
+      $asset = strtoupper($code);
+      $map[$asset] = [];
+      foreach ($operations as $op) {
+        $map[$asset][$op] = $this->resolveHomepageEntry($asset, $op !== '' ? $op : NULL);
+      }
+    }
+
+    return $map;
+  }
+
+  /**
+   * Operation map for homepage hero budget placeholders (bnppre.fr).
+   *
+   * @return array<string, array{max_label: string, max_placeholder: string, step: int}>
+   */
+  public function buildHomepageOperationMap(): array {
+    return [
+      '' => $this->resolveHomepageEntry(NULL, NULL),
+      'LOC' => $this->resolveHomepageEntry(NULL, 'LOC'),
+      'VEN' => $this->resolveHomepageEntry(NULL, 'VEN'),
+    ];
+  }
+
+  /**
    * Builds a nested map for client-side budget label updates.
    *
    * @param list<string> $assetCodes

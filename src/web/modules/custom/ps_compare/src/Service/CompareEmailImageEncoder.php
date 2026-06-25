@@ -8,6 +8,7 @@ use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\node\NodeInterface;
+use Drupal\ps_offer\Service\OfferDefaultImageResolver;
 use GuzzleHttp\ClientInterface;
 
 /**
@@ -35,6 +36,7 @@ final class CompareEmailImageEncoder {
     private readonly FileSystemInterface $fileSystem,
     private readonly ExtensionPathResolver $extensionPathResolver,
     private readonly ClientInterface $httpClient,
+    private readonly OfferDefaultImageResolver $defaultImageResolver,
   ) {}
 
   /**
@@ -42,6 +44,9 @@ final class CompareEmailImageEncoder {
    */
   public function encodeOfferImage(NodeInterface $offer): ?string {
     $uri = $this->offerSummaryBuilder->resolvePrimaryImageFileUri($offer);
+    if ($uri === NULL) {
+      $uri = $this->defaultImageResolver->getFileUri();
+    }
     if ($uri === NULL) {
       return $this->encodeThemePlaceholder();
     }
@@ -65,6 +70,12 @@ final class CompareEmailImageEncoder {
     }
 
     if ($encoded === []) {
+      $configuredUri = $this->defaultImageResolver->getFileUri();
+      if ($configuredUri !== NULL) {
+        $dataUri = $this->encodeStyledFileUri($configuredUri);
+        return $dataUri !== NULL ? [$dataUri] : [];
+      }
+
       $placeholder = $this->encodeThemePlaceholder();
       return $placeholder !== NULL ? [$placeholder] : [];
     }

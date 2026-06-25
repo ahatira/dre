@@ -23,7 +23,6 @@ services:
     arguments:
       - '@language_manager'
       - '@language.config_factory_override'
-      - '@config.storage'
 
   Drupal\ps_compare\Contract\ComparePathResolverInterface:
     alias: ps_compare.path_resolver
@@ -59,6 +58,7 @@ services:
       - '@config.factory'
       - '@entity.repository'
       - '@ps_offer.map_location_builder'
+      - '@ps_offer.gallery_image_resolver'
 
   ps_compare.panel_builder:
     class: Drupal\ps_compare\Service\ComparePanelBuilder
@@ -112,6 +112,7 @@ services:
       - '@file_system'
       - '@extension.path.resolver'
       - '@http_client'
+      - '@ps_offer.default_image_resolver'
 
   ps_compare.page_builder:
     class: Drupal\ps_compare\Service\ComparePageBuilder

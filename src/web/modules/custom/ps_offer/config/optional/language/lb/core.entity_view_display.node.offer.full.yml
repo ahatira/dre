@@ -1,0 +1,16 @@
+langcode: lb
+third_party_settings:
+  layout_builder:
+    sections:
+      0:
+        components:
+          a1000001-0000-4000-8000-000000000030:
+            configuration:
+              formatter:
+                settings:
+                  consultant_label: 'Äre Beroder'
+                  contact_label: 'D''Berodung kontaktéieren'
+                  contact_label_mobile: 'Kontakt'
+                  visit_title: 'Wëllt Dir eng Visite plangen?'
+                  visit_label: 'Eng Visite plangen'
+                  visit_label_mobile: 'Visite'

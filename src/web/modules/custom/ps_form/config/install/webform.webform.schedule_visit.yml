@@ -71,7 +71,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: '[webform_submission:source-entity:field_primary_agent:entity:email]'
+      to_mail: '[webform_submission:source-entity:ps-offer-contact-email]'
       to_options: {  }
       cc_mail: ''
       cc_options: {  }

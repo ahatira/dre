@@ -59,6 +59,7 @@ final class HomepageSearchHeroEditorial {
     return [
       'background_image' => NULL,
       'promo_background_image' => NULL,
+      'asset_background_images' => [],
       'promo_offers_use_dynamic' => TRUE,
     ];
   }

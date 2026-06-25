@@ -1,0 +1,10 @@
+langcode: nl
+sections:
+  energy:
+    label: 'Energie en diagnostics'
+  description:
+    label: 'Beschrijving'
+  surface_table:
+    label: 'Oppervlaktetabel'
+  location:
+    label: 'Locatie'

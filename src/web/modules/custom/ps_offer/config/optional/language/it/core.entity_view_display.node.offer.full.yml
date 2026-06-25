@@ -1,0 +1,16 @@
+langcode: it
+third_party_settings:
+  layout_builder:
+    sections:
+      0:
+        components:
+          a1000001-0000-4000-8000-000000000030:
+            configuration:
+              formatter:
+                settings:
+                  consultant_label: 'Il suo consulente'
+                  contact_label: 'Contatta l''agenzia'
+                  contact_label_mobile: 'Contatto'
+                  visit_title: 'Desidera visitare?'
+                  visit_label: 'Prenota una visita'
+                  visit_label_mobile: 'Visita'

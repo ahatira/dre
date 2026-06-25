@@ -8,10 +8,9 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\image\Entity\ImageStyle;
-use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
 use Drupal\ps_dictionary\Service\DictionaryResolver;
+use Drupal\ps_offer\Service\OfferGalleryImageResolver;
 use Drupal\ps_offer\Service\OfferMapLocationBuilder;
 use Drupal\ps_offer\Service\OfferSurfaceKpiBuilder;
 
@@ -30,6 +29,7 @@ final class CompareOfferSummaryBuilder {
     private readonly ConfigFactoryInterface $configFactory,
     private readonly EntityRepositoryInterface $entityRepository,
     private readonly OfferMapLocationBuilder $mapLocationBuilder,
+    private readonly OfferGalleryImageResolver $galleryImageResolver,
   ) {}
 
   /**
@@ -56,8 +56,8 @@ final class CompareOfferSummaryBuilder {
       'surface_suffix' => $surfaceParts['suffix'],
       'price_amount' => $budget['amount'],
       'price_qualifiers' => $budget['qualifiers'],
-      'thumbnail' => $this->resolvePrimaryImageUrl($node) ?? $this->placeholderImageUrl(),
-      'gallery_urls' => $this->resolveGalleryImageUrls($node),
+      'thumbnail' => $this->galleryImageResolver->resolvePrimaryImageUrlWithFallback($node, self::IMAGE_STYLE),
+      'gallery_urls' => $this->galleryImageResolver->resolveGalleryImageUrlsWithFallback($node, self::IMAGE_STYLE),
       'url' => $node->toUrl()->toString(),
     ];
   }
@@ -66,52 +66,21 @@ final class CompareOfferSummaryBuilder {
    * @return list<string>
    */
   public function resolveGalleryImageUrls(NodeInterface $node): array {
-    return array_map(
-      fn (string $uri): string => $this->buildStyledUrl($uri),
-      $this->resolveGalleryFileUris($node),
-    );
+    return $this->galleryImageResolver->resolveGalleryImageUrls($node, self::IMAGE_STYLE);
   }
 
   /**
    * @return list<string>
    */
   public function resolveGalleryFileUris(NodeInterface $node): array {
-    if (!$node->hasField('field_media_gallery') || $node->get('field_media_gallery')->isEmpty()) {
-      return [];
-    }
-
-    $uris = [];
-    foreach ($node->get('field_media_gallery')->referencedEntities() as $media) {
-      if (!$media instanceof MediaInterface) {
-        continue;
-      }
-      $uri = $this->resolveMediaUri($media);
-      if ($uri !== NULL) {
-        $uris[] = $uri;
-      }
-    }
-
-    return $uris;
+    return $this->galleryImageResolver->resolveImageUris($node);
   }
 
   /**
    * Returns the first gallery file URI for email embedding.
    */
   public function resolvePrimaryImageFileUri(NodeInterface $node): ?string {
-    foreach ($this->resolveGalleryFileUris($node) as $uri) {
-      return $uri;
-    }
-
-    return NULL;
-  }
-
-  private function buildStyledUrl(string $uri): string {
-    $style = ImageStyle::load(self::IMAGE_STYLE);
-    if ($style === NULL) {
-      return $uri;
-    }
-
-    return $style->buildUrl($uri);
+    return $this->galleryImageResolver->resolvePrimaryImageUri($node);
   }
 
   private function formatLocation(NodeInterface $node): ?string {
@@ -302,37 +271,6 @@ final class CompareOfferSummaryBuilder {
 
     $code = strtoupper((string) $node->get('field_operation_type')->value);
     return in_array($code, ['LOC', 'RENT'], TRUE);
-  }
-
-  private function resolvePrimaryImageUrl(NodeInterface $node): ?string {
-    $uri = $this->resolvePrimaryImageFileUri($node);
-    return $uri !== NULL ? $this->buildStyledUrl($uri) : NULL;
-  }
-
-  private function resolveMediaUri(MediaInterface $media): ?string {
-    $bundle = $media->bundle();
-    $candidates = match ($bundle) {
-      'image', 'visite_guided' => ['field_media_image'],
-      'gallery' => ['field_media_gallery_image'],
-      default => ['thumbnail', 'field_media_image'],
-    };
-
-    foreach ($candidates as $fieldName) {
-      if (!$media->hasField($fieldName) || $media->get($fieldName)->isEmpty()) {
-        continue;
-      }
-      $file = $media->get($fieldName)->entity;
-      if ($file !== NULL) {
-        return $file->getFileUri();
-      }
-    }
-
-    return NULL;
-  }
-
-  private function placeholderImageUrl(): string {
-    $theme = \Drupal::theme()->getActiveTheme()->getPath();
-    return '/' . $theme . '/assets/images/offer-placeholder.svg';
   }
 
   private function dictionaryLabel(string $type, string $code): string {

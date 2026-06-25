@@ -10,6 +10,27 @@ ps_drush() {
   (cd "${PS_SRC_DIR}" && vendor/bin/drush "${cmd[@]}" "$@")
 }
 
+ps_memcache_php_extension_available() {
+  php -m 2>/dev/null | grep -qE '^(memcache|memcached)$'
+}
+
+ps_php_container_drush_available() {
+  ps_load_config
+  [[ "${PS_APP_ENV}" == "dev" && -d "${PS_REPO_ROOT}/docker" ]] || return 1
+  local php_container="${PS_PHP_CONTAINER:-ps_php}"
+  command -v docker >/dev/null 2>&1 || return 1
+  docker ps --format '{{.Names}}' 2>/dev/null | grep -qx "${php_container}"
+}
+
+ps_drush_in_php_container() {
+  local php_container="${PS_PHP_CONTAINER:-ps_php}"
+  local alias="${PS_DRUSH_ALIAS:-@ps.com}"
+  ps_php_container_drush_available \
+    || ps_die "PHP container ${php_container} unavailable for Drush"
+  docker exec "${php_container}" sh -c \
+    "cd /var/www/html && vendor/bin/drush ${alias} $(printf '%q ' "$@")"
+}
+
 ps_drush_cr() {
   ps_drush cache:rebuild "$@" || ps_warn "Cache rebuild failed — continuing (check Memcache connectivity)"
 

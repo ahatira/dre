@@ -24,7 +24,12 @@
     height: 100%;
     object-fit: cover;
     transform: scale(1.06);
+    transition: opacity 0.35s ease;
     width: 100%;
+
+    &.is-fading {
+      opacity: 0.35;
+    }
   }
 
   &__overlay {
@@ -84,7 +89,12 @@
   &__promo-image {
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.35s ease;
     width: 100%;
+
+    &.is-fading {
+      opacity: 0.35;
+    }
   }
 
   &__promo-overlay {

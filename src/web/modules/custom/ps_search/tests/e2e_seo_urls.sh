@@ -167,6 +167,17 @@ assert_redirect "/coworking/" "$BASE/find-property?asset_type=COW" "EN asset-onl
 assert_redirect "/for-rent/retail/" "$BASE/find-property?operation_type=LOC&asset_type=COM&surface_min=&budget_max=" "Hero-style submit strips empty optional query params"
 
 echo ""
+echo "--- 5c. Flat range params on SEO paths (must not HTTP 500) ---"
+assert_http 200 "$BASE/for-rent/office/paris-75/?surface_min=200" "EN flat surface_min on dept path"
+assert_http 200 "$BASE/for-rent/office/paris-75/?surface_min=200&budget_max=500" "EN flat surface_min + budget_max"
+html_flat=$(curl -sL -m 60 "$BASE/for-rent/office/paris-75/?surface_min=200")
+if [[ "$html_flat" == *'"globalCount"'* && "$html_flat" != *"unexpected error"* ]]; then
+  pass "EN flat surface_min renders search page (globalCount present)"
+else
+  fail "EN flat surface_min search page broken"
+fi
+
+echo ""
 echo "--- 5b. Asset-only SEO (Indifférent, no operation slug) ---"
 assert_http 200 "$BASE/office/" "EN asset-only /office/"
 assert_http 200 "$BASE/fr/bureaux/" "FR asset-only /fr/bureaux/"

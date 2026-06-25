@@ -1,0 +1,10 @@
+langcode: pl
+sections:
+  energy:
+    label: 'Energia i diagnostyka'
+  description:
+    label: 'Opis'
+  surface_table:
+    label: 'Tabela powierzchni'
+  location:
+    label: 'Lokalizacja'

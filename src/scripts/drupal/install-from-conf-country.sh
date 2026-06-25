@@ -29,6 +29,7 @@ ps_install_country_from_conf() {
   ps_site_install_from_config "${site_name}" "${default_lang}"
 
   ps_uninstall_update_module_if_present
+  ps_enable_memcache_if_available
   ps_apply_config_ignore_settings_from_env
   ps_enable_seo_modules_post_import
   ps_add_site_languages "${country}"

@@ -36,6 +36,15 @@ for code in $(php "${CLI}" codes); do
     echo "  merged language.negotiation.yml"
   fi
 
+  address_override="${ENV_SITES}/${code}/field.field.node.offer.field_address.yml"
+  if [[ -f "${address_override}" ]]; then
+    php "${CLI}" merge-partial-config \
+      "${target}/field.field.node.offer.field_address.yml" \
+      "${address_override}" \
+      "${SRC}"
+    echo "  merged field.field.node.offer.field_address.yml"
+  fi
+
   if [[ ! -f "${target}/.htaccess" && -f "${ENV_SITES}/com/.htaccess" ]]; then
     cp "${ENV_SITES}/com/.htaccess" "${target}/.htaccess"
   fi

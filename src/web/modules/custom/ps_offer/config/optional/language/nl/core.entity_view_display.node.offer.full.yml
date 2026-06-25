@@ -1,0 +1,16 @@
+langcode: nl
+third_party_settings:
+  layout_builder:
+    sections:
+      0:
+        components:
+          a1000001-0000-4000-8000-000000000030:
+            configuration:
+              formatter:
+                settings:
+                  consultant_label: 'Uw consultant'
+                  contact_label: 'Contact opnemen met het kantoor'
+                  contact_label_mobile: 'Contact'
+                  visit_title: 'Wilt u een bezichtiging?'
+                  visit_label: 'Bezichtiging plannen'
+                  visit_label_mobile: 'Bezoek'

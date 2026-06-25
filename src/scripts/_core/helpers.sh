@@ -47,6 +47,43 @@ ps_enable_module_robust() {
   done
 }
 
+ps_memcache_modules_enabled() {
+  local enabled
+  enabled="$(ps_drush pm:list --status=enabled --filter=memcache --format=list 2>/dev/null || true)"
+  grep -q '^memcache$' <<< "${enabled}" && grep -q '^memcache_admin$' <<< "${enabled}"
+}
+
+ps_enable_memcache_if_available() {
+  local module_info="${PS_WEB_DIR}/modules/contrib/memcache/memcache.info.yml"
+  if [[ ! -f "${module_info}" ]]; then
+    ps_warn "memcache module not found (run: make build or composer install) — using database cache"
+    return 0
+  fi
+  if ps_memcache_modules_enabled; then
+    ps_info "memcache + memcache_admin already enabled"
+    return 0
+  fi
+
+  ps_info "Enabling memcache + memcache_admin..."
+  if ps_memcache_php_extension_available; then
+    ps_enable_module_robust memcache 2 2 && ps_enable_module_robust memcache_admin 2 2 && return 0
+  elif ps_php_container_drush_available; then
+    local php_container="${PS_PHP_CONTAINER:-ps_php}"
+    ps_info "Host PHP lacks memcache extension — enabling via ${php_container} container..."
+    if ps_drush_in_php_container en -y memcache memcache_admin; then
+      ps_drush_cr
+      return 0
+    fi
+  else
+    ps_warn "Host PHP lacks memcache extension and ps_php is unavailable — trying host Drush..."
+    if ps_enable_module_robust memcache 2 2 && ps_enable_module_robust memcache_admin 2 2; then
+      return 0
+    fi
+  fi
+
+  ps_warn "memcache enable failed — using database cache (web container still uses Memcache when reachable)"
+}
+
 ps_verify_ps_offer_install() {
   ps_drush ev '
     if (!\Drupal::moduleHandler()->moduleExists("ps_offer")) {
@@ -415,4 +452,45 @@ ps_index_offers_solr() {
     || ps_die "Solr index failed (is Solr up? Are offers imported?)"
   ps_retry 2 2 ps_drush ps:search:features:sync-index --rebuild-tracker=1 -y \
     || ps_warn "Feature filter sync failed"
+}
+
+# ps_theme source-only: compiled CSS must not be tracked (CI builds artefacts).
+ps_check_ps_theme_source_only() {
+  command -v git >/dev/null 2>&1 || return 0
+
+  local git_root theme_prefix tracked
+  git_root="$(git -C "${PS_REPO_ROOT}" rev-parse --show-toplevel 2>/dev/null)" || return 0
+  theme_prefix="$(git -C "${git_root}" ls-files '**/ps_theme/ps_theme.info.yml' 2>/dev/null | head -1)"
+  [[ -n "${theme_prefix}" ]] || return 0
+  theme_prefix="${theme_prefix%/ps_theme.info.yml}"
+
+  local tracked_compiled=()
+  while IFS= read -r rel; do
+    [[ -z "${rel}" ]] && continue
+    if [[ "${rel}" == "${theme_prefix}/assets/css/"* ]]; then
+      tracked_compiled+=("${rel}")
+      continue
+    fi
+    if [[ "${rel}" == *".css.map" ]]; then
+      tracked_compiled+=("${rel}")
+      continue
+    fi
+    if [[ "${rel}" =~ ${theme_prefix}/components/.+/styles/.+\.css$ ]]; then
+      local abs="${git_root}/${rel}"
+      if [[ -f "${abs%.css}.scss" ]]; then
+        tracked_compiled+=("${rel}")
+      fi
+    fi
+  done < <(git -C "${git_root}" ls-files "${theme_prefix}/assets/css" "${theme_prefix}/components" 2>/dev/null \
+    | grep -E '\.(css|css\.map)$' || true)
+
+  if [[ ${#tracked_compiled[@]} -gt 0 ]]; then
+    ps_error "ps_theme compiled CSS tracked in Git (source-only mode):"
+    printf '  - %s\n' "${tracked_compiled[@]}" >&2
+    ps_error "Run: git rm --cached <paths> — see ps_theme/.gitignore"
+    return 1
+  fi
+
+  ps_success "ps_theme source-only Git OK"
+  return 0
 }

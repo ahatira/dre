@@ -23,8 +23,8 @@ final class HomepageSearchPanelBuilder {
    *
    * @return array<string, mixed>
    */
-  public function buildPanelContent(array $labels = []): array {
-    return $this->filterBarBuilder->buildHomepageEntryPanel($labels);
+  public function buildPanelContent(array $labels = [], array $options = []): array {
+    return $this->filterBarBuilder->buildHomepageEntryPanel($labels, $options);
   }
 
 }

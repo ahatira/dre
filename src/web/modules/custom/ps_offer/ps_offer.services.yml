@@ -69,7 +69,20 @@ services:
     arguments:
       - '@messenger'
       - '@entity_type.manager'
+      - '@ps_offer.contact_resolver'
       - '@?Drupal\ps_offer\OfferContextResolverInterface'
+
+  ps_offer.contact_resolver:
+    class: Drupal\ps_offer\Service\OfferContactResolver
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+
+  ps_offer.default_contact_agent_installer:
+    class: Drupal\ps_offer\Service\OfferDefaultContactAgentInstaller
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
 
   Drupal\ps_offer\Service\OfferValidationManagerInterface:
     alias: Drupal\ps_offer\Service\OfferValidationManager
@@ -118,8 +131,36 @@ services:
       - '@?ps_search.search_path_resolver'
       - '@language_manager'
 
+  ps_offer.default_image_resolver:
+    class: Drupal\ps_offer\Service\OfferDefaultImageResolver
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@file_url_generator'
+      - '@extension.list.theme'
+      - '@request_stack'
+      - '@string_translation'
+
+  ps_offer.gallery_image_resolver:
+    class: Drupal\ps_offer\Service\OfferGalleryImageResolver
+    arguments:
+      - '@ps_offer.default_image_resolver'
+      - '@file_url_generator'
+
+  ps_offer.address_country_configurator:
+    class: Drupal\ps_offer\Service\OfferAddressCountryConfigurator
+    arguments:
+      - '@config.factory'
+
+  ps_offer.offer_primary_agent_field_block_subscriber:
+    class: Drupal\ps_offer\EventSubscriber\OfferPrimaryAgentFieldBlockSubscriber
+    tags:
+      - { name: event_subscriber }
+
   Drupal\ps_offer\Hook\OfferHooks:
     class: Drupal\ps_offer\Hook\OfferHooks
     arguments:
       - '@Drupal\ps_offer\Service\OfferValidationManagerInterface'
       - '@Drupal\ps_offer\Service\OfferReferenceManagerInterface'
+
+  Drupal\ps_offer\Hook\OfferAdminHooks: {}

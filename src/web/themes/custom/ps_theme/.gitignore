@@ -1,0 +1,12 @@
+/node_modules/
+
+# Source-only mode (align ui_suite_bnp): compiled assets are CI-built, not versioned.
+/assets/css/
+/assets/css/**
+
+# Component SCSS output (Gulp compiles styles/*.scss → styles/*.css).
+/components/**/styles/*.css
+/components/**/styles/*.css.map
+
+# Local Sass cache
+/.sass-cache/

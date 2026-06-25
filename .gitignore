@@ -118,7 +118,9 @@ Thumbs.db
 /src/web/.eslintignore
 /src/web/.eslintrc.json
 
-# Ignore default profiles/themes at docroot level, keep room for custom ones.
+# Local dev-only scripts (not part of deployable src/ workflow).
+/src/scripts/dev/
+
 /src/web/profiles/*
 !/src/web/profiles/custom/
 !/src/web/profiles/custom/**

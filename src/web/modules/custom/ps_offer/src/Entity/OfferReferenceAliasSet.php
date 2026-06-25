@@ -41,10 +41,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "weight" = "weight"
  *   },
  *   links = {
- *     "collection" = "/admin/ps/config/offer-reference/aliases",
- *     "add-form" = "/admin/ps/config/offer-reference/aliases/add",
- *     "edit-form" = "/admin/ps/config/offer-reference/aliases/{ps_offer_reference_alias_set}",
- *     "delete-form" = "/admin/ps/config/offer-reference/aliases/{ps_offer_reference_alias_set}/delete"
+ *     "collection" = "/admin/ps/config/offer/reference/aliases",
+ *     "add-form" = "/admin/ps/config/offer/reference/aliases/add",
+ *     "edit-form" = "/admin/ps/config/offer/reference/aliases/{ps_offer_reference_alias_set}",
+ *     "delete-form" = "/admin/ps/config/offer/reference/aliases/{ps_offer_reference_alias_set}/delete"
  *   },
  *   config_export = {
  *     "id",
