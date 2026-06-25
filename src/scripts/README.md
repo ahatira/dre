@@ -26,10 +26,10 @@ make deploy fr
 
 ```bash
 # Stage 1 — Composer (PHP 8.3 + Composer)
-make build-composer --production
+make build-composer PRODUCTION=1
 
 # Stage 2 — NPM (Node.js 20+)
-make build-npm --production
+make build-npm PRODUCTION=1
 
 # Gate avant packaging / deploy
 make verify

@@ -14,17 +14,25 @@ Dossier versionné déployé tel quel sur INT, staging et production.
 ### Dev local — une seule commande
 
 ```bash
-make build                # Composer + NPM (équivalent des 2 stages Jenkins)
-make build-npm            # SCSS/CSS uniquement (itération front)
-make verify               # contrôle artefacts
+make build                      # Composer + NPM (un seul appel script)
+make build PRODUCTION=1         # prod: vendor --no-dev + CSS compilé
+make build-npm                  # SCSS/CSS uniquement (itération front)
+make verify                     # contrôle artefacts
+```
+
+Si `make build` échoue sur `node_modules` (EACCES / ENOTEMPTY), des paquets ont probablement été installés via Docker en root :
+
+```bash
+make fix-npm-permissions   # depuis la racine du repo (dev)
+make build
 ```
 
 ### Jenkins — 2 stages séparés
 
 | Stage | Commande | Prérequis agent |
 |-------|----------|-----------------|
-| 1 — Composer | `make build-composer --production` | PHP 8.3, Composer 2 |
-| 2 — NPM | `make build-npm --production` | Node.js 20+, npm 10+ |
+| 1 — Composer | `make build-composer PRODUCTION=1` | PHP 8.3, Composer 2 |
+| 2 — NPM | `make build-npm PRODUCTION=1` | Node.js 20+, npm 10+ |
 | Gate | `make verify` | après stage 2 |
 
 Équivalent scripts :
@@ -61,7 +69,7 @@ scripts/main.sh drupal deploy [country...]
 scripts/main.sh drupal install [country...]
 ```
 
-Options build : `--production`, `--no-cache`, `--keep-npm`
+Options build : `PRODUCTION=1`, `NO_CACHE=1`, `KEEP_NPM=1` (legacy : `make build -- --production`)
 
 Pas de logique Docker dans `src/scripts/` — Docker est géré à la racine du repo (dev uniquement).
 

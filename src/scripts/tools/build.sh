@@ -31,9 +31,10 @@ Environment:
 
 Examples:
   make build                         # dev: Composer + NPM
-  make build-composer --production   # Jenkins stage 1
-  make build-npm --production        # Jenkins stage 2
-  make build --production            # dev/prod local: both
+  make build PRODUCTION=1            # prod: both steps
+  make build-composer PRODUCTION=1   # Jenkins stage 1
+  make build-npm PRODUCTION=1        # Jenkins stage 2
+  make build -- --production         # legacy goal syntax
 
 Requires: node/npm on the host for NPM steps; Composer for PHP steps.
 EOF
@@ -47,7 +48,7 @@ ps_build_theme() {
   local npm_script="$2"
   local label="$3"
   ps_info "${label}..."
-  ps_npm_exec "${theme_dir}" sh -lc "$(ps_npm_install_cmd "${theme_dir}")"
+  ps_npm_install_dir "${theme_dir}"
   ps_npm_exec "${theme_dir}" sh -lc "npm run ${npm_script}"
   ps_success "${label} OK"
 }
@@ -66,11 +67,11 @@ ps_build_composer() {
 
 ps_build_npm_assets() {
   ps_info "ui_suite_bnp npm install (Bootstrap source for libs)..."
-  ps_npm_exec "${PS_UI_SUITE_THEME}" sh -lc "$(ps_npm_install_cmd "${PS_UI_SUITE_THEME}")"
+  ps_npm_install_dir "${PS_UI_SUITE_THEME}"
   ps_success "ui_suite_bnp npm install OK"
 
   ps_info "NPM install + libs..."
-  ps_npm_exec "${PS_SRC_DIR}" sh -lc "$(ps_npm_install_cmd "${PS_SRC_DIR}")"
+  ps_npm_install_dir "${PS_SRC_DIR}"
   ps_npm_exec "${PS_SRC_DIR}" sh -lc 'npm run libs'
   touch "${PS_WEB_DIR}/libraries/.gitkeep" 2>/dev/null || true
   ps_success "NPM libraries OK"

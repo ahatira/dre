@@ -9,7 +9,7 @@ COUNTRY ?= com
 
 .PHONY: \
 	help up down restart ps logs rebuild \
-	env bootstrap generate-multisite verify-multisite fix-permissions init-solr-cores \
+	env bootstrap generate-multisite verify-multisite fix-permissions fix-npm-permissions init-solr-cores \
 	build verify install reinstall install-from-conf import demo deploy drush-cr index-solr export-solr \
 	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
@@ -22,7 +22,7 @@ help:
 	@echo ""
 	@echo "Docker (local dev only):"
 	@echo "  make up | down | restart | ps | logs | rebuild"
-	@echo "  make env | fix-permissions | init-solr-cores"
+	@echo "  make env | fix-permissions | fix-npm-permissions | init-solr-cores"
 	@echo ""
 	@echo "Multisite (repo root → syncs into src/):"
 	@echo "  make seed-site-configs | export-all-configs [country]"
@@ -63,6 +63,9 @@ env:
 fix-permissions:
 	bash "$(PROJECT_ROOT)/scripts/docker/fix-permissions.sh"
 
+fix-npm-permissions:
+	bash "$(PROJECT_ROOT)/scripts/docker/fix-npm-permissions.sh"
+
 init-solr-cores:
 	bash "$(PROJECT_ROOT)/scripts/docker/index-solr.sh"
 
@@ -78,14 +81,18 @@ bootstrap: env up generate-multisite build
 
 # --- Delegate to src/ ---
 
-build: build-composer build-npm
-	@:
+# Forward build flags to src/Makefile (PRODUCTION=1, not --production).
+BUILD_DELEGATE := PRODUCTION="$(PRODUCTION)" NO_CACHE="$(NO_CACHE)" KEEP_NPM="$(KEEP_NPM)"
+BUILD_GOALS := $(filter-out build build-composer build-npm,$(MAKECMDGOALS))
+
+build:
+	$(SRC_MAKE) build $(BUILD_DELEGATE) $(BUILD_GOALS)
 
 build-composer:
-	$(SRC_MAKE) build-composer $(filter-out build build-composer build-npm,$(MAKECMDGOALS))
+	$(SRC_MAKE) build-composer $(BUILD_DELEGATE) $(BUILD_GOALS)
 
 build-npm:
-	$(SRC_MAKE) build-npm $(filter-out build build-composer build-npm,$(MAKECMDGOALS))
+	$(SRC_MAKE) build-npm $(BUILD_DELEGATE) $(BUILD_GOALS)
 
 verify:
 	$(SRC_MAKE) verify

@@ -11,8 +11,20 @@ COUNTRY ?= com
 	drush drush-uli drush-status drush-cex rebuild-permissions composer-install composer-update npm-install npm-audit \
 	seed-site-configs export-all-configs translations-fetch translations-fetch
 
-# Shared flags for build targets (e.g. make build --production).
-BUILD_OPTS := $(filter-out build build-composer build-npm composer-install,$(MAKECMDGOALS))
+# Build flags — use make variables (GNU make treats --foo as its own options):
+#   make build PRODUCTION=1
+#   make build-composer PRODUCTION=1 NO_CACHE=1
+# Legacy: make build -- --production
+BUILD_SCRIPT_OPTS := $(filter-out build build-composer build-npm composer-install,$(MAKECMDGOALS))
+ifeq ($(PRODUCTION),1)
+BUILD_SCRIPT_OPTS += --production
+endif
+ifeq ($(NO_CACHE),1)
+BUILD_SCRIPT_OPTS += --no-cache
+endif
+ifeq ($(KEEP_NPM),1)
+BUILD_SCRIPT_OPTS += --keep-npm
+endif
 
 help:
 	@echo "Property Search — src/ (deployable artefact)"
@@ -21,7 +33,7 @@ help:
 	@echo "  make build-composer [OPTIONS]         — Composer only (Jenkins stage 1)"
 	@echo "  make build-npm [OPTIONS]                — NPM/themes only (Jenkins stage 2)"
 	@echo "  make composer-install                   — alias for build-composer"
-	@echo "  OPTIONS: --production --no-cache --keep-npm"
+	@echo "  OPTIONS: PRODUCTION=1 NO_CACHE=1 KEEP_NPM=1  (or: make build -- --production)"
 	@echo "  make verify"
 	@echo "  make install [country...] | reinstall [country...]"
 	@echo "  make install-from-conf [country...]  — CMI from config/sites/{code}"
@@ -41,13 +53,13 @@ help:
 	@echo "Drush runs on the host. Requires vendor/ (make build-composer / make build)."
 
 build-composer:
-	bash "$(SCRIPTS_CLI)" tools build --composer-only $(BUILD_OPTS)
+	bash "$(SCRIPTS_CLI)" tools build --composer-only $(BUILD_SCRIPT_OPTS)
 
 build-npm:
-	bash "$(SCRIPTS_CLI)" tools build --npm-only $(BUILD_OPTS)
+	bash "$(SCRIPTS_CLI)" tools build --npm-only $(BUILD_SCRIPT_OPTS)
 
-build: build-composer build-npm
-	@:
+build:
+	bash "$(SCRIPTS_CLI)" tools build $(BUILD_SCRIPT_OPTS)
 
 verify:
 	bash "$(SCRIPTS_CLI)" tools check

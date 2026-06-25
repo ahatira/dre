@@ -10,6 +10,48 @@ ps_npm_install_cmd() {
   fi
 }
 
+# Removes node_modules when not owned/writable by the current user (common after Docker npm).
+ps_npm_prepare_dir() {
+  local dir="$1"
+  local nm="${dir}/node_modules"
+  [[ -d "${nm}" ]] || return 0
+
+  if [[ -O "${nm}" && -w "${nm}" ]]; then
+    return 0
+  fi
+
+  ps_warn "Removing ${nm} (wrong owner — run npm on WSL host, not docker exec)"
+  ps_npm_remove_node_modules "${dir}"
+}
+
+ps_npm_remove_node_modules() {
+  local dir="$1"
+  local nm="${dir}/node_modules"
+  [[ -d "${nm}" ]] || return 0
+
+  if rm -rf "${nm}" 2>/dev/null; then
+    return 0
+  fi
+
+  ps_die "Cannot remove ${nm} (permission denied). Run: make fix-npm-permissions  (or: sudo rm -rf '${nm}')"
+}
+
+# npm ci with auto-clean retry on ENOTEMPTY / EACCES from stale node_modules.
+ps_npm_install_dir() {
+  local dir="$1"
+  local install_cmd
+  install_cmd="$(ps_npm_install_cmd "${dir}")"
+
+  ps_npm_prepare_dir "${dir}"
+  if ps_npm_exec "${dir}" sh -lc "${install_cmd}"; then
+    return 0
+  fi
+
+  ps_warn "npm failed in ${dir} — cleaning node_modules and retrying"
+  ps_npm_remove_node_modules "${dir}"
+  ps_npm_exec "${dir}" sh -lc "${install_cmd}"
+}
+
 ps_npm_usable_on_host() {
   local npm_path node_path
   npm_path="$(command -v npm 2>/dev/null || true)"
