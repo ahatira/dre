@@ -51,16 +51,10 @@ form:
         minified: true
         weight: 300
 
-# Legacy split mode — one Bootstrap compile for all starterkit SDC overrides.
-bootstrap_sdc:
-  css:
-    component:
-      assets/css/bootstrap-sdc-bundle.css:
-        minified: true
-
+# Bootstrap SDC markers — attach ui_suite_bnp/framework (replaces legacy bootstrap_sdc bundle).
 component_accordion:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_alert:
   dependencies:
@@ -68,27 +62,27 @@ component_alert:
 
 component_badge:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_breadcrumb:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_button_group:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_card:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_carousel:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_close_button:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_dropdown:
   dependencies:
@@ -97,19 +91,19 @@ component_dropdown:
 
 component_list_group:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_modal:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_nav:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_navbar:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_offcanvas:
   dependencies:
@@ -117,23 +111,23 @@ component_offcanvas:
 
 component_pagination:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_progress:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_spinner:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_table:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 component_toast:
   dependencies:
-    - ps_theme/bootstrap_sdc
+    - ui_suite_bnp/framework
 
 offer-detail:
   js:

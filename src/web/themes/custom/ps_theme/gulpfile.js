@@ -21,7 +21,7 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const sassOptions = {
   outputStyle: mode.production() ? 'compressed' : 'expanded',
-  // Bootstrap 5.3 + starterkit split still use @import and global Sass builtins.
+  // Bootstrap 5.3 still uses @import and global Sass builtins.
   // Silence until upstream migrates to @use (Dart Sass 3.0 timeline).
   silenceDeprecations: [
     'legacy-js-api',
@@ -40,8 +40,8 @@ const stylesPaths = {
   dest: './assets/css',
 };
 
-// Starterkit split Bootstrap SDCs — compiled once in bootstrap_sdc_bundle (Option D).
-const bootstrapSdcDirs = [
+// Orphan starterkit Bootstrap SDC wrappers — excluded until removed from components/.
+const legacyBootstrapSdcDirs = [
   'accordion',
   'alert',
   'badge',
@@ -63,15 +63,10 @@ const bootstrapSdcDirs = [
   'toast',
 ];
 
-const bootstrapSdcBundlePaths = {
-  src: './assets/scss/bootstrap-sdc-bundle.scss',
-  dest: './assets/css',
-};
-
 const componentsStylesPaths = {
   src: [
     './components/**/styles/*.{scss,sass}',
-    ...bootstrapSdcDirs.map((dir) => `!./components/${dir}/styles/*.{scss,sass}`),
+    ...legacyBootstrapSdcDirs.map((dir) => `!./components/${dir}/styles/*.{scss,sass}`),
   ],
 };
 
@@ -96,7 +91,6 @@ function compileSass(dir) {
 /// /////////////////////////////////////////////////////////////////////////////
 
 gulp.task('styles', () => compileSass(stylesPaths));
-gulp.task('bootstrap_sdc_bundle', () => compileSass(bootstrapSdcBundlePaths));
 gulp.task('components_styles', () => compileSass(componentsStylesPaths));
 
 gulp.task('watch', (done) => {
@@ -105,8 +99,7 @@ gulp.task('watch', (done) => {
   }
 
   gulp.watch(stylesPaths.src, gulp.series('styles'));
-  gulp.watch(bootstrapSdcBundlePaths.src, gulp.series('bootstrap_sdc_bundle'));
   gulp.watch(componentsStylesPaths.src, gulp.series('components_styles'));
 });
 
-gulp.task('default', gulp.series('styles', 'bootstrap_sdc_bundle', 'components_styles', 'watch'));
+gulp.task('default', gulp.series('styles', 'components_styles', 'watch'));
