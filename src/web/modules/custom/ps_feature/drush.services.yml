@@ -1,0 +1,6 @@
+services:
+  Drupal\ps_feature\Commands\FeatureCatalogueImportCommands:
+    class: Drupal\ps_feature\Commands\FeatureCatalogueImportCommands
+    arguments: ['@Drupal\ps_feature\Service\FeatureCatalogueCsvImporterInterface']
+    tags:
+      - { name: drush.command }

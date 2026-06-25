@@ -1030,3 +1030,123 @@ msgstr "unità"
 
 msgid "— Choose —"
 msgstr "— Scegli —"
+
+msgid "Accepted format: .csv"
+msgstr "Formato accettato: .csv"
+
+msgid "Allowed values"
+msgstr "Valori consentiti"
+
+msgid "Categories"
+msgstr "Categorie"
+
+msgid "Column"
+msgstr "Colonna"
+
+msgid "Column reference"
+msgstr "Riferimento colonne"
+
+msgid "CRM element code used as the definition ID."
+msgstr "Codice elemento CRM usato come ID della definizione."
+
+msgid "CSV file"
+msgstr "File CSV"
+
+msgid "Default label shown in the back office and front office."
+msgstr "Etichetta predefinita mostrata nel back office e nel front office."
+
+msgid "Download CSV template"
+msgstr "Scarica modello CSV"
+
+msgid "Download feature catalogue template"
+msgstr "Scarica modello catalogo caratteristiche"
+
+msgid "Download the CSV template and share it with the content team."
+msgstr "Scarica il modello CSV e condividilo con il team contenuti."
+
+msgid "Dry run"
+msgstr "Prova a secco"
+
+msgid "Dry run finished: @imported valid rows, @skipped skipped, @errors messages."
+msgstr "Prova a secco completata: @imported righe valide, @skipped saltate, @errors messaggi."
+
+msgid "Expose as a search filter (Oui/Non)."
+msgstr "Esporre come filtro di ricerca (Sì/No)."
+
+msgid "Feature group label."
+msgstr "Etichetta del gruppo di caratteristiche."
+
+msgid "Fill in one row per feature definition."
+msgstr "Compila una riga per definizione di caratteristica."
+
+msgid "Import CSV"
+msgstr "Importa CSV"
+
+msgid "Import feature catalogue"
+msgstr "Importa catalogo caratteristiche"
+
+msgid "Import file"
+msgstr "File da importare"
+
+msgid "Import finished: @imported imported, @skipped skipped, @errors messages."
+msgstr "Importazione completata: @imported importate, @skipped saltate, @errors messaggi."
+
+msgid "Import guide"
+msgstr "Guida all'importazione"
+
+msgid "Import the CSV to apply the catalogue."
+msgstr "Importa il CSV per applicare il catalogo al sito."
+
+msgid "Optional"
+msgstr "Opzionale"
+
+msgid "Optional help text for editors."
+msgstr "Testo di aiuto opzionale per gli editor."
+
+msgid "Please upload a CSV file."
+msgstr "Carica un file CSV."
+
+msgid "Prepare a business CSV file to create or update feature definitions in the catalogue."
+msgstr "Prepara un file CSV aziendale per creare o aggiornare le definizioni di caratteristiche nel catalogo."
+
+msgid "Required"
+msgstr "Obbligatorio"
+
+msgid "Requirement"
+msgstr "Requisito"
+
+msgid "Run a dry run first to validate the file without saving changes."
+msgstr "Esegui prima una prova a secco per convalidare il file senza salvare le modifiche."
+
+msgid "Sort weight within the group."
+msgstr "Peso di ordinamento all'interno del gruppo."
+
+msgid "Steps"
+msgstr "Passaggi"
+
+msgid "Translated description, for example description_en."
+msgstr "Descrizione tradotta, ad esempio description_en."
+
+msgid "Translated label, for example libelle_fr."
+msgstr "Etichetta tradotta, ad esempio libelle_fr."
+
+msgid "Unable to read uploaded CSV file."
+msgstr "Impossibile leggere il file CSV caricato."
+
+msgid "Unit of measure, for example m² or kWh."
+msgstr "Unità di misura, ad esempio m² o kWh."
+
+msgid "Upload the prepared file below."
+msgstr "Carica il file preparato qui sotto."
+
+msgid "Uploaded file could not be loaded."
+msgstr "Impossibile caricare il file caricato."
+
+msgid "Validate the CSV without creating or updating feature definitions."
+msgstr "Convalida il CSV senza creare o aggiornare definizioni di caratteristiche."
+
+msgid "Value type (indicator, yes/no, number, text, date)."
+msgstr "Tipo di valore (indicatore, sì/no, numero, testo, data)."
+
+msgid "Value types"
+msgstr "Tipi di valore"

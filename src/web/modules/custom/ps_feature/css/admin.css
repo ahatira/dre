@@ -46,3 +46,20 @@
 td .badge {
   margin-bottom: 0.25rem;
 }
+
+/* Feature catalogue CSV import form */
+.ps-feature-catalogue-import__guide .item-list {
+  margin-block: 0 1rem;
+}
+
+.ps-feature-catalogue-import__guide .item-list h3 {
+  margin-block-start: 0;
+}
+
+.ps-feature-catalogue-import__download {
+  margin-block: 0.5rem 1.25rem;
+}
+
+.ps-feature-catalogue-import__columns-table code {
+  white-space: nowrap;
+}

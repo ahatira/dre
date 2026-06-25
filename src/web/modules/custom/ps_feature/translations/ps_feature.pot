@@ -915,3 +915,123 @@ msgstr ""
 
 msgid "— Choose —"
 msgstr ""
+
+msgid "Accepted format: .csv"
+msgstr ""
+
+msgid "Allowed values"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Column"
+msgstr ""
+
+msgid "Column reference"
+msgstr ""
+
+msgid "CRM element code used as the definition ID."
+msgstr ""
+
+msgid "CSV file"
+msgstr ""
+
+msgid "Default label shown in the back office and front office."
+msgstr ""
+
+msgid "Download CSV template"
+msgstr ""
+
+msgid "Download feature catalogue template"
+msgstr ""
+
+msgid "Download the CSV template and share it with the content team."
+msgstr ""
+
+msgid "Dry run"
+msgstr ""
+
+msgid "Dry run finished: @imported valid rows, @skipped skipped, @errors messages."
+msgstr ""
+
+msgid "Expose as a search filter (Oui/Non)."
+msgstr ""
+
+msgid "Feature group label."
+msgstr ""
+
+msgid "Fill in one row per feature definition."
+msgstr ""
+
+msgid "Import CSV"
+msgstr ""
+
+msgid "Import feature catalogue"
+msgstr ""
+
+msgid "Import file"
+msgstr ""
+
+msgid "Import finished: @imported imported, @skipped skipped, @errors messages."
+msgstr ""
+
+msgid "Import guide"
+msgstr ""
+
+msgid "Import the CSV to apply the catalogue."
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
+msgid "Optional help text for editors."
+msgstr ""
+
+msgid "Please upload a CSV file."
+msgstr ""
+
+msgid "Prepare a business CSV file to create or update feature definitions in the catalogue."
+msgstr ""
+
+msgid "Required"
+msgstr ""
+
+msgid "Requirement"
+msgstr ""
+
+msgid "Run a dry run first to validate the file without saving changes."
+msgstr ""
+
+msgid "Sort weight within the group."
+msgstr ""
+
+msgid "Steps"
+msgstr ""
+
+msgid "Translated description, for example description_en."
+msgstr ""
+
+msgid "Translated label, for example libelle_fr."
+msgstr ""
+
+msgid "Unable to read uploaded CSV file."
+msgstr ""
+
+msgid "Unit of measure, for example m² or kWh."
+msgstr ""
+
+msgid "Upload the prepared file below."
+msgstr ""
+
+msgid "Uploaded file could not be loaded."
+msgstr ""
+
+msgid "Validate the CSV without creating or updating feature definitions."
+msgstr ""
+
+msgid "Value type (indicator, yes/no, number, text, date)."
+msgstr ""
+
+msgid "Value types"
+msgstr ""

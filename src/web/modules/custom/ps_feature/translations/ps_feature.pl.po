@@ -1014,3 +1014,123 @@ msgstr "jednostka"
 
 msgid "— Choose —"
 msgstr "— Wybierz —"
+
+msgid "Accepted format: .csv"
+msgstr "Akceptowany format: .csv"
+
+msgid "Allowed values"
+msgstr "Dozwolone wartości"
+
+msgid "Categories"
+msgstr "Kategorie"
+
+msgid "Column"
+msgstr "Kolumna"
+
+msgid "Column reference"
+msgstr "Referencja kolumn"
+
+msgid "CRM element code used as the definition ID."
+msgstr "Kod elementu CRM używany jako identyfikator definicji."
+
+msgid "CSV file"
+msgstr "Plik CSV"
+
+msgid "Default label shown in the back office and front office."
+msgstr "Domyślna etykieta wyświetlana w back office i front office."
+
+msgid "Download CSV template"
+msgstr "Pobierz szablon CSV"
+
+msgid "Download feature catalogue template"
+msgstr "Pobierz szablon katalogu cech"
+
+msgid "Download the CSV template and share it with the content team."
+msgstr "Pobierz szablon CSV i przekaż go zespołowi ds. treści."
+
+msgid "Dry run"
+msgstr "Próbne uruchomienie"
+
+msgid "Dry run finished: @imported valid rows, @skipped skipped, @errors messages."
+msgstr "Próbne uruchomienie zakończone: @imported poprawnych wierszy, @skipped pominiętych, @errors komunikatów."
+
+msgid "Expose as a search filter (Oui/Non)."
+msgstr "Udostępnij jako filtr wyszukiwania (Tak/Nie)."
+
+msgid "Feature group label."
+msgstr "Etykieta grupy cech."
+
+msgid "Fill in one row per feature definition."
+msgstr "Wypełnij jeden wiersz na definicję cechy."
+
+msgid "Import CSV"
+msgstr "Importuj CSV"
+
+msgid "Import feature catalogue"
+msgstr "Importuj katalog cech"
+
+msgid "Import file"
+msgstr "Plik do importu"
+
+msgid "Import finished: @imported imported, @skipped skipped, @errors messages."
+msgstr "Import zakończony: @imported zaimportowano, @skipped pominięto, @errors komunikatów."
+
+msgid "Import guide"
+msgstr "Przewodnik importu"
+
+msgid "Import the CSV to apply the catalogue."
+msgstr "Zaimportuj plik CSV, aby zastosować katalog na stronie."
+
+msgid "Optional"
+msgstr "Opcjonalne"
+
+msgid "Optional help text for editors."
+msgstr "Opcjonalny tekst pomocy dla redaktorów."
+
+msgid "Please upload a CSV file."
+msgstr "Prześlij plik CSV."
+
+msgid "Prepare a business CSV file to create or update feature definitions in the catalogue."
+msgstr "Przygotuj biznesowy plik CSV, aby utworzyć lub zaktualizować definicje cech w katalogu."
+
+msgid "Required"
+msgstr "Wymagane"
+
+msgid "Requirement"
+msgstr "Wymaganie"
+
+msgid "Run a dry run first to validate the file without saving changes."
+msgstr "Najpierw uruchom próbne uruchomienie, aby zweryfikować plik bez zapisywania zmian."
+
+msgid "Sort weight within the group."
+msgstr "Waga sortowania w grupie."
+
+msgid "Steps"
+msgstr "Kroki"
+
+msgid "Translated description, for example description_en."
+msgstr "Przetłumaczony opis, na przykład description_en."
+
+msgid "Translated label, for example libelle_fr."
+msgstr "Przetłumaczona etykieta, na przykład libelle_fr."
+
+msgid "Unable to read uploaded CSV file."
+msgstr "Nie udało się odczytać przesłanego pliku CSV."
+
+msgid "Unit of measure, for example m² or kWh."
+msgstr "Jednostka miary, na przykład m² lub kWh."
+
+msgid "Upload the prepared file below."
+msgstr "Prześlij przygotowany plik poniżej."
+
+msgid "Uploaded file could not be loaded."
+msgstr "Nie udało się wczytać przesłanego pliku."
+
+msgid "Validate the CSV without creating or updating feature definitions."
+msgstr "Zweryfikuj plik CSV bez tworzenia ani aktualizowania definicji cech."
+
+msgid "Value type (indicator, yes/no, number, text, date)."
+msgstr "Typ wartości (wskaźnik, tak/nie, liczba, tekst, data)."
+
+msgid "Value types"
+msgstr "Typy wartości"

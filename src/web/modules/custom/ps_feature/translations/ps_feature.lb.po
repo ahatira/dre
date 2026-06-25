@@ -1017,3 +1017,123 @@ msgstr "Eenheet"
 
 msgid "— Choose —"
 msgstr "— Wielen —"
+
+msgid "Accepted format: .csv"
+msgstr "Akzeptéiert Format: .csv"
+
+msgid "Allowed values"
+msgstr "Erlaabt Wäerter"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Column"
+msgstr "Spalt"
+
+msgid "Column reference"
+msgstr "Spaltenreferenz"
+
+msgid "CRM element code used as the definition ID."
+msgstr "CRM-Elementcode, deen als Definitiouns-ID benotzt gëtt."
+
+msgid "CSV file"
+msgstr "CSV-Fichier"
+
+msgid "Default label shown in the back office and front office."
+msgstr "Standardbezeechnung am Backoffice an der Frontoffice."
+
+msgid "Download CSV template"
+msgstr "CSV-Virlag eroflueden"
+
+msgid "Download feature catalogue template"
+msgstr "Virlag vum Feature-Katalog eroflueden"
+
+msgid "Download the CSV template and share it with the content team."
+msgstr "Luet d'CSV-Virlag erof a gitt se un d'Content-Team weider."
+
+msgid "Dry run"
+msgstr "Testlaf"
+
+msgid "Dry run finished: @imported valid rows, @skipped skipped, @errors messages."
+msgstr "Testlaf fäerdeg: @imported valabel Zeilen, @skipped iwwersprongen, @errors Messagen."
+
+msgid "Expose as a search filter (Oui/Non)."
+msgstr "Als Sichfilter disponibel maachen (Jo/Nee)."
+
+msgid "Feature group label."
+msgstr "Bezeechnung vun der Feature-Grupp."
+
+msgid "Fill in one row per feature definition."
+msgstr "Fëllt eng Zeil pro Feature-Definitioun aus."
+
+msgid "Import CSV"
+msgstr "CSV importéieren"
+
+msgid "Import feature catalogue"
+msgstr "Feature-Katalog importéieren"
+
+msgid "Import file"
+msgstr "Fichier importéieren"
+
+msgid "Import finished: @imported imported, @skipped skipped, @errors messages."
+msgstr "Import fäerdeg: @imported importéiert, @skipped iwwersprongen, @errors Messagen."
+
+msgid "Import guide"
+msgstr "Import-Leidef"
+
+msgid "Import the CSV to apply the catalogue."
+msgstr "Importéiert d'CSV fir de Katalog op der Site unzewenden."
+
+msgid "Optional"
+msgstr "Optional"
+
+msgid "Optional help text for editors."
+msgstr "Optionalen Hëllefstext fir d'Editeuren."
+
+msgid "Please upload a CSV file."
+msgstr "Luet w.e.g. eng CSV-Datei erop."
+
+msgid "Prepare a business CSV file to create or update feature definitions in the catalogue."
+msgstr "Bereet eng CSV-Fichier vir, fir Feature-Definitiounen am Katalog ze erstellen oder z'aktualiséieren."
+
+msgid "Required"
+msgstr "Noutwendeg"
+
+msgid "Requirement"
+msgstr "Ufuerderung"
+
+msgid "Run a dry run first to validate the file without saving changes."
+msgstr "Féiert als éischt e Testlaf fir d'Datei ze validéieren ouni Ännerungen ze späicheren."
+
+msgid "Sort weight within the group."
+msgstr "Sortéiergewiicht an der Grupp."
+
+msgid "Steps"
+msgstr "Schrëtt"
+
+msgid "Translated description, for example description_en."
+msgstr "Iwwersat Beschreiwung, z. B. description_en."
+
+msgid "Translated label, for example libelle_fr."
+msgstr "Iwwersat Bezeechnung, z. B. libelle_fr."
+
+msgid "Unable to read uploaded CSV file."
+msgstr "Déi eropgeluede CSV-Datei konnt net gelies ginn."
+
+msgid "Unit of measure, for example m² or kWh."
+msgstr "Moosseenheet, z. B. m² oder kWh."
+
+msgid "Upload the prepared file below."
+msgstr "Luet d'virbereet Datei hei drënner erop."
+
+msgid "Uploaded file could not be loaded."
+msgstr "Déi eropgeluede Datei konnt net geluede ginn."
+
+msgid "Validate the CSV without creating or updating feature definitions."
+msgstr "Validéiert d'CSV ouni Feature-Definitiounen ze erstellen oder z'aktualiséieren."
+
+msgid "Value type (indicator, yes/no, number, text, date)."
+msgstr "Wäerttyp (Indikator, Jo/Nee, Zuel, Text, Datum)."
+
+msgid "Value types"
+msgstr "Wäerttypen"

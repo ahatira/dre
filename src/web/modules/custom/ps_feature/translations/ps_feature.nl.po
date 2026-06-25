@@ -1020,3 +1020,123 @@ msgstr "eenheid"
 
 msgid "— Choose —"
 msgstr "— Kies —"
+
+msgid "Accepted format: .csv"
+msgstr "Geaccepteerd formaat: .csv"
+
+msgid "Allowed values"
+msgstr "Toegestane waarden"
+
+msgid "Categories"
+msgstr "Categorieën"
+
+msgid "Column"
+msgstr "Kolom"
+
+msgid "Column reference"
+msgstr "Kolomreferentie"
+
+msgid "CRM element code used as the definition ID."
+msgstr "CRM-elementcode gebruikt als definitie-ID."
+
+msgid "CSV file"
+msgstr "CSV-bestand"
+
+msgid "Default label shown in the back office and front office."
+msgstr "Standaardlabel weergegeven in de backoffice en frontoffice."
+
+msgid "Download CSV template"
+msgstr "CSV-sjabloon downloaden"
+
+msgid "Download feature catalogue template"
+msgstr "Sjabloon kenmerkencatalogus downloaden"
+
+msgid "Download the CSV template and share it with the content team."
+msgstr "Download de CSV-sjabloon en deel deze met het contentteam."
+
+msgid "Dry run"
+msgstr "Proefrun"
+
+msgid "Dry run finished: @imported valid rows, @skipped skipped, @errors messages."
+msgstr "Proefrun voltooid: @imported geldige rijen, @skipped overgeslagen, @errors berichten."
+
+msgid "Expose as a search filter (Oui/Non)."
+msgstr "Tonen als zoekfilter (Ja/Nee)."
+
+msgid "Feature group label."
+msgstr "Label van de kenmerkengroep."
+
+msgid "Fill in one row per feature definition."
+msgstr "Vul één rij per kenmerkdefinitie in."
+
+msgid "Import CSV"
+msgstr "CSV importeren"
+
+msgid "Import feature catalogue"
+msgstr "Kenmerkencatalogus importeren"
+
+msgid "Import file"
+msgstr "Bestand importeren"
+
+msgid "Import finished: @imported imported, @skipped skipped, @errors messages."
+msgstr "Import voltooid: @imported geïmporteerd, @skipped overgeslagen, @errors berichten."
+
+msgid "Import guide"
+msgstr "Importgids"
+
+msgid "Import the CSV to apply the catalogue."
+msgstr "Importeer de CSV om de catalogus toe te passen."
+
+msgid "Optional"
+msgstr "Optioneel"
+
+msgid "Optional help text for editors."
+msgstr "Optionele helptekst voor redacteuren."
+
+msgid "Please upload a CSV file."
+msgstr "Upload een CSV-bestand."
+
+msgid "Prepare a business CSV file to create or update feature definitions in the catalogue."
+msgstr "Bereid een zakelijke CSV voor om kenmerkdefinities in de catalogus aan te maken of bij te werken."
+
+msgid "Required"
+msgstr "Vereist"
+
+msgid "Requirement"
+msgstr "Vereiste"
+
+msgid "Run a dry run first to validate the file without saving changes."
+msgstr "Voer eerst een proefrun uit om het bestand te valideren zonder wijzigingen op te slaan."
+
+msgid "Sort weight within the group."
+msgstr "Sorteergewicht binnen de groep."
+
+msgid "Steps"
+msgstr "Stappen"
+
+msgid "Translated description, for example description_en."
+msgstr "Vertaalde beschrijving, bijvoorbeeld description_en."
+
+msgid "Translated label, for example libelle_fr."
+msgstr "Vertaald label, bijvoorbeeld libelle_fr."
+
+msgid "Unable to read uploaded CSV file."
+msgstr "Het geüploade CSV-bestand kon niet worden gelezen."
+
+msgid "Unit of measure, for example m² or kWh."
+msgstr "Meeteenheid, bijvoorbeeld m² of kWh."
+
+msgid "Upload the prepared file below."
+msgstr "Upload het voorbereide bestand hieronder."
+
+msgid "Uploaded file could not be loaded."
+msgstr "Het geüploade bestand kon niet worden geladen."
+
+msgid "Validate the CSV without creating or updating feature definitions."
+msgstr "Valideer de CSV zonder kenmerkdefinities aan te maken of bij te werken."
+
+msgid "Value type (indicator, yes/no, number, text, date)."
+msgstr "Waardetype (indicator, ja/nee, getal, tekst, datum)."
+
+msgid "Value types"
+msgstr "Waardetypen"

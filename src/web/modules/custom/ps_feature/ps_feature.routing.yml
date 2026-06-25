@@ -6,6 +6,26 @@ ps_feature.feature_types:
   requirements:
     _permission: 'administer ps features'
 
+ps_feature.catalogue_import_form:
+  path: '/admin/ps/content/features/import'
+  defaults:
+    _form: '\Drupal\ps_feature\Form\FeatureCatalogueImportForm'
+    _title: 'Import feature catalogue'
+  requirements:
+    _permission: 'administer ps features'
+  options:
+    _admin_route: TRUE
+
+ps_feature.catalogue_import_template:
+  path: '/admin/ps/content/features/import/template'
+  defaults:
+    _controller: '\Drupal\ps_feature\Controller\FeatureCatalogueImportTemplateController::download'
+    _title: 'Download feature catalogue template'
+  requirements:
+    _permission: 'administer ps features'
+  options:
+    _admin_route: TRUE
+
 ps_feature.feature_group_settings:
   path: '/admin/ps/structure/features/settings'
   defaults:

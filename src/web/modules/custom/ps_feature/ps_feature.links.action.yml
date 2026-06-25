@@ -9,3 +9,9 @@ entity.fb_feature_definition.add_form:
   title: 'Add feature'
   appears_on:
     - entity.fb_feature_definition.collection
+
+ps_feature.catalogue_import_form:
+  route_name: ps_feature.catalogue_import_form
+  title: 'Import CSV'
+  appears_on:
+    - entity.fb_feature_definition.collection
