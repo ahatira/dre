@@ -25,6 +25,22 @@ ps_e2e_find_src_dir() {
 
 PS_E2E_SRC_DIR="${PS_E2E_SRC_DIR:-$(ps_e2e_find_src_dir)}"
 PS_E2E_COUNTRY="${PS_E2E_COUNTRY:-${COUNTRY:-com}}"
+
+ps_e2e_default_base_url() {
+  case "${PS_E2E_COUNTRY}" in
+    com) echo "http://com.localhost:8080" ;;
+    be) echo "http://be.localhost:8081" ;;
+    es) echo "http://es.localhost:8082" ;;
+    fr) echo "http://fr.localhost:8083" ;;
+    ie) echo "http://ie.localhost:8084" ;;
+    it) echo "http://it.localhost:8085" ;;
+    lu) echo "http://lu.localhost:8086" ;;
+    nl) echo "http://nl.localhost:8087" ;;
+    pl) echo "http://pl.localhost:8088" ;;
+    *) echo "http://${PS_E2E_COUNTRY}.localhost:8080" ;;
+  esac
+}
+
 PS_E2E_DRUSH_BIN="${PS_E2E_SRC_DIR}/vendor/bin/drush"
 PS_E2E_DRUSH_ALIAS="@ps.${PS_E2E_COUNTRY}"
 
@@ -33,7 +49,7 @@ if [[ ! -x "${PS_E2E_DRUSH_BIN}" ]]; then
   exit 1
 fi
 
-PS_E2E_BASE_URL="${BASE_URL:-${BASE:-http://com.localhost:8080}}"
+PS_E2E_BASE_URL="${BASE_URL:-${BASE:-$(ps_e2e_default_base_url)}}"
 BASE="${PS_E2E_BASE_URL}"
 BASE_URL="${PS_E2E_BASE_URL}"
 export PS_E2E_SRC_DIR PS_E2E_COUNTRY PS_E2E_BASE_URL BASE BASE_URL

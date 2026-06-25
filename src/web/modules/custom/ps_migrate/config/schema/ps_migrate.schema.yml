@@ -67,7 +67,9 @@ ps_migrate.import_pipeline_settings:
       type: mapping
       label: 'Per-field lock strategy overrides'
       mapping:
-        type: string
+        '*':
+          type: string
+          label: 'Lock strategy'
     skip_unchanged_offers:
       type: boolean
       label: 'Skip unchanged offers in delta mode'
