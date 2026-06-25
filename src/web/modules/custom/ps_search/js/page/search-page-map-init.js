@@ -127,40 +127,6 @@
   };
 
   /**
-   * Positions zoom controls bottom-left above Google attribution (BNPPRE maquette).
-   *
-   * @param {HTMLElement} mapEl
-   *   Map container element.
-   */
-  function positionZoomControls(mapEl) {
-    const controls = mapEl.querySelectorAll(
-      '.gm-bundled-control-on-bottom, .gm-bundled-control'
-    );
-    controls.forEach(function (control) {
-      if (!control.querySelector('[title="Zoom in"], [aria-label="Zoom in"]')) {
-        return;
-      }
-      control.style.removeProperty('top');
-      control.style.setProperty('bottom', '2.125rem', 'important');
-      control.style.setProperty('left', '1rem', 'important');
-    });
-  }
-
-  /**
-   * Schedules zoom control positioning (Google may re-apply inline top after idle).
-   *
-   * @param {HTMLElement} mapEl
-   *   Map container element.
-   */
-  function scheduleZoomControlPosition(mapEl) {
-    [0, 300, 1000].forEach(function (delay) {
-      window.setTimeout(function () {
-        positionZoomControls(mapEl);
-      }, delay);
-    });
-  }
-
-  /**
    * Removes non-maquette map chrome (fullscreen, rotate) and keeps zoom bottom-left.
    *
    * @param {HTMLElement} mapEl
@@ -169,6 +135,7 @@
    *   Map instance.
    */
   function sanitizeMapControls(mapEl, map) {
+    const root = mapEl.closest('.ps-search-view');
     const removeSelectors = [
       '.gm-fullscreen-control',
       'button[aria-label*="fullscreen" i]',
@@ -187,11 +154,13 @@
     };
 
     purge();
-    scheduleZoomControlPosition(mapEl);
-    if (map && google.maps.event) {
-      google.maps.event.addListenerOnce(map, 'idle', function () {
+    if (root) {
+      Drupal.psSearchMap.scheduleZoomControlPosition(root);
+    }
+    if (root && map && google.maps.event) {
+      google.maps.event.addListener(map, 'idle', function () {
         purge();
-        scheduleZoomControlPosition(mapEl);
+        Drupal.psSearchMap.positionZoomControls(root);
       });
     }
   }

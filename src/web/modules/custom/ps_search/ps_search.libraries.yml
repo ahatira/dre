@@ -62,7 +62,7 @@ homepage.search:
     - ps_theme/form
 
 search-page-map-utils:
-  version: 1.0.2
+  version: 1.0.4
   js:
     js/page/search-page-map-utils.js: {}
   dependencies:
@@ -83,7 +83,7 @@ marker-cluster:
     - core/drupal
 
 search-page-map-init:
-  version: 1.0.0
+  version: 1.0.1
   js:
     js/page/search-page-map-init.js: {}
   dependencies:

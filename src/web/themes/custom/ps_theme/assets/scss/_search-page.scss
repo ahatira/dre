@@ -140,7 +140,15 @@
       .gm-bundled-control:has([title='Zoom in']),
       .gm-bundled-control:has([aria-label='Zoom in']) {
         bottom: 2.125rem !important;
+        height: auto !important;
         left: 1rem !important;
+        right: auto !important;
+        top: auto !important;
+
+        > .gmnoprint {
+          position: static !important;
+          top: auto !important;
+        }
       }
     }
 
@@ -1137,6 +1145,14 @@
       .ps-search-map .gm-bundled-control:has([title='Zoom in']),
       .ps-search-map .gm-bundled-control:has([aria-label='Zoom in']) {
         bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+        height: auto !important;
+        right: auto !important;
+        top: auto !important;
+
+        > .gmnoprint {
+          position: static !important;
+          top: auto !important;
+        }
       }
     }
 

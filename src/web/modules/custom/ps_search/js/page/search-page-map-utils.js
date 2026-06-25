@@ -530,6 +530,68 @@
   Drupal.psSearchMap.closeGeofieldInfoWindow = Drupal.psSearchMap.closeMapInfoWindow;
 
   /**
+   * Bottom offset for zoom controls (above Google attribution).
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   *
+   * @return {string}
+   *   CSS length for the bottom property.
+   */
+  Drupal.psSearchMap.getZoomControlBottom = function (root) {
+    if (root?.classList.contains('ps-search-view--list-hidden')) {
+      return 'calc(1rem + env(safe-area-inset-bottom, 0px))';
+    }
+    return '2.125rem';
+  };
+
+  /**
+   * Pins Google Maps zoom controls bottom-left (BNPPRE maquette).
+   *
+   * Google may re-apply inline top after resize/idle; clear top/right explicitly.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   */
+  Drupal.psSearchMap.positionZoomControls = function (root) {
+    const mapEl = Drupal.psSearchMap.getMapRoot(root);
+    if (!mapEl) {
+      return;
+    }
+
+    const bottom = Drupal.psSearchMap.getZoomControlBottom(root);
+    mapEl.querySelectorAll('.gm-bundled-control-on-bottom, .gm-bundled-control').forEach(function (control) {
+      if (!control.querySelector('[title="Zoom in"], [aria-label="Zoom in"]')) {
+        return;
+      }
+      control.style.removeProperty('top');
+      control.style.removeProperty('right');
+      control.style.setProperty('height', 'auto', 'important');
+      control.style.setProperty('top', 'auto', 'important');
+      control.style.setProperty('bottom', bottom, 'important');
+      control.style.setProperty('left', '1rem', 'important');
+      control.querySelectorAll(':scope > .gmnoprint').forEach(function (inner) {
+        inner.style.removeProperty('top');
+        inner.style.setProperty('position', 'static', 'important');
+      });
+    });
+  };
+
+  /**
+   * Re-applies zoom control position after Google Maps layout passes.
+   *
+   * @param {HTMLElement} root
+   *   Search view root.
+   */
+  Drupal.psSearchMap.scheduleZoomControlPosition = function (root) {
+    [0, 300, 1000].forEach(function (delay) {
+      window.setTimeout(function () {
+        Drupal.psSearchMap.positionZoomControls(root);
+      }, delay);
+    });
+  };
+
+  /**
    * Triggers Google Maps resize after layout changes.
    *
    * @param {HTMLElement} root
@@ -548,6 +610,7 @@
       if (typeof zoom === 'number') {
         map.setZoom(zoom);
       }
+      Drupal.psSearchMap.scheduleZoomControlPosition(root);
     }
   };
 
