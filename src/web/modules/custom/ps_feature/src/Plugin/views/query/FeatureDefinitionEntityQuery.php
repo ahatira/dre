@@ -6,7 +6,6 @@ namespace Drupal\ps_feature\Plugin\views\query;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\ps_feature\Plugin\views\query\FeatureDefinitionEntityQuery;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\views\Attribute\ViewsQuery;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
@@ -172,13 +171,40 @@ final class FeatureDefinitionEntityQuery extends QueryPluginBase {
       $view->result[] = $row;
     }
 
-    // Match core Sql query: numeric index aligns bulk form placeholders with keys.
+    // Match core Sql query: numeric index aligns bulk form placeholders.
     array_walk($view->result, function (ResultRow $row, int $index): void {
       $row->index = $index;
     });
 
     $view->pager->total_items = $view->total_rows;
     $view->pager->updatePageInfo();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function loadEntities(&$results): void {
+    $ids = [];
+    foreach ($results as $row) {
+      if ($row instanceof ResultRow && !empty($row->id)) {
+        $ids[] = (string) $row->id;
+      }
+    }
+
+    if ($ids === []) {
+      return;
+    }
+
+    $entities = $this->entityTypeManager->getStorage('fb_feature_definition')->loadMultiple(array_values(array_unique($ids)));
+    foreach ($results as $row) {
+      if (!$row instanceof ResultRow) {
+        continue;
+      }
+      $id = (string) ($row->id ?? '');
+      if ($id !== '' && isset($entities[$id])) {
+        $row->_entity = $entities[$id];
+      }
+    }
   }
 
   /**
