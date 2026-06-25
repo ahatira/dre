@@ -4,18 +4,9 @@
 /assets/css/
 /assets/css/**
 
-# Component SCSS output — keep CSS-only sources until Phase 2 migration.
+# Component SCSS output (Gulp compiles styles/*.scss → styles/*.css).
 /components/**/styles/*.css
 /components/**/styles/*.css.map
-!/components/cta-card/styles/cta-card.css
-!/components/expert-steps/styles/expert-steps.css
-!/components/homepage-section/styles/homepage-section.css
-!/components/homepage-section-footer/styles/homepage-section-footer.css
-!/components/homepage-section-header/styles/homepage-section-header.css
-!/components/icon-card/styles/icon-card.css
-!/components/news-teaser-card/styles/news-teaser-card.css
-!/components/offer-teaser-card/styles/offer-teaser-card.css
-!/components/search-shortcut-card/styles/search-shortcut-card.css
 
 # Local Sass cache
 /.sass-cache/
