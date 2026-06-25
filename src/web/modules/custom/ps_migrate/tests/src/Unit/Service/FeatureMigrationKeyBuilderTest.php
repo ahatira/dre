@@ -23,7 +23,8 @@ final class FeatureMigrationKeyBuilderTest extends UnitTestCase {
     $builder = new FeatureMigrationKeyBuilder();
 
     self::assertSame('am_nagements', $builder->buildGroupId('AM_NAGEMENTS'));
-    self::assertSame('am_nagements__tec_hall_daccueil', $builder->buildDefinitionId('AM_NAGEMENTS', 'TEC_HALL_DACCUEIL'));
+    self::assertSame('tec_hall_daccueil', $builder->buildDefinitionId('AM_NAGEMENTS', 'TEC_HALL_DACCUEIL'));
+    self::assertSame('tec_hall_daccueil', $builder->buildDefinitionId('', 'TEC_HALL_DACCUEIL'));
     self::assertSame('tec_hall_daccueil', $builder->normalize('TEC_HALL_DACCUEIL'));
     self::assertSame('', $builder->normalize('   '));
   }

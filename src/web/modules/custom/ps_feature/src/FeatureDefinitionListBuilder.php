@@ -7,6 +7,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\ps_feature\Service\FeatureDefinitionSource;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -47,6 +48,7 @@ class FeatureDefinitionListBuilder extends ConfigEntityListBuilder {
     $header['id'] = $this->t('Identifier');
     $header['group'] = $this->t('Group');
     $header['type_driver'] = $this->t('Data type');
+    $header['source'] = $this->t('Source');
     $header['asset_types'] = $this->t('Required asset types');
     $header['weight'] = $this->t('Weight');
     return $header + parent::buildHeader();
@@ -67,6 +69,10 @@ class FeatureDefinitionListBuilder extends ConfigEntityListBuilder {
     // Display type driver label.
     $types = $this->featureTypeManager->getAllTypes();
     $row['type_driver'] = $types[$entity->getTypeDriver()] ?? $entity->getTypeDriver();
+
+    $row['source'] = new FormattableMarkup('<span class="badge badge--secondary">@source</span>', [
+      '@source' => $this->getSourceLabel($entity->getSource()),
+    ]);
     
     // Display asset types as badges.
     $required_asset_types = $entity->getRequiredAssetTypes();
@@ -138,6 +144,18 @@ class FeatureDefinitionListBuilder extends ConfigEntityListBuilder {
     ];
     
     return $labels[$code] ?? $code;
+  }
+
+  /**
+   * Gets the human-readable label for a catalogue source.
+   */
+  protected function getSourceLabel(string $source): string {
+    return match ($source) {
+      FeatureDefinitionSource::BO => (string) $this->t('Back office'),
+      FeatureDefinitionSource::XML => (string) $this->t('CRM XML'),
+      FeatureDefinitionSource::LEGACY => (string) $this->t('Legacy'),
+      default => $source,
+    };
   }
 
 }

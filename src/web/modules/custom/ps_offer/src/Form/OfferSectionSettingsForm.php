@@ -104,7 +104,7 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
           '#title' => $this->t('Transport feature group'),
           '#description' => $this->t('Features from this group are shown under the transport line in the location section.'),
           '#options' => $this->getFeatureGroupOptions(),
-          '#default_value' => (string) ($stored['transport_group'] ?? 'acces_vehicules'),
+          '#default_value' => (string) ($stored['transport_group'] ?? 'equipements'),
           '#required' => TRUE,
         ];
       }
@@ -154,7 +154,7 @@ final class OfferSectionSettingsForm extends ConfigFormBase {
       ];
 
       if ($section_id === 'location') {
-        $sections[$section_id]['transport_group'] = trim((string) ($values['transport_group'] ?? 'acces_vehicules'));
+        $sections[$section_id]['transport_group'] = trim((string) ($values['transport_group'] ?? 'equipements'));
       }
     }
 

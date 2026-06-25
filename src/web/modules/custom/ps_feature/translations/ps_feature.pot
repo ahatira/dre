@@ -1035,3 +1035,34 @@ msgstr ""
 
 msgid "Value types"
 msgstr ""
+
+msgid "Catalogue governance"
+msgstr ""
+
+msgid "Catalogue source"
+msgstr ""
+
+msgid "Indicates how this definition entered the catalogue."
+msgstr ""
+
+msgid "Back office"
+msgstr ""
+
+msgid "CRM XML"
+msgstr ""
+
+msgid "Legacy"
+msgstr ""
+
+msgid "Lock value type"
+msgstr ""
+
+msgid "When checked, CRM/XML imports cannot change the data type."
+msgstr ""
+
+msgid "The data type is locked. Disable "Lock value type" below to change it."
+msgstr ""
+
+msgid "Source"
+msgstr ""
+

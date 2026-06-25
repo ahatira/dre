@@ -8,5 +8,6 @@ dependencies:
   - ps_core:ps_core
   - ps_dictionary:ps_dictionary
   - drupal:config_translation
+  - drupal:views
   - ui_icons:ui_icons
   - ui_icons:ui_icons_picker

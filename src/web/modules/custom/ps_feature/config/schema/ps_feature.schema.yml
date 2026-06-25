@@ -142,3 +142,12 @@ ps_feature.feature_definition.*:
     icon:
       type: string
       label: 'UI Icon'
+    expose_as_filter:
+      type: boolean
+      label: 'Expose as search filter'
+    source:
+      type: string
+      label: 'Catalogue source'
+    type_locked:
+      type: boolean
+      label: 'Lock value type'

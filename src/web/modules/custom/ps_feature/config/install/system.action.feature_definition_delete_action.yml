@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_feature
+id: feature_definition_delete_action
+label: 'Delete feature definition'
+type: fb_feature_definition
+plugin: feature_definition_delete_action
+configuration: {  }

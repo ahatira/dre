@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: hauteurs
-label: Heights
-description: 'Ceiling heights and clear heights.'
-asset_types: {  }
-weight: 8

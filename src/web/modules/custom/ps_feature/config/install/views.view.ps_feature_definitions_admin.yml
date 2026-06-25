@@ -1,0 +1,293 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_feature
+    - views
+id: ps_feature_definitions_admin
+label: 'Feature definitions admin'
+module: views
+description: 'Admin search and management view for feature definitions.'
+tag: default
+base_table: fb_feature_definition
+base_field: id
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Feature definitions'
+      access:
+        type: perm
+        options:
+          perm: 'administer ps features'
+      cache:
+        type: tag
+      query:
+        type: ps_feature_definition_entity
+        options: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Filter
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: full
+        options:
+          items_per_page: 25
+      style:
+        type: table
+        options:
+          columns:
+            fb_feature_definition_bulk_form: fb_feature_definition_bulk_form
+            label: label
+            code: code
+            group: group
+            status: status
+            operations: operations
+          default: label
+          info:
+            fb_feature_definition_bulk_form:
+              sortable: false
+            label:
+              sortable: true
+              default_sort_order: asc
+            code:
+              sortable: true
+            group:
+              sortable: true
+            status:
+              sortable: true
+          override: true
+          sticky: true
+      row:
+        type: fields
+      fields:
+        fb_feature_definition_bulk_form:
+          id: fb_feature_definition_bulk_form
+          table: fb_feature_definition
+          field: fb_feature_definition_bulk_form
+          plugin_id: ps_feature_definition_bulk_form
+          label: 'Bulk operations'
+          exclude: false
+          element_label_colon: false
+          entity_type: fb_feature_definition
+          action_title: 'With selection'
+          include_exclude: include
+          selected_actions:
+            - feature_definition_activate_action
+            - feature_definition_deactivate_action
+            - feature_definition_delete_action
+        label:
+          id: label
+          table: fb_feature_definition
+          field: label
+          plugin_id: ps_feature_definition_label
+          label: 'Feature name'
+        id:
+          id: id
+          table: fb_feature_definition
+          field: id
+          plugin_id: ps_feature_definition_property
+          label: Identifier
+          exclude: true
+        code:
+          id: code
+          table: fb_feature_definition
+          field: code
+          plugin_id: ps_feature_definition_property
+          label: Code
+        group:
+          id: group
+          table: fb_feature_definition
+          field: group
+          plugin_id: ps_feature_definition_group
+          label: Group
+        type_driver:
+          id: type_driver
+          table: fb_feature_definition
+          field: type_driver
+          plugin_id: ps_feature_definition_type_driver
+          label: 'Data type'
+          exclude: true
+        source:
+          id: source
+          table: fb_feature_definition
+          field: source
+          plugin_id: ps_feature_definition_source
+          label: Source
+          exclude: true
+        status:
+          id: status
+          table: fb_feature_definition
+          field: status
+          plugin_id: ps_feature_definition_property
+          label: Active
+        weight:
+          id: weight
+          table: fb_feature_definition
+          field: weight
+          plugin_id: ps_feature_definition_property
+          label: Weight
+          exclude: true
+        operations:
+          id: operations
+          table: fb_feature_definition
+          field: operations
+          plugin_id: ps_feature_definition_operations
+          label: Operations
+      filters:
+        search:
+          id: search
+          table: fb_feature_definition
+          field: search
+          plugin_id: ps_feature_definition_search
+          operator: contains
+          value: ''
+          exposed: true
+          expose:
+            label: Search
+            identifier: search
+            placeholder: 'Name or code'
+            required: false
+        group:
+          id: group
+          table: fb_feature_definition
+          field: group
+          plugin_id: ps_feature_definition_group
+          operator: in
+          value: {  }
+          exposed: true
+          expose:
+            label: Group
+            identifier: group
+            reduce: false
+        type_driver:
+          id: type_driver
+          table: fb_feature_definition
+          field: type_driver
+          plugin_id: ps_feature_definition_type_driver
+          operator: in
+          value: {  }
+          exposed: true
+          expose:
+            label: 'Data type'
+            identifier: type_driver
+            reduce: false
+        source:
+          id: source
+          table: fb_feature_definition
+          field: source
+          plugin_id: ps_feature_definition_source
+          operator: in
+          value: {  }
+          exposed: true
+          expose:
+            label: Source
+            identifier: source
+            reduce: false
+        status:
+          id: status
+          table: fb_feature_definition
+          field: status
+          plugin_id: ps_feature_definition_boolean
+          operator: '='
+          value: ''
+          exposed: true
+          expose:
+            label: Active
+            identifier: status
+          is_grouped: true
+          group_info:
+            label: Active
+            identifier: status
+            optional: true
+            widget: select
+            multiple: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Active
+                operator: '='
+                value: '1'
+              2:
+                title: Inactive
+                operator: '='
+                value: '0'
+        expose_as_filter:
+          id: expose_as_filter
+          table: fb_feature_definition
+          field: expose_as_filter
+          plugin_id: ps_feature_definition_boolean
+          operator: '='
+          value: ''
+          exposed: true
+          expose:
+            label: 'Search filter'
+            identifier: expose_as_filter
+          is_grouped: true
+          group_info:
+            label: 'Search filter'
+            identifier: expose_as_filter
+            optional: true
+            widget: select
+            multiple: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Exposed
+                operator: '='
+                value: '1'
+              2:
+                title: Hidden
+                operator: '='
+                value: '0'
+      sorts:
+        weight:
+          id: weight
+          table: fb_feature_definition
+          field: weight
+          plugin_id: standard
+          order: ASC
+        label:
+          id: label
+          table: fb_feature_definition
+          field: label
+          plugin_id: standard
+          order: ASC
+      header:
+        description:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'Feature definitions represent the catalogue of all available features used to describe offers (e.g., Total surface, Parking included, Air conditioning). Each definition belongs to a group and has a specific data type.'
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'No feature definitions found. Create one to start enriching your offers.'
+      use_ajax: false
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: admin/ps/content/features
+      menu:
+        type: none

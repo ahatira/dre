@@ -5,7 +5,9 @@ namespace Drupal\ps_feature\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
+use Drupal\ps_feature\Service\FeatureDefinitionSource;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -118,10 +120,13 @@ class FeatureDefinitionForm extends EntityForm {
     $form['type_driver'] = [
       '#type' => 'select',
       '#title' => $this->t('Data type'),
-      '#description' => $this->t('The value type this feature can store (numeric, text, yes/no, etc.).'),
+      '#description' => $feature_definition->isTypeLocked()
+        ? $this->t('The data type is locked. Disable "Lock value type" below to change it.')
+        : $this->t('The value type this feature can store (numeric, text, yes/no, etc.).'),
       '#options' => $this->featureTypeManager->getAllTypes(),
       '#default_value' => $feature_definition->getTypeDriver(),
       '#required' => TRUE,
+      '#disabled' => $feature_definition->isTypeLocked(),
       '#ajax' => [
         'callback' => '::updatePayloadDefaultsFields',
         'wrapper' => 'payload-defaults-wrapper',
@@ -156,6 +161,29 @@ class FeatureDefinitionForm extends EntityForm {
       '#title' => $this->t('Expose as search filter'),
       '#description' => $this->t('When checked, this feature will be available as a filter in the search page.'),
       '#default_value' => $feature_definition->isExposeAsFilter(),
+    ];
+
+    $form['governance'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Catalogue governance'),
+      '#open' => !$feature_definition->isNew(),
+      '#weight' => 50,
+    ];
+    $form['governance']['source'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Catalogue source'),
+      '#description' => $this->t('Indicates how this definition entered the catalogue.'),
+      '#options' => $this->getSourceOptions(),
+      '#default_value' => $feature_definition->isNew()
+        ? FeatureDefinitionSource::BO
+        : $feature_definition->getSource(),
+      '#disabled' => !$feature_definition->isNew(),
+    ];
+    $form['governance']['type_locked'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Lock value type'),
+      '#description' => $this->t('When checked, CRM/XML imports cannot change the data type.'),
+      '#default_value' => $feature_definition->isTypeLocked(),
     ];
 
     // Dynamic payload defaults fields based on type.
@@ -320,7 +348,7 @@ class FeatureDefinitionForm extends EntityForm {
       : $this->t('Feature definition %label has been updated.', $message_args);
     $this->messenger()->addStatus($message);
 
-    $form_state->setRedirectUrl($feature_definition->toUrl('collection'));
+    $form_state->setRedirectUrl(Url::fromRoute('view.ps_feature_definitions_admin.page_1'));
     return $result;
   }
 
@@ -601,10 +629,27 @@ class FeatureDefinitionForm extends EntityForm {
       ->loadMultiple();
     
     foreach ($groups as $group) {
+      if (!$group->status()) {
+        continue;
+      }
       $options[$group->id()] = $group->label();
     }
     
     return $options;
+  }
+
+  /**
+   * Gets catalogue source options for the governance field.
+   *
+   * @return array<string, string>
+   *   Source options keyed by machine name.
+   */
+  protected function getSourceOptions(): array {
+    return [
+      FeatureDefinitionSource::BO => $this->t('Back office'),
+      FeatureDefinitionSource::XML => $this->t('CRM XML'),
+      FeatureDefinitionSource::LEGACY => $this->t('Legacy'),
+    ];
   }
 
   /**

@@ -13,7 +13,7 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\ps_migrate\Service\CanonicalCountryLanguageResolver;
-use Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder;
+use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementParser;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementValidator;
 use Psr\Log\LoggerInterface;
@@ -36,7 +36,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
     $plugin_id,
     $plugin_definition,
     private readonly FeatureTechnicalElementParser $parser,
-    private readonly FeatureMigrationKeyBuilder $keyBuilder,
+    private readonly FeatureImportResolver $importResolver,
     private readonly FeatureTechnicalElementValidator $validator,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly LanguageConfigFactoryOverride $languageConfigOverride,
@@ -56,7 +56,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
       $plugin_id,
       $plugin_definition,
       $container->get('ps_migrate.feature_technical_element_parser'),
-      $container->get('ps_migrate.feature_migration_key_builder'),
+      $container->get('ps_migrate.feature_import_resolver'),
       $container->get('ps_migrate.feature_technical_element_validator'),
       $container->get('entity_type.manager'),
       $container->get('language.config_factory_override'),
@@ -89,7 +89,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
       $validation = $this->validator->validate([
         'group_code' => $element['group_code'] ?? '',
         'feature_code' => $element['feature_code'] ?? '',
-        'definition_id' => $this->keyBuilder->buildDefinitionId((string) ($element['group_code'] ?? ''), (string) ($element['feature_code'] ?? '')),
+        'definition_id' => $this->importResolver->buildDefinitionId((string) ($element['feature_code'] ?? '')),
         'type_driver' => (string) ($element['type_driver'] ?? ''),
         'payload' => is_array($element['payload'] ?? NULL) ? $element['payload'] : [],
       ]);
@@ -103,7 +103,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
         continue;
       }
 
-      $definition_id = $this->keyBuilder->buildDefinitionId($element['group_code'], $element['feature_code']);
+      $definition_id = $this->importResolver->buildDefinitionId((string) ($element['feature_code'] ?? ''));
       $definition = $this->entityTypeManager->getStorage('fb_feature_definition')->load($definition_id);
       if (!$definition) {
         $this->logger->warning('Skipping feature item for missing definition @definition_id', [
@@ -181,11 +181,14 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
 
     $group_code = $this->extractCode($node, ['group_code', 'CODE_GROUP', 'GROUP_CODE']);
     $feature_code = $this->extractCode($node, ['feature_code', 'CODE_ELEMENT', 'ELEMENT_CODE']);
-    if ($this->isTemplatePlaceholder($group_code) || $this->isTemplatePlaceholder($feature_code)) {
+    if ($this->isTemplatePlaceholder($group_code)) {
+      $group_code = '';
+    }
+    if ($this->isTemplatePlaceholder($feature_code)) {
       return NULL;
     }
 
-    if ($group_code === '' || $feature_code === '') {
+    if ($feature_code === '') {
       return NULL;
     }
 

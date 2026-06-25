@@ -14,4 +14,4 @@ sections:
   location:
     label: 'Location'
     icon: 'bnp_custom:pin-map'
-    transport_group: acces_vehicules
+    transport_group: equipements

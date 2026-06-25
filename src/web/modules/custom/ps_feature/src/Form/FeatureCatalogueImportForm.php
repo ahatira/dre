@@ -206,7 +206,7 @@ final class FeatureCatalogueImportForm extends FormBase {
       ));
     }
 
-    $form_state->setRedirectUrl(Url::fromRoute('entity.fb_feature_definition.collection'));
+    $form_state->setRedirectUrl(Url::fromRoute('view.ps_feature_definitions_admin.page_1'));
   }
 
   /**

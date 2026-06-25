@@ -88,7 +88,7 @@ final class OfferSectionRegistry {
    * Returns the feature group ID used for transport in the location section.
    */
   public function getLocationTransportGroup(): string {
-    $default = 'acces_vehicules';
+    $default = 'equipements';
     if ($this->getPlugin('location') === NULL) {
       return $default;
     }

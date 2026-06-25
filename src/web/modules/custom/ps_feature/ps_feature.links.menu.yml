@@ -15,7 +15,7 @@ ps_feature.feature_group_settings:
 ps_feature.feature_definitions:
   title: 'Features'
   description: 'Manage the feature catalogue available for offers'
-  route_name: entity.fb_feature_definition.collection
+  route_name: view.ps_feature_definitions_admin.page_1
   parent: ps_core.content
   weight: 25
 

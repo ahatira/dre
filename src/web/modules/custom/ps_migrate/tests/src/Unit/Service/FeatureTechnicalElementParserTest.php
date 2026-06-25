@@ -104,8 +104,34 @@ XML;
 
     self::assertCount(1, $elements);
     self::assertFalse($elements[0]->isValid());
-    self::assertContains('Missing TECHNICAL_ELEMENT/CODE_GROUP value.', $elements[0]->getErrors());
     self::assertContains('Missing TECHNICAL_ELEMENT/CODE_ELEMENT value.', $elements[0]->getErrors());
+    self::assertContains('Missing TECHNICAL_ELEMENT/CODE_GROUP value; canonical fallback group will be used.', $elements[0]->getWarnings());
+  }
+
+  /**
+   * Ensures missing CODE_GROUP is a warning on otherwise valid elements.
+   */
+  public function testMissingGroupCodeIsWarningOnly(): void {
+    $parser = new FeatureTechnicalElementParser();
+    $xml = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<ROOT>
+  <TECHNICAL_ELEMENTS_LIST>
+    <TECHNICAL_ELEMENT>
+      <CODE_GROUP></CODE_GROUP>
+      <CODE_ELEMENT>TEC_NO_GROUP</CODE_ELEMENT>
+      <VALUE>Example</VALUE>
+    </TECHNICAL_ELEMENT>
+  </TECHNICAL_ELEMENTS_LIST>
+</ROOT>
+XML;
+
+    $elements = $parser->parseString($xml);
+
+    self::assertCount(1, $elements);
+    self::assertTrue($elements[0]->isValid());
+    self::assertSame([], $elements[0]->getErrors());
+    self::assertContains('Missing TECHNICAL_ELEMENT/CODE_GROUP value; canonical fallback group will be used.', $elements[0]->getWarnings());
   }
 
 }

@@ -1152,3 +1152,33 @@ msgstr "Type de valeur (indicateur, oui/non, nombre, texte, date)."
 
 msgid "Value types"
 msgstr "Types de valeur"
+
+msgid "Catalogue governance"
+msgstr "Gouvernance du catalogue"
+
+msgid "Catalogue source"
+msgstr "Source du catalogue"
+
+msgid "Indicates how this definition entered the catalogue."
+msgstr "Indique comment cette définition est entrée dans le catalogue."
+
+msgid "Back office"
+msgstr "Back office"
+
+msgid "CRM XML"
+msgstr "XML CRM"
+
+msgid "Legacy"
+msgstr "Legacy"
+
+msgid "Lock value type"
+msgstr "Verrouiller le type de valeur"
+
+msgid "When checked, CRM/XML imports cannot change the data type."
+msgstr "Si coché, les imports CRM/XML ne peuvent pas modifier le type de données."
+
+msgid "The data type is locked. Disable "Lock value type" below to change it."
+msgstr "Le type de données est verrouillé. Décochez « Verrouiller le type de valeur » ci-dessous pour le modifier."
+
+msgid "Source"
+msgstr "Source"

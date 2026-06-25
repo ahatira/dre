@@ -28,7 +28,7 @@ final class FeatureTechnicalElementValidator {
     $type_driver = trim((string) ($record['type_driver'] ?? ''));
 
     if ($group_code === '') {
-      $errors[] = $this->issue('missing_group_code', 'Missing feature group code.');
+      $warnings[] = $this->issue('missing_group_code', 'Missing feature group code; canonical fallback group will be used.');
     }
     elseif (preg_match('/^[A-Z0-9_]+$/', $group_code) !== 1) {
       $warnings[] = $this->issue('group_code_non_canonical', 'Feature group code is not canonical uppercase underscore format.');

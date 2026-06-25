@@ -12,7 +12,7 @@ use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
-use Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder;
+use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -42,7 +42,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    private readonly FeatureMigrationKeyBuilder $keyBuilder,
+    private readonly FeatureImportResolver $importResolver,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly LanguageConfigFactoryOverride $languageConfigOverride,
     private readonly LanguageManagerInterface $languageManager,
@@ -59,7 +59,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('ps_migrate.feature_migration_key_builder'),
+      $container->get('ps_migrate.feature_import_resolver'),
       $container->get('entity_type.manager'),
       $container->get('language.config_factory_override'),
       $container->get('language_manager'),
@@ -91,11 +91,11 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
         continue;
       }
 
-      if ($groupCode === '' || $featureCode === '') {
+      if ($featureCode === '') {
         continue;
       }
 
-      $definitionId = $this->keyBuilder->buildDefinitionId($groupCode, $featureCode);
+      $definitionId = $this->importResolver->buildDefinitionId($featureCode);
       $definition = $this->entityTypeManager->getStorage('fb_feature_definition')->load($definitionId);
       if (!$definition) {
         $this->logger->warning('Skipping feature item for missing definition @definition_id', [

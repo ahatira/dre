@@ -67,7 +67,9 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
     );
 
     $existing = $this->createMock(FeatureDefinition::class);
+    $existing->method('isTypeLocked')->willReturn(FALSE);
     $existing->method('set')->willReturnSelf();
+    $existing->method('setSource')->willReturnSelf();
     $existing->expects(self::once())->method('save');
 
     $importer = $this->buildImporter(
@@ -81,6 +83,37 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
 
     self::assertSame(1, $result['imported']);
     self::assertSame(0, $result['skipped']);
+  }
+
+  public function testImportRespectsTypeLockedOnUpdate(): void {
+    file_put_contents(
+      $this->tempFile,
+      "code,categorie,libelle,type_valeur\nTEC_SURFACE_TOTALE,Équipements,Total surface updated,Texte\n",
+    );
+
+    $existing = $this->createMock(FeatureDefinition::class);
+    $existing->method('isTypeLocked')->willReturn(TRUE);
+    $typeDriverUpdates = 0;
+    $existing->method('set')->willReturnCallback(function (string $key, mixed $value) use (&$typeDriverUpdates, $existing): FeatureDefinition {
+      if ($key === 'type_driver') {
+        $typeDriverUpdates++;
+      }
+      return $existing;
+    });
+    $existing->method('setSource')->willReturnSelf();
+    $existing->expects(self::once())->method('save');
+
+    $importer = $this->buildImporter(
+      definitionLoadMap: ['tec_surface_totale' => $existing],
+      groupExists: TRUE,
+      expectCreate: FALSE,
+      languageManager: $this->buildLanguageManager([]),
+    );
+
+    $result = $importer->importFromCsv($this->tempFile);
+
+    self::assertSame(1, $result['imported']);
+    self::assertSame(0, $typeDriverUpdates);
   }
 
   public function testImportSkipsUnknownCategory(): void {

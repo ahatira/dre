@@ -11,3 +11,4 @@ dependencies:
   - migrate_tools:migrate_tools
   - ps_core:ps_core
   - ps_offer:ps_offer
+  - ps_feature:ps_feature

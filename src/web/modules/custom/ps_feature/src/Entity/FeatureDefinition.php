@@ -6,6 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Attribute\ConfigEntityType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ps_core\Utility\IconIdUtility;
+use Drupal\ps_feature\Service\FeatureDefinitionSource;
 
 /**
  * Defines the Feature Definition configuration entity.
@@ -51,6 +52,8 @@ use Drupal\ps_core\Utility\IconIdUtility;
     'payload_defaults',
     'expose_as_filter',
     'icon',
+    'source',
+    'type_locked',
   ],
   links: [
     'add-form' => '/admin/ps/content/features/add',
@@ -137,6 +140,20 @@ class FeatureDefinition extends ConfigEntityBase {
    * @var string
    */
   protected $icon = '';
+
+  /**
+   * Catalogue source that created or owns this definition.
+   *
+   * @var string
+   */
+  protected $source = 'bo';
+
+  /**
+   * Whether CRM/XML imports must not change the type driver.
+   *
+   * @var bool
+   */
+  protected $type_locked = FALSE;
 
   /**
    * Gets the description.
@@ -260,6 +277,37 @@ class FeatureDefinition extends ConfigEntityBase {
    */
   public function setIcon(string $icon): static {
     $this->icon = $icon;
+    return $this;
+  }
+
+  /**
+   * Gets the catalogue source.
+   */
+  public function getSource(): string {
+    $source = $this->source ?? FeatureDefinitionSource::BO;
+    return FeatureDefinitionSource::isValid($source) ? $source : FeatureDefinitionSource::LEGACY;
+  }
+
+  /**
+   * Sets the catalogue source.
+   */
+  public function setSource(string $source): static {
+    $this->source = FeatureDefinitionSource::isValid($source) ? $source : FeatureDefinitionSource::LEGACY;
+    return $this;
+  }
+
+  /**
+   * Whether the value type is locked against CRM/XML overwrites.
+   */
+  public function isTypeLocked(): bool {
+    return (bool) ($this->type_locked ?? FALSE);
+  }
+
+  /**
+   * Sets whether the value type is locked.
+   */
+  public function setTypeLocked(bool $locked): static {
+    $this->type_locked = $locked;
     return $this;
   }
 

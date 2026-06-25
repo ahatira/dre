@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: exterieurs
-label: Outdoors
-description: 'Outdoor areas and surroundings.'
-asset_types: {  }
-weight: 7

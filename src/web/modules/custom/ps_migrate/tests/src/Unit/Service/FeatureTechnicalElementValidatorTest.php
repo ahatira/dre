@@ -25,7 +25,7 @@ final class FeatureTechnicalElementValidatorTest extends UnitTestCase {
     $result = $validator->validate([
       'group_code' => 'AM_NAGEMENTS',
       'feature_code' => 'TEC_HALL_DACCUEIL',
-      'definition_id' => 'am_nagements__tec_hall_daccueil',
+      'definition_id' => 'tec_hall_daccueil',
       'type_driver' => 'numeric',
       'payload' => [
         'value' => '532.00',
@@ -50,7 +50,7 @@ final class FeatureTechnicalElementValidatorTest extends UnitTestCase {
       'payload' => [],
     ]);
 
-    self::assertContains('missing_group_code', array_column($result['errors'], 'code'));
+    self::assertContains('missing_group_code', array_column($result['warnings'], 'code'));
     self::assertContains('missing_feature_code', array_column($result['errors'], 'code'));
     self::assertContains('definition_id_too_long', array_column($result['errors'], 'code'));
     self::assertContains('missing_type_driver', array_column($result['errors'], 'code'));

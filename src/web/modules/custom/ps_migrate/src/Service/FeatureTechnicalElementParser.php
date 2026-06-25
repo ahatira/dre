@@ -98,10 +98,6 @@ final class FeatureTechnicalElementParser {
   public function validate(FeatureTechnicalElement $element): array {
     $errors = [];
 
-    if ($element->getGroupCode() === '') {
-      $errors[] = 'Missing TECHNICAL_ELEMENT/CODE_GROUP value.';
-    }
-
     if ($element->getFeatureCode() === '') {
       $errors[] = 'Missing TECHNICAL_ELEMENT/CODE_ELEMENT value.';
     }
@@ -124,6 +120,10 @@ final class FeatureTechnicalElementParser {
 
     if ($element->getValue() === NULL && $element->getUnit() === NULL && $element->getComplement() === NULL) {
       $warnings[] = 'Technical element has no payload value.';
+    }
+
+    if ($element->getGroupCode() === '') {
+      $warnings[] = 'Missing TECHNICAL_ELEMENT/CODE_GROUP value; canonical fallback group will be used.';
     }
 
     return $warnings;

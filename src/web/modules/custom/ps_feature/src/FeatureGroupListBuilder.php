@@ -73,6 +73,18 @@ class FeatureGroupListBuilder extends DraggableListBuilder {
   /**
    * {@inheritdoc}
    */
+  public function load(): array {
+    $entities = parent::load();
+
+    return array_filter(
+      $entities,
+      static fn (EntityInterface $entity): bool => (bool) $entity->status(),
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function render(): array {
     $build = parent::render();
     

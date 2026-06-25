@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\ps_migrate\Service;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\ps_feature\Entity\FeatureGroup;
+use Drupal\ps_feature\Service\FeatureDefinitionSource;
 use Drupal\ps_migrate\ValueObject\FeatureTechnicalElement;
 
 /**
@@ -13,8 +16,9 @@ final class FeatureTechnicalElementRowProvider {
 
   public function __construct(
     private readonly FeatureTechnicalElementSourceLoader $sourceLoader,
-    private readonly FeatureMigrationKeyBuilder $keyBuilder,
+    private readonly FeatureImportResolver $importResolver,
     private readonly FeatureTechnicalElementValidator $validator,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
   /**
@@ -28,16 +32,20 @@ final class FeatureTechnicalElementRowProvider {
     $rows = [];
 
     foreach ($this->loadElementsFromFiles($files) as $element) {
-      $groupId = $this->keyBuilder->buildGroupId($element->getGroupCode());
+      if (!$element->isValid()) {
+        continue;
+      }
+
+      $groupId = $this->importResolver->resolveGroupId($element->getFeatureCode(), $element->getGroupCode());
       if ($groupId === '' || isset($rows[$groupId])) {
         continue;
       }
 
       $rows[$groupId] = [
         'group_id' => $groupId,
-        'group_code' => $element->getGroupCode(),
-        'label' => $element->getGroupCode(),
-        'description' => $element->getGroupCode(),
+        'group_code' => $groupId,
+        'label' => $this->resolveGroupLabel($groupId),
+        'description' => $this->resolveGroupLabel($groupId),
         'weight' => $element->getSourceIndex(),
         'status' => 1,
       ];
@@ -90,8 +98,12 @@ final class FeatureTechnicalElementRowProvider {
   }
 
   private function buildDefinitionRow(FeatureTechnicalElement $element): ?array {
-    $groupId = $this->keyBuilder->buildGroupId($element->getGroupCode());
-    $definitionId = $this->keyBuilder->buildDefinitionId($element->getGroupCode(), $element->getFeatureCode());
+    if (!$element->isValid()) {
+      return NULL;
+    }
+
+    $groupId = $this->importResolver->resolveGroupId($element->getFeatureCode(), $element->getGroupCode());
+    $definitionId = $this->importResolver->buildDefinitionId($element->getFeatureCode());
     $payloadDefaults = [];
 
     if ($element->getUnit() !== NULL) {
@@ -110,6 +122,8 @@ final class FeatureTechnicalElementRowProvider {
       'status' => 1,
       'payload_defaults' => $payloadDefaults,
       'required_asset_types' => [],
+      'source' => FeatureDefinitionSource::XML,
+      'type_locked' => FALSE,
       'source_index' => $element->getSourceIndex(),
     ];
 
@@ -148,6 +162,18 @@ final class FeatureTechnicalElementRowProvider {
     }
 
     return 'text';
+  }
+
+  /**
+   * Returns the label of an existing canonical group, or the machine name.
+   */
+  private function resolveGroupLabel(string $groupId): string {
+    $group = $this->entityTypeManager->getStorage('fb_feature_group')->load($groupId);
+    if ($group instanceof FeatureGroup) {
+      return (string) $group->label();
+    }
+
+    return $groupId;
   }
 
 }

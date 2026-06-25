@@ -19,6 +19,13 @@ services:
   ps_migrate.feature_migration_key_builder:
     class: Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder
 
+  ps_migrate.feature_import_resolver:
+    class: Drupal\ps_migrate\Service\FeatureImportResolver
+    arguments:
+      - '@Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry'
+      - '@ps_migrate.feature_migration_key_builder'
+      - '@entity_type.manager'
+
   ps_migrate.feature_technical_element_validator:
     class: Drupal\ps_migrate\Service\FeatureTechnicalElementValidator
 
@@ -29,7 +36,7 @@ services:
     class: Drupal\ps_migrate\EventSubscriber\FeatureMigrationPostImportSubscriber
     arguments:
       - '@ps_migrate.feature_technical_element_source_loader'
-      - '@ps_migrate.feature_migration_key_builder'
+      - '@ps_migrate.feature_import_resolver'
       - '@ps_migrate.feature_technical_element_validator'
       - '@ps_migrate.feature_payload_defaults_normalizer'
       - '@entity_type.manager'
@@ -101,8 +108,9 @@ services:
     class: Drupal\ps_migrate\Service\FeatureTechnicalElementRowProvider
     arguments:
       - '@ps_migrate.feature_technical_element_source_loader'
-      - '@ps_migrate.feature_migration_key_builder'
+      - '@ps_migrate.feature_import_resolver'
       - '@ps_migrate.feature_technical_element_validator'
+      - '@entity_type.manager'
 
   ps_migrate.offer_translation_row_provider:
     class: Drupal\ps_migrate\Service\OfferTranslationRowProvider

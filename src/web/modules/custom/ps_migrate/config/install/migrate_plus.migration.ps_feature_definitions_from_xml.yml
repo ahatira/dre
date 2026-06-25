@@ -74,6 +74,12 @@ process:
   payload_defaults:
     plugin: feature_normalize_payload_defaults
     source: payload_defaults
+  source:
+    plugin: default_value
+    default_value: xml
+  type_locked:
+    plugin: default_value
+    default_value: false
 destination:
   plugin: 'entity:fb_feature_definition'
 migration_dependencies:

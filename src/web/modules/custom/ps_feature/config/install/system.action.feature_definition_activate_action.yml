@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ps_feature
+id: feature_definition_activate_action
+label: 'Activate feature definition'
+type: fb_feature_definition
+plugin: feature_definition_activate_action
+configuration: {  }

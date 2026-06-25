@@ -7,7 +7,10 @@ namespace Drupal\ps_migrate\EventSubscriber;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
-use Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder;
+use Drupal\ps_feature\Entity\FeatureDefinition;
+use Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry;
+use Drupal\ps_feature\Service\FeatureDefinitionSource;
+use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Drupal\ps_migrate\Service\FeaturePayloadDefaultsNormalizer;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementSourceLoader;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementValidator;
@@ -25,7 +28,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
    */
   public function __construct(
     private readonly FeatureTechnicalElementSourceLoader $sourceLoader,
-    private readonly FeatureMigrationKeyBuilder $keyBuilder,
+    private readonly FeatureImportResolver $importResolver,
     private readonly FeatureTechnicalElementValidator $validator,
     private readonly FeaturePayloadDefaultsNormalizer $payloadDefaultsNormalizer,
     private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -89,7 +92,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
         $this->snapshotCollector->recordFeatureGroupStatusChange($group_id, FALSE, TRUE);
         $this->logger->info('Reactivated feature group @group_id from XML snapshot.', ['@group_id' => $group_id]);
       }
-      elseif (!$should_be_active && $is_active) {
+      elseif (!$should_be_active && $is_active && !in_array($group_id, FeatureCanonicalGroupRegistry::CANONICAL_GROUP_IDS, TRUE)) {
         $group->set('status', FALSE);
         $group->save();
         $this->snapshotCollector->recordFeatureGroupStatusChange($group_id, TRUE, FALSE);
@@ -115,6 +118,10 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
     $existing_ids = $storage->getQuery()->accessCheck(FALSE)->execute();
 
     foreach ($storage->loadMultiple($existing_ids) as $definition) {
+      if (!$definition instanceof FeatureDefinition) {
+        continue;
+      }
+
       $definition_id = $definition->id();
       $should_be_active = isset($active_definitions[$definition_id]);
       $is_active = (bool) $definition->status();
@@ -125,14 +132,14 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
         $this->snapshotCollector->recordFeatureDefinitionStatusChange($definition_id, FALSE, TRUE);
         $this->logger->info('Reactivated feature definition @definition_id from XML snapshot.', ['@definition_id' => $definition_id]);
       }
-      elseif (!$should_be_active && $is_active) {
+      elseif (!$should_be_active && $is_active && $definition->getSource() !== FeatureDefinitionSource::BO) {
         $definition->set('status', FALSE);
         $definition->save();
         $this->snapshotCollector->recordFeatureDefinitionStatusChange($definition_id, TRUE, FALSE);
         $this->logger->warning('Deactivated feature definition @definition_id because it disappeared from XML.', ['@definition_id' => $definition_id]);
       }
 
-      if (!$should_be_active) {
+      if (!$should_be_active || $definition->getSource() === FeatureDefinitionSource::BO) {
         continue;
       }
 
@@ -140,6 +147,10 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
       $changed = FALSE;
 
       foreach (['label', 'description', 'code', 'group', 'type_driver', 'weight', 'status'] as $field) {
+        if ($field === 'type_driver' && $definition->isTypeLocked()) {
+          continue;
+        }
+
         $source_value = $source[$field] ?? NULL;
         $current_value = $definition->get($field);
         if ($current_value !== $source_value) {
@@ -193,8 +204,8 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
   private function buildGroupSnapshot(array $files): array {
     $snapshot = [];
 
-    foreach ($this->loadElements($files) as $index => $element) {
-      $group_id = $this->keyBuilder->buildGroupId($element['group_code']);
+    foreach ($this->loadElements($files) as $element) {
+      $group_id = $this->importResolver->resolveGroupId($element['feature_code'], $element['group_code']);
       if ($group_id === '') {
         continue;
       }
@@ -222,8 +233,8 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
   private function buildDefinitionSnapshot(array $files): array {
     $snapshot = [];
 
-    foreach ($this->loadElements($files) as $index => $element) {
-      $definition_id = $this->keyBuilder->buildDefinitionId($element['group_code'], $element['feature_code']);
+    foreach ($this->loadElements($files) as $element) {
+      $definition_id = $this->importResolver->buildDefinitionId($element['feature_code']);
       if ($definition_id === '' || isset($snapshot[$definition_id])) {
         continue;
       }
@@ -232,7 +243,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
         'label' => $element['label'],
         'description' => $element['description'],
         'code' => $element['feature_code'],
-        'group' => $this->keyBuilder->buildGroupId($element['group_code']),
+        'group' => $this->importResolver->resolveGroupId($element['feature_code'], $element['group_code']),
         'type_driver' => $element['type_driver'],
         'weight' => $element['weight'],
         'status' => TRUE,
@@ -265,7 +276,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
         $validation = $this->validator->validate([
           'group_code' => $record['group_code'],
           'feature_code' => $record['feature_code'],
-          'definition_id' => $this->keyBuilder->buildDefinitionId($record['group_code'], $record['feature_code']),
+          'definition_id' => $this->importResolver->buildDefinitionId($record['feature_code']),
           'type_driver' => $this->guessTypeDriver($record['payload']),
           'payload' => $record['payload'],
         ]);

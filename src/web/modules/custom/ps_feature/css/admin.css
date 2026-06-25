@@ -63,3 +63,11 @@ td .badge {
 .ps-feature-catalogue-import__columns-table code {
   white-space: nowrap;
 }
+
+.view-ps-feature-definitions-admin .views-exposed-form {
+  margin-block-end: 1rem;
+}
+
+.view-ps-feature-definitions-admin .views-table {
+  width: 100%;
+}

@@ -72,3 +72,6 @@ services:
 
   Drupal\ps_feature\Service\FeatureCatalogueCsvImporterInterface:
     alias: Drupal\ps_feature\Service\FeatureCatalogueCsvImporter
+
+  Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry:
+    class: Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry

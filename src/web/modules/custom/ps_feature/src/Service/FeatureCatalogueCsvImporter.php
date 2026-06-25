@@ -7,6 +7,8 @@ namespace Drupal\ps_feature\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
+use Drupal\ps_feature\Entity\FeatureDefinition;
+use Drupal\ps_feature\Service\FeatureDefinitionSource;
 
 /**
  * Imports feature catalogue definitions from a business CSV file.
@@ -156,16 +158,19 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
       if (!$dryRun) {
         /** @var \Drupal\ps_feature\Entity\FeatureDefinition|null $existing */
         $existing = $definitionStorage->load($definitionId);
-        if ($existing) {
+        if ($existing instanceof FeatureDefinition) {
           $existing->set('label', $label);
           $existing->set('description', $description);
           $existing->set('code', $code);
           $existing->set('group', $groupId);
-          $existing->set('type_driver', $typeDriver);
+          if (!$existing->isTypeLocked()) {
+            $existing->set('type_driver', $typeDriver);
+          }
           $existing->set('weight', $weight);
           $existing->set('status', TRUE);
           $existing->set('expose_as_filter', $exposeAsFilter);
           $existing->set('payload_defaults', $payloadDefaults);
+          $existing->setSource(FeatureDefinitionSource::BO);
           $existing->save();
         }
         else {
@@ -181,6 +186,8 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
             'expose_as_filter' => $exposeAsFilter,
             'payload_defaults' => $payloadDefaults,
             'required_asset_types' => [],
+            'source' => FeatureDefinitionSource::BO,
+            'type_locked' => FALSE,
           ])->save();
         }
 

@@ -175,7 +175,7 @@ cd src && vendor/bin/phpunit -c web/core/phpunit.xml.dist \
 
 ## Workflow recommandé
 
-1. Install Drupal + module `ps_feature` (4 groupes canoniques)
+1. Install Drupal + module `ps_feature` (4 groupes canoniques : équipements, services, état du bâtiment, informations complémentaires)
 2. Remplir `feature_catalogue_import.csv` ou copier le template
 3. Dry run BO ou Drush
 4. Import définitif

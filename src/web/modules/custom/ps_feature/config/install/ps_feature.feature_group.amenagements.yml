@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: amenagements
-label: Fittings
-description: 'Interior fittings and layout.'
-asset_types: {  }
-weight: 6

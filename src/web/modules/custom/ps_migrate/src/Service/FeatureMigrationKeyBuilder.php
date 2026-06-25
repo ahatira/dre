@@ -17,10 +17,10 @@ final class FeatureMigrationKeyBuilder {
   }
 
   /**
-   * Builds a normalized definition identifier.
+   * Builds a normalized definition identifier from CODE_ELEMENT only.
    */
   public function buildDefinitionId(string $groupCode, string $featureCode): string {
-    return $this->normalize($groupCode) . '__' . $this->normalize($featureCode);
+    return $this->normalize($featureCode);
   }
 
   /**
