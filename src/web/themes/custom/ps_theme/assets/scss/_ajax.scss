@@ -1,3 +1,6 @@
+@import 'configuration-import';
+@import '../../../../../libraries/bootstrap/scss/spinners';
+
 // AJAX trigger loading state — overlay keeps original dimensions.
 .btn.is-ajax-loading,
 .use-ajax.is-ajax-loading,
