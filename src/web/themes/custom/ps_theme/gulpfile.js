@@ -33,41 +33,12 @@ const sassOptions = {
 };
 
 const stylesPaths = {
-  src: [
-    './assets/scss/**/*.{scss,sass}',
-    '!./assets/scss/bootstrap-sdc-bundle.scss',
-  ],
+  src: ['./assets/scss/**/*.{scss,sass}'],
   dest: './assets/css',
 };
 
-// Orphan starterkit Bootstrap SDC wrappers — excluded until removed from components/.
-const legacyBootstrapSdcDirs = [
-  'accordion',
-  'alert',
-  'badge',
-  'breadcrumb',
-  'button_group',
-  'card',
-  'carousel',
-  'close_button',
-  'dropdown',
-  'list_group',
-  'modal',
-  'nav',
-  'navbar',
-  'offcanvas',
-  'pagination',
-  'progress',
-  'spinner',
-  'table',
-  'toast',
-];
-
 const componentsStylesPaths = {
-  src: [
-    './components/**/styles/*.{scss,sass}',
-    ...legacyBootstrapSdcDirs.map((dir) => `!./components/${dir}/styles/*.{scss,sass}`),
-  ],
+  src: ['./components/**/styles/*.{scss,sass}'],
 };
 
 /// /////////////////////////////////////////////////////////////////////////////
