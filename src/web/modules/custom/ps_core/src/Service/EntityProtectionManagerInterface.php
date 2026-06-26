@@ -74,8 +74,10 @@ interface EntityProtectionManagerInterface {
   /**
    * Detects conflicts between internal and external data via checksums.
    *
-   * Compares the entity's stored checksum with the external data checksum
-   * to determine if the data has diverged.
+   * Compares the entity's stored checksum with the external data checksum.
+   * When a conflict window is configured (via ConflictWindowProviderInterface),
+   * mismatches are reported only if the entity was modified locally after the
+   * last CRM import within that window. A window of 0 reports every mismatch.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to check.

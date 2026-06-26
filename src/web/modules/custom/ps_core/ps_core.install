@@ -72,3 +72,35 @@ function ps_core_update_11001(): void {
 
   $config->setData($data)->save();
 }
+
+/**
+ * Removes obsolete platform settings from ps_core.settings.
+ *
+ * Migrates conflict_window_seconds to ps_migrate when applicable.
+ */
+function ps_core_update_11002(): void {
+  $coreConfig = \Drupal::configFactory()->getEditable('ps_core.settings');
+  if ($coreConfig->isNew()) {
+    return;
+  }
+
+  $window = $coreConfig->get('conflict_window_seconds');
+  if ($window !== NULL) {
+    $migrateConfig = \Drupal::configFactory()->getEditable('ps_migrate.import_pipeline_settings');
+    if (!$migrateConfig->isNew() && $migrateConfig->get('conflict_window_seconds') === NULL) {
+      $migrateConfig
+        ->set('conflict_window_seconds', max(0, (int) $window))
+        ->save(TRUE);
+    }
+  }
+
+  foreach ([
+    'cache_default_ttl',
+    'enable_audit_logging',
+    'audit_retention_days',
+    'conflict_window_seconds',
+  ] as $key) {
+    $coreConfig->clear($key);
+  }
+  $coreConfig->save(TRUE);
+}

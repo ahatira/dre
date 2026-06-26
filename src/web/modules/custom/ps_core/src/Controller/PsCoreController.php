@@ -59,10 +59,10 @@ final class PsCoreController extends ControllerBase implements ContainerInjectio
       (string) $this->t('Configure cross-cutting Property Search settings.'),
       [
         [
-          'title' => 'Core settings',
+          'title' => 'Global settings',
           'route' => 'ps_core.settings_form',
           'permission' => 'administer ps_core',
-          'description' => 'Tune cache, audit and conflict settings.',
+          'description' => 'Site contact details and platform service defaults.',
         ],
         [
           'title' => 'Health checks',

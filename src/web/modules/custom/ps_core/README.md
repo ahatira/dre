@@ -6,7 +6,7 @@ Socle transversal de l'écosystème Property Search : hub d'administration, RBAC
 
 ## Responsabilité
 
-`ps_core` fournit l'infrastructure commune à tous les modules `ps_*` : le hub d'administration `/admin/ps`, le système de permissions sectorielles, et cinq services utilitaires (audit, mapping de champs, résolution de config, détection de conflits, gestion de permissions).
+`ps_core` fournit l'infrastructure commune à tous les modules `ps_*` : le hub d'administration `/admin/ps`, le système de permissions sectorielles, et des services utilitaires (mapping de champs, résolution de config, protection d'entités, gestion de permissions).
 
 Les **rôles Drupal** (personas BNP) sont gérés par `bnp_admin` — voir `bnp_admin/docs/RBAC.md`. `ps_core` ne livre plus de rôles `ps_admin` / `ps_content_editor`.
 
@@ -16,9 +16,9 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 
 - Hub admin `/admin/ps` avec 4 sections : Contenu, Structure, Configuration, Health
 - 15 permissions granulaires dont 4 sectorielles (hub, content, structure, config)
-- Formulaire de paramètres globaux `/admin/ps/config/settings`
+- Formulaire de paramètres globaux `/admin/ps/config/settings` (contact site)
 - Page de santé `/admin/ps/health`
-- 5 services utilitaires réutilisables par les modules PS
+- Services utilitaires réutilisables par les modules PS
 - Filtrage RBAC des liens de section par permission
 
 ## Architecture
@@ -28,10 +28,10 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | Service ID | Classe | Rôle |
 |---|---|---|
 | `logger.channel.ps_core` | *(logger factory)* | Canal de log dédié PS Core |
-| `ps_core.audit_logger` | `AuditLogger` | Journalisation d'événements avec contexte (PSR logger) |
+| `ps_core.conflict_window_provider` | `NullConflictWindowProvider` | Fenêtre conflit import (0 par défaut ; surchargé par `ps_migrate`) |
+| `ps_core.entity_protection_manager` | `EntityProtectionManager` | Protection entités, checksums, détection conflits import |
 | `ps_core.field_mapper` | `FieldMapper` | Normalisation de valeurs de champ (string, decimal, boolean) |
 | `ps_core.config_resolver` | `ConfigResolver` | Accès à la config Drupal avec valeurs par défaut |
-| `ps_core.conflict_detector` | `ConflictDetector` | Détection de conflits par comparaison de checksums |
 | `ps_core.permission_manager` | `PermissionManager` | Vérification de permissions et filtrage de routes |
 
 ### Controllers
@@ -44,7 +44,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 
 | Classe | Chemin | Rôle |
 |---|---|---|
-| `PsCoreSettingsForm` | `/admin/ps/config/settings` | Formulaire de configuration globale (ConfigFormBase) |
+| `PsCoreSettingsForm` | `/admin/ps/config/settings` | Contact site (urgency help) |
 
 ## Routes & Accès
 
@@ -91,15 +91,14 @@ Référence : `bnp_admin/docs/RBAC.md`.
 
 | Fichier | Contenu |
 |---|---|
-| `ps_core.settings.yml` | Paramètres par défaut (TTL cache : 3600s, audit : activé, rétention : 365j, fenêtre conflits : 300s) |
+| `ps_core.settings.yml` | Contact site (urgency help phone/hours) |
 
 ## Tests
 
 | Classe | Type | Scénarios couverts |
 |---|---|---|
 | `PsCoreHubAccessKernelTest` | Kernel | Routes de section, permissions `content_editor` / `content_admin` (3 tests) |
-| `AuditLoggerTest` | Unit | Journalisation avec et sans contexte |
-| `ConflictDetectorTest` | Unit | Détection de conflit par checksum identique et différent |
+| `EntityProtectionManagerTest` | Unit | Protection, checksums, fenêtre de conflit |
 | `ConfigResolverTest` | Unit | Résolution de config avec valeur par défaut |
 | `FieldMapperTest` | Unit | Normalisation string, decimal, boolean |
 

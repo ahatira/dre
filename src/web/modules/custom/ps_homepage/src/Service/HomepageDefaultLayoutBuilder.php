@@ -7,7 +7,7 @@ namespace Drupal\ps_homepage\Service;
 use Drupal\layout_builder\Section;
 
 /**
- * Builds the default 9-section homepage Layout Builder layout (S-D shell).
+ * Builds the default homepage Layout Builder layout (S-D shell).
  */
 final class HomepageDefaultLayoutBuilder {
 

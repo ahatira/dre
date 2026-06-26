@@ -73,6 +73,9 @@ ps_migrate.import_pipeline_settings:
     skip_unchanged_offers:
       type: boolean
       label: 'Skip unchanged offers in delta mode'
+    conflict_window_seconds:
+      type: integer
+      label: 'Conflict detection window in seconds'
     media_download_timeout:
       type: integer
       label: 'Media download timeout in seconds'

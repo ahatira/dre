@@ -194,6 +194,15 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('skip_unchanged_offers'),
       '#description' => $this->t('Compares source checksum with field_source_checksum and skips rows with no changes during delta imports.'),
     ];
+    $form['governance']['conflict_window_seconds'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Conflict detection window (seconds)'),
+      '#description' => $this->t('When greater than 0, checksum mismatches are reported as conflicts only if the entity was modified locally after the last CRM import within this window. 0 = always report checksum mismatches.'),
+      '#default_value' => (int) ($config->get('conflict_window_seconds') ?? 300),
+      '#min' => 0,
+      '#step' => 1,
+      '#required' => TRUE,
+    ];
 
     $form['performance'] = [
       '#type' => 'details',
@@ -253,6 +262,7 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       ->set('lock_strategy_default', (string) $form_state->getValue('lock_strategy_default'))
       ->set('lock_field_strategies', $this->parseFieldStrategies((string) $form_state->getValue('lock_field_strategies')))
       ->set('skip_unchanged_offers', (bool) $form_state->getValue('skip_unchanged_offers'))
+      ->set('conflict_window_seconds', max(0, (int) $form_state->getValue('conflict_window_seconds')))
       ->set('media_download_timeout', (int) $form_state->getValue('media_download_timeout'))
       ->set('media_download_retry_count', (int) $form_state->getValue('media_download_retry_count'))
       ->set('media_download_max_failures_percent', (int) $form_state->getValue('media_download_max_failures_percent'))

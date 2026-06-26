@@ -34,7 +34,7 @@ ps_core.settings_form:
   path: '/admin/ps/config/settings'
   defaults:
     _form: '\Drupal\ps_core\Form\PsCoreSettingsForm'
-    _title: 'Core Settings'
+    _title: 'Global settings'
   requirements:
     _permission: 'administer ps_core'
 

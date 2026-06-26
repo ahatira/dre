@@ -7,11 +7,14 @@ ps_install_country_site() {
   local country="$1"
   local site_name="$2"
 
+  export PS_INSTALL_SKIP_CONTAINER_CR=1
+
   ps_drush_for_country "${country}"
   ps_header "Install country ${country} (${PS_DRUSH_ALIAS} → $(ps_site_uri "${country}"))"
 
   if ps_drush_bootstrapped && [[ ${FORCE_INSTALL:-0} -eq 0 ]]; then
     ps_warn "Country ${country} already installed. Use --force to reinstall."
+    unset PS_INSTALL_SKIP_CONTAINER_CR
     return 0
   fi
 
@@ -50,8 +53,8 @@ ps_install_country_site() {
 
   ps_drush theme:enable -y gin 2>/dev/null || ps_warn "Gin theme not available"
   ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
+  ps_drush_cr
   ps_add_site_languages "${country}"
-  ps_enable_locale_and_import_contrib_translations
   ps_apply_site_language_negotiation "${country}"
   ps_retry 2 2 ps_drush en -y bnp_editor
 
@@ -62,20 +65,16 @@ ps_install_country_site() {
   ps_info "Enabling PS modules..."
   ps_ensure_telephone_field_stack || ps_die "Telephone field stack not ready"
   ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
-  ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_surface entity_browser_generic_embed bnp_media ps_media
   ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready"
   ps_ensure_bnp_media_foundation || ps_die "BNP Media foundation not ready"
-  ps_drush_cr
   ps_retry 2 2 ps_drush en -y inline_form_errors webform webform_ui
   ps_drush entity:delete webform contact -y 2>/dev/null || true
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready before ps_form"
   ps_retry 2 2 ps_drush en -y ps_form
-  ps_drush_cr
   ps_info "Preparing ps_offer dependencies..."
   ps_retry 2 2 ps_drush en -y ps_favorite ps_diagnostic layout_builder layout_discovery
-  ps_drush_cr
   ps_recover_ps_offer_if_partial
   ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
   ps_drush ev 'require_once DRUPAL_ROOT . "/modules/custom/ps_offer/ps_offer.install"; ps_offer_apply_full_layout_display(); echo "ps_offer layout OK\n";' \
@@ -93,44 +92,47 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y ps_compare
   ps_retry 2 2 ps_drush en -y search_api search_api_solr || ps_warn "search_api / search_api_solr enable had warnings"
   ps_refresh_field_type_cache
-  ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_search || ps_warn "ps_search enable had warnings — search degraded until Solr is configured"
   ps_ensure_ps_search_stack
   ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_seo
   ps_ensure_ps_search_stack
-  ps_drush_cr
+
+  ps_info "Enabling CRM import pipeline (ps_migrate)..."
+  ps_retry 2 2 ps_drush en -y migrate migrate_plus migrate_tools file ps_migrate
 
   ps_retry 2 2 ps_drush en -y ps_block ps_homepage
   ps_drush en -y advanced_mega_menu menu_link_attributes languageicons social_media_links content_translation layout_builder path_alias 2>/dev/null || true
 
   ps_ensure_ps_search_stack || true
   ps_refresh_field_type_cache
-  ps_drush_cr
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
   ps_drush config:set -y system.theme default ps_theme
   ps_drush config:set -y system.site name "${site_name}"
   ps_drush config:set -y system.site slogan "Real Estate for a Changing World"
-  ps_drush_cr
 
   ps_drush ev '\Drupal::service("ps_core.ps_theme_shell_installer")->applyShellInstallConfig(); echo "ps_theme shell OK\n";' \
     || ps_die "ps_theme shell install failed"
   ps_retry 2 2 ps_drush en -y prevent_homepage_deletion
-  ps_drush_cr
   ps_drush ev '\Drupal::service("ps_homepage.shell_installer")->install(); echo "ps_homepage shell OK\n";' \
     || ps_die "ps_homepage shell install failed"
+  ps_drush_cr
 
+  ps_info "Importing translations (contrib, custom, config overrides)..."
+  ps_enable_locale_and_import_contrib_translations
   ps_import_module_translations
+  ps_import_active_language_config_overrides "${country}"
+  ps_drush_cr
 
   # Fresh shell install has an empty index — skip Solr clear (needs a live connector).
   ps_drush search-api:rebuild-tracker offers -y 2>/dev/null || true
   ps_info "Solr index skipped on shell install (run: make import ${country})"
 
-  ps_import_active_language_config_overrides "${country}"
-  ps_retry 2 2 ps_drush_cr
-
   ps_info "Rebuilding content permissions..."
   ps_drush_rebuild_permissions
+
+  ps_drush_sync_container_cr
+  unset PS_INSTALL_SKIP_CONTAINER_CR
 
   ps_success "Shell install complete: ${country}"
   ps_info "Next: make import ${country}  |  make demo ${country}"

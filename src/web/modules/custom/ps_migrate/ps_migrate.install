@@ -202,6 +202,21 @@ function ps_migrate_update_11007(): void {
 }
 
 /**
+ * Adds conflict detection window to import pipeline settings.
+ */
+function ps_migrate_update_11008(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_migrate.import_pipeline_settings');
+  if ($config->get('conflict_window_seconds') !== NULL) {
+    return;
+  }
+
+  $legacy = \Drupal::config('ps_core.settings')->get('conflict_window_seconds');
+  $config
+    ->set('conflict_window_seconds', max(0, (int) ($legacy ?? 300)))
+    ->save(TRUE);
+}
+
+/**
  * Switches active CRM migrations to the ps_crm_offer_xml source plugin.
  */
 function ps_migrate_update_11007_sync_unified_source_plugin(): void {

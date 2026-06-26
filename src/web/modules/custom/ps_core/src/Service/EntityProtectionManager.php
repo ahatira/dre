@@ -22,6 +22,7 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
     private readonly LoggerInterface $logger,
     private readonly ConfigEntityProtectionRegistry $configEntityProtectionRegistry,
     private readonly TimeInterface $time,
+    private readonly ConflictWindowProviderInterface $conflictWindowProvider,
   ) {}
 
   /**
@@ -164,21 +165,120 @@ final class EntityProtectionManager implements EntityProtectionManagerInterface 
       return FALSE;
     }
 
-    $conflict = $internalChecksum !== $externalChecksum;
-
-    if ($conflict) {
-      $this->logger->info(
-        'Conflict detected for @type:@id - Internal: @internal, External: @external',
-        [
-          '@type' => $entity->getEntityTypeId(),
-          '@id' => $entity->id(),
-          '@internal' => $internalChecksum,
-          '@external' => $externalChecksum,
-        ]
-      );
+    if ($internalChecksum === $externalChecksum) {
+      return FALSE;
     }
 
-    return $conflict;
+    $window = $this->conflictWindowProvider->getConflictWindowSeconds();
+    if ($window > 0 && !$this->hasRecentLocalModification($entity, $window)) {
+      return FALSE;
+    }
+
+    $this->logConflict($entity, $internalChecksum, $externalChecksum);
+
+    return TRUE;
+  }
+
+  /**
+   * Logs a governance conflict event.
+   */
+  private function logConflict(EntityInterface $entity, string $internalChecksum, string $externalChecksum): void {
+    $this->logger->notice('ps_core governance: {action}', [
+      'action' => 'conflict_detected',
+      'entity_type' => $entity->getEntityTypeId(),
+      'entity_id' => $entity->id(),
+      'internal_checksum' => $internalChecksum,
+      'external_checksum' => $externalChecksum,
+    ]);
+  }
+
+  /**
+   * Whether the entity was modified locally after the last CRM import.
+   *
+   * Used when conflict_window_seconds is greater than zero.
+   */
+  private function hasRecentLocalModification(EntityInterface $entity, int $windowSeconds): bool {
+    $changedTime = $this->getEntityChangedTime($entity);
+    if ($changedTime === NULL) {
+      return FALSE;
+    }
+
+    $lastImportTime = $this->getLastImportTimestamp($entity);
+    if ($lastImportTime !== NULL && $changedTime <= $lastImportTime) {
+      return FALSE;
+    }
+
+    return ($this->time->getRequestTime() - $changedTime) <= $windowSeconds;
+  }
+
+  /**
+   * Reads the entity changed timestamp when available.
+   */
+  private function getEntityChangedTime(EntityInterface $entity): ?int {
+    if (!method_exists($entity, 'getChangedTime')) {
+      return NULL;
+    }
+
+    $changed = $entity->getChangedTime();
+    return is_int($changed) ? $changed : NULL;
+  }
+
+  /**
+   * Reads the last CRM import timestamp from source tracking metadata.
+   */
+  private function getLastImportTimestamp(EntityInterface $entity): ?int {
+    $trackingProperty = $this->resolveTrackingProperty($entity);
+    if ($trackingProperty === NULL) {
+      return NULL;
+    }
+
+    $raw = $this->readStringProperty($entity, $trackingProperty);
+    if ($raw === '') {
+      return NULL;
+    }
+
+    try {
+      $tracking = json_decode($raw, TRUE, 512, JSON_THROW_ON_ERROR);
+    }
+    catch (\JsonException) {
+      return NULL;
+    }
+
+    if (!is_array($tracking)) {
+      return NULL;
+    }
+
+    foreach (['import_timestamp', 'tracked_at'] as $key) {
+      if (!isset($tracking[$key])) {
+        continue;
+      }
+      $timestamp = $this->normalizeTimestamp($tracking[$key]);
+      if ($timestamp !== NULL) {
+        return $timestamp;
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Normalizes a tracking timestamp to a Unix timestamp.
+   */
+  private function normalizeTimestamp(mixed $value): ?int {
+    if (is_int($value)) {
+      return $value;
+    }
+
+    if (is_string($value) && ctype_digit($value)) {
+      return (int) $value;
+    }
+
+    if (is_string($value) && $value !== '') {
+      $parsed = strtotime($value);
+      return $parsed === FALSE ? NULL : $parsed;
+    }
+
+    return NULL;
   }
 
   /**

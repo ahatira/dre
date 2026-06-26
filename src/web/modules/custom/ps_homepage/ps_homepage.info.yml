@@ -19,8 +19,5 @@ dependencies:
   - bnp_media:bnp_media
   - ps_core:ps_core
   - ps_content:ps_content
-  - ps_faq:ps_faq
-  - ps_news:ps_news
-  - ps_market_study:ps_market_study
   - ps_offer:ps_offer
   - ps_search:ps_search

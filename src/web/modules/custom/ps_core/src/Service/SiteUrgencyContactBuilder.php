@@ -57,16 +57,13 @@ final class SiteUrgencyContactBuilder {
     if ($lead === '') {
       $lead = (string) $this->t('In a hurry? Call us at');
     }
-    else {
-      $lead = $this->translateConfigString($lead);
-    }
 
     return [
       '#theme' => 'ps_core_site_urgency_help',
       '#lead' => $lead,
       '#phone_display' => $phoneDisplay,
       '#phone_href' => $phoneLink,
-      '#hours' => $this->translateConfigString(trim((string) $config->get('urgency_help_hours'))),
+      '#hours' => trim((string) $config->get('urgency_help_hours')),
       '#cache' => [
         'tags' => $config->getCacheTags(),
       ],
@@ -106,17 +103,6 @@ final class SiteUrgencyContactBuilder {
    */
   private function getConfig(): ImmutableConfig {
     return $this->configFactory->get(self::CONFIG);
-  }
-
-  /**
-   * Translates admin-configured UI strings stored as English source text.
-   */
-  private function translateConfigString(string $value): string {
-    if ($value === '') {
-      return '';
-    }
-
-    return (string) $this->t($value);
   }
 
 }

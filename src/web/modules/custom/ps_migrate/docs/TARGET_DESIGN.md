@@ -368,6 +368,17 @@ Pas de rollback fichiers/médias. Best effort documenté ops.
 
 `skip_unchanged_offers` (delta) : compare checksum source vs `field_source_checksum`.
 
+### 7.4 Fenêtre de détection de conflit
+
+Config BO : `ps_migrate.import_pipeline_settings.conflict_window_seconds` (section **Data governance** de `/admin/ps/import/settings`).
+
+| Valeur | Comportement |
+|--------|--------------|
+| `0` | Tout écart de checksum est signalé (`_has_conflict` sur la row migrate) |
+| `> 0` | Conflit uniquement si checksum différent **et** modification locale après le dernier import CRM (`entity.changed` > `import_timestamp` / `tracked_at` dans `field_source_tracking`) **et** dans la fenêtre |
+
+Implémentation : `EntityProtectionManager::hasConflict()` + `ImportPipelineConflictWindowProvider` (surcharge de `ps_core.conflict_window_provider`).
+
 ---
 
 ## 8. Observabilité & KPI BO

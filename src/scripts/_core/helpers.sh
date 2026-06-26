@@ -260,9 +260,40 @@ ps_contrib_translation_is_custom_po() {
   [[ "${name}" == ps_* || "${name}" == bnp_* || "${name}" == ps_theme.* ]]
 }
 
+# Extracts the Drupal extension name from a contrib PO filename (e.g. views-3.0.fr.po → views).
+ps_contrib_po_extension_from_filename() {
+  local filename="$1"
+  local stem="${filename%.po}"
+  local prefix="${stem%.*}"
+
+  if [[ "${prefix}" == drupal* ]]; then
+    printf 'drupal'
+    return 0
+  fi
+
+  if [[ "${prefix}" =~ ^(.+)-[0-9].*$ ]]; then
+    printf '%s' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  printf '%s' "${prefix}"
+}
+
+# Returns 0 when the PO targets an enabled module, theme, or Drupal core.
+ps_contrib_translation_extension_enabled() {
+  local extension="$1"
+  local enabled_list="$2"
+
+  if [[ "${extension}" == "drupal" ]]; then
+    return 0
+  fi
+
+  echo "${enabled_list}" | grep -qx "${extension}"
+}
+
 ps_import_contrib_translations() {
   ps_resolve_runtime
-  local cache_dir active_langs imported=0 skipped=0 failed=0 missing=0
+  local cache_dir active_langs enabled_extensions imported=0 skipped=0 failed=0 missing=0
   cache_dir="$(ps_contrib_translations_dir)"
 
   if [[ ! -d "${cache_dir}" ]]; then
@@ -271,6 +302,8 @@ ps_import_contrib_translations() {
   fi
 
   active_langs="$(ps_drush ev 'echo implode(PHP_EOL, array_keys(\Drupal::languageManager()->getLanguages()));')"
+  enabled_extensions="$(ps_drush pm:list --status=enabled --format=list 2>/dev/null)"
+  enabled_extensions="$(printf '%s\n%s' "${enabled_extensions}" "$(ps_drush theme:list --status=enabled --format=list 2>/dev/null)")"
 
   import_po() {
     local po_file="$1" langcode="$2" drush_path
@@ -287,7 +320,7 @@ ps_import_contrib_translations() {
     fi
   }
 
-  local lang_dir po_file filename langcode found=0
+  local po_file filename langcode extension found=0
   ps_contrib_translations_flatten
 
   while IFS= read -r po_file; do
@@ -300,6 +333,11 @@ ps_import_contrib_translations() {
     fi
     langcode="${filename%.po}"
     langcode="${langcode##*.}"
+    extension="$(ps_contrib_po_extension_from_filename "${filename}")"
+    if ! ps_contrib_translation_extension_enabled "${extension}" "${enabled_extensions}"; then
+      skipped=$((skipped + 1))
+      continue
+    fi
     import_po "${po_file}" "${langcode}"
   done < <(find "${cache_dir}" -maxdepth 1 -name '*.po' 2>/dev/null | sort)
 

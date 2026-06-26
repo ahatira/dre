@@ -25,7 +25,7 @@ final class HomepageFaqConfigRefresher {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly HomepageBlockDefaultsLoader $defaultsLoader,
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly FaqDefaultItems $faqDefaultItems,
+    private readonly ?FaqDefaultItems $faqDefaultItems,
     private readonly HomepageLayoutPersister $layoutPersister,
   ) {}
 
@@ -33,6 +33,10 @@ final class HomepageFaqConfigRefresher {
    * Applies default FAQ configuration to the front page homepage.
    */
   public function refreshFrontPage(): bool {
+    if ($this->faqDefaultItems === NULL) {
+      return FALSE;
+    }
+
     $node = $this->loadFrontPageNode();
     if (!$node instanceof NodeInterface || !$node->hasField('layout_builder__layout')) {
       return FALSE;

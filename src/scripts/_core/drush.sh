@@ -34,6 +34,15 @@ ps_drush_in_php_container() {
 ps_drush_cr() {
   ps_drush cache:rebuild "$@" || ps_warn "Cache rebuild failed — continuing (check Memcache connectivity)"
 
+  if [[ "${PS_INSTALL_SKIP_CONTAINER_CR:-0}" == "1" ]]; then
+    return 0
+  fi
+
+  ps_drush_sync_container_cr
+}
+
+# Syncs PHP-FPM container cache after host Drush (dev WSL only).
+ps_drush_sync_container_cr() {
   ps_load_config
   # WSL host Drush and ps_php FPM can diverge on the compiled DI container in dev.
   if [[ "${PS_APP_ENV}" == "dev" && -d "${PS_REPO_ROOT}/docker" ]]; then

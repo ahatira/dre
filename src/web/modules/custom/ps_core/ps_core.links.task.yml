@@ -9,3 +9,9 @@ ps_core.governance_settings:
   route_name: ps_core.governance_settings
   base_route: ps_core.governance
   weight: -10
+
+ps_core.settings_form:
+  title: 'Settings'
+  route_name: ps_core.settings_form
+  base_route: ps_core.settings_form
+  weight: 0

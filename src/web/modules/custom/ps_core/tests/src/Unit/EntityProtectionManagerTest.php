@@ -8,7 +8,9 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionDefinition;
 use Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionRegistry;
+use Drupal\ps_core\Service\ConflictWindowProviderInterface;
 use Drupal\ps_core\Service\EntityProtectionManager;
+use Drupal\ps_core\Service\NullConflictWindowProvider;
 use Drupal\Tests\UnitTestCase;
 use Psr\Log\LoggerInterface;
 
@@ -22,7 +24,7 @@ final class EntityProtectionManagerTest extends UnitTestCase {
   /**
    * Builds a manager with a single test config entity definition.
    */
-  private function buildManager(): EntityProtectionManager {
+  private function buildManager(?ConflictWindowProviderInterface $conflictWindowProvider = NULL): EntityProtectionManager {
     $registry = new ConfigEntityProtectionRegistry([
       new ConfigEntityProtectionDefinition(self::ENTITY_TYPE_ID),
     ]);
@@ -34,6 +36,7 @@ final class EntityProtectionManagerTest extends UnitTestCase {
       $this->createMock(LoggerInterface::class),
       $registry,
       $time,
+      $conflictWindowProvider ?? new NullConflictWindowProvider(),
     );
   }
 
@@ -225,6 +228,100 @@ final class EntityProtectionManagerTest extends UnitTestCase {
 
     self::assertSame($checksum, $manager->getStoredChecksum($entity));
     self::assertFalse($manager->hasConflict($entity, ['checksum' => $checksum]));
+    self::assertTrue($manager->hasConflict($entity, ['checksum' => 'different']));
+  }
+
+  /**
+   * @covers ::hasConflict
+   */
+  public function testHasConflictIgnoresMismatchOutsideWindow(): void {
+    $provider = $this->createMock(ConflictWindowProviderInterface::class);
+    $provider->method('getConflictWindowSeconds')->willReturn(300);
+
+    $time = $this->createMock(TimeInterface::class);
+    $time->method('getRequestTime')->willReturn(1_700_000_000);
+
+    $registry = new ConfigEntityProtectionRegistry([
+      new ConfigEntityProtectionDefinition(self::ENTITY_TYPE_ID),
+    ]);
+    $manager = new EntityProtectionManager(
+      $this->createMock(LoggerInterface::class),
+      $registry,
+      $time,
+      $provider,
+    );
+
+    $entity = $this->getMockBuilder(ConfigEntityInterface::class)
+      ->addMethods(['getChangedTime'])
+      ->onlyMethods(['getEntityTypeId', 'id', 'isNew', 'get', 'set'])
+      ->getMockForAbstractClass();
+    $values = [
+      'id' => 'test_definition',
+      'checksum' => 'stored',
+      'source_tracking' => json_encode([
+        'import_timestamp' => 1_699_999_000,
+        'tracked_at' => 1_699_999_000,
+      ], JSON_THROW_ON_ERROR),
+    ];
+    $entity->method('getEntityTypeId')->willReturn(self::ENTITY_TYPE_ID);
+    $entity->method('id')->willReturn('test_definition');
+    $entity->method('isNew')->willReturn(FALSE);
+    $entity->method('getChangedTime')->willReturn(1_699_999_100);
+    $entity->method('get')->willReturnCallback(static function (string $property) use (&$values): mixed {
+      return $values[$property] ?? NULL;
+    });
+    $entity->method('set')->willReturnCallback(static function (string $property, mixed $value) use (&$values, $entity): ConfigEntityInterface {
+      $values[$property] = $value;
+      return $entity;
+    });
+
+    self::assertFalse($manager->hasConflict($entity, ['checksum' => 'different']));
+  }
+
+  /**
+   * @covers ::hasConflict
+   */
+  public function testHasConflictReportsMismatchWithinWindowAfterLocalEdit(): void {
+    $provider = $this->createMock(ConflictWindowProviderInterface::class);
+    $provider->method('getConflictWindowSeconds')->willReturn(300);
+
+    $time = $this->createMock(TimeInterface::class);
+    $time->method('getRequestTime')->willReturn(1_700_000_000);
+
+    $registry = new ConfigEntityProtectionRegistry([
+      new ConfigEntityProtectionDefinition(self::ENTITY_TYPE_ID),
+    ]);
+    $manager = new EntityProtectionManager(
+      $this->createMock(LoggerInterface::class),
+      $registry,
+      $time,
+      $provider,
+    );
+
+    $entity = $this->getMockBuilder(ConfigEntityInterface::class)
+      ->addMethods(['getChangedTime'])
+      ->onlyMethods(['getEntityTypeId', 'id', 'isNew', 'get', 'set'])
+      ->getMockForAbstractClass();
+    $values = [
+      'id' => 'test_definition',
+      'checksum' => 'stored',
+      'source_tracking' => json_encode([
+        'import_timestamp' => 1_699_999_000,
+        'tracked_at' => 1_699_999_000,
+      ], JSON_THROW_ON_ERROR),
+    ];
+    $entity->method('getEntityTypeId')->willReturn(self::ENTITY_TYPE_ID);
+    $entity->method('id')->willReturn('test_definition');
+    $entity->method('isNew')->willReturn(FALSE);
+    $entity->method('getChangedTime')->willReturn(1_699_999_900);
+    $entity->method('get')->willReturnCallback(static function (string $property) use (&$values): mixed {
+      return $values[$property] ?? NULL;
+    });
+    $entity->method('set')->willReturnCallback(static function (string $property, mixed $value) use (&$values, $entity): ConfigEntityInterface {
+      $values[$property] = $value;
+      return $entity;
+    });
+
     self::assertTrue($manager->hasConflict($entity, ['checksum' => 'different']));
   }
 

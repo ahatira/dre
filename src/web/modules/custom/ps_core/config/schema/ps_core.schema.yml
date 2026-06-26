@@ -11,20 +11,8 @@ ps_core.import_governance.present_in_xml.sync_fields_by_entity:
 
 ps_core.settings:
   type: config_object
-  label: 'Property Search Core settings'
+  label: 'Global settings'
   mapping:
-    cache_default_ttl:
-      type: integer
-      label: 'Default cache TTL (seconds)'
-    enable_audit_logging:
-      type: boolean
-      label: 'Enable audit logging'
-    audit_retention_days:
-      type: integer
-      label: 'Audit retention (days)'
-    conflict_window_seconds:
-      type: integer
-      label: 'Conflict detection window (seconds)'
     urgency_help_enabled:
       type: boolean
       label: 'Enable site-wide urgency help block'

@@ -176,8 +176,8 @@ final class HomepageSectionLibraryTemplateBuilder {
     private readonly BlockManagerInterface $blockManager,
     private readonly UuidInterface $uuid,
     private readonly HomepageBlockDefaultsLoader $defaultsLoader,
-    private readonly NewsListPathResolver $newsListPathResolver,
-    private readonly MarketStudyListPathResolver $marketStudyListPathResolver,
+    private readonly ?NewsListPathResolver $newsListPathResolver,
+    private readonly ?MarketStudyListPathResolver $marketStudyListPathResolver,
     private readonly SearchPathResolverInterface $searchPathResolver,
   ) {}
 
@@ -197,7 +197,7 @@ final class HomepageSectionLibraryTemplateBuilder {
   }
 
   /**
-   * Builds the full 9-section homepage layout (S-D shell §2–§9).
+   * Builds the homepage layout from available section definitions (S-D shell).
    *
    * @return list<\Drupal\layout_builder\Section>
    */
@@ -247,6 +247,11 @@ final class HomepageSectionLibraryTemplateBuilder {
    * @param array<string, mixed>|null $legacyMonolithicConfig
    */
   private function buildSection(array $definition, string $langcode, ?array $legacyMonolithicConfig = NULL): ?Section {
+    $pluginId = (string) ($definition['plugin_id'] ?? '');
+    if ($pluginId === '' || !$this->blockManager->hasDefinition($pluginId)) {
+      return NULL;
+    }
+
     if (empty($definition['shell'])) {
       return $this->buildMonolithicSection($definition, $langcode, $legacyMonolithicConfig);
     }
@@ -262,7 +267,6 @@ final class HomepageSectionLibraryTemplateBuilder {
     ];
 
     $section = new Section($layoutId, $layoutSettings);
-    $pluginId = (string) ($definition['plugin_id'] ?? '');
     $number = (int) ($definition['number'] ?? 0);
     $defaults = $legacyMonolithicConfig ?? $this->defaultsLoader->forPlugin($pluginId, $langcode);
 
@@ -305,8 +309,12 @@ final class HomepageSectionLibraryTemplateBuilder {
    * @param array<string, mixed> $definition
    * @param array<string, mixed>|null $legacyMonolithicConfig
    */
-  private function buildMonolithicSection(array $definition, string $langcode, ?array $legacyMonolithicConfig = NULL): Section {
+  private function buildMonolithicSection(array $definition, string $langcode, ?array $legacyMonolithicConfig = NULL): ?Section {
     $pluginId = (string) ($definition['plugin_id'] ?? '');
+    if ($pluginId === '' || !$this->blockManager->hasDefinition($pluginId)) {
+      return NULL;
+    }
+
     $plugin = $this->blockManager->createInstance($pluginId, []);
     $configuration = $legacyMonolithicConfig ?? $this->defaultsLoader->forPlugin($pluginId, $langcode);
     $configuration += $plugin->defaultConfiguration();
@@ -388,8 +396,8 @@ final class HomepageSectionLibraryTemplateBuilder {
     $urlKey = (string) ($definition['footer_url_key'] ?? 'see_more_url');
     $url = match ($urlKey) {
       'auto_search' => $this->searchPathResolver->getPublicPath($langcode),
-      'auto_news' => $this->newsListPathResolver->getPublicPath($langcode),
-      'auto_studies' => $this->marketStudyListPathResolver->getPublicPath($langcode),
+      'auto_news' => $this->newsListPathResolver?->getPublicPath($langcode) ?? '',
+      'auto_studies' => $this->marketStudyListPathResolver?->getPublicPath($langcode) ?? '',
       default => HomepageBlockConfiguration::string($defaults, 'see_more_url'),
     };
 

@@ -26,8 +26,8 @@ final class HomepageMarketStudyConfigRefresher {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly HomepageBlockDefaultsLoader $defaultsLoader,
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly MarketStudyDefaultItems $marketStudyDefaultItems,
-    private readonly MarketStudyListPathResolver $marketStudyListPathResolver,
+    private readonly ?MarketStudyDefaultItems $marketStudyDefaultItems,
+    private readonly ?MarketStudyListPathResolver $marketStudyListPathResolver,
     private readonly HomepageLayoutPersister $layoutPersister,
   ) {}
 
@@ -35,6 +35,10 @@ final class HomepageMarketStudyConfigRefresher {
    * Applies default market study references to the front page homepage.
    */
   public function refreshFrontPage(): bool {
+    if ($this->marketStudyDefaultItems === NULL || $this->marketStudyListPathResolver === NULL) {
+      return FALSE;
+    }
+
     $node = $this->loadFrontPageNode();
     if (!$node instanceof NodeInterface || !$node->hasField('layout_builder__layout')) {
       return FALSE;

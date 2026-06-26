@@ -54,7 +54,7 @@ services:
       - '@entity_type.manager'
       - '@ps_homepage.block_defaults_loader'
       - '@config.factory'
-      - '@ps_faq.faq_default_items'
+      - '@?ps_faq.faq_default_items'
       - '@ps_homepage.layout_persister'
 
   ps_homepage.market_study_config_refresher:
@@ -63,8 +63,8 @@ services:
       - '@entity_type.manager'
       - '@ps_homepage.block_defaults_loader'
       - '@config.factory'
-      - '@ps_market_study.market_study_default_items'
-      - '@ps_market_study.market_study_list_path_resolver'
+      - '@?ps_market_study.market_study_default_items'
+      - '@?ps_market_study.market_study_list_path_resolver'
       - '@ps_homepage.layout_persister'
 
   ps_homepage.services_config_refresher:
@@ -152,8 +152,8 @@ services:
       - '@plugin.manager.block'
       - '@uuid'
       - '@ps_homepage.block_defaults_loader'
-      - '@ps_news.news_list_path_resolver'
-      - '@ps_market_study.market_study_list_path_resolver'
+      - '@?ps_news.news_list_path_resolver'
+      - '@?ps_market_study.market_study_list_path_resolver'
       - '@ps_search.search_path_resolver'
 
   ps_homepage.shell_installer:

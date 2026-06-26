@@ -34,8 +34,8 @@ ps_core.config:
   weight: 10
 
 ps_core.settings_form:
-  title: 'Core settings'
-  description: 'Parametres transverses ps_core'
+  title: 'Global settings'
+  description: 'Cross-cutting site and platform settings'
   route_name: ps_core.settings_form
   parent: ps_core.config
   weight: 0

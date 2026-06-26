@@ -3,9 +3,10 @@ services:
     parent: logger.channel_base
     arguments: ['ps_core']
 
-  ps_core.audit_logger:
-    class: Drupal\ps_core\Service\AuditLogger
-    arguments: ['@logger.channel.ps_core']
+  ps_core.conflict_window_provider:
+    class: Drupal\ps_core\Service\NullConflictWindowProvider
+
+  Drupal\ps_core\Service\ConflictWindowProviderInterface: '@ps_core.conflict_window_provider'
 
   ps_core.field_mapper:
     class: Drupal\ps_core\Service\FieldMapper
@@ -13,10 +14,6 @@ services:
   ps_core.config_resolver:
     class: Drupal\ps_core\Service\ConfigResolver
     arguments: ['@config.factory']
-
-  ps_core.conflict_detector:
-    class: Drupal\ps_core\Service\ConflictDetector
-    arguments: ['@ps_core.audit_logger']
 
   ps_core.config_entity_protection_registry:
     class: Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionRegistry
@@ -28,6 +25,7 @@ services:
       - '@logger.channel.ps_core'
       - '@ps_core.config_entity_protection_registry'
       - '@datetime.time'
+      - '@ps_core.conflict_window_provider'
 
   Drupal\ps_core\Service\EntityProtectionManagerInterface: '@ps_core.entity_protection_manager'
 
@@ -133,6 +131,8 @@ services:
 
   Drupal\ps_core\Hook\ThemeHooks:
     class: Drupal\ps_core\Hook\ThemeHooks
+
+  Drupal\ps_core\Hook\PsCoreAdminHooks: {}
 
   ps_core.anonymous_csrf_session_subscriber:
     class: Drupal\ps_core\EventSubscriber\AnonymousCsrfSessionSubscriber

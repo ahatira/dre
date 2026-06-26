@@ -412,3 +412,42 @@ msgstr "Import de lignes CRM"
 
 msgid "Control how CRM/XML imports interact with manually curated @entity. Global CRM lock strategy defaults are configured in the @link."
 msgstr "Contrôler comment les imports CRM/XML interagissent avec les @entity saisis manuellement. Les valeurs par défaut de stratégie de verrouillage CRM globale se configurent dans @link."
+
+msgid "Global settings"
+msgstr "Paramètres globaux"
+
+msgid "Configure site-wide contact details shown in offcanvas forms, and optional platform service defaults used by ps_core."
+msgstr "Configurer les coordonnées affichées dans les formulaires offcanvas et les valeurs par défaut des services plateforme ps_core."
+
+msgid "This site is multilingual. Edit translatable wording here in the default language (@lang). Use the Translate tab for other enabled languages."
+msgstr "Ce site est multilingue. Modifiez les libellés traduisibles ici dans la langue par défaut (@lang). Utilisez l'onglet Traduire pour les autres langues activées."
+
+msgid "Site contact"
+msgstr "Contact site"
+
+msgid "Phone and opening hours shown in offcanvas forms (search alert, contact, share, etc.)."
+msgstr "Téléphone et horaires affichés dans les formulaires offcanvas (alerte recherche, contact, partage, etc.)."
+
+msgid "Platform services"
+msgstr "Services plateforme"
+
+msgid "Infrastructure defaults for ps_core services. Audit logging is applied immediately; cache TTL, retention and conflict window are reserved for upcoming automation."
+msgstr "Valeurs par défaut d'infrastructure pour les services ps_core. La journalisation d'audit est appliquée immédiatement ; TTL cache, rétention et fenêtre de conflit sont réservés à une automatisation à venir."
+
+msgid "Exposed via ps_core.settings for cache consumers. Not applied site-wide yet."
+msgstr "Exposé via ps_core.settings pour les consommateurs de cache. Pas encore appliqué à l'échelle du site."
+
+msgid "When checked, ps_core audit events are written to the ps_core log channel."
+msgstr "Si coché, les événements d'audit ps_core sont écrits dans le canal de log ps_core."
+
+msgid "Reserved for automated audit log pruning."
+msgstr "Réservé à la purge automatisée des journaux d'audit."
+
+msgid "Reserved for timestamp-based conflict detection in import pipelines."
+msgstr "Réservé à la détection de conflits par horodatage dans les pipelines d'import."
+
+msgid "Site contact details and platform service defaults."
+msgstr "Coordonnées site et valeurs par défaut des services plateforme."
+
+msgid "Cross-cutting site and platform settings"
+msgstr "Paramètres transverses site et plateforme"

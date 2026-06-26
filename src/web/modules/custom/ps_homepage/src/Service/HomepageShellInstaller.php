@@ -172,7 +172,7 @@ final class HomepageShellInstaller {
   }
 
   /**
-   * Applies the default 9-section Layout Builder layout.
+   * Applies the default homepage Layout Builder layout.
    */
   private function applyLayout(NodeInterface $node): void {
     if (!$node->hasField('layout_builder__layout')) {
