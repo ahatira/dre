@@ -9,8 +9,16 @@ icon_picker:
     - core/once
     - ui_icons_picker/picker
 
+admin_flowchart:
+  version: 1.0.0
+  css:
+    theme:
+      css/admin-flowchart.css: {}
+
 governance_admin_overview:
   version: 1.0.0
   css:
     theme:
       css/governance-admin-overview.css: {}
+  dependencies:
+    - ps_core/admin_flowchart

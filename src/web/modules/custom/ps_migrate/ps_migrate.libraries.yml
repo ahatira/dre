@@ -17,3 +17,5 @@ import_admin_overview:
     theme:
       css/import-runs-admin.css: {}
       css/import-admin-overview.css: {}
+  dependencies:
+    - ps_core/admin_flowchart

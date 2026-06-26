@@ -10,6 +10,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\ps_core\Service\AdminFlowchartBuilder;
 use Drupal\ps_migrate\Entity\ImportRunInterface;
 
 /**
@@ -45,6 +46,7 @@ final class ImportPipelineAdminSummary {
     private readonly ImportPipelineLockStrategy $lockStrategy,
     private readonly ImportPipeline $importPipeline,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly AdminFlowchartBuilder $flowchartBuilder,
   ) {}
 
   /**
@@ -206,7 +208,7 @@ final class ImportPipelineAdminSummary {
     $postRunSolr = (bool) $config->get('post_run_index_solr');
 
     $mainLane = [
-      $this->buildFlowchartNode(
+      $this->flowchartBuilder->buildNode(
         'deposit',
         (string) $this->t('Deposit'),
         (string) $this->t('External CRM (SFTP) or BO upload drops one XML file.'),
@@ -215,8 +217,8 @@ final class ImportPipelineAdminSummary {
     ];
 
     if ($queueEnabled) {
-      $mainLane[] = $this->buildFlowchartConnector(TRUE);
-      $mainLane[] = $this->buildFlowchartNode(
+      $mainLane[] = $this->flowchartBuilder->buildConnector(TRUE);
+      $mainLane[] = $this->flowchartBuilder->buildNode(
         'queue',
         (string) $this->t('Queue'),
         (string) $this->t('Async job per file (Drush queue or cron).'),
@@ -225,37 +227,37 @@ final class ImportPipelineAdminSummary {
       );
     }
 
-    $mainLane[] = $this->buildFlowchartConnector();
-    $mainLane[] = $this->buildFlowchartNode(
+    $mainLane[] = $this->flowchartBuilder->buildConnector();
+    $mainLane[] = $this->flowchartBuilder->buildNode(
       'pickup',
       (string) $this->t('Pickup'),
       $cronEnabled
         ? (string) $this->t('Drush sync, cron polling, or queue worker starts one run.')
         : (string) $this->t('Drush sync or manual run starts one import.'),
     );
-    $mainLane[] = $this->buildFlowchartConnector();
-    $mainLane[] = $this->buildFlowchartNode(
+    $mainLane[] = $this->flowchartBuilder->buildConnector();
+    $mainLane[] = $this->flowchartBuilder->buildNode(
       'processing',
       (string) $this->t('Processing'),
       (string) $this->t('File moved here with its original name while the run is active.'),
       (string) $config->get('paths.processing'),
     );
-    $mainLane[] = $this->buildFlowchartConnector();
-    $mainLane[] = $this->buildFlowchartNode(
+    $mainLane[] = $this->flowchartBuilder->buildConnector();
+    $mainLane[] = $this->flowchartBuilder->buildNode(
       'staging',
       (string) $this->t('Staging'),
       (string) $this->t('Fixed copy for Migrate (same path every run; not the deposit folder).'),
       (string) $config->get('staging_uri'),
     );
-    $mainLane[] = $this->buildFlowchartConnector();
-    $mainLane[] = $this->buildFlowchartNode(
+    $mainLane[] = $this->flowchartBuilder->buildConnector();
+    $mainLane[] = $this->flowchartBuilder->buildNode(
       'migrate',
       (string) $this->t('Migrate'),
       (string) $this->t('Ordered CRM migrations (agents, features, media, offers…).'),
     );
 
     $successBranch = [
-      $this->buildFlowchartNode(
+      $this->flowchartBuilder->buildNode(
         'archive',
         (string) $this->t('Archive'),
         (string) $this->t('Successful run — file kept for audit.'),
@@ -264,8 +266,8 @@ final class ImportPipelineAdminSummary {
       ),
     ];
     if ($postRunSolr) {
-      $successBranch[] = $this->buildFlowchartConnector(TRUE);
-      $successBranch[] = $this->buildFlowchartNode(
+      $successBranch[] = $this->flowchartBuilder->buildConnector(TRUE);
+      $successBranch[] = $this->flowchartBuilder->buildNode(
         'postrun',
         (string) $this->t('Post-run'),
         (string) $this->t('Search index, alerts, import_run stats and snapshot.'),
@@ -279,7 +281,7 @@ final class ImportPipelineAdminSummary {
       $diagramChildren['main_' . $index] = $element;
     }
 
-    $diagramChildren['outcome'] = $this->buildFlowchartFork(
+    $diagramChildren['outcome'] = $this->flowchartBuilder->buildFork(
       (string) $this->t('Outcome'),
       [
         'success' => [
@@ -289,7 +291,7 @@ final class ImportPipelineAdminSummary {
         'failure' => [
           'label' => (string) $this->t('Failure'),
           'lane' => [
-            $this->buildFlowchartNode(
+            $this->flowchartBuilder->buildNode(
               'failed',
               (string) $this->t('Failed'),
               (string) $this->t('Run stopped — file kept for investigation.'),
@@ -301,26 +303,13 @@ final class ImportPipelineAdminSummary {
       ],
     );
 
-    return [
-      '#type' => 'details',
-      '#title' => $this->t('How the import pipeline works'),
-      '#open' => TRUE,
-      '#attributes' => ['class' => ['ps-migrate-import-admin__flow']],
-      'intro' => [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => $this->t('One XML file per run. Processing keeps the original filename; staging is a stable copy read by Migrate.'),
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flow-intro']],
-      ],
-      'diagram' => [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => ['ps-migrate-import-admin__flowchart'],
-          'role' => 'img',
-          'aria-label' => (string) $this->t('Import pipeline flowchart from deposit to archive or failed folder.'),
-        ],
-      ] + $diagramChildren,
-    ];
+    return $this->flowchartBuilder->buildDetailsSection(
+      (string) $this->t('How the import pipeline works'),
+      (string) $this->t('One XML file per run. Processing keeps the original filename; staging is a stable copy read by Migrate.'),
+      $diagramChildren,
+      (string) $this->t('Import pipeline flowchart from deposit to archive or failed folder.'),
+      'ps-migrate-import-admin__flow',
+    );
   }
 
   /**
@@ -329,148 +318,6 @@ final class ImportPipelineAdminSummary {
   public function stagingUriDiffersFromCmiDefault(): bool {
     $configured = trim((string) $this->getPipelineConfig()->get('staging_uri'));
     return $configured !== '' && $configured !== self::DEFAULT_CMI_STAGING_URI;
-  }
-
-  /**
-   * Builds one flowchart node.
-   *
-   * @param array{optional?: bool, variant?: string} $options
-   *   Optional styling flags.
-   *
-   * @return array<string, mixed>
-   *   Flowchart node render array.
-   */
-  private function buildFlowchartNode(
-    string $key,
-    string $title,
-    string $description,
-    ?string $uri = NULL,
-    array $options = [],
-  ): array {
-    $classes = ['ps-migrate-import-admin__flowchart-node'];
-    if (!empty($options['optional'])) {
-      $classes[] = 'ps-migrate-import-admin__flowchart-node--optional';
-    }
-    if (!empty($options['variant'])) {
-      $classes[] = 'ps-migrate-import-admin__flowchart-node--' . $options['variant'];
-    }
-
-    $node = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => $classes,
-        'data-flow-step' => $key,
-      ],
-      'title' => [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' => $title,
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-title']],
-      ],
-      'description' => [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' => $description,
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-description']],
-      ],
-    ];
-
-    if (!empty($options['optional'])) {
-      $node['badge'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'span',
-        '#value' => $this->t('Optional'),
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-badge']],
-      ];
-    }
-
-    if ($uri !== NULL && $uri !== '') {
-      $node['uri'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'code',
-        '#value' => $uri,
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-uri']],
-      ];
-    }
-
-    return $node;
-  }
-
-  /**
-   * Builds a vertical connector between flowchart nodes.
-   *
-   * @return array<string, mixed>
-   *   Connector render array.
-   */
-  private function buildFlowchartConnector(bool $optional = FALSE): array {
-    $classes = ['ps-migrate-import-admin__flowchart-connector'];
-    if ($optional) {
-      $classes[] = 'ps-migrate-import-admin__flowchart-connector--optional';
-    }
-
-    return [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => $classes,
-        'aria-hidden' => 'true',
-      ],
-    ];
-  }
-
-  /**
-   * Builds a fork after Migrate with success and failure branches.
-   *
-   * @param array<string, array{label: string, lane: list<array<string, mixed>>}> $branches
-   *   Branch metadata keyed by branch id.
-   *
-   * @return array<string, mixed>
-   *   Fork render array.
-   */
-  private function buildFlowchartFork(string $title, array $branches): array {
-    $build = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-fork']],
-      'connector' => $this->buildFlowchartConnector(),
-      'hub' => [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' => $title,
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-fork-hub']],
-      ],
-      'branches' => [
-        '#type' => 'container',
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-fork-branches']],
-      ],
-    ];
-
-    foreach ($branches as $branchKey => $branch) {
-      $laneChildren = [];
-      foreach ($branch['lane'] as $index => $element) {
-        $laneChildren['lane_' . $index] = $element;
-      }
-
-      $build['branches'][$branchKey] = [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => [
-            'ps-migrate-import-admin__flowchart-branch',
-            'ps-migrate-import-admin__flowchart-branch--' . $branchKey,
-          ],
-        ],
-        'label' => [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#value' => $branch['label'],
-          '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-branch-label']],
-        ],
-        'lane' => [
-          '#type' => 'container',
-          '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-branch-lane']],
-        ] + $laneChildren,
-      ];
-    }
-
-    return $build;
   }
 
   /**

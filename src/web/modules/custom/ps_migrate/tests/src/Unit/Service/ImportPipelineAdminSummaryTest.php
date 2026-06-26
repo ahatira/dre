@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\ps_migrate\Service\ImportPipeline;
+use Drupal\ps_core\Service\AdminFlowchartBuilder;
 use Drupal\ps_migrate\Service\ImportPipelineAdminSummary;
 use Drupal\ps_migrate\Service\ImportPipelineLock;
 use Drupal\ps_migrate\Service\ImportPipelineLockStrategy;
@@ -72,6 +73,7 @@ final class ImportPipelineAdminSummaryTest extends UnitTestCase {
       $this->createMock(ImportPipelineLockStrategy::class),
       $importPipeline,
       $entityTypeManager,
+      new AdminFlowchartBuilder(),
     );
 
     $build = $summary->buildPipelineFlowRenderArray();
@@ -85,7 +87,7 @@ final class ImportPipelineAdminSummaryTest extends UnitTestCase {
     );
     self::assertSame(
       ImportPipelineAdminSummary::DEFAULT_PATH_INCOMING,
-      $build['diagram']['main_0']['uri']['#value'],
+      $build['diagram']['main_0']['meta']['#value'],
     );
     self::assertArrayHasKey('outcome', $build['diagram']);
 
@@ -95,18 +97,18 @@ final class ImportPipelineAdminSummaryTest extends UnitTestCase {
         continue;
       }
       if (($element['#attributes']['data-flow-step'] ?? '') === 'staging') {
-        $stagingUri = $element['uri']['#value'] ?? NULL;
+        $stagingUri = $element['meta']['#value'] ?? NULL;
         break;
       }
     }
     self::assertSame(ImportPipelineAdminSummary::DEFAULT_STAGING_URI, $stagingUri);
     self::assertSame(
       ImportPipelineAdminSummary::DEFAULT_PATH_ARCHIVE,
-      $build['diagram']['outcome']['branches']['success']['lane']['lane_0']['uri']['#value'],
+      $build['diagram']['outcome']['branches']['success']['lane']['lane_0']['meta']['#value'],
     );
     self::assertSame(
       ImportPipelineAdminSummary::DEFAULT_PATH_FAILED,
-      $build['diagram']['outcome']['branches']['failure']['lane']['lane_0']['uri']['#value'],
+      $build['diagram']['outcome']['branches']['failure']['lane']['lane_0']['meta']['#value'],
     );
   }
 

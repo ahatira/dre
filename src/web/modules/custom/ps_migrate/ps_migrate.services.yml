@@ -126,6 +126,7 @@ services:
       - '@ps_migrate.import_pipeline_lock_strategy'
       - '@ps_migrate.import_pipeline'
       - '@entity_type.manager'
+      - '@ps_core.admin_flowchart_builder'
 
   ps_migrate.snapshot_migration_post_import_subscriber:
     class: Drupal\ps_migrate\EventSubscriber\SnapshotMigrationPostImportSubscriber

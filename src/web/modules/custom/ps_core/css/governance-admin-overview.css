@@ -3,6 +3,18 @@
   max-width: 72rem;
 }
 
+.ps-governance-admin-overview__flow {
+  max-width: 72rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-governance-admin-overview__flow-intro {
+  margin: 0 0 1rem;
+  color: #444;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
 .ps-governance-admin-overview__group {
   margin-block-end: 1rem;
   max-width: 72rem;

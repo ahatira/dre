@@ -8,6 +8,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\ps_core\Service\GovernanceAdminFlowBuilder;
 use Drupal\ps_core\Service\ImportGovernanceRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,6 +19,7 @@ final class GovernanceAdminOverviewController extends ControllerBase {
 
   public function __construct(
     private readonly ImportGovernanceRegistry $governanceRegistry,
+    private readonly GovernanceAdminFlowBuilder $flowBuilder,
     ModuleHandlerInterface $moduleHandler,
   ) {
     $this->moduleHandler = $moduleHandler;
@@ -29,6 +31,7 @@ final class GovernanceAdminOverviewController extends ControllerBase {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('ps_core.import_governance_registry'),
+      $container->get('ps_core.governance_admin_flow_builder'),
       $container->get('module_handler'),
     );
   }
@@ -56,6 +59,8 @@ final class GovernanceAdminOverviewController extends ControllerBase {
         '#value' => $this->t('Central entry point for import protection and domain-specific governance rules. Global CRM defaults apply unless a domain overrides them.'),
       ],
     ];
+
+    $build['flow'] = $this->flowBuilder->buildFlowRenderArray();
 
     foreach ($this->configurationGroups() as $group) {
       $links = $this->buildGroupLinks($group['items']);
