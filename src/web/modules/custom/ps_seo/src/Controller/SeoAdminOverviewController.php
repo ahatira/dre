@@ -66,7 +66,9 @@ final class SeoAdminOverviewController extends ControllerBase {
       ],
     ];
 
-    $this->addMultilingualHelpMessage();
+    if ($multilingualHelp = $this->buildMultilingualHelpElement()) {
+      $build['multilingual_help'] = $multilingualHelp;
+    }
 
     foreach ($this->configurationGroups() as $group) {
       $links = $this->buildGroupLinks($group['items']);
@@ -102,11 +104,14 @@ final class SeoAdminOverviewController extends ControllerBase {
   }
 
   /**
-   * Adds an info message when additional content languages are enabled.
+   * Builds a persistent multilingual help notice for the overview page.
+   *
+   * @return array<string, mixed>|null
+   *   Render array, or NULL when not applicable.
    */
-  private function addMultilingualHelpMessage(): void {
+  private function buildMultilingualHelpElement(): ?array {
     if (!$this->moduleHandler->moduleExists('config_translation')) {
-      return;
+      return NULL;
     }
 
     $default = $this->languageManager->getDefaultLanguage()->getId();
@@ -116,22 +121,34 @@ final class SeoAdminOverviewController extends ControllerBase {
       ARRAY_FILTER_USE_KEY,
     );
     if ($targets === []) {
-      return;
+      return NULL;
     }
 
-    $searchLink = '';
+    $content = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['messages', 'messages--info', 'ps-seo-admin-overview__multilingual-help']],
+    ];
+
     if ($this->moduleHandler->moduleExists('ps_search') && Url::fromRoute('ps_search.seo_url_mappings_form')->access()) {
-      $searchLink = ' ' . $this->t('Search page URL slugs are managed under @search.', [
-        '@search' => Link::createFromRoute($this->t('Configuration → Search → SEO URLs'), 'ps_search.seo_url_mappings_form')->toString(),
-      ]);
+      $content['message'] = [
+        '#type' => 'inline_template',
+        '#template' => '{{ text }} {{ link }}.',
+        '#context' => [
+          'text' => $this->t('This site is multilingual. Edit Metatag defaults in the default site language on the Metatags tab. Per-language overrides are available on each Metatag default edit form when Configuration translation is enabled. Search page URL slugs are managed under'),
+          'link' => Link::createFromRoute(
+            $this->t('Configuration → Search → SEO URLs'),
+            'ps_search.seo_url_mappings_form',
+          )->toRenderable(),
+        ],
+      ];
+    }
+    else {
+      $content['message'] = [
+        '#markup' => $this->t('This site is multilingual. Edit Metatag defaults in the default site language on the Metatags tab. Per-language overrides are available on each Metatag default edit form when Configuration translation is enabled.'),
+      ];
     }
 
-    $this->messenger()->addMessage(
-      $this->t('This site is multilingual. Edit Metatag defaults in the default site language on the Metatags tab. Per-language overrides are available on each Metatag default edit form when Configuration translation is enabled.@search', [
-        '@search' => $searchLink,
-      ]),
-      'info',
-    );
+    return $content;
   }
 
   /**
