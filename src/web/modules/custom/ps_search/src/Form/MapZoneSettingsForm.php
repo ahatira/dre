@@ -32,6 +32,10 @@ final class MapZoneSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.map_zone_settings');
 
+    $form['intro'] = [
+      '#markup' => '<p>' . $this->t('Default search zone (center, radius, marker limits) and PS-owned Google Map shell on the search page. The Google Maps JavaScript API key is read from Geofield Map settings (/admin/config/system/geofield-map).') . '</p>',
+    ];
+
     $form['default_center_lat'] = [
       '#type' => 'number',
       '#title' => $this->t('Default map center latitude'),

@@ -32,6 +32,10 @@ final class SeoRedirectsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.seo_redirects');
 
+    $form['intro'] = [
+      '#markup' => '<p>' . $this->t('One-off 301 redirects for legacy search URLs during platform migration. These are separate from contrib Redirect module entries and are not translatable.') . '</p>',
+    ];
+
     $form['enabled'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable SEO migration redirects'),

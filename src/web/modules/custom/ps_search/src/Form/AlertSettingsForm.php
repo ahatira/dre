@@ -6,6 +6,7 @@ namespace Drupal\ps_search\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\ps_search\Entity\SearchAlertInterface;
 
 /**
@@ -32,6 +33,16 @@ final class AlertSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.alert_settings');
+
+    $alertsLink = Link::createFromRoute($this->t('Content → Search alerts'), 'entity.search_alert.collection')->toString();
+    $globalLink = Link::createFromRoute($this->t('Global settings'), 'ps_core.settings_form')->toString();
+
+    $form['intro'] = [
+      '#markup' => '<p>' . $this->t('Cron digest emails for property search alert subscriptions. Browse stored subscriptions under @alerts. The urgency contact block in the offcanvas form is configured under @global.', [
+        '@alerts' => $alertsLink,
+        '@global' => $globalLink,
+      ]) . '</p>',
+    ];
 
     $form['enabled'] = [
       '#type' => 'checkbox',

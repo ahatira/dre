@@ -601,6 +601,8 @@ services:
       - '@config.factory'
       - '@logger.factory'
 
+  Drupal\ps_search\Hook\SearchAdminHooks: {}
+
   ps_search.search_shortcuts_builder:
     class: Drupal\ps_search\Service\SearchShortcutsBuilder
     arguments:

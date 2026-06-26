@@ -32,6 +32,10 @@ final class FeatureFilterSyncSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.feature_filter_sync');
 
+    $form['intro'] = [
+      '#markup' => '<p>' . $this->t('Keeps Solr fields and exposed filters in sync with the ps_feature catalogue. After changing definitions or sync options, run <code>drush ps:search:features:sync-index</code>. Filter labels and visibility are managed under Configuration → Context.') . '</p>',
+    ];
+
     $form['sync_view_filters'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Sync per-feature filters into the search view'),

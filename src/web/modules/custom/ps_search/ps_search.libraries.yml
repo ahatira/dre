@@ -8,6 +8,12 @@ filter.htmx:
     - core/drupalSettings
     - core/once
 
+admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/search-admin-overview.css: {}
+
 search-context:
   version: 1.0.1
   js:

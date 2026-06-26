@@ -23,6 +23,23 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.seo_url_mappings');
 
+    $form['intro'] = [
+      '#markup' => '<p>'
+        . $this->t('Configure the search base slug and the operation / asset segments that build SEO filter paths at the site root (they are not nested under the base slug).')
+        . '</p><p>'
+        . $this->t('Examples with default EN slugs: base page @base; filtered paths @op, @op_asset, @op_asset_locality, @asset, @asset_locality.', [
+          '@base' => '/find-property',
+          '@op' => '/a-louer',
+          '@op_asset' => '/a-louer/bureaux',
+          '@op_asset_locality' => '/a-louer/bureaux/paris',
+          '@asset' => '/bureaux',
+          '@asset_locality' => '/bureaux/paris/',
+        ])
+        . '</p><p>'
+        . $this->t('Translatable slugs per language are edited on the Translate tab when additional languages are enabled.')
+        . '</p>',
+    ];
+
     $form['search_path'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Search page URL slug'),

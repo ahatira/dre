@@ -36,6 +36,10 @@ final class ApiSettingsForm extends ConfigFormBase {
     $rate = $this->config('ps_search.api_rate_limit_settings');
     $cache = $this->config('ps_search.api_cache_settings');
 
+    $form['intro'] = [
+      '#markup' => '<p>' . $this->t('Rate limits and server-side cache TTLs for public JSON and HTMX endpoints under /api/ps/* (markers, isochrone, location suggest, count and filter fragments).') . '</p>',
+    ];
+
     $form['rate_limit'] = [
       '#type' => 'details',
       '#title' => $this->t('Rate limiting'),

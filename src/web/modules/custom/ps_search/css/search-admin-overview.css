@@ -1,0 +1,17 @@
+.ps-search-admin-overview__intro {
+  margin-block: 0 1.25rem;
+  max-width: 72rem;
+}
+
+.ps-search-admin-overview__group {
+  margin-block-end: 1rem;
+  max-width: 72rem;
+}
+
+.ps-search-admin-overview__group-links .admin-item {
+  margin-block-end: 0.25rem;
+}
+
+.ps-search-admin-overview__footer {
+  margin-block-start: 1.5rem;
+}

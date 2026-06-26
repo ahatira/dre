@@ -1,10 +1,21 @@
-ps_search.admin_overview:
+ps_search.admin:
   path: '/admin/ps/config/search'
+  defaults:
+    _controller: '\Drupal\ps_search\Controller\SearchAdminOverviewController::redirectToOverview'
+  requirements:
+    _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
+
+ps_search.admin_overview:
+  path: '/admin/ps/config/search/overview'
   defaults:
     _controller: '\Drupal\ps_search\Controller\SearchAdminOverviewController::overview'
     _title: 'Search'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.seo_url_mappings_form:
   path: '/admin/ps/config/search/seo-urls'
@@ -13,6 +24,8 @@ ps_search.seo_url_mappings_form:
     _title: 'SEO URL mappings'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.seo_redirects_form:
   path: '/admin/ps/config/search/seo-redirects'
@@ -21,6 +34,8 @@ ps_search.seo_redirects_form:
     _title: 'SEO migration redirects'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.map_zone_settings_form:
   path: '/admin/ps/config/search/map-zone'
@@ -29,6 +44,8 @@ ps_search.map_zone_settings_form:
     _title: 'Map zone settings'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.api_settings_form:
   path: '/admin/ps/config/search/api-limits'
@@ -37,6 +54,8 @@ ps_search.api_settings_form:
     _title: 'API limits and cache'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.feature_filter_sync_settings:
   path: '/admin/ps/config/search/feature-filters'
@@ -45,6 +64,8 @@ ps_search.feature_filter_sync_settings:
     _title: 'Feature search filters'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.alert_settings_form:
   path: '/admin/ps/config/search/alerts'
@@ -53,6 +74,8 @@ ps_search.alert_settings_form:
     _title: 'Search alerts'
   requirements:
     _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
 
 ps_search.api.search_alert_offcanvas:
   path: '/api/ps/search-alert/offcanvas'
