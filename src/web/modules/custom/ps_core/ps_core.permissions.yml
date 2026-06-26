@@ -18,6 +18,10 @@ access ps_core import section:
   title: 'Access Property Search import section'
   description: 'Access /admin/ps/import and related CRM import section links.'
 
+access ps_core health section:
+  title: 'Access Property Search health section'
+  description: 'Access /admin/ps/health platform diagnostics dashboard.'
+
 administer ps_core:
   title: 'Administer Property Search core settings'
   description: 'Manage Property Search core settings and diagnostics.'

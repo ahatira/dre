@@ -61,6 +61,25 @@ services:
   ps_core.admin_flowchart_builder:
     class: Drupal\ps_core\Service\AdminFlowchartBuilder
 
+  ps_core.health_check_manager:
+    class: Drupal\ps_core\Service\HealthCheckManager
+    arguments:
+      - '@container.namespaces'
+      - '@cache.discovery'
+      - '@module_handler'
+
+  ps_core.health_check_collector:
+    class: Drupal\ps_core\Service\HealthCheckCollector
+    arguments:
+      - '@ps_core.health_check_manager'
+      - '@cache.default'
+
+  ps_core.health_check_overview_builder:
+    class: Drupal\ps_core\Service\HealthCheckOverviewBuilder
+    arguments:
+      - '@ps_core.health_check_collector'
+      - '%site.path%'
+
   ps_core.governance_admin_flow_builder:
     class: Drupal\ps_core\Service\GovernanceAdminFlowBuilder
     arguments:

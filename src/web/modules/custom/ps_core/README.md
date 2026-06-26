@@ -14,10 +14,10 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 
 ## Fonctionnalités
 
-- Hub admin `/admin/ps` avec 5 sections hub : Contenu, Structure, CRM import, Configuration, Health
-- 16 permissions granulaires dont 5 sectorielles (hub, content, structure, import, config)
+- Hub admin `/admin/ps` avec 5 sections hub : Contenu, Structure, CRM import, Configuration, Platform health
+- 17 permissions granulaires dont 6 sectorielles (hub, content, structure, import, config, health)
 - Formulaire de paramètres globaux `/admin/ps/config/settings` (contact site)
-- Page de santé `/admin/ps/health`
+- Dashboard **Platform health** `/admin/ps/health` (checks plugin, cache 60 s)
 - Services utilitaires réutilisables par les modules PS
 - Filtrage RBAC des liens de section par permission
 
@@ -33,12 +33,16 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `ps_core.field_mapper` | `FieldMapper` | Normalisation de valeurs de champ (string, decimal, boolean) |
 | `ps_core.config_resolver` | `ConfigResolver` | Accès à la config Drupal avec valeurs par défaut |
 | `ps_core.permission_manager` | `PermissionManager` | Vérification de permissions et filtrage de routes |
+| `ps_core.health_check_manager` | `HealthCheckManager` | Discovery plugins HealthCheck |
+| `ps_core.health_check_collector` | `HealthCheckCollector` | Exécution checks + cache 60 s |
+| `ps_core.health_check_overview_builder` | `HealthCheckOverviewBuilder` | Render array dashboard Platform health |
 
 ### Controllers
 
 | Classe | Routes desservies | Rôle |
 |---|---|---|
-| `PsCoreController` | `/admin/ps/content`, `/admin/ps/structure`, `/admin/ps/config`, `/admin/ps/health` | Pages de section avec filtrage RBAC des liens |
+| `HealthAdminOverviewController` | `/admin/ps/health` | Dashboard Platform health (cartes par domaine) |
+| `GovernanceAdminOverviewController` | `/admin/ps/config/governance` | Hub gouvernance import |
 
 ### Forms
 
@@ -56,7 +60,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `ps_core.config` | `/admin/ps/config` | `access ps_core config section` |
 | `ps_migrate.admin_overview` | `/admin/ps/import` | `access ps_core import section` |
 | `ps_core.settings_form` | `/admin/ps/config/settings` | `administer ps_core` |
-| `ps_core.health` | `/admin/ps/health` | `administer ps_core` |
+| `ps_core.health` | `/admin/ps/health` | `access ps_core health section` |
 
 > **Note architecture** : `/admin/ps`, `/admin/ps/content`, `/admin/ps/structure`, `/admin/ps/config` et `/admin/ps/import` utilisent `SystemController::systemAdminMenuBlockPage` pour un rendu 100 % natif Drupal. La section CRM import est déclarée par `ps_migrate` sous le hub `ps_core.hub`.
 
@@ -69,7 +73,8 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `access ps_core structure section` | Accès à la section Structure (`/admin/ps/structure`) |
 | `access ps_core config section` | Accès à la section Configuration (`/admin/ps/config`) |
 | `access ps_core import section` | Accès à la section CRM import (`/admin/ps/import`) |
-| `administer ps_core` | Administration complète de ps_core (settings, health) |
+| `access ps_core health section` | Accès au dashboard Platform health (`/admin/ps/health`) — `site_admin` uniquement via RBAC |
+| `administer ps_core` | Administration complète de ps_core (settings) |
 | `manage ps_dictionary` | Gestion du module dictionnaire |
 | `manage ps_offer` | Gestion du module offre |
 | `manage ps_feature` | Gestion du module feature |

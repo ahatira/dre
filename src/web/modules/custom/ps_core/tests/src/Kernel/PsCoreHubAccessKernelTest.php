@@ -106,6 +106,21 @@ final class PsCoreHubAccessKernelTest extends KernelTestBase {
     self::assertTrue($adminRole->hasPermission('access ps_core structure section'));
     self::assertTrue($adminRole->hasPermission('access ps_core config section'));
     self::assertTrue($adminRole->hasPermission('administer ps_core'));
+    self::assertFalse($adminRole->hasPermission('access ps_core health section'));
+  }
+
+  public function testHealthRouteUsesDedicatedControllerAndPermission(): void {
+    /** @var \Drupal\Core\Routing\RouteProviderInterface $routeProvider */
+    $routeProvider = $this->container->get('router.route_provider');
+
+    self::assertSame(
+      '\\Drupal\\ps_core\\Controller\\HealthAdminOverviewController::overview',
+      $routeProvider->getRouteByName('ps_core.health')->getDefault('_controller')
+    );
+    self::assertSame(
+      'access ps_core health section',
+      $routeProvider->getRouteByName('ps_core.health')->getRequirement('_permission')
+    );
   }
 
 }

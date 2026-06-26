@@ -1,0 +1,135 @@
+{#
+  Platform health dashboard — grouped diagnostic cards with status KPIs.
+#}
+<div class="ps-health-dashboard">
+  <header class="ps-health-dashboard__hero ps-health-dashboard__hero--{{ overall_status }}">
+    <div class="ps-health-dashboard__hero-main">
+      <div class="ps-health-dashboard__hero-icon" aria-hidden="true">
+        {% include '@ps_core/health-icons.html.twig' with { icon: overall_status } only %}
+      </div>
+      <div class="ps-health-dashboard__hero-text">
+        <p class="ps-health-dashboard__eyebrow">{{ 'Live status'|t }}</p>
+        <p class="ps-health-dashboard__headline">{{ overall_label }}</p>
+        <p class="ps-health-dashboard__lead">{{ lead }}</p>
+        <p class="ps-health-dashboard__refresh">{{ refresh_hint }}</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="ps-health-dashboard__kpis" role="list">
+    {% for kpi in summary_cards %}
+      <article class="ps-health-dashboard__kpi ps-health-dashboard__kpi--{{ kpi.status }}{% if kpi.count == 0 %} ps-health-dashboard__kpi--empty{% endif %}" role="listitem">
+        <div class="ps-health-dashboard__kpi-icon" aria-hidden="true">
+          {% include '@ps_core/health-icons.html.twig' with { icon: kpi.status } only %}
+        </div>
+        <div class="ps-health-dashboard__kpi-body">
+          <span class="ps-health-dashboard__kpi-value">{{ kpi.count }}</span>
+          <span class="ps-health-dashboard__kpi-label">{{ kpi.label }}</span>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  {% if groups is empty %}
+    <p class="ps-health-dashboard__empty">{{ 'No health checks are registered.'|t }}</p>
+  {% endif %}
+
+  {% for group in groups %}
+    <section class="ps-health-dashboard__section" aria-labelledby="ps-health-group-{{ group.key }}">
+      <div class="ps-health-dashboard__section-panel">
+        <header class="ps-health-dashboard__section-header">
+          <span class="ps-health-dashboard__section-icon" aria-hidden="true">
+            {% include '@ps_core/health-icons.html.twig' with { icon: group.icon } only %}
+          </span>
+          <div class="ps-health-dashboard__section-heading">
+            <h2 id="ps-health-group-{{ group.key }}" class="ps-health-dashboard__section-title">{{ group.label }}</h2>
+            {% if group.description %}
+              <p class="ps-health-dashboard__section-description">{{ group.description }}</p>
+            {% endif %}
+          </div>
+          <span class="ps-health-dashboard__section-count">{{ group.check_count_label }}</span>
+        </header>
+
+        <div class="ps-health-dashboard__body{% if group.checks|length > 1 %} ps-health-dashboard__body--grid{% endif %}">
+          {% for check in group.checks %}
+            {% if group.checks|length == 1 %}
+              <article class="ps-health-dashboard__check ps-health-dashboard__check--{{ check.status }}" data-health-check="{{ check.id }}">
+                <div class="ps-health-dashboard__check-top">
+                  <span class="ps-health-dashboard__check-icon" aria-hidden="true">
+                    {% include '@ps_core/health-icons.html.twig' with { icon: check.icon } only %}
+                  </span>
+                  <span class="ps-health-dashboard__badge ps-health-dashboard__badge--{{ check.status }}">{{ check.status_label }}</span>
+                </div>
+                {% if check.show_title %}
+                  <h3 class="ps-health-dashboard__check-title">{{ check.label }}</h3>
+                {% endif %}
+                <p class="ps-health-dashboard__check-message">{{ check.message }}</p>
+                {% if check.detail %}
+                  <p class="ps-health-dashboard__check-detail">{{ check.detail }}</p>
+                {% endif %}
+                {% if check.links is not empty or check.commands is not empty %}
+                  <footer class="ps-health-dashboard__check-footer">
+                    {% if check.links is not empty %}
+                      <ul class="ps-health-dashboard__card-links">
+                        {% for link in check.links %}
+                          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                    {% if check.commands is not empty %}
+                      <details class="ps-health-dashboard__commands">
+                        <summary>{{ 'Drush / CLI'|t }}</summary>
+                        <ul class="ps-health-dashboard__commands-list">
+                          {% for command in check.commands %}
+                            <li><code>{{ command }}</code></li>
+                          {% endfor %}
+                        </ul>
+                      </details>
+                    {% endif %}
+                  </footer>
+                {% endif %}
+              </article>
+            {% else %}
+              <article class="ps-health-dashboard__card ps-health-dashboard__card--{{ check.status }}" data-health-check="{{ check.id }}">
+                <div class="ps-health-dashboard__card-top">
+                  <span class="ps-health-dashboard__card-icon" aria-hidden="true">
+                    {% include '@ps_core/health-icons.html.twig' with { icon: check.icon } only %}
+                  </span>
+                  <span class="ps-health-dashboard__badge ps-health-dashboard__badge--{{ check.status }}">{{ check.status_label }}</span>
+                </div>
+                {% if check.show_title %}
+                  <h3 class="ps-health-dashboard__card-title">{{ check.label }}</h3>
+                {% endif %}
+                <p class="ps-health-dashboard__card-message">{{ check.message }}</p>
+                {% if check.detail %}
+                  <p class="ps-health-dashboard__card-detail">{{ check.detail }}</p>
+                {% endif %}
+                {% if check.links is not empty or check.commands is not empty %}
+                  <footer class="ps-health-dashboard__card-footer">
+                    {% if check.links is not empty %}
+                      <ul class="ps-health-dashboard__card-links">
+                        {% for link in check.links %}
+                          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                    {% if check.commands is not empty %}
+                      <details class="ps-health-dashboard__commands">
+                        <summary>{{ 'Drush / CLI'|t }}</summary>
+                        <ul class="ps-health-dashboard__commands-list">
+                          {% for command in check.commands %}
+                            <li><code>{{ command }}</code></li>
+                          {% endfor %}
+                        </ul>
+                      </details>
+                    {% endif %}
+                  </footer>
+                {% endif %}
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endfor %}
+</div>

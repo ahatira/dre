@@ -48,8 +48,8 @@ ps_core.governance:
   weight: 5
 
 ps_core.health:
-  title: 'Health'
-  description: 'Property Search health checks'
+  title: 'Platform health'
+  description: 'Runtime diagnostics for import, search, cache and platform dependencies'
   route_name: ps_core.health
-  parent: ps_core.content
-  weight: 10
+  parent: ps_core.hub
+  weight: 15

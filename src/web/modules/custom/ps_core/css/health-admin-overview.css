@@ -1,0 +1,583 @@
+/* Platform health dashboard — Gin-compatible admin overview. */
+
+.ps-health-dashboard {
+  --ps-health-ok: #2e7d32;
+  --ps-health-ok-bg: #e8f5e9;
+  --ps-health-warning: #ed6c02;
+  --ps-health-warning-bg: #fff3e0;
+  --ps-health-fail: #c62828;
+  --ps-health-fail-bg: #ffebee;
+  --ps-health-info: #546e7a;
+  --ps-health-info-bg: #eceff1;
+  --ps-health-ink: #1c2d37;
+  --ps-health-muted: #5f6b76;
+  --ps-health-border: #d8dee4;
+  --ps-health-surface: #fff;
+  max-width: 80rem;
+  margin-bottom: 2rem;
+}
+
+.ps-health-dashboard svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Hero banner */
+.ps-health-dashboard__hero {
+  margin-bottom: 1.25rem;
+  padding: 1.375rem 1.5rem;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.ps-health-dashboard__hero--healthy {
+  background: linear-gradient(135deg, #2e7d32 0%, #43a047 55%, #66bb6a 100%);
+}
+
+.ps-health-dashboard__hero--degraded {
+  background: linear-gradient(135deg, #e65100 0%, #ed6c02 55%, #ffb74d 100%);
+}
+
+.ps-health-dashboard__hero--critical {
+  background: linear-gradient(135deg, #b71c1c 0%, #c62828 55%, #ef5350 100%);
+}
+
+.ps-health-dashboard__hero-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.ps-health-dashboard__hero-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 18%);
+}
+
+.ps-health-dashboard__hero-icon svg {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+
+.ps-health-dashboard__hero-text {
+  min-width: 0;
+}
+
+.ps-health-dashboard__eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.ps-health-dashboard__headline {
+  margin: 0 0 0.375rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ps-health-dashboard__lead {
+  margin: 0 0 0.625rem;
+  max-width: 42rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.ps-health-dashboard__refresh {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  opacity: 0.88;
+}
+
+/* KPI row */
+.ps-health-dashboard__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-health-dashboard__kpi {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4.75rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--ps-health-border);
+  border-radius: 10px;
+  background: var(--ps-health-surface);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.ps-health-dashboard__kpi--empty {
+  opacity: 0.72;
+}
+
+.ps-health-dashboard__kpi-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+}
+
+.ps-health-dashboard__kpi-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.ps-health-dashboard__kpi--ok .ps-health-dashboard__kpi-icon {
+  color: var(--ps-health-ok);
+  background: var(--ps-health-ok-bg);
+}
+
+.ps-health-dashboard__kpi--warning .ps-health-dashboard__kpi-icon {
+  color: var(--ps-health-warning);
+  background: var(--ps-health-warning-bg);
+}
+
+.ps-health-dashboard__kpi--fail .ps-health-dashboard__kpi-icon {
+  color: var(--ps-health-fail);
+  background: var(--ps-health-fail-bg);
+}
+
+.ps-health-dashboard__kpi--info .ps-health-dashboard__kpi-icon {
+  color: var(--ps-health-info);
+  background: var(--ps-health-info-bg);
+}
+
+.ps-health-dashboard__kpi-value {
+  display: block;
+  color: var(--ps-health-ink);
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ps-health-dashboard__kpi-label {
+  display: block;
+  color: var(--ps-health-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Sections */
+.ps-health-dashboard__section {
+  margin-bottom: 1.25rem;
+}
+
+.ps-health-dashboard__section-panel {
+  padding: 1rem 1.125rem 1.125rem;
+  border: 1px solid var(--ps-health-border);
+  border-radius: 12px;
+  background: var(--ps-health-surface);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.ps-health-dashboard__section-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 0.75rem 0.875rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid #edf1f4;
+}
+
+.ps-health-dashboard__section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 10px;
+  color: var(--ps-health-ink);
+  background: #eef2f5;
+}
+
+.ps-health-dashboard__section-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.ps-health-dashboard__section-heading {
+  min-width: 0;
+}
+
+.ps-health-dashboard__section-title {
+  margin: 0;
+  color: var(--ps-health-ink);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ps-health-dashboard__section-description {
+  margin: 0.25rem 0 0;
+  color: var(--ps-health-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.ps-health-dashboard__section-count {
+  align-self: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: #eef2f5;
+  color: var(--ps-health-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Check cards grid (multi-check groups only) */
+.ps-health-dashboard__body--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+  gap: 0.875rem;
+}
+
+/* Single-check groups: flat content inside the section panel (no nested card box). */
+.ps-health-dashboard__check {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.125rem;
+  border-top: 3px solid var(--ps-health-border);
+}
+
+.ps-health-dashboard__check--ok {
+  border-top-color: var(--ps-health-ok);
+}
+
+.ps-health-dashboard__check--warning {
+  border-top-color: var(--ps-health-warning);
+}
+
+.ps-health-dashboard__check--fail {
+  border-top-color: var(--ps-health-fail);
+}
+
+.ps-health-dashboard__check--info {
+  border-top-color: var(--ps-health-info);
+}
+
+.ps-health-dashboard__check-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.625rem;
+}
+
+.ps-health-dashboard__check-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 10px;
+  color: var(--ps-health-ink);
+  background: #f4f6f8;
+}
+
+.ps-health-dashboard__check-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.ps-health-dashboard__check--ok .ps-health-dashboard__check-icon {
+  color: var(--ps-health-ok);
+  background: var(--ps-health-ok-bg);
+}
+
+.ps-health-dashboard__check--warning .ps-health-dashboard__check-icon {
+  color: var(--ps-health-warning);
+  background: var(--ps-health-warning-bg);
+}
+
+.ps-health-dashboard__check--fail .ps-health-dashboard__check-icon {
+  color: var(--ps-health-fail);
+  background: var(--ps-health-fail-bg);
+}
+
+.ps-health-dashboard__check--info .ps-health-dashboard__check-icon {
+  color: var(--ps-health-info);
+  background: var(--ps-health-info-bg);
+}
+
+.ps-health-dashboard__check-title {
+  margin: 0 0 0.375rem;
+  color: var(--ps-health-ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ps-health-dashboard__check-message {
+  margin: 0 0 0.625rem;
+  color: #3d4a54;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.ps-health-dashboard__check-detail {
+  margin: 0 0 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 8px;
+  background: #f7f9fb;
+  color: var(--ps-health-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.ps-health-dashboard__check-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #edf1f4;
+}
+
+.ps-health-dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+  gap: 0.875rem;
+}
+
+.ps-health-dashboard__card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 1rem 1.125rem;
+  border: 1px solid #e7ebef;
+  border-radius: 10px;
+  background: #fcfdfe;
+}
+
+.ps-health-dashboard__card--ok {
+  border-top: 3px solid var(--ps-health-ok);
+}
+
+.ps-health-dashboard__card--warning {
+  border-top: 3px solid var(--ps-health-warning);
+}
+
+.ps-health-dashboard__card--fail {
+  border-top: 3px solid var(--ps-health-fail);
+}
+
+.ps-health-dashboard__card--info {
+  border-top: 3px solid var(--ps-health-info);
+}
+
+.ps-health-dashboard__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.625rem;
+}
+
+.ps-health-dashboard__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 10px;
+  color: var(--ps-health-ink);
+  background: #f4f6f8;
+}
+
+.ps-health-dashboard__card-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.ps-health-dashboard__card--ok .ps-health-dashboard__card-icon {
+  color: var(--ps-health-ok);
+  background: var(--ps-health-ok-bg);
+}
+
+.ps-health-dashboard__card--warning .ps-health-dashboard__card-icon {
+  color: var(--ps-health-warning);
+  background: var(--ps-health-warning-bg);
+}
+
+.ps-health-dashboard__card--fail .ps-health-dashboard__card-icon {
+  color: var(--ps-health-fail);
+  background: var(--ps-health-fail-bg);
+}
+
+.ps-health-dashboard__card--info .ps-health-dashboard__card-icon {
+  color: var(--ps-health-info);
+  background: var(--ps-health-info-bg);
+}
+
+.ps-health-dashboard__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ps-health-dashboard__badge--ok {
+  color: var(--ps-health-ok);
+  background: var(--ps-health-ok-bg);
+}
+
+.ps-health-dashboard__badge--warning {
+  color: var(--ps-health-warning);
+  background: var(--ps-health-warning-bg);
+}
+
+.ps-health-dashboard__badge--fail {
+  color: var(--ps-health-fail);
+  background: var(--ps-health-fail-bg);
+}
+
+.ps-health-dashboard__badge--info {
+  color: var(--ps-health-info);
+  background: var(--ps-health-info-bg);
+}
+
+.ps-health-dashboard__card-title {
+  margin: 0 0 0.375rem;
+  color: var(--ps-health-ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ps-health-dashboard__card-message {
+  margin: 0 0 0.625rem;
+  color: #3d4a54;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.ps-health-dashboard__card-detail {
+  margin: 0 0 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 8px;
+  background: #f7f9fb;
+  color: var(--ps-health-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.ps-health-dashboard__card-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #edf1f4;
+}
+
+.ps-health-dashboard__card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-health-dashboard__card-links li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-health-dashboard__card-links a {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--ps-health-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ps-health-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ps-health-dashboard__card-links a:hover,
+.ps-health-dashboard__card-links a:focus {
+  border-color: #b0bec5;
+  background: #f4f6f8;
+  text-decoration: none;
+}
+
+.ps-health-dashboard__commands {
+  margin: 0;
+  font-size: 0.8125rem;
+}
+
+.ps-health-dashboard__commands summary {
+  cursor: pointer;
+  color: var(--ps-health-muted);
+  font-weight: 600;
+  list-style: disclosure closed;
+}
+
+.ps-health-dashboard__commands summary::-webkit-details-marker {
+  color: var(--ps-health-muted);
+}
+
+.ps-health-dashboard__commands-list {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-health-dashboard__commands-list li {
+  margin: 0 0 0.375rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-health-dashboard__commands code {
+  display: block;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  background: #eef2f5;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ps-health-dashboard__empty {
+  padding: 1.5rem;
+  border: 1px dashed var(--ps-health-border);
+  border-radius: 10px;
+  color: var(--ps-health-muted);
+  text-align: center;
+}
+
+@media (width <= 640px) {
+  .ps-health-dashboard__section-header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .ps-health-dashboard__section-count {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

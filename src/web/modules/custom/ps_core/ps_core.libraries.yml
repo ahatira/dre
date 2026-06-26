@@ -22,3 +22,9 @@ governance_admin_overview:
       css/governance-admin-overview.css: {}
   dependencies:
     - ps_core/admin_flowchart
+
+health_admin_overview:
+  version: 1.2.1
+  css:
+    theme:
+      css/health-admin-overview.css: {}

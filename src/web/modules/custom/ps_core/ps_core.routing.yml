@@ -61,7 +61,9 @@ ps_core.governance_settings:
 ps_core.health:
   path: '/admin/ps/health'
   defaults:
-    _controller: '\Drupal\ps_core\Controller\PsCoreController::health'
-    _title: 'Health'
+    _controller: '\Drupal\ps_core\Controller\HealthAdminOverviewController::overview'
+    _title: 'Platform health'
   requirements:
-    _permission: 'administer ps_core'
+    _permission: 'access ps_core health section'
+  options:
+    _admin_route: TRUE

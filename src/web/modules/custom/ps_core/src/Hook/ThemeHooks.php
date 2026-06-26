@@ -26,6 +26,17 @@ final class ThemeHooks {
         ],
         'template' => 'ps-core-site-urgency-help',
       ],
+      'ps_core_health_admin_overview' => [
+        'variables' => [
+          'overall_status' => 'healthy',
+          'overall_label' => '',
+          'lead' => '',
+          'refresh_hint' => '',
+          'summary_cards' => [],
+          'groups' => [],
+        ],
+        'template' => 'ps-core-health-admin-overview',
+      ],
     ];
   }
 
