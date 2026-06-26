@@ -65,20 +65,21 @@ ps_enable_memcache_if_available() {
   fi
 
   ps_info "Enabling memcache + memcache_admin..."
+  local enabled=0
   if ps_memcache_php_extension_available; then
-    ps_enable_module_robust memcache 2 2 && ps_enable_module_robust memcache_admin 2 2 && return 0
+    ps_retry 2 2 ps_drush en -y memcache memcache_admin && enabled=1
   elif ps_php_container_drush_available; then
     local php_container="${PS_PHP_CONTAINER:-ps_php}"
     ps_info "Host PHP lacks memcache extension — enabling via ${php_container} container..."
-    if ps_drush_in_php_container en -y memcache memcache_admin; then
-      ps_drush_cr
-      return 0
-    fi
+    ps_drush_in_php_container en -y memcache memcache_admin && enabled=1
   else
     ps_warn "Host PHP lacks memcache extension and ps_php is unavailable — trying host Drush..."
-    if ps_enable_module_robust memcache 2 2 && ps_enable_module_robust memcache_admin 2 2; then
-      return 0
-    fi
+    ps_retry 2 2 ps_drush en -y memcache memcache_admin && enabled=1
+  fi
+
+  if [[ ${enabled} -eq 1 ]] && ps_memcache_modules_enabled; then
+    ps_drush_cr
+    return 0
   fi
 
   ps_warn "memcache enable failed — using database cache (web container still uses Memcache when reachable)"

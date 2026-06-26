@@ -37,8 +37,6 @@ ps_install_country_site() {
 
   ps_enable_memcache_if_available
 
-  ps_drush_cr
-
   # Orphan update.settings from a partial install blocks bnp_admin (update is a dependency).
   if ! ps_drush pm:list --status=enabled --filter=update --format=list 2>/dev/null | grep -q '^update$'; then
     ps_drush config:delete update.settings -y 2>/dev/null || true
