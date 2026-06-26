@@ -110,17 +110,11 @@ Limites : best effort — unpublish offres créées, restore révision backup po
 make drush fr ps:import:recover-stale
 ```
 
-### Après `updatedb` avec nouveaux champs `import_run`
+### Champs `import_run` (greenfield)
 
-Les champs entity (`duration_ms`, `snapshot`, `rollback_status`) nécessitent un cache PHP à jour :
+Les champs entity (`source_checksum`, `duration_ms`, `snapshot`, `rollback_status`) sont définis dans `ImportRun::baseFieldDefinitions()` et créés au `drush en ps_migrate` / reinstall. Pas de `hook_update_N` — en dev, préférer `make reinstall {country}` si le schéma diverge.
 
-```bash
-make drush fr updatedb -y
-make restart          # vide opcache conteneur ps_php
-make drush-cr
-```
-
-Sans restart, pages BO `/admin/ps/import/runs/{id}` peuvent renvoyer 500 (`Field X is unknown`).
+Si une page BO `/admin/ps/import/runs/{id}` renvoie 500 (`Field X is unknown`) après changement entity : `make restart && make drush-cr`.
 
 ## Alertes email
 
