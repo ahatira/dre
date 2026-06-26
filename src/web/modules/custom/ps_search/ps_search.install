@@ -24,6 +24,23 @@ function ps_search_update_11001(): void {
 }
 
 /**
+ * Fixes the divisible exposed filter for BEF single checkbox widgets.
+ */
+function ps_search_update_11002(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.ps_search_offers');
+  $filter = $config->get('display.default.display_options.filters.field_divisible');
+  if (!is_array($filter)) {
+    return;
+  }
+
+  $filter['plugin_id'] = 'search_api_boolean';
+  $filter['value'] = 'All';
+  unset($filter['group_info']);
+  $config->set('display.default.display_options.filters.field_divisible', $filter);
+  $config->save();
+}
+
+/**
  * Ensures ps_search.seo_url_mappings base config uses the Views machine path.
  *
  * Country sites installed with a non-EN default locale merge install/language/*

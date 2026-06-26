@@ -59,4 +59,34 @@ final class SearchExposedFiltersQueryNormalizerTest extends UnitTestCase {
     self::assertSame(['min' => '100', 'max' => '500'], $request->query->all('surface_min'));
   }
 
+  /**
+   * @covers ::normalize
+   */
+  public function testBooleanArrayQueryValueIsUnwrapped(): void {
+    $request = Request::create('/', 'GET', ['divisible' => ['1']]);
+    $this->normalizer->normalize($request);
+
+    self::assertSame('1', $request->query->get('divisible'));
+  }
+
+  /**
+   * @covers ::normalize
+   */
+  public function testEmptyBooleanArrayQueryValueIsRemoved(): void {
+    $request = Request::create('/', 'GET', ['has_video' => []]);
+    $this->normalizer->normalize($request);
+
+    self::assertFalse($request->query->has('has_video'));
+  }
+
+  /**
+   * @covers ::normalize
+   */
+  public function testFeatureBooleanArrayQueryValueIsUnwrapped(): void {
+    $request = Request::create('/', 'GET', ['feature_tec_parking' => ['1']]);
+    $this->normalizer->normalize($request);
+
+    self::assertSame('1', $request->query->get('feature_tec_parking'));
+  }
+
 }

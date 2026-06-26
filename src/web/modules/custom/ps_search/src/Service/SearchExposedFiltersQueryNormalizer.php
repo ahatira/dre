@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * Homepage hero and filter bar submit surface_min=200 while the Views filter
  * identifier surface_min expects surface_min[min]=200 (array shape).
+ *
+ * Also unwraps array query values for BEF single (boolean) filters so contrib
+ * Single widget does not trigger "Array to string conversion" warnings.
  */
 final class SearchExposedFiltersQueryNormalizer {
 
@@ -22,6 +25,17 @@ final class SearchExposedFiltersQueryNormalizer {
    */
   private const BETWEEN_FILTERS = [
     'surface_min' => ['surface_min', 'surface_max'],
+  ];
+
+  /**
+   * Core boolean exposed identifiers using the BEF single checkbox widget.
+   *
+   * @var list<string>
+   */
+  private const BOOLEAN_FILTER_IDENTIFIERS = [
+    'divisible',
+    'has_immersive_tour',
+    'has_video',
   ];
 
   /**
@@ -38,6 +52,14 @@ final class SearchExposedFiltersQueryNormalizer {
     $normalizer = new self();
     foreach (self::BETWEEN_FILTERS as $identifier => [$flatMinKey, $flatMaxKey]) {
       $normalizer->normalizeBetweenFilter($request, $identifier, $flatMinKey, $flatMaxKey);
+    }
+    foreach (self::BOOLEAN_FILTER_IDENTIFIERS as $identifier) {
+      $normalizer->normalizeBooleanFilter($request, $identifier);
+    }
+    foreach (array_keys($request->query->all()) as $key) {
+      if (is_string($key) && str_starts_with($key, 'feature_')) {
+        $normalizer->normalizeBooleanFilter($request, $key);
+      }
     }
   }
 
@@ -74,6 +96,34 @@ final class SearchExposedFiltersQueryNormalizer {
       'min' => $min ?? '',
       'max' => $max ?? '',
     ]);
+  }
+
+  /**
+   * Unwraps list-shaped query values for boolean BEF single filters.
+   */
+  private function normalizeBooleanFilter(Request $request, string $identifier): void {
+    if (!$request->query->has($identifier)) {
+      return;
+    }
+
+    $value = $this->readQueryValue($request, $identifier);
+    if (!is_array($value)) {
+      return;
+    }
+
+    if ($value === []) {
+      $request->query->remove($identifier);
+      return;
+    }
+
+    if (!array_is_list($value)) {
+      return;
+    }
+
+    $first = reset($value);
+    if (is_string($first) || is_int($first) || is_float($first) || is_bool($first)) {
+      $request->query->set($identifier, (string) $first);
+    }
   }
 
   /**

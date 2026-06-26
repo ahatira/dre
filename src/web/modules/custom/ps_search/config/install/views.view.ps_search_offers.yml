@@ -437,9 +437,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: search_api_options
+          plugin_id: search_api_boolean
           operator: '='
-          value: {  }
+          value: All
           group: 1
           exposed: true
           expose:
@@ -457,17 +457,6 @@ display:
             remember_roles:
               authenticated: authenticated
           is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         locality:
           id: locality
           table: search_api_index_offers

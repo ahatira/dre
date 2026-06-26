@@ -164,6 +164,9 @@ final class FeatureCategorizerProcessor extends ProcessorPluginBase {
 
     if ($node->hasField('field_media_gallery') && !$node->get('field_media_gallery')->isEmpty()) {
       foreach ($node->get('field_media_gallery')->referencedEntities() as $media) {
+        if ($media->bundle() === 'visite_guided') {
+          return TRUE;
+        }
         if ($media->bundle() === 'image') {
           $name = $media->label();
           if (stripos($name, '360') !== FALSE || stripos($name, 'virtual') !== FALSE) {
