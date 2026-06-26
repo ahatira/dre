@@ -1,0 +1,446 @@
+langcode: en
+status: open
+dependencies: {  }
+weight: 0
+open: null
+close: null
+uid: 1
+template: false
+archive: false
+id: delegate_my_search
+title: 'Delegate my search'
+description: '<p>Real estate search delegation form in 3 steps</p>'
+categories: {  }
+elements: |-
+  page_project:
+    '#type': webform_wizard_page
+    '#title': Project
+    '#open': true
+    '#next_button_label': Continue
+    what_type_of_transaction:
+      '#type': radios
+      '#title': 'What type of transaction?'
+      '#options':
+        Rent: Rent
+        Buy: Buy
+        Indifferent: Indifferent
+    what_type_of_property_are_you_looking_for:
+      '#type': radios
+      '#title': 'What type of property are you looking for?'
+      '#options':
+        Office: Office
+        Coworking: Coworking
+        'Warehouse / Logistics': 'Warehouse / Logistics'
+        'Commercial premises': 'Commercial premises'
+        Retail: Retail
+        Land: Land
+        Mixed: Mixed
+        Residential: Residential
+        Hospitality: Hospitality
+    label_search_criteria:
+      '#type': webform_markup
+      '#markup': '<p><label data-drupal-selector="edit-search-criteria" for="edit-search-criteria"><strong>What are your search criteria?</strong></label></p>'
+    min_rent_ht_hc_m2_year:
+      '#type': number
+      '#title': 'Min rent (HT/HC/m²/year)'
+      '#title_display': none
+      '#field_suffix': €
+      '#placeholder': 'Min rent (HT/HC/m²/year)'
+      '#autocomplete': ''
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            '!value': Coworking
+      '#min': 0
+    max_rent_ht_hc_m2_year:
+      '#type': number
+      '#title': 'Max rent (HT/HC/m²/year)'
+      '#title_display': none
+      '#field_suffix': €
+      '#placeholder': 'Max rent (HT/HC/m²/year)'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            '!value': Coworking
+      '#min': 0
+    min_surface:
+      '#type': number
+      '#title': 'Min surface'
+      '#title_display': none
+      '#field_suffix': m²
+      '#placeholder': 'Min surface'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            '!value': Coworking
+    max_surface:
+      '#type': number
+      '#title': 'Max surface'
+      '#title_display': none
+      '#field_suffix': m²
+      '#placeholder': 'Max surface'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            '!value': Coworking
+      '#min': 0
+    min_price_ht_hh_hd:
+      '#type': number
+      '#title': 'Min price (HT/HH/HD)'
+      '#title_display': none
+      '#field_suffix': €
+      '#placeholder': 'Min price (HT/HH/HD)'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            value: Coworking
+      '#min': 0
+    max_price_ht_hh_hd:
+      '#type': number
+      '#title': 'Max price (HT/HH/HD)'
+      '#title_display': none
+      '#field_suffix': €
+      '#placeholder': 'Max price (HT/HH/HD)'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            '!value': Coworking
+      '#min': 0
+    min_number_of_seats:
+      '#type': number
+      '#title': 'Min number of seats'
+      '#title_display': none
+      '#placeholder': 'Min number of seats'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            value: Coworking
+    max_number_of_seats:
+      '#type': number
+      '#title': 'Max number of seats'
+      '#title_display': none
+      '#placeholder': 'Max number of seats'
+      '#states':
+        visible:
+          ':input[name="what_type_of_property_are_you_looking_for"]':
+            value: Coworking
+    location:
+      '#type': textfield
+      '#title': Location
+      '#title_display': none
+      '#placeholder': 'City, district, postal code or building name'
+      '#required': true
+  page_contact_details:
+    '#type': webform_wizard_page
+    '#title': 'Contact details'
+    '#open': true
+    '#prev_button_label': Back
+    '#next_button_label': Continue
+    markup_contact_details:
+      '#type': webform_markup
+      '#markup': '<p><strong>What are your contact details?</strong></p>'
+    last_name:
+      '#type': textfield
+      '#title': 'Last name'
+      '#title_display': none
+      '#placeholder': 'Last name'
+    first_name:
+      '#type': textfield
+      '#title': 'First name'
+      '#title_display': none
+      '#placeholder': 'First name'
+      '#required': true
+    company:
+      '#type': textfield
+      '#title': Company
+      '#title_display': none
+      '#placeholder': Company
+    function:
+      '#type': select
+      '#title': Function
+      '#title_display': none
+      '#options':
+        asset_manager: 'Asset manager'
+        consultant: Consultant
+        investor: Investor
+        other: Other
+      '#empty_option': 'Select a function'
+      '#select2': true
+      '#required': true
+    professional_phone:
+      '#type': tel
+      '#title': 'Professional phone'
+      '#title_display': none
+      '#placeholder': 'Professional phone*'
+      '#required': true
+      '#pattern': '^[0-9\s\+\-\(\)]{10,}$'
+    professional_email:
+      '#type': email
+      '#title': 'Professional email'
+      '#title_display': none
+      '#placeholder': 'Professional email*'
+      '#required': true
+    rgpd:
+      '#type': fieldset
+      '#title': rgpd
+      '#title_display': invisible
+      markup_rgpd:
+        '#type': webform_markup
+        '#markup': '<p>I object to receiving commercial communications from BNP Paribas Real Estate Advisory France:</p>'
+      opt_sms:
+        '#type': checkbox
+        '#title': SMS
+      opt_phone:
+        '#type': checkbox
+        '#title': Phone
+      opt_email:
+        '#type': checkbox
+        '#title': Email
+  page_message:
+    '#type': webform_wizard_page
+    '#title': Message
+    '#open': true
+    '#prev_button_label': Back
+    '#next_button_label': Continue
+    would_you_like_to_specify_your_project:
+      '#type': textarea
+      '#title': 'Would you like to specify your project?'
+  info:
+    '#type': webform_markup
+    '#markup': '<p><strong>Pressé ? Appelez-nous au</strong> <a href="tel:+33187586052">01 87 58 60 52</a></p><p>Du lundi au vendredi de 9h00 à 19h00.</p>'
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_open_message: ''
+  form_close_message: ''
+  form_exception_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_reset: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_file_limit_message: ''
+  form_attributes: {  }
+  form_method: ''
+  form_action: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: true
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: true
+  wizard_progress_states: false
+  wizard_start_label: Project
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: Completed
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_track: name
+  wizard_prev_button_label: Back
+  wizard_next_button_label: Continue
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: inline
+  confirmation_url: ''
+  confirmation_title: 'Thank you for your trust.'
+  confirmation_message: '<p>Your request has been successfully submitted.&nbsp;<br><br><a class="button button--primary" href="#" onclick="window.closeModal(); return false;">I understand</a></p>'
+  confirmation_attributes: {  }
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles:
+      - site_admin
+      - administrator
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles:
+      - site_admin
+      - administrator
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles:
+      - site_admin
+      - administrator
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles:
+      - authenticated
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles:
+      - authenticated
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles:
+      - authenticated
+    users: {  }
+    permissions: {  }
+  administer:
+    roles:
+      - administrator
+    users: {  }
+    permissions: {  }
+  test:
+    roles:
+      - administrator
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles:
+      - administrator
+    users: {  }
+    permissions: {  }
+handlers:
+  email:
+    id: email
+    handler_id: email
+    label: 'Email confirmation'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:professional_email]'
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: 'Your request has been sent'
+      body: '<div class="container"><div class="header"><h1>Your request has been sent</h1></div><div class="content"><p>Hello,</p><p>Your request has been successfully transmitted. We will contact you very shortly.</p><h3>For your reference, your request is as follows:</h3><div class="field"><span class="field-label">Your request:</span> <span class="field-value">I would like to delegate my search</span></div><div class="field"><span class="field-label">Search type:</span> <span class="field-value">[webform_submission:values:transaction_type] - [webform_submission:values:property_type]</span></div><p>{# Display criteria based on property type #} {% if data.property_type == ''Coworking'' %}</p><div class="field"><span class="field-label">Min Price:</span> <span class="field-value">[webform_submission:values:price_min] €</span></div><div class="field"><span class="field-label">Max Price:</span> <span class="field-value">[webform_submission:values:price_max] €</span></div><div class="field"><span class="field-label">Min Seats:</span> <span class="field-value">[webform_submission:values:seat_min]</span></div><div class="field"><span class="field-label">Max Seats:</span> <span class="field-value">[webform_submission:values:seat_max]</span></div><p>{% else %}</p><div class="field"><span class="field-label">Min Rent:</span> <span class="field-value">[webform_submission:values:rent_min] €</span></div><div class="field"><span class="field-label">Max Rent:</span> <span class="field-value">[webform_submission:values:rent_max] €</span></div><div class="field"><span class="field-label">Min Surface:</span> <span class="field-value">[webform_submission:values:surface_min] m²</span></div><div class="field"><span class="field-label">Max Surface:</span> <span class="field-value">[webform_submission:values:surface_max] m²</span></div><p>{% endif %}</p><div class="field"><span class="field-label">Location:</span> <span class="field-value">[webform_submission:values:location]</span></div><hr><div class="field"><span class="field-label">First name:</span> <span class="field-value">[webform_submission:values:first_name]</span></div><div class="field"><span class="field-label">Last name:</span> <span class="field-value">[webform_submission:values:last_name]</span></div><div class="field"><span class="field-label">Company:</span> <span class="field-value">[webform_submission:values:company]</span></div><div class="field"><span class="field-label">Function:</span> <span class="field-value">[webform_submission:values:function]</span></div><div class="field"><span class="field-label">Professional email:</span> <span class="field-value">[webform_submission:values:professional_email]</span></div><div class="field"><span class="field-label">Professional phone:</span> <span class="field-value">[webform_submission:values:professional_phone]</span></div><p>{% if data.message %}</p><div class="field"><span class="field-label">Message:</span> <span class="field-value">[webform_submission:values:message]</span></div><p>{% endif %}&nbsp;</p><hr><div class="field"><span class="field-label">Opt-out Email:</span> <span class="field-value">[webform_submission:values:opt_out_email]</span></div><p>{% if data.opt_out_email == ''1'' %}</p><div class="field"><span class="field-label">Email opt-out text:</span> <span class="field-value">I object to receiving commercial communications from BNP Paribas Real Estate Advisory France</span></div><p>{% endif %}</p><div class="field"><span class="field-label">Opt-out SMS/MMS:</span> <span class="field-value">[webform_submission:values:opt_out_sms]</span></div><p>{% if data.opt_out_sms == ''1'' %}</p><div class="field"><span class="field-label">SMS/MMS opt-out text:</span> <span class="field-value">I object to receiving commercial communications from BNP Paribas Real Estate Advisory France</span></div><p>{% endif %}</p><div class="field"><span class="field-label">Opt-out Phone:</span> <span class="field-value">[webform_submission:values:opt_out_phone]</span></div><p>{% if data.opt_out_phone == ''1'' %}</p><div class="field"><span class="field-label">Phone opt-out text:</span> <span class="field-value">I object to receiving commercial communications from BNP Paribas Real Estate Advisory France</span></div><p>{% endif %}</p><p>Thank you for your interest in BNP Paribas Real Estate.</p><p>Best regards,</p><p><strong>Your Customer Service Team</strong><br>BNP Paribas Real Estate</p></div><div class="footer">© BNP Paribas Real Estate</div></div>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      langcode: ''
+      parameters: {  }
+      debug: false
+variants: {  }
