@@ -11,7 +11,8 @@ Simple diagnostic module for real-estate offers.
 
 ## Features
 
-- Settings page: `/admin/ps/config/diagnostic`
+- Configuration hub: `/admin/ps/config/diagnostic` (overview at `/admin/ps/config/diagnostic/overview`)
+- Settings: `/admin/ps/config/diagnostic/settings`
 - Structure page: `/admin/ps/structure/diagnostic`
 - Diagnostic types CRUD: `/admin/ps/structure/diagnostic/types`
 - Field type: `diagnostic_item`

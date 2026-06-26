@@ -16,3 +16,5 @@ services:
   Drupal\ps_diagnostic\Hook\DiagnosticFieldHooks:
     class: Drupal\ps_diagnostic\Hook\DiagnosticFieldHooks
     arguments: ['@ps_core.section_heading_builder']
+
+  Drupal\ps_diagnostic\Hook\DiagnosticAdminHooks: {}

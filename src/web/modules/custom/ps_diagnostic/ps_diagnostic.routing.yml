@@ -1,10 +1,39 @@
-ps_diagnostic.settings:
+ps_diagnostic.admin:
   path: '/admin/ps/config/diagnostic'
+  defaults:
+    _controller: '\Drupal\ps_diagnostic\Controller\DiagnosticAdminOverviewController::redirectToOverview'
+  requirements:
+    _permission: 'access ps diagnostic admin+access ps_core config section'
+  options:
+    _admin_route: TRUE
+
+ps_diagnostic.admin_overview:
+  path: '/admin/ps/config/diagnostic/overview'
+  defaults:
+    _controller: '\Drupal\ps_diagnostic\Controller\DiagnosticAdminOverviewController::overview'
+    _title: 'Diagnostics'
+  requirements:
+    _permission: 'access ps diagnostic admin+access ps_core config section'
+  options:
+    _admin_route: TRUE
+
+ps_diagnostic.settings:
+  path: '/admin/ps/config/diagnostic/settings'
   defaults:
     _form: '\Drupal\ps_diagnostic\Form\DiagnosticSettingsForm'
     _title: 'Diagnostic settings'
   requirements:
-    _permission: 'administer ps diagnostic settings'
+    _permission: 'administer ps diagnostic settings+access ps_core config section'
+  options:
+    _admin_route: TRUE
+
+ps_diagnostic.certification_labels:
+  path: '/admin/ps/config/diagnostic/certification-labels'
+  defaults:
+    _controller: '\Drupal\ps_diagnostic\Controller\DiagnosticAdminOverviewController::redirectToCertificationLabels'
+    _title: 'Certification labels'
+  requirements:
+    _permission: 'access ps diagnostic admin+access ps_core config section'
   options:
     _admin_route: TRUE
 

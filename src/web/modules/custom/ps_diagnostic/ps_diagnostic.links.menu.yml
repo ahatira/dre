@@ -1,9 +1,23 @@
-ps_diagnostic.settings:
+ps_diagnostic.admin_overview:
   title: 'Diagnostics'
-  description: 'Configure diagnostics.'
-  route_name: ps_diagnostic.settings
+  description: 'Energy diagnostics, certification labels and offer fallback messages.'
+  route_name: ps_diagnostic.admin_overview
   parent: ps_core.config
   weight: 40
+
+ps_diagnostic.settings:
+  title: 'Diagnostic settings'
+  description: 'Validity duration, manual entry and fallback messages.'
+  route_name: ps_diagnostic.settings
+  parent: ps_diagnostic.admin_overview
+  weight: 0
+
+ps_diagnostic.certification_labels:
+  title: 'Certification labels'
+  description: 'Taxonomy terms with badge images for offers.'
+  route_name: ps_diagnostic.certification_labels
+  parent: ps_diagnostic.admin_overview
+  weight: 5
 
 ps_diagnostic.admin_structure:
   title: 'Diagnostics'

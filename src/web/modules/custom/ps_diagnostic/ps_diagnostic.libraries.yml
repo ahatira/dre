@@ -27,3 +27,9 @@ diagnostic_admin:
     - core/drupal
     - core/drupal.locale
     - core/once
+
+admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/diagnostic-admin-overview.css: {}

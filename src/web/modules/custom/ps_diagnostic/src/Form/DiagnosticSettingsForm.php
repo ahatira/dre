@@ -6,8 +6,6 @@ namespace Drupal\ps_diagnostic\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 final class DiagnosticSettingsForm extends ConfigFormBase {
 
@@ -22,16 +20,12 @@ final class DiagnosticSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_diagnostic.settings');
 
-    $form['navigation'] = [
-      '#type' => 'container',
-      'title' => ['#markup' => '<h2>' . $this->t('Navigation') . '</h2>'],
-      'links' => [
-        '#theme' => 'item_list',
-        '#items' => [
-          Link::createFromRoute($this->t('Diagnostics overview'), 'ps_diagnostic.admin_structure')->toRenderable(),
-          Link::createFromRoute($this->t('Diagnostic types'), 'entity.ps_diagnostic_type.collection')->toRenderable(),
-        ],
-      ],
+    $form['intro'] = [
+      '#markup' => '<p>'
+        . $this->t('Global rules for energy diagnostics on offers: default validity period, whether editors can enter classes manually or leave values empty, and how disabled diagnostics are explained on the offer detail page.')
+        . '</p><p>'
+        . $this->t('Diagnostic type scales (DPE, GES, …) and certification label badges are managed from the overview cards. The Energy & diagnostics section title and icon are configured under Offer → Section headings.')
+        . '</p>',
     ];
 
     $form['default_validity_months'] = [
@@ -59,12 +53,6 @@ final class DiagnosticSettingsForm extends ConfigFormBase {
       '#type' => 'details',
       '#title' => $this->t('Offer detail display'),
       '#open' => TRUE,
-    ];
-
-    $form['display']['section_settings_link'] = [
-      '#type' => 'item',
-      '#title' => $this->t('Section title and icon'),
-      '#markup' => Link::createFromRoute($this->t('Configure offer section headings'), 'ps_offer.section_settings')->toString(),
     ];
 
     $fallback_mode = (string) ($config->get('fallback_message_mode') ?? 'single');
@@ -117,17 +105,6 @@ final class DiagnosticSettingsForm extends ConfigFormBase {
       ->save();
 
     parent::submitForm($form, $form_state);
-  }
-
-  public function actions(array $form, FormStateInterface $form_state): array {
-    $actions = parent::actions($form, $form_state);
-    $actions['back_to_structure'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Back to diagnostics structure'),
-      '#url' => Url::fromRoute('ps_diagnostic.admin_structure'),
-      '#attributes' => ['class' => ['button', 'button--secondary']],
-    ];
-    return $actions;
   }
 
 }

@@ -1,3 +1,15 @@
+ps_diagnostic.admin_overview:
+  title: 'Overview'
+  route_name: ps_diagnostic.admin_overview
+  base_route: ps_diagnostic.admin_overview
+  weight: -20
+
+ps_diagnostic.settings:
+  title: 'Settings'
+  route_name: ps_diagnostic.settings
+  base_route: ps_diagnostic.admin_overview
+  weight: 0
+
 ps_diagnostic.structure_tab:
   route_name: ps_diagnostic.admin_structure
   title: 'Overview'
