@@ -4,7 +4,7 @@ ps_migrate.admin_overview:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'CRM import'
   requirements:
-    _permission: 'manage ps_migrate+manage ps_migrate import pipeline+view ps_migrate import runs+access ps_core config section'
+    _permission: 'access ps_core import section'
 
 ps_migrate.post_import_report:
   path: '/admin/ps/import/rejections'
@@ -12,7 +12,7 @@ ps_migrate.post_import_report:
     _title: 'Import rejections'
     _controller: '\Drupal\ps_migrate\Controller\PostImportReportController'
   requirements:
-    _permission: 'manage ps_migrate+manage ps_migrate import pipeline+access ps_core config section'
+    _permission: 'manage ps_migrate+manage ps_migrate import pipeline'
 
 entity.import_run.collection:
   path: '/admin/ps/import/runs'

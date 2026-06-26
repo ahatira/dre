@@ -29,6 +29,7 @@ permissions:
   - 'access content'
   - 'access ps_core config section'
   - 'access ps_core hub'
+  - 'access ps_core import section'
   - 'access ps_seo admin'
   - 'administer bnp editor'
   - 'administer coffee'

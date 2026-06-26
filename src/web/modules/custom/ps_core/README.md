@@ -14,8 +14,8 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 
 ## Fonctionnalités
 
-- Hub admin `/admin/ps` avec 4 sections : Contenu, Structure, Configuration, Health
-- 15 permissions granulaires dont 4 sectorielles (hub, content, structure, config)
+- Hub admin `/admin/ps` avec 5 sections hub : Contenu, Structure, CRM import, Configuration, Health
+- 16 permissions granulaires dont 5 sectorielles (hub, content, structure, import, config)
 - Formulaire de paramètres globaux `/admin/ps/config/settings` (contact site)
 - Page de santé `/admin/ps/health`
 - Services utilitaires réutilisables par les modules PS
@@ -54,10 +54,11 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `ps_core.content` | `/admin/ps/content` | `access ps_core content section` |
 | `ps_core.structure` | `/admin/ps/structure` | `access ps_core structure section` |
 | `ps_core.config` | `/admin/ps/config` | `access ps_core config section` |
+| `ps_migrate.admin_overview` | `/admin/ps/import` | `access ps_core import section` |
 | `ps_core.settings_form` | `/admin/ps/config/settings` | `administer ps_core` |
 | `ps_core.health` | `/admin/ps/health` | `administer ps_core` |
 
-> **Note architecture** : `/admin/ps`, `/admin/ps/content`, `/admin/ps/structure`, `/admin/ps/config` utilisent `SystemController::systemAdminMenuBlockPage` pour un rendu 100 % natif Drupal.
+> **Note architecture** : `/admin/ps`, `/admin/ps/content`, `/admin/ps/structure`, `/admin/ps/config` et `/admin/ps/import` utilisent `SystemController::systemAdminMenuBlockPage` pour un rendu 100 % natif Drupal. La section CRM import est déclarée par `ps_migrate` sous le hub `ps_core.hub`.
 
 ## Permissions
 
@@ -67,6 +68,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `access ps_core content section` | Accès à la section Contenu (`/admin/ps/content`) |
 | `access ps_core structure section` | Accès à la section Structure (`/admin/ps/structure`) |
 | `access ps_core config section` | Accès à la section Configuration (`/admin/ps/config`) |
+| `access ps_core import section` | Accès à la section CRM import (`/admin/ps/import`) |
 | `administer ps_core` | Administration complète de ps_core (settings, health) |
 | `manage ps_dictionary` | Gestion du module dictionnaire |
 | `manage ps_offer` | Gestion du module offre |

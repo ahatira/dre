@@ -14,6 +14,10 @@ access ps_core config section:
   title: 'Access Property Search config section'
   description: 'Access /admin/ps/config and related section links.'
 
+access ps_core import section:
+  title: 'Access Property Search import section'
+  description: 'Access /admin/ps/import and related CRM import section links.'
+
 administer ps_core:
   title: 'Administer Property Search core settings'
   description: 'Manage Property Search core settings and diagnostics.'

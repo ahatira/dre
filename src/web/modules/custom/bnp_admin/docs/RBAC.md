@@ -44,6 +44,7 @@ Emails test : `{username}@test.ps.local` (voir `create-test-users.sh`).
 | `edit any offer content` | `content_admin` |
 | `edit own offer content` | `content_editor` |
 | `access ps_core config section` | `content_admin`, `site_admin` |
+| `access ps_core import section` | `site_admin` |
 
 ## Scénarios sécurité (SEC)
 

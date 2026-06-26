@@ -2,8 +2,8 @@ ps_migrate.admin_overview:
   title: 'CRM import'
   description: 'CRM XML import pipeline, runs, upload and settings.'
   route_name: ps_migrate.admin_overview
-  parent: ps_core.config
-  weight: 35
+  parent: ps_core.hub
+  weight: 7
 
 entity.import_run.collection:
   title: 'Import runs'
