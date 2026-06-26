@@ -42,6 +42,7 @@
       const capacityFilterConfig = settings.capacityFilterConfig || {};
       const capacityFilterByAsset = settings.capacityFilterByAsset || {};
       const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
+      const searchUiByAsset = settings.searchUiByAsset || {};
       const currentParams = new URLSearchParams(window.location.search);
       const loadedMoreGroups = {};
 
@@ -150,6 +151,59 @@
 
       initMoreFiltersFromUrl();
 
+      function getSearchUiConfig() {
+        const assetKey = selectedAsset || '';
+        return searchUiByAsset[assetKey] || searchUiByAsset[''] || {
+          hide_operation: false,
+          hide_more_filters: false,
+        };
+      }
+
+      function updateSearchUiMode() {
+        const uiConfig = getSearchUiConfig();
+
+        document.querySelectorAll('.js-ps-operation-section').forEach(function (section) {
+          section.hidden = uiConfig.hide_operation;
+        });
+
+        if (uiConfig.hide_operation) {
+          selectedOp = null;
+          opFlexible = false;
+          syncAllTypeSectionUi();
+        }
+
+        document.querySelectorAll('.js-ps-more-filters-root').forEach(function (el) {
+          el.hidden = uiConfig.hide_more_filters;
+        });
+
+        if (uiConfig.hide_more_filters) {
+          Object.keys(moreFilters).forEach(function (key) {
+            delete moreFilters[key];
+          });
+          document.querySelectorAll('.js-ps-more-filter').forEach(function (input) {
+            if (input.type === 'checkbox') {
+              input.checked = false;
+            }
+            else if (input.tagName === 'SELECT') {
+              input.selectedIndex = 0;
+            }
+            else {
+              input.value = '';
+            }
+          });
+          updateMoreLabel();
+          const moreOffcanvas = document.getElementById('ps-more-offcanvas');
+          if (moreOffcanvas && moreOffcanvas.classList.contains('show')) {
+            const instance = window.bootstrap && window.bootstrap.Offcanvas
+              ? window.bootstrap.Offcanvas.getInstance(moreOffcanvas)
+              : null;
+            if (instance) {
+              instance.hide();
+            }
+          }
+        }
+      }
+
       function updateAssetMode() {
         const visibility = getFilterVisibility(selectedAsset);
         const surfaceItem = document.querySelector('.js-ps-surface-item');
@@ -178,6 +232,7 @@
           });
         }
         updateCapacityUi();
+        updateSearchUiMode();
         updateBudgetUi();
       }
 
@@ -212,7 +267,8 @@
 
       function getBudgetConfig() {
         const assetKey = selectedAsset || '';
-        const opKey = selectedOp || '';
+        const uiConfig = getSearchUiConfig();
+        const opKey = uiConfig.hide_operation ? 'LOC' : (selectedOp || '');
         const assetMap = budgetFilterByAsset[assetKey] || budgetFilterByAsset[''] || {};
         return assetMap[opKey] || assetMap[''] || budgetFilterConfig;
       }
@@ -1226,6 +1282,10 @@
       }
 
       function buildSeoBase() {
+        const uiConfig = getSearchUiConfig();
+        if (uiConfig.hide_operation && selectedAsset && assetSlugs[selectedAsset]) {
+          return langPrefix + '/' + assetSlugs[selectedAsset] + '/';
+        }
         if (selectedOp) {
           const opSlug = opSlugs[selectedOp];
           if (!opSlug) {
@@ -1748,7 +1808,13 @@
         }
 
         const p = new URLSearchParams();
-        if (selectedOp) p.set('operation_type', selectedOp);
+        const uiConfig = getSearchUiConfig();
+        if (uiConfig.hide_operation && selectedAsset) {
+          p.set('operation_type', 'LOC');
+        }
+        else if (selectedOp) {
+          p.set('operation_type', selectedOp);
+        }
         if (selectedAsset) p.set('asset_type', selectedAsset);
         if (selectedLocalityTokens.length) {
           p.set('locality', selectedLocalityTokens.join(', '));

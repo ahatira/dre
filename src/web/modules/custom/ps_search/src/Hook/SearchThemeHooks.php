@@ -34,6 +34,8 @@ final class SearchThemeHooks {
           'show_capacity_filter' => FALSE,
           'capacity_filter_label' => 'Seats',
           'capacity_config' => [],
+          'hide_operation_section' => FALSE,
+          'show_more_filters' => TRUE,
         ],
         'template' => 'ps-search-filter-bar',
       ],

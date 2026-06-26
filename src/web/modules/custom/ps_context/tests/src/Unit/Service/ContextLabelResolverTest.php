@@ -87,6 +87,28 @@ final class ContextLabelResolverTest extends UnitTestCase {
     self::assertTrue($config['hide_operation']);
   }
 
+  /**
+   * @covers ::resolveSearchUi
+   */
+  public function testResolveSearchUiCow(): void {
+    $resolver = $this->createResolver();
+    $config = $resolver->resolveSearchUi('COW', NULL);
+
+    self::assertTrue($config['hide_operation']);
+    self::assertTrue($config['hide_more_filters']);
+  }
+
+  /**
+   * @covers ::resolveSearchUi
+   */
+  public function testResolveSearchUiBur(): void {
+    $resolver = $this->createResolver();
+    $config = $resolver->resolveSearchUi('BUR', 'LOC');
+
+    self::assertFalse($config['hide_operation']);
+    self::assertFalse($config['hide_more_filters']);
+  }
+
   private function createResolver(): ContextLabelResolver {
     $profiles = [
       $this->profile('default', '*', '*', 0, [
@@ -127,6 +149,8 @@ final class ContextLabelResolverTest extends UnitTestCase {
         'search_capacity_max_label' => 'Max desk capacity',
         'hero_capacity_field_label' => 'Desk capacity',
         'hero_hide_operation_toggle' => '1',
+        'search_hide_operation_toggle' => '1',
+        'search_hide_more_filters' => '1',
       ]),
       $this->profile('ven_sale', '*', 'VEN', 10, [
         'search_budget_field_label' => 'Price',

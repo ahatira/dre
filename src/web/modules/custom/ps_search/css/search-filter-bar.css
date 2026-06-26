@@ -480,7 +480,8 @@ body > .offcanvas-backdrop {
 }
 
 .ps-filter-bar__item--capacity[hidden],
-.ps-filter-bar__item--surface[hidden] {
+.ps-filter-bar__item--surface[hidden],
+.ps-filter-bar__item--more[hidden] {
   display: none;
 }
 

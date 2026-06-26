@@ -126,6 +126,8 @@ final class FilterBarBuilder {
       '#show_capacity_filter' => $data['show_capacity_filter'],
       '#capacity_filter_label' => $data['capacity_filter_label'],
       '#capacity_config' => $data['capacity_config'],
+      '#hide_operation_section' => $data['hide_operation_section'],
+      '#show_more_filters' => $data['show_more_filters'],
       '#attached' => [
         'library' => ['ps_search/filter.bar'],
         'drupalSettings' => [
@@ -264,6 +266,8 @@ final class FilterBarBuilder {
     $capacityConfig = $this->contextLabelResolver->resolveCapacity($activeAsset, $activeOp);
     $heroCapacityConfig = $this->contextLabelResolver->resolveHomepageCapacity($activeAsset, $activeOp);
     $capacityFilterByAsset = $this->contextLabelResolver->buildCapacityConfigMap($assetCodes);
+    $searchUi = $this->contextLabelResolver->resolveSearchUi($activeAsset, $activeOp);
+    $searchUiByAsset = $this->contextLabelResolver->buildSearchUiConfigMap($assetCodes);
 
     $urlLangcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
     $searchPath = $this->searchPathResolver->getPublicPath($urlLangcode);
@@ -299,6 +303,9 @@ final class FilterBarBuilder {
       'capacity_filter_by_asset' => $capacityFilterByAsset,
       'budget_filter_by_asset' => $budgetFilterByAsset,
       'more_filter_schema' => $moreFilterSchema,
+      'hide_operation_section' => $searchUi['hide_operation'],
+      'show_more_filters' => !$searchUi['hide_more_filters'],
+      'search_ui_by_asset' => $searchUiByAsset,
     ];
   }
 
@@ -332,6 +339,7 @@ final class FilterBarBuilder {
       'budgetFilterConfig' => $data['budget_config'],
       'budgetFilterByAsset' => $data['budget_filter_by_asset'],
       'moreFilterSchema' => $data['more_filter_schema'],
+      'searchUiByAsset' => $data['search_ui_by_asset'],
     ], $this->searchContextJsSettings->build());
   }
 

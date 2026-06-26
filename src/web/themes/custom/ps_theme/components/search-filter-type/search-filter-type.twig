@@ -22,7 +22,7 @@
   </ul>
 </div>
 
-<div class="ps-filter-popin__section ps-filter-popin__section--op">
+<div class="ps-filter-popin__section ps-filter-popin__section--op js-ps-operation-section"{% if hide_operation_section|default(false) %} hidden{% endif %}>
   <h3 class="ps-filter-popin__heading ps-filter-popin__heading--sentence">{{ 'Transaction type'|t }}</h3>
   <div class="ps-op-choices" role="group" aria-label="{{ 'Transaction type'|t }}">
     {% for op in operation_types %}

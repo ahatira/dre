@@ -22,6 +22,8 @@ final class LabelProfileKeys {
     'hero_surface_min_placeholder' => 'Hero — min surface placeholder',
     'hero_capacity_field_label' => 'Hero — desk capacity field label',
     'hero_hide_operation_toggle' => 'Hero — hide operation toggle (1 = hide, COW)',
+    'search_hide_operation_toggle' => 'Search page — hide operation buttons (1 = hide)',
+    'search_hide_more_filters' => 'Search page — hide more filters (1 = hide)',
     'search_budget_field_label' => 'Search page — budget filter toggle',
     'search_budget_min_label' => 'Search page — budget min label',
     'search_budget_max_label' => 'Search page — budget max label',

@@ -135,6 +135,40 @@ final class ContextLabelResolver {
   }
 
   /**
+   * Search page UI flags (operation toggle, more filters).
+   *
+   * @return array{hide_operation: bool, hide_more_filters: bool}
+   */
+  public function resolveSearchUi(?string $assetType, ?string $operationType = NULL): array {
+    $labels = $this->resolveSearchUiLabels($assetType, $operationType);
+
+    return [
+      'hide_operation' => ($labels['search_hide_operation_toggle'] ?? $labels['hero_hide_operation_toggle'] ?? '') === '1',
+      'hide_more_filters' => ($labels['search_hide_more_filters'] ?? '') === '1',
+    ];
+  }
+
+  /**
+   * Per-asset map for client-side search UI toggles.
+   *
+   * @param list<string> $assetCodes
+   *
+   * @return array<string, array{hide_operation: bool, hide_more_filters: bool}>
+   */
+  public function buildSearchUiConfigMap(array $assetCodes): array {
+    $map = [
+      '' => $this->resolveSearchUi(NULL, NULL),
+    ];
+
+    foreach ($assetCodes as $code) {
+      $asset = strtoupper($code);
+      $map[$asset] = $this->resolveSearchUi($asset, NULL);
+    }
+
+    return $map;
+  }
+
+  /**
    * Nested map for homepage hero capacity labels.
    *
    * @param list<string> $assetCodes
@@ -176,6 +210,26 @@ final class ContextLabelResolver {
    */
   public function buildCapacityConfigMap(array $assetCodes): array {
     return $this->buildNestedMap($assetCodes, fn(?string $asset, ?string $op): array => $this->resolveCapacity($asset, $op));
+  }
+
+  /**
+   * Merges asset+LOC profile flags when operation is not set (COW pattern).
+   *
+   * @return array<string, string>
+   */
+  private function resolveSearchUiLabels(?string $assetType, ?string $operationType = NULL): array {
+    $labels = $this->resolveLabels($assetType, $operationType);
+
+    if ($assetType !== NULL && ($operationType === NULL || $operationType === '')) {
+      $locLabels = $this->resolveLabels($assetType, 'LOC');
+      foreach (['search_hide_operation_toggle', 'search_hide_more_filters', 'hero_hide_operation_toggle'] as $key) {
+        if (($labels[$key] ?? '') === '' && ($locLabels[$key] ?? '') !== '') {
+          $labels[$key] = $locLabels[$key];
+        }
+      }
+    }
+
+    return $labels;
   }
 
   /**

@@ -7,6 +7,7 @@
  */
 #}
 {% set field_id_prefix = id_prefix|default('ps-more-m') %}
+<div class="js-ps-more-filters-root"{% if show_more_filters is defined and not show_more_filters %} hidden{% endif %}>
 
 {% for group_key, group in more_criteria_groups %}
   {% if group.lazy|default(false) %}
@@ -40,3 +41,5 @@
     content: core_fields,
   } only %}
 {% endfor %}
+
+</div>

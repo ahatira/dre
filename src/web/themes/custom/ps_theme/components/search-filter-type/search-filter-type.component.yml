@@ -20,6 +20,10 @@ props:
       type: boolean
       title: Whether "I'm flexible" is active
       default: true
+    hide_operation_section:
+      type: boolean
+      title: Hide transaction type buttons (e.g. Coworking)
+      default: false
 libraryOverrides:
   css:
     component:

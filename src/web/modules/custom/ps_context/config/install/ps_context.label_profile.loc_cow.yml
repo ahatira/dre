@@ -10,6 +10,8 @@ labels:
   hero_budget_max_placeholder: 'Max. rent (per desk/day)'
   hero_capacity_field_label: 'Desk capacity'
   hero_hide_operation_toggle: '1'
+  search_hide_operation_toggle: '1'
+  search_hide_more_filters: '1'
   search_budget_field_label: Rent
   search_budget_min_label: 'Min rent (€/desk/day)'
   search_budget_max_label: 'Max rent (€/desk/day)'

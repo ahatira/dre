@@ -180,7 +180,7 @@
       </div>
     </div>
 
-    <div class="ps-filter-bar__item ps-filter-bar__item--more">
+    <div class="ps-filter-bar__item ps-filter-bar__item--more js-ps-more-filters-root"{% if show_more_filters is defined and not show_more_filters %} hidden{% endif %}>
       <button
         class="btn btn-outline-primary ps-filter-bar__toggle ps-filter-bar__toggle--more d-inline-flex align-items-center js-ps-more-trigger"
         type="button"
@@ -200,7 +200,7 @@
   <div class="ps-filter-bar-backdrop js-ps-filter-bar-backdrop d-none d-lg-block" hidden aria-hidden="true"></div>
 
   {# Desktop — More filters offcanvas (≥ lg) #}
-  <div class="offcanvas offcanvas-end ps-more-offcanvas" tabindex="-1" id="ps-more-offcanvas" aria-labelledby="ps-more-offcanvas-label" data-bs-scroll="false">
+  <div class="offcanvas offcanvas-end ps-more-offcanvas js-ps-more-filters-root" tabindex="-1" id="ps-more-offcanvas" aria-labelledby="ps-more-offcanvas-label" data-bs-scroll="false"{% if show_more_filters is defined and not show_more_filters %} hidden{% endif %}>
     <div class="offcanvas-header border-bottom">
       <h2 class="offcanvas-title h6 fw-bold mb-0" id="ps-more-offcanvas-label">{{ 'More filters'|t }}</h2>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
