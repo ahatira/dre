@@ -1,0 +1,5 @@
+ps_seo.admin_overview:
+  title: 'Overview'
+  route_name: ps_seo.admin_overview
+  base_route: ps_seo.admin_overview
+  weight: -20

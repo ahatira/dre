@@ -33,3 +33,5 @@ services:
     arguments:
       - '@current_route_match'
       - '@ps_seo.offer_head_builder'
+
+  Drupal\ps_seo\Hook\SeoAdminHooks: {}

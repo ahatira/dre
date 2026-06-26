@@ -1,6 +1,34 @@
 ps_seo.admin_overview:
   title: 'SEO'
-  description: 'Metatags, Schema.org, sitemap and search SEO settings.'
+  description: 'Metatags, Schema.org, sitemap and site-wide URL settings.'
   route_name: ps_seo.admin_overview
   parent: ps_core.config
+  weight: 15
+
+ps_seo.metatag_defaults:
+  title: 'Metatag defaults'
+  description: 'Global, front page and offer metatag defaults shipped by ps_seo.'
+  route_name: entity.metatag_defaults.collection
+  parent: ps_seo.admin_overview
+  weight: 0
+
+ps_seo.pathauto_patterns:
+  title: 'Pathauto patterns'
+  description: 'URL alias patterns for offers and other content types.'
+  route_name: entity.pathauto_pattern.collection
+  parent: ps_seo.admin_overview
+  weight: 5
+
+ps_seo.redirects:
+  title: 'URL redirects'
+  description: 'Manage 301/302 redirect entities (contrib Redirect module).'
+  route_name: redirect.list
+  parent: ps_seo.admin_overview
+  weight: 10
+
+ps_seo.sitemap:
+  title: 'XML sitemap'
+  description: 'Simple XML Sitemap variants for offer listings by asset type.'
+  route_name: entity.simple_sitemap.collection
+  parent: ps_seo.admin_overview
   weight: 15
