@@ -77,16 +77,36 @@ final class ImportPipelineAdminSummaryTest extends UnitTestCase {
     $build = $summary->buildPipelineFlowRenderArray();
 
     self::assertSame('details', $build['#type']);
-    self::assertArrayHasKey('track', $build);
-    self::assertArrayHasKey('step_deposit', $build['track']);
-    self::assertArrayHasKey('step_staging', $build['track']);
+    self::assertArrayHasKey('diagram', $build);
+    self::assertArrayHasKey('main_0', $build['diagram']);
     self::assertSame(
-      ImportPipelineAdminSummary::DEFAULT_PATH_INCOMING,
-      $build['track']['step_deposit']['card']['uri']['#value'],
+      'deposit',
+      $build['diagram']['main_0']['#attributes']['data-flow-step'],
     );
     self::assertSame(
-      ImportPipelineAdminSummary::DEFAULT_STAGING_URI,
-      $build['track']['step_staging']['card']['uri']['#value'],
+      ImportPipelineAdminSummary::DEFAULT_PATH_INCOMING,
+      $build['diagram']['main_0']['uri']['#value'],
+    );
+    self::assertArrayHasKey('outcome', $build['diagram']);
+
+    $stagingUri = NULL;
+    foreach ($build['diagram'] as $key => $element) {
+      if (!is_string($key) || !str_starts_with($key, 'main_')) {
+        continue;
+      }
+      if (($element['#attributes']['data-flow-step'] ?? '') === 'staging') {
+        $stagingUri = $element['uri']['#value'] ?? NULL;
+        break;
+      }
+    }
+    self::assertSame(ImportPipelineAdminSummary::DEFAULT_STAGING_URI, $stagingUri);
+    self::assertSame(
+      ImportPipelineAdminSummary::DEFAULT_PATH_ARCHIVE,
+      $build['diagram']['outcome']['branches']['success']['lane']['lane_0']['uri']['#value'],
+    );
+    self::assertSame(
+      ImportPipelineAdminSummary::DEFAULT_PATH_FAILED,
+      $build['diagram']['outcome']['branches']['failure']['lane']['lane_0']['uri']['#value'],
     );
   }
 

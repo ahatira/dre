@@ -106,7 +106,7 @@ final class ImportAdminOverviewController extends ControllerBase {
     if ($navigationLinks !== []) {
       $build['navigation'] = [
         '#type' => 'details',
-        '#title' => $this->t('CRM import sections'),
+        '#title' => $this->t('Import sections'),
         '#open' => TRUE,
         '#attributes' => ['class' => ['ps-migrate-import-admin__navigation']],
         'links' => [

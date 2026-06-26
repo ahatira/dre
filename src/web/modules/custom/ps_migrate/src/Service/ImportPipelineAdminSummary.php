@@ -205,74 +205,101 @@ final class ImportPipelineAdminSummary {
     $cronEnabled = (bool) $config->get('cron_enabled');
     $postRunSolr = (bool) $config->get('post_run_index_solr');
 
-    $steps = [
-      [
-        'key' => 'deposit',
-        'title' => (string) $this->t('Deposit'),
-        'description' => (string) $this->t('External CRM (SFTP) or BO upload drops XML here.'),
-        'uri' => (string) $config->get('paths.incoming'),
-      ],
+    $mainLane = [
+      $this->buildFlowchartNode(
+        'deposit',
+        (string) $this->t('Deposit'),
+        (string) $this->t('External CRM (SFTP) or BO upload drops one XML file.'),
+        (string) $config->get('paths.incoming'),
+      ),
     ];
 
     if ($queueEnabled) {
-      $steps[] = [
-        'key' => 'queue',
-        'title' => (string) $this->t('Queue'),
-        'description' => (string) $this->t('Optional async job per file (Drush queue or cron).'),
-        'uri' => NULL,
-      ];
+      $mainLane[] = $this->buildFlowchartConnector(TRUE);
+      $mainLane[] = $this->buildFlowchartNode(
+        'queue',
+        (string) $this->t('Queue'),
+        (string) $this->t('Async job per file (Drush queue or cron).'),
+        NULL,
+        ['optional' => TRUE],
+      );
     }
 
-    $steps[] = [
-      'key' => 'pickup',
-      'title' => (string) $this->t('Pickup'),
-      'description' => $cronEnabled
+    $mainLane[] = $this->buildFlowchartConnector();
+    $mainLane[] = $this->buildFlowchartNode(
+      'pickup',
+      (string) $this->t('Pickup'),
+      $cronEnabled
         ? (string) $this->t('Drush sync, cron polling, or queue worker starts one run.')
         : (string) $this->t('Drush sync or manual run starts one import.'),
-      'uri' => NULL,
-    ];
+    );
+    $mainLane[] = $this->buildFlowchartConnector();
+    $mainLane[] = $this->buildFlowchartNode(
+      'processing',
+      (string) $this->t('Processing'),
+      (string) $this->t('File moved here with its original name while the run is active.'),
+      (string) $config->get('paths.processing'),
+    );
+    $mainLane[] = $this->buildFlowchartConnector();
+    $mainLane[] = $this->buildFlowchartNode(
+      'staging',
+      (string) $this->t('Staging'),
+      (string) $this->t('Fixed copy for Migrate (same path every run; not the deposit folder).'),
+      (string) $config->get('staging_uri'),
+    );
+    $mainLane[] = $this->buildFlowchartConnector();
+    $mainLane[] = $this->buildFlowchartNode(
+      'migrate',
+      (string) $this->t('Migrate'),
+      (string) $this->t('Ordered CRM migrations (agents, features, media, offers…).'),
+    );
 
-    $steps[] = [
-      'key' => 'processing',
-      'title' => (string) $this->t('Processing'),
-      'description' => (string) $this->t('File moved here with its original name while the run is active.'),
-      'uri' => (string) $config->get('paths.processing'),
+    $successBranch = [
+      $this->buildFlowchartNode(
+        'archive',
+        (string) $this->t('Archive'),
+        (string) $this->t('Successful run — file kept for audit.'),
+        (string) $config->get('paths.archive'),
+        ['variant' => 'success'],
+      ),
     ];
-
-    $steps[] = [
-      'key' => 'staging',
-      'title' => (string) $this->t('Staging'),
-      'description' => (string) $this->t('Fixed copy for Migrate (same path every run; not the deposit folder).'),
-      'uri' => (string) $config->get('staging_uri'),
-    ];
-
-    $steps[] = [
-      'key' => 'migrate',
-      'title' => (string) $this->t('Migrate'),
-      'description' => (string) $this->t('Ordered CRM migrations (agents, features, media, offers…).'),
-      'uri' => NULL,
-    ];
-
-    $steps[] = [
-      'key' => 'outcome',
-      'title' => (string) $this->t('Outcome'),
-      'description' => (string) $this->t('Success → archive. Failure → failed folder.'),
-      'uri' => (string) $config->get('paths.archive') . ' / ' . (string) $config->get('paths.failed'),
-    ];
-
     if ($postRunSolr) {
-      $steps[] = [
-        'key' => 'postrun',
-        'title' => (string) $this->t('Post-run'),
-        'description' => (string) $this->t('Search index, alerts, import_run stats and snapshot.'),
-        'uri' => NULL,
-      ];
+      $successBranch[] = $this->buildFlowchartConnector(TRUE);
+      $successBranch[] = $this->buildFlowchartNode(
+        'postrun',
+        (string) $this->t('Post-run'),
+        (string) $this->t('Search index, alerts, import_run stats and snapshot.'),
+        NULL,
+        ['optional' => TRUE],
+      );
     }
 
-    $children = [];
-    foreach ($steps as $index => $step) {
-      $children['step_' . $step['key']] = $this->buildFlowStep($step, $index === count($steps) - 1);
+    $diagramChildren = [];
+    foreach ($mainLane as $index => $element) {
+      $diagramChildren['main_' . $index] = $element;
     }
+
+    $diagramChildren['outcome'] = $this->buildFlowchartFork(
+      (string) $this->t('Outcome'),
+      [
+        'success' => [
+          'label' => (string) $this->t('Success'),
+          'lane' => $successBranch,
+        ],
+        'failure' => [
+          'label' => (string) $this->t('Failure'),
+          'lane' => [
+            $this->buildFlowchartNode(
+              'failed',
+              (string) $this->t('Failed'),
+              (string) $this->t('Run stopped — file kept for investigation.'),
+              (string) $config->get('paths.failed'),
+              ['variant' => 'failure'],
+            ),
+          ],
+        ],
+      ],
+    );
 
     return [
       '#type' => 'details',
@@ -285,10 +312,14 @@ final class ImportPipelineAdminSummary {
         '#value' => $this->t('One XML file per run. Processing keeps the original filename; staging is a stable copy read by Migrate.'),
         '#attributes' => ['class' => ['ps-migrate-import-admin__flow-intro']],
       ],
-      'track' => [
+      'diagram' => [
         '#type' => 'container',
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flow-track']],
-      ] + $children,
+        '#attributes' => [
+          'class' => ['ps-migrate-import-admin__flowchart'],
+          'role' => 'img',
+          'aria-label' => (string) $this->t('Import pipeline flowchart from deposit to archive or failed folder.'),
+        ],
+      ] + $diagramChildren,
     ];
   }
 
@@ -301,58 +332,141 @@ final class ImportPipelineAdminSummary {
   }
 
   /**
-   * Builds one flow diagram step.
+   * Builds one flowchart node.
    *
-   * @param array{key: string, title: string, description: string, uri: string|null} $step
-   *   Step metadata.
-   * @param bool $isLast
-   *   Whether this is the last step (no arrow after).
+   * @param array{optional?: bool, variant?: string} $options
+   *   Optional styling flags.
    *
    * @return array<string, mixed>
-   *   Flow step render array.
+   *   Flowchart node render array.
    */
-  private function buildFlowStep(array $step, bool $isLast): array {
-    $card = [
+  private function buildFlowchartNode(
+    string $key,
+    string $title,
+    string $description,
+    ?string $uri = NULL,
+    array $options = [],
+  ): array {
+    $classes = ['ps-migrate-import-admin__flowchart-node'];
+    if (!empty($options['optional'])) {
+      $classes[] = 'ps-migrate-import-admin__flowchart-node--optional';
+    }
+    if (!empty($options['variant'])) {
+      $classes[] = 'ps-migrate-import-admin__flowchart-node--' . $options['variant'];
+    }
+
+    $node = [
       '#type' => 'container',
-      '#attributes' => ['class' => ['ps-migrate-import-admin__flow-step']],
+      '#attributes' => [
+        'class' => $classes,
+        'data-flow-step' => $key,
+      ],
       'title' => [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#value' => $step['title'],
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flow-step-title']],
+        '#value' => $title,
+        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-title']],
       ],
       'description' => [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#value' => $step['description'],
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flow-step-description']],
+        '#value' => $description,
+        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-description']],
       ],
     ];
 
-    if ($step['uri'] !== NULL && $step['uri'] !== '') {
-      $card['uri'] = [
+    if (!empty($options['optional'])) {
+      $node['badge'] = [
         '#type' => 'html_tag',
-        '#tag' => 'code',
-        '#value' => $step['uri'],
-        '#attributes' => ['class' => ['ps-migrate-import-admin__flow-step-uri']],
+        '#tag' => 'span',
+        '#value' => $this->t('Optional'),
+        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-badge']],
       ];
     }
 
+    if ($uri !== NULL && $uri !== '') {
+      $node['uri'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'code',
+        '#value' => $uri,
+        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-node-uri']],
+      ];
+    }
+
+    return $node;
+  }
+
+  /**
+   * Builds a vertical connector between flowchart nodes.
+   *
+   * @return array<string, mixed>
+   *   Connector render array.
+   */
+  private function buildFlowchartConnector(bool $optional = FALSE): array {
+    $classes = ['ps-migrate-import-admin__flowchart-connector'];
+    if ($optional) {
+      $classes[] = 'ps-migrate-import-admin__flowchart-connector--optional';
+    }
+
+    return [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => $classes,
+        'aria-hidden' => 'true',
+      ],
+    ];
+  }
+
+  /**
+   * Builds a fork after Migrate with success and failure branches.
+   *
+   * @param array<string, array{label: string, lane: list<array<string, mixed>>}> $branches
+   *   Branch metadata keyed by branch id.
+   *
+   * @return array<string, mixed>
+   *   Fork render array.
+   */
+  private function buildFlowchartFork(string $title, array $branches): array {
     $build = [
       '#type' => 'container',
-      '#attributes' => ['class' => ['ps-migrate-import-admin__flow-item']],
-      'card' => $card,
+      '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-fork']],
+      'connector' => $this->buildFlowchartConnector(),
+      'hub' => [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' => $title,
+        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-fork-hub']],
+      ],
+      'branches' => [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-fork-branches']],
+      ],
     ];
 
-    if (!$isLast) {
-      $build['arrow'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'span',
-        '#value' => '→',
+    foreach ($branches as $branchKey => $branch) {
+      $laneChildren = [];
+      foreach ($branch['lane'] as $index => $element) {
+        $laneChildren['lane_' . $index] = $element;
+      }
+
+      $build['branches'][$branchKey] = [
+        '#type' => 'container',
         '#attributes' => [
-          'class' => ['ps-migrate-import-admin__flow-arrow'],
-          'aria-hidden' => 'true',
+          'class' => [
+            'ps-migrate-import-admin__flowchart-branch',
+            'ps-migrate-import-admin__flowchart-branch--' . $branchKey,
+          ],
         ],
+        'label' => [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' => $branch['label'],
+          '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-branch-label']],
+        ],
+        'lane' => [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['ps-migrate-import-admin__flowchart-branch-lane']],
+        ] + $laneChildren,
       ];
     }
 

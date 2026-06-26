@@ -1,5 +1,5 @@
 ps_migrate.admin_overview:
-  title: 'CRM import'
+  title: 'Import'
   description: 'CRM XML import pipeline, runs, upload and settings.'
   route_name: ps_migrate.admin_overview
   parent: ps_core.hub
