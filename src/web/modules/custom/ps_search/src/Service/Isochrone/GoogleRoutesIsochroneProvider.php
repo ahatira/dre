@@ -107,12 +107,6 @@ final class GoogleRoutesIsochroneProvider implements IsochroneProviderInterface 
    *
    */
   private function resolveGoogleApiKey(): string {
-    $settings = $this->configFactory->get('ps_search.map_zone_settings');
-    $override = trim((string) ($settings->get('google_routes_api_key') ?? ''));
-    if ($override !== '') {
-      return $override;
-    }
-
     $gmapKey = trim((string) ($this->configFactory->get('geofield_map.settings')->get('gmap_api_key') ?? ''));
     if ($gmapKey !== '') {
       return $gmapKey;

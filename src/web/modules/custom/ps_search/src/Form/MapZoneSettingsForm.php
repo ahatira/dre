@@ -6,6 +6,8 @@ namespace Drupal\ps_search\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Admin form for map zone defaults, pager threshold and markers cap.
@@ -33,8 +35,10 @@ final class MapZoneSettingsForm extends ConfigFormBase {
     $config = $this->config('ps_search.map_zone_settings');
 
     $form['intro'] = [
-      '#markup' => '<p>' . $this->t('Default search zone (center, radius, marker limits) and PS-owned Google Map shell on the search page. The Google Maps JavaScript API key is read from Geofield Map settings (/admin/config/system/geofield-map).') . '</p>',
+      '#markup' => '<p>' . $this->t('Default search zone (center, radius, marker limits), map shell behaviour, marker caps and distance isochrone provider for the property search page.') . '</p>',
     ];
+
+    $form['google_api_key_help'] = $this->buildGoogleApiKeyHelpElement();
 
     $form['default_center_lat'] = [
       '#type' => 'number',
@@ -72,7 +76,7 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       '#type' => 'details',
       '#title' => $this->t('Map shell (PS native cartography)'),
       '#open' => FALSE,
-      '#description' => $this->t('Settings for the PS-owned Google Map shell on the search page. The Google Maps JavaScript API key is read from Geofield Map settings (/admin/config/system/geofield-map).'),
+      '#description' => $this->t('Zoom, gesture handling and client-side marker clustering for the PS-owned Google Map on the search page.'),
     ];
 
     $form['map_shell']['default_zoom'] = [
@@ -241,7 +245,7 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       '#default_value' => $currentProvider,
       '#required' => TRUE,
       '#options' => $providerOptions,
-      '#description' => $this->t('External providers require API keys. On failure, fallback uses the offline approximation when enabled.'),
+      '#description' => $this->t('External providers require API keys. Google Routes reuses the shared Google Maps API key (see above). On failure, fallback uses the offline approximation when enabled.'),
     ];
 
     $form['isochrone']['isochrone_fallback'] = [
@@ -256,13 +260,6 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('ors_api_key') ?? '',
       '#description' => $this->t('Required when provider is OpenRouteService. Get a key at openrouteservice.org.'),
       '#access' => $orsEnabled,
-    ];
-
-    $form['isochrone']['google_routes_api_key'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Google Routes API key (optional override)'),
-      '#default_value' => $config->get('google_routes_api_key') ?? '',
-      '#description' => $this->t('Leave empty to reuse the Geofield Map Google Maps API key. The Google Cloud project must enable the Routes API (ComputeRoutes) in addition to Maps JavaScript API.'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -310,10 +307,60 @@ final class MapZoneSettingsForm extends ConfigFormBase {
       ->set('isochrone_fallback', (bool) $form_state->getValue('isochrone_fallback'))
       ->set('ors_enabled', $orsEnabled)
       ->set('ors_api_key', trim((string) $form_state->getValue('ors_api_key')))
-      ->set('google_routes_api_key', trim((string) $form_state->getValue('google_routes_api_key')))
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Builds a single help block for the shared Google Maps API key.
+   *
+   * @return array<string, mixed>
+   *   Form element.
+   */
+  private function buildGoogleApiKeyHelpElement(): array {
+    $links = $this->buildGoogleApiKeyLinks();
+
+    $element = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Google Maps API key'),
+      '#description' => $this->t('Shared by the search map shell and Google Routes isochrones. When using Google isochrones, the Google Cloud project must also enable Routes API (ComputeRoutes).'),
+    ];
+
+    if ($links !== []) {
+      $element['links'] = [
+        '#theme' => 'item_list',
+        '#title' => $this->t('Configure the API key in:'),
+        '#items' => $links,
+      ];
+    }
+
+    return $element;
+  }
+
+  /**
+   * @return list<\Drupal\Core\Link>
+   *   Admin links to Google Maps API key configuration.
+   */
+  private function buildGoogleApiKeyLinks(): array {
+    $links = [];
+
+    if (Url::fromRoute('geofield_map.settings')->access()) {
+      $links[] = Link::createFromRoute(
+        $this->t('Geofield Map settings'),
+        'geofield_map.settings',
+      );
+    }
+
+    if (Url::fromRoute('entity.geocoder_provider.edit_form', ['geocoder_provider' => 'google_maps'])->access()) {
+      $links[] = Link::createFromRoute(
+        $this->t('Google Maps Geocoder provider'),
+        'entity.geocoder_provider.edit_form',
+        ['geocoder_provider' => 'google_maps'],
+      );
+    }
+
+    return $links;
   }
 
 }
