@@ -8,18 +8,59 @@ use Drupal\migrate\Plugin\Migration;
 use Drupal\migrate\Plugin\MigrationInterface;
 
 /**
- * Applies runtime source plugin swaps for XML parse cache (Phase A).
+ * Applies runtime migration source overrides for the CRM import pipeline.
  */
 final class ImportPipelineMigrationSourceAlterer {
 
   public function __construct(
+    private readonly ImportPipelinePathResolver $pathResolver,
     private readonly XmlParseCacheService $xmlParseCache,
   ) {}
 
   /**
+   * Applies pipeline staging URI and XML parse cache overrides.
+   */
+  public function applyPipelineOverrides(MigrationInterface $migration): void {
+    $this->applyStagingUri($migration);
+    $this->applyXmlParseCache($migration);
+  }
+
+  /**
+   * Replaces hardcoded CRM XML paths with the configured staging URI.
+   */
+  private function applyStagingUri(MigrationInterface $migration): void {
+    if (!$migration instanceof Migration) {
+      return;
+    }
+
+    if (!in_array('ps_crm_import', $migration->getMigrationTags(), TRUE)) {
+      return;
+    }
+
+    $source = $migration->getSourceConfiguration();
+    $plugin = (string) ($source['plugin'] ?? '');
+    if ($plugin !== 'ps_crm_offer_xml') {
+      return;
+    }
+
+    $stagingUri = $this->pathResolver->getStagingUri();
+    if (array_key_exists('urls', $source)) {
+      $source['urls'] = [$stagingUri];
+    }
+    if (array_key_exists('files', $source)) {
+      $source['files'] = [$stagingUri];
+    }
+    if (!array_key_exists('urls', $source) && !array_key_exists('files', $source)) {
+      $source['urls'] = [$stagingUri];
+    }
+
+    $this->replaceSourceConfiguration($migration, $source);
+  }
+
+  /**
    * Swaps file/simple_xml/xml fetcher-parser plugins when cache is warm.
    */
-  public function applyXmlParseCache(MigrationInterface $migration): void {
+  private function applyXmlParseCache(MigrationInterface $migration): void {
     if (!$this->xmlParseCache->isActive() || !$migration instanceof Migration) {
       return;
     }
@@ -54,7 +95,12 @@ final class ImportPipelineMigrationSourceAlterer {
   }
 
   /**
+   * Replaces migration source configuration at runtime.
+   *
+   * @param \Drupal\migrate\Plugin\Migration $migration
+   *   Migration plugin instance.
    * @param array<string, mixed> $source
+   *   Updated source plugin configuration.
    */
   private function replaceSourceConfiguration(Migration $migration, array $source): void {
     $reflection = new \ReflectionObject($migration);

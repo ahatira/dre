@@ -186,6 +186,7 @@ services:
   ps_migrate.import_pipeline_migration_source_alterer:
     class: Drupal\ps_migrate\Service\ImportPipelineMigrationSourceAlterer
     arguments:
+      - '@ps_migrate.import_pipeline_path_resolver'
       - '@ps_migrate.xml_parse_cache'
 
   ps_migrate.import_pipeline_lock:

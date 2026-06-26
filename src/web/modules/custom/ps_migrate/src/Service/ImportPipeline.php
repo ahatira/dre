@@ -498,6 +498,8 @@ final class ImportPipeline {
       $run->set('stats', json_encode($migrateStats, JSON_THROW_ON_ERROR));
       $run->save();
 
+      $this->alertNotifier->notifySkipWarningIfNeeded($run, $migrateStats);
+
       return [
         'id' => (int) $run->id(),
         'filename' => $filename,

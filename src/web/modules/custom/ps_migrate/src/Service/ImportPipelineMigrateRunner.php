@@ -106,7 +106,7 @@ final class ImportPipelineMigrateRunner {
       throw new \RuntimeException(sprintf('Migration not found: %s', $migrationId));
     }
 
-    $this->sourceAlterer->applyXmlParseCache($migration);
+    $this->sourceAlterer->applyPipelineOverrides($migration);
 
     if ($update) {
       $migration->getIdMap()->prepareUpdate();

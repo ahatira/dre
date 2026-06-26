@@ -123,7 +123,7 @@ Config : `/admin/ps/import/settings` — `alert_email_enabled`, `alert_email_rec
 | Événement | Email |
 |-----------|-------|
 | Run `failed` | Oui (si activé + destinataires) |
-| Skip rate élevé | `alert_email_on_warning` — **non implémenté** |
+| Skip rate élevé | Oui si `alert_email_on_warning` + taux skip ≥ `alert_skip_threshold_percent` |
 
 Dev : Mailpit http://localhost:8025 (transport dans `settings.local.php`).
 
