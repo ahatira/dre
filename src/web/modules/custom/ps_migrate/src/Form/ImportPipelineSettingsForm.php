@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\ps_migrate\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\ps_migrate\Service\ImportPipelineAdminSummary;
+use Drupal\ps_migrate\Service\ImportPipelinePathResolver;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * CRM import pipeline folder and behaviour settings.
@@ -13,6 +21,29 @@ use Drupal\Core\Form\FormStateInterface;
 final class ImportPipelineSettingsForm extends ConfigFormBase {
 
   private const int BYTES_PER_MB = 1048576;
+
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    TypedConfigManagerInterface $typed_config_manager,
+    private readonly ImportPipelineAdminSummary $adminSummary,
+    private readonly ImportPipelinePathResolver $pathResolver,
+    private readonly ModuleHandlerInterface $moduleHandler,
+  ) {
+    parent::__construct($config_factory, $typed_config_manager);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): static {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('config.typed'),
+      $container->get('ps_migrate.import_pipeline_admin_summary'),
+      $container->get('ps_migrate.import_pipeline_path_resolver'),
+      $container->get('module_handler'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -34,6 +65,8 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_migrate.import_pipeline_settings');
 
+    $form['#attached']['library'][] = 'ps_migrate/import_admin_overview';
+
     $form['paths'] = [
       '#type' => 'details',
       '#title' => $this->t('Pipeline folders'),
@@ -54,8 +87,25 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Migrate staging URI'),
       '#default_value' => $config->get('staging_uri'),
       '#required' => TRUE,
-      '#description' => $this->t('Active XML copied here before migrate runs (default public://crm/offers.xml).'),
+      '#description' => $this->t('Active XML copied here before migrate runs. Migrations receive this URI at runtime during import.'),
     ];
+    if ($this->adminSummary->stagingUriDiffersFromCmiDefault()) {
+      $form['staging_uri_warning'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => [
+            'messages',
+            'messages--warning',
+            'ps-migrate-import-settings__staging-warning',
+          ],
+        ],
+        'text' => [
+          '#markup' => $this->t('Differs from exported migration CMI default (@default). Runtime override is expected — YAML exports still reference the default until changed in config sync.', [
+            '@default' => ImportPipelineAdminSummary::DEFAULT_CMI_STAGING_URI,
+          ]),
+        ],
+      ];
+    }
 
     $form['mode'] = [
       '#type' => 'radios',
@@ -210,7 +260,11 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
         'skip_field' => $this->t('Skip field — preserve non-empty internal field values'),
       ],
       '#default_value' => $config->get('lock_strategy_default') ?: 'log_only',
-      '#description' => $this->t('Applies when an entity has field_internal_lock enabled.'),
+      '#description' => $this->t('Applies when an entity has field_internal_lock enabled. Domain-specific rules are configured under @governance.', [
+        '@governance' => $this->moduleHandler->moduleExists('ps_core')
+          ? Link::fromTextAndUrl($this->t('Configuration → Governance'), Url::fromRoute('ps_core.governance'))->toString()
+          : $this->t('Configuration → Governance'),
+      ]),
     ];
     $form['governance']['lock_field_strategies'] = [
       '#type' => 'textarea',
@@ -261,8 +315,25 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('media_download_max_failures_percent') ?? 5,
       '#min' => 1,
       '#max' => 100,
-      '#description' => $this->t('Reserved for post-run warning KPI when media failure rate exceeds this threshold.'),
+      '#disabled' => TRUE,
+      '#description' => $this->t('Not implemented yet. Media download failures are logged per item; no post-run KPI alert uses this threshold.'),
+      '#attributes' => ['class' => ['ps-migrate-import-settings__not-implemented']],
     ];
+
+    if ($this->moduleHandler->moduleExists('ps_core')) {
+      $governanceUrl = Url::fromRoute('ps_core.governance');
+      if ($governanceUrl->access($this->currentUser())) {
+        $form['related'] = [
+          '#type' => 'item',
+          '#title' => $this->t('Related settings'),
+          '#markup' => Link::fromTextAndUrl(
+            $this->t('Import governance (domain lock rules and global defaults)'),
+            $governanceUrl,
+          )->toString(),
+          '#wrapper_attributes' => ['class' => ['ps-migrate-import-settings__governance-link']],
+        ];
+      }
+    }
 
     return parent::buildForm($form, $form_state);
   }
@@ -299,12 +370,9 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       ->set('conflict_window_seconds', max(0, (int) $form_state->getValue('conflict_window_seconds')))
       ->set('media_download_timeout', (int) $form_state->getValue('media_download_timeout'))
       ->set('media_download_retry_count', (int) $form_state->getValue('media_download_retry_count'))
-      ->set('media_download_max_failures_percent', (int) $form_state->getValue('media_download_max_failures_percent'))
       ->save();
 
-    /** @var \Drupal\ps_migrate\Service\ImportPipelinePathResolver $resolver */
-    $resolver = \Drupal::service('ps_migrate.import_pipeline_path_resolver');
-    $resolver->ensureConfiguredDirectories();
+    $this->pathResolver->ensureConfiguredDirectories();
 
     parent::submitForm($form, $form_state);
   }

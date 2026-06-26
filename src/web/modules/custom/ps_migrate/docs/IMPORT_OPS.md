@@ -21,6 +21,8 @@ CRM dépose .xml → incoming/ → (queue) → processing/ → staging public://
 
 ## Chemins fichiers (défaut dev)
 
+Hub BO : `/admin/ps/import` — statut pipeline (queue, dernier run, upload rapide).
+
 Config BO : `/admin/ps/import/settings` (`ps_migrate.import_pipeline_settings`).
 
 | Dossier | URI défaut |

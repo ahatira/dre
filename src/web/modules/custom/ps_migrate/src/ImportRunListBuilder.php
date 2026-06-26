@@ -12,12 +12,9 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Url;
 use Drupal\ps_migrate\Entity\ImportRunInterface;
-use Drupal\ps_migrate\Service\ImportPipeline;
-use Drupal\ps_migrate\Service\ImportPipelineLock;
-use Drupal\ps_migrate\Service\ImportPipelineLockStrategy;
+use Drupal\ps_migrate\Service\ImportPipelineAdminSummary;
 use Drupal\ps_migrate\Service\ImportPipelinePathResolver;
 use Drupal\ps_migrate\Service\ImportPipelineRollbackService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,9 +30,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
     private readonly ImportPipelinePathResolver $pathResolver,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly DateFormatterInterface $dateFormatter,
-    private readonly QueueFactory $queueFactory,
-    private readonly ImportPipelineLock $pipelineLock,
-    private readonly ImportPipelineLockStrategy $lockStrategy,
+    private readonly ImportPipelineAdminSummary $adminSummary,
     private readonly ImportPipelineRollbackService $rollbackService,
   ) {
     parent::__construct($entity_type, $storage);
@@ -51,9 +46,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
       $container->get('ps_migrate.import_pipeline_path_resolver'),
       $container->get('config.factory'),
       $container->get('date.formatter'),
-      $container->get('queue'),
-      $container->get('ps_migrate.import_pipeline_lock'),
-      $container->get('ps_migrate.import_pipeline_lock_strategy'),
+      $container->get('ps_migrate.import_pipeline_admin_summary'),
       $container->get('ps_migrate.import_pipeline_rollback'),
     );
   }
@@ -144,36 +137,6 @@ final class ImportRunListBuilder extends EntityListBuilder {
    */
   private function buildHelp(): array {
     $config = $this->configFactory->get('ps_migrate.import_pipeline_settings');
-    $pendingCount = count($this->pathResolver->listIncomingXmlFiles());
-    $queueDepth = $this->queueFactory->get(ImportPipeline::QUEUE_NAME)->numberOfItems();
-    $failedCount = (int) $this->getStorage()->getQuery()
-      ->accessCheck(TRUE)
-      ->condition('pipeline_status', ImportRunInterface::STATUS_FAILED)
-      ->count()
-      ->execute();
-    $totalRuns = (int) $this->getStorage()->getQuery()
-      ->accessCheck(TRUE)
-      ->count()
-      ->execute();
-    $lastRun = $this->loadLastRun();
-    $cronEnabled = (bool) $config->get('cron_enabled');
-    $queueEnabled = (bool) $config->get('queue_enabled');
-    $postRunSolr = (bool) $config->get('post_run_index_solr');
-    $lockActive = $this->pipelineLock->isLocked();
-    $lockStrategy = $this->lockStrategy->getDefaultStrategy();
-
-    $lastRunMeta = $this->t('No runs recorded yet.');
-    if ($lastRun instanceof ImportRunInterface) {
-      $finished = (int) $lastRun->get('finished')->value;
-      $stats = $lastRun->getStats();
-      $slaSuffix = !empty($stats['sla_breached']) ? ' — SLA breached' : '';
-      $lastRunMeta = $this->t('@status — @file (@time)@sla', [
-        '@status' => $lastRun->getPipelineStatus(),
-        '@file' => $lastRun->getFilename(),
-        '@time' => $finished > 0 ? $this->dateFormatter->format($finished, 'short') : $this->t('in progress'),
-        '@sla' => $slaSuffix,
-      ]);
-    }
 
     return [
       '#type' => 'container',
@@ -187,79 +150,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
           '#value' => $this->t('Track CRM XML imports processed by the pipeline. External systems deposit files in the incoming folder; each run copies the XML to staging, executes Migrate, then archives or moves failures.'),
         ],
       ],
-      'stats' => [
-        '#type' => 'container',
-        '#attributes' => ['class' => ['ps-migrate-import-runs__stats']],
-        'pending' => $this->buildStatCard(
-          (string) $pendingCount,
-          (string) $this->t('Pending in incoming'),
-          $pendingCount > 0
-            ? $this->t('Waiting for pipeline')
-            : $this->t('Folder empty'),
-        ),
-        'queue' => $this->buildStatCard(
-          (string) $queueDepth,
-          (string) $this->t('Queue depth'),
-          $queueEnabled
-            ? ($lockActive ? $this->t('Worker lock active') : $this->t('Async processing enabled'))
-            : $this->t('Sync mode (queue disabled)'),
-        ),
-        'failed' => $this->buildStatCard(
-          (string) $failedCount,
-          (string) $this->t('Failed runs'),
-          $failedCount > 0
-            ? $this->t('Review run details')
-            : $this->t('No failures recorded'),
-        ),
-        'runs' => $this->buildStatCard(
-          (string) $totalRuns,
-          (string) $this->t('Recorded runs'),
-          $this->t('History below'),
-        ),
-        'cron' => $this->buildStatCard(
-          $cronEnabled ? (string) $this->t('On') : (string) $this->t('Off'),
-          (string) $this->t('Cron polling'),
-          $cronEnabled
-            ? $this->t('Automatic pickup enabled')
-            : $this->t('Manual or Drush only'),
-        ),
-        'solr' => $this->buildStatCard(
-          $postRunSolr ? (string) $this->t('On') : (string) $this->t('Off'),
-          (string) $this->t('Post-run Solr'),
-          $postRunSolr
-            ? $this->t('Offers index after success')
-            : $this->t('Manual index required'),
-        ),
-        'lock' => $this->buildStatCard(
-          $lockStrategy,
-          (string) $this->t('Lock strategy'),
-          $lockActive
-            ? $this->t('Import currently locked')
-            : $this->t('No active import lock'),
-        ),
-        'last' => [
-          '#type' => 'container',
-          '#attributes' => ['class' => ['ps-migrate-import-runs__stat']],
-          'value' => [
-            '#type' => 'html_tag',
-            '#tag' => 'div',
-            '#value' => $lastRun instanceof ImportRunInterface ? $lastRun->getPipelineStatus() : '—',
-            '#attributes' => ['class' => ['ps-migrate-import-runs__stat-value']],
-          ],
-          'label' => [
-            '#type' => 'html_tag',
-            '#tag' => 'div',
-            '#value' => $this->t('Last run'),
-            '#attributes' => ['class' => ['ps-migrate-import-runs__stat-label']],
-          ],
-          'meta' => [
-            '#type' => 'html_tag',
-            '#tag' => 'div',
-            '#value' => $lastRunMeta,
-            '#attributes' => ['class' => ['ps-migrate-import-runs__stat-meta']],
-          ],
-        ],
-      ],
+      'stats' => $this->adminSummary->buildStatsRenderArray(),
       'workflow' => [
         '#type' => 'details',
         '#title' => $this->t('How the pipeline works'),
@@ -311,34 +202,6 @@ final class ImportRunListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Builds a summary stat card render element.
-   */
-  private function buildStatCard(string $value, string $label, \Stringable|string $meta): array {
-    return [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['ps-migrate-import-runs__stat']],
-      'value' => [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' => $value,
-        '#attributes' => ['class' => ['ps-migrate-import-runs__stat-value']],
-      ],
-      'label' => [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' => $label,
-        '#attributes' => ['class' => ['ps-migrate-import-runs__stat-label']],
-      ],
-      'meta' => [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' => $meta,
-        '#attributes' => ['class' => ['ps-migrate-import-runs__stat-meta']],
-      ],
-    ];
-  }
-
-  /**
    * Formats duration for a list table cell.
    */
   private function formatDurationCell(ImportRunInterface $entity, int $started, int $finished): string {
@@ -355,22 +218,6 @@ final class ImportRunListBuilder extends EntityListBuilder {
       return (string) $this->dateFormatter->formatInterval($finished - $started);
     }
     return (string) $this->t('N/A');
-  }
-
-  /**
-   * Loads the most recently finished import run, if any.
-   */
-  private function loadLastRun(): ?ImportRunInterface {
-    $ids = $this->getStorage()->getQuery()
-      ->accessCheck(TRUE)
-      ->sort('started', 'DESC')
-      ->range(0, 1)
-      ->execute();
-    if ($ids === []) {
-      return NULL;
-    }
-    $entity = $this->getStorage()->load(reset($ids));
-    return $entity instanceof ImportRunInterface ? $entity : NULL;
   }
 
 }

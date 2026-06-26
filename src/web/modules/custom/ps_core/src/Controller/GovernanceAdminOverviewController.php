@@ -114,6 +114,11 @@ final class GovernanceAdminOverviewController extends ControllerBase {
 
     if ($this->moduleHandler->moduleExists('ps_migrate')) {
       $groups[0]['items'][] = [
+        'title' => $this->t('CRM import overview'),
+        'description' => $this->t('Pipeline status, queue depth and quick upload.'),
+        'route' => 'ps_migrate.admin_overview',
+      ];
+      $groups[0]['items'][] = [
         'title' => $this->t('Global governance defaults'),
         'description' => $this->t('Inheritance hints and overview of the global CRM lock strategy source.'),
         'route' => 'ps_core.governance_settings',

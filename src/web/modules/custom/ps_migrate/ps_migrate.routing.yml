@@ -1,10 +1,12 @@
 ps_migrate.admin_overview:
   path: '/admin/ps/import'
   defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _controller: '\Drupal\ps_migrate\Controller\ImportAdminOverviewController::overview'
     _title: 'CRM import'
   requirements:
     _permission: 'access ps_core import section'
+  options:
+    _admin_route: TRUE
 
 ps_migrate.post_import_report:
   path: '/admin/ps/import/rejections'

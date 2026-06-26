@@ -116,6 +116,17 @@ services:
       - '@file_system'
       - '@stream_wrapper_manager'
 
+  ps_migrate.import_pipeline_admin_summary:
+    class: Drupal\ps_migrate\Service\ImportPipelineAdminSummary
+    arguments:
+      - '@ps_migrate.import_pipeline_path_resolver'
+      - '@config.factory'
+      - '@date.formatter'
+      - '@ps_migrate.import_pipeline_lock'
+      - '@ps_migrate.import_pipeline_lock_strategy'
+      - '@ps_migrate.import_pipeline'
+      - '@entity_type.manager'
+
   ps_migrate.snapshot_migration_post_import_subscriber:
     class: Drupal\ps_migrate\EventSubscriber\SnapshotMigrationPostImportSubscriber
     arguments:

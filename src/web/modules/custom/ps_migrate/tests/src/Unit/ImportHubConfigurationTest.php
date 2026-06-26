@@ -15,13 +15,13 @@ use Symfony\Component\Yaml\Yaml;
 final class ImportHubConfigurationTest extends UnitTestCase {
 
   /**
-   * CRM import overview route uses the dedicated import section permission.
+   * CRM import overview route uses the dedicated overview controller.
    */
   public function testAdminOverviewRouteUsesImportSectionPermission(): void {
     $routing = $this->loadRouting('ps_migrate.admin_overview');
 
     self::assertSame(
-      '\\Drupal\\system\\Controller\\SystemController::systemAdminMenuBlockPage',
+      '\\Drupal\\ps_migrate\\Controller\\ImportAdminOverviewController::overview',
       $routing['defaults']['_controller'],
     );
     self::assertSame(

@@ -10,3 +10,10 @@ import_run_view:
   css:
     theme:
       css/import-run-view.css: {}
+
+import_admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/import-runs-admin.css: {}
+      css/import-admin-overview.css: {}

@@ -1,0 +1,77 @@
+.ps-migrate-import-admin__intro {
+  max-width: 72rem;
+  margin-bottom: 1rem;
+}
+
+.ps-migrate-import-admin__intro p {
+  margin: 0;
+  color: #444;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.ps-migrate-import-admin__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-migrate-import-admin__action {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid #c5ced6;
+  border-radius: 6px;
+  background: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ps-migrate-import-admin__action:hover {
+  border-color: #1c2d37;
+  text-decoration: none;
+}
+
+.ps-migrate-import-admin__action--primary {
+  border-color: #1c2d37;
+  background: #1c2d37;
+  color: #fff;
+}
+
+.ps-migrate-import-admin__action--primary:hover {
+  background: #2f4554;
+  color: #fff;
+}
+
+.ps-migrate-import-admin__navigation {
+  max-width: 72rem;
+  margin-bottom: 1rem;
+}
+
+.ps-migrate-import-admin__navigation-links .admin-item {
+  margin-block-end: 0.25rem;
+}
+
+.ps-migrate-import-admin__footer {
+  margin-top: 1.5rem;
+  max-width: 72rem;
+}
+
+.ps-migrate-import-admin__footer p {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.ps-migrate-import-settings__staging-warning {
+  margin-top: 0.5rem;
+}
+
+.ps-migrate-import-settings__governance-link {
+  margin-top: 1rem;
+}
+
+.ps-migrate-import-settings__not-implemented {
+  opacity: 0.75;
+}
