@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_internal_lock
+    - media.type.image
+id: media.image.field_internal_lock
+field_name: field_internal_lock
+entity_type: media
+bundle: image
+label: 'Protection lock'
+description: 'Enable this lock to protect manually curated media from automated CRM imports.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Protected'
+  off_label: 'Not protected'
+field_type: boolean

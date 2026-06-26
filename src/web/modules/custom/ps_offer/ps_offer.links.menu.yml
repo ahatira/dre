@@ -74,3 +74,10 @@ ps_offer.reference_alias_sets:
   route_name: entity.ps_offer_reference_alias_set.collection
   parent: ps_offer.reference_config
   weight: 5
+
+ps_offer.governance_domain_settings:
+  title: 'Offers'
+  description: 'Offer CRM/XML import lock strategy and reference protection'
+  route_name: ps_offer.governance_domain_settings
+  parent: ps_core.governance
+  weight: 10

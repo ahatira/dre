@@ -5,3 +5,13 @@ ps_agent.fallback_settings:
     _title: 'Agent avatar fallback'
   requirements:
     _permission: 'administer ps agent fallback settings'
+
+ps_agent.governance_domain_settings:
+  path: '/admin/ps/config/governance/agent'
+  defaults:
+    _form: '\Drupal\ps_agent\Form\AgentImportGovernanceSettingsForm'
+    _title: 'Agent import governance'
+  requirements:
+    _permission: 'administer ps agent entities'
+  options:
+    _admin_route: TRUE

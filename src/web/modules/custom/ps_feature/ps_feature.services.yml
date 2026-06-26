@@ -69,9 +69,37 @@ services:
       - '@language_manager'
       - '@Drupal\ps_feature\Service\FeatureCatalogueCsvMapper'
       - '@ps_feature.type_manager'
+      - '@ps_feature.catalogue_governance'
 
   Drupal\ps_feature\Service\FeatureCatalogueCsvImporterInterface:
     alias: Drupal\ps_feature\Service\FeatureCatalogueCsvImporter
 
   Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry:
     class: Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry
+
+  ps_feature.governance_config_updater:
+    class: Drupal\ps_feature\Service\FeatureGovernanceConfigUpdater
+    arguments:
+      - '@entity_type.manager'
+
+  ps_feature.catalogue_governance:
+    class: Drupal\ps_feature\Service\FeatureCatalogueGovernance
+    arguments:
+      - '@config.factory'
+      - '@ps_core.entity_protection_manager'
+      - '@entity_type.manager'
+      - '@ps_core.import_governance_global_resolver'
+
+  ps_feature.config_entity_protection.feature_definition:
+    class: Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionDefinition
+    arguments:
+      - 'fb_feature_definition'
+    tags:
+      - { name: ps_core.config_entity_protection.definition }
+
+  ps_feature.config_entity_protection.feature_group:
+    class: Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionDefinition
+    arguments:
+      - 'fb_feature_group'
+    tags:
+      - { name: ps_core.config_entity_protection.definition }

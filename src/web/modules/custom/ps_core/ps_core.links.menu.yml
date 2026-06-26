@@ -40,6 +40,13 @@ ps_core.settings_form:
   parent: ps_core.config
   weight: 0
 
+ps_core.governance:
+  title: 'Governance'
+  description: 'Import protection and domain governance rules'
+  route_name: ps_core.governance
+  parent: ps_core.config
+  weight: 5
+
 ps_core.health:
   title: 'Health'
   description: 'Property Search health checks'

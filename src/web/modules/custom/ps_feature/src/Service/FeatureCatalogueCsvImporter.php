@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\ps_feature\Entity\FeatureDefinition;
-use Drupal\ps_feature\Service\FeatureDefinitionSource;
 
 /**
  * Imports feature catalogue definitions from a business CSV file.
@@ -32,6 +31,7 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
     private readonly LanguageManagerInterface $languageManager,
     private readonly FeatureCatalogueCsvMapper $mapper,
     private readonly FeatureTypeManager $featureTypeManager,
+    private readonly FeatureCatalogueGovernance $catalogueGovernance,
   ) {}
 
   /**
@@ -77,11 +77,6 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
     $availableTypes = array_keys($this->featureTypeManager->getAllTypes());
     $canWriteLanguageOverrides = $this->languageManager instanceof ConfigurableLanguageManagerInterface;
     $availableLanguages = $this->languageManager->getLanguages();
-    $missingLanguageWarnings = [];
-
-    if (!$canWriteLanguageOverrides && ($labelTranslationColumns !== [] || $descriptionTranslationColumns !== [])) {
-      $result['errors'][] = 'Translation columns were ignored because language config overrides are not available.';
-    }
 
     $definitionStorage = $this->entityTypeManager->getStorage('fb_feature_definition');
     $groupStorage = $this->entityTypeManager->getStorage('fb_feature_group');
@@ -104,16 +99,27 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
       $label = trim((string) ($line[$colIndex['libelle']] ?? ''));
       $typeValeur = trim((string) ($line[$colIndex['type_valeur']] ?? ''));
 
-      if ($code === '' || $categorie === '' || $label === '' || $typeValeur === '') {
-        $result['errors'][] = sprintf('Row %d: code, categorie, libelle or type_valeur is empty, skipped.', $rowNumber);
+      if ($code === '' || $label === '' || $typeValeur === '') {
+        $result['errors'][] = sprintf('Row %d: code, libelle or type_valeur is empty, skipped.', $rowNumber);
         $result['skipped']++;
         continue;
       }
 
-      $groupId = $this->mapper->resolveCategory($categorie);
-      if ($groupId === NULL) {
-        $allowed = implode(', ', $this->mapper->getAllowedCategoryLabels());
-        $result['errors'][] = sprintf('Row %d: unknown categorie "%s". Allowed values: %s.', $rowNumber, $categorie, $allowed);
+      if ($categorie === '') {
+        $groupId = $this->catalogueGovernance->getDefaultImportGroupId();
+      }
+      else {
+        $groupId = $this->mapper->resolveCategory($categorie);
+        if ($groupId === NULL) {
+          $allowed = implode(', ', $this->mapper->getAllowedCategoryLabels());
+          $result['errors'][] = sprintf('Row %d: unknown categorie "%s". Allowed values: %s.', $rowNumber, $categorie, $allowed);
+          $result['skipped']++;
+          continue;
+        }
+      }
+
+      if ($groupId === '') {
+        $result['errors'][] = sprintf('Row %d: no feature group could be resolved, skipped.', $rowNumber);
         $result['skipped']++;
         continue;
       }
@@ -171,6 +177,10 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
           $existing->set('expose_as_filter', $exposeAsFilter);
           $existing->set('payload_defaults', $payloadDefaults);
           $existing->setSource(FeatureDefinitionSource::BO);
+          if ($this->catalogueGovernance->shouldLockOnCsvImport()) {
+            $existing->setInternallyLocked(TRUE);
+          }
+          $existing->setSourceTracking($this->buildCsvSourceTracking($filePath));
           $existing->save();
         }
         else {
@@ -188,6 +198,10 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
             'required_asset_types' => [],
             'source' => FeatureDefinitionSource::BO,
             'type_locked' => FALSE,
+            'internal_lock' => $this->catalogueGovernance->shouldLockOnCsvImport(),
+            'source_tracking' => $this->buildCsvSourceTracking($filePath),
+            'checksum' => '',
+            'field_locks' => [],
           ])->save();
         }
 
@@ -199,9 +213,6 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
             labelTranslationColumns: $labelTranslationColumns,
             descriptionTranslationColumns: $descriptionTranslationColumns,
             availableLanguages: $availableLanguages,
-            missingLanguageWarnings: $missingLanguageWarnings,
-            result: $result,
-            rowNumber: $rowNumber,
           );
         }
       }
@@ -252,12 +263,6 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
    *   Description translation columns.
    * @param array<string, \Drupal\Core\Language\LanguageInterface> $availableLanguages
    *   Enabled languages.
-   * @param array<string, bool> $missingLanguageWarnings
-   *   Deduped warning registry.
-   * @param array{imported: int, skipped: int, errors: string[], dry_run: bool} $result
-   *   Import result (errors appended in place).
-   * @param int $rowNumber
-   *   CSV row number for error messages.
    */
   private function applyTranslations(
     string $definitionId,
@@ -266,9 +271,6 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
     array $labelTranslationColumns,
     array $descriptionTranslationColumns,
     array $availableLanguages,
-    array &$missingLanguageWarnings,
-    array &$result,
-    int $rowNumber,
   ): void {
     if (!$this->languageManager instanceof ConfigurableLanguageManagerInterface) {
       return;
@@ -285,11 +287,6 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
         }
 
         if (!isset($availableLanguages[$langcode])) {
-          $key = $langcode . ':' . $field;
-          if (!isset($missingLanguageWarnings[$key])) {
-            $result['errors'][] = sprintf('Row %d: language "%s" is not available, %s translation skipped.', $rowNumber, $langcode, $field);
-            $missingLanguageWarnings[$key] = TRUE;
-          }
           continue;
         }
 
@@ -352,6 +349,16 @@ final class FeatureCatalogueCsvImporter implements FeatureCatalogueCsvImporterIn
     }
 
     return trim((string) ($line[$colIndex[$column]] ?? ''));
+  }
+
+  /**
+   * Builds source tracking metadata for a CSV import run.
+   */
+  private function buildCsvSourceTracking(string $filePath): string {
+    return json_encode([
+      'source_system' => 'CSV',
+      'source_file' => basename($filePath),
+    ], JSON_THROW_ON_ERROR);
   }
 
 }

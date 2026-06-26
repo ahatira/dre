@@ -37,6 +37,9 @@ final class FeatureDefinitionPropertyField extends FieldPluginBase {
       'type_locked' => $definition->isTypeLocked()
         ? (string) $this->t('Yes')
         : (string) $this->t('No'),
+      'internal_lock' => $definition->isInternallyLocked()
+        ? (string) $this->t('Protected')
+        : (string) $this->t('Open'),
       'expose_as_filter' => $definition->isExposeAsFilter()
         ? (string) $this->t('Exposed')
         : (string) $this->t('Hidden'),

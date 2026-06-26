@@ -10,13 +10,20 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\language\Config\LanguageConfigFactoryOverride;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\Row;
+use Drupal\ps_core\Service\ImportGovernancePolicyManager;
+use Drupal\ps_core\Service\ImportGovernanceRegistry;
+use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry;
 use Drupal\ps_migrate\Plugin\migrate\process\FeatureItemsFromTechnicalElements;
 use Drupal\ps_migrate\Service\CanonicalCountryLanguageResolver;
 use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder;
+use Drupal\ps_migrate\Service\FeatureOfferValueImportHandler;
+use Drupal\ps_migrate\Service\FeaturePayloadDefaultsNormalizer;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementParser;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementValidator;
+use Drupal\Tests\ps_migrate\Unit\Support\TestCatalogueImportPolicyStub;
+use Drupal\Tests\ps_migrate\Unit\Support\TestFeatureCatalogueImportPolicy;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -33,15 +40,14 @@ final class FeatureItemsFromTechnicalElementsTest extends UnitTestCase {
    * Ensures technical elements become feature field items.
    */
   public function testTransformBuildsFeatureFieldItems(): void {
+    $definition = $this->createMock(FeatureDefinition::class);
+    $definition->method('getTypeDriver')->willReturn('numeric');
+
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->expects($this->once())
       ->method('load')
       ->with('tec_hall_daccueil')
-      ->willReturn(new class {
-        public function getTypeDriver(): string {
-          return 'numeric';
-        }
-      });
+      ->willReturn($definition);
 
     $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
     $entityTypeManager->method('getStorage')->with('fb_feature_definition')->willReturn($storage);
@@ -84,15 +90,14 @@ final class FeatureItemsFromTechnicalElementsTest extends UnitTestCase {
    * Ensures elements without CODE_GROUP still resolve when definition exists.
    */
   public function testTransformAcceptsMissingGroupCode(): void {
+    $definition = $this->createMock(FeatureDefinition::class);
+    $definition->method('getTypeDriver')->willReturn('text');
+
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->expects($this->once())
       ->method('load')
       ->with('tec_no_group')
-      ->willReturn(new class {
-        public function getTypeDriver(): string {
-          return 'text';
-        }
-      });
+      ->willReturn($definition);
 
     $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
     $entityTypeManager->method('getStorage')->with('fb_feature_definition')->willReturn($storage);
@@ -108,20 +113,42 @@ final class FeatureItemsFromTechnicalElementsTest extends UnitTestCase {
   }
 
   private function createPlugin(EntityTypeManagerInterface $entityTypeManager): FeatureItemsFromTechnicalElements {
+    $cataloguePolicy = new TestCatalogueImportPolicyStub();
+    $policy = new TestFeatureCatalogueImportPolicy($cataloguePolicy);
+
+    $policyManager = $this->createMock(ImportGovernancePolicyManager::class);
+    $policyManager->method('getDefinitions')->willReturn([
+      'features' => ['weight' => 0],
+    ]);
+    $policyManager->method('createInstance')->with('features')->willReturn($policy);
+
+    $registry = new ImportGovernanceRegistry($policyManager);
+
+    $importResolver = new FeatureImportResolver(
+      new FeatureCanonicalGroupRegistry(),
+      new FeatureMigrationKeyBuilder(),
+      $entityTypeManager,
+      $registry,
+    );
+
+    $offerValueImportHandler = new FeatureOfferValueImportHandler(
+      $importResolver,
+      $entityTypeManager,
+      $registry,
+      new FeaturePayloadDefaultsNormalizer(),
+      $this->createMock(LanguageConfigFactoryOverride::class),
+      $this->createMock(LanguageManagerInterface::class),
+      $this->createMock(LoggerInterface::class),
+    );
+
     return new FeatureItemsFromTechnicalElements(
       [],
       'feature_items_from_technical_elements',
       [],
       new FeatureTechnicalElementParser(),
-      new FeatureImportResolver(
-        new FeatureCanonicalGroupRegistry(),
-        new FeatureMigrationKeyBuilder(),
-        $entityTypeManager,
-      ),
+      $importResolver,
       new FeatureTechnicalElementValidator(),
-      $entityTypeManager,
-      $this->createMock(LanguageConfigFactoryOverride::class),
-      $this->createMock(LanguageManagerInterface::class),
+      $offerValueImportHandler,
       new CanonicalCountryLanguageResolver(),
       $this->createMock(LoggerInterface::class),
     );

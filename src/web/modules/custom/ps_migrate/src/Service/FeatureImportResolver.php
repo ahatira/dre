@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ps_migrate\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\ps_core\Service\ImportGovernanceRegistry;
 use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry;
 
@@ -13,10 +14,16 @@ use Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry;
  */
 final class FeatureImportResolver {
 
+  /**
+   * Fallback group when no governance policy is registered.
+   */
+  private const FALLBACK_DEFAULT_GROUP_ID = 'informations_complementaires';
+
   public function __construct(
     private readonly FeatureCanonicalGroupRegistry $groupRegistry,
     private readonly FeatureMigrationKeyBuilder $keyBuilder,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ImportGovernanceRegistry $governanceRegistry,
   ) {}
 
   /**
@@ -32,7 +39,7 @@ final class FeatureImportResolver {
    * Priority:
    * 1. Existing catalogue definition group (BO/XML already stored).
    * 2. CRM CODE_GROUP mapped to a canonical group.
-   * 3. Fallback to informations_complementaires.
+   * 3. Configured default import group.
    */
   public function resolveGroupId(string $featureCode, string $crmGroupCode): string {
     $definitionId = $this->buildDefinitionId($featureCode);
@@ -50,7 +57,10 @@ final class FeatureImportResolver {
       return $this->groupRegistry->resolveCrmGroupCode($crmGroupCode);
     }
 
-    return 'informations_complementaires';
+    return $this->governanceRegistry
+      ->getCatalogueImportPolicyForEntityType('fb_feature_definition')
+      ?->getDefaultImportGroupId()
+      ?? self::FALLBACK_DEFAULT_GROUP_ID;
   }
 
   /**

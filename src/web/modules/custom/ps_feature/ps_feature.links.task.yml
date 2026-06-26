@@ -1,14 +1,32 @@
+ps_feature.admin_overview:
+  title: 'Overview'
+  route_name: ps_feature.admin_overview
+  base_route: ps_feature.admin_overview
+  weight: -20
+
+ps_feature.feature_types:
+  title: 'Feature types'
+  route_name: ps_feature.feature_types
+  base_route: ps_feature.admin_overview
+  weight: 0
+
+ps_feature.governance_domain_settings:
+  title: 'Features'
+  route_name: ps_feature.governance_domain_settings
+  base_route: ps_core.governance
+  weight: 0
+
+ps_feature.config_display_settings:
+  title: 'Display'
+  route_name: ps_feature.config_display_settings
+  base_route: ps_feature.admin_overview
+  weight: 5
+
 # Local tasks for FeatureGroup entity.
 entity.fb_feature_group.edit_form:
   route_name: entity.fb_feature_group.edit_form
   base_route: entity.fb_feature_group.edit_form
   title: 'Edit'
-
-ps_feature.feature_group_settings:
-  route_name: ps_feature.feature_group_settings
-  base_route: entity.fb_feature_group.collection
-  title: 'Settings'
-  weight: 50
 
 # Local tasks for FeatureDefinition entity.
 entity.fb_feature_definition.edit_form:

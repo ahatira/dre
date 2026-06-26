@@ -4,3 +4,10 @@ ps_dictionary.dictionary_types:
   route_name: ps_dictionary.type_collection
   parent: ps_core.structure
   weight: 20
+
+ps_dictionary.governance_domain_settings:
+  title: 'Dictionary'
+  description: 'Dictionary CSV import and CRM label preservation rules'
+  route_name: ps_dictionary.governance_domain_settings
+  parent: ps_core.governance
+  weight: 30

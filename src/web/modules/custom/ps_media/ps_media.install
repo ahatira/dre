@@ -1,0 +1,93 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install and update hooks for the ps_media module.
+ */
+
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+
+/**
+ * Adds protection lock widgets to governed media form displays.
+ */
+function ps_media_install(): void {
+  ps_media_apply_internal_lock_form_displays();
+}
+
+/**
+ * Installs media import governance defaults on existing sites.
+ */
+function ps_media_update_9001(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_media.import_governance');
+  if (!$config->isNew()) {
+    return;
+  }
+
+  $path = __DIR__ . '/config/install/ps_media.import_governance.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Symfony\Component\Yaml\Yaml::parseFile($path);
+  if (!is_array($data)) {
+    return;
+  }
+
+  $config->setData($data)->save(TRUE);
+}
+
+/**
+ * Installs media protection lock field and form display components.
+ */
+function ps_media_update_9002(): void {
+  $config_names = [
+    'field.storage.media.field_internal_lock',
+    'field.field.media.image.field_internal_lock',
+    'field.field.media.visite_guided.field_internal_lock',
+  ];
+
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    if (!$config->isNew()) {
+      continue;
+    }
+
+    $path = __DIR__ . '/config/install/' . $config_name . '.yml';
+    if (!is_readable($path)) {
+      continue;
+    }
+
+    $data = \Symfony\Component\Yaml\Yaml::parseFile($path);
+    if (!is_array($data)) {
+      continue;
+    }
+
+    $config->setData($data)->save(TRUE);
+  }
+
+  ps_media_apply_internal_lock_form_displays();
+}
+
+/**
+ * Ensures governed CRM media bundles expose the protection lock on BO forms.
+ */
+function ps_media_apply_internal_lock_form_displays(): void {
+  foreach (['image', 'visite_guided'] as $bundle) {
+    $display = EntityFormDisplay::load('media.' . $bundle . '.default');
+    if ($display === NULL) {
+      continue;
+    }
+
+    $display->setComponent('field_internal_lock', [
+      'type' => 'boolean_checkbox',
+      'weight' => 8,
+      'region' => 'content',
+      'settings' => [
+        'display_label' => TRUE,
+      ],
+      'third_party_settings' => [],
+    ])->save();
+  }
+}

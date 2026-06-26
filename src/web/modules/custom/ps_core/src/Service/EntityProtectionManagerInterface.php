@@ -30,6 +30,20 @@ interface EntityProtectionManagerInterface {
   public function isProtected(EntityInterface $entity): bool;
 
   /**
+   * Checks if a catalogue entity resists external import updates.
+   *
+   * Feature definitions dual-read legacy `source = bo` until migration completes.
+   * Other entities fall back to {@see isProtected()}.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to check.
+   *
+   * @return bool
+   *   TRUE when catalogue curation should be preserved.
+   */
+  public function isCatalogueProtected(EntityInterface $entity): bool;
+
+  /**
    * Marks an entity as protected (manual override).
    *
    * Sets the internal_lock field to TRUE to prevent future
@@ -39,6 +53,7 @@ interface EntityProtectionManagerInterface {
    *   The entity to protect.
    *
    * @return void
+   *   Nothing.
    */
   public function protect(EntityInterface $entity): void;
 
@@ -52,6 +67,7 @@ interface EntityProtectionManagerInterface {
    *   The entity to unprotect.
    *
    * @return void
+   *   Nothing.
    */
   public function unprotect(EntityInterface $entity): void;
 
@@ -78,7 +94,7 @@ interface EntityProtectionManagerInterface {
    * - EXTERNAL_WINS: External data always overwrites (e.g., prices, surfaces)
    * - INTERNAL_WINS: Keep internal value if modified (e.g., SEO, descriptions)
    * - MERGE_APPEND: Merge arrays (e.g., media galleries, documents)
-   * - SKIP: Do not update if entity is protected
+   * - SKIP: Do not update if entity is protected.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to update.
@@ -96,7 +112,7 @@ interface EntityProtectionManagerInterface {
     EntityInterface $entity,
     array $externalData,
     string $fieldName,
-    string $strategy
+    string $strategy,
   ): bool;
 
   /**
@@ -111,6 +127,7 @@ interface EntityProtectionManagerInterface {
    *   Metadata array (source_system, source_id, timestamp, etc.).
    *
    * @return void
+   *   Nothing.
    */
   public function trackSource(EntityInterface $entity, array $metadata): void;
 
@@ -127,5 +144,59 @@ interface EntityProtectionManagerInterface {
    *   SHA256 checksum.
    */
   public function computeChecksum(array $data): string;
+
+  /**
+   * Checks whether an entity participates in the protection system.
+   *
+   * Returns TRUE for fieldable entities with lock/checksum/tracking fields
+   * or for config entities registered in the protection registry.
+   *
+   * @return bool
+   *   TRUE when the entity participates in protection.
+   */
+  public function supports(EntityInterface $entity): bool;
+
+  /**
+   * Checks whether a specific property is locked against external updates.
+   *
+   * Config entities use the field locks map. Fieldable entities currently
+   * only honor the entity-level internal lock.
+   *
+   * @return bool
+   *   TRUE when the field is locked.
+   */
+  public function isFieldLocked(EntityInterface $entity, string $fieldName): bool;
+
+  /**
+   * Sets or clears a field lock on a supported config entity.
+   *
+   * @return void
+   *   Nothing.
+   */
+  public function setFieldLocked(EntityInterface $entity, string $fieldName, bool $locked = TRUE): void;
+
+  /**
+   * Returns the field lock map for a supported entity.
+   *
+   * @return array<string, bool>
+   *   Field names keyed by themselves with TRUE when locked.
+   */
+  public function getFieldLocks(EntityInterface $entity): array;
+
+  /**
+   * Stores a checksum on a supported entity when configured.
+   *
+   * @return void
+   *   Nothing.
+   */
+  public function storeChecksum(EntityInterface $entity, string $checksum): void;
+
+  /**
+   * Reads a stored checksum from a supported entity.
+   *
+   * @return string
+   *   Stored checksum or an empty string.
+   */
+  public function getStoredChecksum(EntityInterface $entity): string;
 
 }

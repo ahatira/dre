@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\ps_migrate\Plugin\migrate\process;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\language\Config\LanguageConfigFactoryOverride;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\ps_migrate\Service\CanonicalCountryLanguageResolver;
 use Drupal\ps_migrate\Service\FeatureImportResolver;
+use Drupal\ps_migrate\Service\FeatureOfferValueImportHandler;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementParser;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementValidator;
 use Psr\Log\LoggerInterface;
@@ -38,9 +36,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
     private readonly FeatureTechnicalElementParser $parser,
     private readonly FeatureImportResolver $importResolver,
     private readonly FeatureTechnicalElementValidator $validator,
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly LanguageConfigFactoryOverride $languageConfigOverride,
-    private readonly LanguageManagerInterface $languageManager,
+    private readonly FeatureOfferValueImportHandler $offerValueImportHandler,
     private readonly CanonicalCountryLanguageResolver $resolver,
     private readonly LoggerInterface $logger,
   ) {
@@ -58,9 +54,7 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
       $container->get('ps_migrate.feature_technical_element_parser'),
       $container->get('ps_migrate.feature_import_resolver'),
       $container->get('ps_migrate.feature_technical_element_validator'),
-      $container->get('entity_type.manager'),
-      $container->get('language.config_factory_override'),
-      $container->get('language_manager'),
+      $container->get('ps_migrate.feature_offer_value_import_handler'),
       $container->get('ps_migrate.canonical_country_language_resolver'),
       $container->get('logger.channel.ps_migrate'),
     );
@@ -104,15 +98,16 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
       }
 
       $definition_id = $this->importResolver->buildDefinitionId((string) ($element['feature_code'] ?? ''));
-      $definition = $this->entityTypeManager->getStorage('fb_feature_definition')->load($definition_id);
+      $definition = $this->offerValueImportHandler->resolveDefinitionForOfferItem($element);
       if (!$definition) {
-        $this->logger->warning('Skipping feature item for missing definition @definition_id', [
-          '@definition_id' => $definition_id,
-        ]);
         continue;
       }
 
-      $this->syncFeatureDefinitionTranslation($definition_id, $canonicalXmlLanguage, (string) ($element['label'] ?? ''));
+      $this->offerValueImportHandler->syncDefinitionLabel(
+        $definition_id,
+        $canonicalXmlLanguage,
+        (string) ($element['label'] ?? ''),
+      );
 
       $items[] = [
         'feature_definition_id' => $definition_id,
@@ -375,30 +370,6 @@ final class FeatureItemsFromTechnicalElements extends ProcessPluginBase implemen
     }
 
     return $result;
-  }
-
-  /**
-   * Writes a translated label override for a feature definition.
-   */
-  private function syncFeatureDefinitionTranslation(string $definitionId, string $xmlLanguage, string $label): void {
-    $label = trim($label);
-    if ($label === '' || strtoupper($xmlLanguage) === 'FR' || $this->isTemplatePlaceholder($label)) {
-      return;
-    }
-
-    $langcode = strtolower($xmlLanguage);
-    if (!$this->languageManager->getLanguage($langcode)) {
-      return;
-    }
-
-    $configName = 'ps_feature.feature_definition.' . $definitionId;
-    $override = $this->languageConfigOverride->getOverride($langcode, $configName);
-    if ($override->get('label') === $label) {
-      return;
-    }
-
-    $override->set('label', $label);
-    $override->save();
   }
 
   /**

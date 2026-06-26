@@ -4,7 +4,7 @@ Feature: PS Feature UI and API regression
   I want Behat coverage on UI/API and fast Drush E2E actions
 
   Scenario: Feature types admin UI is accessible
-    Given I am on "/admin/ps/config/features"
+    Given I am on "/admin/ps/config/features/types"
     When I verify feature type "dictionary" exists in API
     Then the script output should contain "PASS: feature type exists"
 

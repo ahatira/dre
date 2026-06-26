@@ -76,17 +76,19 @@ final class FeatureDefinitionViewsHooks {
       ],
     ];
 
-    foreach (['status', 'expose_as_filter', 'type_locked'] as $boolean_field) {
+    foreach (['status', 'expose_as_filter', 'type_locked', 'internal_lock'] as $boolean_field) {
       $data['fb_feature_definition'][$boolean_field] = [
         'title' => match ($boolean_field) {
           'status' => $this->t('Active'),
           'expose_as_filter' => $this->t('Expose as search filter'),
           'type_locked' => $this->t('Lock value type'),
+          'internal_lock' => $this->t('Internal lock'),
         },
         'help' => match ($boolean_field) {
           'status' => $this->t('Whether the feature definition is active.'),
           'expose_as_filter' => $this->t('Whether the feature is exposed as a search filter.'),
           'type_locked' => $this->t('Whether the value type is locked against imports.'),
+          'internal_lock' => $this->t('Whether the catalogue entry is protected against external imports.'),
         },
         'field' => [
           'id' => 'ps_feature_definition_property',
@@ -152,7 +154,7 @@ final class FeatureDefinitionViewsHooks {
     }
 
     $input = $view->getExposedInput();
-    foreach (['group', 'type_driver', 'source'] as $identifier) {
+    foreach (['group', 'type_driver', 'internal_lock'] as $identifier) {
       if (!array_key_exists($identifier, $input)) {
         continue;
       }

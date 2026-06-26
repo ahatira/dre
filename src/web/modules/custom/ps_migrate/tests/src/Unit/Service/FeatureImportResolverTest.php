@@ -6,10 +6,14 @@ namespace Drupal\Tests\ps_migrate\Unit\Service;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\ps_core\Service\ImportGovernancePolicyManager;
+use Drupal\ps_core\Service\ImportGovernanceRegistry;
 use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry;
 use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Drupal\ps_migrate\Service\FeatureMigrationKeyBuilder;
+use Drupal\Tests\ps_migrate\Unit\Support\TestCatalogueImportPolicyStub;
+use Drupal\Tests\ps_migrate\Unit\Support\TestFeatureCatalogueImportPolicy;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -69,7 +73,7 @@ final class FeatureImportResolverTest extends UnitTestCase {
   }
 
   /**
-   * Ensures empty CRM group codes fall back to informations_complementaires.
+   * Ensures empty CRM group codes use the configured default import group.
    */
   public function testResolveGroupIdFallsBackWhenGroupCodeMissing(): void {
     $storage = $this->createMock(EntityStorageInterface::class);
@@ -84,6 +88,24 @@ final class FeatureImportResolverTest extends UnitTestCase {
       'informations_complementaires',
       $resolver->resolveGroupId('TEC_UNKNOWN', ''),
     );
+  }
+
+  /**
+   * Ensures a configured default import group is used when CRM group code is empty.
+   */
+  public function testResolveGroupIdUsesConfiguredDefaultImportGroup(): void {
+    $storage = $this->createMock(EntityStorageInterface::class);
+    $storage->method('load')->willReturn(NULL);
+
+    $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
+    $entityTypeManager->method('getStorage')->with('fb_feature_definition')->willReturn($storage);
+
+    $resolver = $this->createResolver(
+      $entityTypeManager,
+      new TestCatalogueImportPolicyStub(defaultGroupId: 'equipements'),
+    );
+
+    self::assertSame('equipements', $resolver->resolveGroupId('TEC_UNKNOWN', ''));
   }
 
   /**
@@ -107,12 +129,34 @@ final class FeatureImportResolverTest extends UnitTestCase {
   /**
    * Builds a resolver for tests.
    */
-  private function createResolver(?EntityTypeManagerInterface $entityTypeManager = NULL): FeatureImportResolver {
+  private function createResolver(
+    ?EntityTypeManagerInterface $entityTypeManager = NULL,
+    ?TestCatalogueImportPolicyStub $cataloguePolicy = NULL,
+  ): FeatureImportResolver {
     return new FeatureImportResolver(
       new FeatureCanonicalGroupRegistry(),
       new FeatureMigrationKeyBuilder(),
       $entityTypeManager ?? $this->createMock(EntityTypeManagerInterface::class),
+      $this->createRegistry($cataloguePolicy),
     );
+  }
+
+  /**
+   * Builds a governance registry stub for tests.
+   */
+  private function createRegistry(
+    ?TestCatalogueImportPolicyStub $cataloguePolicy = NULL,
+  ): ImportGovernanceRegistry {
+    $cataloguePolicy ??= new TestCatalogueImportPolicyStub();
+    $policy = new TestFeatureCatalogueImportPolicy($cataloguePolicy);
+
+    $policyManager = $this->createMock(ImportGovernancePolicyManager::class);
+    $policyManager->method('getDefinitions')->willReturn([
+      'features' => ['weight' => 0],
+    ]);
+    $policyManager->method('createInstance')->with('features')->willReturn($policy);
+
+    return new ImportGovernanceRegistry($policyManager);
   }
 
 }

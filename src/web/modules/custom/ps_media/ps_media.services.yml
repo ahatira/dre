@@ -2,6 +2,17 @@ services:
   Drupal\ps_media\Hook\PsMediaHooks:
     class: Drupal\ps_media\Hook\PsMediaHooks
 
+  Drupal\ps_media\Hook\MediaEntityHooks:
+    class: Drupal\ps_media\Hook\MediaEntityHooks
+    arguments:
+      - '@ps_media.import_governance'
+
+  ps_media.import_governance:
+    class: Drupal\ps_media\Service\MediaImportGovernance
+    arguments:
+      - '@config.factory'
+      - '@ps_core.import_governance_global_resolver'
+
   ps_media.gallery_badge_icon_resolver:
     class: Drupal\ps_media\Service\GalleryBadgeIconResolver
     arguments: ['@config.factory']

@@ -289,3 +289,84 @@ msgstr "Téléphone aide urgence (affichage)"
 
 msgid "Urgency help phone link (tel: URI, optional)"
 msgstr "Lien téléphone aide urgence (URI tel:, optionnel)"
+
+msgid "Governance"
+msgstr "Gouvernance"
+
+msgid "Import protection and domain governance rules"
+msgstr "Protection à l'import et règles de gouvernance par domaine"
+
+msgid "Central entry point for import protection and domain-specific governance rules. Global CRM defaults apply unless a domain overrides them."
+msgstr "Point d'entrée central pour la protection à l'import et les règles de gouvernance par domaine. Les valeurs CRM globales s'appliquent sauf override domaine."
+
+msgid "Global import pipeline"
+msgstr "Pipeline d'import global"
+
+msgid "Cross-domain CRM import folders, batch limits and default lock strategy."
+msgstr "Dossiers CRM, limites de batch et stratégie de verrouillage par défaut, transverses aux domaines."
+
+msgid "Domain governance"
+msgstr "Gouvernance par domaine"
+
+msgid "Business rules applied when imports touch a specific entity catalogue."
+msgstr "Règles métier appliquées lorsque les imports touchent un catalogue d'entités."
+
+msgid "CRM import pipeline settings"
+msgstr "Paramètres du pipeline d'import CRM"
+
+msgid "Default lock strategy, pipeline folders and upload limits."
+msgstr "Stratégie de verrouillage par défaut, dossiers du pipeline et limites de téléversement."
+
+msgid "Back to PS configuration hub"
+msgstr "Retour au hub de configuration PS"
+
+msgid "Global governance defaults"
+msgstr "Paramètres globaux de gouvernance"
+
+msgid "Inheritance hints and overview of the global CRM lock strategy source."
+msgstr "Indicateurs d'héritage et vue d'ensemble de la source de stratégie CRM globale."
+
+msgid "Global defaults"
+msgstr "Paramètres globaux"
+
+msgid "Global CRM import defaults apply to all domains unless a domain policy overrides them. Domain forms can show inheritance hints when a setting uses Inherit."
+msgstr "Les valeurs CRM globales s'appliquent à tous les domaines sauf override explicite. Les formulaires domaine peuvent afficher des indications d'héritage lorsqu'une option Hériter est sélectionnée."
+
+msgid "Configuration hierarchy"
+msgstr "Hiérarchie de configuration"
+
+msgid "Global CRM pipeline → domain governance → per-entity protection flags."
+msgstr "Pipeline CRM global → gouvernance par domaine → verrous par entité."
+
+msgid "Current global lock strategy"
+msgstr "Stratégie de verrouillage globale actuelle"
+
+msgid "CRM import pipeline"
+msgstr "Pipeline d'import CRM"
+
+msgid "Edit CRM import pipeline settings"
+msgstr "Modifier les paramètres du pipeline d'import CRM"
+
+msgid "Domain form hints"
+msgstr "Indications sur les formulaires domaine"
+
+msgid "Show inheritance hints on domain governance forms"
+msgstr "Afficher les indications d'héritage sur les formulaires de gouvernance domaine"
+
+msgid "When enabled, domain forms display the effective global CRM lock strategy next to inherit options."
+msgstr "Lorsque cette option est activée, les formulaires domaine affichent la stratégie CRM globale effective à côté des options Hériter."
+
+msgid "Log only — CRM overwrites protected entities"
+msgstr "Journaliser uniquement — le CRM écrase les entités protégées"
+
+msgid "Skip row — do not update protected entities"
+msgstr "Ignorer la ligne — ne pas mettre à jour les entités protégées"
+
+msgid "Skip field — preserve non-empty internal field values"
+msgstr "Ignorer le champ — conserver les valeurs internes non vides"
+
+msgid "Inherits from global CRM strategy: @strategy (@link)."
+msgstr "Hérite de la stratégie CRM globale : @strategy (@link)."
+
+msgid "Inherits from global CRM strategy: @strategy."
+msgstr "Hérite de la stratégie CRM globale : @strategy."

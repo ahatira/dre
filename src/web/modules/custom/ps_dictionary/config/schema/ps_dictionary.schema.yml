@@ -55,3 +55,32 @@ ps_dictionary.entry.*:
     weight:
       type: integer
       label: 'Weight'
+
+ps_dictionary.import_governance:
+  type: config_object
+  label: 'Dictionary import governance settings'
+  mapping:
+    csv_import:
+      type: mapping
+      label: 'CSV import defaults'
+      mapping:
+        preserve_existing_labels:
+          type: boolean
+          label: 'Preserve existing labels on CSV update'
+        lock_on_import:
+          type: boolean
+          label: 'Lock entries on CSV import'
+    bo_create:
+      type: mapping
+      label: 'Back-office creation defaults'
+      mapping:
+        default_internal_lock:
+          type: boolean
+          label: 'Default internal lock for new entries'
+    crm_lookup:
+      type: mapping
+      label: 'CRM lookup defaults'
+      mapping:
+        preserve_existing_labels:
+          type: boolean
+          label: 'Preserve existing labels from CRM lookup'

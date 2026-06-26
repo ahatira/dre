@@ -18,9 +18,18 @@ services:
     class: Drupal\ps_core\Service\ConflictDetector
     arguments: ['@ps_core.audit_logger']
 
+  ps_core.config_entity_protection_registry:
+    class: Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionRegistry
+    arguments: [!tagged_iterator ps_core.config_entity_protection.definition]
+
   ps_core.entity_protection_manager:
     class: Drupal\ps_core\Service\EntityProtectionManager
-    arguments: ['@logger.channel.ps_core']
+    arguments:
+      - '@logger.channel.ps_core'
+      - '@ps_core.config_entity_protection_registry'
+      - '@datetime.time'
+
+  Drupal\ps_core\Service\EntityProtectionManagerInterface: '@ps_core.entity_protection_manager'
 
   ps_core.permission_manager:
     class: Drupal\ps_core\Service\PermissionManager
@@ -31,6 +40,24 @@ services:
     arguments:
       - '@container.namespaces'
       - '@cache.discovery'
+      - '@module_handler'
+
+  ps_core.import_governance_policy_manager:
+    class: Drupal\ps_core\Service\ImportGovernancePolicyManager
+    arguments:
+      - '@container.namespaces'
+      - '@cache.discovery'
+      - '@module_handler'
+
+  ps_core.import_governance_registry:
+    class: Drupal\ps_core\Service\ImportGovernanceRegistry
+    arguments:
+      - '@ps_core.import_governance_policy_manager'
+
+  ps_core.import_governance_global_resolver:
+    class: Drupal\ps_core\Service\ImportGovernanceGlobalResolver
+    arguments:
+      - '@config.factory'
       - '@module_handler'
 
   ps_core.section_registry:

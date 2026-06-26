@@ -101,13 +101,10 @@ process:
     default_value: 1
   
   # ===== PROTECTION FIELDS =====
-  # Si ps_media a des champs de protection
-  # field_internal_lock: 0
-  # field_source_tracking/value:
-  #   plugin: static_map
-  #   source: constants/source_system
-  #   default_value: '{"source_system":"CRM_BNPPRE"}'
-  
+  field_internal_lock:
+    plugin: default_value
+    default_value: 0
+
   uid:
     plugin: default_value
     default_value: 1

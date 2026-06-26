@@ -52,6 +52,22 @@ ps_feature.feature_group.*:
     status:
       type: boolean
       label: 'Status'
+    internal_lock:
+      type: boolean
+      label: 'Internal lock'
+    source_tracking:
+      type: string
+      label: 'Source tracking'
+    checksum:
+      type: string
+      label: 'Checksum'
+    field_locks:
+      type: mapping
+      label: 'Field locks'
+      mapping:
+        '*':
+          type: boolean
+          label: 'Locked'
 
 ps_feature.settings:
   type: config_object
@@ -60,6 +76,74 @@ ps_feature.settings:
     default_group_icon:
       type: string
       label: 'Default feature group icon'
+
+ps_feature.catalogue_governance:
+  type: config_object
+  label: 'Feature catalogue governance settings'
+  mapping:
+    crm_row_strategy_override:
+      type: string
+      label: 'CRM row strategy override'
+    allow_crm_overwrite_display:
+      type: boolean
+      label: 'Allow CRM to overwrite display fields'
+    missing_from_xml:
+      type: mapping
+      label: 'Missing from XML snapshot'
+      mapping:
+        group_action:
+          type: string
+          label: 'Non-protected group action'
+        definition_action:
+          type: string
+          label: 'Non-protected definition action'
+        protected_definition_action:
+          type: string
+          label: 'Protected definition action'
+    present_in_xml:
+      type: mapping
+      label: 'Present in XML snapshot'
+      mapping:
+        reactivate:
+          type: boolean
+          label: 'Reactivate inactive entries'
+        sync_fields:
+          type: sequence
+          label: 'Definition fields to synchronize'
+          sequence:
+            type: string
+            label: 'Field name'
+    offer_values:
+      type: mapping
+      label: 'Offer feature values'
+      mapping:
+        missing_definition:
+          type: string
+          label: 'Missing definition behaviour'
+        sync_definition_labels:
+          type: boolean
+          label: 'Sync definition labels from offer import'
+    bo_create:
+      type: mapping
+      label: 'Back-office creation defaults'
+      mapping:
+        default_internal_lock:
+          type: boolean
+          label: 'Default internal lock for new definitions'
+    csv_import:
+      type: mapping
+      label: 'CSV import defaults'
+      mapping:
+        lock_on_import:
+          type: boolean
+          label: 'Lock definitions on CSV import'
+    import_defaults:
+      type: mapping
+      label: 'Shared import defaults'
+      mapping:
+        default_group:
+          type: string
+          label: 'Default feature group when import has no group code'
 
 ps_feature.feature_definition.*:
   type: config_entity
@@ -151,3 +235,19 @@ ps_feature.feature_definition.*:
     type_locked:
       type: boolean
       label: 'Lock value type'
+    internal_lock:
+      type: boolean
+      label: 'Internal lock'
+    source_tracking:
+      type: string
+      label: 'Source tracking'
+    checksum:
+      type: string
+      label: 'Checksum'
+    field_locks:
+      type: mapping
+      label: 'Field locks'
+      mapping:
+        '*':
+          type: boolean
+          label: 'Locked'

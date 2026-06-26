@@ -1,0 +1,11 @@
+ps_core.governance:
+  title: 'Overview'
+  route_name: ps_core.governance
+  base_route: ps_core.governance
+  weight: -20
+
+ps_core.governance_settings:
+  title: 'Global defaults'
+  route_name: ps_core.governance_settings
+  base_route: ps_core.governance
+  weight: -10

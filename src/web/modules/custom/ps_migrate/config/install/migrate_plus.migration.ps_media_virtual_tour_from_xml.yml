@@ -58,6 +58,10 @@ process:
     plugin: default_value
     default_value: 1
 
+  field_internal_lock:
+    plugin: default_value
+    default_value: 0
+
   uid:
     plugin: default_value
     default_value: 1

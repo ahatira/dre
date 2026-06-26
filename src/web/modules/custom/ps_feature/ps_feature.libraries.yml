@@ -4,6 +4,12 @@ admin:
     theme:
       css/admin.css: {}
 
+admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/feature-admin-overview.css: {}
+
 feature-builder:
   version: 1.0.0
   css:

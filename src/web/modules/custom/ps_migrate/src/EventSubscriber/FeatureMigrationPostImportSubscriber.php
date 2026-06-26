@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\ps_migrate\EventSubscriber;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
+use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePostImportPolicyInterface;
+use Drupal\ps_core\Service\EntityProtectionManagerInterface;
+use Drupal\ps_core\Service\ImportGovernanceRegistry;
 use Drupal\ps_feature\Entity\FeatureDefinition;
-use Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry;
-use Drupal\ps_feature\Service\FeatureDefinitionSource;
 use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Drupal\ps_migrate\Service\FeaturePayloadDefaultsNormalizer;
 use Drupal\ps_migrate\Service\FeatureTechnicalElementSourceLoader;
@@ -24,6 +26,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class FeatureMigrationPostImportSubscriber implements EventSubscriberInterface {
 
   /**
+   * Group fields synchronized from the XML snapshot.
+   *
+   * @var string[]
+   */
+  private const GROUP_SYNC_FIELDS = [
+    'label',
+    'description',
+    'weight',
+    'status',
+  ];
+
+  /**
    * Constructs a FeatureMigrationPostImportSubscriber object.
    */
   public function __construct(
@@ -32,6 +46,8 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
     private readonly FeatureTechnicalElementValidator $validator,
     private readonly FeaturePayloadDefaultsNormalizer $payloadDefaultsNormalizer,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly EntityProtectionManagerInterface $protectionManager,
+    private readonly ImportGovernanceRegistry $governanceRegistry,
     private readonly ImportRunSnapshotCollector $snapshotCollector,
     private readonly LoggerInterface $logger,
   ) {}
@@ -51,7 +67,8 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
   public function onPostImport(MigrateImportEvent $event): void {
     $migration = $event->getMigration();
     $migration_id = $migration->id();
-    if (!in_array($migration_id, ['ps_feature_groups_from_xml', 'ps_feature_definitions_from_xml'], TRUE)) {
+    $policy = $this->governanceRegistry->getPostImportPolicyForMigration($migration_id);
+    if ($policy === NULL) {
       return;
     }
 
@@ -63,11 +80,11 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
     }
 
     if ($migration_id === 'ps_feature_groups_from_xml') {
-      $this->synchronizeGroups($files);
+      $this->synchronizeGroups($files, $policy);
       return;
     }
 
-    $this->synchronizeDefinitions($files);
+    $this->synchronizeDefinitions($files, $policy);
   }
 
   /**
@@ -75,8 +92,10 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
    *
    * @param string[] $files
    *   Source XML files.
+   * @param \Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePostImportPolicyInterface $policy
+   *   Domain post-import governance policy.
    */
-  private function synchronizeGroups(array $files): void {
+  private function synchronizeGroups(array $files, ImportGovernancePostImportPolicyInterface $policy): void {
     $active_groups = $this->buildGroupSnapshot($files);
     $storage = $this->entityTypeManager->getStorage('fb_feature_group');
     $existing_ids = $storage->getQuery()->accessCheck(FALSE)->execute();
@@ -86,13 +105,13 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
       $should_be_active = isset($active_groups[$group_id]);
       $is_active = (bool) $group->status();
 
-      if ($should_be_active && !$is_active) {
+      if ($policy->shouldReactivatePresentInXml() && $should_be_active && !$is_active) {
         $group->set('status', TRUE);
         $group->save();
         $this->snapshotCollector->recordFeatureGroupStatusChange($group_id, FALSE, TRUE);
         $this->logger->info('Reactivated feature group @group_id from XML snapshot.', ['@group_id' => $group_id]);
       }
-      elseif (!$should_be_active && $is_active && !in_array($group_id, FeatureCanonicalGroupRegistry::CANONICAL_GROUP_IDS, TRUE)) {
+      elseif ($policy->shouldDeactivateMissingGroup($group, $should_be_active)) {
         $group->set('status', FALSE);
         $group->save();
         $this->snapshotCollector->recordFeatureGroupStatusChange($group_id, TRUE, FALSE);
@@ -111,8 +130,10 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
    *
    * @param string[] $files
    *   Source XML files.
+   * @param \Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePostImportPolicyInterface $policy
+   *   Domain post-import governance policy.
    */
-  private function synchronizeDefinitions(array $files): void {
+  private function synchronizeDefinitions(array $files, ImportGovernancePostImportPolicyInterface $policy): void {
     $active_definitions = $this->buildDefinitionSnapshot($files);
     $storage = $this->entityTypeManager->getStorage('fb_feature_definition');
     $existing_ids = $storage->getQuery()->accessCheck(FALSE)->execute();
@@ -126,45 +147,25 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
       $should_be_active = isset($active_definitions[$definition_id]);
       $is_active = (bool) $definition->status();
 
-      if ($should_be_active && !$is_active) {
+      if ($policy->shouldReactivatePresentInXml() && $should_be_active && !$is_active) {
         $definition->set('status', TRUE);
         $definition->save();
         $this->snapshotCollector->recordFeatureDefinitionStatusChange($definition_id, FALSE, TRUE);
         $this->logger->info('Reactivated feature definition @definition_id from XML snapshot.', ['@definition_id' => $definition_id]);
       }
-      elseif (!$should_be_active && $is_active && $definition->getSource() !== FeatureDefinitionSource::BO) {
+      elseif ($policy->shouldDeactivateMissingDefinition($definition, $should_be_active)) {
         $definition->set('status', FALSE);
         $definition->save();
         $this->snapshotCollector->recordFeatureDefinitionStatusChange($definition_id, TRUE, FALSE);
         $this->logger->warning('Deactivated feature definition @definition_id because it disappeared from XML.', ['@definition_id' => $definition_id]);
       }
 
-      if (!$should_be_active || $definition->getSource() === FeatureDefinitionSource::BO) {
+      if (!$should_be_active || $this->protectionManager->isCatalogueProtected($definition)) {
         continue;
       }
 
       $source = $active_definitions[$definition_id];
-      $changed = FALSE;
-
-      foreach (['label', 'description', 'code', 'group', 'type_driver', 'weight', 'status'] as $field) {
-        if ($field === 'type_driver' && $definition->isTypeLocked()) {
-          continue;
-        }
-
-        $source_value = $source[$field] ?? NULL;
-        $current_value = $definition->get($field);
-        if ($current_value !== $source_value) {
-          $definition->set($field, $source_value);
-          $changed = TRUE;
-        }
-      }
-
-      $current_defaults = $this->payloadDefaultsNormalizer->normalize($definition->getPayloadDefaults());
-      if ($current_defaults !== $source['payload_defaults']) {
-        $definition->set('payload_defaults', $source['payload_defaults']);
-        $changed = TRUE;
-        $this->logger->info('Normalized payload defaults for feature definition @definition_id.', ['@definition_id' => $definition_id]);
-      }
+      $changed = $this->syncDefinitionFromSnapshot($definition, $source, $policy);
 
       if ($changed) {
         $definition->save();
@@ -173,16 +174,46 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
   }
 
   /**
-   * Synchronizes common group fields from the XML snapshot.
+   * Applies the XML snapshot to a definition using protection merge rules.
    */
-  private function syncCommonGroupFields(object $group, array $source): void {
+  private function syncDefinitionFromSnapshot(
+    FeatureDefinition $definition,
+    array $source,
+    ImportGovernancePostImportPolicyInterface $policy,
+  ): bool {
     $changed = FALSE;
 
-    foreach (['label', 'description', 'weight', 'status'] as $field) {
-      $source_value = $source[$field] ?? NULL;
-      $current_value = $group->get($field);
-      if ($current_value !== $source_value) {
-        $group->set($field, $source_value);
+    foreach ($policy->getPresentInXmlSyncFields() as $field) {
+      if ($field === 'payload_defaults') {
+        if ($this->protectionManager->applyMergeStrategy($definition, $source, 'payload_defaults', 'EXTERNAL_WINS')) {
+          $changed = TRUE;
+          $this->logger->info(
+            'Normalized payload defaults for feature definition @definition_id.',
+            ['@definition_id' => $definition->id()],
+          );
+        }
+        continue;
+      }
+
+      if ($this->protectionManager->applyMergeStrategy($definition, $source, $field, 'EXTERNAL_WINS')) {
+        $changed = TRUE;
+      }
+    }
+
+    return $changed;
+  }
+
+  /**
+   * Synchronizes common group fields from the XML snapshot.
+   */
+  private function syncCommonGroupFields(EntityInterface $group, array $source): void {
+    if ($this->protectionManager->isCatalogueProtected($group)) {
+      return;
+    }
+
+    $changed = FALSE;
+    foreach (self::GROUP_SYNC_FIELDS as $field) {
+      if ($this->protectionManager->applyMergeStrategy($group, $source, $field, 'EXTERNAL_WINS')) {
         $changed = TRUE;
       }
     }

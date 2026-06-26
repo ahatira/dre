@@ -1,0 +1,9 @@
+crm_row_strategy_override: inherit
+allow_crm_overwrite_contact: false
+missing_from_xml:
+  agent_action: deactivate
+  protected_agent_action: keep_active
+present_in_xml:
+  reactivate: true
+bo_create:
+  default_internal_lock: false

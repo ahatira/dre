@@ -1,0 +1,6 @@
+ps_media.governance_domain_settings:
+  title: 'Media'
+  description: 'Offer media CRM/XML import lock strategy and alt text protection'
+  route_name: ps_media.governance_domain_settings
+  parent: ps_core.governance
+  weight: 40

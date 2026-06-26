@@ -11,6 +11,7 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\language\Config\LanguageConfigOverride;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\ps_dictionary\Entity\DictionaryEntryInterface;
+use Drupal\ps_dictionary\Service\DictionaryImportGovernance;
 use Drupal\ps_dictionary\Entity\DictionaryTypeInterface;
 use Drupal\ps_dictionary\Service\DictionaryCsvImporter;
 use Drupal\Tests\UnitTestCase;
@@ -217,7 +218,11 @@ final class DictionaryCsvImporterTest extends UnitTestCase {
       ->with('fr', 'ps_dictionary.entry.asset_type.bur')
       ->willReturn($override);
 
-    $importer = new DictionaryCsvImporter($etm, $languageManager);
+    $importer = new DictionaryCsvImporter(
+      $etm,
+      $languageManager,
+      $this->createMock(DictionaryImportGovernance::class),
+    );
     $result = $importer->importFromCsv($this->tempFile);
 
     self::assertSame(1, $result['imported']);
@@ -225,7 +230,7 @@ final class DictionaryCsvImporterTest extends UnitTestCase {
     self::assertSame([], $result['errors']);
   }
 
-  public function testImportWarnsWhenTranslationLanguageIsUnavailable(): void {
+  public function testImportSkipsUnavailableTranslationLanguageSilently(): void {
     file_put_contents(
       $this->tempFile,
       "type,code,label,weight,label_es\nasset_type,BUR,Office,1,Oficina\n",
@@ -242,8 +247,7 @@ final class DictionaryCsvImporterTest extends UnitTestCase {
 
     self::assertSame(1, $result['imported']);
     self::assertSame(0, $result['skipped']);
-    self::assertCount(1, $result['errors']);
-    self::assertStringContainsString('language "es" is not available', $result['errors'][0]);
+    self::assertSame([], $result['errors']);
   }
 
   // ---------------------------------------------------------------------------
@@ -297,7 +301,11 @@ final class DictionaryCsvImporterTest extends UnitTestCase {
         };
       });
 
-    return new DictionaryCsvImporter($etm, $languageManager);
+    return new DictionaryCsvImporter(
+      $etm,
+      $languageManager,
+      $this->createMock(DictionaryImportGovernance::class),
+    );
   }
 
   /**

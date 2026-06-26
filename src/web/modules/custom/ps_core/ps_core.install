@@ -50,3 +50,25 @@ function ps_core_apply_mailer_policy_theme(): void {
   $configuration['email_theme'] = ['theme' => 'ps_theme'];
   $config->set('configuration', $configuration)->save();
 }
+
+/**
+ * Installs global import governance defaults on existing sites.
+ */
+function ps_core_update_11001(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_core.governance');
+  if (!$config->isNew()) {
+    return;
+  }
+
+  $path = __DIR__ . '/config/install/ps_core.governance.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($path));
+  if (!is_array($data) || $data === []) {
+    return;
+  }
+
+  $config->setData($data)->save();
+}

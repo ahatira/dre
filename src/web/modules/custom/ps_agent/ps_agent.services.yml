@@ -13,3 +13,9 @@ services:
 
   Drupal\ps_agent\Hook\AgentThemeHooks:
     class: Drupal\ps_agent\Hook\AgentThemeHooks
+
+  ps_agent.import_governance:
+    class: Drupal\ps_agent\Service\AgentImportGovernance
+    arguments:
+      - '@config.factory'
+      - '@ps_core.import_governance_global_resolver'

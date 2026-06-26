@@ -33,3 +33,25 @@ function ps_dictionary_update_10001(): void {
     $typeStorage->delete([$departmentType]);
   }
 }
+
+/**
+ * Installs dictionary import governance defaults on existing sites.
+ */
+function ps_dictionary_update_10002(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_dictionary.import_governance');
+  if (!$config->isNew()) {
+    return;
+  }
+
+  $path = __DIR__ . '/config/install/ps_dictionary.import_governance.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Symfony\Component\Yaml\Yaml::parseFile($path);
+  if (!is_array($data)) {
+    return;
+  }
+
+  $config->setData($data)->save(TRUE);
+}

@@ -38,6 +38,26 @@ ps_core.settings_form:
   requirements:
     _permission: 'administer ps_core'
 
+ps_core.governance:
+  path: '/admin/ps/config/governance'
+  defaults:
+    _controller: '\Drupal\ps_core\Controller\GovernanceAdminOverviewController::overview'
+    _title: 'Governance'
+  requirements:
+    _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
+
+ps_core.governance_settings:
+  path: '/admin/ps/config/governance/settings'
+  defaults:
+    _form: '\Drupal\ps_core\Form\GovernanceGlobalSettingsForm'
+    _title: 'Global governance defaults'
+  requirements:
+    _permission: 'access ps_core config section'
+  options:
+    _admin_route: TRUE
+
 ps_core.health:
   path: '/admin/ps/health'
   defaults:

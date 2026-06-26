@@ -19,6 +19,7 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly LanguageManagerInterface $languageManager,
+    private readonly DictionaryImportGovernance $importGovernance,
   ) {}
 
   /**
@@ -61,12 +62,6 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
     $canWriteLanguageOverrides = $this->languageManager instanceof ConfigurableLanguageManagerInterface;
     $availableLanguages = $this->languageManager->getLanguages();
 
-    if (!$canWriteLanguageOverrides && !empty($translationColumns)) {
-      $result['errors'][] = 'Translation columns were ignored because language config overrides are not available.';
-    }
-
-    $missingLanguageWarnings = [];
-
     $row = 1;
     while (($line = fgetcsv($handle)) !== FALSE) {
       $row++;
@@ -105,7 +100,9 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
       /** @var \Drupal\ps_dictionary\Entity\DictionaryEntryInterface|null $existing */
       $existing = $storage->load($entryId);
       if ($existing) {
-        $existing->set('label', $label);
+        if (!$this->importGovernance->shouldPreserveExistingLabelsOnCsvImport()) {
+          $existing->set('label', $label);
+        }
         $existing->set('weight', $weight);
         $existing->save();
       }
@@ -126,9 +123,6 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
           colIndex: $colIndex,
           translationColumns: $translationColumns,
           availableLanguages: $availableLanguages,
-          missingLanguageWarnings: $missingLanguageWarnings,
-          result: $result,
-          row: $row,
         );
       }
 
@@ -162,8 +156,6 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
    * @param array<string, int> $colIndex
    * @param array<string, string> $translationColumns
    * @param array<string, \Drupal\Core\Language\LanguageInterface> $availableLanguages
-   * @param array<string, bool> $missingLanguageWarnings
-   * @param array{imported: int, skipped: int, errors: string[]} $result
    */
   private function applyTranslations(
     string $entryId,
@@ -171,9 +163,6 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
     array $colIndex,
     array $translationColumns,
     array $availableLanguages,
-    array &$missingLanguageWarnings,
-    array &$result,
-    int $row,
   ): void {
     if (!$this->languageManager instanceof ConfigurableLanguageManagerInterface) {
       return;
@@ -188,11 +177,6 @@ final class DictionaryCsvImporter implements DictionaryCsvImporterInterface {
       }
 
       if (!isset($availableLanguages[$langcode])) {
-        $key = $langcode;
-        if (!isset($missingLanguageWarnings[$key])) {
-          $result['errors'][] = sprintf('Row %d: language "%s" is not available, translation skipped.', $row, $langcode);
-          $missingLanguageWarnings[$key] = TRUE;
-        }
         continue;
       }
 

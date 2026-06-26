@@ -25,12 +25,24 @@ services:
       - '@Drupal\ps_feature\Service\FeatureCanonicalGroupRegistry'
       - '@ps_migrate.feature_migration_key_builder'
       - '@entity_type.manager'
+      - '@ps_core.import_governance_registry'
 
   ps_migrate.feature_technical_element_validator:
     class: Drupal\ps_migrate\Service\FeatureTechnicalElementValidator
 
   ps_migrate.feature_payload_defaults_normalizer:
     class: Drupal\ps_migrate\Service\FeaturePayloadDefaultsNormalizer
+
+  ps_migrate.feature_offer_value_import_handler:
+    class: Drupal\ps_migrate\Service\FeatureOfferValueImportHandler
+    arguments:
+      - '@ps_migrate.feature_import_resolver'
+      - '@entity_type.manager'
+      - '@ps_core.import_governance_registry'
+      - '@ps_migrate.feature_payload_defaults_normalizer'
+      - '@language.config_factory_override'
+      - '@language_manager'
+      - '@logger.channel.ps_migrate'
 
   ps_migrate.feature_migration_post_import_subscriber:
     class: Drupal\ps_migrate\EventSubscriber\FeatureMigrationPostImportSubscriber
@@ -40,6 +52,8 @@ services:
       - '@ps_migrate.feature_technical_element_validator'
       - '@ps_migrate.feature_payload_defaults_normalizer'
       - '@entity_type.manager'
+      - '@ps_core.entity_protection_manager'
+      - '@ps_core.import_governance_registry'
       - '@ps_migrate.import_run_snapshot_collector'
       - '@logger.channel.ps_migrate'
     tags:
@@ -74,6 +88,7 @@ services:
       - '@logger.channel.ps_migrate'
       - '@datetime.time'
       - '@ps_migrate.import_pipeline_lock_strategy'
+      - '@ps_core.import_governance_registry'
     tags:
       - { name: event_subscriber }
 
@@ -95,11 +110,26 @@ services:
       - '@file_system'
       - '@stream_wrapper_manager'
 
+  ps_migrate.snapshot_migration_post_import_subscriber:
+    class: Drupal\ps_migrate\EventSubscriber\SnapshotMigrationPostImportSubscriber
+    arguments:
+      - '@ps_migrate.crm_xml_snapshot_builder'
+      - '@entity_type.manager'
+      - '@ps_core.import_governance_registry'
+      - '@logger.channel.ps_migrate'
+    tags:
+      - { name: event_subscriber }
+
   ps_migrate.crm_offer_xml_document_loader:
     class: Drupal\ps_migrate\Service\CrmOfferXmlDocumentLoader
     arguments:
       - '@ps_migrate.xml_parse_cache'
       - '@file_system'
+
+  ps_migrate.crm_xml_snapshot_builder:
+    class: Drupal\ps_migrate\Service\CrmXmlSnapshotBuilder
+    arguments:
+      - '@ps_migrate.crm_offer_xml_document_loader'
 
   ps_migrate.crm_offer_xml_xpath_row_builder:
     class: Drupal\ps_migrate\Service\CrmOfferXmlXpathRowBuilder

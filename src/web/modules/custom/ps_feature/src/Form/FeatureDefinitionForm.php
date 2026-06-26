@@ -3,10 +3,13 @@
 namespace Drupal\ps_feature\Form;
 
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\ps_core\Form\IconAutocompleteHelperTrait;
+use Drupal\ps_feature\Entity\FeatureDefinition;
+use Drupal\ps_feature\Service\FeatureCatalogueGovernance;
 use Drupal\ps_feature\Service\FeatureDefinitionSource;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,16 +36,30 @@ class FeatureDefinitionForm extends EntityForm {
   protected $entityTypeManager;
 
   /**
+   * Feature catalogue governance settings.
+   *
+   * @var \Drupal\ps_feature\Service\FeatureCatalogueGovernance
+   */
+  protected FeatureCatalogueGovernance $catalogueGovernance;
+
+  /**
    * Constructs a FeatureDefinitionForm.
    *
    * @param \Drupal\ps_feature\Service\FeatureTypeManager $feature_type_manager
    *   The feature type manager.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\ps_feature\Service\FeatureCatalogueGovernance $catalogue_governance
+   *   Feature catalogue governance settings.
    */
-  public function __construct(FeatureTypeManager $feature_type_manager, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    FeatureTypeManager $feature_type_manager,
+    EntityTypeManagerInterface $entity_type_manager,
+    FeatureCatalogueGovernance $catalogue_governance,
+  ) {
     $this->featureTypeManager = $feature_type_manager;
     $this->entityTypeManager = $entity_type_manager;
+    $this->catalogueGovernance = $catalogue_governance;
   }
 
   /**
@@ -51,7 +68,8 @@ class FeatureDefinitionForm extends EntityForm {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('ps_feature.type_manager'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('ps_feature.catalogue_governance'),
     );
   }
 
@@ -169,15 +187,13 @@ class FeatureDefinitionForm extends EntityForm {
       '#open' => !$feature_definition->isNew(),
       '#weight' => 50,
     ];
-    $form['governance']['source'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Catalogue source'),
-      '#description' => $this->t('Indicates how this definition entered the catalogue.'),
-      '#options' => $this->getSourceOptions(),
+    $form['governance']['internal_lock'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Internal lock'),
+      '#description' => $this->t('When checked, CRM/XML imports cannot deactivate or overwrite this definition.'),
       '#default_value' => $feature_definition->isNew()
-        ? FeatureDefinitionSource::BO
-        : $feature_definition->getSource(),
-      '#disabled' => !$feature_definition->isNew(),
+        ? $this->catalogueGovernance->shouldLockOnBoCreate()
+        : $feature_definition->isInternallyLocked(),
     ];
     $form['governance']['type_locked'] = [
       '#type' => 'checkbox',
@@ -185,6 +201,35 @@ class FeatureDefinitionForm extends EntityForm {
       '#description' => $this->t('When checked, CRM/XML imports cannot change the data type.'),
       '#default_value' => $feature_definition->isTypeLocked(),
     ];
+
+    if (!$feature_definition->isNew()) {
+      $legacy_source = $feature_definition->getSource();
+      $form['governance']['legacy_source'] = [
+        '#type' => 'item',
+        '#title' => $this->t('Legacy catalogue source'),
+        '#markup' => $this->getSourceOptions()[$legacy_source] ?? $legacy_source,
+        '#description' => $this->t('Deprecated field kept during migration. Prefer internal lock for catalogue protection.'),
+      ];
+
+      $source_tracking = $feature_definition->getSourceTracking();
+      if ($source_tracking !== '') {
+        $formatted_tracking = $source_tracking;
+        try {
+          $decoded = json_decode($source_tracking, TRUE, 512, JSON_THROW_ON_ERROR);
+          $formatted_tracking = json_encode($decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+        }
+        catch (\JsonException) {
+          // Keep raw value when tracking is not valid JSON.
+        }
+
+        $form['governance']['source_tracking'] = [
+          '#type' => 'item',
+          '#title' => $this->t('Source tracking'),
+          '#markup' => '<pre class="ps-feature-source-tracking">' . htmlspecialchars($formatted_tracking, ENT_QUOTES, 'UTF-8') . '</pre>',
+          '#description' => $this->t('Read-only traceability metadata managed by imports and migrations.'),
+        ];
+      }
+    }
 
     // Dynamic payload defaults fields based on type.
     $form['payload_defaults_container'] = [
@@ -331,6 +376,39 @@ class FeatureDefinitionForm extends EntityForm {
     }
 
     $form_state->setValue('payload_defaults', $payload_defaults);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, FormStateInterface $form_state): void {
+    parent::copyFormValuesToEntity($entity, $form, $form_state);
+
+    if (!$entity instanceof FeatureDefinition) {
+      return;
+    }
+
+    $governance = $form_state->getValue('governance') ?? [];
+    if (array_key_exists('internal_lock', $governance)) {
+      $entity->setInternallyLocked((bool) $governance['internal_lock']);
+    }
+    elseif ($entity->isNew()) {
+      $entity->setInternallyLocked($this->catalogueGovernance->shouldLockOnBoCreate());
+    }
+
+    if (array_key_exists('type_locked', $governance)) {
+      $entity->setTypeLocked((bool) $governance['type_locked']);
+    }
+
+    if ($entity->isNew()) {
+      $entity->setSource(FeatureDefinitionSource::BO);
+      if ($entity->getSourceTracking() === '') {
+        $entity->setSourceTracking(json_encode([
+          'source_system' => 'PS_BO',
+          'legacy_source' => FeatureDefinitionSource::BO,
+        ], JSON_THROW_ON_ERROR));
+      }
+    }
   }
 
   /**

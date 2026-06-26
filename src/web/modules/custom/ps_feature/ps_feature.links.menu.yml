@@ -1,3 +1,31 @@
+ps_feature.admin_overview:
+  title: 'Features'
+  description: 'Configure the feature catalogue, data types and display defaults.'
+  route_name: ps_feature.admin_overview
+  parent: ps_core.config
+  weight: 20
+
+ps_feature.feature_types:
+  title: 'Feature types'
+  description: 'Available data types for feature definitions (defined by developers).'
+  route_name: ps_feature.feature_types
+  parent: ps_feature.admin_overview
+  weight: 0
+
+ps_feature.governance_domain_settings:
+  title: 'Features'
+  description: 'Feature catalogue CRM/XML and CSV import rules'
+  route_name: ps_feature.governance_domain_settings
+  parent: ps_core.governance
+  weight: 0
+
+ps_feature.config_display_settings:
+  title: 'Feature display settings'
+  description: 'Default icon for feature groups without a custom UI icon.'
+  route_name: ps_feature.config_display_settings
+  parent: ps_feature.admin_overview
+  weight: 5
+
 ps_feature.feature_groups:
   title: 'Feature groups'
   description: 'Manage feature groups (e.g. Amenities, Technical features)'
@@ -5,23 +33,9 @@ ps_feature.feature_groups:
   parent: ps_core.structure
   weight: 20
 
-ps_feature.feature_group_settings:
-  title: 'Feature display settings'
-  description: 'Default icon for feature groups without a custom icon'
-  route_name: ps_feature.feature_group_settings
-  parent: ps_feature.feature_groups
-  weight: 5
-
 ps_feature.feature_definitions:
   title: 'Features'
   description: 'Manage the feature catalogue available for offers'
   route_name: view.ps_feature_definitions_admin.page_1
   parent: ps_core.content
   weight: 25
-
-ps_feature.feature_types:
-  title: 'Feature types'
-  description: 'Available data types for features (defined by developers)'
-  route_name: ps_feature.feature_types
-  parent: ps_core.config
-  weight: 20

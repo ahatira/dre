@@ -201,6 +201,23 @@ final class OfferAdminOverviewController extends ControllerBase {
           ],
         ],
       ],
+      [
+        'id' => 'governance',
+        'title' => $this->t('Import governance'),
+        'description' => $this->t('CRM import protection and reference overwrite rules.'),
+        'items' => [
+          [
+            'title' => $this->t('Offer import governance'),
+            'description' => $this->t('Lock strategy, reference protection and XML snapshot behaviour for offers.'),
+            'route' => 'ps_offer.governance_domain_settings',
+          ],
+          [
+            'title' => $this->t('Central governance hub'),
+            'description' => $this->t('All import governance domains and global defaults.'),
+            'route' => 'ps_core.governance',
+          ],
+        ],
+      ],
     ];
   }
 

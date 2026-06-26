@@ -1,0 +1,9 @@
+crm_row_strategy_override: inherit
+allow_crm_overwrite_reference: false
+missing_from_xml:
+  offer_action: unpublish
+  protected_offer_action: keep_published
+present_in_xml:
+  reactivate: true
+bo_create:
+  default_internal_lock: false

@@ -73,6 +73,41 @@ ps_offer.settings:
       type: integer
       label: 'Default contact agent entity ID'
 
+ps_offer.import_governance:
+  type: config_object
+  label: 'Offer import governance settings'
+  mapping:
+    crm_row_strategy_override:
+      type: string
+      label: 'CRM row strategy override'
+    allow_crm_overwrite_reference:
+      type: boolean
+      label: 'Allow CRM to overwrite reference fields'
+    missing_from_xml:
+      type: mapping
+      label: 'Missing from XML snapshot'
+      mapping:
+        offer_action:
+          type: string
+          label: 'Non-protected offer action'
+        protected_offer_action:
+          type: string
+          label: 'Protected offer action'
+    present_in_xml:
+      type: mapping
+      label: 'Present in XML snapshot'
+      mapping:
+        reactivate:
+          type: boolean
+          label: 'Republish inactive offers'
+    bo_create:
+      type: mapping
+      label: 'Back-office creation defaults'
+      mapping:
+        default_internal_lock:
+          type: boolean
+          label: 'Default internal lock for new offers'
+
 ps_offer.map_settings:
   type: config_object
   label: 'Offer map settings'

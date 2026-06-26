@@ -1,0 +1,5 @@
+import:
+  global_lock_strategy:
+    source_config: ps_migrate.import_pipeline_settings
+    source_key: lock_strategy_default
+  show_domain_inheritance_hints: true

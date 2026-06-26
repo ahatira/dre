@@ -14,6 +14,8 @@ use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Entity\FeatureGroup;
 use Drupal\ps_feature\Service\FeatureCatalogueCsvImporter;
 use Drupal\ps_feature\Service\FeatureCatalogueCsvMapper;
+use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_feature\Service\FeatureCatalogueGovernance;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -70,6 +72,8 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
     $existing->method('isTypeLocked')->willReturn(FALSE);
     $existing->method('set')->willReturnSelf();
     $existing->method('setSource')->willReturnSelf();
+    $existing->method('setInternallyLocked')->willReturnSelf();
+    $existing->method('setSourceTracking')->willReturnSelf();
     $existing->expects(self::once())->method('save');
 
     $importer = $this->buildImporter(
@@ -101,6 +105,8 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
       return $existing;
     });
     $existing->method('setSource')->willReturnSelf();
+    $existing->method('setInternallyLocked')->willReturnSelf();
+    $existing->method('setSourceTracking')->willReturnSelf();
     $existing->expects(self::once())->method('save');
 
     $importer = $this->buildImporter(
@@ -114,6 +120,26 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
 
     self::assertSame(1, $result['imported']);
     self::assertSame(0, $typeDriverUpdates);
+  }
+
+  public function testImportUsesDefaultGroupWhenCategoryEmpty(): void {
+    file_put_contents(
+      $this->tempFile,
+      "code,categorie,libelle,type_valeur\nTEC_NO_CATEGORY,,Label without category,Nombre\n",
+    );
+
+    $importer = $this->buildImporter(
+      definitionLoadMap: ['tec_no_category' => NULL],
+      groupExists: TRUE,
+      expectCreate: TRUE,
+      languageManager: $this->buildLanguageManager([]),
+    );
+
+    $result = $importer->importFromCsv($this->tempFile);
+
+    self::assertSame(1, $result['imported']);
+    self::assertSame(0, $result['skipped']);
+    self::assertSame([], $result['errors']);
   }
 
   public function testImportSkipsUnknownCategory(): void {
@@ -260,6 +286,45 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
       $languageManager,
       new FeatureCatalogueCsvMapper(),
       $featureTypeManager,
+      $this->buildCatalogueGovernance(),
+    );
+  }
+
+  private function buildCatalogueGovernance(): FeatureCatalogueGovernance {
+    $featureGovernanceConfig = $this->createMock(\Drupal\Core\Config\ImmutableConfig::class);
+    $featureGovernanceConfig->method('get')->willReturnCallback(
+      static fn(string $key): mixed => match ($key) {
+        'csv_import.lock_on_import' => TRUE,
+        default => NULL,
+      },
+    );
+
+    $globalGovernanceConfig = $this->createMock(\Drupal\Core\Config\ImmutableConfig::class);
+    $globalGovernanceConfig->method('get')->willReturnCallback(
+      static fn(string $key): mixed => match ($key) {
+        'import.global_lock_strategy.source_config' => 'ps_migrate.import_pipeline_settings',
+        'import.global_lock_strategy.source_key' => 'lock_strategy_default',
+        default => NULL,
+      },
+    );
+
+    $migrateConfig = $this->createMock(\Drupal\Core\Config\ImmutableConfig::class);
+
+    $configFactory = $this->createMock(\Drupal\Core\Config\ConfigFactoryInterface::class);
+    $configFactory->method('get')->willReturnMap([
+      [FeatureCatalogueGovernance::CONFIG_NAME, $featureGovernanceConfig],
+      [ImportGovernanceGlobalResolver::CONFIG_NAME, $globalGovernanceConfig],
+      ['ps_migrate.import_pipeline_settings', $migrateConfig],
+    ]);
+
+    return new FeatureCatalogueGovernance(
+      $configFactory,
+      $this->createMock(\Drupal\ps_core\Service\EntityProtectionManagerInterface::class),
+      $this->createMock(EntityTypeManagerInterface::class),
+      new ImportGovernanceGlobalResolver(
+        $configFactory,
+        $this->createMock(\Drupal\Core\Extension\ModuleHandlerInterface::class),
+      ),
     );
   }
 

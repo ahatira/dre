@@ -97,6 +97,16 @@ ps_dictionary.entry_delete:
   options:
     _admin_route: TRUE
 
+ps_dictionary.governance_domain_settings:
+  path: '/admin/ps/config/governance/dictionary'
+  defaults:
+    _form: '\Drupal\ps_dictionary\Form\DictionaryImportGovernanceSettingsForm'
+    _title: 'Dictionary import governance'
+  requirements:
+    _permission: 'manage ps_dictionary'
+  options:
+    _admin_route: TRUE
+
 # Autocomplete (kept)
 ps_dictionary.autocomplete:
   path: '/ps-dictionary/autocomplete/{dictionary_type}'

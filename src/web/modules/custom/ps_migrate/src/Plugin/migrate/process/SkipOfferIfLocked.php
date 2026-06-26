@@ -10,6 +10,9 @@ use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
+use Drupal\node\NodeInterface;
+use Drupal\ps_core\Service\EntityProtectionManagerInterface;
+use Drupal\ps_core\Service\ImportGovernanceRegistry;
 use Drupal\ps_migrate\Service\ImportPipelineLockStrategy;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -28,6 +31,8 @@ final class SkipOfferIfLocked extends ProcessPluginBase implements ContainerFact
     $plugin_definition,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ImportPipelineLockStrategy $lockStrategy,
+    private readonly ImportGovernanceRegistry $governanceRegistry,
+    private readonly EntityProtectionManagerInterface $protectionManager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -39,6 +44,8 @@ final class SkipOfferIfLocked extends ProcessPluginBase implements ContainerFact
       $plugin_definition,
       $container->get('entity_type.manager'),
       $container->get('ps_migrate.import_pipeline_lock_strategy'),
+      $container->get('ps_core.import_governance_registry'),
+      $container->get('ps_core.entity_protection_manager'),
     );
   }
 
@@ -64,10 +71,21 @@ final class SkipOfferIfLocked extends ProcessPluginBase implements ContainerFact
 
     $nid = (int) reset($ids);
     $offer = $this->entityTypeManager->getStorage('node')->load($nid);
-    if ($offer && $offer->hasField('field_internal_lock') && (bool) $offer->get('field_internal_lock')->value) {
-      if ($this->lockStrategy->shouldSkipRow('field_internal_lock')) {
-        throw new MigrateSkipRowException(sprintf('Offer %s is protected by field_internal_lock.', $businessId));
-      }
+    if (!$offer instanceof NodeInterface || !$this->protectionManager->supports($offer)) {
+      return $value;
+    }
+
+    if (!$this->protectionManager->isProtected($offer)) {
+      return $value;
+    }
+
+    $policy = $this->governanceRegistry->getPolicyForEntity($offer);
+    if ($policy !== NULL && $policy->shouldSkipProtectedRow($offer)) {
+      throw new MigrateSkipRowException(sprintf('Offer %s is protected by field_internal_lock.', $businessId));
+    }
+
+    if ($policy === NULL && $this->lockStrategy->shouldSkipRow('field_internal_lock')) {
+      throw new MigrateSkipRowException(sprintf('Offer %s is protected by field_internal_lock.', $businessId));
     }
 
     return $value;

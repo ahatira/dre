@@ -7,3 +7,7 @@ description: 'Building equipment and facilities.'
 icon: 'bnp_custom:equipement'
 asset_types: {  }
 weight: 0
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

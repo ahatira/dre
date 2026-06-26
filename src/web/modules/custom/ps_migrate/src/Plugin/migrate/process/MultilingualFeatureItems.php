@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\ps_migrate\Plugin\migrate\process;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\language\Config\LanguageConfigFactoryOverride;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\ps_migrate\Service\FeatureImportResolver;
-use Psr\Log\LoggerInterface;
+use Drupal\ps_migrate\Service\FeatureOfferValueImportHandler;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -43,10 +40,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     $plugin_id,
     $plugin_definition,
     private readonly FeatureImportResolver $importResolver,
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly LanguageConfigFactoryOverride $languageConfigOverride,
-    private readonly LanguageManagerInterface $languageManager,
-    private readonly LoggerInterface $logger,
+    private readonly FeatureOfferValueImportHandler $offerValueImportHandler,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -60,10 +54,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
       $plugin_id,
       $plugin_definition,
       $container->get('ps_migrate.feature_import_resolver'),
-      $container->get('entity_type.manager'),
-      $container->get('language.config_factory_override'),
-      $container->get('language_manager'),
-      $container->get('logger.channel.ps_migrate'),
+      $container->get('ps_migrate.feature_offer_value_import_handler'),
     );
   }
 
@@ -83,9 +74,9 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     }
 
     $items = [];
-    foreach ($elements as $index => $element) {
-      $groupCode = $this->extractText($element, 'CODE_GROUP');
-      $featureCode = $this->extractText($element, 'CODE_ELEMENT');
+    foreach ($elements as $index => $xmlElement) {
+      $groupCode = $this->extractText($xmlElement, 'CODE_GROUP');
+      $featureCode = $this->extractText($xmlElement, 'CODE_ELEMENT');
 
       if ($this->isTemplatePlaceholder($groupCode) || $this->isTemplatePlaceholder($featureCode)) {
         continue;
@@ -96,18 +87,31 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
       }
 
       $definitionId = $this->importResolver->buildDefinitionId($featureCode);
-      $definition = $this->entityTypeManager->getStorage('fb_feature_definition')->load($definitionId);
+      $label = $this->extractMultilingualLabel($xmlElement, 'ML_LABEL', 'LABEL', $language);
+      $complement = $this->extractMultilingualLabel($xmlElement, 'ML_COMPLEMENT', 'COMPLEMENT', $language);
+      $value = $this->extractText($xmlElement, 'VALUE');
+      $unit = $this->extractText($xmlElement, 'UNIT');
+
+      $normalizedElement = [
+        'group_code' => $groupCode,
+        'feature_code' => $featureCode,
+        'label' => $label,
+        'payload' => [
+          'value' => $value,
+          'unit' => $unit,
+          'complement' => $complement,
+        ],
+        'source_index' => $index,
+        'type_driver' => $this->guessTypeDriverFromPayload([
+          'value' => $value,
+          'unit' => $unit,
+        ]),
+      ];
+
+      $definition = $this->offerValueImportHandler->resolveDefinitionForOfferItem($normalizedElement);
       if (!$definition) {
-        $this->logger->warning('Skipping feature item for missing definition @definition_id', [
-          '@definition_id' => $definitionId,
-        ]);
         continue;
       }
-
-      $label = $this->extractMultilingualLabel($element, 'ML_LABEL', 'LABEL', $language);
-      $complement = $this->extractMultilingualLabel($element, 'ML_COMPLEMENT', 'COMPLEMENT', $language);
-      $value = $this->extractText($element, 'VALUE');
-      $unit = $this->extractText($element, 'UNIT');
 
       if ($this->isTemplatePlaceholder($label)) {
         $label = '';
@@ -122,8 +126,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
         $unit = '';
       }
 
-      // Keep feature definition labels translated per language.
-      $this->syncFeatureDefinitionTranslation($definitionId, $language, $label);
+      $this->offerValueImportHandler->syncDefinitionLabel($definitionId, $language, $label);
 
       $payload = $this->buildPayload([
         'label' => $label,
@@ -159,28 +162,6 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
   }
 
   /**
-   * Writes a translated label override for a feature definition.
-   */
-  private function syncFeatureDefinitionTranslation(string $definitionId, string $language, string $label): void {
-    if ($label === '' || $language === 'FR' || $this->isTemplatePlaceholder($label)) {
-      return;
-    }
-
-    if (!$this->languageManager->getLanguage(strtolower($language))) {
-      return;
-    }
-
-    $configName = 'ps_feature.feature_definition.' . $definitionId;
-    $override = $this->languageConfigOverride->getOverride(strtolower($language), $configName);
-    if ($override->get('label') === $label) {
-      return;
-    }
-
-    $override->set('label', $label);
-    $override->save();
-  }
-
-  /**
    * Extracts a text value from an XML element.
    */
   private function extractText(\SimpleXMLElement $element, string $childName): string {
@@ -209,7 +190,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
       }
     }
 
-    // Fallback to first non-empty entry
+    // Fallback to first non-empty entry.
     $allEntries = $container->xpath($entryName);
     foreach ($allEntries as $entry) {
       $text = trim((string) $entry);
@@ -232,7 +213,7 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
 
     $result = [];
 
-    // Add translated label to payload
+    // Add translated label to payload.
     if ($label !== NULL && trim((string) $label) !== '') {
       $result['label'] = trim((string) $label);
     }
@@ -270,6 +251,28 @@ final class MultilingualFeatureItems extends ProcessPluginBase implements Contai
     }
 
     return $result;
+  }
+
+  /**
+   * Guesses a type driver from payload shape.
+   */
+  private function guessTypeDriverFromPayload(array $payload): string {
+    $value = $payload['value'] ?? NULL;
+    $unit = $payload['unit'] ?? NULL;
+
+    if ($value === NULL && $unit === NULL) {
+      return 'flag';
+    }
+
+    if ($value !== NULL && is_numeric(str_replace(',', '.', (string) $value))) {
+      return 'numeric';
+    }
+
+    if ($value !== NULL && preg_match('/^(yes|no|true|false|oui|non|0|1)$/i', (string) $value) === 1) {
+      return 'yes_no';
+    }
+
+    return 'text';
   }
 
   /**

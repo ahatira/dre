@@ -51,3 +51,9 @@ ps_offer.reference_config:
   route_name: ps_offer.reference_config
   base_route: ps_offer.admin_overview
   weight: 10
+
+ps_offer.governance_domain_settings:
+  title: 'Offers'
+  route_name: ps_offer.governance_domain_settings
+  base_route: ps_core.governance
+  weight: 10

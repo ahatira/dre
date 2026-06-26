@@ -96,3 +96,13 @@ ps_offer.reference_config:
     _permission: 'administer ps offer reference patterns'
   options:
     _admin_route: TRUE
+
+ps_offer.governance_domain_settings:
+  path: '/admin/ps/config/governance/offer'
+  defaults:
+    _form: '\Drupal\ps_offer\Form\OfferImportGovernanceSettingsForm'
+    _title: 'Offer import governance'
+  requirements:
+    _permission: 'manage ps_offer'
+  options:
+    _admin_route: TRUE

@@ -7,3 +7,7 @@ description: 'Building type, state and structure.'
 icon: 'bnp_custom:district'
 asset_types: {  }
 weight: 2
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

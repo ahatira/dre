@@ -54,3 +54,25 @@ ps_core.offer_section_settings:
             transport_group:
               type: string
               label: 'Transport feature group'
+
+ps_core.governance:
+  type: config_object
+  label: 'Import governance global settings'
+  mapping:
+    import:
+      type: mapping
+      label: 'Import governance'
+      mapping:
+        global_lock_strategy:
+          type: mapping
+          label: 'Global lock strategy source'
+          mapping:
+            source_config:
+              type: string
+              label: 'Source config name'
+            source_key:
+              type: string
+              label: 'Source config key'
+        show_domain_inheritance_hints:
+          type: boolean
+          label: 'Show inheritance hints on domain forms'

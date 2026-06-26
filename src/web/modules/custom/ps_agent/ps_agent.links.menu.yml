@@ -1,20 +1,6 @@
-entity.ps_agent.collection:
+ps_agent.governance_domain_settings:
   title: 'Agents'
-  description: 'Manage agents'
-  route_name: view.ps_agent_admin.page_1
-  parent: ps_core.content
-  weight: 30
-
-entity.ps_agent_type.collection:
-  title: 'Agent types'
-  description: 'Manage agent types and their fields and display settings.'
-  route_name: entity.ps_agent_type.collection
-  parent: ps_core.structure
-  weight: 30
-
-ps_agent.fallback_settings:
-  title: 'Agent fallback avatars'
-  description: 'Configure fallback avatars by civility and default.'
-  route_name: ps_agent.fallback_settings
-  parent: ps_core.config
-  weight: 30
+  description: 'Agent CRM/XML import lock strategy and contact protection'
+  route_name: ps_agent.governance_domain_settings
+  parent: ps_core.governance
+  weight: 20

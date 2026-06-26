@@ -1066,3 +1066,45 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+msgid "Back to PS configuration hub"
+msgstr ""
+
+msgid "Browse, create and edit the feature catalogue."
+msgstr ""
+
+msgid "Configure the feature catalogue, data types and display defaults."
+msgstr ""
+
+msgid "Configure the feature catalogue, data types and display defaults used on offers."
+msgstr ""
+
+msgid "Default icon for feature groups without a custom UI icon."
+msgstr ""
+
+msgid "Developer and display settings for the feature module."
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Feature definitions"
+msgstr ""
+
+msgid "Import catalogue"
+msgstr ""
+
+msgid "Manage feature definitions and groups used on offers."
+msgstr ""
+
+msgid "Organise feature definitions into business groups."
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Read-only list of data type plugins available to definitions."
+msgstr ""
+
+msgid "Upload a business CSV to create or update feature definitions."
+msgstr ""
+

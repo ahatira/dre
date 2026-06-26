@@ -1,0 +1,7 @@
+csv_import:
+  preserve_existing_labels: true
+  lock_on_import: false
+bo_create:
+  default_internal_lock: false
+crm_lookup:
+  preserve_existing_labels: true

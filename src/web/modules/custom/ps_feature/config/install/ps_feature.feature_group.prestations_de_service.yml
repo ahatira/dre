@@ -7,3 +7,7 @@ description: 'On-site services and amenities.'
 icon: 'bnp_custom:welcome-room'
 asset_types: {  }
 weight: 1
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

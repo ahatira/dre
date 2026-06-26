@@ -7,6 +7,7 @@ use Drupal\Core\Entity\Attribute\ConfigEntityType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ps_core\Utility\IconIdUtility;
 use Drupal\ps_feature\Service\FeatureDefinitionSource;
+use Drupal\ps_feature\Trait\FeatureConfigEntityGovernanceTrait;
 
 /**
  * Defines the Feature Definition configuration entity.
@@ -54,6 +55,10 @@ use Drupal\ps_feature\Service\FeatureDefinitionSource;
     'icon',
     'source',
     'type_locked',
+    'internal_lock',
+    'source_tracking',
+    'checksum',
+    'field_locks',
   ],
   links: [
     'add-form' => '/admin/ps/content/features/add',
@@ -63,6 +68,8 @@ use Drupal\ps_feature\Service\FeatureDefinitionSource;
   ],
 )]
 class FeatureDefinition extends ConfigEntityBase {
+
+  use FeatureConfigEntityGovernanceTrait;
 
   /**
    * The feature definition ID.
@@ -297,9 +304,26 @@ class FeatureDefinition extends ConfigEntityBase {
   }
 
   /**
+   * Whether the catalogue entry resists external import updates.
+   *
+   * Dual-reads legacy `source = bo` until all sites are migrated.
+   */
+  public function isCatalogueProtected(): bool {
+    if ($this->isInternallyLocked()) {
+      return TRUE;
+    }
+
+    return $this->getSource() === FeatureDefinitionSource::BO;
+  }
+
+  /**
    * Whether the value type is locked against CRM/XML overwrites.
    */
   public function isTypeLocked(): bool {
+    if ($this->isFieldLocked('type_driver')) {
+      return TRUE;
+    }
+
     return (bool) ($this->type_locked ?? FALSE);
   }
 
@@ -308,6 +332,7 @@ class FeatureDefinition extends ConfigEntityBase {
    */
   public function setTypeLocked(bool $locked): static {
     $this->type_locked = $locked;
+    $this->setFieldLocked('type_driver', $locked);
     return $this;
   }
 

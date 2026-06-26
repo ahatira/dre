@@ -70,7 +70,10 @@ Frontières explicites:
 
 | Route | Chemin | Permission requise |
 |---|---|---|
-| `ps_feature.feature_types` | `/admin/ps/config/features` | `administer ps features` |
+| `ps_feature.admin` | `/admin/ps/config/features` | `administer ps features` |
+| `ps_feature.admin_overview` | `/admin/ps/config/features/overview` | `administer ps features` |
+| `ps_feature.feature_types` | `/admin/ps/config/features/types` | `administer ps features` |
+| `ps_feature.config_display_settings` | `/admin/ps/config/features/display` | `administer ps features` |
 | `entity.fb_feature_definition.collection_by_group` | `/admin/ps/structure/features/{feature_group}/definitions` | `administer ps features` |
 
 ## Permissions
@@ -113,7 +116,7 @@ bash web/modules/custom/ps_feature/tests/e2e_feature.sh feature_type_exists "" "
 
 Couverture E2E actuelle:
 
-- Navigation UI vers `/admin/ps/config/features`
+- Navigation UI vers `/admin/ps/config/features/overview`
 - Vérification API service des type drivers (`plugin.manager.feature_type`)
 - CRUD config entities `fb_feature_group` / `fb_feature_definition`
 - Contrôle doublon de code par groupe

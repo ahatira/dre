@@ -14,3 +14,38 @@ ps_agent.fallback:
     ms_fid:
       type: integer
       label: 'MS fallback file ID'
+
+ps_agent.import_governance:
+  type: config_object
+  label: 'Agent import governance settings'
+  mapping:
+    crm_row_strategy_override:
+      type: string
+      label: 'CRM row strategy override'
+    allow_crm_overwrite_contact:
+      type: boolean
+      label: 'Allow CRM to overwrite contact fields'
+    missing_from_xml:
+      type: mapping
+      label: 'Missing from XML snapshot'
+      mapping:
+        agent_action:
+          type: string
+          label: 'Non-protected agent action'
+        protected_agent_action:
+          type: string
+          label: 'Protected agent action'
+    present_in_xml:
+      type: mapping
+      label: 'Present in XML snapshot'
+      mapping:
+        reactivate:
+          type: boolean
+          label: 'Reactivate inactive agents'
+    bo_create:
+      type: mapping
+      label: 'Back-office creation defaults'
+      mapping:
+        default_internal_lock:
+          type: boolean
+          label: 'Default internal lock for new agents'

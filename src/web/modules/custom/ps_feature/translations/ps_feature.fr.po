@@ -1182,3 +1182,105 @@ msgstr "Le type de données est verrouillé. Décochez « Verrouiller le type de
 
 msgid "Source"
 msgstr "Source"
+
+msgid "Back to PS configuration hub"
+msgstr "Retour au hub de configuration PS"
+
+msgid "Browse, create and edit the feature catalogue."
+msgstr "Parcourir, créer et modifier le catalogue de caractéristiques."
+
+msgid "Configure the feature catalogue, data types and display defaults."
+msgstr "Configurer le catalogue de caractéristiques, les types de données et l'affichage par défaut."
+
+msgid "Configure the feature catalogue, data types and display defaults used on offers."
+msgstr "Configurer le catalogue de caractéristiques, les types de données et l'affichage par défaut utilisés sur les offres."
+
+msgid "Default icon for feature groups without a custom UI icon."
+msgstr "Icône par défaut pour les groupes sans icône UI personnalisée."
+
+msgid "Developer and display settings for the feature module."
+msgstr "Paramètres développeur et d'affichage du module caractéristiques."
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "Feature definitions"
+msgstr "Définitions de caractéristiques"
+
+msgid "Import catalogue"
+msgstr "Importer le catalogue"
+
+msgid "Organise feature definitions into business groups."
+msgstr "Organiser les définitions de caractéristiques en groupes métier."
+
+msgid "Overview"
+msgstr "Vue d'ensemble"
+
+msgid "Read-only list of data type plugins available to definitions."
+msgstr "Liste en lecture seule des plugins de type de données disponibles pour les définitions."
+
+msgid "Upload a business CSV to create or update feature definitions."
+msgstr "Téléverser un CSV métier pour créer ou mettre à jour les définitions de caractéristiques."
+
+msgid "Manage feature definitions and groups used on offers."
+msgstr "Gérer les définitions et groupes de caractéristiques utilisés sur les offres."
+
+msgid "Features are the attributes shown on offers (energy rating, surfaces, amenities, etc.). Maintain the catalogue below; use the configuration tabs to control CRM/XML imports and front display."
+msgstr "Les caractéristiques sont les attributs affichés sur les offres (DPE, surfaces, équipements, etc.). Gérez le catalogue ci-dessous ; utilisez les onglets de configuration pour régler les imports CRM/XML et l'affichage front."
+
+msgid "Catalogue management"
+msgstr "Gestion du catalogue"
+
+msgid "Definitions describe what can be filled in on an offer. Groups organise them in the back office and on the front. CSV import is for bulk catalogue updates."
+msgstr "Les définitions décrivent ce qui peut être renseigné sur une offre. Les groupes les organisent dans le back office et sur le front. L'import CSV sert aux mises à jour en masse du catalogue."
+
+msgid "Configuration tabs"
+msgstr "Onglets de configuration"
+
+msgid "Technical and import settings are grouped in the tabs above. You rarely need them for day-to-day catalogue work."
+msgstr "Les paramètres techniques et d'import sont regroupés dans les onglets ci-dessus. Vous en avez rarement besoin pour la gestion courante du catalogue."
+
+msgid "Browse, create and edit catalogue entries."
+msgstr "Parcourir, créer et modifier les entrées du catalogue."
+
+msgid "Upload a business CSV to create or update definitions."
+msgstr "Téléverser un CSV métier pour créer ou mettre à jour les définitions."
+
+msgid "Organise definitions into business groups."
+msgstr "Organiser les définitions en groupes métier."
+
+msgid "Read-only list of data formats (mainly for developers)."
+msgstr "Liste en lecture seule des formats de données (surtout pour les développeurs)."
+
+msgid "Rules applied when CRM/XML imports update protected catalogue entries."
+msgstr "Règles appliquées lorsque les imports CRM/XML mettent à jour des entrées protégées du catalogue."
+
+msgid "Default icon for groups without a custom UI icon."
+msgstr "Icône par défaut pour les groupes sans icône UI personnalisée."
+
+msgid "Feature catalogue governance"
+msgstr "Gouvernance du catalogue de caractéristiques"
+
+msgid "Import defaults"
+msgstr "Valeurs par défaut à l'import"
+
+msgid "Default feature group"
+msgstr "Groupe de caractéristiques par défaut"
+
+msgid "Used when a CSV row, CRM element or offer import creates a feature definition without a group code. Falls back to @group when unset."
+msgstr "Utilisé lorsqu'une ligne CSV, un élément CRM ou un import d'offre crée une définition sans code de groupe. Retombe sur @group si non renseigné."
+
+msgid "- @group (fallback) -"
+msgstr "- @group (repli) -"
+
+msgid "The selected default feature group does not exist."
+msgstr "Le groupe de caractéristiques par défaut sélectionné n'existe pas."
+
+msgid "Governance hub"
+msgstr "Hub gouvernance"
+
+msgid "Central entry point for all import governance settings."
+msgstr "Point d'entrée central pour tous les paramètres de gouvernance à l'import."
+
+msgid "Central entry point for all import governance domains."
+msgstr "Point d'entrée central pour tous les domaines de gouvernance à l'import."

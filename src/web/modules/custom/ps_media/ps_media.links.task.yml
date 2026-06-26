@@ -1,0 +1,5 @@
+ps_media.governance_domain_settings:
+  title: 'Media'
+  route_name: ps_media.governance_domain_settings
+  base_route: ps_core.governance
+  weight: 40

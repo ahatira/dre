@@ -10,7 +10,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Drupal\ps_feature\Service\FeatureCatalogueCsvImporter;
 use Drupal\ps_feature\Service\FeatureCatalogueCsvImporterInterface;
 use Drupal\ps_feature\Service\FeatureCatalogueCsvMapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,30 +19,42 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class FeatureCatalogueImportForm extends FormBase {
 
+  /**
+   * CSV importer service.
+   *
+   * Protected (not readonly) so DependencySerializationTrait can re-inject
+   * after managed_file AJAX rebuilds cache the form object.
+   */
+  protected FeatureCatalogueCsvImporterInterface $csvImporter;
+
+  /**
+   * File system service.
+   */
+  protected FileSystemInterface $fileSystem;
+
+  /**
+   * CSV mapper service.
+   */
+  protected FeatureCatalogueCsvMapper $mapper;
+
   public function __construct(
-    private readonly FeatureCatalogueCsvImporterInterface $csvImporter,
-    private readonly FileSystemInterface $fileSystem,
-    private readonly FeatureCatalogueCsvMapper $mapper,
-  ) {}
+    FeatureCatalogueCsvImporterInterface $csvImporter,
+    FileSystemInterface $fileSystem,
+    FeatureCatalogueCsvMapper $mapper,
+  ) {
+    $this->csvImporter = $csvImporter;
+    $this->fileSystem = $fileSystem;
+    $this->mapper = $mapper;
+  }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): self {
-    $mapper = new FeatureCatalogueCsvMapper();
-    $csvImporter = $container->has(FeatureCatalogueCsvImporterInterface::class)
-      ? $container->get(FeatureCatalogueCsvImporterInterface::class)
-      : new FeatureCatalogueCsvImporter(
-        $container->get('entity_type.manager'),
-        $container->get('language_manager'),
-        $mapper,
-        $container->get('ps_feature.type_manager'),
-      );
-
     return new self(
-      $csvImporter,
+      $container->get(FeatureCatalogueCsvImporterInterface::class),
       $container->get('file_system'),
-      $mapper,
+      $container->get(FeatureCatalogueCsvMapper::class),
     );
   }
 
@@ -129,7 +140,7 @@ final class FeatureCatalogueImportForm extends FormBase {
       '#description' => $this->t('Accepted format: .csv'),
       '#upload_location' => 'temporary://ps_feature_catalogue_import',
       '#upload_validators' => [
-        'file_validate_extensions' => ['csv'],
+        'FileExtension' => ['extensions' => 'csv'],
       ],
       '#required' => TRUE,
     ];

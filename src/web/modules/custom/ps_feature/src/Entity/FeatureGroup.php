@@ -6,6 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Attribute\ConfigEntityType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ps_core\Utility\IconIdUtility;
+use Drupal\ps_feature\Trait\FeatureConfigEntityGovernanceTrait;
 
 /**
  * Defines the Feature Group configuration entity.
@@ -46,6 +47,10 @@ use Drupal\ps_core\Utility\IconIdUtility;
     'asset_types',
     'weight',
     'status',
+    'internal_lock',
+    'source_tracking',
+    'checksum',
+    'field_locks',
   ],
   links: [
     'add-form' => '/admin/ps/structure/features/add',
@@ -55,6 +60,8 @@ use Drupal\ps_core\Utility\IconIdUtility;
   ],
 )]
 class FeatureGroup extends ConfigEntityBase {
+
+  use FeatureConfigEntityGovernanceTrait;
 
   /**
    * The feature group ID.
@@ -172,6 +179,13 @@ class FeatureGroup extends ConfigEntityBase {
   public function setWeight(int $weight): static {
     $this->weight = $weight;
     return $this;
+  }
+
+  /**
+   * Whether the catalogue entry resists external import updates.
+   */
+  public function isCatalogueProtected(): bool {
+    return $this->isInternallyLocked();
   }
 
 }

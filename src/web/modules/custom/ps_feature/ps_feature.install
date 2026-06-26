@@ -14,3 +14,71 @@ function ps_feature_install(): void {
   $entity_type = \Drupal::entityTypeManager()->getDefinition('entity_offer_feature');
   \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
 }
+
+/**
+ * Migrates legacy feature governance fields to ps_core protection properties.
+ */
+function ps_feature_update_12001(): string {
+  return \Drupal::service('ps_feature.governance_config_updater')->migrateAll();
+}
+
+/**
+ * Updates the feature definitions admin view for governance fields.
+ */
+function ps_feature_update_12002(): void {
+  $path = \Drupal::service('extension.list.module')->getPath('ps_feature')
+    . '/config/install/views.view.ps_feature_definitions_admin.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($path));
+  if (!is_array($data)) {
+    return;
+  }
+
+  \Drupal::configFactory()
+    ->getEditable('views.view.ps_feature_definitions_admin')
+    ->setData($data)
+    ->save(TRUE);
+}
+
+/**
+ * Installs feature catalogue governance settings on existing sites.
+ */
+function ps_feature_update_12003(): void {
+  $configName = 'ps_feature.catalogue_governance';
+  if (!\Drupal::configFactory()->get($configName)->isNew()) {
+    return;
+  }
+
+  $path = \Drupal::service('extension.list.module')->getPath('ps_feature')
+    . '/config/install/' . $configName . '.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($path));
+  if (!is_array($data)) {
+    return;
+  }
+
+  \Drupal::configFactory()->getEditable($configName)->setData($data)->save(TRUE);
+}
+
+/**
+ * Adds default import group settings to existing catalogue governance config.
+ */
+function ps_feature_update_12004(): void {
+  $configName = 'ps_feature.catalogue_governance';
+  $config = \Drupal::configFactory()->getEditable($configName);
+  if ($config->isNew()) {
+    return;
+  }
+
+  if ($config->get('import_defaults.default_group') !== NULL) {
+    return;
+  }
+
+  $config->set('import_defaults.default_group', '')->save(TRUE);
+}

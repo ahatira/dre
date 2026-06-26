@@ -1,0 +1,9 @@
+ps_media.governance_domain_settings:
+  path: '/admin/ps/config/governance/media'
+  defaults:
+    _form: '\Drupal\ps_media\Form\MediaImportGovernanceSettingsForm'
+    _title: 'Media import governance'
+  requirements:
+    _permission: 'administer ps_media'
+  options:
+    _admin_route: TRUE

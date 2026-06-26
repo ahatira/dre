@@ -50,6 +50,7 @@ display:
             label: label
             code: code
             group: group
+            internal_lock: internal_lock
             status: status
             operations: operations
           default: label
@@ -62,6 +63,8 @@ display:
             code:
               sortable: true
             group:
+              sortable: true
+            internal_lock:
               sortable: true
             status:
               sortable: true
@@ -117,13 +120,12 @@ display:
           plugin_id: ps_feature_definition_type_driver
           label: 'Data type'
           exclude: true
-        source:
-          id: source
+        internal_lock:
+          id: internal_lock
           table: fb_feature_definition
-          field: source
-          plugin_id: ps_feature_definition_source
-          label: Source
-          exclude: true
+          field: internal_lock
+          plugin_id: ps_feature_definition_property
+          label: Protected
         status:
           id: status
           table: fb_feature_definition
@@ -181,18 +183,35 @@ display:
             label: 'Data type'
             identifier: type_driver
             reduce: false
-        source:
-          id: source
+        internal_lock:
+          id: internal_lock
           table: fb_feature_definition
-          field: source
-          plugin_id: ps_feature_definition_source
-          operator: in
-          value: {  }
+          field: internal_lock
+          plugin_id: ps_feature_definition_boolean
+          operator: '='
+          value: ''
           exposed: true
           expose:
-            label: Source
-            identifier: source
-            reduce: false
+            label: Protected
+            identifier: internal_lock
+          is_grouped: true
+          group_info:
+            label: Protected
+            identifier: internal_lock
+            optional: true
+            widget: select
+            multiple: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Protected
+                operator: '='
+                value: '1'
+              2:
+                title: Open
+                operator: '='
+                value: '0'
         status:
           id: status
           table: fb_feature_definition

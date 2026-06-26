@@ -163,4 +163,10 @@ services:
       - '@Drupal\ps_offer\Service\OfferValidationManagerInterface'
       - '@Drupal\ps_offer\Service\OfferReferenceManagerInterface'
 
+  ps_offer.import_governance:
+    class: Drupal\ps_offer\Service\OfferImportGovernance
+    arguments:
+      - '@config.factory'
+      - '@ps_core.import_governance_global_resolver'
+
   Drupal\ps_offer\Hook\OfferAdminHooks: {}

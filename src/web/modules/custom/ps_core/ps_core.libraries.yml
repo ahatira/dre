@@ -8,3 +8,9 @@ icon_picker:
     - core/drupal
     - core/once
     - ui_icons_picker/picker
+
+governance_admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/governance-admin-overview.css: {}

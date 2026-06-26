@@ -9,7 +9,7 @@ use Drupal\Core\File\FileSystemInterface;
 /**
  * Loads CRM offer XML documents, preferring the pipeline parse cache.
  */
-final class CrmOfferXmlDocumentLoader {
+class CrmOfferXmlDocumentLoader {
 
   public function __construct(
     private readonly XmlParseCacheService $xmlParseCache,

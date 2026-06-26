@@ -1,0 +1,25 @@
+crm_row_strategy_override: inherit
+allow_crm_overwrite_display: false
+missing_from_xml:
+  group_action: deactivate
+  definition_action: deactivate
+  protected_definition_action: keep_active
+present_in_xml:
+  reactivate: true
+  sync_fields:
+    - label
+    - description
+    - code
+    - group
+    - weight
+    - status
+    - payload_defaults
+offer_values:
+  missing_definition: skip_log
+  sync_definition_labels: true
+bo_create:
+  default_internal_lock: true
+csv_import:
+  lock_on_import: true
+import_defaults:
+  default_group: ''
