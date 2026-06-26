@@ -18,6 +18,8 @@ final class SearchFilterVisibilityResolver {
 
   private const TAB_CAPACITY = 'group_capacity';
 
+  private const TAB_BUDGET = 'group_budget';
+
   public function __construct(
     private readonly ContextRuleEvaluatorInterface $evaluator,
   ) {}
@@ -25,7 +27,7 @@ final class SearchFilterVisibilityResolver {
   /**
    * Resolves filter visibility for a given asset / operation context.
    *
-   * @return array{show_surface: bool, show_capacity: bool, primary_filter: string}
+   * @return array{show_surface: bool, show_capacity: bool, show_price: bool, primary_filter: string}
    *   Visibility flags and primary filter key (surface|capacity).
    */
   public function resolve(?string $assetType, ?string $operationType = NULL): array {
@@ -33,6 +35,7 @@ final class SearchFilterVisibilityResolver {
       return [
         'show_surface' => TRUE,
         'show_capacity' => FALSE,
+        'show_price' => FALSE,
         'primary_filter' => 'surface',
       ];
     }
@@ -45,12 +48,14 @@ final class SearchFilterVisibilityResolver {
 
     $showSurface = $state->isTabVisible(self::TAB_SURFACE);
     $showCapacity = $state->isTabVisible(self::TAB_CAPACITY);
+    $showPrice = $state->isTabVisible(self::TAB_BUDGET);
 
     // Asset codes not covered by seed rules — default to surface.
     if (!$showSurface && !$showCapacity) {
       return [
         'show_surface' => TRUE,
         'show_capacity' => FALSE,
+        'show_price' => $showPrice,
         'primary_filter' => 'surface',
       ];
     }
@@ -58,6 +63,7 @@ final class SearchFilterVisibilityResolver {
     return [
       'show_surface' => $showSurface,
       'show_capacity' => $showCapacity,
+      'show_price' => $showPrice,
       'primary_filter' => $showCapacity ? 'capacity' : 'surface',
     ];
   }
@@ -68,7 +74,7 @@ final class SearchFilterVisibilityResolver {
    * @param list<string> $assetCodes
    *   Asset type codes from SEO mappings.
    *
-   * @return array<string, array{show_surface: bool, show_capacity: bool, primary_filter: string}>
+   * @return array<string, array{show_surface: bool, show_capacity: bool, show_price: bool, primary_filter: string}>
    */
   public function buildVisibilityMap(array $assetCodes): array {
     $map = [

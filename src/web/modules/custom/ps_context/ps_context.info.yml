@@ -8,3 +8,4 @@ dependencies:
   - ps_offer:ps_offer
   - drupal:node
   - drupal:field
+  - drupal:config_translation

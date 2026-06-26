@@ -27,14 +27,14 @@
       </div>
     {% elseif section == 'capacity' %}
       <div class="ps-range-inputs__field">
-        <label class="ps-range-inputs__label ps-range-inputs__label--field" for="{{ min_id }}">{{ 'Min @unit'|t({'@unit': capacity_filter_label|default('Capacity'|t)}) }}</label>
+        <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-capacity-min-label" for="{{ min_id }}">{{ capacity_config.min_label|default('Min @unit'|t({'@unit': capacity_filter_label|default('Capacity'|t)})) }}</label>
         <div class="ps-range-inputs__input-wrap">
           <input type="number" id="{{ min_id }}" class="ps-range-inputs__input js-ps-capacity-min" min="0" step="1" placeholder="0">
         </div>
       </div>
       <span class="ps-range-inputs__sep" aria-hidden="true">—</span>
       <div class="ps-range-inputs__field">
-        <label class="ps-range-inputs__label ps-range-inputs__label--field" for="{{ max_id }}">{{ 'Max @unit'|t({'@unit': capacity_filter_label|default('Capacity'|t)}) }}</label>
+        <label class="ps-range-inputs__label ps-range-inputs__label--field js-ps-capacity-max-label" for="{{ max_id }}">{{ capacity_config.max_label|default('Max @unit'|t({'@unit': capacity_filter_label|default('Capacity'|t)})) }}</label>
         <div class="ps-range-inputs__input-wrap">
           <input type="number" id="{{ max_id }}" class="ps-range-inputs__input js-ps-capacity-max" min="0" step="1" placeholder="∞">
         </div>

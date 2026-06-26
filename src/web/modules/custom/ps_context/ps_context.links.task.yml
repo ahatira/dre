@@ -1,0 +1,33 @@
+ps_context.context_overview:
+  title: 'Overview'
+  route_name: ps_context.context_overview
+  base_route: ps_context.context_overview
+  weight: -20
+
+entity.ps_context_rule.collection:
+  title: 'Rules'
+  route_name: entity.ps_context_rule.collection
+  base_route: ps_context.context_overview
+  weight: 0
+
+entity.ps_context_label_profile.collection:
+  title: 'Labels'
+  route_name: entity.ps_context_label_profile.collection
+  base_route: ps_context.context_overview
+  weight: 10
+
+ps_context.context_translate:
+  title: 'Translate'
+  route_name: ps_context.context_translate
+  base_route: ps_context.context_overview
+  weight: 20
+
+entity.ps_context_rule.edit_form:
+  route_name: entity.ps_context_rule.edit_form
+  base_route: entity.ps_context_rule.edit_form
+  title: 'Edit'
+
+entity.ps_context_label_profile.edit_form:
+  route_name: entity.ps_context_label_profile.edit_form
+  base_route: entity.ps_context_label_profile.edit_form
+  title: 'Edit'

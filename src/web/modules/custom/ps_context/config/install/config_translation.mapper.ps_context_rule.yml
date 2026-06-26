@@ -1,0 +1,5 @@
+id: ps_context_rule
+title: 'Context rule'
+names:
+  - 'ps_context.rule.*'
+entity_type: ps_context_rule

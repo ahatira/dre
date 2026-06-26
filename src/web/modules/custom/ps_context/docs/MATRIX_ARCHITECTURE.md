@@ -29,6 +29,18 @@ Consommateurs optionnels (ps_offer, ps_surface, ps_search)
 | `ps_context.offer_context_resolver` | Implémente `OfferContextResolverInterface` pour `ps_offer` |
 | `ps_context.offer_matrix_rules` | Form alter : required/disabled/defaults + attache JS |
 | `ps_context.search_filter_visibility` | Filtres recherche dérivés de la matrix |
+| `ps_context.context_label_resolver` | Libellés recherche/hero dérivés de `ps_context_label_profile` |
+
+## Label profiles (`ps_context_label_profile`)
+
+Entité config distincte des règles matrix — gère le **wording** (pas le comportement).
+
+- BO : `/admin/ps/config/matrix/labels` (onglet « Label profiles »)
+- Seed : `default`, `loc_rent`, `loc_cow`, `ven_sale`
+- Merge : profils actifs fusionnés par spécificité (wildcards `*` d'abord)
+- Consommateur principal : `ContextLabelResolver` → `FilterBarBuilder`, JS recherche
+
+Voir `docs/SEARCH_LABEL_MATRIX.md`.
 
 ## OfferContextState
 

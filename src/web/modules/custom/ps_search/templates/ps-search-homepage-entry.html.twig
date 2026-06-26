@@ -22,7 +22,7 @@
 
     <div class="ps-homepage-search-entry__errors js-ps-homepage-errors" role="alert" hidden></div>
 
-    <div class="ps-homepage-search-entry__section">
+    <div class="ps-homepage-search-entry__section js-ps-homepage-op-section">
       <h3 class="ps-homepage-search-entry__section-title">
         {{ l.transaction_type_label }}
       </h3>
@@ -93,13 +93,13 @@
           class="form-control js-ps-homepage-surface-min"
           min="0"
           step="50"
-          placeholder="{{ l.surface_min_placeholder }}"
+          placeholder="{{ l.surface_min_label }}"
         >
       </div>
       <div class="ps-homepage-search-entry__field js-ps-homepage-capacity-field"{% if not show_capacity_filter %} hidden{% endif %}>
         <div class="ps-homepage-search-entry__label-row">
           <label class="form-label ps-homepage-search-entry__label mb-0 js-ps-homepage-capacity-min-label" for="ps-homepage-capacity-min">
-            {{ capacity_filter_label }}
+            {{ hero_capacity_config.field_label|default(capacity_filter_label) }}
           </label>
           <span class="ps-homepage-search-entry__optional">{{ l.optional_label }}</span>
         </div>
@@ -110,13 +110,13 @@
           class="form-control js-ps-homepage-capacity-min"
           min="0"
           step="1"
-          placeholder="{{ capacity_filter_label }}"
+          placeholder="{{ hero_capacity_config.field_label|default(capacity_filter_label) }}"
         >
       </div>
       <div class="ps-homepage-search-entry__field">
         <div class="ps-homepage-search-entry__label-row">
           <label class="form-label ps-homepage-search-entry__label mb-0 js-ps-homepage-budget-max-label" for="ps-homepage-budget-max">
-            {{ l.price_max_label }}
+            {{ budget_config.max_label|default(l.price_max_label) }}
           </label>
           <span class="ps-homepage-search-entry__optional">{{ l.optional_label }}</span>
         </div>
@@ -127,7 +127,7 @@
           class="form-control js-ps-homepage-budget-max"
           min="0"
           step="{{ budget_config.step|default(10) }}"
-          placeholder="{{ budget_config.max_placeholder|default(l.price_max_placeholder) }}"
+          placeholder="{{ budget_config.max_label|default(l.price_max_label) }}"
         >
       </div>
       <div class="ps-homepage-search-entry__submit">

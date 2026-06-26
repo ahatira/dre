@@ -176,6 +176,10 @@
   margin-bottom: 1.125rem;
 }
 
+.ps-homepage-search-entry__section[hidden] {
+  display: none !important;
+}
+
 .ps-homepage-search-entry__submit {
   display: flex;
   justify-content: center;

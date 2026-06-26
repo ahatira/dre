@@ -42,10 +42,11 @@
     section: 'capacity',
     id_suffix: '-m',
     capacity_filter_label: capacity_filter_label,
+    capacity_config: capacity_config|default({}),
   } only %}
 {% endset %}
 {% include 'ps_theme:search-filter-mobile-section' with {
-  title: capacity_filter_label|capitalize,
+  title: capacity_config.field_label|default(capacity_filter_label)|capitalize,
   title_class: 'js-ps-capacity-field-label',
   section_modifiers: 'ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item js-ps-capacity-section-mobile',
   hidden: not show_capacity_filter,

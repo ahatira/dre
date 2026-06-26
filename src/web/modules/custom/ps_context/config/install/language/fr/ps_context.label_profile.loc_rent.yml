@@ -1,0 +1,9 @@
+labels:
+  hero_budget_max_label: 'Loyer max.'
+  hero_budget_max_placeholder: 'Loyer max.'
+  search_budget_field_label: Loyer
+  search_budget_min_label: 'Loyer min. (€/m²/an)'
+  search_budget_max_label: 'Loyer max. (€/m²/an)'
+  search_budget_input_unit: €/m²/an
+  search_budget_value_suffix: ' €/m²/an'
+  search_surface_field_label: Surface

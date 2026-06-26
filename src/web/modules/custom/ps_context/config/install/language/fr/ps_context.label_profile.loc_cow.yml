@@ -1,0 +1,15 @@
+labels:
+  hero_budget_max_label: 'Loyer max. (par poste/jour)'
+  hero_budget_max_placeholder: 'Loyer max. (par poste/jour)'
+  hero_capacity_field_label: 'Capacité bureau'
+  search_budget_field_label: Loyer
+  search_budget_min_label: 'Loyer min. (€/poste/jour)'
+  search_budget_max_label: 'Loyer max. (€/poste/jour)'
+  search_budget_input_unit: €/poste/jour
+  search_budget_value_suffix: ' €/poste/jour'
+  search_capacity_field_label: 'Capacité bureau'
+  search_capacity_min_label: 'Capacité min.'
+  search_capacity_max_label: 'Capacité max.'
+  offer_group_capacity_title: 'Capacité bureau'
+  offer_display_capacity_unit: poste(s)
+  offer_display_budget_suffix_template: '/poste/jour'

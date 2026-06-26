@@ -107,14 +107,14 @@ fi
 
 echo "--- CTX-ADM-03 (site.admin matrix COW rule) ---"
 login_jar "site.admin" "$TMPJAR" || fail "CTX-ADM-03: login site.admin"
-MATRIX=$(curl -sL -m 60 -b "$TMPJAR" -c "$TMPJAR" "${BASE}/admin/ps/config/matrix" 2>/dev/null || true)
+MATRIX=$(curl -sL -m 60 -b "$TMPJAR" -c "$TMPJAR" "${BASE}/admin/ps/config/context/rules" 2>/dev/null || true)
 if echo "$MATRIX" | grep -qiE "asset_type_cow|Coworking|COW"; then
   pass "CTX-ADM-03: règle COW présente dans la liste"
 else
   fail "CTX-ADM-03: règle COW non trouvée"
 fi
 
-COW_EDIT_URL=$(echo "$MATRIX" | grep -oE '/admin/ps/config/matrix/[^"/]+' | head -1 || true)
+COW_EDIT_URL=$(echo "$MATRIX" | grep -oE '/admin/ps/config/context/rules/[^"/]+' | head -1 || true)
 if [[ -n "$COW_EDIT_URL" ]]; then
   COW_PAGE=$(curl -sL -m 60 -b "$TMPJAR" -c "$TMPJAR" "${BASE}${COW_EDIT_URL}" 2>/dev/null || true)
   if echo "$COW_PAGE" | grep -qi "group_surface\|Surface"; then

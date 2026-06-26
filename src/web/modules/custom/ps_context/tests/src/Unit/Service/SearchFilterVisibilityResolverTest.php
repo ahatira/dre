@@ -27,6 +27,7 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
 
     $this->assertTrue($result['show_surface']);
     $this->assertFalse($result['show_capacity']);
+    $this->assertFalse($result['show_price']);
     $this->assertSame('surface', $result['primary_filter']);
   }
 
@@ -35,6 +36,9 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
    */
   public function testResolveCowShowsCapacityFromMatrix(): void {
     $rules = [
+      $this->createRule('default_hide_budget', -12, [], [
+        ['action_type' => 'hide_tab', 'target' => 'group_budget', 'value' => ''],
+      ]),
       $this->createRule('default_hide_surface', -11, [], [
         ['action_type' => 'hide_tab', 'target' => 'group_surface', 'value' => ''],
       ]),
@@ -54,6 +58,7 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
 
     $this->assertFalse($result['show_surface']);
     $this->assertTrue($result['show_capacity']);
+    $this->assertFalse($result['show_price']);
     $this->assertSame('capacity', $result['primary_filter']);
   }
 
@@ -62,6 +67,9 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
    */
   public function testResolveBurShowsSurfaceFromMatrix(): void {
     $rules = [
+      $this->createRule('default_hide_budget', -12, [], [
+        ['action_type' => 'hide_tab', 'target' => 'group_budget', 'value' => ''],
+      ]),
       $this->createRule('default_hide_surface', -11, [], [
         ['action_type' => 'hide_tab', 'target' => 'group_surface', 'value' => ''],
       ]),
@@ -80,7 +88,45 @@ final class SearchFilterVisibilityResolverTest extends UnitTestCase {
 
     $this->assertTrue($result['show_surface']);
     $this->assertFalse($result['show_capacity']);
+    $this->assertFalse($result['show_price']);
     $this->assertSame('surface', $result['primary_filter']);
+  }
+
+  /**
+   * @covers ::resolve
+   */
+  public function testResolveBurWithLocShowsPriceFromMatrix(): void {
+    $rules = [
+      $this->createRule('default_hide_budget', -12, [], [
+        ['action_type' => 'hide_tab', 'target' => 'group_budget', 'value' => ''],
+      ]),
+      $this->createRule('default_hide_surface', -11, [], [
+        ['action_type' => 'hide_tab', 'target' => 'group_surface', 'value' => ''],
+      ]),
+      $this->createRule('default_hide_capacity', -10, [], [
+        ['action_type' => 'hide_tab', 'target' => 'group_capacity', 'value' => ''],
+      ]),
+      $this->createRule('asset_selected_show_surface', -1, [
+        ['field_name' => 'field_asset_type', 'operator' => 'equals', 'value' => 'BUR'],
+      ], [
+        ['action_type' => 'show_tab', 'target' => 'group_surface', 'value' => ''],
+      ]),
+      $this->createRule('operation_selected_show_budget', 0, [
+        ['field_name' => 'field_operation_type', 'operator' => 'equals', 'value' => 'LOC'],
+      ], [
+        ['action_type' => 'show_tab', 'target' => 'group_budget', 'value' => ''],
+      ]),
+    ];
+
+    $resolver = new SearchFilterVisibilityResolver(new ContextRuleEvaluator($this->createEntityTypeManager($rules)));
+
+    $flexible = $resolver->resolve('BUR');
+    $this->assertTrue($flexible['show_surface']);
+    $this->assertFalse($flexible['show_price']);
+
+    $rent = $resolver->resolve('BUR', 'LOC');
+    $this->assertTrue($rent['show_surface']);
+    $this->assertTrue($rent['show_price']);
   }
 
   /**

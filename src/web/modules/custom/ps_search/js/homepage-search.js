@@ -11,6 +11,8 @@
       const filterVisibilityByAsset = settings.filterVisibilityByAsset || {};
       const homepageBudgetByAsset = settings.homepageBudgetByAsset || {};
       const homepageBudgetConfig = settings.homepageBudgetFilterConfig || {};
+      const homepageCapacityByAsset = settings.homepageCapacityByAsset || {};
+      const homepageCapacityConfig = settings.homepageCapacityFilterConfig || {};
       const heroBackgroundByAsset = settings.heroBackgroundByAsset || {};
       const heroBackgroundDefault = settings.heroBackgroundDefault || '';
 
@@ -24,8 +26,11 @@
         const locationSection = form.querySelector('.js-ps-homepage-location-section');
         const locationRoot = form.querySelector('.ps-filter-bar__item--location');
         const assetSection = form.querySelector('.js-ps-homepage-asset-section');
+        const opSection = form.querySelector('.js-ps-homepage-op-section');
         const surfaceField = form.querySelector('.js-ps-homepage-surface-field');
         const capacityField = form.querySelector('.js-ps-homepage-capacity-field');
+        const capacityLabel = form.querySelector('.js-ps-homepage-capacity-min-label');
+        const budgetMaxLabel = form.querySelector('.js-ps-homepage-budget-max-label');
         const surfaceInput = form.querySelector('.js-ps-homepage-surface-min');
         const capacityInput = form.querySelector('.js-ps-homepage-capacity-min');
         const budgetMaxInput = form.querySelector('.js-ps-homepage-budget-max');
@@ -80,9 +85,21 @@
           };
         };
 
-        const getHomepageBudgetConfig = () => {
+        const getHomepageCapacityConfig = () => {
           const assetKey = assetSelect && assetSelect.value ? assetSelect.value : '';
           const opKey = getSelectedOp() || '';
+          const assetMap = homepageCapacityByAsset[assetKey] || homepageCapacityByAsset[''] || {};
+          const locConfig = assetMap.LOC;
+          if (locConfig && locConfig.hide_operation && (!opKey || opKey === 'LOC')) {
+            return locConfig;
+          }
+          return assetMap[opKey] || assetMap[''] || homepageCapacityConfig;
+        };
+
+        const getHomepageBudgetConfig = () => {
+          const assetKey = assetSelect && assetSelect.value ? assetSelect.value : '';
+          const capacityConfig = getHomepageCapacityConfig();
+          const opKey = capacityConfig.hide_operation ? 'LOC' : (getSelectedOp() || '');
           const assetMap = homepageBudgetByAsset[assetKey] || homepageBudgetByAsset[''] || {};
           return assetMap[opKey] || assetMap[''] || homepageBudgetConfig;
         };
@@ -129,16 +146,42 @@
           const visibility = getFilterVisibility(assetCode);
           const showSurface = visibility.show_surface;
           const showCapacity = visibility.show_capacity;
+          const capacityConfig = getHomepageCapacityConfig();
+          const budgetConfig = getHomepageBudgetConfig();
 
           setFieldHidden(surfaceField, surfaceInput, !showSurface);
           setFieldHidden(capacityField, capacityInput, !showCapacity);
 
-          const config = getHomepageBudgetConfig();
-          if (budgetMaxInput && config.max_placeholder) {
-            budgetMaxInput.placeholder = config.max_placeholder;
+          if (capacityLabel && capacityConfig.field_label) {
+            capacityLabel.textContent = capacityConfig.field_label;
           }
-          if (budgetMaxInput && config.step) {
-            budgetMaxInput.step = config.step;
+          if (capacityInput && capacityConfig.field_label) {
+            capacityInput.placeholder = capacityConfig.field_label;
+          }
+
+          if (budgetMaxLabel && budgetConfig.max_label) {
+            budgetMaxLabel.textContent = budgetConfig.max_label;
+          }
+          if (budgetMaxInput && budgetConfig.max_label) {
+            budgetMaxInput.placeholder = budgetConfig.max_label;
+          }
+          if (budgetMaxInput && budgetConfig.step) {
+            budgetMaxInput.step = budgetConfig.step;
+          }
+
+          if (opSection) {
+            opSection.hidden = Boolean(capacityConfig.hide_operation);
+          }
+          if (capacityConfig.hide_operation) {
+            form.querySelectorAll('.js-ps-op-btn').forEach((btn) => {
+              btn.classList.remove('is-active');
+              btn.setAttribute('aria-pressed', 'false');
+            });
+            const rentBtn = form.querySelector('.js-ps-op-btn[data-code="LOC"]');
+            if (rentBtn) {
+              rentBtn.classList.add('is-active');
+              rentBtn.setAttribute('aria-pressed', 'true');
+            }
           }
 
           updateHeroBackground();
@@ -159,7 +202,8 @@
           if (!opInput) {
             return;
           }
-          const code = getSelectedOp();
+          const capacityConfig = getHomepageCapacityConfig();
+          const code = capacityConfig.hide_operation ? 'LOC' : getSelectedOp();
           if (!code) {
             opInput.value = '';
             opInput.disabled = true;
@@ -226,8 +270,9 @@
           clearErrors();
 
           const messages = [];
+          const capacityConfig = getHomepageCapacityConfig();
           const opCode = getActiveOperationCode();
-          if (!opCode) {
+          if (!capacityConfig.hide_operation && !opCode) {
             messages.push(Drupal.t('Please select a transaction type.'));
             if (opGroup) {
               opGroup.classList.add('is-invalid');

@@ -1,0 +1,18 @@
+id: default
+uuid: 3a1b0001-0100-4000-8000-000000000001
+label: 'Default (any asset × any operation)'
+status: true
+weight: 0
+asset_type: '*'
+operation_type: '*'
+labels:
+  hero_budget_max_label: 'Max. budget'
+  hero_budget_max_placeholder: 'Max. budget'
+  hero_surface_min_label: 'Min. surface'
+  hero_surface_min_placeholder: 'Min. surface'
+  search_budget_field_label: Budget
+  search_budget_min_label: 'Min budget (€)'
+  search_budget_max_label: 'Max budget (€)'
+  search_budget_input_unit: €
+  search_budget_value_suffix: ' €'
+  search_budget_step: '10'

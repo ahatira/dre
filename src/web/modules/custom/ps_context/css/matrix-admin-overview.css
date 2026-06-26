@@ -1,0 +1,144 @@
+.ps-context-admin-overview__intro {
+  max-width: 72rem;
+  margin-bottom: 1.25rem;
+}
+
+.ps-context-admin-overview__intro p {
+  margin: 0 0 0.75rem;
+  color: #444;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.ps-context-admin-overview__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.ps-context-admin-overview__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  max-width: 72rem;
+}
+
+.ps-context-admin-overview__stat {
+  padding: 1rem 1.125rem;
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ps-context-admin-overview__stat-value {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  color: #1c2d37;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.ps-context-admin-overview__stat-value:hover {
+  text-decoration: underline;
+}
+
+.ps-context-admin-overview__stat-label {
+  color: #1c2d37;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.ps-context-admin-overview__stat-meta {
+  margin-top: 0.25rem;
+  color: #666;
+  font-size: 0.8125rem;
+}
+
+.ps-context-admin-overview__panel {
+  max-width: 72rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ps-context-admin-overview__panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ps-context-admin-overview__panel-description {
+  margin: 0 0 0.75rem;
+  color: #555;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.ps-context-admin-overview__panel .item-list {
+  margin: 0;
+}
+
+.ps-context-admin-overview__panel .item-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.45;
+}
+
+.ps-context-admin-overview__panel-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+
+.ps-context-admin-overview__panel table {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.ps-context-admin-overview__grid-wrap {
+  overflow-x: auto;
+}
+
+.ps-context-admin-overview__grid thead th {
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.ps-context-admin-overview__grid thead tr:first-child th {
+  border-bottom: 0;
+}
+
+.ps-context-admin-overview__grid td {
+  vertical-align: top;
+  text-align: center;
+}
+
+.ps-context-admin-overview__grid td:first-child,
+.ps-context-admin-overview__grid thead th:first-child {
+  text-align: left;
+}
+
+.ps-context-admin-overview__navigation {
+  max-width: 72rem;
+  margin-bottom: 1rem;
+}
+
+.ps-context-admin-overview__navigation-links .admin-item {
+  margin-block-end: 0.25rem;
+}
+
+.ps-context-admin-overview__footer {
+  margin-top: 1.5rem;
+  max-width: 72rem;
+}
+
+.ps-context-admin-overview__footer p {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.ps-context-admin-overview__translate > p {
+  max-width: 72rem;
+}

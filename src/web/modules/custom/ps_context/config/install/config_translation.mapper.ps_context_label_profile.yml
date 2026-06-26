@@ -1,0 +1,5 @@
+id: ps_context_label_profile
+title: 'Context label profile'
+names:
+  - 'ps_context.label_profile.*'
+entity_type: ps_context_label_profile

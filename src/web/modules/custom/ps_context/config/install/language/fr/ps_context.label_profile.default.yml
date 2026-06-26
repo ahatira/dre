@@ -1,0 +1,8 @@
+labels:
+  hero_budget_max_label: 'Budget max.'
+  hero_budget_max_placeholder: 'Budget max.'
+  hero_surface_min_label: 'Surface min.'
+  hero_surface_min_placeholder: 'Surface min.'
+  search_budget_field_label: Budget
+  search_budget_min_label: 'Budget min. (€)'
+  search_budget_max_label: 'Budget max. (€)'

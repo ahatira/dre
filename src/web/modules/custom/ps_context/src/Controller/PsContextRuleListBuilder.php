@@ -52,4 +52,15 @@ final class PsContextRuleListBuilder extends ConfigEntityListBuilder {
     return $row + parent::buildRow($entity);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function render(): array {
+    $this->messenger()->addMessage(
+      $this->t('Rules define offer-form behaviour (show or hide tabs and fields, defaults, validation) from asset type, operation type and optional field values. Enabled rules are evaluated in weight order — lower weights first.'),
+      'info',
+    );
+    return parent::render();
+  }
+
 }

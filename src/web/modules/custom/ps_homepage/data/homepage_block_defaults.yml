@@ -16,8 +16,8 @@ ps_homepage_search_hero_block:
     property_type_placeholder: 'Property type'
     surface_min_label: 'Min. surface'
     surface_min_placeholder: 'Min. surface'
-    price_max_label: 'Max. price (excl. tax/charges)'
-    price_max_placeholder: 'Max. rent (excl. tax/charges/m²/year)'
+    price_max_label: 'Max. price'
+    price_max_placeholder: 'Max. price'
     optional_label: Optional
     search_button_label: 'Search listings'
     delegate_prompt: 'Entrust us with your project'
@@ -47,8 +47,8 @@ ps_homepage_search_hero_block:
     property_type_placeholder: 'Type de bien'
     surface_min_label: 'Surface min.'
     surface_min_placeholder: 'Surface min.'
-    price_max_label: 'Prix max. (HT/HD)'
-    price_max_placeholder: 'Loyer max. (HT/HC/m²/an)'
+    price_max_label: 'Prix max.'
+    price_max_placeholder: 'Prix max.'
     optional_label: Facultatif
     search_button_label: 'Rechercher des annonces'
     delegate_prompt: 'Confiez-nous votre projet'

@@ -56,3 +56,36 @@ ps_context.rule.*:
           value:
             type: string
             label: 'Action value'
+
+# -----------------------------------------------------------------------
+# Config entity: ps_context_label_profile (search & offer wording).
+# -----------------------------------------------------------------------
+
+ps_context.label_profile.*:
+  type: config_entity
+  label: 'Context label profile'
+  mapping:
+    id:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Enabled'
+    weight:
+      type: integer
+      label: 'Weight'
+    asset_type:
+      type: string
+      label: 'Asset type code or *'
+    operation_type:
+      type: string
+      label: 'Operation type code or *'
+    labels:
+      type: ignore
+      label: 'Label key/value map'

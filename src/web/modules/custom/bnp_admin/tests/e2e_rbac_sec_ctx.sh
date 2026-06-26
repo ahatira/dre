@@ -95,8 +95,8 @@ echo "--- SEC (Drush access) ---"
 
 echo "--- SEC (HTTP) ---"
 assert_http_as_user "content.editor" "200" "${BASE}/node/add/offer" "SEC-01 HTTP: offer form for content.editor"
-assert_http_as_user "content.editor" "403" "${BASE}/admin/ps/config/matrix" "SEC-02 HTTP: matrix denied for content.editor"
-assert_http_as_user "site.admin" "200" "${BASE}/admin/ps/config/matrix" "SEC-03 HTTP: matrix OK for site.admin"
+assert_http_as_user "content.editor" "403" "${BASE}/admin/ps/config/context" "SEC-02 HTTP: context denied for content.editor"
+assert_http_as_user "site.admin" "200" "${BASE}/admin/ps/config/context" "SEC-03 HTTP: context OK for site.admin"
 
 echo "--- CTX-ADM ---"
 if [[ "${DRUSH_ctx_adm01_rules:-0}" -ge 15 ]]; then
@@ -105,12 +105,13 @@ else
   fail "CTX-ADM-01: expected >= 15 rules, got ${DRUSH_ctx_adm01_rules:-0}"
 fi
 
-assert_http_as_user "site.admin" "200" "${BASE}/admin/ps/config/matrix" "CTX-ADM-01 HTTP: matrix list for site.admin"
-assert_http_as_user "content.editor" "403" "${BASE}/admin/ps/config/matrix" "CTX-ADM-02 HTTP: matrix denied for content.editor"
+assert_http_as_user "site.admin" "200" "${BASE}/admin/ps/config/context/overview" "CTX-ADM-01 HTTP: context overview for site.admin"
+assert_http_as_user "site.admin" "200" "${BASE}/admin/ps/config/context/rules" "CTX-ADM-01 HTTP: context rules for site.admin"
+assert_http_as_user "content.editor" "403" "${BASE}/admin/ps/config/context/rules" "CTX-ADM-02 HTTP: context denied for content.editor"
 
 MATRIX_JAR=$(login_user "site.admin")
 if [[ -n "$MATRIX_JAR" ]]; then
-  html=$(curl -sL -m 60 -b "$MATRIX_JAR" -c "$MATRIX_JAR" "${BASE}/admin/ps/config/matrix" 2>/dev/null || true)
+  html=$(curl -sL -m 60 -b "$MATRIX_JAR" -c "$MATRIX_JAR" "${BASE}/admin/ps/config/context/rules" 2>/dev/null || true)
   if [[ "$html" == *"asset_type_cow"* || "$html" == *"Coworking"* || "$html" == *"COW"* ]]; then
     pass "CTX-ADM-03 hint: COW rule visible on matrix page"
   else

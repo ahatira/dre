@@ -113,7 +113,7 @@
 
     <div class="dropdown ps-filter-bar__item ps-filter-bar__item--capacity js-ps-capacity-item" data-ps-htmx-popin="capacity"{% if not show_capacity_filter %} hidden{% endif %}>
       <label class="form-label ps-filter-bar__field-label js-ps-capacity-field-label" for="ps-filter-capacity-trigger">
-        {{ capacity_filter_label|capitalize }}
+        {{ capacity_config.field_label|default(capacity_filter_label)|capitalize }}
       </label>
       <button
         id="ps-filter-capacity-trigger"
@@ -125,7 +125,7 @@
         aria-controls="ps-filter-capacity-menu"
         aria-expanded="false"
       >
-        <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ capacity_filter_label|capitalize }}</span>
+        <span class="ps-filter-bar__toggle-label js-ps-capacity-label text-truncate">{{ capacity_config.field_label|default(capacity_filter_label)|capitalize }}</span>
         <span class="ps-filter-bar__chevron flex-shrink-0" aria-hidden="true"></span>
       </button>
       <div id="ps-filter-capacity-menu" class="dropdown-menu ps-filter-popin ps-filter-popin--capacity ps-filter-popin--range" role="dialog" aria-modal="false" aria-labelledby="ps-filter-capacity-trigger">
@@ -133,6 +133,7 @@
           section: 'capacity',
           id_suffix: '',
           capacity_filter_label: capacity_filter_label,
+          capacity_config: capacity_config|default({}),
         } only %}
         <div class="ps-filter-popin__footer ps-filter-popin__footer--range">
           <button class="ps-filter-clear js-ps-section-clear" type="button" data-section="capacity">{{ 'Delete all'|t }}</button>

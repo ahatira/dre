@@ -1,0 +1,6 @@
+labels:
+  hero_budget_max_label: 'Prix max.'
+  hero_budget_max_placeholder: 'Prix max.'
+  search_budget_field_label: Prix
+  search_budget_min_label: 'Prix min. (€)'
+  search_budget_max_label: 'Prix max. (€)'

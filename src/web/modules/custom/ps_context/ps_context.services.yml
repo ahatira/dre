@@ -25,8 +25,10 @@ services:
     arguments:
       - '@ps_context.rule_evaluator'
 
-  ps_context.search_budget_filter:
-    class: Drupal\ps_context\Service\SearchBudgetFilterResolver
+  ps_context.context_label_resolver:
+    class: Drupal\ps_context\Service\ContextLabelResolver
+    arguments:
+      - '@entity_type.manager'
 
   # Registered with FQCN so Drupal's HookCollectorPass can inject dependencies.
   Drupal\ps_context\Hook\OfferFormHooks:

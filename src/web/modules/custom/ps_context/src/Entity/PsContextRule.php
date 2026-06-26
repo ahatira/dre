@@ -16,7 +16,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * @ConfigEntityType(
  *   id = "ps_context_rule",
  *   label = @Translation("Context rule"),
- *   label_collection = @Translation("Context rules"),
+ *   label_collection = @Translation("Rules"),
  *   label_singular = @Translation("context rule"),
  *   label_plural = @Translation("context rules"),
  *   label_count = @PluralTranslation(
@@ -35,6 +35,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     }
  *   },
  *   config_prefix = "rule",
+ *   translatable = TRUE,
  *   admin_permission = "administer ps_context matrix",
  *   entity_keys = {
  *     "id" = "id",
@@ -44,10 +45,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "weight" = "weight"
  *   },
  *   links = {
- *     "collection" = "/admin/ps/config/matrix",
- *     "add-form" = "/admin/ps/config/matrix/add",
- *     "edit-form" = "/admin/ps/config/matrix/{ps_context_rule}",
- *     "delete-form" = "/admin/ps/config/matrix/{ps_context_rule}/delete"
+ *     "collection" = "/admin/ps/config/context/rules",
+ *     "add-form" = "/admin/ps/config/context/rules/add",
+ *     "edit-form" = "/admin/ps/config/context/rules/{ps_context_rule}",
+ *     "delete-form" = "/admin/ps/config/context/rules/{ps_context_rule}/delete"
  *   },
  *   config_export = {
  *     "id",

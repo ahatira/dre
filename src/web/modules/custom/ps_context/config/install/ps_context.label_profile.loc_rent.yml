@@ -1,0 +1,19 @@
+id: loc_rent
+uuid: 3a1b0002-0100-4000-8000-000000000002
+label: 'Rent (any surface asset × LOC)'
+status: true
+weight: 10
+asset_type: '*'
+operation_type: LOC
+labels:
+  hero_budget_max_label: 'Max. rent'
+  hero_budget_max_placeholder: 'Max. rent'
+  search_budget_field_label: Rent
+  search_budget_min_label: 'Min rent (€/m²/year)'
+  search_budget_max_label: 'Max rent (€/m²/year)'
+  search_budget_input_unit: €/m²/yr
+  search_budget_value_suffix: ' €/m²/yr'
+  search_budget_step: '10'
+  search_budget_budget_unit: PER_M2
+  search_budget_budget_period: YEAR
+  search_surface_field_label: Surface

@@ -1,0 +1,17 @@
+id: ven_sale
+uuid: 3a1b0004-0100-4000-8000-000000000004
+label: 'Sale (any asset × VEN)'
+status: true
+weight: 10
+asset_type: '*'
+operation_type: VEN
+labels:
+  hero_budget_max_label: 'Max. price'
+  hero_budget_max_placeholder: 'Max. price'
+  search_budget_field_label: Price
+  search_budget_min_label: 'Min price (€)'
+  search_budget_max_label: 'Max price (€)'
+  search_budget_input_unit: €
+  search_budget_value_suffix: ' €'
+  search_budget_step: '1000'
+  search_budget_budget_unit: GLOBAL

@@ -1,0 +1,26 @@
+id: loc_cow
+uuid: 3a1b0003-0100-4000-8000-000000000003
+label: 'Coworking rent (COW × LOC)'
+status: true
+weight: 20
+asset_type: COW
+operation_type: LOC
+labels:
+  hero_budget_max_label: 'Max. rent (per desk/day)'
+  hero_budget_max_placeholder: 'Max. rent (per desk/day)'
+  hero_capacity_field_label: 'Desk capacity'
+  hero_hide_operation_toggle: '1'
+  search_budget_field_label: Rent
+  search_budget_min_label: 'Min rent (€/desk/day)'
+  search_budget_max_label: 'Max rent (€/desk/day)'
+  search_budget_input_unit: €/desk/day
+  search_budget_value_suffix: ' €/desk/day'
+  search_budget_step: '1'
+  search_budget_budget_unit: PER_POSTE
+  search_budget_budget_period: DAY
+  search_capacity_field_label: 'Desk capacity'
+  search_capacity_min_label: 'Min desk capacity'
+  search_capacity_max_label: 'Max desk capacity'
+  offer_group_capacity_title: 'Desk capacity'
+  offer_display_capacity_unit: desk(s)
+  offer_display_budget_suffix_template: '/desk/day'

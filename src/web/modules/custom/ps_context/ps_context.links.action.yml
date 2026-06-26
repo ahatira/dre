@@ -3,3 +3,9 @@ entity.ps_context_rule.add_form:
   title: 'Add rule'
   appears_on:
     - entity.ps_context_rule.collection
+
+entity.ps_context_label_profile.add_form:
+  route_name: entity.ps_context_label_profile.add_form
+  title: 'Add label profile'
+  appears_on:
+    - entity.ps_context_label_profile.collection

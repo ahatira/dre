@@ -21,6 +21,10 @@ props:
       type: string
       title: Capacity unit label
       default: Capacity
+    capacity_config:
+      type: object
+      title: Capacity field labels
+      default: {}
     budget_config:
       type: object
       title: Budget field labels and formatting

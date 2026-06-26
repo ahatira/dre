@@ -9,3 +9,9 @@ offer.form:
     - core/drupal
     - core/once
     - core/jquery
+
+matrix_admin_overview:
+  version: 1.0.0
+  css:
+    theme:
+      css/matrix-admin-overview.css: {}

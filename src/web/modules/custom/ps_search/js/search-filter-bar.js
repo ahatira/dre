@@ -39,6 +39,8 @@
       const filterVisibilityByAsset = settings.filterVisibilityByAsset || {};
       const budgetFilterConfig = settings.budgetFilterConfig || {};
       const budgetFilterByAsset = settings.budgetFilterByAsset || {};
+      const capacityFilterConfig = settings.capacityFilterConfig || {};
+      const capacityFilterByAsset = settings.capacityFilterByAsset || {};
       const capacityFilterLabel = settings.capacityFilterLabel || Drupal.t('Capacity');
       const currentParams = new URLSearchParams(window.location.search);
       const loadedMoreGroups = {};
@@ -174,8 +176,38 @@
           document.querySelectorAll('.js-ps-capacity-min, .js-ps-capacity-max').forEach(function (el) {
             el.value = '';
           });
-          updateCapacityLabel();
         }
+        updateCapacityUi();
+        updateBudgetUi();
+      }
+
+      function getCapacityConfig() {
+        const assetKey = selectedAsset || '';
+        const opKey = selectedOp || '';
+        const assetMap = capacityFilterByAsset[assetKey] || capacityFilterByAsset[''] || {};
+        return assetMap[opKey] || assetMap[''] || capacityFilterConfig;
+      }
+
+      function updateCapacityUi() {
+        const config = getCapacityConfig();
+        const fieldLabel = document.querySelector('.js-ps-capacity-field-label');
+        const minLabels = document.querySelectorAll('.js-ps-capacity-min-label');
+        const maxLabels = document.querySelectorAll('.js-ps-capacity-max-label');
+
+        if (fieldLabel && config.field_label) {
+          fieldLabel.textContent = config.field_label;
+        }
+        minLabels.forEach(function (labelEl) {
+          if (config.min_label) {
+            labelEl.textContent = config.min_label;
+          }
+        });
+        maxLabels.forEach(function (labelEl) {
+          if (config.max_label) {
+            labelEl.textContent = config.max_label;
+          }
+        });
+        updateCapacityLabel(config);
       }
 
       function getBudgetConfig() {
@@ -2117,14 +2149,15 @@
       updateSurfaceLabel();
       updateBudgetLabel();
 
-      function updateCapacityLabel() {
+      function updateCapacityLabel(configOverride) {
+        const config = configOverride || getCapacityConfig();
         const lbl = document.querySelector('.js-ps-capacity-label');
         if (!lbl) return;
-        const unit = capacityFilterLabel;
+        const unit = config.field_label || capacityFilterLabel;
         if (capacityMin && capacityMax) lbl.textContent = capacityMin + '\u2013' + capacityMax + ' ' + unit;
         else if (capacityMin) lbl.textContent = '\u2265 ' + capacityMin + ' ' + unit;
         else if (capacityMax) lbl.textContent = '\u2264 ' + capacityMax + ' ' + unit;
-        else lbl.textContent = capacityFilterLabel;
+        else lbl.textContent = unit;
         const filterItem = document.querySelector('.ps-filter-bar__item--capacity');
         if (filterItem) filterItem.classList.toggle('is-active', !!(capacityMin || capacityMax));
         syncActiveFilterCount();

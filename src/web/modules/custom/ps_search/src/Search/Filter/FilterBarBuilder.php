@@ -10,7 +10,7 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\language\Config\LanguageConfigFactoryOverrideInterface;
-use Drupal\ps_context\Service\SearchBudgetFilterResolver;
+use Drupal\ps_context\Service\ContextLabelResolver;
 use Drupal\ps_context\Service\SearchFilterVisibilityResolver;
 use Drupal\ps_dictionary\Service\DictionaryEntryIconResolver;
 use Drupal\ps_search\Api\ApiRoutePaths;
@@ -34,7 +34,7 @@ final class FilterBarBuilder {
     private readonly MoreCriteriaBuilder $moreCriteriaBuilder,
     private readonly DictionaryEntryIconResolver $dictionaryEntryIconResolver,
     private readonly SearchFilterVisibilityResolver $searchFilterVisibility,
-    private readonly SearchBudgetFilterResolver $searchBudgetFilter,
+    private readonly ContextLabelResolver $contextLabelResolver,
     private readonly SearchPathResolver $searchPathResolver,
     private readonly FilterBarHtmxSettings $htmxSettings,
     private readonly SearchContextJsSettingsBuilder $searchContextJsSettings,
@@ -60,7 +60,7 @@ final class FilterBarBuilder {
       'active_op' => NULL,
       'active_asset' => NULL,
       'initial_locality' => '',
-      'active_flexible' => FALSE,
+      'active_flexible' => TRUE,
     ]);
 
     return [
@@ -73,10 +73,11 @@ final class FilterBarBuilder {
       '#active_op_label' => $data['active_op_label'],
       '#active_asset_label' => $data['active_asset_label'],
       '#search_path' => $data['search_path'],
-      '#budget_config' => $this->searchBudgetFilter->resolveHomepageEntry(NULL, NULL),
+      '#budget_config' => $this->contextLabelResolver->resolveHomepageEntry(NULL, NULL),
       '#show_surface_filter' => $data['show_surface_filter'],
       '#show_capacity_filter' => $data['show_capacity_filter'],
       '#capacity_filter_label' => $data['capacity_filter_label'],
+      '#hero_capacity_config' => $data['hero_capacity_config'],
       '#labels' => $labels,
       '#attached' => [
         'library' => [
@@ -86,8 +87,10 @@ final class FilterBarBuilder {
         'drupalSettings' => [
           'psSearchFilterHtmx' => $this->htmxSettings->buildJsSettings(),
           'psSearch' => array_merge($this->buildPsSearchSettings($data), [
-            'homepageBudgetFilterConfig' => $this->searchBudgetFilter->resolveHomepageEntry(NULL, NULL),
-            'homepageBudgetByAsset' => $this->searchBudgetFilter->buildHomepageConfigMap(array_keys($data['asset_types'])),
+            'homepageBudgetFilterConfig' => $this->contextLabelResolver->resolveHomepageEntry(NULL, NULL),
+            'homepageBudgetByAsset' => $this->contextLabelResolver->buildHomepageConfigMap(array_keys($data['asset_types'])),
+            'homepageCapacityFilterConfig' => $this->contextLabelResolver->resolveHomepageCapacity(NULL, NULL),
+            'homepageCapacityByAsset' => $this->contextLabelResolver->buildHomepageCapacityConfigMap(array_keys($data['asset_types'])),
             'heroBackgroundDefault' => (string) ($options['hero_background_default'] ?? ''),
             'heroBackgroundByAsset' => is_array($options['hero_background_by_asset'] ?? NULL)
               ? $options['hero_background_by_asset']
@@ -122,6 +125,7 @@ final class FilterBarBuilder {
       '#show_surface_filter' => $data['show_surface_filter'],
       '#show_capacity_filter' => $data['show_capacity_filter'],
       '#capacity_filter_label' => $data['capacity_filter_label'],
+      '#capacity_config' => $data['capacity_config'],
       '#attached' => [
         'library' => ['ps_search/filter.bar'],
         'drupalSettings' => [
@@ -255,12 +259,11 @@ final class FilterBarBuilder {
     $assetCodes = array_keys($assetSlugs);
     $visibilityByAsset = $this->searchFilterVisibility->buildVisibilityMap($assetCodes);
     $initialVisibility = $this->searchFilterVisibility->resolve($activeAsset);
-    $budgetConfig = $this->searchBudgetFilter->resolve($activeAsset, $activeOp);
-    $budgetFilterByAsset = $this->searchBudgetFilter->buildConfigMap($assetCodes);
-
-    $offerSettings = $this->configFactory->get('ps_offer.settings');
-    $capacityUnit = (string) ($offerSettings->get('surface_capacity_unit') ?: 'seats');
-    $capacityFilterLabel = ucfirst($capacityUnit);
+    $budgetConfig = $this->contextLabelResolver->resolve($activeAsset, $activeOp);
+    $budgetFilterByAsset = $this->contextLabelResolver->buildConfigMap($assetCodes);
+    $capacityConfig = $this->contextLabelResolver->resolveCapacity($activeAsset, $activeOp);
+    $heroCapacityConfig = $this->contextLabelResolver->resolveHomepageCapacity($activeAsset, $activeOp);
+    $capacityFilterByAsset = $this->contextLabelResolver->buildCapacityConfigMap($assetCodes);
 
     $urlLangcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
     $searchPath = $this->searchPathResolver->getPublicPath($urlLangcode);
@@ -284,13 +287,16 @@ final class FilterBarBuilder {
       'lang_prefix' => $langPrefix,
       'show_surface_filter' => $initialVisibility['show_surface'],
       'show_capacity_filter' => $initialVisibility['show_capacity'],
-      'capacity_filter_label' => $capacityFilterLabel,
+      'capacity_filter_label' => $capacityConfig['field_label'],
+      'capacity_config' => $capacityConfig,
+      'hero_capacity_config' => $heroCapacityConfig,
       'search_path' => $searchPath,
       'op_slugs' => $opSlugs,
       'asset_slugs' => $assetSlugs,
       'initial_locality' => $initialLocality,
       'visibility_by_asset' => $visibilityByAsset,
-      'capacity_unit' => $capacityUnit,
+      'capacity_unit' => $capacityConfig['field_label'],
+      'capacity_filter_by_asset' => $capacityFilterByAsset,
       'budget_filter_by_asset' => $budgetFilterByAsset,
       'more_filter_schema' => $moreFilterSchema,
     ];
@@ -319,6 +325,9 @@ final class FilterBarBuilder {
       'locationResolveUrl' => ApiRoutePaths::LOCATION_RESOLVE,
       'filterVisibilityByAsset' => $data['visibility_by_asset'],
       'capacityFilterLabel' => $data['capacity_filter_label'],
+      'capacityFilterConfig' => $data['capacity_config'],
+      'capacityFilterByAsset' => $data['capacity_filter_by_asset'],
+      'homepageCapacityFilterConfig' => $data['hero_capacity_config'],
       'capacityUnit' => $data['capacity_unit'],
       'budgetFilterConfig' => $data['budget_config'],
       'budgetFilterByAsset' => $data['budget_filter_by_asset'],
@@ -343,6 +352,7 @@ final class FilterBarBuilder {
         'config:ps_search.seo_url_mappings',
         'config:ps_offer.settings',
         'ps_context_rule_list',
+        'ps_context_label_profile_list',
         'fb_feature_definition_list',
         'config:ps_dictionary.entry.*',
       ],
