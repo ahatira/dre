@@ -1183,3 +1183,96 @@ msgstr "Video-badgepictogram"
 
 msgid "Wording shown with prices and surfaces."
 msgstr "Teksten getoond bij prijzen en oppervlakten."
+
+msgid "Fields to synchronize"
+msgstr "Te synchroniseren velden"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Van toepassing wanneer de entiteit aanwezig is in de XML-snapshot en niet catalogusbeschermd is. Governance- en trackingvelden worden nooit overschreven."
+
+msgid "Payload defaults"
+msgstr "Standaard payload-waarden"
+
+msgid "Type driver"
+msgstr "Type-driver"
+
+msgid "Expose as filter"
+msgstr "Tonen als filter"
+
+msgid "Required asset types"
+msgstr "Vereiste activatypen"
+
+msgid "Offer import governance"
+msgstr "Governance aanbiedingsimport"
+
+msgid "Offers"
+msgstr "Aanbiedingen"
+
+msgid "Republish inactive offers present in the XML snapshot"
+msgstr "Inactieve aanbiedingen uit XML-snapshot opnieuw publiceren"
+
+msgid "Offer CRM/XML import lock strategy and reference protection."
+msgstr "CRM/XML-vergrendelingsstrategie en referentiebescherming voor aanbiedingen."
+
+msgid "Protected offer row strategy"
+msgstr "Strategie beschermde aanbiedingsrij"
+
+msgid "Allow CRM to overwrite reference fields"
+msgstr "CRM mag referentievelden overschrijven"
+
+msgid "Manual offer curation"
+msgstr "Handmatig aanbiedingsbeheer"
+
+msgid "Non-protected offers"
+msgstr "Niet-beschermde aanbiedingen"
+
+msgid "Protected offers"
+msgstr "Beschermde aanbiedingen"
+
+msgid "Unpublish"
+msgstr "Depubliceren"
+
+msgid "Keep published"
+msgstr "Gepubliceerd houden"
+
+msgid "Applies to offer nodes during migrate row saves when field_internal_lock is enabled. Inherit uses the global CRM pipeline default."
+msgstr "Van toepassing bij migrate-rijopslag voor aanbiedingsnodes wanneer field_internal_lock is ingeschakeld. Overnemen gebruikt de globale CRM-pipelinestandaard."
+
+msgid "Applies when field_internal_lock is enabled on the offer."
+msgstr "Van toepassing wanneer field_internal_lock is ingeschakeld op de aanbieding."
+
+msgid "CRM import pipeline settings"
+msgstr "CRM-importpipeline-instellingen"
+
+msgid "CRM row import"
+msgstr "CRM-rijimport"
+
+msgid "Control how CRM/XML imports interact with manually curated offers. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Bepaal hoe CRM/XML-importen omgaan met handmatig beheerde aanbiedingen. Globale CRM-vergrendelingsstandaarden worden geconfigureerd in @link."
+
+msgid "Inherit global CRM strategy"
+msgstr "Globale CRM-strategie erven"
+
+msgid "Lock new BO offers by default"
+msgstr "Nieuwe BO-aanbiedingen standaard vergrendelen"
+
+msgid "Missing from XML snapshot"
+msgstr "Ontbreekt in XML-snapshot"
+
+msgid "Present in XML snapshot"
+msgstr "Aanwezig in XML-snapshot"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Beschermde velden overslaan (aanbevolen)"
+
+msgid "Skip protected rows entirely"
+msgstr "Beschermde rijen volledig overslaan"
+
+msgid "Used by post-import synchronization when an offer disappears from the CRM XML snapshot."
+msgstr "Gebruikt door post-importsynchronisatie wanneer een aanbieding uit de CRM-XML-snapshot verdwijnt."
+
+msgid "When checked, offers created in the back office start with field_internal_lock enabled."
+msgstr "Indien aangevinkt, starten aanbiedingen aangemaakt in de backoffice met field_internal_lock ingeschakeld."
+
+msgid "When unchecked, existing offers keep their reference mode and manual reference during CRM imports."
+msgstr "Indien uitgevinkt, behouden bestaande aanbiedingen hun referentiemodus en handmatige referentie tijdens CRM-importen."

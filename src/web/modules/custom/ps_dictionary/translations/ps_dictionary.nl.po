@@ -273,3 +273,36 @@ msgstr "ps_dictionary veldopslaginstellingen"
 
 msgid "title"
 msgstr "titel"
+
+msgid "CRM offer import lookups"
+msgstr "Woordenboek-opzoekingen bij CRM-aanbiedingsimport"
+
+msgid "CSV import"
+msgstr "CSV-import"
+
+msgid "Control how CSV imports and CRM offer migrations interact with manually curated dictionary entries."
+msgstr "Bepaal hoe CSV-importen en CRM-aanbiedingsmigraties omgaan met handmatig beheerde woordenboekitems."
+
+msgid "Lock entries imported from CSV"
+msgstr "Items geïmporteerd via CSV vergrendelen"
+
+msgid "Lock new BO entries by default"
+msgstr "Nieuwe BO-items standaard vergrendelen"
+
+msgid "Manual dictionary curation"
+msgstr "Handmatig woordenboekbeheer"
+
+msgid "Preserve existing dictionary labels during CRM offer import"
+msgstr "Bestaande woordenboeklabels behouden tijdens CRM-aanbiedingsimport"
+
+msgid "Preserve existing entry labels on CSV update"
+msgstr "Bestaande itemlabels behouden bij CSV-update"
+
+msgid "Reserved for a future dictionary protection model. Currently has no effect."
+msgstr "Gereserveerd voor een toekomstig woordenboekbeschermingsmodel. Momenteel zonder effect."
+
+msgid "When checked, CSV imports only update weight for existing entries and keep their current labels."
+msgstr "Indien aangevinkt, werken CSV-importen alleen het gewicht van bestaande items bij en behouden de huidige labels."
+
+msgid "When checked, offer imports keep existing dictionary entry labels instead of overwriting them from XML-derived values."
+msgstr "Indien aangevinkt, behouden aanbiedingsimporten bestaande woordenboeklabels in plaats van ze te overschrijven vanuit XML."

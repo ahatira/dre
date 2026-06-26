@@ -54,6 +54,7 @@ services:
       - '@entity_type.manager'
       - '@ps_core.entity_protection_manager'
       - '@ps_core.import_governance_registry'
+      - '@ps_core.import_governance_snapshot_synchronizer'
       - '@ps_migrate.import_run_snapshot_collector'
       - '@logger.channel.ps_migrate'
     tags:
@@ -114,8 +115,10 @@ services:
     class: Drupal\ps_migrate\EventSubscriber\SnapshotMigrationPostImportSubscriber
     arguments:
       - '@ps_migrate.crm_xml_snapshot_builder'
+      - '@ps_migrate.crm_xml_snapshot_migration_projector'
       - '@entity_type.manager'
       - '@ps_core.import_governance_registry'
+      - '@ps_core.import_governance_snapshot_synchronizer'
       - '@logger.channel.ps_migrate'
     tags:
       - { name: event_subscriber }
@@ -130,6 +133,14 @@ services:
     class: Drupal\ps_migrate\Service\CrmXmlSnapshotBuilder
     arguments:
       - '@ps_migrate.crm_offer_xml_document_loader'
+
+  ps_migrate.crm_xml_snapshot_destination_normalizer:
+    class: Drupal\ps_migrate\Service\CrmXmlSnapshotDestinationNormalizer
+
+  ps_migrate.crm_xml_snapshot_migration_projector:
+    class: Drupal\ps_migrate\Service\CrmXmlSnapshotMigrationProjector
+    arguments:
+      - '@ps_migrate.crm_xml_snapshot_destination_normalizer'
 
   ps_migrate.crm_offer_xml_xpath_row_builder:
     class: Drupal\ps_migrate\Service\CrmOfferXmlXpathRowBuilder

@@ -10,9 +10,12 @@ use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\node\NodeInterface;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernanceSnapshotPostImportPolicyInterface;
 use Drupal\ps_core\Service\ImportGovernanceRegistry;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotSynchronizer;
 use Drupal\ps_migrate\Service\CrmXmlSnapshotBuilder;
+use Drupal\ps_migrate\Service\CrmXmlSnapshotMigrationProjector;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -23,8 +26,10 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
 
   public function __construct(
     private readonly CrmXmlSnapshotBuilder $snapshotBuilder,
+    private readonly CrmXmlSnapshotMigrationProjector $snapshotProjector,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ImportGovernanceRegistry $governanceRegistry,
+    private readonly ImportGovernanceSnapshotSynchronizer $snapshotSynchronizer,
     private readonly LoggerInterface $logger,
   ) {}
 
@@ -53,7 +58,7 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
     }
 
     match ($migration->id()) {
-      'ps_offer_from_xml' => $this->synchronizeOffers($files, $policy),
+      'ps_offer_from_xml' => $this->synchronizeOffers($migration, $files, $policy),
       'ps_agent_from_xml' => $this->synchronizeAgents($migration, $files, $policy),
       'ps_media_from_xml', 'ps_media_virtual_tour_from_xml' => $this->synchronizeMedia($migration, $files, $policy),
       default => NULL,
@@ -66,8 +71,14 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
    * @param string[] $files
    *   Source XML files.
    */
-  private function synchronizeOffers(array $files, ImportGovernanceSnapshotPostImportPolicyInterface $policy): void {
+  private function synchronizeOffers(
+    MigrationInterface $migration,
+    array $files,
+    ImportGovernanceSnapshotPostImportPolicyInterface $policy,
+  ): void {
     $activeBusinessIds = $this->snapshotBuilder->buildOfferBusinessIds($files);
+    $fieldSnapshots = $this->snapshotProjector->buildFieldSnapshots($migration);
+    $entityKey = ImportGovernanceSnapshotEntityKey::encode('node', 'offer');
     $storage = $this->entityTypeManager->getStorage('node');
     $nids = $storage->getQuery()
       ->accessCheck(FALSE)
@@ -87,6 +98,9 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
 
       $shouldBeActive = isset($activeBusinessIds[$businessId]);
       $this->applySnapshotTransition($offer, $shouldBeActive, $policy, 'offer', $businessId);
+      if ($shouldBeActive) {
+        $this->syncSnapshotFields($offer, $fieldSnapshots[$businessId] ?? [], $policy, $entityKey);
+      }
     }
   }
 
@@ -102,6 +116,8 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
     ImportGovernanceSnapshotPostImportPolicyInterface $policy,
   ): void {
     $activeUids = $this->snapshotBuilder->buildAgentUids($files);
+    $fieldSnapshots = $this->snapshotProjector->buildFieldSnapshots($migration);
+    $entityKey = ImportGovernanceSnapshotEntityKey::encode('ps_agent');
     $storage = $this->entityTypeManager->getStorage('ps_agent');
     $ids = $storage->getQuery()->accessCheck(FALSE)->execute();
     $idMap = $migration->getIdMap();
@@ -119,6 +135,9 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
 
       $shouldBeActive = isset($activeUids[$uid]);
       $this->applySnapshotTransition($agent, $shouldBeActive, $policy, 'agent', $uid);
+      if ($shouldBeActive) {
+        $this->syncSnapshotFields($agent, $fieldSnapshots[$uid] ?? [], $policy, $entityKey);
+      }
     }
   }
 
@@ -133,11 +152,15 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
     array $files,
     ImportGovernanceSnapshotPostImportPolicyInterface $policy,
   ): void {
-    $activeKeys = match ($migration->id()) {
-      'ps_media_from_xml' => $this->snapshotBuilder->buildMediaExtCompositeKeys($files),
-      'ps_media_virtual_tour_from_xml' => $this->snapshotBuilder->buildMediaVisCompositeKeys($files),
-      default => [],
-    };
+    $isVirtualTour = $migration->id() === 'ps_media_virtual_tour_from_xml';
+    $activeKeys = $isVirtualTour
+      ? $this->snapshotBuilder->buildMediaVisCompositeKeys($files)
+      : $this->snapshotBuilder->buildMediaExtCompositeKeys($files);
+    $fieldSnapshots = $this->snapshotProjector->buildFieldSnapshots($migration);
+    $entityKey = ImportGovernanceSnapshotEntityKey::encode(
+      'media',
+      $isVirtualTour ? 'visite_guided' : 'image',
+    );
 
     $storage = $this->entityTypeManager->getStorage('media');
     $ids = $storage->getQuery()->accessCheck(FALSE)->execute();
@@ -158,6 +181,38 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
       $snapshotKey = $businessId . ':' . $order;
       $shouldBeActive = isset($activeKeys[$snapshotKey]);
       $this->applySnapshotTransition($media, $shouldBeActive, $policy, 'media', $snapshotKey);
+      if ($shouldBeActive) {
+        $this->syncSnapshotFields($media, $fieldSnapshots[$snapshotKey] ?? [], $policy, $entityKey);
+      }
+    }
+  }
+
+  /**
+   * Applies configured snapshot field values for a present entity.
+   *
+   * @param array<string, mixed> $snapshotRow
+   *   Snapshot field values keyed by field machine name.
+   */
+  private function syncSnapshotFields(
+    ContentEntityInterface $entity,
+    array $snapshotRow,
+    ImportGovernanceSnapshotPostImportPolicyInterface $policy,
+    string $entityKey,
+  ): void {
+    if ($snapshotRow === []) {
+      return;
+    }
+    if ($entity->hasField('field_internal_lock') && (bool) $entity->get('field_internal_lock')->value) {
+      return;
+    }
+
+    $fields = $policy->getSnapshotFieldSyncFields($entityKey);
+    if ($fields === []) {
+      return;
+    }
+
+    if ($this->snapshotSynchronizer->synchronizeFields($entity, $snapshotRow, $fields)) {
+      $entity->save();
     }
   }
 

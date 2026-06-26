@@ -7,7 +7,9 @@ namespace Drupal\ps_offer\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 
 /**
  * Reads offer import governance settings and resolves CRM import behaviour.
@@ -31,6 +33,7 @@ class OfferImportGovernance {
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly ImportGovernanceGlobalResolver $globalResolver,
+    private readonly ImportGovernanceSnapshotFieldSettings $snapshotFieldSettings,
   ) {}
 
   /**
@@ -142,6 +145,28 @@ class OfferImportGovernance {
    */
   public function shouldReactivatePresentInSnapshot(): bool {
     return $this->shouldReactivatePresentInXml();
+  }
+
+  /**
+   * Entity keys covered by snapshot field synchronization.
+   *
+   * @return string[]
+   *   Snapshot entity keys.
+   */
+  public function getSnapshotFieldSyncEntityKeys(): array {
+    return [
+      ImportGovernanceSnapshotEntityKey::encode('node', self::OFFER_BUNDLE),
+    ];
+  }
+
+  /**
+   * Returns configured snapshot sync fields for an entity key.
+   *
+   * @return string[]
+   *   Normalized field names.
+   */
+  public function getSnapshotFieldSyncFields(string $entityKey): array {
+    return $this->snapshotFieldSettings->getConfiguredFields($this->config(), $entityKey);
   }
 
   /**

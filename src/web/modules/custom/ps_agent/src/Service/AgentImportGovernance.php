@@ -7,7 +7,9 @@ namespace Drupal\ps_agent\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 
 /**
  * Reads agent import governance settings and resolves CRM import behaviour.
@@ -31,6 +33,7 @@ class AgentImportGovernance {
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly ImportGovernanceGlobalResolver $globalResolver,
+    private readonly ImportGovernanceSnapshotFieldSettings $snapshotFieldSettings,
   ) {}
 
   public function getCrmRowStrategyOverride(): string {
@@ -86,6 +89,20 @@ class AgentImportGovernance {
 
   public function shouldLockOnBoCreate(): bool {
     return (bool) $this->config()->get('bo_create.default_internal_lock');
+  }
+
+  /**
+   * @return string[]
+   */
+  public function getSnapshotFieldSyncEntityKeys(): array {
+    return [ImportGovernanceSnapshotEntityKey::encode(self::ENTITY_TYPE_ID)];
+  }
+
+  /**
+   * @return string[]
+   */
+  public function getSnapshotFieldSyncFields(string $entityKey): array {
+    return $this->snapshotFieldSettings->getConfiguredFields($this->config(), $entityKey);
   }
 
   public function shouldDeactivateMissingEntity(EntityInterface $agent, bool $shouldBeActive): bool {

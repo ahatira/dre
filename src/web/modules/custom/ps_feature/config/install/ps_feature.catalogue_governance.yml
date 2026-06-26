@@ -6,14 +6,20 @@ missing_from_xml:
   protected_definition_action: keep_active
 present_in_xml:
   reactivate: true
-  sync_fields:
-    - label
-    - description
-    - code
-    - group
-    - weight
-    - status
-    - payload_defaults
+  sync_fields_by_entity:
+    fb_feature_definition:
+      - label
+      - description
+      - code
+      - group
+      - weight
+      - status
+      - payload_defaults
+    fb_feature_group:
+      - label
+      - description
+      - weight
+      - status
 offer_values:
   missing_definition: skip_log
   sync_definition_labels: true

@@ -168,5 +168,6 @@ services:
     arguments:
       - '@config.factory'
       - '@ps_core.import_governance_global_resolver'
+      - '@ps_core.import_governance_snapshot_field_settings'
 
   Drupal\ps_offer\Hook\OfferAdminHooks: {}

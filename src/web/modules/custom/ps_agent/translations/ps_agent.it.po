@@ -249,3 +249,90 @@ msgstr "⚠️ <strong>Attiva questo blocco per proteggere le modifiche manuali 
 "gli import CRM automatici.</strong> Quando bloccato, questo agente non"
 " verrà sovrascritto durante la sincronizzazione CRM. Usalo quando hai "
 "apportato modifiche manuali importanti da preservare."
+
+msgid "Fields to synchronize"
+msgstr "Campi da sincronizzare"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Si applica quando l'entità è presente nello snapshot XML e non è protetta dal catalogo. I campi di governance e tracciamento non vengono mai sovrascritti."
+
+msgid "Payload defaults"
+msgstr "Valori predefiniti del payload"
+
+msgid "Type driver"
+msgstr "Driver di tipo"
+
+msgid "Expose as filter"
+msgstr "Esporre come filtro"
+
+msgid "Required asset types"
+msgstr "Tipi di asset richiesti"
+
+msgid "Business ID"
+msgstr "ID commerciale"
+
+msgid "Agent import governance"
+msgstr "Governance import agenti"
+
+msgid "Reactivate inactive agents present in the XML snapshot"
+msgstr "Riattiva agenti inattivi presenti nello snapshot XML"
+
+msgid "Agent CRM/XML import lock strategy and contact protection."
+msgstr "Strategia di blocco CRM/XML e protezione contatti per gli agenti."
+
+msgid "Protected agent row strategy"
+msgstr "Strategia riga agente protetta"
+
+msgid "Allow CRM to overwrite contact fields"
+msgstr "Consenti al CRM di sovrascrivere i campi contatto"
+
+msgid "Manual agent curation"
+msgstr "Curazione manuale agenti"
+
+msgid "Non-protected agents"
+msgstr "Agenti non protetti"
+
+msgid "Protected agents"
+msgstr "Agenti protetti"
+
+msgid "Deactivate"
+msgstr "Disattiva"
+
+msgid "Keep active"
+msgstr "Mantieni attivo"
+
+msgid "Applies to agent entities during migrate row saves when internal_lock is enabled. Inherit uses the global CRM pipeline default."
+msgstr "Si applica al salvataggio delle righe migrate delle entità agente quando internal_lock è abilitato. Eredita usa l'impostazione predefinita della pipeline CRM globale."
+
+msgid "Applies when internal_lock is enabled on the agent."
+msgstr "Si applica quando internal_lock è abilitato sull'agente."
+
+msgid "CRM import pipeline settings"
+msgstr "Impostazioni pipeline di importazione CRM"
+
+msgid "CRM row import"
+msgstr "Import righe CRM"
+
+msgid "Control how CRM/XML imports interact with manually curated agents. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Controlla come le importazioni CRM/XML interagiscono con agenti curati manualmente. Le impostazioni predefinite della strategia di blocco CRM globale si configurano in @link."
+
+msgid "Inherit global CRM strategy"
+msgstr "Eredita strategia CRM globale"
+
+msgid "Lock new BO agents by default"
+msgstr "Blocca per impostazione predefinita i nuovi agenti BO"
+
+msgid "Missing from XML snapshot"
+msgstr "Assente dallo snapshot XML"
+
+msgid "Present in XML snapshot"
+msgstr "Presente nello snapshot XML"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Salta campi protetti (consigliato)"
+
+msgid "Skip protected rows entirely"
+msgstr "Salta interamente le righe protette"
+
+msgid "When unchecked, existing agents keep their email and phone during CRM imports."
+msgstr "Se deselezionato, gli agenti esistenti mantengono email e telefono durante gli import CRM."

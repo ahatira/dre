@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\ps_feature\Unit\Service;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
@@ -14,7 +18,10 @@ use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Entity\FeatureGroup;
 use Drupal\ps_feature\Service\FeatureCatalogueCsvImporter;
 use Drupal\ps_feature\Service\FeatureCatalogueCsvMapper;
+use Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionRegistry;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 use Drupal\ps_feature\Service\FeatureCatalogueGovernance;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Drupal\Tests\UnitTestCase;
@@ -325,7 +332,34 @@ final class FeatureCatalogueCsvImporterTest extends UnitTestCase {
         $configFactory,
         $this->createMock(\Drupal\Core\Extension\ModuleHandlerInterface::class),
       ),
+      $this->createSnapshotFieldSettings(),
     );
+  }
+
+  private function createSnapshotFieldSettings(): ImportGovernanceSnapshotFieldSettings {
+    $entityType = $this->createMock(EntityTypeInterface::class);
+    $entityType->method('entityClassImplements')->willReturnCallback(
+      static fn(string $interface): bool => $interface === ConfigEntityInterface::class,
+    );
+    $entityType->method('get')->with('config_export')->willReturn([
+      'label',
+      'description',
+      'code',
+      'group',
+      'type_driver',
+      'weight',
+      'status',
+      'payload_defaults',
+    ]);
+
+    $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
+    $entityTypeManager->method('getDefinition')->willReturn($entityType);
+
+    return new ImportGovernanceSnapshotFieldSettings(new ImportGovernanceSnapshotFieldResolver(
+      $entityTypeManager,
+      $this->createMock(EntityFieldManagerInterface::class),
+      new ConfigEntityProtectionRegistry([]),
+    ));
   }
 
   /**

@@ -11,6 +11,7 @@ use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePostImportPolicyInterface;
 use Drupal\ps_core\Service\EntityProtectionManagerInterface;
 use Drupal\ps_core\Service\ImportGovernanceRegistry;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotSynchronizer;
 use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_migrate\Service\FeatureImportResolver;
 use Drupal\ps_migrate\Service\FeaturePayloadDefaultsNormalizer;
@@ -25,17 +26,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class FeatureMigrationPostImportSubscriber implements EventSubscriberInterface {
 
-  /**
-   * Group fields synchronized from the XML snapshot.
-   *
-   * @var string[]
-   */
-  private const GROUP_SYNC_FIELDS = [
-    'label',
-    'description',
-    'weight',
-    'status',
-  ];
+  private const DEFINITION_ENTITY_KEY = 'fb_feature_definition';
+
+  private const GROUP_ENTITY_KEY = 'fb_feature_group';
 
   /**
    * Constructs a FeatureMigrationPostImportSubscriber object.
@@ -48,6 +41,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly EntityProtectionManagerInterface $protectionManager,
     private readonly ImportGovernanceRegistry $governanceRegistry,
+    private readonly ImportGovernanceSnapshotSynchronizer $snapshotSynchronizer,
     private readonly ImportRunSnapshotCollector $snapshotCollector,
     private readonly LoggerInterface $logger,
   ) {}
@@ -119,8 +113,7 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
       }
 
       if ($should_be_active) {
-        $source = $active_groups[$group_id];
-        $this->syncCommonGroupFields($group, $source);
+        $this->syncGroupFieldsFromSnapshot($group, $active_groups[$group_id], $policy);
       }
     }
   }
@@ -164,61 +157,60 @@ final class FeatureMigrationPostImportSubscriber implements EventSubscriberInter
         continue;
       }
 
-      $source = $active_definitions[$definition_id];
-      $changed = $this->syncDefinitionFromSnapshot($definition, $source, $policy);
-
-      if ($changed) {
-        $definition->save();
-      }
+      $this->syncDefinitionFieldsFromSnapshot(
+        $definition,
+        $active_definitions[$definition_id],
+        $policy,
+      );
     }
   }
 
   /**
-   * Applies the XML snapshot to a definition using protection merge rules.
+   * Applies configured snapshot fields to a feature definition.
    */
-  private function syncDefinitionFromSnapshot(
+  private function syncDefinitionFieldsFromSnapshot(
     FeatureDefinition $definition,
     array $source,
     ImportGovernancePostImportPolicyInterface $policy,
-  ): bool {
-    $changed = FALSE;
-
-    foreach ($policy->getPresentInXmlSyncFields() as $field) {
-      if ($field === 'payload_defaults') {
-        if ($this->protectionManager->applyMergeStrategy($definition, $source, 'payload_defaults', 'EXTERNAL_WINS')) {
-          $changed = TRUE;
-          $this->logger->info(
-            'Normalized payload defaults for feature definition @definition_id.',
-            ['@definition_id' => $definition->id()],
-          );
-        }
-        continue;
-      }
-
-      if ($this->protectionManager->applyMergeStrategy($definition, $source, $field, 'EXTERNAL_WINS')) {
-        $changed = TRUE;
-      }
+  ): void {
+    $fields = $policy->getSnapshotFieldSyncFields(self::DEFINITION_ENTITY_KEY);
+    if ($fields === []) {
+      return;
     }
 
-    return $changed;
+    $changed = $this->snapshotSynchronizer->synchronizeFields($definition, $source, $fields);
+    if (!$changed) {
+      return;
+    }
+
+    $definition->save();
+
+    if (in_array('payload_defaults', $fields, TRUE)) {
+      $this->logger->info(
+        'Normalized payload defaults for feature definition @definition_id.',
+        ['@definition_id' => $definition->id()],
+      );
+    }
   }
 
   /**
-   * Synchronizes common group fields from the XML snapshot.
+   * Applies configured snapshot fields to a feature group.
    */
-  private function syncCommonGroupFields(EntityInterface $group, array $source): void {
+  private function syncGroupFieldsFromSnapshot(
+    EntityInterface $group,
+    array $source,
+    ImportGovernancePostImportPolicyInterface $policy,
+  ): void {
     if ($this->protectionManager->isCatalogueProtected($group)) {
       return;
     }
 
-    $changed = FALSE;
-    foreach (self::GROUP_SYNC_FIELDS as $field) {
-      if ($this->protectionManager->applyMergeStrategy($group, $source, $field, 'EXTERNAL_WINS')) {
-        $changed = TRUE;
-      }
+    $fields = $policy->getSnapshotFieldSyncFields(self::GROUP_ENTITY_KEY);
+    if ($fields === []) {
+      return;
     }
 
-    if ($changed) {
+    if ($this->snapshotSynchronizer->synchronizeFields($group, $source, $fields)) {
       $group->save();
     }
   }

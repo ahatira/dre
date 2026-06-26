@@ -7,7 +7,9 @@ namespace Drupal\ps_feature\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 use Drupal\ps_core\Service\EntityProtectionManagerInterface;
 
 /**
@@ -53,6 +55,7 @@ class FeatureCatalogueGovernance {
     private readonly EntityProtectionManagerInterface $protectionManager,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ImportGovernanceGlobalResolver $globalResolver,
+    private readonly ImportGovernanceSnapshotFieldSettings $snapshotFieldSettings,
   ) {}
 
   /**
@@ -145,29 +148,26 @@ class FeatureCatalogueGovernance {
   }
 
   /**
-   * Definition fields synchronized from the XML snapshot for non-protected rows.
+   * Entity keys covered by snapshot field synchronization.
+   *
+   * @return string[]
+   *   Snapshot entity keys.
+   */
+  public function getSnapshotFieldSyncEntityKeys(): array {
+    return [
+      ImportGovernanceSnapshotEntityKey::encode('fb_feature_definition'),
+      ImportGovernanceSnapshotEntityKey::encode('fb_feature_group'),
+    ];
+  }
+
+  /**
+   * Returns configured snapshot sync fields for an entity key.
    *
    * @return string[]
    *   Normalized field names.
    */
-  public function getPresentInXmlSyncFields(): array {
-    $fields = $this->config()->get('present_in_xml.sync_fields');
-    if (!is_array($fields)) {
-      return [];
-    }
-
-    $normalized = [];
-    foreach ($fields as $field) {
-      if (!is_string($field)) {
-        continue;
-      }
-      $field = trim($field);
-      if ($field !== '') {
-        $normalized[] = $field;
-      }
-    }
-
-    return array_values(array_unique($normalized));
+  public function getSnapshotFieldSyncFields(string $entityKey): array {
+    return $this->snapshotFieldSettings->getConfiguredFields($this->config(), $entityKey);
   }
 
   /**

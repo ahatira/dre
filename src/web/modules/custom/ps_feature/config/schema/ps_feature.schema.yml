@@ -107,12 +107,9 @@ ps_feature.catalogue_governance:
         reactivate:
           type: boolean
           label: 'Reactivate inactive entries'
-        sync_fields:
-          type: sequence
-          label: 'Definition fields to synchronize'
-          sequence:
-            type: string
-            label: 'Field name'
+        sync_fields_by_entity:
+          type: ps_core.import_governance.present_in_xml.sync_fields_by_entity
+          label: 'Fields to synchronize by entity'
     offer_values:
       type: mapping
       label: 'Offer feature values'

@@ -179,3 +179,102 @@ msgstr "Bezeichnung"
 
 msgid "title"
 msgstr "Titel"
+
+msgid "Fields to synchronize"
+msgstr "Zu synchronisierende Felder"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Gilt, wenn die Entität im XML-Snapshot vorhanden und nicht kataloggeschützt ist. Governance- und Tracking-Felder werden nie überschrieben."
+
+msgid "Payload defaults"
+msgstr "Payload-Standardwerte"
+
+msgid "Type driver"
+msgstr "Typ-Treiber"
+
+msgid "Expose as filter"
+msgstr "Als Filter anzeigen"
+
+msgid "Required asset types"
+msgstr "Erforderliche Asset-Typen"
+
+msgid "Business ID"
+msgstr "Geschäfts-ID"
+
+msgid "Media import governance"
+msgstr "Medienimport-Governance"
+
+msgid "Image media"
+msgstr "Bildmedien"
+
+msgid "Virtual tour media"
+msgstr "Virtuelle-Tour-Medien"
+
+msgid "Republish inactive media present in the XML snapshot"
+msgstr "Inaktive Medien aus dem XML-Snapshot erneut veröffentlichen"
+
+msgid "Offer media CRM/XML import lock strategy and alt text protection."
+msgstr "CRM/XML-Sperrstrategie und Alt-Text-Schutz für Angebotsmedien."
+
+msgid "Protected media row strategy"
+msgstr "Geschützte Medienzeilen-Strategie"
+
+msgid "Allow CRM to overwrite alt text and link titles"
+msgstr "CRM darf Alt-Text und Linktitel überschreiben"
+
+msgid "Manual media curation"
+msgstr "Manuelle Medienpflege"
+
+msgid "Non-protected media"
+msgstr "Nicht geschützte Medien"
+
+msgid "Protected media"
+msgstr "Geschützte Medien"
+
+msgid "Media"
+msgstr "Medien"
+
+msgid "Applies to media entities during migrate row saves when field_internal_lock is enabled. Inherit uses the global CRM pipeline default."
+msgstr "Gilt bei Migrate-Zeilenspeicherungen für Medien-Entitäten, wenn field_internal_lock aktiviert ist. Erben verwendet die globale CRM-Pipeline-Standardeinstellung."
+
+msgid "Applies when field_internal_lock is enabled on the media entity."
+msgstr "Gilt, wenn field_internal_lock für die Medien-Entität aktiviert ist."
+
+msgid "CRM import pipeline settings"
+msgstr "CRM-Import-Pipeline-Einstellungen"
+
+msgid "CRM row import"
+msgstr "CRM-Zeilenimport"
+
+msgid "Control how CRM/XML imports interact with manually curated offer media. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Steuern, wie CRM/XML-Importe mit manuell gepflegten Angebotsmedien interagieren. Globale CRM-Sperrstrategie-Standards werden in @link konfiguriert."
+
+msgid "Inherit global CRM strategy"
+msgstr "Globale CRM-Strategie erben"
+
+msgid "Keep published"
+msgstr "Veröffentlicht belassen"
+
+msgid "Lock new BO media by default"
+msgstr "Neue BO-Medien standardmäßig sperren"
+
+msgid "Missing from XML snapshot"
+msgstr "Fehlt im XML-Snapshot"
+
+msgid "Present in XML snapshot"
+msgstr "Im XML-Snapshot vorhanden"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Geschützte Felder überspringen (empfohlen)"
+
+msgid "Skip protected rows entirely"
+msgstr "Geschützte Zeilen vollständig überspringen"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "When checked, media created in the back office start with field_internal_lock enabled."
+msgstr "Wenn aktiviert, starten im Backoffice erstellte Medien mit aktiviertem field_internal_lock."
+
+msgid "When unchecked, existing media keeps its image alt text and virtual tour link title during CRM imports."
+msgstr "Wenn deaktiviert, behalten bestehende Medien ihren Bild-Alt-Text und den Linktitel der virtuellen Tour bei CRM-Importen."

@@ -129,4 +129,18 @@ final class AgentImportGovernancePolicy extends ImportGovernancePolicyBase imple
     return $this->importGovernance->shouldDeactivateMissingEntity($entity, $shouldBeActive);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getSnapshotFieldSyncEntityKeys(): array {
+    return $this->importGovernance->getSnapshotFieldSyncEntityKeys();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSnapshotFieldSyncFields(string $entityKey): array {
+    return $this->importGovernance->getSnapshotFieldSyncFields($entityKey);
+  }
+
 }

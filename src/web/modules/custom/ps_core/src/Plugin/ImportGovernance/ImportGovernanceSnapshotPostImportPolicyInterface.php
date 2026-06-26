@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 /**
  * Optional XML snapshot post-import rules for content or config entities.
  */
-interface ImportGovernanceSnapshotPostImportPolicyInterface {
+interface ImportGovernanceSnapshotPostImportPolicyInterface extends ImportGovernanceSnapshotFieldSyncPolicyInterface {
 
   /**
    * Migration IDs handled by this post-import policy.

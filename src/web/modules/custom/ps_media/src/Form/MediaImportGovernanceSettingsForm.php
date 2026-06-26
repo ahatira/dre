@@ -8,7 +8,11 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_core\Form\SnapshotSyncFieldsFormTrait;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 use Drupal\ps_media\Service\MediaImportGovernance;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -17,10 +21,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class MediaImportGovernanceSettingsForm extends ConfigFormBase {
 
+  use SnapshotSyncFieldsFormTrait;
+
   public function __construct(
     ConfigFactoryInterface $config_factory,
     TypedConfigManagerInterface $typed_config_manager,
     private readonly ImportGovernanceGlobalResolver $globalResolver,
+    private readonly ImportGovernanceSnapshotFieldResolver $snapshotFieldResolver,
+    private readonly ImportGovernanceSnapshotFieldSettings $snapshotFieldSettings,
   ) {
     parent::__construct($config_factory, $typed_config_manager);
   }
@@ -33,6 +41,8 @@ final class MediaImportGovernanceSettingsForm extends ConfigFormBase {
       $container->get('config.factory'),
       $container->get('config.typed'),
       $container->get('ps_core.import_governance_global_resolver'),
+      $container->get('ps_core.import_governance_snapshot_field_resolver'),
+      $container->get('ps_core.import_governance_snapshot_field_settings'),
     );
   }
 
@@ -133,6 +143,10 @@ final class MediaImportGovernanceSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Republish inactive media present in the XML snapshot'),
       '#default_value' => $config->get('present_in_xml.reactivate'),
     ];
+    $this->appendSnapshotSyncFieldElements($form['present_in_xml'], $config, [
+      ImportGovernanceSnapshotEntityKey::encode('media', 'image') => $this->t('Image media'),
+      ImportGovernanceSnapshotEntityKey::encode('media', 'visite_guided') => $this->t('Virtual tour media'),
+    ]);
 
     $form['manual'] = [
       '#type' => 'details',
@@ -159,10 +173,19 @@ final class MediaImportGovernanceSettingsForm extends ConfigFormBase {
       ->set('missing_from_xml.media_action', $form_state->getValue('media_action'))
       ->set('missing_from_xml.protected_media_action', $form_state->getValue('protected_media_action'))
       ->set('present_in_xml.reactivate', (bool) $form_state->getValue('reactivate'))
+      ->set('present_in_xml.sync_fields_by_entity', $this->extractSnapshotSyncFieldValues((array) $form_state->getValue('sync_fields_by_entity')))
       ->set('bo_create.default_internal_lock', (bool) $form_state->getValue('bo_create_default_internal_lock'))
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  protected function getSnapshotFieldResolver(): ImportGovernanceSnapshotFieldResolver {
+    return $this->snapshotFieldResolver;
+  }
+
+  protected function getSnapshotFieldSettings(): ImportGovernanceSnapshotFieldSettings {
+    return $this->snapshotFieldSettings;
   }
 
   /**

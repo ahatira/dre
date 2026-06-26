@@ -288,3 +288,108 @@ msgstr "Telefono aiuto urgenza (visualizzazione)"
 
 msgid "Urgency help phone link (tel: URI, optional)"
 msgstr "Link telefono aiuto urgenza (URI tel:, opzionale)"
+
+msgid "Fields to synchronize"
+msgstr "Campi da sincronizzare"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Si applica quando l'entità è presente nello snapshot XML e non è protetta dal catalogo. I campi di governance e tracciamento non vengono mai sovrascritti."
+
+msgid "Payload defaults"
+msgstr "Valori predefiniti del payload"
+
+msgid "Type driver"
+msgstr "Driver di tipo"
+
+msgid "Expose as filter"
+msgstr "Esporre come filtro"
+
+msgid "Required asset types"
+msgstr "Tipi di asset richiesti"
+
+msgid "Business ID"
+msgstr "ID commerciale"
+
+msgid "Governance"
+msgstr "Governance"
+
+msgid "Import protection and domain governance rules"
+msgstr "Protezione import e regole di governance per dominio"
+
+msgid "Central entry point for import protection and domain-specific governance rules. Global CRM defaults apply unless a domain overrides them."
+msgstr "Punto di accesso centrale per la protezione import e le regole di governance per dominio. Si applicano i default CRM globali salvo override del dominio."
+
+msgid "Global import pipeline"
+msgstr "Pipeline di import globale"
+
+msgid "Cross-domain CRM import folders, batch limits and default lock strategy."
+msgstr "Cartelle CRM di import, limiti batch e strategia di blocco predefinita trasversale ai domini."
+
+msgid "Domain governance"
+msgstr "Governance di dominio"
+
+msgid "Business rules applied when imports touch a specific entity catalogue."
+msgstr "Regole di business applicate quando gli import toccano un catalogo di entità."
+
+msgid "Global governance defaults"
+msgstr "Default globali di governance"
+
+msgid "Inheritance hints and overview of the global CRM lock strategy source."
+msgstr "Suggerimenti di ereditarietà e panoramica della strategia di blocco CRM globale."
+
+msgid "Show inheritance hints on domain governance forms"
+msgstr "Mostra suggerimenti di ereditarietà nei moduli di governance di dominio"
+
+msgid "Inherit global CRM strategy"
+msgstr "Eredita strategia CRM globale"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Salta campi protetti (consigliato)"
+
+msgid "Skip protected rows entirely"
+msgstr "Salta interamente le righe protette"
+
+msgid "Present in XML snapshot"
+msgstr "Presente nello snapshot XML"
+
+msgid "Missing from XML snapshot"
+msgstr "Assente dallo snapshot XML"
+
+msgid "CRM row import"
+msgstr "Import righe CRM"
+
+msgid "Control how CRM/XML imports interact with manually curated @entity. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Controlla come gli import CRM/XML interagiscono con @entity curati manualmente. I default della strategia di blocco CRM globale si configurano in @link."
+
+msgid "Back to PS configuration hub"
+msgstr "Torna all'hub di configurazione PS"
+
+msgid "CRM import pipeline settings"
+msgstr "Impostazioni pipeline di importazione CRM"
+
+msgid "Edit CRM import pipeline settings"
+msgstr "Modifica impostazioni pipeline di importazione CRM"
+
+msgid "Global CRM pipeline → domain governance → per-entity protection flags."
+msgstr "Pipeline CRM globale → governance di dominio → flag di protezione per entità."
+
+msgid "When enabled, domain forms display the effective global CRM lock strategy next to inherit options."
+msgstr "Se abilitato, i moduli di dominio mostrano la strategia di blocco CRM globale effettiva accanto alle opzioni Eredita."
+
+msgid "Current global lock strategy"
+msgstr "Strategia di blocco globale attuale"
+
+msgid "Default lock strategy, pipeline folders and upload limits."
+msgstr "Strategia di blocco predefinita, cartelle pipeline e limiti di caricamento."
+
+msgid "Global CRM import defaults apply to all domains unless a domain policy overrides them. Domain forms can show inheritance hints when a setting uses Inherit."
+msgstr "Le impostazioni predefinite CRM globali si applicano a tutti i domini salvo override di dominio. I moduli di dominio possono mostrare suggerimenti di eredità quando un'impostazione usa Eredita."
+
+msgid "Domain form hints"
+msgstr "Suggerimenti sui moduli di dominio"
+
+msgid "CRM import pipeline"
+msgstr "Pipeline di importazione CRM"
+
+msgid "Configuration hierarchy"
+msgstr "Gerarchia di configurazione"

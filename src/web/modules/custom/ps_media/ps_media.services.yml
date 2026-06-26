@@ -12,6 +12,7 @@ services:
     arguments:
       - '@config.factory'
       - '@ps_core.import_governance_global_resolver'
+      - '@ps_core.import_governance_snapshot_field_settings'
 
   ps_media.gallery_badge_icon_resolver:
     class: Drupal\ps_media\Service\GalleryBadgeIconResolver

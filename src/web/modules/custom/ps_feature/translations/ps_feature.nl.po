@@ -1140,3 +1140,126 @@ msgstr "Waardetype (indicator, ja/nee, getal, tekst, datum)."
 
 msgid "Value types"
 msgstr "Waardetypen"
+
+msgid "Fields to synchronize"
+msgstr "Te synchroniseren velden"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Van toepassing wanneer de entiteit aanwezig is in de XML-snapshot en niet catalogusbeschermd is. Governance- en trackingvelden worden nooit overschreven."
+
+msgid "Expose as filter"
+msgstr "Tonen als filter"
+
+msgid "Business ID"
+msgstr "Business-ID"
+
+msgid "Feature catalogue governance"
+msgstr "Governance featurecatalogus"
+
+msgid "Reactivate inactive catalogue entries"
+msgstr "Inactieve catalogusitems uit XML-snapshot opnieuw activeren"
+
+msgid "When checked, groups and definitions present in the XML snapshot are set back to active."
+msgstr "Indien aangevinkt worden groepen en definities in de XML-snapshot weer actief gezet."
+
+msgid "Feature catalogue CRM/XML, CSV and offer import rules."
+msgstr "CRM/XML-, CSV- en aanbiedingsimportregels voor de featurecatalogus."
+
+msgid "- @group (fallback) -"
+msgstr "- @group (fallback) -"
+
+msgid "Allow CRM to overwrite display fields"
+msgstr "CRM mag weergavevelden overschrijven"
+
+msgid "Applies to feature groups and definitions during migrate row saves. Inherit uses the global CRM pipeline default."
+msgstr "Van toepassing op groepen en definities bij migrate-rijopslag. Overnemen gebruikt de globale CRM-pipelinestandaard."
+
+msgid "Applies when an offer technical element references a feature definition that is not in the catalogue."
+msgstr "Van toepassing wanneer een technisch offerelement verwijst naar een definitie die niet in de catalogus staat."
+
+msgid "CRM import pipeline settings"
+msgstr "CRM-importpipeline-instellingen"
+
+msgid "CRM row import"
+msgstr "CRM-rijimport"
+
+msgid "Catalogue-protected definitions"
+msgstr "Catalogusbeschermde definities"
+
+msgid "Catalogue-protected groups are always kept active."
+msgstr "Catalogusbeschermde groepen blijven altijd actief."
+
+msgid "Control how CRM/XML imports interact with the manually curated feature catalogue. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Bepaal hoe CRM/XML-importen omgaan met de handmatig beheerde kenmerkencatalogus. Globale CRM-vergrendelingsstandaarden worden geconfigureerd in @link."
+
+msgid "Create a stub definition from the XML element"
+msgstr "Maak een stubdefinitie vanuit het XML-element"
+
+msgid "Deactivate"
+msgstr "Deactiveren"
+
+msgid "Default feature group"
+msgstr "Standaard kenmerkengroep"
+
+msgid "Import defaults"
+msgstr "Importstandaarden"
+
+msgid "Inherit global CRM strategy"
+msgstr "Globale CRM-strategie erven"
+
+msgid "Keep active"
+msgstr "Actief houden"
+
+msgid "Lock definitions imported from CSV"
+msgstr "Definities geïmporteerd via CSV vergrendelen"
+
+msgid "Lock new BO definitions by default"
+msgstr "Nieuwe BO-definities standaard vergrendelen"
+
+msgid "Manual catalogue curation"
+msgstr "Handmatige catalogusbeheer"
+
+msgid "Missing catalogue definition"
+msgstr "Ontbrekende catalogusdefinitie"
+
+msgid "Missing from XML snapshot"
+msgstr "Ontbreekt in XML-snapshot"
+
+msgid "Non-protected definitions"
+msgstr "Niet-beschermde definities"
+
+msgid "Non-protected groups"
+msgstr "Niet-beschermde groepen"
+
+msgid "Offer feature values"
+msgstr "Kenmerkwaarden van aanbiedingen"
+
+msgid "Present in XML snapshot"
+msgstr "Aanwezig in XML-snapshot"
+
+msgid "Protected catalogue row strategy"
+msgstr "Strategie voor beschermde catalogusrijen"
+
+msgid "Skip item and log a warning"
+msgstr "Item overslaan en waarschuwing loggen"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Beschermde velden overslaan (aanbevolen)"
+
+msgid "Skip protected rows entirely"
+msgstr "Beschermde rijen volledig overslaan"
+
+msgid "Sync translated definition labels from offer imports"
+msgstr "Vertaalde definitielabels synchroniseren vanuit aanbiedingsimporten"
+
+msgid "The selected default feature group does not exist."
+msgstr "De geselecteerde standaard kenmerkengroep bestaat niet."
+
+msgid "Used when a CSV row, CRM element or offer import creates a feature definition without a group code. Falls back to @group when unset."
+msgstr "Gebruikt wanneer een CSV-rij, CRM-element of aanbiedingsimport een definitie zonder groepscode aanmaakt. Valt terug op @group indien niet ingesteld."
+
+msgid "When checked, offer imports may update translated feature definition labels, including for catalogue-protected definitions."
+msgstr "Indien aangevinkt, kunnen aanbiedingsimporten vertaalde definitielabels bijwerken, ook voor catalogusbeschermde definities."
+
+msgid "When unchecked, existing definitions keep their icon and search filter exposure during CRM imports."
+msgstr "Indien uitgevinkt, behouden bestaande definities hun pictogram en filterweergave tijdens CRM-importen."

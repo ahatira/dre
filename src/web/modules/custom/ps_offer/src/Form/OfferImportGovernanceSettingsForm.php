@@ -8,7 +8,11 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_core\Form\SnapshotSyncFieldsFormTrait;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 use Drupal\ps_offer\Service\OfferImportGovernance;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -17,10 +21,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class OfferImportGovernanceSettingsForm extends ConfigFormBase {
 
+  use SnapshotSyncFieldsFormTrait;
+
   public function __construct(
     ConfigFactoryInterface $config_factory,
     TypedConfigManagerInterface $typed_config_manager,
     private readonly ImportGovernanceGlobalResolver $globalResolver,
+    private readonly ImportGovernanceSnapshotFieldResolver $snapshotFieldResolver,
+    private readonly ImportGovernanceSnapshotFieldSettings $snapshotFieldSettings,
   ) {
     parent::__construct($config_factory, $typed_config_manager);
   }
@@ -33,6 +41,8 @@ final class OfferImportGovernanceSettingsForm extends ConfigFormBase {
       $container->get('config.factory'),
       $container->get('config.typed'),
       $container->get('ps_core.import_governance_global_resolver'),
+      $container->get('ps_core.import_governance_snapshot_field_resolver'),
+      $container->get('ps_core.import_governance_snapshot_field_settings'),
     );
   }
 
@@ -134,6 +144,9 @@ final class OfferImportGovernanceSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Republish inactive offers present in the XML snapshot'),
       '#default_value' => $config->get('present_in_xml.reactivate'),
     ];
+    $this->appendSnapshotSyncFieldElements($form['present_in_xml'], $config, [
+      ImportGovernanceSnapshotEntityKey::encode('node', OfferImportGovernance::OFFER_BUNDLE) => $this->t('Offers'),
+    ]);
 
     $form['manual'] = [
       '#type' => 'details',
@@ -160,10 +173,25 @@ final class OfferImportGovernanceSettingsForm extends ConfigFormBase {
       ->set('missing_from_xml.offer_action', $form_state->getValue('offer_action'))
       ->set('missing_from_xml.protected_offer_action', $form_state->getValue('protected_offer_action'))
       ->set('present_in_xml.reactivate', (bool) $form_state->getValue('reactivate'))
+      ->set('present_in_xml.sync_fields_by_entity', $this->extractSnapshotSyncFieldValues((array) $form_state->getValue('sync_fields_by_entity')))
       ->set('bo_create.default_internal_lock', (bool) $form_state->getValue('bo_create_default_internal_lock'))
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getSnapshotFieldResolver(): ImportGovernanceSnapshotFieldResolver {
+    return $this->snapshotFieldResolver;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getSnapshotFieldSettings(): ImportGovernanceSnapshotFieldSettings {
+    return $this->snapshotFieldSettings;
   }
 
   /**

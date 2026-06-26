@@ -276,3 +276,36 @@ msgstr "Ajustes de almacenamiento de campo ps_dictionary"
 
 msgid "title"
 msgstr "título"
+
+msgid "CRM offer import lookups"
+msgstr "Búsquedas de diccionario en importación de ofertas CRM"
+
+msgid "CSV import"
+msgstr "Importación CSV"
+
+msgid "Control how CSV imports and CRM offer migrations interact with manually curated dictionary entries."
+msgstr "Controlar cómo las importaciones CSV y las migraciones de ofertas CRM interactúan con entradas de diccionario curadas manualmente."
+
+msgid "Lock entries imported from CSV"
+msgstr "Bloquear entradas importadas desde CSV"
+
+msgid "Lock new BO entries by default"
+msgstr "Bloquear por defecto las nuevas entradas BO"
+
+msgid "Manual dictionary curation"
+msgstr "Curación manual del diccionario"
+
+msgid "Preserve existing dictionary labels during CRM offer import"
+msgstr "Conservar etiquetas existentes del diccionario durante la importación de ofertas CRM"
+
+msgid "Preserve existing entry labels on CSV update"
+msgstr "Conservar etiquetas existentes al actualizar CSV"
+
+msgid "Reserved for a future dictionary protection model. Currently has no effect."
+msgstr "Reservado para un futuro modelo de protección del diccionario. Sin efecto por ahora."
+
+msgid "When checked, CSV imports only update weight for existing entries and keep their current labels."
+msgstr "Si está marcado, las importaciones CSV solo actualizan el peso de entradas existentes y conservan sus etiquetas."
+
+msgid "When checked, offer imports keep existing dictionary entry labels instead of overwriting them from XML-derived values."
+msgstr "Si está marcado, las importaciones de ofertas conservan las etiquetas existentes del diccionario en lugar de sobrescribirlas desde el XML."

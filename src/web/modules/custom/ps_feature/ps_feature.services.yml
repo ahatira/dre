@@ -89,6 +89,7 @@ services:
       - '@ps_core.entity_protection_manager'
       - '@entity_type.manager'
       - '@ps_core.import_governance_global_resolver'
+      - '@ps_core.import_governance_snapshot_field_settings'
 
   ps_feature.config_entity_protection.feature_definition:
     class: Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionDefinition

@@ -60,6 +60,23 @@ services:
       - '@config.factory'
       - '@module_handler'
 
+  ps_core.import_governance_snapshot_field_resolver:
+    class: Drupal\ps_core\Service\ImportGovernanceSnapshotFieldResolver
+    arguments:
+      - '@entity_type.manager'
+      - '@entity_field.manager'
+      - '@ps_core.config_entity_protection_registry'
+
+  ps_core.import_governance_snapshot_field_settings:
+    class: Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings
+    arguments:
+      - '@ps_core.import_governance_snapshot_field_resolver'
+
+  ps_core.import_governance_snapshot_synchronizer:
+    class: Drupal\ps_core\Service\ImportGovernanceSnapshotSynchronizer
+    arguments:
+      - '@ps_core.entity_protection_manager'
+
   ps_core.section_registry:
     class: Drupal\ps_core\Service\OfferSectionRegistry
     arguments:

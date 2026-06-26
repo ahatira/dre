@@ -275,3 +275,36 @@ msgstr "ps_dictionary Felder-Späicher-Astellungen"
 
 msgid "title"
 msgstr "titel"
+
+msgid "CRM offer import lookups"
+msgstr "CRM-Offer-Import-Lookups"
+
+msgid "CSV import"
+msgstr "CSV-Import"
+
+msgid "Control how CSV imports and CRM offer migrations interact with manually curated dictionary entries."
+msgstr "Kontrolléieren, wéi CSV-Importen a CRM-Offer-Migratiounen mat manuell kuratéierte Dictionnaire-Entréeën interagéieren."
+
+msgid "Lock entries imported from CSV"
+msgstr "Aus CSV importéiert Entréeën spären"
+
+msgid "Lock new BO entries by default"
+msgstr "Nei BO-Entréeën standardméisseg spären"
+
+msgid "Manual dictionary curation"
+msgstr "Manuell Dictionnaire-Kuratioun"
+
+msgid "Preserve existing dictionary labels during CRM offer import"
+msgstr "Bestehend Dictionnaire-Labelen beim CRM-Offer-Import behalen"
+
+msgid "Preserve existing entry labels on CSV update"
+msgstr "Bestehend Entrée-Labelen bei CSV-Update behalen"
+
+msgid "Reserved for a future dictionary protection model. Currently has no effect."
+msgstr "Reservéiert fir e zukünftegt Dictionnaire-Schutzmodell. Aktuell ouni Effekt."
+
+msgid "When checked, CSV imports only update weight for existing entries and keep their current labels."
+msgstr "Wann aktiv, aktualiséieren CSV-Importen nëmmen d'Gewiicht vun bestehenden Entréeën a behalen hir Labelen."
+
+msgid "When checked, offer imports keep existing dictionary entry labels instead of overwriting them from XML-derived values."
+msgstr "Wann aktiv, behalen Offer-Importen bestehend Dictionnaire-Labelen amplaz se aus XML-Wäerter ze iwwerschreiwen."

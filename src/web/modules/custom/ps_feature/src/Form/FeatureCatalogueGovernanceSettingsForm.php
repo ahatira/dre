@@ -9,7 +9,11 @@ use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ps_core\Form\SnapshotSyncFieldsFormTrait;
+use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 use Drupal\ps_feature\Service\FeatureCatalogueGovernance;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,11 +22,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class FeatureCatalogueGovernanceSettingsForm extends ConfigFormBase {
 
+  use SnapshotSyncFieldsFormTrait;
+
   public function __construct(
     ConfigFactoryInterface $config_factory,
     TypedConfigManagerInterface $typed_config_manager,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ImportGovernanceGlobalResolver $globalResolver,
+    private readonly ImportGovernanceSnapshotFieldResolver $snapshotFieldResolver,
+    private readonly ImportGovernanceSnapshotFieldSettings $snapshotFieldSettings,
   ) {
     parent::__construct($config_factory, $typed_config_manager);
   }
@@ -36,6 +44,8 @@ final class FeatureCatalogueGovernanceSettingsForm extends ConfigFormBase {
       $container->get('config.typed'),
       $container->get('entity_type.manager'),
       $container->get('ps_core.import_governance_global_resolver'),
+      $container->get('ps_core.import_governance_snapshot_field_resolver'),
+      $container->get('ps_core.import_governance_snapshot_field_settings'),
     );
   }
 
@@ -161,13 +171,10 @@ final class FeatureCatalogueGovernanceSettingsForm extends ConfigFormBase {
       '#description' => $this->t('When checked, groups and definitions present in the XML snapshot are set back to active.'),
       '#default_value' => $config->get('present_in_xml.reactivate'),
     ];
-    $form['present_in_xml']['sync_fields'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Definition fields to synchronize'),
-      '#description' => $this->t('One field name per line. Locked fields and catalogue-protected definitions are never overwritten.'),
-      '#default_value' => implode("\n", $config->get('present_in_xml.sync_fields') ?? []),
-      '#rows' => 8,
-    ];
+    $this->appendSnapshotSyncFieldElements($form['present_in_xml'], $config, [
+      ImportGovernanceSnapshotEntityKey::encode('fb_feature_definition') => $this->t('Feature definitions'),
+      ImportGovernanceSnapshotEntityKey::encode('fb_feature_group') => $this->t('Feature groups'),
+    ]);
 
     $form['offer_values'] = [
       '#type' => 'details',
@@ -229,12 +236,6 @@ final class FeatureCatalogueGovernanceSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $syncFields = preg_split('/\R/u', (string) $form_state->getValue('sync_fields')) ?: [];
-    $syncFields = array_values(array_unique(array_filter(array_map(
-      static fn(string $field): string => trim($field),
-      $syncFields,
-    ))));
-
     $this->config(FeatureCatalogueGovernance::CONFIG_NAME)
       ->set('import_defaults.default_group', trim((string) $form_state->getValue('import_default_group')))
       ->set('crm_row_strategy_override', $form_state->getValue('crm_row_strategy_override'))
@@ -243,7 +244,7 @@ final class FeatureCatalogueGovernanceSettingsForm extends ConfigFormBase {
       ->set('missing_from_xml.definition_action', $form_state->getValue('definition_action'))
       ->set('missing_from_xml.protected_definition_action', $form_state->getValue('protected_definition_action'))
       ->set('present_in_xml.reactivate', (bool) $form_state->getValue('reactivate'))
-      ->set('present_in_xml.sync_fields', $syncFields)
+      ->set('present_in_xml.sync_fields_by_entity', $this->extractSnapshotSyncFieldValues((array) $form_state->getValue('sync_fields_by_entity')))
       ->set('offer_values.missing_definition', $form_state->getValue('missing_definition'))
       ->set('offer_values.sync_definition_labels', (bool) $form_state->getValue('sync_definition_labels'))
       ->set('bo_create.default_internal_lock', (bool) $form_state->getValue('bo_create_default_internal_lock'))
@@ -251,6 +252,20 @@ final class FeatureCatalogueGovernanceSettingsForm extends ConfigFormBase {
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getSnapshotFieldResolver(): ImportGovernanceSnapshotFieldResolver {
+    return $this->snapshotFieldResolver;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getSnapshotFieldSettings(): ImportGovernanceSnapshotFieldSettings {
+    return $this->snapshotFieldSettings;
   }
 
   /**

@@ -6,10 +6,16 @@ namespace Drupal\Tests\ps_feature\Unit\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\ps_core\ConfigEntityProtection\ConfigEntityProtectionRegistry;
 use Drupal\ps_core\Service\EntityProtectionManagerInterface;
 use Drupal\ps_core\Service\ImportGovernanceGlobalResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldResolver;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotFieldSettings;
 use Drupal\ps_feature\Entity\FeatureDefinition;
 use Drupal\ps_feature\Service\FeatureCatalogueGovernance;
 use Drupal\Tests\UnitTestCase;
@@ -98,18 +104,32 @@ final class FeatureCatalogueGovernanceTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::getPresentInXmlSyncFields
+   * @covers ::getSnapshotFieldSyncFields
    */
-  public function testPresentInXmlSyncFieldsAreNormalized(): void {
+  public function testSnapshotFieldSyncFieldsAreNormalized(): void {
     $governance = $this->buildGovernance(
       governance: [
         'present_in_xml' => [
-          'sync_fields' => [' label ', 'code', 'code', ''],
+          'sync_fields_by_entity' => [
+            'fb_feature_definition' => [' label ', 'code', 'code', '', 'unknown_field'],
+          ],
         ],
       ],
     );
 
-    self::assertSame(['label', 'code'], $governance->getPresentInXmlSyncFields());
+    self::assertSame(['label', 'code'], $governance->getSnapshotFieldSyncFields('fb_feature_definition'));
+  }
+
+  /**
+   * @covers ::getSnapshotFieldSyncEntityKeys
+   */
+  public function testSnapshotFieldSyncEntityKeys(): void {
+    $governance = $this->buildGovernance();
+
+    self::assertSame(
+      ['fb_feature_definition', 'fb_feature_group'],
+      $governance->getSnapshotFieldSyncEntityKeys(),
+    );
   }
 
   /**
@@ -236,7 +256,38 @@ final class FeatureCatalogueGovernanceTest extends UnitTestCase {
       $protectionManager ?? $this->createMock(EntityProtectionManagerInterface::class),
       $entityTypeManager ?? $this->createMock(EntityTypeManagerInterface::class),
       $this->createGlobalResolver($migrate),
+      $this->createSnapshotFieldSettings(),
     );
+  }
+
+  private function createSnapshotFieldSettings(): ImportGovernanceSnapshotFieldSettings {
+    $entityType = $this->createMock(EntityTypeInterface::class);
+    $entityType->method('entityClassImplements')->willReturnCallback(
+      static fn(string $interface): bool => $interface === ConfigEntityInterface::class,
+    );
+    $entityType->method('get')->with('config_export')->willReturn([
+      'label',
+      'description',
+      'code',
+      'group',
+      'type_driver',
+      'weight',
+      'status',
+      'payload_defaults',
+    ]);
+
+    $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
+    $entityTypeManager->method('getDefinition')->willReturn($entityType);
+
+    $registry = new ConfigEntityProtectionRegistry([]);
+
+    $resolver = new ImportGovernanceSnapshotFieldResolver(
+      $entityTypeManager,
+      $this->createMock(EntityFieldManagerInterface::class),
+      $registry,
+    );
+
+    return new ImportGovernanceSnapshotFieldSettings($resolver);
   }
 
   /**

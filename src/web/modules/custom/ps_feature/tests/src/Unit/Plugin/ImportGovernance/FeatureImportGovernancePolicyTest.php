@@ -61,17 +61,18 @@ final class FeatureImportGovernancePolicyTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::getPresentInXmlSyncFields
+   * @covers ::getSnapshotFieldSyncFields
    */
-  public function testGetPresentInXmlSyncFieldsDelegatesToCatalogueGovernance(): void {
+  public function testGetSnapshotFieldSyncFieldsDelegatesToCatalogueGovernance(): void {
     $catalogueGovernance = $this->createMock(FeatureCatalogueGovernance::class);
     $catalogueGovernance->expects($this->once())
-      ->method('getPresentInXmlSyncFields')
+      ->method('getSnapshotFieldSyncFields')
+      ->with('fb_feature_definition')
       ->willReturn(['label', 'payload_defaults']);
 
     $policy = $this->buildPolicy($catalogueGovernance);
 
-    self::assertSame(['label', 'payload_defaults'], $policy->getPresentInXmlSyncFields());
+    self::assertSame(['label', 'payload_defaults'], $policy->getSnapshotFieldSyncFields('fb_feature_definition'));
   }
 
   /**

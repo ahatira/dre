@@ -82,3 +82,33 @@ function ps_feature_update_12004(): void {
 
   $config->set('import_defaults.default_group', '')->save(TRUE);
 }
+
+/**
+ * Migrates legacy present_in_xml.sync_fields to sync_fields_by_entity.
+ */
+function ps_feature_update_12005(): void {
+  $configName = 'ps_feature.catalogue_governance';
+  $config = \Drupal::configFactory()->getEditable($configName);
+  if ($config->isNew()) {
+    return;
+  }
+
+  $byEntity = $config->get('present_in_xml.sync_fields_by_entity');
+  if (is_array($byEntity) && $byEntity !== []) {
+    return;
+  }
+
+  $legacyFields = $config->get('present_in_xml.sync_fields');
+  if (!is_array($legacyFields) || $legacyFields === []) {
+    $config->clear('present_in_xml.sync_fields')->save(TRUE);
+    return;
+  }
+
+  $config
+    ->set('present_in_xml.sync_fields_by_entity', [
+      'fb_feature_definition' => array_values($legacyFields),
+      'fb_feature_group' => ['label', 'description', 'weight', 'status'],
+    ])
+    ->clear('present_in_xml.sync_fields')
+    ->save(TRUE);
+}

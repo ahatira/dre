@@ -289,3 +289,108 @@ msgstr "Telefoon voor urgentiehulp (weergave)"
 
 msgid "Urgency help phone link (tel: URI, optional)"
 msgstr "Telefoonlink voor urgentiehulp (tel:-URI, optioneel)"
+
+msgid "Fields to synchronize"
+msgstr "Te synchroniseren velden"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Van toepassing wanneer de entiteit aanwezig is in de XML-snapshot en niet catalogusbeschermd is. Governance- en trackingvelden worden nooit overschreven."
+
+msgid "Payload defaults"
+msgstr "Standaard payload-waarden"
+
+msgid "Type driver"
+msgstr "Type-driver"
+
+msgid "Expose as filter"
+msgstr "Tonen als filter"
+
+msgid "Required asset types"
+msgstr "Vereiste activatypen"
+
+msgid "Business ID"
+msgstr "Business-ID"
+
+msgid "Governance"
+msgstr "Governance"
+
+msgid "Import protection and domain governance rules"
+msgstr "Importbescherming en domeinspecifieke governanceregels"
+
+msgid "Central entry point for import protection and domain-specific governance rules. Global CRM defaults apply unless a domain overrides them."
+msgstr "Centraal startpunt voor importbescherming en domeinspecifieke governanceregels. Globale CRM-standaarden gelden tenzij een domein ze overschrijft."
+
+msgid "Global import pipeline"
+msgstr "Globale importpipeline"
+
+msgid "Cross-domain CRM import folders, batch limits and default lock strategy."
+msgstr "Domeinoverschrijdende CRM-importmappen, batchlimieten en standaard vergrendelingsstrategie."
+
+msgid "Domain governance"
+msgstr "Domeingovernance"
+
+msgid "Business rules applied when imports touch a specific entity catalogue."
+msgstr "Bedrijfsregels wanneer imports een specifieke entiteitencatalogus raken."
+
+msgid "Global governance defaults"
+msgstr "Globale governance-standaarden"
+
+msgid "Inheritance hints and overview of the global CRM lock strategy source."
+msgstr "Overervingshints en overzicht van de globale CRM-vergrendelingsstrategie."
+
+msgid "Show inheritance hints on domain governance forms"
+msgstr "Overervingshints tonen op domeingovernance-formulieren"
+
+msgid "Inherit global CRM strategy"
+msgstr "Globale CRM-strategie erven"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Beschermde velden overslaan (aanbevolen)"
+
+msgid "Skip protected rows entirely"
+msgstr "Beschermde rijen volledig overslaan"
+
+msgid "Present in XML snapshot"
+msgstr "Aanwezig in XML-snapshot"
+
+msgid "Missing from XML snapshot"
+msgstr "Ontbreekt in XML-snapshot"
+
+msgid "CRM row import"
+msgstr "CRM-rijimport"
+
+msgid "Control how CRM/XML imports interact with manually curated @entity. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Bepaal hoe CRM/XML-imports omgaan met handmatig beheerde @entity. Globale CRM-vergrendelingsstrategie-standaarden worden geconfigureerd in @link."
+
+msgid "Back to PS configuration hub"
+msgstr "Terug naar PS-configuratiehub"
+
+msgid "CRM import pipeline settings"
+msgstr "CRM-importpipeline-instellingen"
+
+msgid "Edit CRM import pipeline settings"
+msgstr "CRM-importpipeline-instellingen bewerken"
+
+msgid "Global CRM pipeline → domain governance → per-entity protection flags."
+msgstr "Globale CRM-pipeline → domeingovernance → beschermingsvlaggen per entiteit."
+
+msgid "When enabled, domain forms display the effective global CRM lock strategy next to inherit options."
+msgstr "Indien ingeschakeld, tonen domeinformulieren de effectieve globale CRM-vergrendelingsstrategie naast Overnemen-opties."
+
+msgid "Current global lock strategy"
+msgstr "Huidige globale vergrendelingsstrategie"
+
+msgid "Default lock strategy, pipeline folders and upload limits."
+msgstr "Standaard vergrendelingsstrategie, pipeline-mappen en uploadlimieten."
+
+msgid "Global CRM import defaults apply to all domains unless a domain policy overrides them. Domain forms can show inheritance hints when a setting uses Inherit."
+msgstr "Globale CRM-standaarden gelden voor alle domeinen tenzij een domeinbeleid ze overschrijft. Domeinformulieren kunnen overerfhint tonen wanneer een instelling Overnemen gebruikt."
+
+msgid "Domain form hints"
+msgstr "Hints op domeinformulieren"
+
+msgid "CRM import pipeline"
+msgstr "CRM-importpipeline"
+
+msgid "Configuration hierarchy"
+msgstr "Configuratiehiërarchie"

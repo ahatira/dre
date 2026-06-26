@@ -370,3 +370,45 @@ msgstr "Hérite de la stratégie CRM globale : @strategy (@link)."
 
 msgid "Inherits from global CRM strategy: @strategy."
 msgstr "Hérite de la stratégie CRM globale : @strategy."
+
+msgid "Fields to synchronize"
+msgstr "Champs à synchroniser"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "S'applique lorsque l'entité est présente dans le snapshot XML et n'est pas protégée par le catalogue. Les champs de gouvernance et de suivi ne sont jamais écrasés."
+
+msgid "Payload defaults"
+msgstr "Valeurs par défaut de charge utile"
+
+msgid "Type driver"
+msgstr "Driver de type"
+
+msgid "Expose as filter"
+msgstr "Exposer comme filtre"
+
+msgid "Required asset types"
+msgstr "Types d'actifs requis"
+
+msgid "Business ID"
+msgstr "Identifiant métier"
+
+msgid "Inherit global CRM strategy"
+msgstr "Hériter de la stratégie CRM globale"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Ignorer les champs protégés (recommandé)"
+
+msgid "Skip protected rows entirely"
+msgstr "Ignorer entièrement les lignes protégées"
+
+msgid "Present in XML snapshot"
+msgstr "Présent dans le snapshot XML"
+
+msgid "Missing from XML snapshot"
+msgstr "Absent du snapshot XML"
+
+msgid "CRM row import"
+msgstr "Import de lignes CRM"
+
+msgid "Control how CRM/XML imports interact with manually curated @entity. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Contrôler comment les imports CRM/XML interagissent avec les @entity saisis manuellement. Les valeurs par défaut de stratégie de verrouillage CRM globale se configurent dans @link."

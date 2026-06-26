@@ -1183,3 +1183,96 @@ msgstr "Video-Badge-Symbol"
 
 msgid "Wording shown with prices and surfaces."
 msgstr "Texte neben Preisen und Flächen."
+
+msgid "Fields to synchronize"
+msgstr "Zu synchronisierende Felder"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Gilt, wenn die Entität im XML-Snapshot vorhanden und nicht kataloggeschützt ist. Governance- und Tracking-Felder werden nie überschrieben."
+
+msgid "Payload defaults"
+msgstr "Payload-Standardwerte"
+
+msgid "Type driver"
+msgstr "Typ-Treiber"
+
+msgid "Expose as filter"
+msgstr "Als Filter anzeigen"
+
+msgid "Required asset types"
+msgstr "Erforderliche Asset-Typen"
+
+msgid "Offer import governance"
+msgstr "Angebotsimport-Governance"
+
+msgid "Offers"
+msgstr "Angebote"
+
+msgid "Republish inactive offers present in the XML snapshot"
+msgstr "Inaktive Angebote aus dem XML-Snapshot erneut veröffentlichen"
+
+msgid "Offer CRM/XML import lock strategy and reference protection."
+msgstr "CRM/XML-Sperrstrategie und Referenzschutz für Angebote."
+
+msgid "Protected offer row strategy"
+msgstr "Geschützte Angebotszeilen-Strategie"
+
+msgid "Allow CRM to overwrite reference fields"
+msgstr "CRM darf Referenzfelder überschreiben"
+
+msgid "Manual offer curation"
+msgstr "Manuelle Angebotspflege"
+
+msgid "Non-protected offers"
+msgstr "Nicht geschützte Angebote"
+
+msgid "Protected offers"
+msgstr "Geschützte Angebote"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Keep published"
+msgstr "Veröffentlicht lassen"
+
+msgid "Applies to offer nodes during migrate row saves when field_internal_lock is enabled. Inherit uses the global CRM pipeline default."
+msgstr "Gilt bei Migrate-Zeilenspeicherungen für Angebotsknoten, wenn field_internal_lock aktiviert ist. Erben verwendet die globale CRM-Pipeline-Standardeinstellung."
+
+msgid "Applies when field_internal_lock is enabled on the offer."
+msgstr "Gilt, wenn field_internal_lock für das Angebot aktiviert ist."
+
+msgid "CRM import pipeline settings"
+msgstr "CRM-Import-Pipeline-Einstellungen"
+
+msgid "CRM row import"
+msgstr "CRM-Zeilenimport"
+
+msgid "Control how CRM/XML imports interact with manually curated offers. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Steuern, wie CRM/XML-Importe mit manuell gepflegten Angeboten interagieren. Globale CRM-Sperrstrategie-Standards werden in @link konfiguriert."
+
+msgid "Inherit global CRM strategy"
+msgstr "Globale CRM-Strategie erben"
+
+msgid "Lock new BO offers by default"
+msgstr "Neue BO-Angebote standardmäßig sperren"
+
+msgid "Missing from XML snapshot"
+msgstr "Fehlt im XML-Snapshot"
+
+msgid "Present in XML snapshot"
+msgstr "Im XML-Snapshot vorhanden"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Geschützte Felder überspringen (empfohlen)"
+
+msgid "Skip protected rows entirely"
+msgstr "Geschützte Zeilen vollständig überspringen"
+
+msgid "Used by post-import synchronization when an offer disappears from the CRM XML snapshot."
+msgstr "Wird bei der Post-Import-Synchronisation verwendet, wenn ein Angebot aus dem CRM-XML-Snapshot verschwindet."
+
+msgid "When checked, offers created in the back office start with field_internal_lock enabled."
+msgstr "Wenn aktiviert, starten im Backoffice erstellte Angebote mit aktiviertem field_internal_lock."
+
+msgid "When unchecked, existing offers keep their reference mode and manual reference during CRM imports."
+msgstr "Wenn deaktiviert, behalten bestehende Angebote ihren Referenzmodus und die manuelle Referenz bei CRM-Importen."

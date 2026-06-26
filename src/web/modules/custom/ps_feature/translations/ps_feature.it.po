@@ -1150,3 +1150,126 @@ msgstr "Tipo di valore (indicatore, sì/no, numero, testo, data)."
 
 msgid "Value types"
 msgstr "Tipi di valore"
+
+msgid "Fields to synchronize"
+msgstr "Campi da sincronizzare"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Si applica quando l'entità è presente nello snapshot XML e non è protetta dal catalogo. I campi di governance e tracciamento non vengono mai sovrascritti."
+
+msgid "Expose as filter"
+msgstr "Esporre come filtro"
+
+msgid "Business ID"
+msgstr "ID commerciale"
+
+msgid "Feature catalogue governance"
+msgstr "Governance catalogo caratteristiche"
+
+msgid "Reactivate inactive catalogue entries"
+msgstr "Riattiva voci di catalogo inattive presenti nello snapshot XML"
+
+msgid "When checked, groups and definitions present in the XML snapshot are set back to active."
+msgstr "Se selezionato, gruppi e definizioni presenti nello snapshot XML tornano attivi."
+
+msgid "Feature catalogue CRM/XML, CSV and offer import rules."
+msgstr "Regole di import CRM/XML, CSV e offerte del catalogo caratteristiche."
+
+msgid "- @group (fallback) -"
+msgstr "- @group (fallback) -"
+
+msgid "Allow CRM to overwrite display fields"
+msgstr "Consenti al CRM di sovrascrivere i campi di visualizzazione"
+
+msgid "Applies to feature groups and definitions during migrate row saves. Inherit uses the global CRM pipeline default."
+msgstr "Si applica a gruppi e definizioni durante il salvataggio delle righe migrate. Eredita usa l'impostazione predefinita della pipeline CRM globale."
+
+msgid "Applies when an offer technical element references a feature definition that is not in the catalogue."
+msgstr "Si applica quando un elemento tecnico dell'offerta fa riferimento a una definizione non presente nel catalogo."
+
+msgid "CRM import pipeline settings"
+msgstr "Impostazioni pipeline di importazione CRM"
+
+msgid "CRM row import"
+msgstr "Import righe CRM"
+
+msgid "Catalogue-protected definitions"
+msgstr "Definizioni protette del catalogo"
+
+msgid "Catalogue-protected groups are always kept active."
+msgstr "I gruppi protetti del catalogo restano sempre attivi."
+
+msgid "Control how CRM/XML imports interact with the manually curated feature catalogue. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Controlla come le importazioni CRM/XML interagiscono con il catalogo caratteristiche curato manualmente. Le impostazioni predefinite della strategia di blocco CRM globale si configurano in @link."
+
+msgid "Create a stub definition from the XML element"
+msgstr "Crea una definizione stub dall'elemento XML"
+
+msgid "Deactivate"
+msgstr "Disattiva"
+
+msgid "Default feature group"
+msgstr "Gruppo caratteristiche predefinito"
+
+msgid "Import defaults"
+msgstr "Impostazioni predefinite import"
+
+msgid "Inherit global CRM strategy"
+msgstr "Eredita strategia CRM globale"
+
+msgid "Keep active"
+msgstr "Mantieni attivo"
+
+msgid "Lock definitions imported from CSV"
+msgstr "Blocca definizioni importate da CSV"
+
+msgid "Lock new BO definitions by default"
+msgstr "Blocca per impostazione predefinita le nuove definizioni BO"
+
+msgid "Manual catalogue curation"
+msgstr "Curazione manuale del catalogo"
+
+msgid "Missing catalogue definition"
+msgstr "Definizione mancante nel catalogo"
+
+msgid "Missing from XML snapshot"
+msgstr "Assente dallo snapshot XML"
+
+msgid "Non-protected definitions"
+msgstr "Definizioni non protette"
+
+msgid "Non-protected groups"
+msgstr "Gruppi non protetti"
+
+msgid "Offer feature values"
+msgstr "Valori caratteristiche offerta"
+
+msgid "Present in XML snapshot"
+msgstr "Presente nello snapshot XML"
+
+msgid "Protected catalogue row strategy"
+msgstr "Strategia riga catalogo protetta"
+
+msgid "Skip item and log a warning"
+msgstr "Ignora elemento e registra un avviso"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Salta campi protetti (consigliato)"
+
+msgid "Skip protected rows entirely"
+msgstr "Salta interamente le righe protette"
+
+msgid "Sync translated definition labels from offer imports"
+msgstr "Sincronizza etichette tradotte delle definizioni dagli import offerte"
+
+msgid "The selected default feature group does not exist."
+msgstr "Il gruppo caratteristiche predefinito selezionato non esiste."
+
+msgid "Used when a CSV row, CRM element or offer import creates a feature definition without a group code. Falls back to @group when unset."
+msgstr "Usato quando una riga CSV, elemento CRM o import offerta crea una definizione senza codice gruppo. Ricade su @group se non impostato."
+
+msgid "When checked, offer imports may update translated feature definition labels, including for catalogue-protected definitions."
+msgstr "Se selezionato, gli import offerte possono aggiornare le etichette tradotte delle definizioni, incluse quelle protette del catalogo."
+
+msgid "When unchecked, existing definitions keep their icon and search filter exposure during CRM imports."
+msgstr "Se deselezionato, le definizioni esistenti mantengono icona ed esposizione filtro durante gli import CRM."

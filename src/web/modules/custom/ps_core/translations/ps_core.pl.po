@@ -289,3 +289,108 @@ msgstr "Telefon pomocy pilnej (wyświetlanie)"
 
 msgid "Urgency help phone link (tel: URI, optional)"
 msgstr "Link telefonu pomocy pilnej (URI tel:, opcjonalne)"
+
+msgid "Fields to synchronize"
+msgstr "Pola do synchronizacji"
+
+msgid "Applies when the entity is present in the XML snapshot and is not catalogue-protected. Governance and tracking fields are never overwritten."
+msgstr "Dotyczy encji obecnej w migawce XML i niechronionej w katalogu. Pola governance i śledzenia nigdy nie są nadpisywane."
+
+msgid "Payload defaults"
+msgstr "Domyślne wartości ładunku"
+
+msgid "Type driver"
+msgstr "Sterownik typu"
+
+msgid "Expose as filter"
+msgstr "Udostępnij jako filtr"
+
+msgid "Required asset types"
+msgstr "Wymagane typy aktywów"
+
+msgid "Business ID"
+msgstr "Identyfikator biznesowy"
+
+msgid "Governance"
+msgstr "Governance"
+
+msgid "Import protection and domain governance rules"
+msgstr "Ochrona importu i reguły governance domeny"
+
+msgid "Central entry point for import protection and domain-specific governance rules. Global CRM defaults apply unless a domain overrides them."
+msgstr "Centralny punkt wejścia dla ochrony importu i reguł governance domeny. Stosują się globalne domyślne wartości CRM, chyba że domena je nadpisze."
+
+msgid "Global import pipeline"
+msgstr "Globalny pipeline importu"
+
+msgid "Cross-domain CRM import folders, batch limits and default lock strategy."
+msgstr "Wspólne foldery importu CRM, limity wsadów i domyślna strategia blokady."
+
+msgid "Domain governance"
+msgstr "Governance domeny"
+
+msgid "Business rules applied when imports touch a specific entity catalogue."
+msgstr "Reguły biznesowe stosowane, gdy importy dotykają katalogu encji."
+
+msgid "Global governance defaults"
+msgstr "Globalne ustawienia governance"
+
+msgid "Inheritance hints and overview of the global CRM lock strategy source."
+msgstr "Wskazówki dziedziczenia i przegląd globalnego źródła strategii blokady CRM."
+
+msgid "Show inheritance hints on domain governance forms"
+msgstr "Pokaż wskazówki dziedziczenia w formularzach governance domeny"
+
+msgid "Inherit global CRM strategy"
+msgstr "Dziedzicz globalną strategię CRM"
+
+msgid "Skip protected fields (recommended)"
+msgstr "Pomiń chronione pola (zalecane)"
+
+msgid "Skip protected rows entirely"
+msgstr "Całkowicie pomiń chronione wiersze"
+
+msgid "Present in XML snapshot"
+msgstr "Obecny w migawce XML"
+
+msgid "Missing from XML snapshot"
+msgstr "Brak w migawce XML"
+
+msgid "CRM row import"
+msgstr "Import wierszy CRM"
+
+msgid "Control how CRM/XML imports interact with manually curated @entity. Global CRM lock strategy defaults are configured in the @link."
+msgstr "Kontroluj, jak importy CRM/XML współdziałają z ręcznie zarządzanymi @entity. Globalne domyślne ustawienia strategii blokady CRM konfiguruje się w @link."
+
+msgid "Back to PS configuration hub"
+msgstr "Powrót do centrum konfiguracji PS"
+
+msgid "CRM import pipeline settings"
+msgstr "Ustawienia potoku importu CRM"
+
+msgid "Edit CRM import pipeline settings"
+msgstr "Edytuj ustawienia potoku importu CRM"
+
+msgid "Global CRM pipeline → domain governance → per-entity protection flags."
+msgstr "Globalny potok CRM → governance domeny → flagi ochrony encji."
+
+msgid "When enabled, domain forms display the effective global CRM lock strategy next to inherit options."
+msgstr "Po włączeniu formularze domenowe wyświetlają skuteczną globalną strategię blokady CRM obok opcji Dziedzicz."
+
+msgid "Current global lock strategy"
+msgstr "Bieżąca globalna strategia blokady"
+
+msgid "Default lock strategy, pipeline folders and upload limits."
+msgstr "Domyślna strategia blokady, foldery potoku i limity przesyłania."
+
+msgid "Global CRM import defaults apply to all domains unless a domain policy overrides them. Domain forms can show inheritance hints when a setting uses Inherit."
+msgstr "Globalne domyślne ustawienia CRM obowiązują we wszystkich domenach, chyba że polityka domeny je nadpisze. Formularze domenowe mogą pokazywać wskazówki dziedziczenia, gdy ustawienie używa Dziedzicz."
+
+msgid "Domain form hints"
+msgstr "Wskazówki na formularzach domenowych"
+
+msgid "CRM import pipeline"
+msgstr "Potok importu CRM"
+
+msgid "Configuration hierarchy"
+msgstr "Hierarchia konfiguracji"

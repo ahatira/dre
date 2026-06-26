@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
  *
  * Implement on a policy plugin when migrate POST_IMPORT needs domain settings.
  */
-interface ImportGovernancePostImportPolicyInterface {
+interface ImportGovernancePostImportPolicyInterface extends ImportGovernanceSnapshotFieldSyncPolicyInterface {
 
   /**
    * Migration IDs handled by this post-import policy.
@@ -41,13 +41,5 @@ interface ImportGovernancePostImportPolicyInterface {
     EntityInterface $definition,
     bool $shouldBeActive,
   ): bool;
-
-  /**
-   * Definition fields synchronized from XML for non-protected rows.
-   *
-   * @return string[]
-   *   Normalized field names.
-   */
-  public function getPresentInXmlSyncFields(): array;
 
 }

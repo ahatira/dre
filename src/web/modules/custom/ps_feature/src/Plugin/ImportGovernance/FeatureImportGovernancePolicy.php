@@ -168,8 +168,15 @@ final class FeatureImportGovernancePolicy extends ImportGovernancePolicyBase imp
   /**
    * {@inheritdoc}
    */
-  public function getPresentInXmlSyncFields(): array {
-    return $this->catalogueGovernance->getPresentInXmlSyncFields();
+  public function getSnapshotFieldSyncEntityKeys(): array {
+    return $this->catalogueGovernance->getSnapshotFieldSyncEntityKeys();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSnapshotFieldSyncFields(string $entityKey): array {
+    return $this->catalogueGovernance->getSnapshotFieldSyncFields($entityKey);
   }
 
 }

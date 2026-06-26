@@ -42,6 +42,9 @@ ps_media.import_governance:
         reactivate:
           type: boolean
           label: 'Republish inactive media'
+        sync_fields_by_entity:
+          type: ps_core.import_governance.present_in_xml.sync_fields_by_entity
+          label: 'Fields to synchronize by entity'
     bo_create:
       type: mapping
       label: 'Back-office creation defaults'
