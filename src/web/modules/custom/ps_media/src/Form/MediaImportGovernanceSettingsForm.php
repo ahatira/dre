@@ -67,14 +67,9 @@ final class MediaImportGovernanceSettingsForm extends ConfigFormBase {
     $config = $this->config(MediaImportGovernance::CONFIG_NAME);
 
     $form['intro'] = [
-      '#markup' => '<p>' . $this->t(
-        'Control how CRM/XML imports interact with manually curated offer media. Global CRM lock strategy defaults are configured in the @link.',
-        [
-          '@link' => $this->globalResolver->buildGlobalPipelineSettingsLinkMarkup(
-            $this->t('CRM import pipeline settings'),
-          ),
-        ],
-      ) . '</p>',
+      '#markup' => $this->globalResolver->buildGlobalPipelineSettingsIntroMarkup(
+        $this->t('Control how CRM/XML imports interact with manually curated offer media.'),
+      ),
     ];
 
     $form['crm'] = [

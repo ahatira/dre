@@ -67,14 +67,9 @@ final class OfferImportGovernanceSettingsForm extends ConfigFormBase {
     $config = $this->config(OfferImportGovernance::CONFIG_NAME);
 
     $form['intro'] = [
-      '#markup' => '<p>' . $this->t(
-        'Control how CRM/XML imports interact with manually curated offers. Global CRM lock strategy defaults are configured in the @link.',
-        [
-          '@link' => $this->globalResolver->buildGlobalPipelineSettingsLinkMarkup(
-            $this->t('CRM import pipeline settings'),
-          ),
-        ],
-      ) . '</p>',
+      '#markup' => $this->globalResolver->buildGlobalPipelineSettingsIntroMarkup(
+        $this->t('Control how CRM/XML imports interact with manually curated offers.'),
+      ),
     ];
 
     $form['crm'] = [

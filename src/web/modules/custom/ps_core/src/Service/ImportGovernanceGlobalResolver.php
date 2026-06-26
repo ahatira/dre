@@ -7,6 +7,8 @@ namespace Drupal\ps_core\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Link;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\ps_core\ImportGovernance\ImportGovernanceLockStrategy;
 
@@ -14,6 +16,8 @@ use Drupal\ps_core\ImportGovernance\ImportGovernanceLockStrategy;
  * Resolves global import governance defaults referenced by domain policies.
  */
 class ImportGovernanceGlobalResolver {
+
+  use StringTranslationTrait;
 
   public const CONFIG_NAME = 'ps_core.governance';
 
@@ -101,15 +105,56 @@ class ImportGovernanceGlobalResolver {
   }
 
   /**
+   * Returns an accessible URL for global pipeline settings, if available.
+   */
+  public function getGlobalLockStrategySettingsUrl(): ?string {
+    $route = $this->getGlobalLockStrategySettingsRouteName();
+    if ($route === NULL || !Url::fromRoute($route)->access()) {
+      return NULL;
+    }
+
+    return Url::fromRoute($route)->toString();
+  }
+
+  /**
    * Builds a link to global CRM pipeline settings when the route is available.
+   *
+   * Prefer passing :url and @label placeholders to t() instead of embedding
+   * this HTML string inside translated placeholders.
    */
   public function buildGlobalPipelineSettingsLinkMarkup(string|\Stringable $label): string {
     $route = $this->getGlobalLockStrategySettingsRouteName();
     if ($route !== NULL && Url::fromRoute($route)->access()) {
-      return Link::createFromRoute($label, $route)->toString();
+      return (string) Link::createFromRoute($label, $route)->toString();
     }
 
     return (string) $label;
+  }
+
+  /**
+   * Builds the translated intro paragraph for domain governance settings forms.
+   */
+  public function buildGlobalPipelineSettingsIntroMarkup(string|\Stringable $intro): TranslatableMarkup {
+    $label = $this->t('CRM import pipeline settings');
+    $url = $this->getGlobalLockStrategySettingsUrl();
+    if ($url !== NULL) {
+      return $this->t(
+        '<p>@intro Global CRM lock strategy defaults are configured in the <a href=":url">@label</a>.</p>',
+        [
+          ':url' => $url,
+          '@label' => $label,
+          '@intro' => $intro,
+        ],
+      );
+    }
+
+    return $this->t(
+      '<p>@intro Global CRM lock strategy defaults are configured in the @label.</p>',
+      [
+        '@intro' => $intro,
+        '@label' => $label,
+      ],
+    );
   }
 
   /**
@@ -126,7 +171,7 @@ class ImportGovernanceGlobalResolver {
       return sprintf(
         'Inherits from global CRM strategy: %s (%s).',
         $strategyLabel,
-        Link::createFromRoute('CRM import pipeline settings', $route)->toString(),
+        (string) Link::createFromRoute('CRM import pipeline settings', $route)->toString(),
       );
     }
 
