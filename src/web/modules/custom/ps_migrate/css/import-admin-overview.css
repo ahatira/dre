@@ -75,3 +75,85 @@
 .ps-migrate-import-settings__not-implemented {
   opacity: 0.75;
 }
+
+.ps-migrate-import-admin__flow {
+  max-width: 72rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-migrate-import-admin__flow-intro {
+  margin: 0 0 1rem;
+  color: #444;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.ps-migrate-import-admin__flow-track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.25rem 0;
+}
+
+.ps-migrate-import-admin__flow-item {
+  display: flex;
+  flex: 1 1 9rem;
+  align-items: center;
+  min-width: 8.5rem;
+  max-width: 14rem;
+}
+
+.ps-migrate-import-admin__flow-step {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #c5ced6;
+  border-radius: 6px;
+  background: #f8fafb;
+  min-height: 100%;
+}
+
+.ps-migrate-import-admin__flow-step-title {
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-bottom: 0.35rem;
+  color: #1c2d37;
+}
+
+.ps-migrate-import-admin__flow-step-description {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #555;
+  margin-bottom: 0.35rem;
+}
+
+.ps-migrate-import-admin__flow-step-uri {
+  display: block;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  word-break: break-all;
+  color: #2f4554;
+  background: #fff;
+  border: 1px solid #dde3e8;
+  border-radius: 4px;
+  padding: 0.25rem 0.35rem;
+}
+
+.ps-migrate-import-admin__flow-arrow {
+  flex-shrink: 0;
+  padding: 0 0.35rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #7a8791;
+  align-self: center;
+}
+
+@media (max-width: 960px) {
+  .ps-migrate-import-admin__flow-item {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .ps-migrate-import-admin__flow-arrow {
+    display: none;
+  }
+}

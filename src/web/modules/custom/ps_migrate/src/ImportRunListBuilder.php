@@ -163,7 +163,7 @@ final class ImportRunListBuilder extends EntityListBuilder {
               '@upload' => Link::fromTextAndUrl($this->t('Upload CRM XML'), Url::fromRoute('ps_migrate.import_upload'))->toString(),
             ]),
             $this->t('<strong>2. Pick up</strong> — Drush, cron (if enabled), or immediate processing moves the file to processing/, then stages it at @staging.', [
-              '@staging' => $config->get('staging_uri') ?: 'public://crm/offers.xml',
+              '@staging' => $config->get('staging_uri') ?: ImportPipelineAdminSummary::DEFAULT_STAGING_URI,
             ]),
             $this->t('<strong>3. Migrate</strong> — Full mode runs all CRM migrations; delta mode updates offers and translations only.'),
             $this->t('<strong>4. Archive</strong> — Successful files go to archive/; failures go to failed/ with details in the run record. Check @rejections for publication rejections.', [

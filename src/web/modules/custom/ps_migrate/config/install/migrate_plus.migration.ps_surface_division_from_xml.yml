@@ -24,7 +24,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: surface_division
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   # Keep one source row per non-empty LOT to avoid duplicate-source leftovers
   # that can block required dependency completion.
   fields:

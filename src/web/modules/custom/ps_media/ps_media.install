@@ -71,6 +71,39 @@ function ps_media_update_9002(): void {
 }
 
 /**
+ * Adds source tracking fields on governed CRM media bundles.
+ */
+function ps_media_update_9003(): void {
+  $config_names = [
+    'field.storage.media.field_source_tracking',
+    'field.storage.media.field_source_checksum',
+    'field.field.media.image.field_source_tracking',
+    'field.field.media.image.field_source_checksum',
+    'field.field.media.visite_guided.field_source_tracking',
+    'field.field.media.visite_guided.field_source_checksum',
+  ];
+
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    if (!$config->isNew()) {
+      continue;
+    }
+
+    $path = __DIR__ . '/config/install/' . $config_name . '.yml';
+    if (!is_readable($path)) {
+      continue;
+    }
+
+    $data = \Symfony\Component\Yaml\Yaml::parseFile($path);
+    if (!is_array($data)) {
+      continue;
+    }
+
+    $config->setData($data)->save(TRUE);
+  }
+}
+
+/**
  * Ensures governed CRM media bundles expose the protection lock on BO forms.
  */
 function ps_media_apply_internal_lock_form_displays(): void {

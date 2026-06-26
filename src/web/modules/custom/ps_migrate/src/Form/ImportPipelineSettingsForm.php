@@ -78,7 +78,9 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
         '#title' => $this->t('@folder folder', ['@folder' => ucfirst($key)]),
         '#default_value' => $config->get("paths.{$key}"),
         '#required' => TRUE,
-        '#description' => $this->t('Drupal stream wrapper URI, e.g. private://crm/incoming'),
+        '#description' => $this->t('Drupal stream wrapper URI, e.g. @example', [
+          '@example' => ImportPipelineAdminSummary::DEFAULT_PATH_INCOMING,
+        ]),
       ];
     }
 

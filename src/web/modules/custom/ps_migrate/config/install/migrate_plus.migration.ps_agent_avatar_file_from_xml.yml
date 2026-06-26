@@ -16,7 +16,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: agent_avatar
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   # Select only unique leaders with non-empty avatar URL.
   # Deduplicate by UID at source level so dependency completion is deterministic.
   fields:

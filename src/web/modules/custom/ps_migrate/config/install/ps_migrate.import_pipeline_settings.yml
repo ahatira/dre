@@ -1,10 +1,10 @@
 langcode: en
 paths:
-  incoming: 'private://crm/incoming'
-  processing: 'private://crm/processing'
-  archive: 'private://crm/archive'
-  failed: 'private://crm/failed'
-staging_uri: 'public://crm/offers.xml'
+  incoming: 'private://import/incoming'
+  processing: 'private://import/processing'
+  archive: 'private://import/archive'
+  failed: 'private://import/failed'
+staging_uri: 'private://import/staging/offers.xml'
 mode: full
 cron_enabled: false
 cron_interval: 900

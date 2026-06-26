@@ -16,7 +16,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: feature_groups
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   fields:
     -
       name: group_id

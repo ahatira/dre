@@ -16,7 +16,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: agent
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   # Deduplicate by UID at source level so dependency completion is deterministic.
   fields:
     -

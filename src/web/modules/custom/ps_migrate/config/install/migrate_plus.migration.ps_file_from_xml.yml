@@ -16,7 +16,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: file
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   # Selector: image media only (TYPE_CODE=EXT).
   # Explicitly exclude the known broken remote asset to keep dataset import clean.
   fields:

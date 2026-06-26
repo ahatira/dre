@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_source_tracking
+    - media.type.visite_guided
+id: media.visite_guided.field_source_tracking
+field_name: field_source_tracking
+entity_type: media
+bundle: visite_guided
+label: 'Source Tracking'
+description: 'JSON metadata tracking import source information (managed programmatically).'
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: { }
+field_type: string_long

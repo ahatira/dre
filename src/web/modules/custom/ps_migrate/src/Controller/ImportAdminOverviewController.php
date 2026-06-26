@@ -62,6 +62,8 @@ final class ImportAdminOverviewController extends ControllerBase {
       ],
     ];
 
+    $build['flow'] = $this->adminSummary->buildPipelineFlowRenderArray();
+
     $build['stats'] = $this->adminSummary->buildStatsRenderArray();
 
     $actionCandidates = [

@@ -16,7 +16,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: media_ext
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   # Selector: image media only (TYPE_CODE=EXT).
   # Keep source parity with ps_file_from_xml and exclude the known broken URL.
   fields:

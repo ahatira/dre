@@ -18,7 +18,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: offer_translations
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   fields:
     -
       name: business_id

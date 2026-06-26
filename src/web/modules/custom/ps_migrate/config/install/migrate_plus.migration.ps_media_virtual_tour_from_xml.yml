@@ -16,7 +16,7 @@ source:
   plugin: ps_crm_offer_xml
   mode: media_vis
   urls:
-    - 'public://crm/offers.xml'
+    - 'private://import/staging/offers.xml'
   fields:
     -
       name: business_id_parent
