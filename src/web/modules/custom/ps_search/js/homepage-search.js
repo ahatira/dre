@@ -71,11 +71,6 @@
           return code;
         };
 
-        const getActiveOperationCode = () => {
-          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
-          return activeBtn ? activeBtn.dataset.code : '';
-        };
-
         const getFilterVisibility = (assetCode) => {
           const key = assetCode || '';
           return filterVisibilityByAsset[key] || {
@@ -85,23 +80,53 @@
           };
         };
 
+        const isRentOnlyAsset = () => {
+          const assetKey = assetSelect && assetSelect.value ? assetSelect.value : '';
+          if (!assetKey) {
+            return false;
+          }
+          const assetMap = homepageCapacityByAsset[assetKey] || {};
+          return Boolean(assetMap.LOC && assetMap.LOC.hide_operation);
+        };
+
+        const enforceRentOnlyFlexibleMode = () => {
+          if (!isRentOnlyAsset()) {
+            return false;
+          }
+          form.querySelectorAll('.js-ps-op-btn').forEach((btn) => {
+            btn.classList.remove('is-active');
+            btn.setAttribute('aria-pressed', 'false');
+          });
+          const flexBtn = form.querySelector('.js-ps-op-btn[data-code="FLEX"]');
+          if (flexBtn) {
+            flexBtn.classList.add('is-active');
+            flexBtn.setAttribute('aria-pressed', 'true');
+          }
+          if (opInput) {
+            opInput.value = '';
+            opInput.disabled = true;
+          }
+          return true;
+        };
+
         const getHomepageCapacityConfig = () => {
           const assetKey = assetSelect && assetSelect.value ? assetSelect.value : '';
-          const opKey = getSelectedOp() || '';
           const assetMap = homepageCapacityByAsset[assetKey] || homepageCapacityByAsset[''] || {};
           const locConfig = assetMap.LOC;
-          if (locConfig && locConfig.hide_operation && (!opKey || opKey === 'LOC')) {
+          if (locConfig && locConfig.hide_operation) {
             return locConfig;
           }
+          const opKey = getSelectedOp() || '';
           return assetMap[opKey] || assetMap[''] || homepageCapacityConfig;
         };
 
         const getHomepageBudgetConfig = () => {
           const assetKey = assetSelect && assetSelect.value ? assetSelect.value : '';
           const capacityConfig = getHomepageCapacityConfig();
-          const opKey = capacityConfig.hide_operation ? 'LOC' : (getSelectedOp() || '');
+          // Rent-only assets use LOC label profile keys only — not a selected operation.
+          const labelProfileOp = capacityConfig.hide_operation ? 'LOC' : (getSelectedOp() || '');
           const assetMap = homepageBudgetByAsset[assetKey] || homepageBudgetByAsset[''] || {};
-          return assetMap[opKey] || assetMap[''] || homepageBudgetConfig;
+          return assetMap[labelProfileOp] || assetMap[''] || homepageBudgetConfig;
         };
 
         const setFieldHidden = (fieldEl, inputEl, hidden) => {
@@ -142,6 +167,7 @@
         };
 
         const updateContextFilters = () => {
+          enforceRentOnlyFlexibleMode();
           const assetCode = assetSelect && assetSelect.value ? assetSelect.value : '';
           const visibility = getFilterVisibility(assetCode);
           const showSurface = visibility.show_surface;
@@ -172,17 +198,6 @@
           if (opSection) {
             opSection.hidden = Boolean(capacityConfig.hide_operation);
           }
-          if (capacityConfig.hide_operation) {
-            form.querySelectorAll('.js-ps-op-btn').forEach((btn) => {
-              btn.classList.remove('is-active');
-              btn.setAttribute('aria-pressed', 'false');
-            });
-            const rentBtn = form.querySelector('.js-ps-op-btn[data-code="LOC"]');
-            if (rentBtn) {
-              rentBtn.classList.add('is-active');
-              rentBtn.setAttribute('aria-pressed', 'true');
-            }
-          }
 
           updateHeroBackground();
         };
@@ -203,7 +218,12 @@
             return;
           }
           const capacityConfig = getHomepageCapacityConfig();
-          const code = capacityConfig.hide_operation ? 'LOC' : getSelectedOp();
+          if (capacityConfig.hide_operation) {
+            opInput.value = '';
+            opInput.disabled = true;
+            return;
+          }
+          const code = getSelectedOp();
           if (!code) {
             opInput.value = '';
             opInput.disabled = true;
@@ -271,8 +291,7 @@
 
           const messages = [];
           const capacityConfig = getHomepageCapacityConfig();
-          const opCode = getActiveOperationCode();
-          if (!capacityConfig.hide_operation && !opCode) {
+          if (!capacityConfig.hide_operation && !getSelectedOp()) {
             messages.push(Drupal.t('Please select a transaction type.'));
             if (opGroup) {
               opGroup.classList.add('is-invalid');
@@ -309,6 +328,9 @@
 
         form.querySelectorAll('.js-ps-op-btn').forEach((button) => {
           button.addEventListener('click', () => {
+            if (button.dataset.code !== 'FLEX' && isRentOnlyAsset()) {
+              return;
+            }
             setActiveOpButton(button);
             syncOperationField();
             updateContextFilters();
@@ -322,6 +344,7 @@
               assetSection.classList.remove('is-invalid');
             }
             updateContextFilters();
+            syncOperationField();
           });
         }
 

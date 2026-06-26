@@ -66,7 +66,7 @@ final class ContextLabelResolver {
    *   }
    */
   public function resolve(?string $assetType, ?string $operationType = NULL): array {
-    $labels = $this->resolveLabels($assetType, $operationType);
+    $labels = $this->resolveConstrainedLabels($assetType, $operationType);
     $inputUnit = $labels['search_budget_input_unit'] ?? '€';
     $fieldLabel = $labels['search_budget_field_label'] ?? 'Budget';
 
@@ -89,7 +89,7 @@ final class ContextLabelResolver {
    * @return array{max_label: string, max_placeholder: string, step: int}
    */
   public function resolveHomepageEntry(?string $assetType, ?string $operationType = NULL): array {
-    $labels = $this->resolveLabels($assetType, $operationType);
+    $labels = $this->resolveConstrainedLabels($assetType, $operationType);
 
     $maxLabel = $labels['hero_budget_max_label'] ?? 'Max. budget';
 
@@ -109,7 +109,7 @@ final class ContextLabelResolver {
    * }
    */
   public function resolveHomepageCapacity(?string $assetType, ?string $operationType = NULL): array {
-    $labels = $this->resolveLabels($assetType, $operationType);
+    $labels = $this->resolveConstrainedLabels($assetType, $operationType);
 
     return [
       'field_label' => $labels['hero_capacity_field_label']
@@ -124,7 +124,7 @@ final class ContextLabelResolver {
    * @return array{field_label: string, min_label: string, max_label: string}
    */
   public function resolveCapacity(?string $assetType, ?string $operationType = NULL): array {
-    $labels = $this->resolveLabels($assetType, $operationType);
+    $labels = $this->resolveConstrainedLabels($assetType, $operationType);
     $fieldLabel = $labels['search_capacity_field_label'] ?? 'Capacity';
 
     return [
@@ -140,7 +140,7 @@ final class ContextLabelResolver {
    * @return array{hide_operation: bool, hide_more_filters: bool}
    */
   public function resolveSearchUi(?string $assetType, ?string $operationType = NULL): array {
-    $labels = $this->resolveSearchUiLabels($assetType, $operationType);
+    $labels = $this->resolveConstrainedLabels($assetType, $operationType);
 
     return [
       'hide_operation' => ($labels['search_hide_operation_toggle'] ?? $labels['hero_hide_operation_toggle'] ?? '') === '1',
@@ -213,15 +213,40 @@ final class ContextLabelResolver {
   }
 
   /**
-   * Merges asset+LOC profile flags when operation is not set (COW pattern).
+   * Applies rent-only asset constraints (e.g. COW × LOC hides operation toggle).
+   *
+   * When the LOC profile hides operations, those UI flags always apply for the
+   * asset—even if Buy (VEN) was selected first. Conflicting sale labels are
+   * replaced with the rent profile labels.
    *
    * @return array<string, string>
    */
-  private function resolveSearchUiLabels(?string $assetType, ?string $operationType = NULL): array {
+  private function resolveConstrainedLabels(?string $assetType, ?string $operationType = NULL): array {
     $labels = $this->resolveLabels($assetType, $operationType);
+    if ($assetType === NULL || $assetType === '') {
+      return $labels;
+    }
 
-    if ($assetType !== NULL && ($operationType === NULL || $operationType === '')) {
-      $locLabels = $this->resolveLabels($assetType, 'LOC');
+    $locLabels = $this->resolveLabels($assetType, 'LOC');
+    $rentOnlyAsset = ($locLabels['hero_hide_operation_toggle'] ?? '') === '1'
+      || ($locLabels['search_hide_operation_toggle'] ?? '') === '1';
+
+    if ($rentOnlyAsset) {
+      foreach (['search_hide_operation_toggle', 'search_hide_more_filters', 'hero_hide_operation_toggle'] as $key) {
+        if (($locLabels[$key] ?? '') !== '') {
+          $labels[$key] = $locLabels[$key];
+        }
+      }
+
+      $operation = $this->normalizeOperation($operationType);
+      if ($operation !== NULL && $operation !== 'LOC') {
+        return $locLabels;
+      }
+
+      return $labels;
+    }
+
+    if ($operationType === NULL || $operationType === '') {
       foreach (['search_hide_operation_toggle', 'search_hide_more_filters', 'hero_hide_operation_toggle'] as $key) {
         if (($labels[$key] ?? '') === '' && ($locLabels[$key] ?? '') !== '') {
           $labels[$key] = $locLabels[$key];

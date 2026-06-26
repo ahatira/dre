@@ -216,6 +216,14 @@ final class FilterBarBuilder {
       $activeFlexible = $activeOp === NULL;
     }
 
+    if ($activeAsset) {
+      $forcedFlexibleUi = $this->contextLabelResolver->resolveSearchUi($activeAsset, $activeOp);
+      if ($forcedFlexibleUi['hide_operation']) {
+        $activeOp = NULL;
+        $activeFlexible = TRUE;
+      }
+    }
+
     $storage = $this->entityTypeManager->getStorage('ps_dictionary_entry');
     $opEntries = $storage->loadByProperties(['type' => 'operation_type']);
     $assetEntries = $storage->loadByProperties(['type' => 'asset_type']);
@@ -228,7 +236,7 @@ final class FilterBarBuilder {
         'code' => $code,
         'slug' => $slug,
         'label' => $label,
-        'active' => $code === $activeOp,
+        'active' => !$activeFlexible && $code === $activeOp,
       ];
     }
 

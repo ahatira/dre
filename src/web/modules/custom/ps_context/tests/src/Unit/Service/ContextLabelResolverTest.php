@@ -101,6 +101,39 @@ final class ContextLabelResolverTest extends UnitTestCase {
   /**
    * @covers ::resolveSearchUi
    */
+  public function testResolveSearchUiCowRentOnlyOverridesBuy(): void {
+    $resolver = $this->createResolver();
+    $config = $resolver->resolveSearchUi('COW', 'VEN');
+
+    self::assertTrue($config['hide_operation']);
+    self::assertTrue($config['hide_more_filters']);
+  }
+
+  /**
+   * @covers ::resolveHomepageCapacity
+   */
+  public function testResolveHomepageCapacityCowRentOnlyOverridesBuy(): void {
+    $resolver = $this->createResolver();
+    $config = $resolver->resolveHomepageCapacity('COW', 'VEN');
+
+    self::assertSame('Desk capacity', $config['field_label']);
+    self::assertTrue($config['hide_operation']);
+  }
+
+  /**
+   * @covers ::resolve
+   */
+  public function testResolveCowRentOnlyOverridesBuyLabels(): void {
+    $resolver = $this->createResolver();
+    $config = $resolver->resolve('COW', 'VEN');
+
+    self::assertSame('Rent', $config['field_label']);
+    self::assertSame('PER_POSTE', $config['budget_unit']);
+  }
+
+  /**
+   * @covers ::resolveSearchUi
+   */
   public function testResolveSearchUiBur(): void {
     $resolver = $this->createResolver();
     $config = $resolver->resolveSearchUi('BUR', 'LOC');

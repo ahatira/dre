@@ -77,7 +77,7 @@
 
       // ── Shared state (all filter sections) ───────────────────────────────
       let selectedOp = settings.activeOp || null;
-      let opFlexible = !selectedOp;
+      let opFlexible = settings.activeFlexible !== undefined ? !!settings.activeFlexible : !selectedOp;
       let selectedAsset = settings.activeAsset || null;
       let selectedLocalityTokens = [];
       let selectedLocalityData = [];
@@ -159,6 +159,19 @@
         };
       }
 
+      /**
+       * Coworking and other rent-only assets: no LOC/VEN — flexible asset-only mode.
+       */
+      function enforceRentOnlyAssetMode() {
+        const uiConfig = getSearchUiConfig();
+        if (!uiConfig.hide_operation) {
+          return false;
+        }
+        selectedOp = null;
+        opFlexible = true;
+        return true;
+      }
+
       function updateSearchUiMode() {
         const uiConfig = getSearchUiConfig();
 
@@ -167,8 +180,7 @@
         });
 
         if (uiConfig.hide_operation) {
-          selectedOp = null;
-          opFlexible = false;
+          enforceRentOnlyAssetMode();
           syncAllTypeSectionUi();
         }
 
@@ -231,15 +243,19 @@
             el.value = '';
           });
         }
-        updateCapacityUi();
         updateSearchUiMode();
+        updateCapacityUi();
         updateBudgetUi();
       }
 
       function getCapacityConfig() {
         const assetKey = selectedAsset || '';
-        const opKey = selectedOp || '';
+        const uiConfig = getSearchUiConfig();
         const assetMap = capacityFilterByAsset[assetKey] || capacityFilterByAsset[''] || {};
+        if (uiConfig.hide_operation && assetMap.LOC) {
+          return assetMap.LOC;
+        }
+        const opKey = selectedOp || '';
         return assetMap[opKey] || assetMap[''] || capacityFilterConfig;
       }
 
@@ -268,9 +284,10 @@
       function getBudgetConfig() {
         const assetKey = selectedAsset || '';
         const uiConfig = getSearchUiConfig();
-        const opKey = uiConfig.hide_operation ? 'LOC' : (selectedOp || '');
+        // Rent-only assets use LOC label profile keys only — not a selected operation.
+        const labelProfileOp = uiConfig.hide_operation ? 'LOC' : (selectedOp || '');
         const assetMap = budgetFilterByAsset[assetKey] || budgetFilterByAsset[''] || {};
-        return assetMap[opKey] || assetMap[''] || budgetFilterConfig;
+        return assetMap[labelProfileOp] || assetMap[''] || budgetFilterConfig;
       }
 
       function updateBudgetUi() {
@@ -1531,7 +1548,8 @@
           return;
         }
 
-        Drupal.psSearchContext.setFilter('operationType', selectedOp || null);
+        const uiConfig = getSearchUiConfig();
+        Drupal.psSearchContext.setFilter('operationType', uiConfig.hide_operation ? null : (selectedOp || null));
         Drupal.psSearchContext.setFilter('assetType', selectedAsset || null);
 
         const visibility = getFilterVisibility(selectedAsset);
@@ -1809,10 +1827,7 @@
 
         const p = new URLSearchParams();
         const uiConfig = getSearchUiConfig();
-        if (uiConfig.hide_operation && selectedAsset) {
-          p.set('operation_type', 'LOC');
-        }
-        else if (selectedOp) {
+        if (!uiConfig.hide_operation && selectedOp) {
           p.set('operation_type', selectedOp);
         }
         if (selectedAsset) p.set('asset_type', selectedAsset);
@@ -1979,17 +1994,20 @@
         const labelEl = wrapper.querySelector('.ps-filter-bar__toggle-label');
         const mainBtn = wrapper.querySelector('.ps-filter-bar__toggle');
         if (!labelEl) return;
+        const uiConfig = getSearchUiConfig();
         const assetCard = selectedAsset
           ? wrapper.querySelector('.js-ps-asset-btn[data-code="' + selectedAsset + '"]')
           : null;
         let opLabel = null;
-        if (selectedOp) {
-          const opBtnEl = wrapper.querySelector('.js-ps-op-btn[data-code="' + selectedOp + '"]');
-          opLabel = opBtnEl ? opBtnEl.textContent.trim() : null;
-        }
-        else if (opFlexible && !selectedAsset) {
-          const flexBtn = wrapper.querySelector('.js-ps-op-btn[data-code="FLEX"]');
-          opLabel = flexBtn ? flexBtn.textContent.trim() : null;
+        if (!uiConfig.hide_operation) {
+          if (selectedOp) {
+            const opBtnEl = wrapper.querySelector('.js-ps-op-btn[data-code="' + selectedOp + '"]');
+            opLabel = opBtnEl ? opBtnEl.textContent.trim() : null;
+          }
+          else if (opFlexible && !selectedAsset) {
+            const flexBtn = wrapper.querySelector('.js-ps-op-btn[data-code="FLEX"]');
+            opLabel = flexBtn ? flexBtn.textContent.trim() : null;
+          }
         }
         const assetLabel = assetCard ? assetCard.querySelector('.ps-asset-card__label') : null;
         if (assetLabel && opLabel) {
@@ -2027,10 +2045,10 @@
           btn.addEventListener('click', function () {
             const code = btn.dataset.code;
             selectedAsset = (selectedAsset === code) ? null : code;
+            enforceRentOnlyAssetMode();
+            updateAssetMode();
             syncAllTypeSectionUi();
             scheduleCountUpdate();
-            updateAssetMode();
-            updateBudgetUi();
           });
         });
 
@@ -2038,6 +2056,9 @@
         wrapper.querySelectorAll('.js-ps-op-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
             const code = btn.dataset.code;
+            if (code !== 'FLEX' && getSearchUiConfig().hide_operation) {
+              return;
+            }
             if (code === 'FLEX') {
               selectedOp = null;
               opFlexible = true;
