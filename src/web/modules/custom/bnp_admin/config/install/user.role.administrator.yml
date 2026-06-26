@@ -2,12 +2,23 @@ langcode: en
 status: true
 dependencies:
   module:
+    - flood_control
+    - health_check_url
+    - http_response_headers
     - masquerade
+    - password_policy
+    - robotstxt
     - user
 id: administrator
 label: Administrator
 weight: 8
 is_admin: true
 permissions:
+  - 'administer flood unblock'
+  - 'administer http response headers'
+  - 'administer robots.txt'
+  - 'flood unblock ips'
+  - 'health_check_url administration'
+  - 'manage password reset'
   - 'masquerade as any user'
   - 'masquerade as super user'

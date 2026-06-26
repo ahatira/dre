@@ -75,6 +75,28 @@ Via `BnpAdminConfigurator` (pas d'écrasement de config projet front) :
 - `gin.settings` → branding BNP
 - `gin_login.settings` → logo login BNP
 
+### Baseline sécurité (`config/install/`)
+
+Modules activés comme dépendances de `bnp_admin` avec config par défaut :
+
+| Module | Config livrée | Défaut |
+|--------|---------------|--------|
+| `flood_control` | `user.flood`, `flood_control.settings` | 5 échecs / 15 min (IP + compte) |
+| `health_check_url` | `health_check_url.settings` | `/health`, réponse `OK` + timestamp, accessible en maintenance |
+| `robotstxt` | `robotstxt.settings` | Allow `/`, Disallow `/admin/`, `/user/`, `/node/add/` |
+| `password_policy` | `password_policy.password_policy.bnp_corporate` | Corporate : 12 car., 4 types, historique 5, expiration 90 j |
+| `http_response_headers` | 4 entités response header | `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, suppression `X-Generator` |
+| `username_enumeration_prevention` | — | Active (pas de config) |
+
+**Notes ops :**
+
+- **Health check IP** : `health_check_url` n'a pas d'allowlist native — restreindre `/health` au niveau load balancer / nginx (ou `config_split` infra) par environnement.
+- **HSTS** : non activé par défaut (dev HTTP) — activer `Strict-Transport-Security` en prod via split ou UI.
+- **robots.txt sitemap** : ligne commentée `# Sitemap:` — décommenter et adapter par pays.
+- **Politique mot de passe** : appliquée aux rôles `site_admin`, `administrator`, `content_admin`, `translate_admin`, `seo_admin`.
+
+Permissions sécurité : `site_admin` + `administrator` (voir `user.role.*` dans `config/install/`).
+
 ## Installation
 
 ```bash

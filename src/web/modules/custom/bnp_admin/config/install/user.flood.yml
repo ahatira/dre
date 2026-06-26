@@ -1,0 +1,5 @@
+uid_only: false
+ip_limit: 5
+ip_window: 900
+user_limit: 5
+user_window: 900

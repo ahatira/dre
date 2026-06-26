@@ -6,8 +6,13 @@ dependencies:
     - config_perms
     - config_split
     - entity_clone
+    - flood_control
+    - health_check_url
+    - http_response_headers
     - masquerade
+    - password_policy
     - redirect_after_login
+    - robotstxt
     - roleassign
     - sitewide_alert
     - system
@@ -21,16 +26,25 @@ permissions:
   - 'access administration pages'
   - 'access coffee'
   - 'access content'
+  - 'add http response headers'
   - 'administer coffee'
   - 'administer config permissions'
   - 'administer configuration split'
   - 'administer entity clone'
+  - 'administer flood unblock'
+  - 'administer http response headers'
   - 'administer permissions'
   - 'administer redirect_after_login settings'
+  - 'administer robots.txt'
   - 'administer site configuration'
   - 'administer sitewide alert'
   - 'administer sitewide alert entities'
   - 'administer trash'
   - 'administer users'
   - 'assign roles'
+  - 'delete http response headers'
+  - 'edit http response headers'
+  - 'flood unblock ips'
+  - 'health_check_url administration'
+  - 'manage password reset'
   - 'masquerade as any user'

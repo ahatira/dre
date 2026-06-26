@@ -1,0 +1,7 @@
+content: |
+  User-agent: *
+  Allow: /
+  Disallow: /admin/
+  Disallow: /user/
+  Disallow: /node/add/
+  # Sitemap: https://www.example.com/sitemap.xml

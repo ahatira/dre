@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: x_generator
+label: X-Generator
+description: 'Removes the X-Generator header fingerprint.'
+name: X-Generator
+value: ''

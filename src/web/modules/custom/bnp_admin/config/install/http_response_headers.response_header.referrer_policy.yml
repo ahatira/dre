@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: referrer_policy
+label: Referrer-Policy
+description: 'Controls referrer information sent with navigations away from the site.'
+name: Referrer-Policy
+value: strict-origin-when-cross-origin

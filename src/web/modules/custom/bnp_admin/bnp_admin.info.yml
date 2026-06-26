@@ -40,3 +40,13 @@ dependencies:
   - trash:trash
   - ui_icons:ui_icons
   - ui_icons:ui_icons_picker
+  - flood_control:flood_control
+  - health_check_url:health_check_url
+  - robotstxt:robotstxt
+  - password_policy:password_policy
+  - password_policy:password_policy_length
+  - password_policy:password_policy_character_types
+  - password_policy:password_policy_history
+  - password_policy:password_policy_blacklist
+  - http_response_headers:http_response_headers
+  - username_enumeration_prevention:username_enumeration_prevention

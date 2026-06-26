@@ -32,6 +32,16 @@ install:
   - trash
   - ui_icons
   - ui_icons_picker
+  - flood_control
+  - health_check_url
+  - robotstxt
+  - password_policy
+  - password_policy_length
+  - password_policy_character_types
+  - password_policy_history
+  - password_policy_blacklist
+  - http_response_headers
+  - username_enumeration_prevention
   - locale
   - content_translation
   - gin
