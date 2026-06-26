@@ -104,3 +104,20 @@ function ps_core_update_11002(): void {
   }
   $coreConfig->save(TRUE);
 }
+
+/**
+ * Uninstalls core Search module (replaced by Search API + Solr via ps_search).
+ */
+function ps_core_update_11003(): void {
+  $block = \Drupal::entityTypeManager()->getStorage('block')->load('ps_theme_search');
+  if ($block !== NULL) {
+    $block->delete();
+  }
+
+  $module_handler = \Drupal::moduleHandler();
+  if (!$module_handler->moduleExists('search')) {
+    return;
+  }
+
+  \Drupal::service('module_installer')->uninstall(['search'], TRUE);
+}

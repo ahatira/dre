@@ -13,7 +13,6 @@ dependencies:
   - ps_favorite
   - ps_compare
   - ps_homepage
-  - search
 regions:
   branding: Branding
   shortcut: 'Header shortcut'

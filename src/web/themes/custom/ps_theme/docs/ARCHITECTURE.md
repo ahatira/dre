@@ -65,8 +65,11 @@ ps_theme (sub-theme, starterkit split)
 ### Règle d'or — minimal custom
 
 Avant d'écrire du code custom (bloc PHP, service, hook), **utiliser ce qui existe** :
-blocs core (`system_branding_block`, `system_menu_block`, `search_form_block`, `language_block`),
-menus configurables, Layout Builder, templates Twig/SDC.
+blocs core (`system_branding_block`, `system_menu_block`, `language_block`), blocs métier
+(`ps_search_header_search`), menus configurables, Layout Builder, templates Twig/SDC.
+
+Le module core `search` n'est **pas** utilisé : la recherche offres passe par Search API + Solr
+(`ps_search`). Ne pas réintroduire `search_form_block`.
 
 Le custom ne couvre que le gap UX que le core ne peut pas exprimer seul (ex. panneau recherche
 header, styles menu actions).
