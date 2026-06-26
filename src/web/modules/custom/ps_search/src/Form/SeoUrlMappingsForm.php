@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_search\Form;
 
+use Drupal\Core\Config\Config;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -22,19 +23,13 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('ps_search.seo_url_mappings');
+    $examples = $this->buildIntroPathExamples($config);
 
     $form['intro'] = [
       '#markup' => '<p>'
         . $this->t('Configure the search base slug and the operation / asset segments that build SEO filter paths at the site root (they are not nested under the base slug).')
         . '</p><p>'
-        . $this->t('Examples with default EN slugs: base page @base; filtered paths @op, @op_asset, @op_asset_locality, @asset, @asset_locality.', [
-          '@base' => '/find-property',
-          '@op' => '/a-louer',
-          '@op_asset' => '/a-louer/bureaux',
-          '@op_asset_locality' => '/a-louer/bureaux/paris',
-          '@asset' => '/bureaux',
-          '@asset_locality' => '/bureaux/paris/',
-        ])
+        . $this->t('Examples with the slugs configured on this form: base page @base; filtered paths @op, @op_asset, @op_asset_locality, @asset, @asset_locality.', $examples)
         . '</p><p>'
         . $this->t('Translatable slugs per language are edited on the Translate tab when additional languages are enabled.')
         . '</p>',
@@ -132,6 +127,31 @@ final class SeoUrlMappingsForm extends ConfigFormBase {
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Builds illustrative path examples from the active SEO URL config.
+   *
+   * @return array<string, string>
+   *   Placeholder values for the intro examples string.
+   */
+  private function buildIntroPathExamples(Config $config): array {
+    $searchPath = trim((string) ($config->get('search_path') ?? 'find-property'), '/');
+    $operationTypes = $config->get('operation_types') ?? [];
+    $assetTypes = $config->get('asset_types') ?? [];
+
+    $opSlug = $operationTypes['LOC'] ?? reset($operationTypes) ?: 'operation';
+    $assetSlug = $assetTypes['BUR'] ?? reset($assetTypes) ?: 'asset';
+    $localitySlug = 'paris';
+
+    return [
+      '@base' => '/' . $searchPath,
+      '@op' => '/' . $opSlug,
+      '@op_asset' => '/' . $opSlug . '/' . $assetSlug,
+      '@op_asset_locality' => '/' . $opSlug . '/' . $assetSlug . '/' . $localitySlug,
+      '@asset' => '/' . $assetSlug,
+      '@asset_locality' => '/' . $assetSlug . '/' . $localitySlug . '/',
+    ];
   }
 
   /**
