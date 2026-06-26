@@ -13,6 +13,11 @@ use Psr\Log\LoggerInterface;
  */
 final class ImportPipelinePostRunIndexer {
 
+  /**
+   * Default Search API index used for offer post-run indexing.
+   */
+  public const DEFAULT_INDEX_ID = 'offers';
+
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly LoggerInterface $logger,
@@ -28,10 +33,21 @@ final class ImportPipelinePostRunIndexer {
   }
 
   /**
-   * Indexes pending offer items in the Search API offers index.
+   * Returns the configured Search API index ID for post-run indexing.
+   */
+  public function getIndexId(): string {
+    $indexId = trim((string) $this->configFactory
+      ->get('ps_migrate.import_pipeline_settings')
+      ->get('post_run_search_api_index'));
+
+    return $indexId !== '' ? $indexId : self::DEFAULT_INDEX_ID;
+  }
+
+  /**
+   * Indexes pending items in the configured Search API index.
    *
    * @return array<string, mixed>
-   *   Stats payload (enabled, indexed, error).
+   *   Stats payload (enabled, indexed, index_id, error).
    */
   public function indexOffers(): array {
     if (!$this->isEnabled()) {
@@ -41,41 +57,51 @@ final class ImportPipelinePostRunIndexer {
       ];
     }
 
+    $indexId = $this->getIndexId();
+
     if (!class_exists(Index::class)) {
       $this->logger->warning('Post-run Solr indexing skipped: Search API is unavailable.');
       return [
         'enabled' => TRUE,
+        'index_id' => $indexId,
         'indexed' => 0,
         'error' => 'search_api_unavailable',
       ];
     }
 
-    $index = Index::load('offers');
+    $index = Index::load($indexId);
     if ($index === NULL) {
-      $this->logger->warning('Post-run Solr indexing skipped: offers index is missing.');
+      $this->logger->warning('Post-run Solr indexing skipped: Search API index @index is missing.', [
+        '@index' => $indexId,
+      ]);
       return [
         'enabled' => TRUE,
+        'index_id' => $indexId,
         'indexed' => 0,
-        'error' => 'offers_index_missing',
+        'error' => 'search_api_index_missing',
       ];
     }
 
     try {
       $indexed = (int) $index->indexItems();
-      $this->logger->info('Post-run Solr indexing completed: @count item(s) indexed.', [
+      $this->logger->info('Post-run Solr indexing completed on @index: @count item(s) indexed.', [
+        '@index' => $indexId,
         '@count' => $indexed,
       ]);
       return [
         'enabled' => TRUE,
+        'index_id' => $indexId,
         'indexed' => $indexed,
       ];
     }
     catch (\Throwable $exception) {
-      $this->logger->error('Post-run Solr indexing failed: @message', [
+      $this->logger->error('Post-run Solr indexing failed on @index: @message', [
+        '@index' => $indexId,
         '@message' => $exception->getMessage(),
       ]);
       return [
         'enabled' => TRUE,
+        'index_id' => $indexId,
         'indexed' => 0,
         'error' => $exception->getMessage(),
       ];

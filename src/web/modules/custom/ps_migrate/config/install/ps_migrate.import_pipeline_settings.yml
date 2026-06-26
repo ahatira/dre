@@ -18,6 +18,21 @@ alert_email_recipients: ''
 alert_email_on_warning: false
 alert_skip_threshold_percent: 10
 post_run_index_solr: true
+post_run_search_api_index: offers
+migration_order_full:
+  - ps_agent_avatar_file_from_xml
+  - ps_agent_from_xml
+  - ps_feature_groups_from_xml
+  - ps_feature_definitions_from_xml
+  - ps_file_from_xml
+  - ps_media_from_xml
+  - ps_media_virtual_tour_from_xml
+  - ps_surface_division_from_xml
+  - ps_offer_from_xml
+  - ps_offer_translations_from_xml
+migration_order_delta:
+  - ps_offer_from_xml
+  - ps_offer_translations_from_xml
 lock_strategy_default: log_only
 lock_field_strategies: {  }
 skip_unchanged_offers: false

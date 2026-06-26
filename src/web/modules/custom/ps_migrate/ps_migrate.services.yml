@@ -172,6 +172,14 @@ services:
       - '@module_handler'
       - '@logger.channel.ps_migrate'
       - '@ps_migrate.import_pipeline_migration_source_alterer'
+      - '@ps_migrate.import_pipeline_migration_order_resolver'
+
+  ps_migrate.import_pipeline_migration_order_resolver:
+    class: Drupal\ps_migrate\Service\ImportPipelineMigrationOrderResolver
+    arguments:
+      - '@config.factory'
+      - '@plugin.manager.migration'
+      - '@logger.channel.ps_migrate'
 
   ps_migrate.xml_parse_cache:
     class: Drupal\ps_migrate\Service\XmlParseCacheService

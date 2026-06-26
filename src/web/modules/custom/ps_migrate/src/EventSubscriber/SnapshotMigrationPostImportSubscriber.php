@@ -11,9 +11,11 @@ use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\node\NodeInterface;
 use Drupal\ps_core\ImportGovernance\ImportGovernanceSnapshotEntityKey;
+use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePolicyInterface;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernanceSnapshotPostImportPolicyInterface;
 use Drupal\ps_core\Service\ImportGovernanceRegistry;
 use Drupal\ps_core\Service\ImportGovernanceSnapshotSynchronizer;
+use Drupal\ps_migrate\Service\CrmOfferXmlMode;
 use Drupal\ps_migrate\Service\CrmXmlSnapshotBuilder;
 use Drupal\ps_migrate\Service\CrmXmlSnapshotMigrationProjector;
 use Psr\Log\LoggerInterface;
@@ -57,12 +59,44 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
       return;
     }
 
-    match ($migration->id()) {
-      'ps_offer_from_xml' => $this->synchronizeOffers($migration, $files, $policy),
-      'ps_agent_from_xml' => $this->synchronizeAgents($migration, $files, $policy),
-      'ps_media_from_xml', 'ps_media_virtual_tour_from_xml' => $this->synchronizeMedia($migration, $files, $policy),
-      default => NULL,
-    };
+    $this->dispatchSnapshotSync($migration, $files, $policy);
+  }
+
+  /**
+   * Dispatches snapshot synchronization based on the governance policy scope.
+   *
+   * @param \Drupal\migrate\Plugin\MigrationInterface $migration
+   *   Completed migration plugin.
+   * @param string[] $files
+   *   Source XML file paths.
+   * @param \Drupal\ps_core\Plugin\ImportGovernance\ImportGovernanceSnapshotPostImportPolicyInterface $policy
+   *   Snapshot governance policy for the migration.
+   */
+  private function dispatchSnapshotSync(
+    MigrationInterface $migration,
+    array $files,
+    ImportGovernanceSnapshotPostImportPolicyInterface $policy,
+  ): void {
+    if (!$policy instanceof ImportGovernancePolicyInterface) {
+      return;
+    }
+
+    $entityTypes = $policy->getEntityTypeIds();
+    $bundles = $policy->getBundleIds();
+
+    if (in_array('node', $entityTypes, TRUE) && in_array('offer', $bundles, TRUE)) {
+      $this->synchronizeOffers($migration, $files, $policy);
+      return;
+    }
+
+    if (in_array('ps_agent', $entityTypes, TRUE)) {
+      $this->synchronizeAgents($migration, $files, $policy);
+      return;
+    }
+
+    if (in_array('media', $entityTypes, TRUE)) {
+      $this->synchronizeMedia($migration, $files, $policy);
+    }
   }
 
   /**
@@ -152,7 +186,8 @@ final class SnapshotMigrationPostImportSubscriber implements EventSubscriberInte
     array $files,
     ImportGovernanceSnapshotPostImportPolicyInterface $policy,
   ): void {
-    $isVirtualTour = $migration->id() === 'ps_media_virtual_tour_from_xml';
+    $mode = (string) ($migration->getSourceConfiguration()['mode'] ?? '');
+    $isVirtualTour = $mode === CrmOfferXmlMode::MEDIA_VIS;
     $activeKeys = $isVirtualTour
       ? $this->snapshotBuilder->buildMediaVisCompositeKeys($files)
       : $this->snapshotBuilder->buildMediaExtCompositeKeys($files);

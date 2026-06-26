@@ -162,7 +162,38 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Index Solr offers after successful import'),
       '#default_value' => $config->get('post_run_index_solr'),
-      '#description' => $this->t('Runs Search API indexing on the offers index when a pipeline run completes successfully.'),
+      '#description' => $this->t('Runs Search API indexing when a pipeline run completes successfully.'),
+    ];
+    $form['execution']['post_run_search_api_index'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Search API index ID'),
+      '#default_value' => $config->get('post_run_search_api_index') ?: 'offers',
+      '#required' => TRUE,
+      '#description' => $this->t('Search API index machine name to index after import (default: offers).'),
+      '#states' => [
+        'visible' => [
+          ':input[name="post_run_index_solr"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['execution']['migration_orders'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Migration order'),
+      '#open' => FALSE,
+      '#description' => $this->t('One migration plugin ID per line. Leave empty lines out. Unknown IDs are ignored at runtime with a log warning.'),
+    ];
+    $form['execution']['migration_orders']['migration_order_full'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Full import migration order'),
+      '#default_value' => $this->formatMigrationOrder($config->get('migration_order_full')),
+      '#rows' => 10,
+    ];
+    $form['execution']['migration_orders']['migration_order_delta'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Delta import migration order'),
+      '#default_value' => $this->formatMigrationOrder($config->get('migration_order_delta')),
+      '#rows' => 4,
     ];
 
     $form['governance'] = [
@@ -259,6 +290,9 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
       ->set('alert_email_on_warning', (bool) $form_state->getValue('alert_email_on_warning'))
       ->set('alert_skip_threshold_percent', (int) $form_state->getValue('alert_skip_threshold_percent'))
       ->set('post_run_index_solr', (bool) $form_state->getValue('post_run_index_solr'))
+      ->set('post_run_search_api_index', trim((string) $form_state->getValue('post_run_search_api_index')))
+      ->set('migration_order_full', $this->parseMigrationOrder((string) $form_state->getValue('migration_order_full')))
+      ->set('migration_order_delta', $this->parseMigrationOrder((string) $form_state->getValue('migration_order_delta')))
       ->set('lock_strategy_default', (string) $form_state->getValue('lock_strategy_default'))
       ->set('lock_field_strategies', $this->parseFieldStrategies((string) $form_state->getValue('lock_field_strategies')))
       ->set('skip_unchanged_offers', (bool) $form_state->getValue('skip_unchanged_offers'))
@@ -273,6 +307,38 @@ final class ImportPipelineSettingsForm extends ConfigFormBase {
     $resolver->ensureConfiguredDirectories();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Formats configured migration order for textarea display.
+   *
+   * @param mixed $order
+   *   Configured migration order sequence.
+   */
+  private function formatMigrationOrder(mixed $order): string {
+    if (!is_array($order) || $order === []) {
+      return '';
+    }
+
+    return implode("\n", array_map(static fn(mixed $id): string => trim((string) $id), $order));
+  }
+
+  /**
+   * Parses a textarea migration order into a config sequence.
+   *
+   * @return list<string>
+   *   Non-empty migration plugin IDs.
+   */
+  private function parseMigrationOrder(string $raw): array {
+    $order = [];
+    foreach (preg_split('/\R/', $raw) ?: [] as $line) {
+      $line = trim($line);
+      if ($line !== '') {
+        $order[] = $line;
+      }
+    }
+
+    return $order;
   }
 
   /**

@@ -60,6 +60,21 @@ ps_migrate.import_pipeline_settings:
     post_run_index_solr:
       type: boolean
       label: 'Index Solr offers after successful import'
+    post_run_search_api_index:
+      type: string
+      label: 'Search API index ID for post-run indexing'
+    migration_order_full:
+      type: sequence
+      label: 'Full import migration order'
+      sequence:
+        type: string
+        label: 'Migration ID'
+    migration_order_delta:
+      type: sequence
+      label: 'Delta import migration order'
+      sequence:
+        type: string
+        label: 'Migration ID'
     lock_strategy_default:
       type: string
       label: 'Default lock strategy for protected entities'

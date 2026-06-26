@@ -16,35 +16,12 @@ use Psr\Log\LoggerInterface;
  */
 final class ImportPipelineMigrateRunner {
 
-  /**
-   * Full pipeline order (dependencies before offers).
-   */
-  private const FULL_ORDER = [
-    'ps_agent_avatar_file_from_xml',
-    'ps_agent_from_xml',
-    'ps_feature_groups_from_xml',
-    'ps_feature_definitions_from_xml',
-    'ps_file_from_xml',
-    'ps_media_from_xml',
-    'ps_media_virtual_tour_from_xml',
-    'ps_surface_division_from_xml',
-    'ps_offer_from_xml',
-    'ps_offer_translations_from_xml',
-  ];
-
-  /**
-   * Delta pipeline order.
-   */
-  private const DELTA_ORDER = [
-    'ps_offer_from_xml',
-    'ps_offer_translations_from_xml',
-  ];
-
   public function __construct(
     private readonly MigrationPluginManagerInterface $migrationPluginManager,
     private readonly ModuleHandlerInterface $moduleHandler,
     private readonly LoggerInterface $logger,
     private readonly ImportPipelineMigrationSourceAlterer $sourceAlterer,
+    private readonly ImportPipelineMigrationOrderResolver $migrationOrderResolver,
   ) {}
 
   /**
@@ -67,7 +44,7 @@ final class ImportPipelineMigrateRunner {
    */
   public function run(string $mode, bool $update = TRUE): array {
     $this->ensureModulesEnabled();
-    $order = $mode === 'delta' ? self::DELTA_ORDER : self::FULL_ORDER;
+    $order = $this->migrationOrderResolver->getOrder($mode);
     $stats = [
       'mode' => $mode,
       'migrations' => [],

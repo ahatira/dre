@@ -11,14 +11,21 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\MigrateMessage;
+use Drupal\migrate\Plugin\MigrateIdMapInterface;
+use Drupal\migrate\Plugin\MigrateSourceInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePolicyInterface;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernanceSnapshotPostImportPolicyInterface;
+use Drupal\ps_core\Service\EntityProtectionManagerInterface;
 use Drupal\ps_core\Service\ImportGovernanceRegistry;
+use Drupal\ps_core\Service\ImportGovernanceSnapshotSynchronizer;
 use Drupal\ps_migrate\EventSubscriber\SnapshotMigrationPostImportSubscriber;
 use Drupal\ps_migrate\Service\CrmOfferXmlDocumentLoader;
 use Drupal\ps_migrate\Service\CrmXmlSnapshotBuilder;
+use Drupal\ps_migrate\Service\CrmXmlSnapshotDestinationNormalizer;
+use Drupal\ps_migrate\Service\CrmXmlSnapshotMigrationProjector;
 use Drupal\ps_migrate\Service\XmlParseCacheService;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -83,6 +90,9 @@ final class SnapshotMigrationPostImportKernelTest extends KernelTestBase {
     file_put_contents($path, $this->sampleXml());
   }
 
+  /**
+   *
+   */
   public function testOfferPresentInSnapshotIsRepublishedAfterImport(): void {
     $inactiveOffer = Node::create([
       'type' => 'offer',
@@ -100,6 +110,9 @@ final class SnapshotMigrationPostImportKernelTest extends KernelTestBase {
     $this->assertTrue($inactiveOffer->isPublished());
   }
 
+  /**
+   *
+   */
   private function dispatchPostImport(
     MigrationInterface $migration,
     ?ImportGovernanceSnapshotPostImportPolicyInterface $policy = NULL,
@@ -112,26 +125,50 @@ final class SnapshotMigrationPostImportKernelTest extends KernelTestBase {
     $snapshotBuilder = new CrmXmlSnapshotBuilder(
       new CrmOfferXmlDocumentLoader(new XmlParseCacheService($fileSystem), $fileSystem),
     );
+    $projector = new CrmXmlSnapshotMigrationProjector(
+      new CrmXmlSnapshotDestinationNormalizer(),
+    );
+    $synchronizer = new ImportGovernanceSnapshotSynchronizer(
+      $this->createMock(EntityProtectionManagerInterface::class),
+    );
 
     $subscriber = new SnapshotMigrationPostImportSubscriber(
       $snapshotBuilder,
+      $projector,
       $this->container->get('entity_type.manager'),
       $registry,
+      $synchronizer,
       new NullLogger(),
     );
     $subscriber->onPostImport(new MigrateImportEvent($migration, new MigrateMessage()));
   }
 
+  /**
+   *
+   */
   private function buildOfferMigration(): MigrationInterface {
+    $source = $this->createMock(MigrateSourceInterface::class);
+    $source->method('rewind');
+    $source->method('valid')->willReturn(FALSE);
+
+    $idMap = $this->createMock(MigrateIdMapInterface::class);
+    $idMap->method('setMessage');
+
     $migration = $this->createMock(MigrationInterface::class);
     $migration->method('id')->willReturn('ps_offer_from_xml');
     $migration->method('getSourceConfiguration')->willReturn([
       'urls' => [$this->stagingUri],
     ]);
+    $migration->method('getSourcePlugin')->willReturn($source);
+    $migration->method('getIdMap')->willReturn($idMap);
+    $migration->method('getProcessPlugins')->willReturn([]);
 
     return $migration;
   }
 
+  /**
+   *
+   */
   private function sampleXml(): string {
     return <<<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -149,20 +186,113 @@ XML;
 /**
  * Test double for snapshot post-import policy decisions.
  */
-final class TestSnapshotPostImportPolicy implements ImportGovernanceSnapshotPostImportPolicyInterface {
+final class TestSnapshotPostImportPolicy implements ImportGovernancePolicyInterface, ImportGovernanceSnapshotPostImportPolicyInterface {
 
   public function __construct(
     private readonly bool $reactivatePresent = FALSE,
   ) {}
 
+  /**
+   *
+   */
+  public function getAdminLabel(): string {
+    return 'Test offer policy';
+  }
+
+  /**
+   *
+   */
+  public function getAdminDescription(): string {
+    return 'Test policy for kernel snapshot tests.';
+  }
+
+  /**
+   *
+   */
+  public function getSettingsRouteName(): ?string {
+    return NULL;
+  }
+
+  /**
+   *
+   */
+  public function getWeight(): int {
+    return 0;
+  }
+
+  /**
+   *
+   */
+  public function getEntityTypeIds(): array {
+    return ['node'];
+  }
+
+  /**
+   *
+   */
+  public function getBundleIds(): array {
+    return ['offer'];
+  }
+
+  /**
+   *
+   */
+  public function shouldSkipProtectedRow(EntityInterface $entity): bool {
+    return FALSE;
+  }
+
+  /**
+   *
+   */
+  public function shouldPreserveProtectedFields(EntityInterface $entity): bool {
+    return FALSE;
+  }
+
+  /**
+   *
+   */
+  public function resolveEffectiveLockStrategy(string $entityTypeId): string {
+    return 'log_only';
+  }
+
+  /**
+   *
+   */
+  public function getAdditionalPreservedProperties(EntityInterface $entity): array {
+    return [];
+  }
+
+  /**
+   *
+   */
+  public function getPluginId(): string {
+    return 'test_offer';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPluginDefinition(): array {
+    return [];
+  }
+
+  /**
+   *
+   */
   public function getSupportedMigrationIds(): array {
     return ['ps_offer_from_xml'];
   }
 
+  /**
+   *
+   */
   public function shouldReactivatePresentInSnapshot(): bool {
     return $this->reactivatePresent;
   }
 
+  /**
+   *
+   */
   public function shouldDeactivateMissingEntity(EntityInterface $entity, bool $shouldBeActive): bool {
     if ($shouldBeActive) {
       return FALSE;
@@ -173,6 +303,20 @@ final class TestSnapshotPostImportPolicy implements ImportGovernanceSnapshotPost
     }
 
     return (bool) $entity->get('status')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSnapshotFieldSyncEntityKeys(): array {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSnapshotFieldSyncFields(string $entityKey): array {
+    return [];
   }
 
 }

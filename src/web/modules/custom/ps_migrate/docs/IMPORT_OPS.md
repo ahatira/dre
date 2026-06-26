@@ -141,7 +141,8 @@ bash src/web/modules/custom/ps_migrate/tests/b2b_import_full.sh
 | BO runs | `/admin/ps/import/runs` — durée, SLA, stats migration, rollback |
 | Watchdog | `drush @ps.fr watchdog:show --type=ps_migrate` |
 | Rejets publication | `/admin/ps/import/rejections` |
-| Solr | Post-run auto si `post_run_index_solr` activé |
+| Solr | Post-run auto si `post_run_index_solr` activé (index configurable via `post_run_search_api_index`, défaut `offers`) |
+| Ordre migrations | Configurable via `migration_order_full` / `migration_order_delta` (BO Pipeline settings → Execution) |
 
 SLA cible : 1 h (warning si `duration_ms` > 3600 s — affiché BO).
 
