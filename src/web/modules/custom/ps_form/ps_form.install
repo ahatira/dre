@@ -17,6 +17,8 @@ function ps_form_install(): void {
   if ($missing !== []) {
     throw new \RuntimeException('Missing PS Form webforms after install: ' . implode(', ', $missing));
   }
+
+  \Drupal::service('ps_form.spam_configurator')->applyBaseline();
 }
 
 /**

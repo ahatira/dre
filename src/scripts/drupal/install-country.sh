@@ -47,7 +47,7 @@ ps_install_country_site() {
   fi
 
   ps_retry 2 2 ps_drush theme:enable -y ui_suite_bnp
-  ps_drush en -y honeypot seckit 2>/dev/null || ps_warn "Some essential modules not available"
+  ps_drush en -y seckit 2>/dev/null || ps_warn "Some essential modules not available"
 
   ps_drush theme:enable -y gin 2>/dev/null || ps_warn "Gin theme not available"
   ps_enable_module_robust bnp_admin 2 2 || ps_die "bnp_admin could not be enabled"
@@ -81,7 +81,6 @@ ps_install_country_site() {
   ps_verify_ps_offer_install || ps_die "ps_offer verification failed"
   ps_apply_google_maps_api_key
   ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override ps_context 2>/dev/null || true
-  ps_retry 2 2 ps_drush en -y captcha altcha 2>/dev/null || true
   ps_drush user:role:add administrator "${ADMIN_USER}" -y 2>/dev/null || true
 
   ps_info "Importing dictionary..."

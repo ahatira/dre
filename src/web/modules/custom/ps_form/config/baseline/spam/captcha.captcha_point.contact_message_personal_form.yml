@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - altcha
+    - captcha
+formId: contact_message_personal_form
+captchaType: altcha/ALTCHA
+label: contact_message_personal_form

@@ -6,5 +6,11 @@ services:
       - '@extension.list.module'
       - '@entity_type.manager'
 
+  ps_form.spam_configurator:
+    class: Drupal\ps_form\Service\PsFormSpamConfigurator
+    arguments:
+      - '@config.factory'
+      - '@extension.list.module'
+
   Drupal\ps_form\Hook\OfferContactWebformHooks:
     class: Drupal\ps_form\Hook\OfferContactWebformHooks

@@ -75,7 +75,9 @@ Via `BnpAdminConfigurator` (pas d'écrasement de config projet front) :
 - `gin.settings` → branding BNP
 - `gin_login.settings` → logo login BNP
 
-### Baseline sécurité (`config/install/`)
+### Baseline sécurité (`config/baseline/security/`)
+
+Modules activés comme dépendances de `bnp_admin`. Les overrides sont appliqués via `BnpAdminConfigurator::applySecurityBaseline()` à l'install (évite les conflits `PreExistingConfigException` avec les defaults contrib).
 
 Modules activés comme dépendances de `bnp_admin` avec config par défaut :
 

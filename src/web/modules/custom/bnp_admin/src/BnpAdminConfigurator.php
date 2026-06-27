@@ -32,6 +32,59 @@ final class BnpAdminConfigurator {
     $this->applyCoreSettings($settings);
     $this->applyGinBranding($settings);
     $this->applyGinLoginBranding($settings);
+    $this->applySecurityBaseline();
+  }
+
+  /**
+   * Applies security baseline overrides after contrib modules are enabled.
+   */
+  public function applySecurityBaseline(): void {
+    $modulePath = $this->moduleExtensionList->getPath('bnp_admin');
+    $storage = new FileStorage($modulePath . '/config/baseline/security');
+
+    foreach ($storage->listAll() as $configName) {
+      if (str_starts_with($configName, 'password_policy.password_policy.')
+        || str_starts_with($configName, 'http_response_headers.response_header.')) {
+        continue;
+      }
+
+      $data = $storage->read($configName);
+      $this->configFactory->getEditable($configName)->setData($data)->save(TRUE);
+    }
+
+    $policyStorage = $this->entityTypeManager->getStorage('password_policy');
+    foreach ($storage->listAll('password_policy.password_policy.') as $configName) {
+      $data = $storage->read($configName);
+      $policy = $policyStorage->load($data['id']);
+      if ($policy === NULL) {
+        $policy = $policyStorage->create($data);
+      }
+      else {
+        foreach ($data as $key => $value) {
+          if ($key !== 'uuid') {
+            $policy->set($key, $value);
+          }
+        }
+      }
+      $policy->save();
+    }
+
+    $headerStorage = $this->entityTypeManager->getStorage('response_header');
+    foreach ($storage->listAll('http_response_headers.response_header.') as $configName) {
+      $data = $storage->read($configName);
+      $header = $headerStorage->load($data['id']);
+      if ($header === NULL) {
+        $header = $headerStorage->create($data);
+      }
+      else {
+        foreach ($data as $key => $value) {
+          if ($key !== 'uuid') {
+            $header->set($key, $value);
+          }
+        }
+      }
+      $header->save();
+    }
   }
 
   /**

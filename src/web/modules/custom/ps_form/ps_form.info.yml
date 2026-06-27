@@ -11,3 +11,7 @@ dependencies:
   - ps_core:ps_core
   - webform:webform
   - webform:webform_ui
+  - captcha:captcha
+  - altcha:altcha
+  - honeypot:honeypot
+  - antibot:antibot

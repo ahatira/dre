@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - altcha
+    - captcha
+formId: user_login_form
+captchaType: altcha/ALTCHA
+label: user_login_form

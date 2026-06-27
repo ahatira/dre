@@ -1,6 +1,9 @@
 langcode: en
 status: open
-dependencies: {  }
+dependencies:
+  module:
+    - altcha
+    - captcha
 open: null
 close: null
 uid: null
@@ -34,6 +37,9 @@ elements: |-
     optout_tel_transaction:
       '#type': checkbox
       '#title': Telephone
+  captcha:
+    '#type': captcha
+    '#captcha_type': altcha/ALTCHA
   legal:
     '#type': checkbox
     '#title': 'I have read and accept the terms of the Personal Data Protection Policy.'
