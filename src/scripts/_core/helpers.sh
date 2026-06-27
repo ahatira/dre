@@ -388,6 +388,16 @@ ps_enable_locale_and_import_contrib_translations() {
   ps_import_contrib_translations
 }
 
+# Single-bootstrap translation import (contrib PO + custom PO + config overrides).
+ps_import_all_translations_batch() {
+  local country="${1:-${PS_COUNTRY_CODE:-com}}"
+  ps_info "Importing translations (contrib, custom, config overrides)..."
+  ps_info "Ensuring locale module is enabled..."
+  ps_drush pm:enable locale -y 2>/dev/null || ps_drush en -y locale
+  ps_drush ps:locale:import-batch --country="${country}" -y \
+    || ps_warn "Translation batch import had warnings"
+}
+
 ps_contrib_translations_update_manifest() {
   ps_resolve_runtime
   PS_CACHE_DIR="$(ps_contrib_translations_dir)" \

@@ -9,7 +9,7 @@ max_number: null
 expire: null
 delay: null
 library_override: ''
-floating_enabled: false
+floating_enabled: true
 floating_mode: auto
 floating_anchor: ''
 floating_offset: null

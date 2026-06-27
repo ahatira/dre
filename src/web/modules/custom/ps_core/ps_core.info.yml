@@ -5,6 +5,7 @@ core_version_requirement: ^11
 package: 'Property Search'
 version: 1.0.0
 dependencies:
+  - drupal:locale
   - drupal:system
   - drupal:user
   - drupal:field

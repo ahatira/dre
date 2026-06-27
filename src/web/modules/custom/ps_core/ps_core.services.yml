@@ -47,6 +47,13 @@ services:
       - '@cache.discovery'
       - '@module_handler'
 
+  ps_core.locale_import_batch:
+    class: Drupal\ps_core\Service\LocaleImportBatchService
+    arguments:
+      - '@module_handler'
+      - '@language_manager'
+      - '@theme_handler'
+
   ps_core.import_governance_registry:
     class: Drupal\ps_core\Service\ImportGovernanceRegistry
     arguments:

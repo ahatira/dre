@@ -50,10 +50,7 @@ ps_install_country_from_conf() {
 
   ps_install_homepage_from_configuration
 
-  ps_info "Importing translations (contrib, custom, config overrides)..."
-  ps_enable_locale_and_import_contrib_translations
-  ps_import_module_translations
-  ps_import_active_language_config_overrides "${country}"
+  ps_import_all_translations_batch "${country}"
   ps_drush_cr
 
   ps_drush search-api:clear offers -y 2>/dev/null || true

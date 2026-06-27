@@ -115,10 +115,7 @@ ps_install_country_site() {
     || ps_die "ps_homepage shell install failed"
   ps_drush_cr
 
-  ps_info "Importing translations (contrib, custom, config overrides)..."
-  ps_enable_locale_and_import_contrib_translations
-  ps_import_module_translations
-  ps_import_active_language_config_overrides "${country}"
+  ps_import_all_translations_batch "${country}"
   ps_drush_cr
 
   # Fresh shell install has an empty index — skip Solr clear (needs a live connector).

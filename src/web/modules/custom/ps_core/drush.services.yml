@@ -1,0 +1,7 @@
+services:
+  Drupal\ps_core\Commands\LocaleImportBatchCommands:
+    class: Drupal\ps_core\Commands\LocaleImportBatchCommands
+    arguments:
+      - '@ps_core.locale_import_batch'
+    tags:
+      - { name: drush.command }
