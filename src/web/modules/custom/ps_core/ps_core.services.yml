@@ -133,7 +133,6 @@ services:
     class: Drupal\ps_core\Service\SiteUrgencyContactBuilder
     arguments:
       - '@config.factory'
-      - '@renderer'
 
   ps_core.site_config_split_installer:
     class: Drupal\ps_core\Service\SiteConfigSplitInstaller

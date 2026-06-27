@@ -43,5 +43,12 @@ libraries-extend:
     - ps_theme/framework
   core/drupal.dialog.off_canvas:
     - ps_theme/offcanvas_default_width
+  webform/webform.progress.tracker:
+    - ps_theme/form
+libraries-override:
+  webform/libraries.progress-tracker:
+    css:
+      theme:
+        /libraries/progress-tracker/src/styles/progress-tracker.css: false
 version: 1.0.0
 generator: 'ui_suite_bnp_starterkit_split:unknown-version'

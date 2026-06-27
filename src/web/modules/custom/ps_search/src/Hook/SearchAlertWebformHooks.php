@@ -12,7 +12,6 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\ps_core\Service\SiteUrgencyContactBuilder;
 use Drupal\ps_search\Service\SearchAlertCriteriaSerializer;
 use Drupal\ps_search\Service\SearchAlertCriteriaSummaryBuilder;
 use Drupal\ps_search\Service\SearchAlertRepository;
@@ -37,7 +36,6 @@ final class SearchAlertWebformHooks {
     private readonly ConfigFactoryInterface $configFactory,
     private readonly AccountProxyInterface $currentUser,
     private readonly RendererInterface $renderer,
-    private readonly SiteUrgencyContactBuilder $urgencyContactBuilder,
   ) {}
 
   /**
@@ -97,13 +95,6 @@ final class SearchAlertWebformHooks {
       $form['elements']['search_path']['#default_value'] = $searchPath !== ''
         ? $searchPath
         : (string) ($criteria['search_path'] ?? $request->getPathInfo());
-    }
-
-    if (isset($form['elements']['help_footer'])) {
-      $form['elements']['help_footer']['#markup'] = $this->urgencyContactBuilder->buildMarkup();
-      if ($form['elements']['help_footer']['#markup'] === '') {
-        $form['elements']['help_footer']['#access'] = FALSE;
-      }
     }
 
     if (isset($form['actions']['submit'])) {

@@ -1,0 +1,23 @@
+name: Webform urgency help
+description: 'Phone call-to-action footer displayed below webform submit actions (bnppre.fr contact pattern).'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    lead:
+      type: string
+      title: Lead text before phone number
+    phone_display:
+      type: string
+      title: Phone number (display)
+    phone_href:
+      type: string
+      title: Phone link (tel URI)
+    hours:
+      type: string
+      title: Opening hours
+libraryOverrides:
+  css:
+    component:
+      styles/webform-urgency-help.css: {}

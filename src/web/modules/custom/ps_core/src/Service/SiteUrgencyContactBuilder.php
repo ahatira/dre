@@ -6,7 +6,6 @@ namespace Drupal\ps_core\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -20,7 +19,6 @@ final class SiteUrgencyContactBuilder {
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly RendererInterface $renderer,
   ) {}
 
   /**
@@ -59,27 +57,18 @@ final class SiteUrgencyContactBuilder {
     }
 
     return [
-      '#theme' => 'ps_core_site_urgency_help',
-      '#lead' => $lead,
-      '#phone_display' => $phoneDisplay,
-      '#phone_href' => $phoneLink,
-      '#hours' => trim((string) $config->get('urgency_help_hours')),
+      '#type' => 'component',
+      '#component' => 'ps_theme:webform-urgency-help',
+      '#props' => [
+        'lead' => $lead,
+        'phone_display' => $phoneDisplay,
+        'phone_href' => $phoneLink,
+        'hours' => trim((string) $config->get('urgency_help_hours')),
+      ],
       '#cache' => [
         'tags' => $config->getCacheTags(),
       ],
     ];
-  }
-
-  /**
-   * Builds rendered markup for form injection contexts.
-   */
-  public function buildMarkup(): string {
-    $build = $this->buildRenderArray();
-    if ($build === []) {
-      return '';
-    }
-
-    return (string) $this->renderer->renderPlain($build);
   }
 
   /**

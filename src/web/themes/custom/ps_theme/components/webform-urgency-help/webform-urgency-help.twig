@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Urgency contact footer for webforms — bnppre.fr "Pressé ? Appelez-nous" pattern.
+ */
+#}
+{% if lead or phone_display or hours %}
+  <div class="ps-webform-urgency-help">
+    {% if lead or phone_display %}
+      <p class="ps-webform-urgency-help__lead">
+        {{ lead }}
+        {% if phone_href and phone_display %}
+          <a href="{{ phone_href }}" class="phone-link ps-webform-urgency-help__phone">{{ phone_display }}</a>
+        {% elseif phone_display %}
+          <span class="text-phone-crc ps-webform-urgency-help__phone">{{ phone_display }}</span>
+        {% endif %}
+      </p>
+    {% endif %}
+    {% if hours %}
+      <p class="ps-webform-urgency-help__hours">{{ hours }}</p>
+    {% endif %}
+  </div>
+{% endif %}

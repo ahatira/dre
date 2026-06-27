@@ -50,6 +50,17 @@ form:
       assets/css/form/form-required.css:
         minified: true
         weight: 300
+  dependencies:
+    - ui_suite_bnp/framework_css_re
+
+webform_sticky_footer:
+  js:
+    assets/js/webform-sticky-footer.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - ps_theme/form
+    - core/components.ps_theme--webform-urgency-help
 
 # Bootstrap SDC markers — attach ui_suite_bnp/framework (replaces legacy bootstrap_sdc bundle).
 component_accordion:

@@ -214,60 +214,6 @@
   margin: 0;
 }
 
-.ps-search-alert-form__help {
-  border-top: 1px solid var(--re-color-border-soft, #ebedef);
-  margin-top: 0.25rem;
-  padding-top: 1rem;
-}
-
-.ps-search-alert-form__help-lead {
-  color: var(--re-color-text-strong, #333);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.4;
-  margin: 0 0 0.25rem;
-}
-
-.ps-search-alert-form__help-lead a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.ps-search-alert-form__help-lead a:hover {
-  color: var(--re-color-primary, #00915a);
-}
-
-.ps-search-alert-form__help-hours {
-  color: var(--re-color-text-muted, #777e83);
-  font-size: 0.8125rem;
-  line-height: 1.4;
-  margin: 0;
-}
-
-/* Full-width primary submit — bnppre "Continue". */
-.ps-search-alert-offcanvas .webform-actions,
-.ps-search-alert-offcanvas .form-actions {
-  margin: 0.25rem 0 0;
-}
-
-.ps-search-alert-offcanvas .webform-actions .webform-button--submit,
-.ps-search-alert-offcanvas .form-actions .form-submit {
-  background-color: var(--re-color-primary, #00915a);
-  border-color: var(--re-color-primary, #00915a);
-  font-size: 1rem;
-  font-weight: 600;
-  min-height: 2.75rem;
-  width: 100%;
-}
-
-.ps-search-alert-offcanvas .webform-actions .webform-button--submit:hover,
-.ps-search-alert-offcanvas .form-actions .form-submit:hover,
-.ps-search-alert-offcanvas .webform-actions .webform-button--submit:focus-visible,
-.ps-search-alert-offcanvas .form-actions .form-submit:focus-visible {
-  background-color: var(--bnp-color-primary-strong, #017f4f);
-  border-color: var(--bnp-color-primary-strong, #017f4f);
-}
-
 .ps-search-results-header__alert-btn .ps-search-results-header__alert-icon {
   display: inline-flex;
   line-height: 0;

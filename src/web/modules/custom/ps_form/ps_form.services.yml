@@ -14,3 +14,8 @@ services:
 
   Drupal\ps_form\Hook\OfferContactWebformHooks:
     class: Drupal\ps_form\Hook\OfferContactWebformHooks
+
+  Drupal\ps_form\Hook\WebformUrgencyContactHooks:
+    class: Drupal\ps_form\Hook\WebformUrgencyContactHooks
+    arguments:
+      - '@ps_core.site_urgency_contact'

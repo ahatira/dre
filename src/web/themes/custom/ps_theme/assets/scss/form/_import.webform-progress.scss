@@ -1,0 +1,109 @@
+/**
+ * Webform wizard progress — breadcrumb style (Figma BNPPRE).
+ *
+ * Applies to all webforms using .webform-progress / progress-tracker markup.
+ */
+
+$ps-webform-progress-border: #ebedef;
+$ps-webform-progress-active: #333;
+$ps-webform-progress-inactive: #b4babe;
+$ps-webform-progress-padding-y: 1rem;
+$ps-webform-progress-separator-gap: 0.25rem;
+$ps-bnp-icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
+$ps-webform-progress-chevron: url('#{$ps-bnp-icon-base}/generic/arrow-right.svg');
+
+.webform-progress {
+  margin: 0 0 var(--re-space-24, 1.5rem);
+  padding: 0;
+  border-top: 1px solid $ps-webform-progress-border;
+  border-bottom: 1px solid $ps-webform-progress-border;
+}
+
+.webform-progress-tracker.progress-tracker {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: $ps-webform-progress-padding-y 0;
+  list-style: none;
+
+  &.progress-tracker--center {
+    justify-content: flex-start;
+  }
+}
+
+.webform-progress-tracker .progress-step {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  .progress-marker {
+    display: none !important;
+  }
+
+  .progress-text {
+    margin: 0;
+    padding: 0;
+    color: $ps-webform-progress-inactive;
+  }
+
+  .progress-title {
+    font-family: var(--re-font-family-ui, inherit);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    color: $ps-webform-progress-inactive;
+  }
+
+  &.is-active .progress-text,
+  &.is-active .progress-title {
+    color: $ps-webform-progress-active;
+    font-weight: 400;
+  }
+
+  &:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    flex: 0 0 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 $ps-webform-progress-separator-gap;
+    background-color: $ps-webform-progress-inactive;
+    -webkit-mask-image: $ps-webform-progress-chevron;
+    mask-image: $ps-webform-progress-chevron;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+}
+
+// Override webform contrib tracker rules (markers, mobile hide, link colors).
+.webform-progress-tracker .progress-step .progress-marker::before,
+.webform-progress-tracker .progress-step .progress-marker::after,
+.webform-progress-tracker .progress-step:hover .progress-marker::before {
+  display: none !important;
+}
+
+.webform-progress-tracker .progress-title[role='link'] {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .webform-progress-tracker .progress-text {
+    display: block !important;
+  }
+}

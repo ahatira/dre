@@ -1,0 +1,37 @@
+/**
+ * Webform urgency help — maquette sticky footer (lead + phone + hours).
+ */
+
+.ps-webform-urgency-help {
+  margin: 0;
+  text-align: center;
+}
+
+.ps-webform-urgency-help__lead {
+  color: #1c2d37;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.43;
+  margin: 0;
+}
+
+.ps-webform-urgency-help__phone {
+  color: var(--re-color-primary, #008859);
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ps-webform-urgency-help__phone:hover,
+.ps-webform-urgency-help__phone:focus-visible {
+  color: var(--bnp-color-primary-strong, #017f4f);
+  text-decoration: none;
+}
+
+.ps-webform-urgency-help__hours {
+  color: #757575;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.33;
+  margin: 0.25rem 0 0;
+}

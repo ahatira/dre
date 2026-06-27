@@ -92,29 +92,6 @@ body:has([data-ps-compare-modal].show) .ui-dialog.ps-compare-share-offcanvas {
   margin: 0;
 }
 
-.ps-compare-share-offcanvas .webform-actions,
-.ps-compare-share-offcanvas .form-actions {
-  margin: 0.25rem 0 0;
-}
-
-.ps-compare-share-offcanvas .webform-actions .webform-button--submit,
-.ps-compare-share-offcanvas .form-actions .form-submit {
-  background-color: var(--re-color-primary, #00915a);
-  border-color: var(--re-color-primary, #00915a);
-  font-size: 1rem;
-  font-weight: 600;
-  min-height: 2.75rem;
-  width: 100%;
-}
-
-.ps-compare-share-offcanvas .webform-actions .webform-button--submit:hover,
-.ps-compare-share-offcanvas .form-actions .form-submit:hover,
-.ps-compare-share-offcanvas .webform-actions .webform-button--submit:focus-visible,
-.ps-compare-share-offcanvas .form-actions .form-submit:focus-visible {
-  background-color: var(--bnp-color-primary-strong, #017f4f);
-  border-color: var(--bnp-color-primary-strong, #017f4f);
-}
-
 .ps-compare-share-offcanvas .webform-confirmation,
 .ps-compare-share-confirmation {
   color: var(--re-color-text-strong, #333);
@@ -153,10 +130,4 @@ body:has([data-ps-compare-modal].show) .ui-dialog.ps-compare-share-offcanvas {
 
 .ps-compare-share__success-message {
   margin: 0;
-}
-
-.ps-compare-share-offcanvas .ps-site-urgency-help {
-  border-top: 1px solid var(--re-color-border-soft, #ebedef);
-  margin-top: 0.25rem;
-  padding-top: 1rem;
 }

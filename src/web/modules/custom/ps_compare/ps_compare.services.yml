@@ -179,7 +179,6 @@ services:
       - '@ps_compare.path_resolver'
       - '@request_stack'
       - '@current_user'
-      - '@ps_core.site_urgency_contact'
 
   ps_compare.response_subscriber:
     class: Drupal\ps_compare\EventSubscriber\CompareResponseSubscriber

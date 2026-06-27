@@ -9,7 +9,6 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_compare\Service\ComparePathResolver;
-use Drupal\ps_core\Service\SiteUrgencyContactBuilder;
 use Drupal\webform\WebformSubmissionForm;
 use Drupal\webform\WebformSubmissionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,7 +24,6 @@ final class CompareWebformHooks {
     private readonly ComparePathResolver $comparePathResolver,
     private readonly RequestStack $requestStack,
     private readonly AccountProxyInterface $currentUser,
-    private readonly SiteUrgencyContactBuilder $urgencyContactBuilder,
   ) {}
 
   /**
@@ -54,13 +52,6 @@ final class CompareWebformHooks {
       $form['elements']['compare_url']['#default_value'] = $compareUrl !== ''
         ? $compareUrl
         : $this->comparePathResolver->getPublicPath();
-    }
-
-    if (isset($form['elements']['help_footer'])) {
-      $form['elements']['help_footer']['#markup'] = $this->urgencyContactBuilder->buildMarkup();
-      if ($form['elements']['help_footer']['#markup'] === '') {
-        $form['elements']['help_footer']['#access'] = FALSE;
-      }
     }
 
     if (isset($form['actions']['submit'])) {

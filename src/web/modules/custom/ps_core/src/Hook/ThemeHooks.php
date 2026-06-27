@@ -17,15 +17,6 @@ final class ThemeHooks {
   #[Hook('theme')]
   public function theme(): array {
     return [
-      'ps_core_site_urgency_help' => [
-        'variables' => [
-          'lead' => '',
-          'phone_display' => '',
-          'phone_href' => '',
-          'hours' => '',
-        ],
-        'template' => 'ps-core-site-urgency-help',
-      ],
       'ps_core_health_admin_overview' => [
         'variables' => [
           'overall_status' => 'healthy',

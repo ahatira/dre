@@ -588,7 +588,6 @@ services:
       - '@config.factory'
       - '@current_user'
       - '@renderer'
-      - '@ps_core.site_urgency_contact'
 
   Drupal\ps_search\Hook\SearchAlertMailHooks:
     class: Drupal\ps_search\Hook\SearchAlertMailHooks

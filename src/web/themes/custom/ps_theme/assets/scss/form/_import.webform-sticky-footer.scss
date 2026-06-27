@@ -1,0 +1,195 @@
+/**
+ * Sticky webform footer — submit + urgency help pinned at panel bottom.
+ *
+ * Full-bleed bar (--ps-webform-sticky-inset-x on scroll roots shifts field padding).
+ */
+
+$ps-webform-sticky-gap: var(--re-space-16, 1rem);
+$ps-webform-sticky-padding: 1rem;
+
+.ps-webform--has-sticky-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  flex: 1 1 auto;
+  gap: var(--re-space-24, 1.5rem);
+  width: 100%;
+  max-width: none;
+  min-height: 100%;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.ps-webform--has-sticky-footer > *:not(.ps-webform-sticky-footer):not(.form-type-checkbox):not(.webform-type-checkbox) {
+  padding-inline: var(--ps-webform-sticky-inset-x, 0);
+}
+
+.ps-webform--has-sticky-footer > .form-type-checkbox.form-item,
+.ps-webform--has-sticky-footer > .webform-type-checkbox.form-item {
+  margin-inline: var(--ps-webform-sticky-inset-x, 0);
+  padding-inline: 0;
+  width: auto;
+  max-width: calc(100% - (2 * var(--ps-webform-sticky-inset-x, 0px)));
+}
+
+/* Checkbox rows — avoid padding-inline on .form-check (breaks ::before icon). */
+.ps-webform--has-sticky-footer .form-check.form-type-checkbox,
+.ps-webform--has-sticky-footer .webform-type-checkbox.form-item {
+  position: relative;
+  min-height: 1.75rem;
+}
+
+.ps-webform--has-sticky-footer .form-check-input[type='checkbox'] {
+  z-index: 2;
+}
+
+.ps-webform--has-sticky-footer .form-check-input[type='checkbox'] + .form-check-label::before {
+  z-index: 1;
+}
+
+.ps-webform-sticky-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: $ps-webform-sticky-gap;
+  width: 100%;
+  max-width: none;
+  margin-top: auto;
+  padding: $ps-webform-sticky-padding;
+  background: #fff;
+  border-top: 1px solid #ebedef;
+  box-sizing: border-box;
+}
+
+.ps-webform-sticky-footer.is-stuck {
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.ps-webform-sticky-footer__sentinel {
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.ps-webform-sticky-footer .form-actions,
+.ps-webform-sticky-footer .webform-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.ps-webform-sticky-footer .form-actions > .button,
+.ps-webform-sticky-footer .form-actions > .webform-button,
+.ps-webform-sticky-footer .form-actions > button,
+.ps-webform-sticky-footer .form-actions > input[type='submit'],
+.ps-webform-sticky-footer .form-actions > input[type='button'],
+.ps-webform-sticky-footer .webform-actions > .button,
+.ps-webform-sticky-footer .webform-actions > .webform-button,
+.ps-webform-sticky-footer .webform-actions > button,
+.ps-webform-sticky-footer .webform-actions > input[type='submit'],
+.ps-webform-sticky-footer .webform-actions > input[type='button'] {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  min-height: 2.5rem;
+  height: auto;
+  margin: 0 !important;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.ps-webform-sticky-footer .ps-webform-urgency-help-wrapper,
+.ps-webform-sticky-footer .ps-webform-urgency-help {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scroll containers (offcanvas, modal). */
+.offcanvas-body:has(.ps-webform--has-sticky-footer),
+.modal-body:has(.ps-webform--has-sticky-footer),
+.ps-search-alert-offcanvas__content:has(.ps-webform--has-sticky-footer),
+.ps-compare-share-offcanvas__content:has(.ps-webform--has-sticky-footer) {
+  --ps-webform-sticky-inset-x: var(--bs-offcanvas-padding-x, 1rem);
+
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-inline: 0;
+  padding-bottom: 0;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+.offcanvas-body:has(.ps-webform--has-sticky-footer) .webform-ajax-form-wrapper,
+.offcanvas-body:has(.ps-webform--has-sticky-footer) [id$='-ajax-content'],
+.modal-body:has(.ps-webform--has-sticky-footer) .webform-ajax-form-wrapper,
+.modal-body:has(.ps-webform--has-sticky-footer) [id$='-ajax-content'],
+.ps-search-alert-offcanvas__content:has(.ps-webform--has-sticky-footer),
+.ps-compare-share-offcanvas__content:has(.ps-webform--has-sticky-footer) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+}
+
+.offcanvas-body:has(.ps-webform--has-sticky-footer) .ps-webform--has-sticky-footer,
+.modal-body:has(.ps-webform--has-sticky-footer) .ps-webform--has-sticky-footer,
+.ps-search-alert-offcanvas__content:has(.ps-webform--has-sticky-footer) .ps-webform--has-sticky-footer,
+.ps-compare-share-offcanvas__content:has(.ps-webform--has-sticky-footer) .ps-webform--has-sticky-footer {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 100%;
+}
+
+.ps-search-alert-offcanvas .offcanvas-body:has(.ps-webform--has-sticky-footer),
+.ps-compare-share-offcanvas .offcanvas-body:has(.ps-webform--has-sticky-footer) {
+  --ps-webform-sticky-inset-x: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+@media (max-width: 991.98px) {
+  .ps-compare-share-offcanvas .offcanvas-body:has(.ps-webform--has-sticky-footer) {
+    --ps-webform-sticky-inset-x: 1rem;
+    padding-top: 1.25rem;
+  }
+}
+
+.modal:not(.ps-compare-modal):has(.ps-webform--has-sticky-footer) .modal-body {
+  --ps-webform-sticky-inset-x: 2rem;
+}
+
+.offcanvas.ps-search-alert-offcanvas,
+.offcanvas.ps-compare-share-offcanvas {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+.offcanvas.ps-search-alert-offcanvas .offcanvas-body,
+.offcanvas.ps-compare-share-offcanvas .offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 0;
+}
