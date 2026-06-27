@@ -1,0 +1,418 @@
+# FR translation for views_promo_card module.
+msgid ""
+msgstr ""
+"Project-Id-Version: views_promo_card\n"
+"PO-Revision-Date: 2026-06-27 12:00+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "(mock search grid, 3 columns)"
+msgstr "(grille de recherche simulee, 3 colonnes)"
+
+msgid "- First available profile -"
+msgstr "- Premier profil disponible -"
+
+msgid "- Select -"
+msgstr "- Selectionner -"
+
+msgid "1-based index. Card is inserted after this result row."
+msgstr "Index base 1. La carte est inseree apres cette ligne de resultat."
+
+msgid "<strong>1. Create a promo card</strong> — pick an SDC pattern (search push, icon, CTA), edit content and appearance with live preview."
+msgstr "<strong>1. Creer une carte promo</strong> — choisissez un motif SDC (push recherche, icone, CTA), editez le contenu et l'apparence avec apercu en direct."
+
+msgid "<strong>2. Add a placement</strong> — bind the card to a View display, set row position or interval, rotation, and optional conditions."
+msgstr "<strong>2. Ajouter un emplacement</strong> — liez la carte a un affichage Views, definissez position ou intervalle, rotation et conditions optionnelles."
+
+msgid "<strong>3. Verify on front</strong> — open the target search page and confirm the card appears between offer results."
+msgstr "<strong>3. Verifier en front</strong> — ouvrez la page de recherche cible et confirmez que la carte apparait entre les resultats."
+
+msgid "@count card(s) are not attached to any placement."
+msgstr "@count carte(s) ne sont rattachees a aucun emplacement."
+
+msgid "@enabled active"
+msgstr "@enabled actif(s)"
+
+msgid "@enabled enabled"
+msgstr "@enabled active(s)"
+
+msgid "Add a placement"
+msgstr "Ajouter un emplacement"
+
+msgid "Add placement"
+msgstr "Ajouter un emplacement"
+
+msgid "Add promo card"
+msgstr "Ajouter une carte promo"
+
+msgid "Add your first card"
+msgstr "Ajouter votre premiere carte"
+
+msgid "Administer Views Promo Card"
+msgstr "Administrer les cartes promo Views"
+
+msgid "All conditions must pass"
+msgstr "Toutes les conditions doivent etre remplies"
+
+msgid "All placements are disabled. Enable at least one placement for cards to show on search results."
+msgstr "Tous les emplacements sont desactives. Activez au moins un emplacement pour afficher les cartes dans les resultats."
+
+msgid "All promo cards are disabled. Enable cards or update placement references."
+msgstr "Toutes les cartes promo sont desactivees. Activez des cartes ou mettez a jour les references d'emplacement."
+
+msgid "Allowed SDC patterns"
+msgstr "Motifs SDC autorises"
+
+msgid "Allowed patterns"
+msgstr "Motifs autorises"
+
+msgid "Always first card (by weight)"
+msgstr "Toujours la premiere carte (par poids)"
+
+msgid "Any condition may pass"
+msgstr "Une condition suffit"
+
+msgid "Attention needed"
+msgstr "Attention requise"
+
+msgid "Blank card"
+msgstr "Carte vierge"
+
+msgid "Card identity"
+msgstr "Identite de la carte"
+
+msgid "Card weight"
+msgstr "Poids de la carte"
+
+msgid "Cards"
+msgstr "Cartes"
+
+msgid "Cards exist but no placement is configured — nothing will appear on the site. @link"
+msgstr "Des cartes existent mais aucun emplacement n'est configure — rien ne s'affichera sur le site. @link"
+
+msgid "Cards not used in any placement"
+msgstr "Cartes non utilisees dans un emplacement"
+
+msgid "Choose a pattern and configure props manually."
+msgstr "Choisissez un motif et configurez les proprietes manuellement."
+
+msgid "Choose a preset"
+msgstr "Choisir un preset"
+
+msgid "Condition logic"
+msgstr "Logique des conditions"
+
+msgid "Condition types"
+msgstr "Types de condition"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "Configure promotional cards injected into Views results."
+msgstr "Configurer les cartes promotionnelles injectees dans les resultats Views."
+
+msgid "Default icon"
+msgstr "Icone par defaut"
+
+msgid "Disabled"
+msgstr "Desactive"
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "Enable interval rule"
+msgstr "Activer la regle d'intervalle"
+
+msgid "Enabled"
+msgstr "Active"
+
+msgid "Expected value"
+msgstr "Valeur attendue"
+
+msgid "Exposed filter @filter equals @value"
+msgstr "Le filtre expose @filter est egal a @value"
+
+msgid "Filter ID"
+msgstr "ID du filtre"
+
+msgid "HTML attributes with double-quoted values, or a space-separated list of CSS classes."
+msgstr "Attributs HTML avec valeurs entre guillemets doubles, ou liste de classes CSS separees par des espaces."
+
+msgid "Hide for the listed pages"
+msgstr "Masquer pour les pages listees"
+
+msgid "How it works"
+msgstr "Comment ca marche"
+
+msgid "Inject promotional SDC cards into Views search result lists (for example offer grids). Create reusable cards, attach them to view displays via placements, and control position, rotation, and visibility conditions."
+msgstr "Injectez des cartes promotionnelles SDC dans les listes de resultats Views (grilles d'offres par exemple). Creez des cartes reutilisables, associez-les aux affichages via des emplacements, et controlez position, rotation et conditions de visibilite."
+
+msgid "Injects composable promotional cards between Views result rows."
+msgstr "Injecte des cartes promotionnelles composables entre les lignes de resultats Views."
+
+msgid "Insert after row (fixed)"
+msgstr "Inserer apres la ligne (fixe)"
+
+msgid "Interstitial search card promoting the surface area calculator."
+msgstr "Carte interstitielle de recherche promouvant le calculateur de surface."
+
+msgid "Interval starts at row"
+msgstr "L'intervalle commence a la ligne"
+
+msgid "Label"
+msgstr "Libelle"
+
+msgid "Leave empty to ignore this condition."
+msgstr "Laisser vide pour ignorer cette condition."
+
+msgid "Leave empty to match any value for the parameter."
+msgstr "Laisser vide pour accepter toute valeur du parametre."
+
+msgid "Linkit profile"
+msgstr "Profil Linkit"
+
+msgid "Live preview"
+msgstr "Apercu en direct"
+
+msgid "Loading preview…"
+msgstr "Chargement de l'apercu…"
+
+msgid "Log placement resolution"
+msgstr "Journaliser la resolution des emplacements"
+
+msgid "Machine name"
+msgstr "Nom machine"
+
+msgid "Machine name of the exposed filter identifier (e.g. asset_type, operation_type)."
+msgstr "Nom machine de l'identifiant de filtre expose (ex. asset_type, operation_type)."
+
+msgid "Manage all placements"
+msgstr "Gerer tous les emplacements"
+
+msgid "Max insertions per page"
+msgstr "Insertions max. par page"
+
+msgid "Maximum pager page"
+msgstr "Page du pager maximum"
+
+msgid "Minimum total results"
+msgstr "Nombre total minimum de resultats"
+
+msgid "Module settings"
+msgstr "Parametres du module"
+
+msgid "No SDC patterns are allowed. Configure @settings before creating cards."
+msgstr "Aucun motif SDC autorise. Configurez @settings avant de creer des cartes."
+
+msgid "No SDC patterns are configured yet. Add allowed pattern IDs in the <a href=\":url\">module settings</a>."
+msgstr "Aucun motif SDC configure. Ajoutez des identifiants autorises dans les <a href=\":url\">parametres du module</a>."
+
+msgid "No dedicated editor is available for this pattern yet."
+msgstr "Aucun editeur dedie n'est disponible pour ce motif."
+
+msgid "No placements configured yet."
+msgstr "Aucun emplacement configure."
+
+msgid "No placements yet. <a href=\":url\">Add a placement</a>."
+msgstr "Pas encore d'emplacement. <a href=\":url\">Ajouter un emplacement</a>."
+
+msgid "No promo cards yet. <a href=\":url\">Add a promo card</a>."
+msgstr "Pas encore de carte promo. <a href=\":url\">Ajouter une carte promo</a>."
+
+msgid "No promo cards yet. @link to get started."
+msgstr "Pas encore de carte promo. @link pour commencer."
+
+msgid "Not configured"
+msgstr "Non configure"
+
+msgid "Offer result (mock)"
+msgstr "Resultat offre (simule)"
+
+msgid "Offer result @num"
+msgstr "Resultat offre @num"
+
+msgid "One pattern ID per line (for example <code>my_theme:search-push-card</code>). Only listed patterns can be used for promo cards."
+msgstr "Un identifiant de motif par ligne (ex. <code>my_theme:search-push-card</code>). Seuls les motifs listes peuvent etre utilises."
+
+msgid "One route name per line (e.g. view.ps_search_offers.page_list)."
+msgstr "Un nom de route par ligne (ex. view.ps_search_offers.page_list)."
+
+msgid "Operations"
+msgstr "Operations"
+
+msgid "Optional fallback icon for patterns that expose <code>icon_pack</code> and <code>icon_id</code> props. Use the pack:id format (for example <code>bnp_custom:entrusting-a-property</code>)."
+msgstr "Icone de secours optionnelle pour les motifs avec props <code>icon_pack</code> et <code>icon_id</code>. Format pack:id (ex. <code>bnp_custom:entrusting-a-property</code>)."
+
+msgid "Pager page"
+msgstr "Page du pager"
+
+msgid "Pager page is at most @page"
+msgstr "La page du pager est au maximum @page"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Parameter name"
+msgstr "Nom du parametre"
+
+msgid "Pattern"
+msgstr "Motif"
+
+msgid "Pattern %pattern is not a discoverable SDC component."
+msgstr "Le motif %pattern n'est pas un composant SDC decouvrable."
+
+msgid "Placement"
+msgstr "Emplacement"
+
+msgid "Placement %label saved."
+msgstr "Emplacement %label enregistre."
+
+msgid "Placement preview"
+msgstr "Apercu de l'emplacement"
+
+msgid "Placement rules"
+msgstr "Regles de placement"
+
+msgid "Placements"
+msgstr "Emplacements"
+
+msgid "Placements overview"
+msgstr "Vue d'ensemble des emplacements"
+
+msgid "Preset"
+msgstr "Preset"
+
+msgid "Primary card"
+msgstr "Carte principale"
+
+msgid "Profile used for URL fields in promo card forms."
+msgstr "Profil utilise pour les champs URL dans les formulaires de carte promo."
+
+msgid "Promo card"
+msgstr "Carte promo"
+
+msgid "Promo card %label saved."
+msgstr "Carte promo %label enregistree."
+
+msgid "Promo card placement"
+msgstr "Emplacement de carte promo"
+
+msgid "Promo cards"
+msgstr "Cartes promo"
+
+msgid "Random"
+msgstr "Aleatoire"
+
+msgid "Relative paths (e.g. /calculator) or absolute URLs. Tokens supported."
+msgstr "Chemins relatifs (ex. /calculator) ou URL absolues. Jetons supportes."
+
+msgid "Rendered with front theme styles (ps_theme). Appearance options apply here."
+msgstr "Rendu avec les styles du theme front (ps_theme). Les options d'apparence s'appliquent ici."
+
+msgid "Repeat every N rows"
+msgstr "Repeter toutes les N lignes"
+
+msgid "Request parameter"
+msgstr "Parametre de requete"
+
+msgid "Request parameter @param"
+msgstr "Parametre de requete @param"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "Rotation"
+msgstr "Rotation"
+
+msgid "Round robin"
+msgstr "Round robin"
+
+msgid "Route name"
+msgstr "Nom de route"
+
+msgid "Route name matches configured list"
+msgstr "Le nom de route correspond a la liste configuree"
+
+msgid "Route names"
+msgstr "Noms de route"
+
+msgid "SDC components"
+msgstr "Composants SDC"
+
+msgid "Search Push Card — Surface calculator"
+msgstr "Carte push recherche — Calculateur de surface"
+
+msgid "Select a promo card to preview placement in the search grid."
+msgstr "Selectionnez une carte promo pour previsualiser l'emplacement dans la grille de recherche."
+
+msgid "Select a valid pattern."
+msgstr "Selectionnez un motif valide."
+
+msgid "Show for the listed pages"
+msgstr "Afficher pour les pages listees"
+
+msgid "Start blank"
+msgstr "Commencer vierge"
+
+msgid "Start from a business preset or create a blank card."
+msgstr "Partir d'un preset metier ou creer une carte vierge."
+
+msgid "Start typing to find content, or enter a path or URL. Tokens supported."
+msgstr "Commencez a saisir pour trouver du contenu, ou entrez un chemin ou une URL. Jetons supportes."
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Target view"
+msgstr "Vue cible"
+
+msgid "Total results is at least @count"
+msgstr "Le total de resultats est au moins @count"
+
+msgid "Use 0 for first page only (recommended with load-more). Leave empty to ignore this condition."
+msgstr "Utilisez 0 pour la premiere page uniquement (recommande avec load-more). Laisser vide pour ignorer."
+
+msgid "Use this preset"
+msgstr "Utiliser ce preset"
+
+msgid "Used in"
+msgstr "Utilise dans"
+
+msgid "View"
+msgstr "Vue"
+
+msgid "View display"
+msgstr "Affichage de la vue"
+
+msgid "Views Promo Card settings"
+msgstr "Parametres Views Promo Card"
+
+msgid "Views exposed filter"
+msgstr "Filtre expose Views"
+
+msgid "Weight"
+msgstr "Poids"
+
+msgid "Writes debug messages to the views_promo_card log channel."
+msgstr "Ecrit des messages de debug dans le canal de log views_promo_card."
+
+msgid "module settings"
+msgstr "parametres du module"
+
+msgid "placement"
+msgstr "emplacement"
+
+msgid "placements"
+msgstr "emplacements"
+
+msgid "promo card"
+msgstr "carte promo"
+
+msgid "promo cards"
+msgstr "cartes promo"
+
+msgid "—"
+msgstr "—"

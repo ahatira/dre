@@ -50,10 +50,10 @@ use Drupal\views_promo_card\PromoCardListBuilder;
     'ui_patterns',
   ],
   links: [
-    'collection' => '/admin/config/services/views-promo-card/cards',
-    'add-form' => '/admin/config/services/views-promo-card/cards/add',
-    'edit-form' => '/admin/config/services/views-promo-card/cards/{promo_card}',
-    'delete-form' => '/admin/config/services/views-promo-card/cards/{promo_card}/delete',
+    'collection' => '/admin/ps/content/promo-card/cards',
+    'add-form' => '/admin/ps/content/promo-card/cards/add',
+    'edit-form' => '/admin/ps/content/promo-card/cards/{promo_card}',
+    'delete-form' => '/admin/ps/content/promo-card/cards/{promo_card}/delete',
   ],
 )]
 final class PromoCard extends ConfigEntityBase implements PromoCardInterface {

@@ -55,10 +55,10 @@ use Drupal\views_promo_card\PromoCardPlacementListBuilder;
     'max_insertions_per_page',
   ],
   links: [
-    'collection' => '/admin/config/services/views-promo-card/placements',
-    'add-form' => '/admin/config/services/views-promo-card/placements/add',
-    'edit-form' => '/admin/config/services/views-promo-card/placements/{promo_card_placement}',
-    'delete-form' => '/admin/config/services/views-promo-card/placements/{promo_card_placement}/delete',
+    'collection' => '/admin/ps/structure/placements',
+    'add-form' => '/admin/ps/structure/placements/add',
+    'edit-form' => '/admin/ps/structure/placements/{promo_card_placement}',
+    'delete-form' => '/admin/ps/structure/placements/{promo_card_placement}/delete',
   ],
 )]
 final class PromoCardPlacement extends ConfigEntityBase implements PromoCardPlacementInterface {

@@ -1,0 +1,418 @@
+# DE translation for views_promo_card module.
+msgid ""
+msgstr ""
+"Project-Id-Version: views_promo_card\n"
+"PO-Revision-Date: 2026-06-27 12:00+0000\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(mock search grid, 3 columns)"
+msgstr "(mock search grid, 3 columns)"
+
+msgid "- First available profile -"
+msgstr "- First available profile -"
+
+msgid "- Select -"
+msgstr "- Select -"
+
+msgid "1-based index. Card is inserted after this result row."
+msgstr "1-based index. Card is inserted after this result row."
+
+msgid "<strong>1. Create a promo card</strong> — pick an SDC pattern (search push, icon, CTA), edit content and appearance with live preview."
+msgstr "<strong>1. Create a promo card</strong> — pick an SDC pattern (search push, icon, CTA), edit content and appearance with live preview."
+
+msgid "<strong>2. Add a placement</strong> — bind the card to a View display, set row position or interval, rotation, and optional conditions."
+msgstr "<strong>2. Add a placement</strong> — bind the card to a View display, set row position or interval, rotation, and optional conditions."
+
+msgid "<strong>3. Verify on front</strong> — open the target search page and confirm the card appears between offer results."
+msgstr "<strong>3. Verify on front</strong> — open the target search page and confirm the card appears between offer results."
+
+msgid "@count card(s) are not attached to any placement."
+msgstr "@count card(s) are not attached to any placement."
+
+msgid "@enabled active"
+msgstr "@enabled active"
+
+msgid "@enabled enabled"
+msgstr "@enabled enabled"
+
+msgid "Add a placement"
+msgstr "Add a placement"
+
+msgid "Add placement"
+msgstr "Platzierung hinzufuegen"
+
+msgid "Add promo card"
+msgstr "Promo-Karte hinzufuegen"
+
+msgid "Add your first card"
+msgstr "Add your first card"
+
+msgid "Administer Views Promo Card"
+msgstr "Views Promo Card verwalten"
+
+msgid "All conditions must pass"
+msgstr "All conditions must pass"
+
+msgid "All placements are disabled. Enable at least one placement for cards to show on search results."
+msgstr "All placements are disabled. Enable at least one placement for cards to show on search results."
+
+msgid "All promo cards are disabled. Enable cards or update placement references."
+msgstr "All promo cards are disabled. Enable cards or update placement references."
+
+msgid "Allowed SDC patterns"
+msgstr "Allowed SDC patterns"
+
+msgid "Allowed patterns"
+msgstr "Erlaubte Muster"
+
+msgid "Always first card (by weight)"
+msgstr "Always first card (by weight)"
+
+msgid "Any condition may pass"
+msgstr "Any condition may pass"
+
+msgid "Attention needed"
+msgstr "Attention needed"
+
+msgid "Blank card"
+msgstr "Blank card"
+
+msgid "Card identity"
+msgstr "Card identity"
+
+msgid "Card weight"
+msgstr "Card weight"
+
+msgid "Cards"
+msgstr "Cards"
+
+msgid "Cards exist but no placement is configured — nothing will appear on the site. @link"
+msgstr "Cards exist but no placement is configured — nothing will appear on the site. @link"
+
+msgid "Cards not used in any placement"
+msgstr "Cards not used in any placement"
+
+msgid "Choose a pattern and configure props manually."
+msgstr "Choose a pattern and configure props manually."
+
+msgid "Choose a preset"
+msgstr "Choose a preset"
+
+msgid "Condition logic"
+msgstr "Condition logic"
+
+msgid "Condition types"
+msgstr "Condition types"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "Configure promotional cards injected into Views results."
+msgstr "Configure promotional cards injected into Views results."
+
+msgid "Default icon"
+msgstr "Standard-Icon"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "Display"
+msgstr "Display"
+
+msgid "Enable interval rule"
+msgstr "Enable interval rule"
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Expected value"
+msgstr "Expected value"
+
+msgid "Exposed filter @filter equals @value"
+msgstr "Exposed filter @filter equals @value"
+
+msgid "Filter ID"
+msgstr "Filter ID"
+
+msgid "HTML attributes with double-quoted values, or a space-separated list of CSS classes."
+msgstr "HTML attributes with double-quoted values, or a space-separated list of CSS classes."
+
+msgid "Hide for the listed pages"
+msgstr "Hide for the listed pages"
+
+msgid "How it works"
+msgstr "So funktioniert es"
+
+msgid "Inject promotional SDC cards into Views search result lists (for example offer grids). Create reusable cards, attach them to view displays via placements, and control position, rotation, and visibility conditions."
+msgstr "Inject promotional SDC cards into Views search result lists (for example offer grids). Create reusable cards, attach them to view displays via placements, and control position, rotation, and visibility conditions."
+
+msgid "Injects composable promotional cards between Views result rows."
+msgstr "Injects composable promotional cards between Views result rows."
+
+msgid "Insert after row (fixed)"
+msgstr "Insert after row (fixed)"
+
+msgid "Interstitial search card promoting the surface area calculator."
+msgstr "Interstitial search card promoting the surface area calculator."
+
+msgid "Interval starts at row"
+msgstr "Interval starts at row"
+
+msgid "Label"
+msgstr "Label"
+
+msgid "Leave empty to ignore this condition."
+msgstr "Leave empty to ignore this condition."
+
+msgid "Leave empty to match any value for the parameter."
+msgstr "Leave empty to match any value for the parameter."
+
+msgid "Linkit profile"
+msgstr "Linkit profile"
+
+msgid "Live preview"
+msgstr "Live preview"
+
+msgid "Loading preview…"
+msgstr "Loading preview…"
+
+msgid "Log placement resolution"
+msgstr "Log placement resolution"
+
+msgid "Machine name"
+msgstr "Machine name"
+
+msgid "Machine name of the exposed filter identifier (e.g. asset_type, operation_type)."
+msgstr "Machine name of the exposed filter identifier (e.g. asset_type, operation_type)."
+
+msgid "Manage all placements"
+msgstr "Manage all placements"
+
+msgid "Max insertions per page"
+msgstr "Max insertions per page"
+
+msgid "Maximum pager page"
+msgstr "Maximum pager page"
+
+msgid "Minimum total results"
+msgstr "Minimum total results"
+
+msgid "Module settings"
+msgstr "Moduleinstellungen"
+
+msgid "No SDC patterns are allowed. Configure @settings before creating cards."
+msgstr "No SDC patterns are allowed. Configure @settings before creating cards."
+
+msgid "No SDC patterns are configured yet. Add allowed pattern IDs in the <a href=\":url\">module settings</a>."
+msgstr "No SDC patterns are configured yet. Add allowed pattern IDs in the <a href=\":url\">module settings</a>."
+
+msgid "No dedicated editor is available for this pattern yet."
+msgstr "No dedicated editor is available for this pattern yet."
+
+msgid "No placements configured yet."
+msgstr "No placements configured yet."
+
+msgid "No placements yet. <a href=\":url\">Add a placement</a>."
+msgstr "No placements yet. <a href=\":url\">Add a placement</a>."
+
+msgid "No promo cards yet. <a href=\":url\">Add a promo card</a>."
+msgstr "No promo cards yet. <a href=\":url\">Add a promo card</a>."
+
+msgid "No promo cards yet. @link to get started."
+msgstr "No promo cards yet. @link to get started."
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Offer result (mock)"
+msgstr "Offer result (mock)"
+
+msgid "Offer result @num"
+msgstr "Offer result @num"
+
+msgid "One pattern ID per line (for example <code>my_theme:search-push-card</code>). Only listed patterns can be used for promo cards."
+msgstr "One pattern ID per line (for example <code>my_theme:search-push-card</code>). Only listed patterns can be used for promo cards."
+
+msgid "One route name per line (e.g. view.ps_search_offers.page_list)."
+msgstr "One route name per line (e.g. view.ps_search_offers.page_list)."
+
+msgid "Operations"
+msgstr "Operations"
+
+msgid "Optional fallback icon for patterns that expose <code>icon_pack</code> and <code>icon_id</code> props. Use the pack:id format (for example <code>bnp_custom:entrusting-a-property</code>)."
+msgstr "Optional fallback icon for patterns that expose <code>icon_pack</code> and <code>icon_id</code> props. Use the pack:id format (for example <code>bnp_custom:entrusting-a-property</code>)."
+
+msgid "Pager page"
+msgstr "Pager page"
+
+msgid "Pager page is at most @page"
+msgstr "Pager page is at most @page"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Parameter name"
+msgstr "Parameter name"
+
+msgid "Pattern"
+msgstr "Pattern"
+
+msgid "Pattern %pattern is not a discoverable SDC component."
+msgstr "Pattern %pattern is not a discoverable SDC component."
+
+msgid "Placement"
+msgstr "Placement"
+
+msgid "Placement %label saved."
+msgstr "Placement %label saved."
+
+msgid "Placement preview"
+msgstr "Placement preview"
+
+msgid "Placement rules"
+msgstr "Placement rules"
+
+msgid "Placements"
+msgstr "Platzierungen"
+
+msgid "Placements overview"
+msgstr "Placements overview"
+
+msgid "Preset"
+msgstr "Preset"
+
+msgid "Primary card"
+msgstr "Primary card"
+
+msgid "Profile used for URL fields in promo card forms."
+msgstr "Profile used for URL fields in promo card forms."
+
+msgid "Promo card"
+msgstr "Promo-Karte"
+
+msgid "Promo card %label saved."
+msgstr "Promo card %label saved."
+
+msgid "Promo card placement"
+msgstr "Promo card placement"
+
+msgid "Promo cards"
+msgstr "Promo-Karten"
+
+msgid "Random"
+msgstr "Random"
+
+msgid "Relative paths (e.g. /calculator) or absolute URLs. Tokens supported."
+msgstr "Relative paths (e.g. /calculator) or absolute URLs. Tokens supported."
+
+msgid "Rendered with front theme styles (ps_theme). Appearance options apply here."
+msgstr "Rendered with front theme styles (ps_theme). Appearance options apply here."
+
+msgid "Repeat every N rows"
+msgstr "Repeat every N rows"
+
+msgid "Request parameter"
+msgstr "Request parameter"
+
+msgid "Request parameter @param"
+msgstr "Request parameter @param"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "Rotation"
+msgstr "Rotation"
+
+msgid "Round robin"
+msgstr "Round robin"
+
+msgid "Route name"
+msgstr "Route name"
+
+msgid "Route name matches configured list"
+msgstr "Route name matches configured list"
+
+msgid "Route names"
+msgstr "Route names"
+
+msgid "SDC components"
+msgstr "SDC components"
+
+msgid "Search Push Card — Surface calculator"
+msgstr "Such-Push-Karte — Flaechenrechner"
+
+msgid "Select a promo card to preview placement in the search grid."
+msgstr "Select a promo card to preview placement in the search grid."
+
+msgid "Select a valid pattern."
+msgstr "Select a valid pattern."
+
+msgid "Show for the listed pages"
+msgstr "Show for the listed pages"
+
+msgid "Start blank"
+msgstr "Start blank"
+
+msgid "Start from a business preset or create a blank card."
+msgstr "Start from a business preset or create a blank card."
+
+msgid "Start typing to find content, or enter a path or URL. Tokens supported."
+msgstr "Start typing to find content, or enter a path or URL. Tokens supported."
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Target view"
+msgstr "Target view"
+
+msgid "Total results is at least @count"
+msgstr "Total results is at least @count"
+
+msgid "Use 0 for first page only (recommended with load-more). Leave empty to ignore this condition."
+msgstr "Use 0 for first page only (recommended with load-more). Leave empty to ignore this condition."
+
+msgid "Use this preset"
+msgstr "Use this preset"
+
+msgid "Used in"
+msgstr "Used in"
+
+msgid "View"
+msgstr "View"
+
+msgid "View display"
+msgstr "View display"
+
+msgid "Views Promo Card settings"
+msgstr "Views Promo Card settings"
+
+msgid "Views exposed filter"
+msgstr "Views exposed filter"
+
+msgid "Weight"
+msgstr "Weight"
+
+msgid "Writes debug messages to the views_promo_card log channel."
+msgstr "Writes debug messages to the views_promo_card log channel."
+
+msgid "module settings"
+msgstr "module settings"
+
+msgid "placement"
+msgstr "placement"
+
+msgid "placements"
+msgstr "placements"
+
+msgid "promo card"
+msgstr "promo card"
+
+msgid "promo cards"
+msgstr "promo cards"
+
+msgid "—"
+msgstr "—"

@@ -4,20 +4,20 @@ views_promo_card.admin_tab:
   base_route: views_promo_card.admin
   weight: -10
 
-entity.promo_card.collection:
-  title: 'Promo cards'
-  route_name: entity.promo_card.collection
-  base_route: views_promo_card.admin
-  weight: 0
-
-entity.promo_card_placement.collection:
-  title: 'Placements'
-  route_name: entity.promo_card_placement.collection
-  base_route: views_promo_card.admin
-  weight: 10
-
 views_promo_card.settings:
   title: 'Settings'
   route_name: views_promo_card.settings
   base_route: views_promo_card.admin
-  weight: 20
+  weight: 10
+
+entity.promo_card.delete_form:
+  title: 'Delete'
+  route_name: entity.promo_card.delete_form
+  base_route: entity.promo_card.edit_form
+  weight: 10
+
+entity.promo_card_placement.delete_form:
+  title: 'Delete'
+  route_name: entity.promo_card_placement.delete_form
+  base_route: entity.promo_card_placement.edit_form
+  weight: 10

@@ -9,15 +9,15 @@ ui_patterns:
     title:
       source_id: textfield
       source:
-        value: 'Calculez la surface de vos futurs bureaux !'
+        value: 'Calculate the target surface area of your future offices!'
     body:
       source_id: textfield
       source:
-        value: 'Le calculateur de surface vous permet de définir en quelques clics les m² dont vous avez besoin.'
+        value: 'Quick and easy to use, the surface area calculator lets you define the m² surface area you need in just a few clicks.'
     cta_label:
       source_id: textfield
       source:
-        value: 'Démarrer le calculateur'
+        value: 'Start calculator'
     cta_url:
       source_id: url
       source:

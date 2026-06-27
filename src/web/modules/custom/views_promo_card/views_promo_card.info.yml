@@ -3,11 +3,13 @@ type: module
 description: 'Injects composable promotional cards between Views result rows.'
 core_version_requirement: ^11
 version: 1.0.0
-package: Views
+package: Property Search
 dependencies:
   - drupal:views
   - drupal:path_alias
   - ui_patterns:ui_patterns
+  - ps_core:ps_core
 
 suggest:
   - ui_icons:ui_icons_picker
+  - ps_theme:ps_theme
