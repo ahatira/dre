@@ -34,7 +34,11 @@
     </p>
   {% endif %}
   {% if button_label and button_url %}
-    <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn" href="{{ button_url }}">
+    <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn use-ajax"
+       href="{{ button_url }}"
+       data-dialog-type="dialog"
+       data-dialog-renderer="off_canvas"
+       data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
       {{ button_label }}
     </a>
   {% endif %}

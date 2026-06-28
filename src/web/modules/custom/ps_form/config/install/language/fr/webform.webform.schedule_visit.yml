@@ -4,7 +4,7 @@ category: 'Recherche immobilière'
 elements: |-
   visitor:
     '#type': fieldset
-    '#title': 'Vos coordonnées'
+    '#title': Coordonnées
     first_name:
       '#type': textfield
       '#title': 'Prénom'

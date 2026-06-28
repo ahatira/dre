@@ -1,0 +1,10 @@
+ps_form.settings:
+  type: config_object
+  label: 'PS Form settings'
+  mapping:
+    provision_webforms_on_install:
+      type: boolean
+      label: 'Provision webforms on module install'
+    apply_spam_baseline_on_install:
+      type: boolean
+      label: 'Apply spam baseline on module install'

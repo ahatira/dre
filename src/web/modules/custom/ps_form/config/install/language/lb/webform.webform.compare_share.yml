@@ -31,11 +31,7 @@ elements: |-
     '#required': true
   legal_notice:
     '#type': webform_markup
-    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France veraarbecht Är Donnéeën, fir Iech de gefrote Vergläich ze schécken. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'
-  help_footer:
-    '#type': webform_markup
-    '#markup': ''
-  compare_url:
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France veraarbecht Är Donnéeën, fir Iech de gefrote Vergläich ze schécken. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'  compare_url:
     '#type': hidden
     '#title': 'Vergläichs-URL'
 settings:

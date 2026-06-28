@@ -1,0 +1,57 @@
+title: 'Autre demande'
+description: 'Accès direct — demande de contact hors standard.'
+category: 'Recherche immobilière'
+elements: |
+  step_project:
+    '#title': Projet
+  other_need:
+    '#title': 'Objet de votre demande'
+    '#options':
+      services: 'Proposer des services'
+      application: 'Déposer une candidature'
+      press: 'Contacter le service presse'
+      complaint: 'Déposer une réclamation'
+      account: 'Autre (compte, connexion…)'
+  step_contact:
+    '#title': Coordonnées
+  firstname:
+    '#title': Prénom
+  lastname:
+    '#title': Nom
+  company_name:
+    '#title': Société
+  prof_phone:
+    '#title': 'Téléphone professionnel'
+  prof_email_address:
+    '#title': 'E-mail professionnel'
+  optout_intro:
+    '#markup': "<p>Je m'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Advisory France :</p>"
+  optout_email_transaction:
+    '#title': E-mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Téléphone
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, société par actions simplifiée située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en qualité de responsable de traitement, traite les informations vous concernant pour répondre à votre demande transmise via ce formulaire. Pour en savoir plus sur vos droits, consultez notre <a href="/data-protection">Notice de protection des données</a>.</p>'
+  step_message:
+    '#title': Message
+  qualification_comment:
+    '#title': Message
+    '#placeholder': 'Décrivez votre demande'
+settings:
+  form_submit_label: 'Envoyer le message'
+  wizard_prev_button_label: Retour
+  wizard_next_button_label: Continuer
+  confirmation_message: '<p>Merci. Votre message a été envoyé.</p>'
+handlers:
+  email_notification:
+    label: 'Notification du site'
+    settings:
+      subject: 'Autre demande de contact'
+      body: _default
+  email_confirmation:
+    label: 'Confirmation visiteur'
+    settings:
+      subject: 'Merci de nous avoir contactés'
+      body: '<p>Merci pour votre message.</p><p>Nous avons bien reçu votre demande et reviendrons vers vous rapidement.</p>'

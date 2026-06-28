@@ -100,7 +100,7 @@ if ($noProxy !== '') {
   $settings['http_client_config']['proxy']['no'] = array_values(array_filter(array_map('trim', explode(',', $noProxy))));
 }
 
-// Memcached — only when contrib module is present and the server is reachable.
+// Memcached — when PS_MEMCACHE_ENABLED=0 (dev .env), database cache is used instead.
 if (ps_memcache_bootstrap_enabled($app_root, $databases['default']['default'])) {
   $cacheHost = ps_env('CACHE_HOST');
   if ($cacheHost === '') {

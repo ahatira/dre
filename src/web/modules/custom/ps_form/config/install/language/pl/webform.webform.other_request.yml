@@ -1,0 +1,57 @@
+title: 'Inne zapytanie'
+description: 'Bezpośredni dostęp — niestandardowe zapytanie kontaktowe.'
+category: 'Wyszukiwanie nieruchomości'
+elements: |
+  step_project:
+    '#title': Projekt
+  other_need:
+    '#title': 'Czego dotyczy Państwa zapytanie?'
+    '#options':
+      services: 'Zaproponować usługi'
+      application: 'Złożyć aplikację'
+      press: 'Skontaktować się z biurem prasowym'
+      complaint: 'Złożyć reklamację'
+      account: 'Inne (konto, logowanie…)'
+  step_contact:
+    '#title': 'Dane kontaktowe'
+  firstname:
+    '#title': Imię
+  lastname:
+    '#title': Nazwisko
+  company_name:
+    '#title': Firma
+  prof_phone:
+    '#title': 'Telefon służbowy'
+  prof_email_address:
+    '#title': 'Służbowy e-mail'
+  optout_intro:
+    '#markup': '<p>Sprzeciwiam się otrzymywaniu komunikacji handlowej od BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefon
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, spółka z ograniczoną odpowiedzialnością uproszczona z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, jako administrator danych przetwarza informacje o Państwu w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza. Aby dowiedzieć się więcej o swoich prawach, zapoznają się Państwo z naszym <a href="/data-protection">Komunikatem o ochronie danych</a>.</p>'
+  step_message:
+    '#title': Wiadomość
+  qualification_comment:
+    '#title': Wiadomość
+    '#placeholder': 'Opisz zapytanie'
+settings:
+  form_submit_label: 'Wyślij wiadomość'
+  wizard_prev_button_label: Wstecz
+  wizard_next_button_label: Dalej
+  confirmation_message: '<p>Dziękujemy. Państwa wiadomość została wysłana.</p>'
+handlers:
+  email_notification:
+    label: 'Powiadomienie witryny'
+    settings:
+      subject: 'Inne zapytanie kontaktowe'
+      body: _default
+  email_confirmation:
+    label: 'Potwierdzenie dla odwiedzającego'
+    settings:
+      subject: 'Dziękujemy za kontakt'
+      body: '<p>Dziękujemy za wiadomość.</p><p>Otrzymaliśmy Państwa zapytanie i wkrótce się z Państwem skontaktujemy.</p>'

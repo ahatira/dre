@@ -1,0 +1,57 @@
+title: 'Otra solicitud'
+description: 'Acceso directo — solicitud de contacto no estándar.'
+category: 'Búsqueda inmobiliaria'
+elements: |
+  step_project:
+    '#title': Proyecto
+  other_need:
+    '#title': '¿De qué trata su solicitud?'
+    '#options':
+      services: 'Proponer servicios'
+      application: 'Enviar una candidatura'
+      press: 'Contactar con prensa'
+      complaint: 'Presentar una reclamación'
+      account: 'Otro (cuenta, acceso…)'
+  step_contact:
+    '#title': 'Sus datos de contacto'
+  firstname:
+    '#title': Nombre
+  lastname:
+    '#title': Apellidos
+  company_name:
+    '#title': Empresa
+  prof_phone:
+    '#title': 'Teléfono profesional'
+  prof_email_address:
+    '#title': 'Correo electrónico profesional'
+  optout_intro:
+    '#markup': '<p>Me opongo a recibir comunicaciones comerciales de BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': 'Correo electrónico'
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Teléfono
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, sociedad por acciones simplificada con domicilio en 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, como responsable del tratamiento, procesa la información sobre usted para responder a su solicitud enviada a través de este formulario. Para más información sobre sus derechos, consulte nuestro <a href="/data-protection">Aviso de protección de datos</a>.</p>'
+  step_message:
+    '#title': Mensaje
+  qualification_comment:
+    '#title': Mensaje
+    '#placeholder': 'Describa su solicitud'
+settings:
+  form_submit_label: 'Enviar mensaje'
+  wizard_prev_button_label: Volver
+  wizard_next_button_label: Continuar
+  confirmation_message: '<p>Gracias. Su mensaje ha sido enviado.</p>'
+handlers:
+  email_notification:
+    label: 'Notificación del sitio'
+    settings:
+      subject: 'Otra solicitud de contacto'
+      body: _default
+  email_confirmation:
+    label: 'Confirmación al visitante'
+    settings:
+      subject: 'Gracias por contactarnos'
+      body: '<p>Gracias por su mensaje.</p><p>Hemos recibido su solicitud y nos pondremos en contacto con usted en breve.</p>'

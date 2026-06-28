@@ -171,3 +171,11 @@ services:
       - '@ps_core.import_governance_snapshot_field_settings'
 
   Drupal\ps_offer\Hook\OfferAdminHooks: {}
+
+  ps_offer.webform_modal_builder:
+    class: Drupal\ps_offer\Service\OfferWebformModalBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@webform.message_manager'
+
+  Drupal\ps_offer\Hook\OfferContactWebformHooks: {}

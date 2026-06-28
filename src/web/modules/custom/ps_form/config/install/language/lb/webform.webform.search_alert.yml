@@ -44,11 +44,7 @@ elements: |-
     '#required': true
   legal_notice:
     '#type': webform_markup
-    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate veraarbecht Är Donnéeë fir Immobilie-Alarmer ze schécken, déi Äre Sichkrittären entspriechen. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'
-  help_footer:
-    '#type': webform_markup
-    '#markup': ''
-  criteria_json:
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate veraarbecht Är Donnéeë fir Immobilie-Alarmer ze schécken, déi Äre Sichkrittären entspriechen. Kuckt eis <a href="/data-protection">Notiz zum Dateschutz</a> fir Är Rechter.</p>'  criteria_json:
     '#type': hidden
     '#title': 'Sichkrittären'
   search_url:

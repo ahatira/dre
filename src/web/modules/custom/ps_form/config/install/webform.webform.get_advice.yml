@@ -1,0 +1,154 @@
+langcode: en
+status: open
+dependencies:
+  module:
+    - altcha
+    - antibot
+    - captcha
+    - honeypot
+id: get_advice
+title: 'Get advice'
+description: 'Direct access — real estate consulting request.'
+category: 'Property Search'
+elements: |-
+  need:
+    '#type': hidden
+    '#default_value': advise
+  step_project:
+    '#type': webform_wizard_page
+    '#title': Project
+    consulting_type:
+      '#type': checkboxes
+      '#title': 'What type of advice are you looking for?'
+      '#required': true
+      '#options':
+        strategy: 'Real estate strategy'
+        workplace: 'Workplace & working environment'
+        building: 'Building & fit-out'
+        supply_chain: 'Supply chain'
+  step_contact:
+    '#type': webform_wizard_page
+    '#title': 'Your details'
+    firstname:
+      '#type': textfield
+      '#title': 'First name'
+      '#required': true
+    lastname:
+      '#type': textfield
+      '#title': 'Last name'
+      '#required': true
+    company_name:
+      '#type': textfield
+      '#title': Company
+      '#required': true
+    job_title:
+      '#type': select
+      '#title': 'Job title'
+      '#required': true
+      '#empty_option': 'Select a job title'
+      '#options':
+        'Asset manager': 'Asset manager'
+        Commercial: Commercial
+        'Directeur immobilier': 'Directeur immobilier'
+        Other: Other
+    prof_phone:
+      '#type': tel
+      '#title': 'Professional phone'
+      '#required': true
+    prof_email_address:
+      '#type': email
+      '#title': 'Professional e-mail'
+      '#required': true
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p>I object to receiving commercial communications from BNP Paribas Real Estate Advisory France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telephone
+    captcha:
+      '#type': captcha
+      '#captcha_type': altcha/ALTCHA
+    legal_notice:
+      '#type': webform_markup
+      '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, a simplified joint stock company located at 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, as the Data Controller, processes information about you to respond to your request submitted via this form. For more information on your rights, see our <a href="/data-protection">Data Protection Notice</a>.</p>'
+      '#wrapper_attributes':
+        class:
+          - ps-contact-form__legal
+  step_message:
+    '#type': webform_wizard_page
+    '#title': Message
+    qualification_comment:
+      '#type': textarea
+      '#title': Message
+      '#placeholder': 'Describe your project'
+      '#maxlength': 2000
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  page: false
+  form_submit_label: 'Send message'
+  wizard_progress_bar: true
+  wizard_progress_pages: true
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_confirmation: false
+  wizard_auto_forward: false
+  wizard_page_type: container
+  wizard_prev_button_label: Back
+  wizard_next_button_label: Continue
+  confirmation_type: inline
+  confirmation_message: '<p>Thank you. Your message has been sent.</p>'
+  third_party_settings:
+    antibot:
+      antibot: true
+    honeypot:
+      honeypot: true
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+handlers:
+  email_notification:
+    id: email
+    label: 'Site notification'
+    handler_id: email_notification
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: _default
+      from_mail: '[webform_submission:values:prof_email_address:raw]'
+      from_name: '[webform_submission:values:firstname:raw] [webform_submission:values:lastname:raw]'
+      subject: 'Consulting request'
+      body: _default
+      reply_to: '[webform_submission:values:prof_email_address:raw]'
+      html: true
+  email_confirmation:
+    id: email
+    label: 'Visitor confirmation'
+    handler_id: email_confirmation
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:prof_email_address:raw]'
+      from_mail: _default
+      from_name: _default
+      subject: 'Thank you for contacting us'
+      body: '<p>Thank you for your message.</p><p>We have received your request and will get back to you shortly.</p>'
+      html: true

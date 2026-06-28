@@ -12,10 +12,26 @@ services:
       - '@config.factory'
       - '@extension.list.module'
 
-  Drupal\ps_form\Hook\OfferContactWebformHooks:
-    class: Drupal\ps_form\Hook\OfferContactWebformHooks
+  ps_form.contact_need_router:
+    class: Drupal\ps_form\Service\ContactNeedRouter
+    arguments:
+      - '@config.factory'
 
-  Drupal\ps_form\Hook\WebformUrgencyContactHooks:
-    class: Drupal\ps_form\Hook\WebformUrgencyContactHooks
+  ps_form.webform_offcanvas_builder:
+    class: Drupal\ps_form\Service\WebformOffcanvasBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_form.contact_need_router'
+
+  Drupal\ps_form\Hook\ContactWebformHooks:
+    arguments:
+      - '@ps_form.contact_need_router'
+
+  Drupal\ps_form\Hook\ContactFormPageHooks:
+    arguments:
+      - '@ps_form.contact_need_router'
+      - '@router.admin_context'
+
+  Drupal\ps_form\Hook\WebformStickyFooterHooks:
     arguments:
       - '@ps_core.site_urgency_contact'

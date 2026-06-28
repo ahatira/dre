@@ -31,11 +31,7 @@ elements: |-
     '#required': true
   legal_notice:
     '#type': webform_markup
-    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France tratta i tuoi dati per inviarti il confronto richiesto. Consulta la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a> per i tuoi diritti.</p>'
-  help_footer:
-    '#type': webform_markup
-    '#markup': ''
-  compare_url:
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France tratta i tuoi dati per inviarti il confronto richiesto. Consulta la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a> per i tuoi diritti.</p>'  compare_url:
     '#type': hidden
     '#title': 'URL del confronto'
 settings:

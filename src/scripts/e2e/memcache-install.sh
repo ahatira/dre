@@ -10,6 +10,10 @@ ps_drush_for_country "${COUNTRY}"
 
 ps_header "E2E memcache install (${PS_DRUSH_ALIAS})"
 
+if [[ "$(ps_env_get PS_MEMCACHE_ENABLED "")" == "0" ]]; then
+  ps_die "Set PS_MEMCACHE_ENABLED=1 in src/.env to run this memcache E2E test"
+fi
+
 ps_require_file "${PS_WEB_DIR}/modules/contrib/memcache/memcache.info.yml" \
   "Run: cd src && composer require drupal/memcache:^2.8"
 

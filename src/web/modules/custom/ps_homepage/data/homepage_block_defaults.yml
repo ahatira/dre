@@ -23,7 +23,7 @@ ps_homepage_search_hero_block:
     delegate_prompt: 'Entrust us with your project'
     delegate_tooltip: 'To find your next business premises, contact our BNP Paribas Real Estate experts and delegate your search.'
     delegate_button_label: 'Delegate my search'
-    delegate_url: /contact
+    delegate_url: /form/entrust-search
     promo_title: 'Commercial real estate: find your future business premises'
     promo_offers_template: '@count offers currently available'
     promo_offers_line: '5990 offers currently available'
@@ -54,7 +54,7 @@ ps_homepage_search_hero_block:
     delegate_prompt: 'Confiez-nous votre projet'
     delegate_tooltip: 'Pour trouver votre prochain local professionnel, contactez nos experts BNP Paribas Real Estate et déléguez votre recherche.'
     delegate_button_label: 'Déléguer ma recherche'
-    delegate_url: /contact
+    delegate_url: /form/entrust-search
     promo_title: "Immobilier d'entreprise : trouvez vos futurs locaux professionnels"
     promo_offers_template: '@count offres actuellement disponibles'
     promo_offers_line: '5990 offres actuellement disponibles'
@@ -72,9 +72,9 @@ ps_content_services_grid_block:
         card_title: 'Entrust a property'
         body: 'Delegate the sale or rental of your offices, buildings, warehouses, premises or land to our experts.'
         button_label: 'Entrust my property'
-        link_type: url
+        link_type: offcanvas
         button_style: primary
-        button_url: /entrust-property
+        button_url: /form/entrust-property
         modal_id: ''
         preset_operation: ''
         preset_asset: ''
@@ -86,7 +86,7 @@ ps_content_services_grid_block:
         button_label: 'Delegate my search'
         link_type: offcanvas
         button_style: primary
-        button_url: ''
+        button_url: /form/entrust-search
         modal_id: ''
         preset_operation: ''
         preset_asset: ''
@@ -124,9 +124,9 @@ ps_content_services_grid_block:
         card_title: 'Confier un bien'
         body: 'Déléguez la vente ou la location de vos bureaux, immeubles, entrepôts, locaux ou terrains à nos experts.'
         button_label: 'Confier mon bien'
-        link_type: url
+        link_type: offcanvas
         button_style: primary
-        button_url: /confier-un-bien
+        button_url: /form/entrust-property
         modal_id: ''
         preset_operation: ''
         preset_asset: ''
@@ -138,7 +138,7 @@ ps_content_services_grid_block:
         button_label: 'Déléguer ma recherche'
         link_type: offcanvas
         button_style: primary
-        button_url: ''
+        button_url: /form/entrust-search
         modal_id: ''
         preset_operation: ''
         preset_asset: ''

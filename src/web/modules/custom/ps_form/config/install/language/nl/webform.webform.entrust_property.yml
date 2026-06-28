@@ -1,0 +1,81 @@
+title: 'Een pand toevertrouwen'
+description: 'Directe toegang — vertrouw de commercialisatie van uw pand toe aan BNP Paribas Real Estate.'
+category: Vastgoedzoektocht
+elements: |
+  step_project:
+    '#title': Project
+  project:
+    '#title': 'Toe te vertrouwen pand'
+  tf_assetpostalcode:
+    '#title': 'Postcode van het pand'
+    '#placeholder': 'bijv. 75002'
+  totale_surface:
+    '#title': 'Totale oppervlakte van het pand (m²)'
+  transaction_type:
+    '#title': 'Welk type transactie?'
+    '#options':
+      LOC: Huur
+      VEN: Koop
+  search_type:
+    '#title': 'Welk type pand vertrouwt u toe?'
+    '#options':
+      BUR: Kantoor
+      COW: Coworking
+      ENT: 'Magazijn / Logistiek'
+      ACT: Bedrijfsruimte
+      COM: Retail
+      TER: Grond
+  search_territory:
+    '#title': Locatie
+    '#placeholder': 'Stad, wijk, postcode, gebouwnaam…'
+  step_contact:
+    '#title': 'Uw gegevens'
+  firstname:
+    '#title': Voornaam
+  lastname:
+    '#title': Achternaam
+  company_name:
+    '#title': Bedrijf
+  job_title:
+    '#title': Functie
+    '#empty_option': 'Selecteer een functie'
+    '#options':
+      'Asset manager': 'Asset manager'
+      Commercial: Commercieel
+      'Directeur immobilier': Vastgoeddirecteur
+      Other: Overig
+  prof_phone:
+    '#title': 'Zakelijke telefoon'
+  prof_email_address:
+    '#title': 'Zakelijke e-mail'
+  optout_intro:
+    '#markup': '<p>Ik verzet me tegen het ontvangen van commerciële communicatie van BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefoon
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, een naamloze vennootschap gevestigd aan 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verwerkt als verwerkingsverantwoordelijke uw gegevens om te reageren op uw via dit formulier ingediende aanvraag. Voor meer informatie over uw rechten, raadpleeg onze <a href="/data-protection">Kennisgeving gegevensbescherming</a>.</p>'
+  step_message:
+    '#title': Bericht
+  qualification_comment:
+    '#title': Bericht
+    '#placeholder': 'Beschrijf uw project'
+settings:
+  form_submit_label: 'Bericht verzenden'
+  wizard_prev_button_label: Terug
+  wizard_next_button_label: Doorgaan
+  confirmation_message: '<p>Dank u. Uw bericht is verzonden.</p>'
+handlers:
+  email_notification:
+    label: Sitewaarschuwing
+    settings:
+      subject: 'Aanvraag pand toevertrouwen'
+      body: _default
+  email_confirmation:
+    label: 'Bevestiging bezoeker'
+    settings:
+      subject: 'Bedankt voor uw contact'
+      body: '<p>Bedankt voor uw bericht.</p><p>Wij hebben uw aanvraag ontvangen en nemen spoedig contact met u op.</p>'

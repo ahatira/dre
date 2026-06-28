@@ -11,7 +11,7 @@ dependencies:
   - ps_dictionary:ps_dictionary
   - ps_feature:ps_feature
   - ps_agent:ps_agent
-  - ps_form:ps_form
+  - webform:webform
   - bnp_editor:bnp_editor
   - drupal:node
   - drupal:field

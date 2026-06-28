@@ -10,9 +10,9 @@ use Drupal\Core\Render\Element;
 use Drupal\inline_form_errors\FormErrorHandler as InlineFormErrorHandler;
 
 /**
- * Inline form errors without the top-level error summary.
+ * Inline form errors without the top-level error summary (webforms in panels).
  */
-final class PsFormErrorHandler extends InlineFormErrorHandler {
+final class WebformInlineErrorHandler extends InlineFormErrorHandler {
 
   /**
    * {@inheritdoc}

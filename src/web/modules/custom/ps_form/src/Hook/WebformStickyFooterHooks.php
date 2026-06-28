@@ -10,11 +10,9 @@ use Drupal\ps_core\Service\SiteUrgencyContactBuilder;
 use Drupal\webform\WebformSubmissionForm;
 
 /**
- * Injects the site-wide urgency contact block into every webform.
+ * Sticky footer + urgency block for webform submissions (config-driven).
  */
-final class WebformUrgencyContactHooks {
-
-  private const HELP_FOOTER_KEY = 'help_footer';
+final class WebformStickyFooterHooks {
 
   private const STICKY_FOOTER_KEY = 'ps_webform_sticky_footer';
 
@@ -25,7 +23,7 @@ final class WebformUrgencyContactHooks {
   ) {}
 
   /**
-   * Adds sticky submit + urgency phone footer (bnppre.fr sidenav-footer).
+   * Adds sticky submit + urgency phone footer from ps_core.settings.
    */
   #[Hook('form_alter')]
   public function formAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
@@ -39,8 +37,6 @@ final class WebformUrgencyContactHooks {
     }
 
     $this->hideLegacyHelpFooter($form);
-
-    // PS form styling (progress breadcrumb, layout, sticky footer rules) on every webform.
     $form['#attached']['library'][] = 'ps_theme/form';
 
     if (!$this->urgencyContactBuilder->isEnabled()) {
@@ -81,16 +77,14 @@ final class WebformUrgencyContactHooks {
   }
 
   /**
-   * Hides legacy YAML help_footer elements.
-   *
-   * Replaced by post-actions injection.
+   * Hides legacy empty help_footer YAML elements superseded by urgency config.
    *
    * @param array<string, mixed> $form
    *   The webform submission form array.
    */
   private function hideLegacyHelpFooter(array &$form): void {
-    if (isset($form['elements'][self::HELP_FOOTER_KEY])) {
-      $form['elements'][self::HELP_FOOTER_KEY]['#access'] = FALSE;
+    if (isset($form['elements']['help_footer'])) {
+      $form['elements']['help_footer']['#access'] = FALSE;
     }
   }
 

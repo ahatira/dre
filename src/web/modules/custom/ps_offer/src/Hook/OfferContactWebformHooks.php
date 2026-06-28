@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\ps_form\Hook;
+namespace Drupal\ps_offer\Hook;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;

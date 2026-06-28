@@ -47,9 +47,6 @@ elements: |-
   legal_notice:
     '#type': webform_markup
     '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France processes your data to send the comparison you requested. See our <a href="/data-protection">Data Protection Notice</a> for your rights.</p>'
-  help_footer:
-    '#type': webform_markup
-    '#markup': ''
   compare_url:
     '#type': hidden
     '#title': 'Comparison URL'

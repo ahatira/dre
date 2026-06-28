@@ -31,9 +31,9 @@ ps_content_services_grid_block:
         card_title: 'Confiar un inmueble'
         body: 'Delegue la venta o el alquiler de sus oficinas, edificios, almacenes, locales o terrenos a nuestros expertos.'
         button_label: 'Confiar mi inmueble'
-        link_type: url
+        link_type: offcanvas
         button_style: primary
-        button_url: /entrust-property
+        button_url: /form/entrust-property
         modal_id: ''
         preset_operation: ''
         preset_asset: ''
@@ -45,7 +45,7 @@ ps_content_services_grid_block:
         button_label: 'Delegar mi búsqueda'
         link_type: offcanvas
         button_style: primary
-        button_url: ''
+        button_url: /form/entrust-search
         modal_id: ''
         preset_operation: ''
         preset_asset: ''

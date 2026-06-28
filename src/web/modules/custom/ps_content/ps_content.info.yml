@@ -6,6 +6,7 @@ package: 'Property Search'
 version: 1.0.0
 dependencies:
   - ps_core:ps_core
+  - ps_form:ps_form
   - ps_search:ps_search
   - drupal:media
   - drupal:media_library

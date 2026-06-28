@@ -31,9 +31,9 @@ ps_content_services_grid_block:
         card_title: 'Een pand toevertrouwen'
         body: 'Vertrouw de verkoop of verhuur van uw kantoren, gebouwen, magazijnen, ruimtes of gronden toe aan onze experts.'
         button_label: 'Mijn pand toevertrouwen'
-        link_type: url
+        link_type: offcanvas
         button_style: primary
-        button_url: /entrust-property
+        button_url: /form/entrust-property
         modal_id: ''
         preset_operation: ''
         preset_asset: ''
@@ -45,7 +45,7 @@ ps_content_services_grid_block:
         button_label: 'Mijn zoekopdracht delegeren'
         link_type: offcanvas
         button_style: primary
-        button_url: ''
+        button_url: /form/entrust-search
         modal_id: ''
         preset_operation: ''
         preset_asset: ''

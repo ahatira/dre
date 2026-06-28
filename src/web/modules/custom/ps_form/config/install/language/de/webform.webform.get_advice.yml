@@ -1,0 +1,64 @@
+title: 'Beratung erhalten'
+description: 'Direktzugang — Anfrage für Immobilienberatung.'
+category: Immobiliensuche
+elements: |
+  step_project:
+    '#title': Projekt
+  consulting_type:
+    '#title': 'Welche Art von Beratung suchen Sie?'
+    '#options':
+      strategy: Immobilienstrategie
+      workplace: 'Workplace & Arbeitsumfeld'
+      building: 'Gebäude & Ausstattung'
+      supply_chain: 'Supply Chain'
+  step_contact:
+    '#title': 'Ihre Kontaktdaten'
+  firstname:
+    '#title': Vorname
+  lastname:
+    '#title': Nachname
+  company_name:
+    '#title': Unternehmen
+  job_title:
+    '#title': Position
+    '#empty_option': 'Position auswählen'
+    '#options':
+      'Asset manager': 'Asset Manager'
+      Commercial: Kaufmännisch
+      'Directeur immobilier': Immobiliendirektor
+      Other: Sonstige
+  prof_phone:
+    '#title': Geschäftstelefon
+  prof_email_address:
+    '#title': 'Geschäftliche E-Mail'
+  optout_intro:
+    '#markup': '<p>Ich widerspreche dem Erhalt werblicher Mitteilungen von BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-Mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefon
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, eine vereinfachte Aktiengesellschaft mit Sitz in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verarbeitet als Verantwortlicher Ihre Daten, um auf Ihre über dieses Formular übermittelte Anfrage zu antworten. Weitere Informationen zu Ihren Rechten finden Sie in unserer <a href="/data-protection">Datenschutzhinweis</a>.</p>'
+  step_message:
+    '#title': Nachricht
+  qualification_comment:
+    '#title': Nachricht
+    '#placeholder': 'Beschreiben Sie Ihr Projekt'
+settings:
+  form_submit_label: 'Nachricht senden'
+  wizard_prev_button_label: Zurück
+  wizard_next_button_label: Weiter
+  confirmation_message: '<p>Vielen Dank. Ihre Nachricht wurde gesendet.</p>'
+handlers:
+  email_notification:
+    label: Website-Benachrichtigung
+    settings:
+      subject: Beratungsanfrage
+      body: _default
+  email_confirmation:
+    label: Besucherbestätigung
+    settings:
+      subject: 'Vielen Dank für Ihre Kontaktaufnahme'
+      body: '<p>Vielen Dank für Ihre Nachricht.</p><p>Wir haben Ihre Anfrage erhalten und werden uns in Kürze bei Ihnen melden.</p>'

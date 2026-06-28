@@ -1,0 +1,10 @@
+contact_deeplink:
+  js:
+    js/contact-deeplink.js: {}
+    js/contact-hub-need.js: {}
+    js/contact-wizard-from-hub.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/once
+    - ps_theme/form

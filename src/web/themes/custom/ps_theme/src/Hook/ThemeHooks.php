@@ -43,6 +43,22 @@ final class ThemeHooks {
           'message' => NULL,
         ],
       ],
+      'ps_form_offcanvas' => [
+        'variables' => [
+          'webform' => NULL,
+          'webform_id' => NULL,
+          'panel_id' => NULL,
+        ],
+        'template' => 'ps-form-offcanvas-panel',
+      ],
+      'ps_offer_webform_modal' => [
+        'variables' => [
+          'webform' => NULL,
+          'webform_id' => NULL,
+          'panel_id' => NULL,
+        ],
+        'template' => 'ps-offer-webform-modal-panel',
+      ],
       'ps_mega_menu_tools' => [
         'variables' => [],
         'template' => 'ps-mega-menu-tools',

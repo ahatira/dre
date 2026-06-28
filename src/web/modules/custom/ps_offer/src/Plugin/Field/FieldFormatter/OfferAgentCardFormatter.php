@@ -183,7 +183,10 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
       ? trim((string) ($agent->get('phone')->value ?? ''))
       : '';
 
-    $contact_url = Url::fromRoute('ps_form.offer_contact_modal', ['node' => $offer->id()], [
+    $contact_url = Url::fromRoute('ps_offer.webform', [
+      'node' => $offer->id(),
+      'webform' => 'offer_contact',
+    ], [
       'query' => [
         '_webform_dialog' => '1',
         'source_entity_type' => 'node',

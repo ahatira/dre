@@ -612,7 +612,7 @@ menus:
       uuid: a2000001-0000-4000-8000-000000000003
       weight: 30
       link:
-        uri: 'internal:/contact/offcanvas'
+        uri: 'internal:/form/contact'
         options:
           attributes:
             class:

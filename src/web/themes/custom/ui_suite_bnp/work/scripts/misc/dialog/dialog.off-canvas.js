@@ -122,18 +122,29 @@
 
       // The offcanvas dialog header.
       if (settingIsTrue(settings.dialogShowHeader)) {
-        let offCanvasHeader = '<div class="offcanvas-header">';
-        const heading = settings.dialogHeadingLevel;
+        const $existingHeader = $element.children('.offcanvas-header').first();
 
-        if (settingIsTrue(settings.dialogShowHeaderTitle)) {
-          offCanvasHeader += `<h${heading} class="offcanvas-title" id="offcanvasLabel">${settings.title}</h${heading}>`;
+        if (
+          $existingHeader.length &&
+          settingIsTrue(settings.dialogShowHeaderTitle) &&
+          settings.title
+        ) {
+          $existingHeader.find('.offcanvas-title').text(settings.title);
         }
+        else if (!$existingHeader.length) {
+          let offCanvasHeader = '<div class="offcanvas-header">';
+          const heading = settings.dialogHeadingLevel;
 
-        offCanvasHeader += `<button type="button" class="close btn-close" data-bs-dismiss="offcanvas" aria-label="${Drupal.t(
-          'Close',
-        )}"></button></div>`;
+          if (settingIsTrue(settings.dialogShowHeaderTitle)) {
+            offCanvasHeader += `<h${heading} class="offcanvas-title" id="offcanvasLabel">${settings.title}</h${heading}>`;
+          }
 
-        $(offCanvasHeader).prependTo($element);
+          offCanvasHeader += `<button type="button" class="close btn-close" data-bs-dismiss="offcanvas" aria-label="${Drupal.t(
+            'Close',
+          )}"></button></div>`;
+
+          $(offCanvasHeader).prependTo($element);
+        }
       }
 
       if (settingIsTrue(settings.dialogStatic)) {

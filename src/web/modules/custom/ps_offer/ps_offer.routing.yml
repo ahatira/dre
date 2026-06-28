@@ -106,3 +106,19 @@ ps_offer.governance_domain_settings:
     _permission: 'manage ps_offer'
   options:
     _admin_route: TRUE
+
+ps_offer.webform:
+  path: '/offer/{node}/form/{webform}'
+  defaults:
+    _controller: '\Drupal\ps_offer\Controller\OfferWebformController::modal'
+    _title_callback: '\Drupal\ps_offer\Controller\OfferWebformController::title'
+  requirements:
+    _entity_access: 'node.view'
+    node: \d+
+    webform: 'offer_contact|schedule_visit'
+  options:
+    parameters:
+      node:
+        type: entity:node
+      webform:
+        type: entity:webform

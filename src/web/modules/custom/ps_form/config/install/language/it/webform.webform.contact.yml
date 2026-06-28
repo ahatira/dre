@@ -1,41 +1,116 @@
 title: Contattaci
-description: "Modulo di contatto del sito per l'offcanvas dell'header."
+description: "Modulo di contatto globale per l'offcanvas dell'header."
 category: 'Ricerca immobiliare'
-elements: |-
-  contact:
-    '#type': fieldset
-    '#title': 'I tuoi dati'
-    first_name:
-      '#type': textfield
-      '#title': 'Nome'
-      '#required': true
-    last_name:
-      '#type': textfield
-      '#title': 'Cognome'
-      '#required': true
-    email:
-      '#type': email
-      '#title': E-mail
-      '#required': true
-    phone:
-      '#type': tel
-      '#title': Telefono
-  message:
-    '#type': textarea
+elements: |
+  step_need:
+    '#title': Esigenza
+  need_title:
+    '#markup': '<p class="h4">Per iniziare, qual è la sua esigenza?</p>'
+  need:
+    '#title': Esigenza
+    '#options':
+      rent: 'Trovare un immobile in vendita o in affitto'
+      delegate: 'Affidare la mia ricerca'
+      advise: 'Ricevere consulenza'
+      market: 'Affidare un immobile'
+      sell: 'Investire o vendere un immobile'
+      other: 'Altra richiesta'
+  step_project:
+    '#title': Progetto
+  project:
+    '#title': 'Tipologia di immobile e requisiti'
+  transaction_type:
+    '#title': 'Che tipo di transazione?'
+    '#options':
+      LOC: Affitto
+      VEN: Acquisto
+      EITHER: 'Nessuna preferenza'
+  search_type:
+    '#title': 'Che tipo di immobile sta cercando?'
+    '#options':
+      BUR: Uffici
+      COW: Coworking
+      ENT: 'Magazzino / Logistica'
+      ACT: 'Locali commerciali'
+      COM: Retail
+      TER: Terreno
+  search_criteria:
+    '#title': 'Quali sono i suoi criteri di ricerca?'
+  budget:
+    '#title': Budget
+  min_budget:
+    '#title': 'Prezzo min.'
+  max_budget:
+    '#title': 'Prezzo max.'
+  rent:
+    '#title': Affitto
+  min_rent:
+    '#title': 'Affitto min.'
+  max_rent:
+    '#title': 'Affitto max.'
+  surface:
+    '#title': Superficie
+  min_surface:
+    '#title': 'Superficie min. (m²)'
+  max_surface:
+    '#title': 'Superficie max. (m²)'
+  post:
+    '#title': 'Postazioni di lavoro'
+  min_post:
+    '#title': 'Postazioni min.'
+  max_post:
+    '#title': 'Postazioni max.'
+  search_territory:
+    '#title': Località
+    '#placeholder': "Città, quartiere, CAP, nome dell'edificio…"
+  step_contact:
+    '#title': 'I suoi dati'
+  firstname:
+    '#title': Nome
+  lastname:
+    '#title': Cognome
+  company_name:
+    '#title': Società
+  job_title:
+    '#title': Qualifica
+    '#empty_option': 'Selezioni una qualifica'
+    '#options':
+      'Asset manager': 'Asset manager'
+      Commercial: Commerciale
+      'Directeur immobilier': 'Direttore immobiliare'
+      Other: Altro
+  prof_phone:
+    '#title': 'Telefono professionale'
+  prof_email_address:
+    '#title': 'E-mail professionale'
+  optout_intro:
+    '#markup': '<p>Mi oppongo a ricevere comunicazioni commerciali da BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefono
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, società per azioni con sede in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, in qualità di titolare del trattamento, tratta le informazioni che la riguardano per rispondere alla sua richiesta inviata tramite questo modulo. Per maggiori informazioni sui suoi diritti, consulti la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a>.</p>'
+  step_message:
     '#title': Messaggio
-    '#required': true
-  legal:
-    '#type': checkbox
-    '#title': 'Accetto la politica sulla privacy.'
-    '#required': true
+  qualification_comment:
+    '#title': Messaggio
+    '#placeholder': 'Descriva il suo progetto'
 settings:
-  form_submit_label: Invia
-  confirmation_message: "<p>Grazie. Il tuo messaggio è stato inviato.</p>"
+  form_submit_label: 'Invia messaggio'
+  wizard_prev_button_label: Indietro
+  wizard_next_button_label: Continua
+  confirmation_message: '<p>Grazie. Il suo messaggio è stato inviato.</p>'
+handlers:
   email_notification:
     label: 'Notifica del sito'
-    subject: 'Modulo di contatto del sito'
-    body: _default
+    settings:
+      subject: 'Modulo di contatto del sito'
+      body: _default
   email_confirmation:
     label: 'Conferma visitatore'
-    subject: 'Grazie per averci contattato'
-    body: "<p>Grazie per il tuo messaggio.</p><p>Abbiamo ricevuto la tua richiesta e ti ricontatteremo a breve.</p>"
+    settings:
+      subject: 'Grazie per averci contattato'
+      body: '<p>Grazie per il suo messaggio.</p><p>Abbiamo ricevuto la sua richiesta e la contatteremo a breve.</p>'

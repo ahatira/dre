@@ -71,6 +71,9 @@ ps_install_country_site() {
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready before ps_form"
   ps_retry 2 2 ps_drush en -y ps_form
+  # shellcheck source=/dev/null
+  source "${PS_CORE_DIR}/config-sync.sh"
+  ps_import_form_cmi_from_site_config
   ps_info "Preparing ps_offer dependencies..."
   ps_retry 2 2 ps_drush en -y ps_favorite ps_diagnostic layout_builder layout_discovery
   ps_recover_ps_offer_if_partial

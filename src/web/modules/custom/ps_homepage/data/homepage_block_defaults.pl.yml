@@ -31,9 +31,9 @@ ps_content_services_grid_block:
         card_title: 'Powierzenie nieruchomości'
         body: 'Powierz sprzedaż lub wynajem swoich biur, budynków, magazynów, lokali lub gruntów naszym ekspertom.'
         button_label: 'Powierz moją nieruchomość'
-        link_type: url
+        link_type: offcanvas
         button_style: primary
-        button_url: /entrust-property
+        button_url: /form/entrust-property
         modal_id: ''
         preset_operation: ''
         preset_asset: ''
@@ -45,7 +45,7 @@ ps_content_services_grid_block:
         button_label: 'Deleguj moje poszukiwania'
         link_type: offcanvas
         button_style: primary
-        button_url: ''
+        button_url: /form/entrust-search
         modal_id: ''
         preset_operation: ''
         preset_asset: ''

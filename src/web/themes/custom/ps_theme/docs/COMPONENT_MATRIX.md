@@ -52,7 +52,7 @@ Légende : **G** = `ui_suite_bnp` · **PS** = `ps_theme` · **M** = module Drupa
 | Diagnostics DPE/GES | `diagnostic_item_default` | **M** | `ps_diagnostic` |
 | Plan / documents | `ps_offer_detail_actions` block | **M** | `field_media_document` |
 | Carte localisation | `offer-map-interactive` | **PS** SDC | `ps_offer_geo_interactive` + Google Maps API |
-| Contact conseiller | `offer-agent-card` | **PS** SDC | `offer_contact` webform via AJAX modal (`ps_form.offer_contact_modal`) |
+| Contact conseiller | `offer-agent-card` | **PS** SDC | `offer_contact` webform via AJAX modal (`ps_offer.webform`) |
 | Contact agent | `offer-agent-card` | **PS** SDC | `ps_agent.card` + contact modal + visit `tel:` (labels via formatter settings, translatable in Configuration translation) |
 | Favoris / partage / brochure | actions bar | **PS** | `ps_favorite` + download |
 | Offres similaires | `offer-card` carousel | **PS** | View relationnelle (phase ultérieure) |

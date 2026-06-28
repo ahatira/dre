@@ -1,12 +1,53 @@
-ps_form.offer_contact_modal:
-  path: '/offer/{node}/contact-modal'
+ps_form.webform_contact:
+  path: '/form/contact'
   defaults:
-    _controller: '\Drupal\ps_form\Controller\OfferContactModalController::modal'
-    _title_callback: '\Drupal\ps_form\Controller\OfferContactModalController::title'
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: contact
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
   requirements:
-    _entity_access: 'node.view'
-    node: \d+
-  options:
-    parameters:
-      node:
-        type: entity:node
+    _access: 'TRUE'
+
+ps_form.webform_entrust_search:
+  path: '/form/entrust-search'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: entrust_search
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+
+ps_form.webform_get_advice:
+  path: '/form/get-advice'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: get_advice
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+
+ps_form.webform_entrust_property:
+  path: '/form/entrust-property'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: entrust_property
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+
+ps_form.webform_invest_sell:
+  path: '/form/invest-sell'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: invest_sell
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+
+ps_form.webform_other_request:
+  path: '/form/other-request'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: other_request
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'

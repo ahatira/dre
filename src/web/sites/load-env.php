@@ -320,18 +320,39 @@ if (!function_exists('ps_memcache_is_enabled_in_database')) {
   }
 }
 
+if (!function_exists('ps_memcache_env_enabled')) {
+  /**
+   * Whether Memcache is enabled via PS_MEMCACHE_ENABLED (dev toggle).
+   *
+   * When unset, Memcache follows CACHE_HOST / reachability (prod/int default).
+   * Set to 0 in src/.env to force database cache in local dev.
+   */
+  function ps_memcache_env_enabled(): bool {
+    $flag = ps_env('PS_MEMCACHE_ENABLED');
+    if ($flag === '') {
+      return TRUE;
+    }
+
+    return !in_array(strtolower($flag), ['0', 'false', 'no', 'off'], TRUE);
+  }
+}
+
 if (!function_exists('ps_memcache_bootstrap_enabled')) {
   /**
    * Whether MemcacheBackend should be wired in settings (module + reachable host).
    *
-   * Falls back to database cache when CACHE_HOST is unset, memcache module is
-   * missing/disabled, or the server is unreachable — keeps install/runtime working.
+   * Falls back to database cache when PS_MEMCACHE_ENABLED=0, CACHE_HOST is unset,
+   * memcache module is missing/disabled, or the server is unreachable.
    *
    * @param array<string, mixed>|null $databaseInfo
    *   Default DB connection from settings.php; when provided, memcache must be
    *   enabled in core.extension before the backend is wired.
    */
   function ps_memcache_bootstrap_enabled(string $appRoot, ?array $databaseInfo = NULL): bool {
+    if (!ps_memcache_env_enabled()) {
+      return FALSE;
+    }
+
     $host = ps_env('CACHE_HOST');
     if ($host === '') {
       $host = ps_env('CHACHE_HOST');

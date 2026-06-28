@@ -35,7 +35,7 @@ final class ContentCtaLinkBuilder {
     return match ($linkType) {
       'offcanvas' => [
         'link_type' => 'offcanvas',
-        'url' => Url::fromRoute('ps_homepage.contact_offcanvas')->toString(),
+        'url' => $this->resolveOffcanvasUrl($item, $langcode),
         'modal_id' => '',
         'offcanvas' => TRUE,
       ],
@@ -63,6 +63,18 @@ final class ContentCtaLinkBuilder {
         'offcanvas' => FALSE,
       ],
     };
+  }
+
+  /**
+   * @param array<string, mixed> $item
+   */
+  private function resolveOffcanvasUrl(array $item, ?string $langcode): string {
+    $path = trim((string) ($item['button_url'] ?? ''));
+    if ($path !== '') {
+      return $this->resolveLocalizedUrl($item, $langcode);
+    }
+
+    return Url::fromRoute('ps_form.webform_contact')->toString();
   }
 
   /**

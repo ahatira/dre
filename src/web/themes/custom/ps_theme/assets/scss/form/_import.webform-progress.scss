@@ -19,6 +19,11 @@ $ps-webform-progress-chevron: url('#{$ps-bnp-icon-base}/generic/arrow-right.svg'
   border-bottom: 1px solid $ps-webform-progress-border;
 }
 
+// Contact-family wizards use the breadcrumb tracker only (no "1 of 3" counter).
+.ps-contact-wizard .webform-progress__status {
+  display: none;
+}
+
 .webform-progress-tracker.progress-tracker {
   display: flex;
   flex-flow: row wrap;

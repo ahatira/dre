@@ -44,11 +44,7 @@ elements: |-
     '#required': true
   legal_notice:
     '#type': webform_markup
-    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate procesa sus datos para enviar alertas inmobiliarias que coincidan con sus criterios de búsqueda. Consulte nuestro <a href="/data-protection">Aviso de protección de datos</a> para conocer sus derechos.</p>'
-  help_footer:
-    '#type': webform_markup
-    '#markup': ''
-  criteria_json:
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate procesa sus datos para enviar alertas inmobiliarias que coincidan con sus criterios de búsqueda. Consulte nuestro <a href="/data-protection">Aviso de protección de datos</a> para conocer sus derechos.</p>'  criteria_json:
     '#type': hidden
     '#title': 'Criterios de búsqueda'
   search_url:

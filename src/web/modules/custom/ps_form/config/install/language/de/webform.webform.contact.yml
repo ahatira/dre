@@ -1,41 +1,116 @@
 title: 'Kontaktieren Sie uns'
-description: "Website-weites Kontaktformular für das Header-Offcanvas."
+description: 'Site-weites Kontaktformular für das Header-Offcanvas.'
 category: Immobiliensuche
-elements: |-
-  contact:
-    '#type': fieldset
+elements: |
+  step_need:
+    '#title': Bedarf
+  need_title:
+    '#markup': '<p class="h4">Um zu beginnen: Was ist Ihr Anliegen?</p>'
+  need:
+    '#title': Bedarf
+    '#options':
+      rent: 'Eine Immobilie zum Kauf oder zur Miete finden'
+      delegate: 'Meine Suche beauftragen'
+      advise: 'Beratung erhalten'
+      market: 'Eine Immobilie anvertrauen'
+      sell: 'Immobilie investieren oder verkaufen'
+      other: 'Sonstige Anfrage'
+  step_project:
+    '#title': Projekt
+  project:
+    '#title': 'Immobilientyp und Anforderungen'
+  transaction_type:
+    '#title': 'Welche Art von Transaktion?'
+    '#options':
+      LOC: Miete
+      VEN: Kauf
+      EITHER: 'Keine Präferenz'
+  search_type:
+    '#title': 'Welche Art von Immobilie suchen Sie?'
+    '#options':
+      BUR: Büro
+      COW: Coworking
+      ENT: 'Lager / Logistik'
+      ACT: Gewerbefläche
+      COM: Einzelhandel
+      TER: Grundstück
+  search_criteria:
+    '#title': 'Was sind Ihre Suchkriterien?'
+  budget:
+    '#title': Budget
+  min_budget:
+    '#title': Mindestpreis
+  max_budget:
+    '#title': Höchstpreis
+  rent:
+    '#title': Miete
+  min_rent:
+    '#title': Mindestmiete
+  max_rent:
+    '#title': Höchstmiete
+  surface:
+    '#title': Fläche
+  min_surface:
+    '#title': 'Mindestfläche (m²)'
+  max_surface:
+    '#title': 'Höchstfläche (m²)'
+  post:
+    '#title': Arbeitsplätze
+  min_post:
+    '#title': 'Min. Arbeitsplätze'
+  max_post:
+    '#title': 'Max. Arbeitsplätze'
+  search_territory:
+    '#title': Standort
+    '#placeholder': 'Stadt, Stadtteil, Postleitzahl, Gebäudename…'
+  step_contact:
     '#title': 'Ihre Kontaktdaten'
-    first_name:
-      '#type': textfield
-      '#title': 'Vorname'
-      '#required': true
-    last_name:
-      '#type': textfield
-      '#title': 'Nachname'
-      '#required': true
-    email:
-      '#type': email
-      '#title': E-Mail
-      '#required': true
-    phone:
-      '#type': tel
-      '#title': Telefon
-  message:
-    '#type': textarea
+  firstname:
+    '#title': Vorname
+  lastname:
+    '#title': Nachname
+  company_name:
+    '#title': Unternehmen
+  job_title:
+    '#title': Position
+    '#empty_option': 'Position auswählen'
+    '#options':
+      'Asset manager': 'Asset Manager'
+      Commercial: Kaufmännisch
+      'Directeur immobilier': Immobiliendirektor
+      Other: Sonstige
+  prof_phone:
+    '#title': Geschäftstelefon
+  prof_email_address:
+    '#title': 'Geschäftliche E-Mail'
+  optout_intro:
+    '#markup': '<p>Ich widerspreche dem Erhalt werblicher Mitteilungen von BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-Mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefon
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, eine Aktiengesellschaft mit Sitz in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verarbeitet als Verantwortlicher Ihre Daten, um auf Ihre über dieses Formular übermittelte Anfrage zu antworten. Weitere Informationen zu Ihren Rechten finden Sie in unserer <a href="/data-protection">Datenschutzhinweis</a>.</p>'
+  step_message:
     '#title': Nachricht
-    '#required': true
-  legal:
-    '#type': checkbox
-    '#title': 'Ich stimme der Datenschutzrichtlinie zu.'
-    '#required': true
+  qualification_comment:
+    '#title': Nachricht
+    '#placeholder': 'Beschreiben Sie Ihr Projekt'
 settings:
-  form_submit_label: Senden
-  confirmation_message: "<p>Vielen Dank. Ihre Nachricht wurde gesendet.</p>"
+  form_submit_label: 'Nachricht senden'
+  wizard_prev_button_label: Zurück
+  wizard_next_button_label: Weiter
+  confirmation_message: '<p>Vielen Dank. Ihre Nachricht wurde gesendet.</p>'
+handlers:
   email_notification:
-    label: "Website-Benachrichtigung"
-    subject: 'Kontaktformular der Website'
-    body: _default
+    label: Website-Benachrichtigung
+    settings:
+      subject: 'Kontaktformular der Website'
+      body: _default
   email_confirmation:
     label: Besucherbestätigung
-    subject: 'Vielen Dank für Ihre Kontaktaufnahme'
-    body: "<p>Vielen Dank für Ihre Nachricht.</p><p>Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.</p>"
+    settings:
+      subject: 'Vielen Dank für Ihre Kontaktaufnahme'
+      body: '<p>Vielen Dank für Ihre Nachricht.</p><p>Wir haben Ihre Anfrage erhalten und werden uns in Kürze bei Ihnen melden.</p>'

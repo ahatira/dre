@@ -1,0 +1,26 @@
+// Contact hub (step_need) — stacked need radios.
+
+.ps-contact-wizard--contact {
+  .type_need {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  // need_title markup uses .h4 — keep spacing before options.
+  .form-item-need-title {
+    margin-bottom: 0 !important;
+  }
+
+  // Radios legend is visually hidden but card-header still renders a band.
+  fieldset.webform-composite-hidden-title.webform-type-radios > legend.card-header {
+    display: none;
+  }
+
+  fieldset.webform-composite-hidden-title.webform-type-radios > .card-body.fieldset-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0;
+  }
+}

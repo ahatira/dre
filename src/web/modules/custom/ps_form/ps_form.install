@@ -11,14 +11,27 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function ps_form_install(): void {
-  $provisioner = \Drupal::service('ps_form.webform_provisioner');
-  $provisioner->provisionMissing();
-  $missing = $provisioner->getMissingWebformIds();
-  if ($missing !== []) {
-    throw new \RuntimeException('Missing PS Form webforms after install: ' . implode(', ', $missing));
+  $settings = \Drupal::config('ps_form.settings');
+  $provisionWebforms = (bool) ($settings->get('provision_webforms_on_install') ?? FALSE);
+  $applySpamBaseline = (bool) ($settings->get('apply_spam_baseline_on_install') ?? FALSE);
+
+  if (!$provisionWebforms && !$applySpamBaseline) {
+    // Webforms and spam settings are owned by per-country CMI (config/sites/{code}/).
+    return;
   }
 
-  \Drupal::service('ps_form.spam_configurator')->applyBaseline();
+  if ($provisionWebforms) {
+    $provisioner = \Drupal::service('ps_form.webform_provisioner');
+    $provisioner->provisionMissing();
+    $missing = $provisioner->getMissingWebformIds();
+    if ($missing !== []) {
+      throw new \RuntimeException('Missing PS Form webforms after install: ' . implode(', ', $missing));
+    }
+  }
+
+  if ($applySpamBaseline) {
+    \Drupal::service('ps_form.spam_configurator')->applyBaseline();
+  }
 }
 
 /**

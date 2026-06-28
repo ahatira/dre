@@ -1,0 +1,64 @@
+title: 'Ricevere consulenza'
+description: 'Accesso diretto — richiesta di consulenza immobiliare.'
+category: 'Ricerca immobiliare'
+elements: |
+  step_project:
+    '#title': Progetto
+  consulting_type:
+    '#title': 'Che tipo di consulenza sta cercando?'
+    '#options':
+      strategy: 'Strategia immobiliare'
+      workplace: 'Workplace e ambiente di lavoro'
+      building: 'Edificio e fit-out'
+      supply_chain: 'Supply chain'
+  step_contact:
+    '#title': 'I suoi dati'
+  firstname:
+    '#title': Nome
+  lastname:
+    '#title': Cognome
+  company_name:
+    '#title': Società
+  job_title:
+    '#title': Qualifica
+    '#empty_option': 'Selezioni una qualifica'
+    '#options':
+      'Asset manager': 'Asset manager'
+      Commercial: Commerciale
+      'Directeur immobilier': 'Direttore immobiliare'
+      Other: Altro
+  prof_phone:
+    '#title': 'Telefono professionale'
+  prof_email_address:
+    '#title': 'E-mail professionale'
+  optout_intro:
+    '#markup': '<p>Mi oppongo a ricevere comunicazioni commerciali da BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefono
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, società per azioni semplificata con sede in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, in qualità di titolare del trattamento, tratta le informazioni che la riguardano per rispondere alla sua richiesta inviata tramite questo modulo. Per maggiori informazioni sui suoi diritti, consulti la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a>.</p>'
+  step_message:
+    '#title': Messaggio
+  qualification_comment:
+    '#title': Messaggio
+    '#placeholder': 'Descriva il suo progetto'
+settings:
+  form_submit_label: 'Invia messaggio'
+  wizard_prev_button_label: Indietro
+  wizard_next_button_label: Continua
+  confirmation_message: '<p>Grazie. Il suo messaggio è stato inviato.</p>'
+handlers:
+  email_notification:
+    label: 'Notifica del sito'
+    settings:
+      subject: 'Richiesta di consulenza'
+      body: _default
+  email_confirmation:
+    label: 'Conferma visitatore'
+    settings:
+      subject: 'Grazie per averci contattato'
+      body: '<p>Grazie per il suo messaggio.</p><p>Abbiamo ricevuto la sua richiesta e la contatteremo a breve.</p>'

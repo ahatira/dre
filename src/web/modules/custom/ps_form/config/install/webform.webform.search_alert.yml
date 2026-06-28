@@ -60,9 +60,6 @@ elements: |-
   legal_notice:
     '#type': webform_markup
     '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate processes your data to send property alerts matching your search criteria. See our <a href="/data-protection">Data Protection Notice</a> for your rights.</p>'
-  help_footer:
-    '#type': webform_markup
-    '#markup': ''
   criteria_json:
     '#type': hidden
     '#title': 'Search criteria'

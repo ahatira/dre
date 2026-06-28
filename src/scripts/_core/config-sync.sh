@@ -179,6 +179,49 @@ ps_uninstall_update_module_if_present() {
   fi
 }
 
+# Imports PS Form webforms + spam settings from config/sites/{country}/ (Phase 1 CMI).
+ps_import_form_cmi_from_site_config() {
+  local sync_dir
+  sync_dir="$(ps_config_sync_dir)"
+  local partial_dir="${PS_SRC_DIR}/tmp/cim-form-webforms"
+  rm -rf "${partial_dir}"
+  mkdir -p "${partial_dir}"
+
+  local copied=0
+  for pattern in \
+    webform.webform.*.yml \
+    ps_form.settings.yml \
+    altcha.settings.yml \
+    antibot.settings.yml \
+    honeypot.settings.yml \
+    captcha.settings.yml \
+    captcha.captcha_point.*.yml \
+    webform.settings.yml; do
+    for file in "${sync_dir}"/${pattern}; do
+      [[ -f "${file}" ]] || continue
+      cp "${file}" "${partial_dir}/"
+      copied=$((copied + 1))
+    done
+  done
+
+  if [[ -d "${sync_dir}/language" ]]; then
+    mkdir -p "${partial_dir}/language"
+    cp -a "${sync_dir}/language/." "${partial_dir}/language/"
+    copied=$((copied + $(find "${partial_dir}/language" -name 'webform.webform.*.yml' 2>/dev/null | wc -l)))
+  fi
+
+  if [[ ! -f "${partial_dir}/webform.webform.contact.yml" ]]; then
+    ps_warn "No webform CMI in ${sync_dir} — skipping form import"
+    rm -rf "${partial_dir}"
+    return 0
+  fi
+
+  ps_info "Importing PS Form CMI (${copied} files) from config/sites/${PS_COUNTRY_CODE}..."
+  ps_drush config:import --partial -y --source="${partial_dir}" \
+    || ps_die "PS Form CMI import failed for ${PS_COUNTRY_CODE}"
+  rm -rf "${partial_dir}"
+}
+
 ps_install_homepage_from_configuration() {
   ps_info "Creating homepage node from configuration (post-CIM)..."
   ps_drush ev '
