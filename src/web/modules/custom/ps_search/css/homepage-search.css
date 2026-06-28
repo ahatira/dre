@@ -124,8 +124,29 @@
   border: 2px solid var(--ps-homepage-hero-border, #d6dbde);
   border-radius: 0;
   box-shadow: none;
+  gap: 0.5rem;
   min-height: 2.5rem;
   padding: 0.5rem 1rem;
+
+  .ps-filter-bar__location-editor {
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .ps-location-chip {
+    font-size: 0.875rem;
+    height: auto;
+    line-height: 1.25;
+    max-height: none;
+    padding: 0.125rem 0.35rem 0.125rem 0.5rem;
+  }
+
+  .ps-filter-bar__location-input {
+    font-size: 0.875rem;
+    height: auto;
+    line-height: 1.5rem;
+    max-height: none;
+  }
 }
 
 .ps-homepage-search-entry__location-wrap .ps-filter-bar__item--location-inline:focus-within .ps-filter-bar__toggle--stacked {

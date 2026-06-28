@@ -371,6 +371,12 @@
         return;
       }
 
+      rootEl.addEventListener('show.bs.dropdown', function () {
+        input.style.flex = '';
+        input.style.width = '';
+        input.style.minWidth = '';
+      });
+
       rootEl.addEventListener('hide.bs.dropdown', function () {
         hideSuggestions();
         commitDraftTokens();
@@ -481,12 +487,6 @@
           });
         });
       }
-      else if (!input.value.trim()) {
-        const hint = document.createElement('div');
-        hint.className = 'ps-location-suggest__hint';
-        hint.textContent = Drupal.t('Start typing a city name or postal code');
-        suggestBox.appendChild(hint);
-      }
       else if (input.value.trim().length >= 2) {
         const hint = document.createElement('div');
         hint.className = 'ps-location-suggest__hint';
@@ -513,7 +513,7 @@
       }
 
       if (partialToken.length === 0) {
-        renderSuggestions([]);
+        hideSuggestions();
         return;
       }
 

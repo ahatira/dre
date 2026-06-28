@@ -23,7 +23,7 @@ search-context:
     - core/drupalSettings
 
 filter.bar:
-  version: 1.0.13
+  version: 1.0.15
   js:
     js/search-location-editor.js: {}
     js/search-transport-suggest.js: {}
@@ -55,7 +55,7 @@ header.search:
     - ps_theme/header
 
 homepage.search:
-  version: 1.0.6
+  version: 1.0.7
   js:
     js/homepage-search.js: {}
   css:

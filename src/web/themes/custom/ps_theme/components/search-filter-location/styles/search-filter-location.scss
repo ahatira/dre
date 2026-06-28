@@ -41,13 +41,38 @@
   gap: 0;
 }
 
-.ps-filter-bar__toggle--location {
+.ps-filter-bar__toggle--location:not(.ps-filter-bar__toggle--stacked) {
   align-items: center;
   cursor: text;
   flex-wrap: nowrap;
   gap: clamp(4px, 0.5vw, 8px);
   min-height: var(--ps-filter-field-height);
+  padding-block: 4px;
   position: relative;
+
+  .ps-filter-bar__location-editor {
+    max-height: calc(var(--ps-filter-field-height) - 8px - 4px);
+  }
+
+  .ps-location-chip {
+    align-items: center;
+    box-sizing: border-box;
+    font-size: var(--ps-filter-field-font-size);
+    height: calc(var(--ps-filter-field-height) - 12px);
+    line-height: 1;
+    max-height: calc(var(--ps-filter-field-height) - 12px);
+    padding: 0 6px 0 8px;
+  }
+
+  .ps-location-chip__clear {
+    font-size: 0.875rem;
+  }
+
+  .ps-filter-bar__location-input {
+    height: calc(var(--ps-filter-field-height) - 12px);
+    line-height: calc(var(--ps-filter-field-height) - 12px);
+    max-height: calc(var(--ps-filter-field-height) - 12px);
+  }
 }
 
 .ps-filter-bar__toggle--stacked {
@@ -74,8 +99,9 @@
 }
 
 .ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-chips {
-  // Keep chips out of layout without display:none — that breaks focus on chip
-  // buttons (Tab order) and triggers the a11y focusout close handler.
+  // Override display:contents — otherwise chip nodes stay in the toggle flex row
+  // and leave a blank gap while the popin is open (chips show in popin panel).
+  display: block;
   height: 0;
   overflow: hidden;
   pointer-events: none;
@@ -84,9 +110,16 @@
   width: 0;
 }
 
-.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {
-  flex: 1 1 48px;
-  min-width: 48px;
+.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor {
+  min-height: calc(var(--ps-filter-field-height) - 12px);
+}
+
+.ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor .ps-filter-bar__location-input {
+  flex: 1 1 auto;
+  max-width: none;
+  min-width: 0;
+  opacity: 1;
+  width: auto;
 }
 
 .ps-filter-bar__item--location:has(.dropdown-menu.show) .ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input::placeholder {
@@ -116,10 +149,42 @@
   opacity: 0;
 }
 
-.ps-filter-bar__location-editor:has(.ps-location-chip) .ps-filter-bar__location-input {
+// Filter bar popin closed: chip summary only (input focusable via toggle click).
+.ps-filter-bar__item--location:has(.dropdown-menu):not(:has(.dropdown-menu.show))
+  .ps-filter-bar__location-editor:has(.ps-location-chip)
+  .ps-filter-bar__location-input {
+  flex: 0 0 0;
+  max-width: 0;
+  min-width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+// Homepage / inline stacked: collapse idle input, expand when editing.
+.ps-filter-bar__toggle--stacked:not(:focus-within)
+  .ps-filter-bar__location-editor:has(.ps-location-chip)
+  .ps-filter-bar__location-input {
+  flex: 0 0 0;
+  max-width: 0;
+  min-width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+.ps-filter-bar__toggle--stacked:focus-within
+  .ps-filter-bar__location-editor:has(.ps-location-chip)
+  .ps-filter-bar__location-input {
   flex: 1 1 auto;
+  max-width: none;
   min-width: 2ch;
+  opacity: 1;
   width: auto;
+}
+
+.ps-filter-bar__toggle--stacked:focus-within
+  .ps-filter-bar__location-editor:has(.ps-location-chip)
+  .ps-filter-bar__location-input::placeholder {
+  opacity: 1;
 }
 
 .ps-filter-bar__location-clear {
