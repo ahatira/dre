@@ -1,6 +1,0 @@
-ps_core.settings_urgency_contact:
-  title: 'Urgency contact labels'
-  names:
-    - ps_core.settings
-  base_route_name: ps_core.settings_form
-  weight: 10

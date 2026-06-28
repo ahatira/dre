@@ -32,11 +32,9 @@ final class ContactFormPageHooks {
       return;
     }
 
-    $needPaths = [];
-    $needTitles = [];
-    foreach ($this->contactNeedRouter->getDirectDefinitions() as $need => $definition) {
-      $needPaths[$need] = $definition['path'];
-      $needTitles[$need] = (string) $this->contactNeedRouter->getPageTitle($definition['webform']);
+    $hubWebformTitles = [];
+    foreach ($this->contactNeedRouter->getDirectDefinitions() as $webformId => $definition) {
+      $hubWebformTitles[$webformId] = (string) $this->contactNeedRouter->getPageTitle($webformId);
     }
 
     $displaySettings = $this->displayModeManager->getJsSettings();
@@ -45,11 +43,9 @@ final class ContactFormPageHooks {
     $attachments['#attached']['library'][] = 'ps_theme/form';
     $attachments['#attached']['drupalSettings']['psForm'] = [
       'webformPaths' => $this->contactNeedRouter->getWebformPathMap(),
-      'needPaths' => $needPaths,
-      'needTitles' => $needTitles,
+      'webformTitles' => $hubWebformTitles,
       'hubPath' => (string) $this->contactNeedRouter->getPathForWebform(ContactNeedRouter::HUB_WEBFORM_ID),
       'hubTitle' => (string) $this->contactNeedRouter->getPageTitle(ContactNeedRouter::HUB_WEBFORM_ID),
-      'rentNeed' => ContactNeedRouter::RENT_NEED,
       'displayMode' => $displaySettings,
       'offcanvasClass' => $displaySettings['offcanvasClass'],
     ];

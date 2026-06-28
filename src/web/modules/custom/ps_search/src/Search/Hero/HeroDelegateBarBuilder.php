@@ -6,7 +6,6 @@ namespace Drupal\ps_search\Search\Hero;
 
 use Drupal\Core\Url;
 use Drupal\ps_form\Service\ContactDisplayModeManager;
-use Drupal\ps_form\Service\ContactNeedRouter;
 
 /**
  * Builds the homepage search hero delegate bar SDC.
@@ -15,7 +14,6 @@ final class HeroDelegateBarBuilder {
 
   public function __construct(
     private readonly ?ContactDisplayModeManager $contactDisplayMode = NULL,
-    private readonly ?ContactNeedRouter $contactNeedRouter = NULL,
   ) {}
 
   /**
@@ -56,7 +54,7 @@ final class HeroDelegateBarBuilder {
   }
 
   /**
-   *
+   * Checks whether the delegate button targets a contact form route.
    */
   private function shouldApplyContactDisplayMode(string $buttonUrl): bool {
     if ($this->contactDisplayMode === NULL) {

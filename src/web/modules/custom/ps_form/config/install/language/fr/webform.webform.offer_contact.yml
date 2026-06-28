@@ -38,17 +38,17 @@ elements: |-
       '#default_value': "Bonjour, je souhaite obtenir plus d'informations sur l'offre référencée '[webform_submission:source-entity:field_reference]'. Merci"
   legal:
     '#type': checkbox
-    '#title': 'J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles.'
+    '#title': "J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles."
     '#required': true
   marketing:
     '#type': checkbox
-    '#title': 'J'accepte de recevoir des communications marketing de BNP Paribas Real Estate.'
+    '#title': "J'accepte de recevoir des communications marketing de BNP Paribas Real Estate."
   newsletter:
     '#type': checkbox
-    '#title': 'J'accepte de recevoir la newsletter.'
+    '#title': "J'accepte de recevoir la newsletter."
   similar_offers:
     '#type': checkbox
-    '#title': 'J'accepte d'être contacté au sujet de biens similaires.'
+    '#title': "J'accepte d'être contacté au sujet de biens similaires."
   legal_notice:
     '#type': webform_markup
     '#markup': '<p>BNP Paribas Real Estate Transaction France traite vos données pour répondre à votre demande et, si vous y consentez, pour des communications commerciales. Consultez notre <a href="/data-protection">Notice de protection des données</a> pour vos droits.</p>'
@@ -58,11 +58,14 @@ elements: |-
 settings:
   form_submit_label: Envoyer
   confirmation_message: "<p>Merci. Votre message a été envoyé.</p>"
+handlers:
   email_agent:
     label: 'Notification consultant'
-    subject: "Demande de contact — Offre [webform_submission:source-entity:field_reference]"
-    body: _default
+    settings:
+      subject: "Demande de contact — Offre [webform_submission:source-entity:field_reference]"
+      body: _default
   email_confirmation:
     label: 'Confirmation visiteur'
-    subject: "Votre demande de contact — [webform_submission:source-entity:field_reference]"
-    body: "<p>Merci de votre intérêt pour l'offre <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Votre message a été transmis à notre consultant. Nous reviendrons vers vous rapidement.</p>"
+    settings:
+      subject: "Votre demande de contact — [webform_submission:source-entity:field_reference]"
+      body: "<p>Merci de votre intérêt pour l'offre <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Votre message a été transmis à notre consultant. Nous reviendrons vers vous rapidement.</p>"

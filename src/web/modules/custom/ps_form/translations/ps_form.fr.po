@@ -28,6 +28,16 @@ msgstr "Contacter le conseil"
 msgid "Contact us"
 msgstr "Nous contacter"
 
+msgid "To get started, what is your need?"
+msgstr "Pour commencer, quel est votre besoin ?"
+
+msgid "Need"
+msgstr "Besoin"
+
+msgctxt "Contact wizard progress step"
+msgid "Details"
+msgstr "Coordonnées"
+
 msgid "Create a search alert"
 msgstr "Créer une alerte de recherche"
 

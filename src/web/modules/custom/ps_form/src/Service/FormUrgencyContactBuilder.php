@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Drupal\ps_core\Service;
+namespace Drupal\ps_form\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Builds the site-wide urgency contact block (phone + hours).
+ * Builds the site-wide urgency contact block (phone + hours) for webforms.
  */
-final class SiteUrgencyContactBuilder {
+final class FormUrgencyContactBuilder {
 
   use StringTranslationTrait;
 
-  private const CONFIG = 'ps_core.settings';
+  private const CONFIG = 'ps_form.settings';
 
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,

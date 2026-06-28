@@ -1,0 +1,164 @@
+/**
+ * Webform radios styled as search filter choices (operation buttons + asset grid).
+ *
+ * Requires native radio inputs; labels are enhanced via ContactProjectFieldPresenter.
+ */
+
+@import 'import.filter-choices-shared';
+
+.webform-submission-form {
+  .ps-webform-op-choices,
+  .ps-webform-asset-grid {
+    grid-column: 1 / -1;
+  }
+
+  .ps-webform-op-choices > legend.card-header,
+  .ps-webform-asset-grid > legend.card-header,
+  .ps-webform-op-choices fieldset.webform-type-radios > legend.card-header,
+  .ps-webform-asset-grid fieldset.webform-type-radios > legend.card-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .ps-webform-op-choices > .card-body.fieldset-wrapper,
+  .ps-webform-asset-grid > .card-body.fieldset-wrapper,
+  .ps-webform-op-choices fieldset.webform-type-radios > .card-body.fieldset-wrapper,
+  .ps-webform-asset-grid fieldset.webform-type-radios > .card-body.fieldset-wrapper {
+    display: block;
+    padding: 0;
+  }
+}
+
+// Operation type — horizontal segmented buttons (search .ps-op-btn).
+.ps-webform-op-choices .js-webform-radios {
+  @extend .ps-op-choices;
+}
+
+.ps-webform-op-choices .form-type-radio {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  min-height: 0;
+  position: relative;
+}
+
+.ps-webform-op-choices .form-check-input[type='radio'] {
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.ps-webform-op-choices .form-check-input[type='radio'] + .form-check-label {
+  @extend .ps-op-btn;
+
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ps-webform-op-choices .form-check-input[type='radio'] + .form-check-label::before {
+  content: none;
+  display: none;
+}
+
+.ps-webform-op-choices .form-check-input[type='radio']:checked + .form-check-label,
+.ps-webform-op-choices .form-check-input[type='radio']:focus-visible + .form-check-label {
+  background: #434f57;
+  border-color: #434f57;
+  color: #fff;
+}
+
+.ps-webform-op-choices .form-check-input[type='radio']:focus-visible + .form-check-label {
+  outline: 2px solid #00915a;
+  outline-offset: 2px;
+}
+
+// Asset type — icon tile grid (search .ps-asset-grid).
+.ps-webform-asset-grid .js-webform-radios {
+  @extend .ps-asset-grid;
+}
+
+.ps-webform-asset-grid .form-type-radio {
+  margin: 0 !important;
+  min-height: 0;
+  position: relative;
+}
+
+.ps-webform-asset-grid .form-check-input[type='radio'] {
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.ps-webform-asset-grid .form-check-input[type='radio'] + .form-check-label {
+  @extend .ps-asset-card__link;
+
+  cursor: pointer;
+  margin: 0;
+  padding-left: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ps-webform-asset-grid .form-check-input[type='radio'] + .form-check-label::before {
+  content: none;
+  display: none;
+}
+
+.ps-webform-asset-grid .form-check-input[type='radio']:checked + .form-check-label {
+  border-color: #00915a;
+  color: #00915a;
+}
+
+.ps-webform-asset-grid .form-check-input[type='radio']:checked + .form-check-label .ps-webform-asset-card__icon,
+.ps-webform-asset-grid .form-check-input[type='radio']:checked + .form-check-label .ps-dictionary-entry__icon,
+.ps-webform-asset-grid .form-check-input[type='radio']:checked + .form-check-label .bnp-icon,
+.ps-webform-asset-grid .form-check-input[type='radio']:checked + .form-check-label svg {
+  color: #00915a;
+}
+
+.ps-webform-asset-grid .form-check-input[type='radio']:focus-visible + .form-check-label {
+  outline: 2px solid #00915a;
+  outline-offset: 2px;
+}
+
+.ps-webform-asset-grid .ps-webform-asset-card__link-inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-filter-asset-icon-gap);
+  width: 100%;
+}
+
+.ps-webform-asset-grid .ps-webform-asset-card__icon {
+  @extend .ps-asset-card__icon;
+}
+
+.ps-webform-asset-grid .ps-webform-asset-card__label {
+  @extend .ps-asset-card__label;
+}
+
+@media (max-width: 575.98px) {
+  .ps-webform-asset-grid .js-webform-radios {
+    --ps-filter-asset-grid-cols: 2;
+    --ps-filter-asset-min-height: 88px;
+    --ps-filter-asset-font-size: 13px;
+    --ps-filter-asset-icon-gap: 10px;
+    --ps-filter-asset-padding: 10px 8px;
+  }
+
+  .ps-webform-op-choices .js-webform-radios {
+    --ps-filter-op-font-size: 14px;
+    --ps-filter-op-height: 32px;
+    gap: 10px;
+  }
+}

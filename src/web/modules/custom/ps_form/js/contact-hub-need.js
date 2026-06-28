@@ -1,12 +1,14 @@
 /**
  * @file
- * Hub contact step_need: Continue opens direct webforms for non-rent needs.
+ * Hub contact step_need: Continue opens direct webforms by webform id.
  */
 (function (Drupal, drupalSettings, once) {
   'use strict';
 
+  const TARGET_FIELD = 'target_webform';
+
   /**
-   * Checks whether the hub wizard is still on the need step.
+   * Checks whether the hub wizard is still on the target step.
    *
    * @param {HTMLFormElement} form
    *   Hub contact form element.
@@ -14,7 +16,7 @@
    * @return {boolean}
    *   TRUE when step_need is the active wizard page.
    */
-  function isHubNeedStep(form) {
+  function isHubTargetStep(form) {
     const activeStep = form.querySelector('.progress-step.is-active[data-webform-page]');
     return activeStep?.getAttribute('data-webform-page') === 'step_need';
   }
@@ -22,14 +24,16 @@
   /**
    * Loads a direct contact webform (hub continuation).
    *
-   * @param {string} need
-   *   Hub need radio value.
+   * @param {string} webformId
+   *   Hub target radio value (webform machine name).
    * @param {object} settings
    *   psForm drupalSettings.
    */
-  function openDirectWebformFromHub(need, settings) {
-    const baseUrl = Drupal.psFormContactDisplay.resolveLocalizedPath((settings.needPaths || {})[need]);
-    const title = (settings.needTitles || {})[need];
+  function openDirectWebformFromHub(webformId, settings) {
+    const paths = settings.webformPaths || {};
+    const titles = settings.webformTitles || {};
+    const baseUrl = Drupal.psFormContactDisplay.resolveLocalizedPath(paths[webformId]);
+    const title = titles[webformId];
     if (!baseUrl) {
       return;
     }
@@ -44,20 +48,14 @@
     attach(context) {
       once('ps-form-contact-hub-need', 'form.ps-contact-wizard--contact', context).forEach((form) => {
         const settings = drupalSettings.psForm || {};
-        const rentNeed = settings.rentNeed || 'rent';
 
         form.addEventListener('change', (event) => {
           const target = event.target;
-          if (!(target instanceof HTMLInputElement) || target.type !== 'radio' || target.name !== 'need') {
+          if (!(target instanceof HTMLInputElement) || target.type !== 'radio' || target.name !== TARGET_FIELD) {
             return;
           }
 
-          if (target.value === rentNeed) {
-            Drupal.psFormContactDisplay.updateContactDialogTitle(settings.hubTitle || '');
-            return;
-          }
-
-          const title = (settings.needTitles || {})[target.value];
+          const title = (settings.webformTitles || {})[target.value];
           if (title) {
             Drupal.psFormContactDisplay.updateContactDialogTitle(title);
           }
@@ -71,16 +69,19 @@
               return;
             }
 
-            if (!target.closest('[data-drupal-selector="edit-wizard-next"]')) {
+            if (
+              !target.closest('[data-drupal-selector="edit-wizard-next"]')
+              && !target.closest('[data-drupal-selector="edit-submit"]')
+            ) {
               return;
             }
 
-            if (!isHubNeedStep(form)) {
+            if (!isHubTargetStep(form)) {
               return;
             }
 
-            const selectedNeed = form.querySelector('input[name="need"]:checked');
-            if (!selectedNeed || selectedNeed.value === rentNeed) {
+            const selected = form.querySelector(`input[name="${TARGET_FIELD}"]:checked`);
+            if (!selected) {
               return;
             }
 
@@ -88,7 +89,7 @@
             event.stopPropagation();
             event.stopImmediatePropagation();
 
-            openDirectWebformFromHub(selectedNeed.value, settings);
+            openDirectWebformFromHub(selected.value, settings);
           },
           true,
         );

@@ -1,0 +1,147 @@
+/**
+ * Shared BNPPRE filter choice visuals — search filter bar + webform radios.
+ *
+ * Source of truth for .ps-asset-grid / .ps-op-btn tokens used by search-filter-type SDC
+ * and webform wrappers (.ps-webform-asset-grid, .ps-webform-op-choices).
+ */
+
+:root {
+  --ps-filter-asset-grid-cols: 3;
+  --ps-filter-asset-min-height: 120px;
+  --ps-filter-asset-font-size: 16px;
+  --ps-filter-asset-icon-gap: 16px;
+  --ps-filter-asset-padding: 16px;
+  --ps-filter-op-font-size: 16px;
+  --ps-filter-op-height: 36px;
+}
+
+.ps-asset-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(var(--ps-filter-asset-grid-cols, 3), minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-asset-card__link {
+  align-items: center;
+  background: #f9f9fb;
+  border: 1.5px solid transparent;
+  border-radius: 0;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font: inherit;
+  font-size: var(--ps-filter-asset-font-size);
+  font-weight: 400;
+  gap: var(--ps-filter-asset-icon-gap);
+  line-height: 1.4;
+  min-height: var(--ps-filter-asset-min-height);
+  padding: var(--ps-filter-asset-padding);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+  width: 100%;
+}
+
+.ps-asset-card__link:hover,
+.ps-asset-card__link:focus-visible {
+  background: #f9f9fb;
+  border-color: transparent;
+  color: #333;
+  outline: none;
+}
+
+.ps-asset-card.is-active .ps-asset-card__link {
+  background: #f9f9fb;
+  border-color: #00915a;
+  color: #00915a;
+  font-weight: 400;
+}
+
+.ps-asset-card__icon {
+  align-items: center;
+  color: #333;
+  display: flex;
+  flex-shrink: 0;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.ps-asset-card.is-active .ps-asset-card__icon {
+  color: #00915a;
+}
+
+.ps-asset-card__icon .ps-dictionary-entry__icon {
+  align-items: center;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.ps-asset-card__icon .bnp-icon,
+.ps-asset-card__icon svg {
+  display: block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+}
+
+.ps-asset-card__label {
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.ps-op-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ps-op-btn {
+  align-items: center;
+  background: #fff;
+  border: 2px solid #434f57;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #434f57;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-family: inherit;
+  font-size: var(--ps-filter-op-font-size);
+  font-weight: 400;
+  height: var(--ps-filter-op-height);
+  justify-content: center;
+  line-height: 1.4;
+  min-width: 0;
+  padding: 0 16px;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.ps-op-btn:hover,
+.ps-op-btn:focus-visible {
+  background: #fff;
+  border-color: #434f57;
+  color: #434f57;
+  outline: none;
+}
+
+.ps-op-btn.is-active {
+  background: #434f57;
+  border-color: #434f57;
+  color: #fff;
+}
+
+.ps-op-btn.is-active:hover,
+.ps-op-btn.is-active:focus-visible {
+  background: #434f57;
+  border-color: #434f57;
+  color: #fff;
+}

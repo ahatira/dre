@@ -60,6 +60,7 @@ webform_sticky_footer:
     - core/drupal
     - core/once
     - ps_theme/form
+    - core/components.ps_theme--form-wizard-actions
     - core/components.ps_theme--webform-urgency-help
 
 # Bootstrap SDC markers — attach ui_suite_bnp/framework (replaces legacy bootstrap_sdc bundle).

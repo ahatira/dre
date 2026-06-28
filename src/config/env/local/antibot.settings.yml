@@ -1,0 +1,8 @@
+# Dev recette — Antibot without webform submission forms.
+form_ids:
+  - comment_*
+  - user_login_form
+  - user_pass
+  - user_register_form
+  - contact_message_*
+show_form_ids: false

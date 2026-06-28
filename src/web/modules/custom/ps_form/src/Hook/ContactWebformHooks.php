@@ -4,73 +4,69 @@ declare(strict_types=1);
 
 namespace Drupal\ps_form\Hook;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_form\Service\ContactNeedRouter;
+use Drupal\ps_form\Service\ContactProjectFieldPresenter;
 use Drupal\webform\WebformSubmissionForm;
 use Drupal\webform\WebformSubmissionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Contact family webforms: hub need routing and wizard presentation.
+ * Contact family webforms: hub routing and wizard presentation.
  */
 final class ContactWebformHooks {
 
+  use StringTranslationTrait;
+
   private const DIRECT_FIRST_PAGE = 'step_project';
+
+  private const PROJECT_FIELD_WEBFORM = 'find_property';
 
   public function __construct(
     private readonly ContactNeedRouter $contactNeedRouter,
+    private readonly ContactProjectFieldPresenter $contactProjectFieldPresenter,
+    private readonly RequestStack $requestStack,
+    private readonly ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
-   * Applies hub need radios and wizard CSS on the contact hub webform.
+   * Applies hub and direct contact webform presentation.
    */
-  #[Hook('form_webform_submission_contact_add_form_alter')]
-  public function contactFormAlter(array &$form, FormStateInterface $form_state): void {
-    $form['#attributes']['class'][] = 'ps-contact-wizard';
-    $form['#attributes']['class'][] = 'ps-contact-wizard--contact';
-    $form['#attributes']['data-ps-contact-panel'] = 'contact-panel';
+  #[Hook('form_alter')]
+  public function formAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
+    if (!str_starts_with($form_id, 'webform_submission_') || !str_ends_with($form_id, '_add_form')) {
+      return;
+    }
 
-    $this->applyHubNeedOptions($form);
-  }
+    $form_object = $form_state->getFormObject();
+    if (!$form_object instanceof WebformSubmissionForm) {
+      return;
+    }
 
-  /**
-   * Wizard presentation for entrust search direct webform.
-   */
-  #[Hook('form_webform_submission_entrust_search_add_form_alter')]
-  public function entrustSearchFormAlter(array &$form, FormStateInterface $form_state): void {
-    $this->applyDirectFormPresentation($form, $form_state, 'entrust-search-panel');
-  }
+    $webformId = $form_object->getWebform()->id();
 
-  /**
-   * Wizard presentation for get advice direct webform.
-   */
-  #[Hook('form_webform_submission_get_advice_add_form_alter')]
-  public function getAdviceFormAlter(array &$form, FormStateInterface $form_state): void {
-    $this->applyDirectFormPresentation($form, $form_state, 'get-advice-panel');
-  }
+    if ($webformId === ContactNeedRouter::HUB_WEBFORM_ID) {
+      $this->applyContactHubForm($form);
+      $form['#after_build'][] = [$this, 'afterBuildContactHubForm'];
+      return;
+    }
 
-  /**
-   * Wizard presentation for entrust property direct webform.
-   */
-  #[Hook('form_webform_submission_entrust_property_add_form_alter')]
-  public function entrustPropertyFormAlter(array &$form, FormStateInterface $form_state): void {
-    $this->applyDirectFormPresentation($form, $form_state, 'entrust-property-panel');
-  }
+    if (!$this->contactNeedRouter->isRoutableWebform($webformId)) {
+      return;
+    }
 
-  /**
-   * Wizard presentation for invest or sell direct webform.
-   */
-  #[Hook('form_webform_submission_invest_sell_add_form_alter')]
-  public function investSellFormAlter(array &$form, FormStateInterface $form_state): void {
-    $this->applyDirectFormPresentation($form, $form_state, 'invest-sell-panel');
-  }
+    $this->applyDirectFormPresentation(
+      $form,
+      $form_state,
+      $this->contactNeedRouter->resolvePanelId($webformId),
+    );
 
-  /**
-   * Wizard presentation for other request direct webform.
-   */
-  #[Hook('form_webform_submission_other_request_add_form_alter')]
-  public function otherRequestFormAlter(array &$form, FormStateInterface $form_state): void {
-    $this->applyDirectFormPresentation($form, $form_state, 'other-request-panel');
+    if ($webformId === self::PROJECT_FIELD_WEBFORM) {
+      $this->contactProjectFieldPresenter->applyToForm($form);
+    }
   }
 
   /**
@@ -89,7 +85,7 @@ final class ContactWebformHooks {
   }
 
   /**
-   * Prepends the hub "Need" step when a direct webform is opened from hub.
+   * Prepends the hub target step when an enabled webform is opened from hub.
    *
    * @param array<string, mixed> $variables
    *   Theme variables for webform-progress-tracker.html.twig.
@@ -97,41 +93,186 @@ final class ContactWebformHooks {
   #[Hook('preprocess_webform_progress_tracker')]
   public function preprocessWebformProgressTracker(array &$variables): void {
     $webformId = $variables['webform']->id();
-    if (!in_array($webformId, $this->contactNeedRouter->getDirectWebformIds(), TRUE)) {
+    if (!$this->contactNeedRouter->isContactFamilyWebform($webformId)) {
       return;
     }
 
-    if (!$this->isFromHubProgress($variables)) {
-      return;
+    if ($webformId === ContactNeedRouter::HUB_WEBFORM_ID) {
+      $this->appendHubTargetProgressSteps($variables);
+    }
+    elseif ($this->contactNeedRouter->isHubEnabledWebform($webformId) && $this->isFromHubProgress($variables)) {
+      array_unshift($variables['progress'], [
+        'name' => 'step_need',
+        'title' => $this->contactNeedRouter->getHubNeedStepTitle(),
+        'type' => 'page',
+      ]);
+      $variables['current_index']++;
     }
 
-    array_unshift($variables['progress'], [
-      'name' => 'step_need',
-      'title' => $this->contactNeedRouter->getHubNeedStepTitle(),
-      'type' => 'page',
-    ]);
-    $variables['current_index']++;
+    $this->normalizeContactProgressSteps($variables);
   }
 
   /**
-   * Removes hub need options whose direct webform is unavailable.
+   * Appends target webform wizard steps to the hub progress tracker.
+   *
+   * @param array<string, mixed> $variables
+   *   Theme variables for webform-progress-tracker.html.twig.
+   */
+  private function appendHubTargetProgressSteps(array &$variables): void {
+    $targetWebformId = $this->resolveHubTargetWebformId();
+    foreach ($this->contactNeedRouter->getWizardProgressPages($targetWebformId) as $step) {
+      $variables['progress'][] = $step;
+    }
+  }
+
+  /**
+   * Normalizes contact-family progress labels (mockup: Details).
+   *
+   * @param array<string, mixed> $variables
+   *   Theme variables for webform-progress-tracker.html.twig.
+   */
+  private function normalizeContactProgressSteps(array &$variables): void {
+    if (!isset($variables['progress']) || !is_array($variables['progress'])) {
+      return;
+    }
+
+    $detailsTitle = (string) $this->t('Details', [], ['context' => 'Contact wizard progress step']);
+    foreach ($variables['progress'] as &$step) {
+      if (!is_array($step) || ($step['name'] ?? '') !== 'step_contact') {
+        continue;
+      }
+      $step['title'] = $detailsTitle;
+    }
+  }
+
+  /**
+   * Resolves the hub target webform for progress preview.
+   */
+  private function resolveHubTargetWebformId(): string {
+    $request = $this->requestStack->getCurrentRequest();
+    if ($request !== NULL) {
+      $selected = $request->request->get('target_webform') ?? $request->query->get('target_webform');
+      if (is_string($selected) && $selected !== '' && $this->contactNeedRouter->isHubEnabledWebform($selected)) {
+        return $selected;
+      }
+    }
+
+    return $this->contactNeedRouter->getDefaultHubWebformId() ?? 'find_property';
+  }
+
+  /**
+   * Applies hub wizard CSS and dynamic target webform radios.
    *
    * @param array<string, mixed> $form
    *   The webform submission form array.
    */
-  private function applyHubNeedOptions(array &$form): void {
-    if (!isset($form['elements']['step_need']['need']['#options'])) {
+  private function applyContactHubForm(array &$form): void {
+    $form['#attributes']['class'][] = 'ps-contact-wizard';
+    $form['#attributes']['class'][] = 'ps-contact-wizard--contact';
+    $form['#attributes']['data-ps-contact-panel'] = 'contact-panel';
+    $form['#cache']['tags'][] = 'config:ps_form.settings';
+
+    if (isset($form['elements']['step_need']['need_title'])) {
+      $form['elements']['step_need']['need_title']['#markup'] = '<p class="h4">' . $this->t('To get started, what is your need?') . '</p>';
+    }
+
+    if (isset($form['elements']['step_need'])) {
+      $form['elements']['step_need']['#title'] = $this->t('Need');
+    }
+
+    $this->applyHubTargetOptions($form);
+  }
+
+  /**
+   * Restores wizard_next on the hub need step.
+   *
+   * The contact hub was slimmed to step_need only; Webform then renders
+   * #edit-submit (Soumettre + icon) instead of #edit-wizard-next (Continuer).
+   * Hub continuation is handled client-side (contact-hub-need.js).
+   *
+   * @param array<string, mixed> $form
+   *   The webform submission form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array<string, mixed>
+   *   The form array.
+   */
+  public function afterBuildContactHubForm(array $form, FormStateInterface $form_state): array {
+    $form_object = $form_state->getFormObject();
+    if (!$form_object instanceof WebformSubmissionForm) {
+      return $form;
+    }
+
+    $webform = $form_object->getWebform();
+    $label = $webform->getSetting('wizard_next_button_label')
+      ?: (string) $this->t('Continue');
+
+    if (isset($form['actions'])) {
+      $this->applyHubWizardNextButton($form['actions'], $label);
+    }
+    if (isset($form['ps_webform_sticky_footer']['actions'])) {
+      $this->applyHubWizardNextButton($form['ps_webform_sticky_footer']['actions'], $label);
+    }
+
+    return $form;
+  }
+
+  /**
+   * Hides submit and injects the native wizard_next button on the hub.
+   *
+   * @param array<string, mixed> $actions
+   *   The form actions render array.
+   * @param string $label
+   *   The Continue button label.
+   */
+  private function applyHubWizardNextButton(array &$actions, string $label): void {
+    if (isset($actions['submit'])) {
+      $actions['submit']['#access'] = FALSE;
+    }
+
+    $actions['wizard_next'] = [
+      '#type' => 'button',
+      '#value' => $label,
+      '#weight' => 10,
+      '#attributes' => [
+        'class' => ['webform-button--next', 'me-2'],
+        'data-drupal-selector' => 'edit-wizard-next',
+        'id' => 'edit-wizard-next',
+      ],
+    ];
+  }
+
+  /**
+   * Builds hub target radios from enabled direct webforms (webform id keys).
+   *
+   * @param array<string, mixed> $form
+   *   The webform submission form array.
+   */
+  private function applyHubTargetOptions(array &$form): void {
+    if (!isset($form['elements']['step_need']['target_webform'])) {
       return;
     }
 
-    $options = $form['elements']['step_need']['need']['#options'];
-    foreach ($this->contactNeedRouter->getDirectDefinitions() as $need => $definition) {
-      if (!$this->isWebformAvailable($definition['webform'])) {
-        unset($options[$need]);
+    $options = [];
+    foreach ($this->contactNeedRouter->getEnabledHubWebformIds() as $webformId) {
+      if (!$this->isWebformAvailable($webformId)) {
+        continue;
       }
+
+      if (!$this->contactNeedRouter->isRoutableWebform($webformId)) {
+        continue;
+      }
+
+      $options[$webformId] = $this->contactNeedRouter->getPageTitle($webformId);
     }
 
-    $form['elements']['step_need']['need']['#options'] = $options;
+    $form['elements']['step_need']['target_webform']['#options'] = $options;
+
+    $default = $this->contactNeedRouter->getDefaultHubWebformId();
+    if ($default !== NULL && isset($options[$default])) {
+      $form['elements']['step_need']['target_webform']['#default_value'] = $default;
+    }
   }
 
   /**
@@ -160,6 +301,8 @@ final class ContactWebformHooks {
    *
    * @param array<string, mixed> $form
    *   The webform submission form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    *
    * @return array<string, mixed>
    *   The altered form array.
@@ -211,6 +354,8 @@ final class ContactWebformHooks {
    *
    * @param array<string, mixed> $form
    *   The webform submission form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   private function isFromHubForm(array $form, FormStateInterface $form_state): bool {
     if ($this->isFromHubQuery()) {
@@ -245,6 +390,15 @@ final class ContactWebformHooks {
       return TRUE;
     }
 
+    $request = $this->requestStack->getCurrentRequest();
+    if ($request !== NULL) {
+      $fromHub = $request->request->get(ContactNeedRouter::FROM_HUB_FIELD)
+        ?? $request->query->get(ContactNeedRouter::FROM_HUB_FIELD);
+      if ($fromHub === '1' || $fromHub === 1) {
+        return TRUE;
+      }
+    }
+
     $submission = $variables['webform_submission'] ?? NULL;
     if ($submission instanceof WebformSubmissionInterface) {
       $data = $submission->getData();
@@ -260,7 +414,7 @@ final class ContactWebformHooks {
    * Checks whether the current request carries the hub entry query flag.
    */
   private function isFromHubQuery(): bool {
-    $request = \Drupal::requestStack()->getCurrentRequest();
+    $request = $this->requestStack->getCurrentRequest();
     return $request !== NULL && $request->query->get(ContactNeedRouter::FROM_HUB_QUERY) === '1';
   }
 
@@ -268,7 +422,7 @@ final class ContactWebformHooks {
    * Checks whether a webform entity exists and is open.
    */
   private function isWebformAvailable(string $webformId): bool {
-    $status = \Drupal::config('webform.webform.' . $webformId)->get('status');
+    $status = $this->configFactory->get('webform.webform.' . $webformId)->get('status');
     return $status === 'open' || $status === TRUE;
   }
 

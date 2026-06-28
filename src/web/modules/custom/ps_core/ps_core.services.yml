@@ -136,11 +136,6 @@ services:
     arguments:
       - '@ps_core.email_branding_builder'
 
-  ps_core.site_urgency_contact:
-    class: Drupal\ps_core\Service\SiteUrgencyContactBuilder
-    arguments:
-      - '@config.factory'
-
   ps_core.site_config_split_installer:
     class: Drupal\ps_core\Service\SiteConfigSplitInstaller
     arguments:
@@ -167,8 +162,6 @@ services:
 
   Drupal\ps_core\Hook\ThemeHooks:
     class: Drupal\ps_core\Hook\ThemeHooks
-
-  Drupal\ps_core\Hook\PsCoreAdminHooks: {}
 
   ps_core.anonymous_csrf_session_subscriber:
     class: Drupal\ps_core\EventSubscriber\AnonymousCsrfSessionSubscriber

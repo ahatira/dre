@@ -8,3 +8,5 @@ services:
   Drupal\ps_theme\Hook\Page: ~
 
   Drupal\ps_theme\Hook\Menu: ~
+
+  Drupal\ps_theme\Hook\WebformFormHooks: ~

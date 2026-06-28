@@ -16,7 +16,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 
 - Hub admin `/admin/ps` avec 5 sections hub : Contenu, Structure, CRM import, Configuration, Platform health
 - 17 permissions granulaires dont 6 sectorielles (hub, content, structure, import, config, health)
-- Formulaire de paramètres globaux `/admin/ps/config/settings` (contact site)
+- Redirect legacy `/admin/ps/config/settings` → paramètres contact `ps_form` (`/admin/ps/config/forms/contact`)
 - Dashboard **Platform health** `/admin/ps/health` (checks plugin, cache 60 s)
 - Services utilitaires réutilisables par les modules PS
 - Filtrage RBAC des liens de section par permission
@@ -43,12 +43,15 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 |---|---|---|
 | `HealthAdminOverviewController` | `/admin/ps/health` | Dashboard Platform health (cartes par domaine) |
 | `GovernanceAdminOverviewController` | `/admin/ps/config/governance` | Hub gouvernance import |
+| `LegacySettingsRedirectController` | `/admin/ps/config/settings` | Redirect 301 vers `ps_form.contact_settings` |
 
 ### Forms
 
 | Classe | Chemin | Rôle |
 |---|---|---|
-| `PsCoreSettingsForm` | `/admin/ps/config/settings` | Contact site (urgency help) |
+| `GovernanceGlobalSettingsForm` | `/admin/ps/config/governance/settings` | Gouvernance import globale |
+
+> Paramètres contact (urgence téléphone, hub webforms, mode d'affichage) : module **`ps_form`** — `/admin/ps/config/forms/contact`.
 
 ## Routes & Accès
 
@@ -59,7 +62,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `ps_core.structure` | `/admin/ps/structure` | `access ps_core structure section` |
 | `ps_core.config` | `/admin/ps/config` | `access ps_core config section` |
 | `ps_migrate.admin_overview` | `/admin/ps/import` | `access ps_core import section` |
-| `ps_core.settings_form` | `/admin/ps/config/settings` | `administer ps_core` |
+| `ps_core.settings_form` | `/admin/ps/config/settings` | Redirect vers `ps_form.contact_settings` |
 | `ps_core.health` | `/admin/ps/health` | `access ps_core health section` |
 
 > **Note architecture** : `/admin/ps`, `/admin/ps/content`, `/admin/ps/structure`, `/admin/ps/config` et `/admin/ps/import` utilisent `SystemController::systemAdminMenuBlockPage` pour un rendu 100 % natif Drupal. La section CRM import est déclarée par `ps_migrate` sous le hub `ps_core.hub`.
@@ -98,7 +101,8 @@ Référence : `bnp_admin/docs/RBAC.md`.
 
 | Fichier | Contenu |
 |---|---|
-| `ps_core.settings.yml` | Contact site (urgency help phone/hours) |
+| `ps_core.governance.yml` | Defaults gouvernance import |
+| `ps_core.offer_section_settings.yml` | Registre sections offre |
 
 ## Tests
 

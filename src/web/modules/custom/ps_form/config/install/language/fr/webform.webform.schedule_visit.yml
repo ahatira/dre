@@ -32,7 +32,7 @@ elements: |-
       '#default_value': 'Je souhaite planifier une visite pour cette offre.'
   legal:
     '#type': checkbox
-    '#title': 'J'accepte la politique de confidentialité.'
+    '#title': "J'accepte la politique de confidentialité."
     '#required': true
 settings:
   form_submit_label: Envoyer

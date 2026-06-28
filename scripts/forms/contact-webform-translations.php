@@ -17,7 +17,7 @@ $common = [
     'category' => 'Recherche immobilière',
     'wizard_need' => 'Besoin',
     'wizard_project' => 'Projet',
-    'wizard_contact' => 'Vos coordonnées',
+    'wizard_contact' => 'Coordonnées',
     'wizard_message' => 'Message',
     'need_intro' => '<p class="h4">Pour commencer, quel est votre besoin ?</p>',
     'need_title' => 'Besoin',
@@ -661,7 +661,7 @@ $formMeta = [
       'lb' => 'Kontaktéiert eis',
     ],
     'description' => [
-      'fr' => 'Formulaire de contact global pour l\'offcanvas du header.',
+      'fr' => 'Hub contact — choix du besoin puis formulaire dédié.',
       'de' => 'Site-weites Kontaktformular für das Header-Offcanvas.',
       'es' => 'Formulario de contacto global para el offcanvas del encabezado.',
       'it' => 'Modulo di contatto globale per l\'offcanvas dell\'header.',
@@ -677,6 +677,37 @@ $formMeta = [
       'nl' => 'Contactformulier website',
       'pl' => 'Formularz kontaktowy witryny',
       'lb' => 'Kontaktformulaire vum Site',
+    ],
+    'legal' => 'transaction',
+    'job_required' => FALSE,
+  ],
+  'find_property' => [
+    'title' => [
+      'fr' => 'Trouver un bien à acheter ou à louer',
+      'de' => 'Eine Immobilie zum Kauf oder zur Miete finden',
+      'es' => 'Encontrar un inmueble en venta o alquiler',
+      'it' => 'Trovare un immobile in vendita o in affitto',
+      'nl' => 'Een pand te koop of te huur vinden',
+      'pl' => 'Znaleźć nieruchomość na sprzedaż lub wynajem',
+      'lb' => 'Eng Immobilie fënnen fir ze kafen oder ze lounen',
+    ],
+    'description' => [
+      'fr' => 'Accès direct — recherche d\'un bien à acheter ou à louer.',
+      'de' => 'Direktzugang — Suche nach einer Immobilie zum Kauf oder zur Miete.',
+      'es' => 'Acceso directo — búsqueda de un inmueble en venta o alquiler.',
+      'it' => 'Accesso diretto — ricerca di un immobile in vendita o in affitto.',
+      'nl' => 'Directe toegang — zoeken naar een pand te koop of te huur.',
+      'pl' => 'Bezpośredni dostęp — wyszukiwanie nieruchomości na sprzedaż lub wynajem.',
+      'lb' => 'Direkten Zougang — Sich no enger Immobilie fir ze kafen oder ze lounen.',
+    ],
+    'notification_subject' => [
+      'fr' => 'Demande de recherche de bien',
+      'de' => 'Anfrage: Immobilie finden',
+      'es' => 'Solicitud de búsqueda de inmueble',
+      'it' => 'Richiesta di ricerca immobile',
+      'nl' => 'Aanvraag pand zoeken',
+      'pl' => 'Zapytanie: znalezienie nieruchomości',
+      'lb' => 'Demande: Immobilie fannen',
     ],
     'legal' => 'transaction',
     'job_required' => FALSE,
@@ -1139,9 +1170,52 @@ step_message:
 YAML;
 }
 
+/**
+ * Hub need step only (contact router webform).
+ */
+function buildHubNeedStep(array $c): string {
+  $y = yamlize($c);
+
+  return <<<YAML
+step_need:
+  '#type': webform_wizard_page
+  '#title': {$y['wizard_need']}
+  '#attributes':
+    class:
+      - type_need
+  need_title:
+    '#type': webform_markup
+    '#markup': {$y['need_intro']}
+  need:
+    '#type': radios
+    '#title': {$y['need_title']}
+    '#title_display': invisible
+    '#required': true
+    '#options':
+      rent: {$y['need_rent']}
+      delegate: {$y['need_delegate']}
+      advise: {$y['need_advise']}
+      market: {$y['need_market']}
+      sell: {$y['need_sell']}
+      other: {$y['need_other']}
+    '#default_value': rent
+
+YAML;
+}
+
 function buildContactElements(array $c, string $legalKey, bool $jobRequired): string {
-  return buildSearchProjectElements($c, TRUE)
-    . buildContactAndMessageSteps($c, $legalKey, $jobRequired);
+  return buildHubNeedStep($c);
+}
+
+function buildFindPropertyElements(array $c, string $legalKey): string {
+  return <<<YAML
+need:
+  '#type': hidden
+  '#default_value': rent
+
+YAML
+    . buildSearchProjectElements($c, FALSE)
+    . buildContactAndMessageSteps($c, $legalKey, FALSE);
 }
 
 function buildEntrustSearchElements(array $c, string $legalKey): string {
@@ -1345,34 +1419,41 @@ YAML
 // ---------------------------------------------------------------------------
 
 function buildFormTranslation(array $c, array $meta, string $lang, string $formId, string $elements): array {
-  return [
+  $translation = [
     'title' => $meta['title'][$lang],
     'description' => $meta['description'][$lang],
     'category' => $c['category'],
     'elements' => $elements,
     'settings' => [
-      'form_submit_label' => $c['submit'],
+      'form_submit_label' => $formId === 'contact' ? $c['wizard_next'] : $c['submit'],
       'wizard_prev_button_label' => $c['wizard_back'],
       'wizard_next_button_label' => $c['wizard_next'],
-      'confirmation_message' => $c['confirmation'],
+      'confirmation_message' => $formId === 'contact' ? '' : $c['confirmation'],
     ],
-    'handlers' => [
-      'email_notification' => [
-        'label' => $c['handler_notification'],
-        'settings' => [
-          'subject' => $meta['notification_subject'][$lang],
-          'body' => '_default',
-        ],
+  ];
+
+  if ($formId === 'contact') {
+    return $translation;
+  }
+
+  $translation['handlers'] = [
+    'email_notification' => [
+      'label' => $c['handler_notification'],
+      'settings' => [
+        'subject' => $meta['notification_subject'][$lang],
+        'body' => '_default',
       ],
-      'email_confirmation' => [
-        'label' => $c['handler_confirmation'],
-        'settings' => [
-          'subject' => $c['email_thanks_subject'],
-          'body' => $c['email_thanks_body'],
-        ],
+    ],
+    'email_confirmation' => [
+      'label' => $c['handler_confirmation'],
+      'settings' => [
+        'subject' => $c['email_thanks_subject'],
+        'body' => $c['email_thanks_body'],
       ],
     ],
   ];
+
+  return $translation;
 }
 
 // ---------------------------------------------------------------------------
@@ -1390,6 +1471,7 @@ foreach ($langs as $lang) {
     $legal = $meta['legal'];
     $elements = match ($formId) {
       'contact' => buildContactElements($c, $legal, $meta['job_required']),
+      'find_property' => buildFindPropertyElements($c, $legal),
       'entrust_search' => buildEntrustSearchElements($c, $legal),
       'get_advice' => buildGetAdviceElements($c, $legal),
       'entrust_property' => buildEntrustPropertyElements($c, $legal),

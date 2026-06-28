@@ -9,11 +9,16 @@ stackable: false
 no_patching: false
 storage: folder
 folder: ../config/env/local
-module:
-  - devel
-  - stage_file_proxy
+module: {  }
+theme: {  }
 complete_list:
-  - devel.settings
-  - devel.toolbar.settings
-  - stage_file_proxy.settings
-partial_list: {  }
+  - antibot.settings
+partial_list:
+  - webform.settings
+  - webform.webform.contact
+  - webform.webform.find_property
+  - webform.webform.entrust_search
+  - webform.webform.get_advice
+  - webform.webform.entrust_property
+  - webform.webform.invest_sell
+  - webform.webform.other_request

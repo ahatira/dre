@@ -23,7 +23,7 @@ Property comparison for the Property Search platform (Drupal 11).
 ## Configuration
 
 - **Module settings**: `/admin/ps/config/compare`
-- **Consultant footer** (phone/hours in share offcanvas): `/admin/ps/config/core` → urgency help block
+- **Consultant footer** (phone/hours in share offcanvas): `/admin/ps/config/forms/contact` → urgency contact block
 - **Webform**: `compare_share` (provisioned by `ps_form`)
 - **Budget “From” prefix**: `ps_offer.settings` → `budget_from_prefix`
 

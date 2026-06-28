@@ -2,3 +2,15 @@ provision_webforms_on_install: false
 apply_spam_baseline_on_install: false
 contact_display_mode: offcanvas
 contact_modal_dialog_options: ''
+contact_hub_enabled_webforms:
+  - find_property
+  - entrust_search
+  - get_advice
+  - entrust_property
+  - invest_sell
+  - other_request
+urgency_help_enabled: true
+urgency_help_lead: 'In a hurry? Call us at'
+urgency_help_phone: '01 87 58 71 87'
+urgency_help_phone_link: 'tel:+33187587187'
+urgency_help_hours: 'Monday to Friday, 9:00 AM to 7:00 PM.'

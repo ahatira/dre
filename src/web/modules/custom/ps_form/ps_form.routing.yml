@@ -17,6 +17,15 @@ ps_form.webform_contact:
   requirements:
     _access: 'TRUE'
 
+ps_form.webform_find_property:
+  path: '/form/find-property'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    webform: find_property
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+
 ps_form.webform_entrust_search:
   path: '/form/entrust-search'
   defaults:
@@ -61,3 +70,12 @@ ps_form.webform_other_request:
     _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
   requirements:
     _access: 'TRUE'
+
+ps_form.webform:
+  path: '/form/{webform}'
+  defaults:
+    _controller: '\Drupal\ps_form\Controller\FormOffcanvasController::offcanvas'
+    _title_callback: '\Drupal\ps_form\Controller\FormOffcanvasController::title'
+  requirements:
+    _access: 'TRUE'
+    webform: '[a-z0-9_]+'

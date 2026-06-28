@@ -15,7 +15,7 @@ elements: |-
     '#title_display': invisible
     optout_intro:
       '#type': webform_markup
-      '#markup': '<p class="ps-compare-share-form__optout-intro">Je m'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Transaction France :</p>'
+      '#markup': "<p class=\"ps-compare-share-form__optout-intro\">Je m'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Transaction France :</p>"
     optout_email_transaction:
       '#type': checkbox
       '#title': E-mail
@@ -27,11 +27,12 @@ elements: |-
       '#title': Téléphone
   legal:
     '#type': checkbox
-    '#title': 'J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles.'
+    '#title': "J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles."
     '#required': true
   legal_notice:
     '#type': webform_markup
-    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France traite vos données pour vous envoyer le comparatif demandé. Consultez notre <a href="/data-protection">Notice de protection des données</a> pour vos droits.</p>'  compare_url:
+    '#markup': '<p class="ps-compare-share-form__legal-notice">BNP Paribas Real Estate Transaction France traite vos données pour vous envoyer le comparatif demandé. Consultez notre <a href="/data-protection">Notice de protection des données</a> pour vos droits.</p>'
+  compare_url:
     '#type': hidden
     '#title': 'URL du comparatif'
 settings:

@@ -186,9 +186,10 @@ fieldset > legend {
   padding-top: 0;
 }
 
-.form-actions .button--primary,
-.form-actions input[type='submit'],
-.webform-button--submit {
+// Non-wizard forms (single submit, no ps-form-wizard-actions wrapper).
+.form-actions:not(.ps-form-wizard-actions) .button--primary,
+.form-actions:not(.ps-form-wizard-actions) input[type='submit'],
+.form-actions:not(.ps-form-wizard-actions) .webform-button--submit {
   width: 15.875rem;
   max-width: 100%;
   min-height: $ps-form-input-height;
@@ -214,6 +215,8 @@ fieldset > legend {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  max-width: none;
+  width: 100%;
 
   // Reset ui_suite_bnp fieldset-as-card.
   fieldset.card {

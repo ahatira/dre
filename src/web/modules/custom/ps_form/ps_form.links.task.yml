@@ -1,0 +1,5 @@
+ps_form.contact_settings:
+  route_name: ps_form.contact_settings
+  base_route: ps_form.contact_settings
+  title: Edit
+  weight: 0

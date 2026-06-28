@@ -243,9 +243,9 @@ final class SearchAdminOverviewController extends ControllerBase {
 
     if ($this->moduleHandler->moduleExists('ps_core')) {
       $groups[5]['items'][] = [
-        'title' => $this->t('Global settings'),
-        'description' => $this->t('Urgency contact block shown in the search alert offcanvas and other forms.'),
-        'route' => 'ps_core.settings_form',
+        'title' => $this->t('Contact forms'),
+        'description' => $this->t('Contact hub needs, display mode, and urgency contact block.'),
+        'route' => 'ps_form.contact_settings',
       ];
     }
 

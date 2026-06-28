@@ -11,9 +11,6 @@ title: 'Get advice'
 description: 'Direct access — real estate consulting request.'
 category: 'Property Search'
 elements: |-
-  need:
-    '#type': hidden
-    '#default_value': advise
   step_project:
     '#type': webform_wizard_page
     '#title': Project
@@ -28,7 +25,7 @@ elements: |-
         supply_chain: 'Supply chain'
   step_contact:
     '#type': webform_wizard_page
-    '#title': 'Your details'
+    '#title': Details
     firstname:
       '#type': textfield
       '#title': 'First name'

@@ -11,9 +11,6 @@ title: 'Other request'
 description: 'Direct access — non-standard contact request.'
 category: 'Property Search'
 elements: |-
-  need:
-    '#type': hidden
-    '#default_value': other
   step_project:
     '#type': webform_wizard_page
     '#title': Project
@@ -29,7 +26,7 @@ elements: |-
         account: 'Other (account, login...)'
   step_contact:
     '#type': webform_wizard_page
-    '#title': 'Your details'
+    '#title': Details
     firstname:
       '#type': textfield
       '#title': 'First name'

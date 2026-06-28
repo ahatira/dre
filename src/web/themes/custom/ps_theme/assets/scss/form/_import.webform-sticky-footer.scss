@@ -87,32 +87,6 @@ $ps-webform-sticky-padding: 1rem;
   padding: 0;
 }
 
-.ps-webform-sticky-footer .form-actions > .button,
-.ps-webform-sticky-footer .form-actions > .webform-button,
-.ps-webform-sticky-footer .form-actions > button,
-.ps-webform-sticky-footer .form-actions > input[type='submit'],
-.ps-webform-sticky-footer .form-actions > input[type='button'],
-.ps-webform-sticky-footer .webform-actions > .button,
-.ps-webform-sticky-footer .webform-actions > .webform-button,
-.ps-webform-sticky-footer .webform-actions > button,
-.ps-webform-sticky-footer .webform-actions > input[type='submit'],
-.ps-webform-sticky-footer .webform-actions > input[type='button'] {
-  flex: 1 1 0;
-  min-width: 0;
-  width: auto;
-  max-width: none;
-  min-height: 2.5rem;
-  height: auto;
-  margin: 0 !important;
-  padding: 0.5rem 1rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  white-space: normal;
-  line-height: 1.5;
-}
-
 .ps-webform-sticky-footer .ps-webform-urgency-help-wrapper,
 .ps-webform-sticky-footer .ps-webform-urgency-help {
   width: 100%;

@@ -11,9 +11,6 @@ title: 'Invest or sell a property'
 description: 'Direct access — invest or sell commercial real estate request.'
 category: 'Property Search'
 elements: |-
-  need:
-    '#type': hidden
-    '#default_value': sell
   step_project:
     '#type': webform_wizard_page
     '#title': Project
@@ -88,7 +85,7 @@ elements: |-
         '#placeholder': 'City, district, postcode, building name...'
   step_contact:
     '#type': webform_wizard_page
-    '#title': 'Your details'
+    '#title': Details
     firstname:
       '#type': textfield
       '#title': 'First name'

@@ -33,10 +33,9 @@ ps_core.config:
 ps_core.settings_form:
   path: '/admin/ps/config/settings'
   defaults:
-    _form: '\Drupal\ps_core\Form\PsCoreSettingsForm'
-    _title: 'Global settings'
+    _controller: '\Drupal\ps_core\Controller\LegacySettingsRedirectController::contactSettings'
   requirements:
-    _permission: 'administer ps_core'
+    _permission: 'access ps_core config section'
 
 ps_core.governance:
   path: '/admin/ps/config/governance'

@@ -9,28 +9,6 @@ ps_core.import_governance.present_in_xml.sync_fields_by_entity:
         type: string
         label: 'Field name'
 
-ps_core.settings:
-  type: config_object
-  label: 'Global settings'
-  mapping:
-    urgency_help_enabled:
-      type: boolean
-      label: 'Enable site-wide urgency help block'
-    urgency_help_lead:
-      type: label
-      label: 'Urgency help lead text'
-      translatable: true
-    urgency_help_phone:
-      type: string
-      label: 'Urgency help phone (display)'
-    urgency_help_phone_link:
-      type: string
-      label: 'Urgency help phone link (tel: URI, optional)'
-    urgency_help_hours:
-      type: label
-      label: 'Urgency help opening hours'
-      translatable: true
-
 ps_core.offer_section_settings:
   type: config_object
   label: 'Offer section settings'

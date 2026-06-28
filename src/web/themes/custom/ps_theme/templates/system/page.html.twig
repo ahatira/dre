@@ -12,15 +12,15 @@
 # - content (container): constrained zones — offer twocol, breadcrumb (offer),
 #   footer prefooter + main columns.
 #}
-{% set ps_container_shell = container|default('container-fluid') %}
 {% set ps_container_content = 'container' %}
-{% set ps_container_breadcrumb = ps_page_layout_offer_detail ? ps_container_content : ps_container_shell %}
+{% set ps_container_shell = ps_page_layout_form ? ps_container_content : (container|default('container-fluid')) %}
+{% set ps_container_breadcrumb = (ps_page_layout_offer_detail or ps_page_layout_form) ? ps_container_content : ps_container_shell %}
 {% set has_site_header = page.branding or page.shortcut or ps_site_header_navigation_mobile or ps_site_header_navigation_desktop or ps_site_header_actions or ps_site_header_search or ps_site_header_favorites or ps_site_header_account %}
 {% set ps_grid_gx = 'gx-0' %}
 {% set ps_grid_bleed_container = { class: ['px-0'] } %}
 {% set ps_grid_bleed_col = { class: ['px-0'] } %}
 
-<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}{{ ps_page_layout_account ? ' ps-page-layout--account' : '' }}{{ ps_page_layout_search ? ' ps-page-layout--search' : '' }}">
+<div class="ps-page-layout{{ has_site_header ? ' ps-page-layout--with-header' : '' }}{{ ps_page_layout_account ? ' ps-page-layout--account' : '' }}{{ ps_page_layout_search ? ' ps-page-layout--search' : '' }}{{ ps_page_layout_form ? ' ps-page-layout--form' : '' }}">
   {% if has_site_header %}
     <header class="site-header ps-site-header" role="banner" data-ps-site-header>
       {{ include('ps_theme:site-header', {

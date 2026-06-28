@@ -35,12 +35,12 @@ final class AlertSettingsForm extends ConfigFormBase {
     $config = $this->config('ps_search.alert_settings');
 
     $alertsLink = Link::createFromRoute($this->t('Content → Search alerts'), 'entity.search_alert.collection')->toString();
-    $globalLink = Link::createFromRoute($this->t('Global settings'), 'ps_core.settings_form')->toString();
+    $globalLink = Link::createFromRoute($this->t('Contact forms'), 'ps_form.contact_settings')->toString();
 
     $form['intro'] = [
-      '#markup' => '<p>' . $this->t('Cron digest emails for property search alert subscriptions. Browse stored subscriptions under @alerts. The urgency contact block in the offcanvas form is configured under @global.', [
+      '#markup' => '<p>' . $this->t('Cron digest emails for property search alert subscriptions. Browse stored subscriptions under @alerts. The urgency contact block in the offcanvas form is configured under @contact.', [
         '@alerts' => $alertsLink,
-        '@global' => $globalLink,
+        '@contact' => $globalLink,
       ]) . '</p>',
     ];
 

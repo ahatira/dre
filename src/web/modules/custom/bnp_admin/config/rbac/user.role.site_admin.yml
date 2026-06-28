@@ -11,6 +11,7 @@ dependencies:
     - masquerade
     - ps_context
     - ps_core
+    - ps_form
     - ps_seo
     - redirect_after_login
     - views_promo_card
@@ -50,6 +51,7 @@ permissions:
   - 'administer users'
   - 'assign roles'
   - 'manage ps_migrate'
+  - 'manage ps_form'
   - 'masquerade as any user'
   - 'use text format basic_html'
   - 'use text format full_html'

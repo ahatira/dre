@@ -8,7 +8,7 @@ dependencies:
     - honeypot
 id: contact
 title: 'Contact us'
-description: 'Site-wide contact wizard for header offcanvas.'
+description: 'Site-wide contact hub for header offcanvas — routes to need-specific forms.'
 category: 'Property Search'
 elements: |-
   step_need:
@@ -20,186 +20,19 @@ elements: |-
     need_title:
       '#type': webform_markup
       '#markup': '<p class="h4">To get started, what is your need?</p>'
-    need:
+    target_webform:
       '#type': radios
       '#title': Need
       '#title_display': invisible
       '#required': true
-      '#options':
-        rent: 'Find a property for sale or rent'
-        delegate: 'Entrust my search'
-        advise: 'Get advice'
-        market: 'Entrust a property'
-        sell: 'Invest or sell a property'
-        other: 'Other request'
-      '#default_value': rent
-  step_project:
-    '#type': webform_wizard_page
-    '#title': Project
-    project:
-      '#type': fieldset
-      '#title': 'Property type and requirements'
-      transaction_type:
-        '#type': radios
-        '#title': 'What type of transaction?'
-        '#required': true
-        '#options':
-          LOC: Rent
-          VEN: Buy
-          EITHER: 'No preference'
-        '#default_value': LOC
-      search_type:
-        '#type': radios
-        '#title': 'What type of property are you looking for?'
-        '#required': true
-        '#options':
-          BUR: Office
-          COW: Coworking
-          ENT: 'Warehouse / Logistics'
-          ACT: 'Business premises'
-          COM: Retail
-          TER: Land
-        '#default_value': BUR
-      search_criteria:
-        '#type': fieldset
-        '#title': 'What are your search criteria?'
-        budget:
-          '#type': fieldset
-          '#title': Budget
-          '#states':
-            visible:
-              - ':input[name="transaction_type"]':
-                  value: VEN
-              - ':input[name="transaction_type"]':
-                  value: EITHER
-          min_budget:
-            '#type': number
-            '#title': 'Min price'
-            '#min': 0
-          max_budget:
-            '#type': number
-            '#title': 'Max price'
-            '#min': 0
-        rent:
-          '#type': fieldset
-          '#title': Rent
-          '#states':
-            visible:
-              - ':input[name="transaction_type"]':
-                  value: LOC
-              - ':input[name="transaction_type"]':
-                  value: EITHER
-          min_rent:
-            '#type': number
-            '#title': 'Min rent'
-            '#min': 0
-          max_rent:
-            '#type': number
-            '#title': 'Max rent'
-            '#min': 0
-        surface:
-          '#type': fieldset
-          '#title': Surface
-          '#states':
-            invisible:
-              - ':input[name="search_type"]':
-                  value: COW
-          min_surface:
-            '#type': number
-            '#title': 'Min surface (sqm)'
-            '#min': 20
-          max_surface:
-            '#type': number
-            '#title': 'Max surface (sqm)'
-            '#min': 20
-        post:
-          '#type': fieldset
-          '#title': Workstations
-          '#states':
-            visible:
-              - ':input[name="search_type"]':
-                  value: COW
-          min_post:
-            '#type': number
-            '#title': 'Min workstations'
-            '#min': 1
-          max_post:
-            '#type': number
-            '#title': 'Max workstations'
-            '#min': 1
-        search_territory:
-          '#type': textfield
-          '#title': Location
-          '#required': true
-          '#placeholder': 'City, district, postcode, building name...'
-  step_contact:
-    '#type': webform_wizard_page
-    '#title': 'Your details'
-    firstname:
-      '#type': textfield
-      '#title': 'First name'
-      '#required': true
-    lastname:
-      '#type': textfield
-      '#title': 'Last name'
-      '#required': true
-    company_name:
-      '#type': textfield
-      '#title': Company
-      '#required': true
-    job_title:
-      '#type': select
-      '#title': 'Job title'
-      '#empty_option': 'Select a job title'
-      '#options':
-        'Asset manager': 'Asset manager'
-        Commercial: Commercial
-        'Directeur immobilier': 'Directeur immobilier'
-        Other: Other
-    prof_phone:
-      '#type': tel
-      '#title': 'Professional phone'
-      '#required': true
-    prof_email_address:
-      '#type': email
-      '#title': 'Professional e-mail'
-      '#required': true
-    optout_intro:
-      '#type': webform_markup
-      '#markup': '<p>I object to receiving commercial communications from BNP Paribas Real Estate Advisory France:</p>'
-    optout_email_transaction:
-      '#type': checkbox
-      '#title': E-mail
-    optout_sms_transaction:
-      '#type': checkbox
-      '#title': SMS
-    optout_tel_transaction:
-      '#type': checkbox
-      '#title': Telephone
-    captcha:
-      '#type': captcha
-      '#captcha_type': altcha/ALTCHA
-    legal_notice:
-      '#type': webform_markup
-      '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, a limited company located at 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, as the Data Controller, processes information about you to respond to your request submitted via this form. For more information on your rights, see our <a href="/data-protection">Data Protection Notice</a>.</p>'
-      '#wrapper_attributes':
-        class:
-          - ps-contact-form__legal
-  step_message:
-    '#type': webform_wizard_page
-    '#title': Message
-    qualification_comment:
-      '#type': textarea
-      '#title': Message
-      '#placeholder': 'Describe your project'
-      '#maxlength': 2000
+      '#options': {}
 css: ''
 javascript: ''
 settings:
   ajax: true
   ajax_scroll_top: form
   page: false
-  form_submit_label: 'Send message'
+  form_submit_label: Continue
   wizard_progress_bar: true
   wizard_progress_pages: true
   wizard_progress_link: false
@@ -210,7 +43,7 @@ settings:
   wizard_prev_button_label: Back
   wizard_next_button_label: Continue
   confirmation_type: inline
-  confirmation_message: '<p>Thank you. Your message has been sent.</p>'
+  confirmation_message: ''
   third_party_settings:
     antibot:
       antibot: true
@@ -223,37 +56,4 @@ access:
       - authenticated
     users: {  }
     permissions: {  }
-handlers:
-  email_notification:
-    id: email
-    label: 'Site notification'
-    handler_id: email_notification
-    status: true
-    conditions: {  }
-    weight: 0
-    settings:
-      states:
-        - completed
-      to_mail: _default
-      from_mail: '[webform_submission:values:prof_email_address:raw]'
-      from_name: '[webform_submission:values:firstname:raw] [webform_submission:values:lastname:raw]'
-      subject: 'Website contact form'
-      body: _default
-      reply_to: '[webform_submission:values:prof_email_address:raw]'
-      html: true
-  email_confirmation:
-    id: email
-    label: 'Visitor confirmation'
-    handler_id: email_confirmation
-    status: true
-    conditions: {  }
-    weight: 1
-    settings:
-      states:
-        - completed
-      to_mail: '[webform_submission:values:prof_email_address:raw]'
-      from_mail: _default
-      from_name: _default
-      subject: 'Thank you for contacting us'
-      body: '<p>Thank you for your message.</p><p>We have received your request and will get back to you shortly.</p>'
-      html: true
+handlers: {  }

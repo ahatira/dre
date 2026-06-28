@@ -49,7 +49,7 @@ final class ContactWebformShellBuilder {
       '#theme' => $theme,
       '#webform' => $this->entityTypeManager->getViewBuilder('webform')->view($webform, 'default'),
       '#webform_id' => $webformId,
-      '#panel_id' => $this->resolvePanelId($webformId),
+      '#panel_id' => $this->contactNeedRouter->resolvePanelId($webformId),
       '#title' => $this->contactNeedRouter->getPageTitle($webformId),
       '#attached' => [
         'library' => [
@@ -72,22 +72,11 @@ final class ContactWebformShellBuilder {
   }
 
   /**
-   *
+   * Loads a webform entity by machine name.
    */
   private function loadWebform(string $webformId): ?WebformInterface {
     $entity = $this->entityTypeManager->getStorage('webform')->load($webformId);
     return $entity instanceof WebformInterface ? $entity : NULL;
-  }
-
-  /**
-   * Resolves the DOM id used by contact wizard CSS hooks.
-   */
-  private function resolvePanelId(string $webformId): string {
-    if ($webformId === ContactNeedRouter::HUB_WEBFORM_ID) {
-      return 'contact-panel';
-    }
-
-    return str_replace('_', '-', $webformId) . '-panel';
   }
 
   /**

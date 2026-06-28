@@ -11,9 +11,6 @@ title: 'Entrust my search'
 description: 'Direct access — entrust property search to BNP Paribas Real Estate.'
 category: 'Property Search'
 elements: |-
-  need:
-    '#type': hidden
-    '#default_value': delegate
   step_project:
     '#type': webform_wizard_page
     '#title': Project
@@ -115,7 +112,7 @@ elements: |-
           '#placeholder': 'City, district, postcode, building name...'
   step_contact:
     '#type': webform_wizard_page
-    '#title': 'Your details'
+    '#title': Details
     firstname:
       '#type': textfield
       '#title': 'First name'

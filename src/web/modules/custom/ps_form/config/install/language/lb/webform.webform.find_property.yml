@@ -1,0 +1,103 @@
+title: 'Eng Immobilie fënnen fir ze kafen oder ze lounen'
+description: 'Direkten Zougang — Sich no enger Immobilie fir ze kafen oder ze lounen.'
+category: Immobiliensich
+elements: |
+  step_project:
+    '#title': Projet
+  project:
+    '#title': 'Typ vun der Immobilie a Critèren'
+  transaction_type:
+    '#title': 'Wéi eng Zort Transaktioun?'
+    '#options':
+      LOC: Locatioun
+      VEN: Kaf
+      EITHER: 'Keng Preferenz'
+  search_type:
+    '#title': 'Wéi eng Zort Immobilie sicht Dir?'
+    '#options':
+      BUR: Büroen
+      COW: Coworking
+      ENT: 'Lager / Logistik'
+      ACT: Gewerbeflächen
+      COM: Commerce
+      TER: Terrain
+  search_criteria:
+    '#title': 'Wat sinn Är Sichcritèren?'
+  budget:
+    '#title': Budget
+  min_budget:
+    '#title': 'Min. Präis'
+  max_budget:
+    '#title': 'Max. Präis'
+  rent:
+    '#title': Locatioun
+  min_rent:
+    '#title': 'Min. Locatioun'
+  max_rent:
+    '#title': 'Max. Locatioun'
+  surface:
+    '#title': Surface
+  min_surface:
+    '#title': 'Min. Surface (m²)'
+  max_surface:
+    '#title': 'Max. Surface (m²)'
+  post:
+    '#title': Aarbechtsplazen
+  min_post:
+    '#title': 'Min. Aarbechtsplazen'
+  max_post:
+    '#title': 'Max. Aarbechtsplazen'
+  search_territory:
+    '#title': Standuert
+    '#placeholder': 'Stad, Quartier, Postcode, Gebaunumm…'
+  step_contact:
+    '#title': 'Vir Kontaktdaten'
+  firstname:
+    '#title': Virnumm
+  lastname:
+    '#title': Familljennumm
+  company_name:
+    '#title': Entreprise
+  job_title:
+    '#title': Funktioun
+    '#empty_option': 'Wielt eng Funktioun'
+    '#options':
+      'Asset manager': 'Asset manager'
+      Commercial: Commercial
+      'Directeur immobilier': 'Directeur immobilier'
+      Other: Aner
+  prof_phone:
+    '#title': 'Professionellt Telefon'
+  prof_email_address:
+    '#title': 'Professionell E-Mail'
+  optout_intro:
+    '#markup': '<p>Ech widerspréch dem Empfang vu kommerziellen Kommunikatioune vu BNP Paribas Real Estate Advisory France:</p>'
+  optout_email_transaction:
+    '#title': E-Mail
+  optout_sms_transaction:
+    '#title': SMS
+  optout_tel_transaction:
+    '#title': Telefon
+  legal_notice:
+    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, eng Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, als verantwortlech fir d&rsquo;Traitement, veraarbecht Är Informatiounen fir op Är Demande iwwer dëse Formulaire ze reagéieren. Fir méi iwwer Är Rechter ze wëssen, kuckt w.e.g. eis <a href="/data-protection">Notice de protection des données</a>.</p>'
+  step_message:
+    '#title': Message
+  qualification_comment:
+    '#title': Message
+    '#placeholder': 'Beschreift Äre Projet'
+settings:
+  form_submit_label: 'Message schécken'
+  wizard_prev_button_label: Zréck
+  wizard_next_button_label: Weider
+  confirmation_message: '<p>Merci. Äre Message gouf geschéckt.</p>'
+handlers:
+  email_notification:
+    label: 'Notifikatioun vum Site'
+    settings:
+      subject: 'Demande: Immobilie fannen'
+      body: _default
+  email_confirmation:
+    label: 'Confirmatioun fir de Visiteur'
+    settings:
+      subject: 'Merci fir Äre Kontakt'
+      body: '<p>Merci fir Äre Message.</p><p>Mir hunn Är Demande kritt a kommen geschwënn op Iech zréck.</p>'

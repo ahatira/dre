@@ -16,6 +16,9 @@ services:
     class: Drupal\ps_form\Service\ContactNeedRouter
     arguments:
       - '@config.factory'
+      - '@entity_type.manager'
+      - '@router.route_provider'
+      - '@extension.list.module'
 
   ps_form.contact_display_mode:
     class: Drupal\ps_form\Service\ContactDisplayModeManager
@@ -30,15 +33,18 @@ services:
       - '@ps_form.contact_need_router'
       - '@ps_form.contact_display_mode'
 
-  ps_form.webform_offcanvas_builder:
-    class: Drupal\ps_form\Service\WebformOffcanvasBuilder
+  ps_form.contact_project_field_presenter:
+    class: Drupal\ps_form\Service\ContactProjectFieldPresenter
     arguments:
-      - '@entity_type.manager'
-      - '@ps_form.contact_need_router'
+      - '@ps_dictionary.resolver'
+      - '@ps_dictionary.entry_icon_resolver'
 
   Drupal\ps_form\Hook\ContactWebformHooks:
     arguments:
       - '@ps_form.contact_need_router'
+      - '@ps_form.contact_project_field_presenter'
+      - '@request_stack'
+      - '@config.factory'
 
   Drupal\ps_form\Hook\ContactFormPageHooks:
     arguments:
@@ -50,6 +56,13 @@ services:
     arguments:
       - '@ps_form.contact_display_mode'
 
+  ps_form.form_urgency_contact:
+    class: Drupal\ps_form\Service\FormUrgencyContactBuilder
+    arguments:
+      - '@config.factory'
+
   Drupal\ps_form\Hook\WebformStickyFooterHooks:
     arguments:
-      - '@ps_core.site_urgency_contact'
+      - '@ps_form.form_urgency_contact'
+
+  Drupal\ps_form\Hook\PsFormAdminHooks: {}

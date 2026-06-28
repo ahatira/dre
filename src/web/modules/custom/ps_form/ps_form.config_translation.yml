@@ -1,0 +1,6 @@
+ps_form.settings_urgency_contact:
+  title: 'Urgency contact labels'
+  names:
+    - ps_form.settings
+  base_route_name: ps_form.contact_settings
+  weight: 10

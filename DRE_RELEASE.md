@@ -80,7 +80,7 @@ Consolider chaque `*_update_*()` dans le `hook_install()` correspondant (ou `con
 | `bnp_media` | `bnp_media.install` | 9001–9002 |
 | `bnp_editor` | `bnp_editor.install` | 9001 |
 | `ps_seo` | `ps_seo.install` | 9001–9004 |
-| `ps_form` | `ps_form.install` | 10001–10004 |
+| ~~`ps_form`~~ | ~~`ps_form.install`~~ | ✅ consolidé dans `hook_install()` |
 | `ps_core` | `ps_core.install` | 9001–9002 |
 | `ps_search` | `ps_search.install` | 10001 |
 | `ps_news` | `ps_news.install` | 9001–9002 |

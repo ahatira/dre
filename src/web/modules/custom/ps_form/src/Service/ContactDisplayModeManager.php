@@ -209,7 +209,7 @@ final class ContactDisplayModeManager {
    */
   public function isContactFormPath(string $path): bool {
     $normalized = '/' . trim($path, '/');
-    $contactPaths = array_values($this->contactNeedRouter->getWebformPathMap());
+    $contactPaths = array_values($this->contactNeedRouter->getRoutableWebformPathMap());
 
     if (in_array($normalized, $contactPaths, TRUE)) {
       return TRUE;

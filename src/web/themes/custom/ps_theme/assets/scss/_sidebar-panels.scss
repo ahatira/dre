@@ -20,13 +20,23 @@
 }
 
 .ps-form-page-panel {
-  max-width: 720px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   padding: var(--re-space-24, 24px) var(--re-space-16, 16px);
 
   &__title {
     margin-bottom: var(--re-space-24, 24px);
   }
+
+  &__body {
+    width: 100%;
+  }
+}
+
+.ps-form-offcanvas-panel,
+.ps-form-modal-panel {
+  width: 100%;
 }
 
 .ps-contact-modal__content {

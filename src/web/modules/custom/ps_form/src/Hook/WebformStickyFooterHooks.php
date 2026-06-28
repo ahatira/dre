@@ -6,7 +6,7 @@ namespace Drupal\ps_form\Hook;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\ps_core\Service\SiteUrgencyContactBuilder;
+use Drupal\ps_form\Service\FormUrgencyContactBuilder;
 use Drupal\webform\WebformSubmissionForm;
 
 /**
@@ -19,11 +19,11 @@ final class WebformStickyFooterHooks {
   private const ACTIONS_WEIGHT = 1000;
 
   public function __construct(
-    private readonly SiteUrgencyContactBuilder $urgencyContactBuilder,
+    private readonly FormUrgencyContactBuilder $urgencyContactBuilder,
   ) {}
 
   /**
-   * Adds sticky submit + urgency phone footer from ps_core.settings.
+   * Adds sticky submit + urgency phone footer from ps_form.settings.
    */
   #[Hook('form_alter')]
   public function formAlter(array &$form, FormStateInterface $form_state, string $form_id): void {

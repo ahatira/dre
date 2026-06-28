@@ -1,0 +1,126 @@
+/**
+ * Form wizard actions — BNPPRE contact mockups (docs/forms/contact/).
+ *
+ * Targets Webform classes: webform-button--previous, --next, --submit.
+ */
+
+$ps-form-wizard-primary: #00915a;
+$ps-form-wizard-primary-hover: #007a4d;
+$ps-form-wizard-outline: #00915a;
+$ps-form-wizard-outline-hover-bg: #f0faf5;
+$ps-bnp-icon-base: '/themes/custom/ui_suite_bnp/assets/icons/custom';
+$ps-form-wizard-send-icon: url('#{$ps-bnp-icon-base}/generic/send.svg');
+
+@mixin ps-form-wizard-action-base {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  min-height: 2.5rem;
+  margin: 0 !important;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  white-space: normal;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $ps-form-wizard-primary;
+    outline-offset: 2px;
+  }
+}
+
+@mixin ps-form-wizard-action-outline {
+  @include ps-form-wizard-action-base;
+
+  color: $ps-form-wizard-outline;
+  background: #fff;
+  border: 2px solid $ps-form-wizard-outline;
+
+  &:hover,
+  &:focus-visible {
+    color: $ps-form-wizard-outline;
+    background: $ps-form-wizard-outline-hover-bg;
+    border-color: $ps-form-wizard-outline;
+  }
+}
+
+@mixin ps-form-wizard-action-primary {
+  @include ps-form-wizard-action-base;
+
+  color: #fff;
+  background: $ps-form-wizard-primary;
+  border: 2px solid $ps-form-wizard-primary;
+
+  &:hover,
+  &:focus-visible {
+    color: #fff;
+    background: $ps-form-wizard-primary-hover;
+    border-color: $ps-form-wizard-primary-hover;
+  }
+}
+
+.ps-form-wizard-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.ps-form-wizard-actions > .webform-button--previous,
+.ps-form-wizard-actions > .ps-contact-hub-back,
+.ps-form-wizard-actions > input.webform-button--previous,
+.ps-form-wizard-actions > button.webform-button--previous {
+  @include ps-form-wizard-action-outline;
+}
+
+.ps-form-wizard-actions > .webform-button--next,
+.ps-form-wizard-actions > .webform-button--submit,
+.ps-form-wizard-actions > input.webform-button--next,
+.ps-form-wizard-actions > input.webform-button--submit,
+.ps-form-wizard-actions > button.webform-button--next,
+.ps-form-wizard-actions > input[type='submit'].webform-button--submit {
+  @include ps-form-wizard-action-primary;
+}
+
+.ps-form-wizard-actions > .webform-button--submit,
+.ps-form-wizard-actions > input.webform-button--submit,
+.ps-form-wizard-actions > input[type='submit'].webform-button--submit {
+  &::after {
+    content: '';
+    flex: 0 0 1rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: currentColor;
+    -webkit-mask-image: $ps-form-wizard-send-icon;
+    mask-image: $ps-form-wizard-send-icon;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+}
+
+// Fallback when actions are not wrapped (no sticky footer / legacy).
+.webform-submission-form > .form-actions.ps-form-wizard-actions {
+  justify-content: stretch;
+}

@@ -4,7 +4,7 @@ category: 'Recherche immobilière'
 elements: |-
   alert_name:
     '#type': textfield
-    '#title': 'Titre de l'alerte'
+    '#title': "Titre de l'alerte"
     '#required': true
     '#maxlength': 255
   prof_email_address:
@@ -16,7 +16,7 @@ elements: |-
     '#markup': ''
   frequence:
     '#type': radios
-    '#title': 'Fréquence d'envoi'
+    '#title': "Fréquence d'envoi"
     '#required': true
     '#options':
       daily: Quotidienne
@@ -28,7 +28,7 @@ elements: |-
     '#title_display': invisible
     optout_intro:
       '#type': webform_markup
-      '#markup': '<p class="ps-search-alert-form__optout-intro">Je m'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Advisory France :</p>'
+      '#markup': "<p class=\"ps-search-alert-form__optout-intro\">Je m'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Advisory France :</p>"
     optout_email_transaction:
       '#type': checkbox
       '#title': E-mail
@@ -40,11 +40,12 @@ elements: |-
       '#title': Téléphone
   legal:
     '#type': checkbox
-    '#title': 'J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles.'
+    '#title': "J'ai lu et j'accepte les conditions de la Politique de protection des données personnelles."
     '#required': true
   legal_notice:
     '#type': webform_markup
-    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate traite vos données pour envoyer des alertes immobilières correspondant à vos critères. Consultez notre <a href="/data-protection">Notice de protection des données</a> pour vos droits.</p>'  criteria_json:
+    '#markup': '<p class="ps-search-alert-form__legal-notice">BNP Paribas Real Estate traite vos données pour envoyer des alertes immobilières correspondant à vos critères. Consultez notre <a href="/data-protection">Notice de protection des données</a> pour vos droits.</p>'
+  criteria_json:
     '#type': hidden
     '#title': 'Critères de recherche'
   search_url:

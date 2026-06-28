@@ -1,0 +1,11 @@
+name: Form wizard actions
+description: 'Sticky webform wizard button bar — Back (outline) and Continue/Submit (primary) per BNPPRE contact mockups.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties: {}
+libraryOverrides:
+  css:
+    component:
+      styles/form-wizard-actions.css: {}

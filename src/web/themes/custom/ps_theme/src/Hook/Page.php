@@ -109,9 +109,25 @@ final class Page {
       $variables['#attached']['library'][] = 'ps_search/search-page';
     }
 
+    if ($this->isFormPageRoute()) {
+      $variables['ps_page_layout_form'] = TRUE;
+    }
+
     $this->prepareNavigationInstances($variables);
     $this->prepareSiteFooterSlots($variables);
     $this->prepareSiteHeaderSlots($variables);
+  }
+
+  /**
+   * Whether the current page is a dedicated webform page (/form/*).
+   */
+  private function isFormPageRoute(): bool {
+    $route_name = \Drupal::routeMatch()->getRouteName();
+    if ($route_name === NULL) {
+      return FALSE;
+    }
+
+    return str_starts_with($route_name, 'ps_form.webform_');
   }
 
   /**

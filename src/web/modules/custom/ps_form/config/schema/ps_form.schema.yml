@@ -14,3 +14,26 @@ ps_form.settings:
     contact_modal_dialog_options:
       type: text
       label: 'Contact modal dialog options (JSON)'
+    contact_hub_enabled_webforms:
+      type: sequence
+      label: 'Hub contact enabled webforms'
+      sequence:
+        type: string
+        label: 'Webform id'
+    urgency_help_enabled:
+      type: boolean
+      label: 'Enable site-wide urgency help block'
+    urgency_help_lead:
+      type: label
+      label: 'Urgency help lead text'
+      translatable: true
+    urgency_help_phone:
+      type: string
+      label: 'Urgency help phone (display)'
+    urgency_help_phone_link:
+      type: string
+      label: 'Urgency help phone link (tel: URI, optional)'
+    urgency_help_hours:
+      type: label
+      label: 'Urgency help opening hours'
+      translatable: true

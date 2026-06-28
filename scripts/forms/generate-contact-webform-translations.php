@@ -23,6 +23,7 @@ use Symfony\Component\Yaml\Yaml;
 $langs = ['fr', 'de', 'es', 'it', 'nl', 'pl', 'lb'];
 $webforms = [
   'contact',
+  'find_property',
   'entrust_search',
   'get_advice',
   'entrust_property',

@@ -11,6 +11,9 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function ps_form_install(): void {
+  ps_form_sync_contact_hub_webform_from_install();
+  ps_form_apply_install_settings();
+
   $settings = \Drupal::config('ps_form.settings');
   $provisionWebforms = (bool) ($settings->get('provision_webforms_on_install') ?? FALSE);
   $applySpamBaseline = (bool) ($settings->get('apply_spam_baseline_on_install') ?? FALSE);
@@ -35,63 +38,112 @@ function ps_form_install(): void {
 }
 
 /**
- * Ensures contact display mode config exists on existing sites.
+ * Re-imports the contact hub webform from module install config.
  */
-function ps_form_update_11002(): void {
-  $config = \Drupal::configFactory()->getEditable('ps_form.settings');
-  if ($config->get('contact_display_mode') === NULL) {
-    $config->set('contact_display_mode', 'offcanvas');
+function ps_form_sync_contact_hub_webform_from_install(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('webform')) {
+    return;
   }
-  if ($config->get('contact_modal_dialog_options') === NULL) {
-    $config->set('contact_modal_dialog_options', '');
+
+  $extensionList = \Drupal::service('extension.list.module');
+  $installPath = $extensionList->getPath('ps_form') . '/config/install';
+  $contactFile = $installPath . '/webform.webform.contact.yml';
+  if (!is_readable($contactFile)) {
+    return;
   }
-  $config->save();
+
+  $definition = \Symfony\Component\Yaml\Yaml::parseFile($contactFile);
+  if (!is_array($definition) || empty($definition['id'])) {
+    return;
+  }
+
+  $editable = \Drupal::configFactory()->getEditable('webform.webform.contact');
+  foreach ($definition as $key => $value) {
+    $editable->set($key, $value);
+  }
+  $editable->save();
+
+  \Drupal::entityTypeManager()->getStorage('webform')->resetCache([$definition['id']]);
+
+  ps_form_sync_contact_hub_webform_language_overrides_from_install();
 }
 
 /**
- * Removes corrupted null handlers overrides from translated webforms.
+ * Re-imports contact hub webform language overrides from module install config.
  */
-function ps_form_update_11001(): void {
-  ps_form_fix_webform_language_handler_overrides();
-}
-
-/**
- * Drops handlers/variants keys wrongly stored as null in language overrides.
- *
- * Language YAML files previously ended with a bare `handlers:` key, which
- * Symfony Yaml parses as null and breaks Webform handler plugin collections.
- */
-function ps_form_fix_webform_language_handler_overrides(): void {
-  $languageManager = \Drupal::languageManager();
+function ps_form_sync_contact_hub_webform_language_overrides_from_install(): void {
+  $extensionList = \Drupal::service('extension.list.module');
+  $languagePath = $extensionList->getPath('ps_form') . '/config/install/language';
+  $pattern = $languagePath . '/*/webform.webform.contact.yml';
   $configStorage = \Drupal::service('config.storage');
-  $webformIds = \Drupal::entityTypeManager()->getStorage('webform')->getQuery()->accessCheck(FALSE)->execute();
-  $fixed = 0;
+  $configName = 'webform.webform.contact';
 
-  foreach ($languageManager->getLanguages() as $langcode => $_language) {
-    $langStorage = $configStorage->createCollection('language.' . $langcode);
-    foreach ($webformIds as $webformId) {
-      $configName = 'webform.webform.' . $webformId;
-      if (!$langStorage->exists($configName)) {
-        continue;
-      }
-      $data = $langStorage->read($configName);
-      if (!is_array($data) || !array_intersect_key($data, array_flip(['handlers', 'variants']))) {
-        continue;
-      }
-      unset($data['handlers'], $data['variants']);
-      if ($data === []) {
-        $langStorage->delete($configName);
-      }
-      else {
-        $langStorage->write($configName, $data);
-      }
-      $fixed++;
+  foreach (glob($pattern) ?: [] as $file) {
+    $langcode = basename(dirname($file));
+    $data = \Symfony\Component\Yaml\Yaml::parseFile($file);
+    if (!is_array($data) || $data === []) {
+      continue;
+    }
+
+    $configStorage->createCollection('language.' . $langcode)
+      ->write($configName, $data);
+  }
+
+  // Partial `elements` overrides replace the full YAML and break the hub wizard.
+  foreach ($configStorage->getAllCollectionNames() as $collection) {
+    if (!str_starts_with($collection, 'language.')) {
+      continue;
+    }
+
+    $langStorage = $configStorage->createCollection($collection);
+    if (!$langStorage->exists($configName)) {
+      continue;
+    }
+
+    $data = $langStorage->read($configName);
+    if (!is_array($data) || !array_key_exists('elements', $data)) {
+      continue;
+    }
+
+    unset($data['elements']);
+    if ($data === []) {
+      $langStorage->delete($configName);
+    }
+    else {
+      $langStorage->write($configName, $data);
+    }
+  }
+}
+
+/**
+ * Applies ps_form.settings from module config/install (hub defaults).
+ */
+function ps_form_apply_install_settings(): void {
+  $extensionList = \Drupal::service('extension.list.module');
+  $settingsFile = $extensionList->getPath('ps_form') . '/config/install/ps_form.settings.yml';
+  if (!is_readable($settingsFile)) {
+    return;
+  }
+
+  $definition = \Symfony\Component\Yaml\Yaml::parseFile($settingsFile);
+  if (!is_array($definition) || $definition === []) {
+    return;
+  }
+
+  $config = \Drupal::configFactory()->getEditable('ps_form.settings');
+  foreach ($definition as $key => $value) {
+    $config->set($key, $value);
+  }
+
+  foreach ([
+    'contact_hub_need_map',
+    'contact_hub_enabled_needs',
+    'contact_hub_direct_webforms',
+  ] as $legacyKey) {
+    if ($config->get($legacyKey) !== NULL) {
+      $config->clear($legacyKey);
     }
   }
 
-  if ($fixed > 0) {
-    \Drupal::logger('ps_form')->notice('Removed corrupted webform handler overrides: @count', [
-      '@count' => $fixed,
-    ]);
-  }
+  $config->save();
 }
