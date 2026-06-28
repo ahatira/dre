@@ -39,12 +39,14 @@
         <button type="button" class="btn {{ button_class }} {{ btn_width_class }} ps-icon-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
           {{ button_label }}
         </button>
-      {% elseif link_type == 'offcanvas' %}
+      {% elseif link_type in ['offcanvas', 'ajax_modal'] and button_url %}
         <a href="{{ button_url }}"
-           class="btn {{ button_class }} {{ btn_width_class }} ps-icon-card__button use-ajax"
-           data-dialog-type="dialog"
-           data-dialog-renderer="off_canvas"
-           data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
+           class="btn {{ button_class }} {{ btn_width_class }} ps-icon-card__button {{ dialog_attributes.class|default('use-ajax') }}"
+           {% for attribute, value in dialog_attributes|default({}) %}
+             {% if attribute != 'class' %}
+               {{ attribute }}="{{ value|e('html_attr') }}"
+             {% endif %}
+           {% endfor %}>
           {{ button_label }}
         </a>
       {% elseif button_url %}

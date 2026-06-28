@@ -523,6 +523,9 @@ services:
 
   ps_search.hero_delegate_bar_builder:
     class: Drupal\ps_search\Search\Hero\HeroDelegateBarBuilder
+    arguments:
+      - '@?ps_form.contact_display_mode'
+      - '@?ps_form.contact_need_router'
 
   ps_search.hero_search_builder:
     class: Drupal\ps_search\Search\Hero\HeroSearchBuilder

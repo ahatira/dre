@@ -1,0 +1,4 @@
+manage ps_form:
+  title: 'Manage PS Form settings'
+  description: 'Configure contact hub display mode and form integrations.'
+  restrict access: true

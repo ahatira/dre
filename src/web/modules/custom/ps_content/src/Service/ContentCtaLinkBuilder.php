@@ -7,6 +7,7 @@ namespace Drupal\ps_content\Service;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
+use Drupal\ps_form\Service\ContactDisplayModeManager;
 use Drupal\ps_search\Service\SearchPresetQueryBuilder;
 
 /**
@@ -17,6 +18,7 @@ final class ContentCtaLinkBuilder {
   public function __construct(
     private readonly SearchPresetQueryBuilder $presetQueryBuilder,
     private readonly LanguageManagerInterface $languageManager,
+    private readonly ContactDisplayModeManager $contactDisplayMode,
   ) {}
 
   /**
@@ -26,24 +28,24 @@ final class ContentCtaLinkBuilder {
    *   link_type: string,
    *   url: string,
    *   modal_id: string,
-   *   offcanvas: bool
-   * }
+   *   offcanvas: bool,
+   *   dialog_attributes: array<string, string>
+   *   }
    */
   public function resolve(array $item, ?string $langcode = NULL): array {
     $linkType = (string) ($item['link_type'] ?? 'url');
 
+    if ($linkType === 'offcanvas') {
+      return $this->resolveContactLink($this->resolveOffcanvasUrl($item, $langcode));
+    }
+
     return match ($linkType) {
-      'offcanvas' => [
-        'link_type' => 'offcanvas',
-        'url' => $this->resolveOffcanvasUrl($item, $langcode),
-        'modal_id' => '',
-        'offcanvas' => TRUE,
-      ],
       'modal' => [
         'link_type' => 'modal',
         'url' => '',
         'modal_id' => ltrim((string) ($item['modal_id'] ?? ''), '#'),
         'offcanvas' => FALSE,
+        'dialog_attributes' => [],
       ],
       'search_preset' => [
         'link_type' => 'search_preset',
@@ -55,14 +57,51 @@ final class ContentCtaLinkBuilder {
         ),
         'modal_id' => '',
         'offcanvas' => FALSE,
+        'dialog_attributes' => [],
       ],
       default => [
         'link_type' => 'url',
         'url' => $this->resolveLocalizedUrl($item, $langcode),
         'modal_id' => '',
         'offcanvas' => FALSE,
+        'dialog_attributes' => [],
       ],
     };
+  }
+
+  /**
+   * Maps global contact display mode to icon-card link props.
+   *
+   * @return array{
+   *   link_type: string,
+   *   url: string,
+   *   modal_id: string,
+   *   offcanvas: bool,
+   *   dialog_attributes: array<string, string>
+   *   }
+   */
+  private function resolveContactLink(string $url): array {
+    $mode = $this->contactDisplayMode->getMode();
+
+    if ($mode === ContactDisplayModeManager::MODE_PAGE) {
+      return [
+        'link_type' => 'url',
+        'url' => $url,
+        'modal_id' => '',
+        'offcanvas' => FALSE,
+        'dialog_attributes' => [],
+      ];
+    }
+
+    $dialogAttributes = $this->contactDisplayMode->buildLinkAttributes();
+
+    return [
+      'link_type' => $mode === ContactDisplayModeManager::MODE_MODAL ? 'ajax_modal' : 'offcanvas',
+      'url' => $url,
+      'modal_id' => '',
+      'offcanvas' => $mode === ContactDisplayModeManager::MODE_OFFCANVAS,
+      'dialog_attributes' => $dialogAttributes,
+    ];
   }
 
   /**

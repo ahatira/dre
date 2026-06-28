@@ -18,3 +18,17 @@
 .ps-contact-offcanvas .offcanvas-body {
   padding-top: 0;
 }
+
+.ps-form-page-panel {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--re-space-24, 24px) var(--re-space-16, 16px);
+
+  &__title {
+    margin-bottom: var(--re-space-24, 24px);
+  }
+}
+
+.ps-contact-modal__content {
+  padding: var(--re-space-8, 8px) 0;
+}

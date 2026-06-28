@@ -1,2 +1,4 @@
 provision_webforms_on_install: false
 apply_spam_baseline_on_install: false
+contact_display_mode: offcanvas
+contact_modal_dialog_options: ''

@@ -17,6 +17,19 @@ services:
     arguments:
       - '@config.factory'
 
+  ps_form.contact_display_mode:
+    class: Drupal\ps_form\Service\ContactDisplayModeManager
+    arguments:
+      - '@config.factory'
+      - '@ps_form.contact_need_router'
+
+  ps_form.contact_webform_shell_builder:
+    class: Drupal\ps_form\Service\ContactWebformShellBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@ps_form.contact_need_router'
+      - '@ps_form.contact_display_mode'
+
   ps_form.webform_offcanvas_builder:
     class: Drupal\ps_form\Service\WebformOffcanvasBuilder
     arguments:
@@ -30,7 +43,12 @@ services:
   Drupal\ps_form\Hook\ContactFormPageHooks:
     arguments:
       - '@ps_form.contact_need_router'
+      - '@ps_form.contact_display_mode'
       - '@router.admin_context'
+
+  Drupal\ps_form\Hook\ContactMenuHooks:
+    arguments:
+      - '@ps_form.contact_display_mode'
 
   Drupal\ps_form\Hook\WebformStickyFooterHooks:
     arguments:

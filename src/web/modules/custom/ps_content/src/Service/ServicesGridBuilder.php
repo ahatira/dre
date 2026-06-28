@@ -60,6 +60,7 @@ final class ServicesGridBuilder {
             'button_style' => (string) ($item['button_style'] ?? 'outline'),
             'link_type' => $cta['link_type'],
             'modal_id' => $cta['modal_id'],
+            'dialog_attributes' => $cta['dialog_attributes'],
           ],
         ],
       ];

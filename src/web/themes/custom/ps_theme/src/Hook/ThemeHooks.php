@@ -48,8 +48,27 @@ final class ThemeHooks {
           'webform' => NULL,
           'webform_id' => NULL,
           'panel_id' => NULL,
+          'title' => NULL,
         ],
         'template' => 'ps-form-offcanvas-panel',
+      ],
+      'ps_form_modal' => [
+        'variables' => [
+          'webform' => NULL,
+          'webform_id' => NULL,
+          'panel_id' => NULL,
+          'title' => NULL,
+        ],
+        'template' => 'ps-form-modal-panel',
+      ],
+      'ps_form_page' => [
+        'variables' => [
+          'webform' => NULL,
+          'webform_id' => NULL,
+          'panel_id' => NULL,
+          'title' => NULL,
+        ],
+        'template' => 'ps-form-page-panel',
       ],
       'ps_offer_webform_modal' => [
         'variables' => [

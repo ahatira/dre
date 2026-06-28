@@ -17,6 +17,9 @@ props:
     button_url:
       type: string
       title: Button URL
+    dialog_attributes:
+      type: object
+      title: AJAX dialog attributes
 libraryOverrides:
   dependencies:
     - ps_search/homepage_search

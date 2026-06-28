@@ -9,14 +9,8 @@
     <div class="ps-header-actions__main">
       {% for item in items %}
         {% set link_attributes = item.attributes|default(create_attribute()) %}
-        {% set is_ajax = link_attributes.hasClass('use-ajax') %}
         <a href="{{ item.url.toString() }}"
-           {{ link_attributes }}
-           {%- if is_ajax -%}
-             data-dialog-type="dialog"
-             data-dialog-renderer="off_canvas"
-             data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'
-           {%- endif -%}>
+           {{ link_attributes }}>
           {{ item.title }}
         </a>
       {% endfor %}

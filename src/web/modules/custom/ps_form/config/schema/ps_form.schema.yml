@@ -8,3 +8,9 @@ ps_form.settings:
     apply_spam_baseline_on_install:
       type: boolean
       label: 'Apply spam baseline on module install'
+    contact_display_mode:
+      type: string
+      label: 'Contact display mode'
+    contact_modal_dialog_options:
+      type: text
+      label: 'Contact modal dialog options (JSON)'

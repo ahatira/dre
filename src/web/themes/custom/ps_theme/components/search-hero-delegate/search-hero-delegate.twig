@@ -34,11 +34,14 @@
     </p>
   {% endif %}
   {% if button_label and button_url %}
-    <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn use-ajax"
+    {% set dialog_attrs = dialog_attributes|default({}) %}
+    <a class="btn btn-outline-primary ps-homepage-search-entry__delegate-btn {{ dialog_attrs.class|default('') }}"
        href="{{ button_url }}"
-       data-dialog-type="dialog"
-       data-dialog-renderer="off_canvas"
-       data-dialog-options='{"dialogClass":"ps-contact-offcanvas"}'>
+       {% for attribute, value in dialog_attrs %}
+         {% if attribute != 'class' %}
+           {{ attribute }}="{{ value|e('html_attr') }}"
+         {% endif %}
+       {% endfor %}>
       {{ button_label }}
     </a>
   {% endif %}

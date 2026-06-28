@@ -35,6 +35,20 @@ function ps_form_install(): void {
 }
 
 /**
+ * Ensures contact display mode config exists on existing sites.
+ */
+function ps_form_update_11002(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_form.settings');
+  if ($config->get('contact_display_mode') === NULL) {
+    $config->set('contact_display_mode', 'offcanvas');
+  }
+  if ($config->get('contact_modal_dialog_options') === NULL) {
+    $config->set('contact_modal_dialog_options', '');
+  }
+  $config->save();
+}
+
+/**
  * Removes corrupted null handlers overrides from translated webforms.
  */
 function ps_form_update_11001(): void {

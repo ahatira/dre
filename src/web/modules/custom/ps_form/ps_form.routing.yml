@@ -1,3 +1,13 @@
+ps_form.contact_settings:
+  path: '/admin/ps/config/forms/contact'
+  defaults:
+    _form: '\Drupal\ps_form\Form\ContactSettingsForm'
+    _title: 'Contact forms'
+  requirements:
+    _permission: 'manage ps_form'
+  options:
+    _admin_route: TRUE
+
 ps_form.webform_contact:
   path: '/form/contact'
   defaults:

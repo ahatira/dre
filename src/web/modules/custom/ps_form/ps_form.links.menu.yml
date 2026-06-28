@@ -1,0 +1,6 @@
+ps_form.contact_settings:
+  title: 'Contact forms'
+  description: 'Contact hub display mode (page, modal, offcanvas).'
+  route_name: ps_form.contact_settings
+  parent: ps_core.config
+  weight: 8

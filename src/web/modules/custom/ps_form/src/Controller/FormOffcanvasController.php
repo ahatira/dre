@@ -6,18 +6,21 @@ namespace Drupal\ps_form\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_form\Service\ContactDisplayModeManager;
 use Drupal\ps_form\Service\ContactNeedRouter;
-use Drupal\ps_form\Service\WebformOffcanvasBuilder;
+use Drupal\ps_form\Service\ContactWebformShellBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Loads contact-family webforms in a right offcanvas panel.
+ * Loads contact-family webforms in page, modal, or offcanvas mode.
  */
 final class FormOffcanvasController extends ControllerBase {
 
   public function __construct(
-    private readonly WebformOffcanvasBuilder $offcanvasBuilder,
+    private readonly ContactWebformShellBuilder $shellBuilder,
     private readonly ContactNeedRouter $contactNeedRouter,
+    private readonly ContactDisplayModeManager $displayModeManager,
   ) {}
 
   /**
@@ -25,22 +28,30 @@ final class FormOffcanvasController extends ControllerBase {
    */
   public static function create(ContainerInterface $container): static {
     return new static(
-      $container->get('ps_form.webform_offcanvas_builder'),
+      $container->get('ps_form.contact_webform_shell_builder'),
       $container->get('ps_form.contact_need_router'),
+      $container->get('ps_form.contact_display_mode'),
     );
   }
 
   /**
-   * Builds offcanvas content for a contact-family webform.
+   * Builds contact-family webform content for the configured display mode.
    */
-  public function offcanvas(string $webform): array {
+  public function offcanvas(string $webform, Request $request): array {
     if (!$this->moduleHandler()->moduleExists('webform')) {
       return [
         '#markup' => $this->t('Install the Webform module to display this form.'),
       ];
     }
 
-    return $this->offcanvasBuilder->build($webform);
+    $mode = $this->displayModeManager->getMode();
+    $isAjax = $request->isXmlHttpRequest();
+
+    if ($isAjax && $mode !== ContactDisplayModeManager::MODE_PAGE) {
+      return $this->shellBuilder->build($webform, $mode);
+    }
+
+    return $this->shellBuilder->build($webform, ContactDisplayModeManager::MODE_PAGE);
   }
 
   /**

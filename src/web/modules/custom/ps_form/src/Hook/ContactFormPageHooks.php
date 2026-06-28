@@ -6,6 +6,7 @@ namespace Drupal\ps_form\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\AdminContext;
+use Drupal\ps_form\Service\ContactDisplayModeManager;
 use Drupal\ps_form\Service\ContactNeedRouter;
 
 /**
@@ -15,6 +16,7 @@ final class ContactFormPageHooks {
 
   public function __construct(
     private readonly ContactNeedRouter $contactNeedRouter,
+    private readonly ContactDisplayModeManager $displayModeManager,
     private readonly AdminContext $adminContext,
   ) {}
 
@@ -37,6 +39,8 @@ final class ContactFormPageHooks {
       $needTitles[$need] = (string) $this->contactNeedRouter->getPageTitle($definition['webform']);
     }
 
+    $displaySettings = $this->displayModeManager->getJsSettings();
+
     $attachments['#attached']['library'][] = 'ps_form/contact_deeplink';
     $attachments['#attached']['library'][] = 'ps_theme/form';
     $attachments['#attached']['drupalSettings']['psForm'] = [
@@ -46,7 +50,8 @@ final class ContactFormPageHooks {
       'hubPath' => (string) $this->contactNeedRouter->getPathForWebform(ContactNeedRouter::HUB_WEBFORM_ID),
       'hubTitle' => (string) $this->contactNeedRouter->getPageTitle(ContactNeedRouter::HUB_WEBFORM_ID),
       'rentNeed' => ContactNeedRouter::RENT_NEED,
-      'offcanvasClass' => 'ps-contact-offcanvas',
+      'displayMode' => $displaySettings,
+      'offcanvasClass' => $displaySettings['offcanvasClass'],
     ];
   }
 

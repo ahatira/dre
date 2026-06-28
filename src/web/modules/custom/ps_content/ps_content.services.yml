@@ -8,6 +8,7 @@ services:
     arguments:
       - '@ps_search.preset_query_builder'
       - '@language_manager'
+      - '@ps_form.contact_display_mode'
 
   ps_content.content_media_resolver:
     class: Drupal\ps_content\Service\ContentMediaResolver

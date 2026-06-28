@@ -6,98 +6,6 @@
   'use strict';
 
   /**
-   * Prefixes a site path with the current language prefix when needed.
-   *
-   * @param {string} path
-   *   Internal path (e.g. /form/entrust-search).
-   *
-   * @return {string}
-   *   Path ready for Drupal.ajax.
-   */
-  function resolveLocalizedPath(path) {
-    if (!path || path.startsWith('http')) {
-      return path;
-    }
-
-    const prefix = drupalSettings.path?.pathPrefix || '';
-    const normalized = path.startsWith('/') ? path : `/${path}`;
-    if (!prefix) {
-      return normalized;
-    }
-
-    const prefixPath = `/${prefix.replace(/\/$/, '')}`;
-    if (normalized.startsWith(`${prefixPath}/`) || normalized === prefixPath) {
-      return normalized;
-    }
-
-    return `${prefixPath}${normalized}`;
-  }
-
-  /**
-   * Updates the visible offcanvas title for contact-family panels.
-   *
-   * @param {string} title
-   *   Translated panel title.
-   */
-  function updateOffcanvasTitle(title) {
-    if (!title) {
-      return;
-    }
-
-    document
-      .querySelectorAll('#drupal-off-canvas .offcanvas-title, .ps-contact-offcanvas .offcanvas-title')
-      .forEach((element) => {
-        element.textContent = title;
-      });
-  }
-
-  /**
-   * Loads a direct contact webform in the offcanvas (hub continuation).
-   *
-   * @param {string} need
-   *   Hub need radio value.
-   * @param {object} settings
-   *   psForm drupalSettings.
-   */
-  function openDirectWebformFromHub(need, settings) {
-    const baseUrl = resolveLocalizedPath((settings.needPaths || {})[need]);
-    const title = (settings.needTitles || {})[need];
-    if (!baseUrl) {
-      return;
-    }
-
-    const separator = baseUrl.includes('?') ? '&' : '?';
-    const url = `${baseUrl}${separator}from_hub=1`;
-
-    if (title) {
-      updateOffcanvasTitle(title);
-    }
-
-    const ajaxSettings = {
-      url,
-      dialogType: 'dialog',
-      dialogRenderer: 'off_canvas',
-      dialog: {
-        dialogClass: settings.offcanvasClass || 'ps-contact-offcanvas',
-        title,
-      },
-      progress: {
-        type: 'throbber',
-      },
-    };
-
-    const ajaxObject = Drupal.ajax(ajaxSettings);
-    const originalSuccess = ajaxObject.success.bind(ajaxObject);
-    ajaxObject.success = (response, status) => {
-      originalSuccess(response, status);
-      if (title) {
-        updateOffcanvasTitle(title);
-      }
-    };
-    ajaxObject.execute();
-  }
-
-  /**
    * Checks whether the hub wizard is still on the need step.
    *
    * @param {HTMLFormElement} form
@@ -109,6 +17,27 @@
   function isHubNeedStep(form) {
     const activeStep = form.querySelector('.progress-step.is-active[data-webform-page]');
     return activeStep?.getAttribute('data-webform-page') === 'step_need';
+  }
+
+  /**
+   * Loads a direct contact webform (hub continuation).
+   *
+   * @param {string} need
+   *   Hub need radio value.
+   * @param {object} settings
+   *   psForm drupalSettings.
+   */
+  function openDirectWebformFromHub(need, settings) {
+    const baseUrl = Drupal.psFormContactDisplay.resolveLocalizedPath((settings.needPaths || {})[need]);
+    const title = (settings.needTitles || {})[need];
+    if (!baseUrl) {
+      return;
+    }
+
+    const separator = baseUrl.includes('?') ? '&' : '?';
+    const url = `${baseUrl}${separator}from_hub=1`;
+
+    Drupal.psFormContactDisplay.openContactForm(url, title);
   }
 
   Drupal.behaviors.psFormContactHubNeed = {
@@ -124,13 +53,13 @@
           }
 
           if (target.value === rentNeed) {
-            updateOffcanvasTitle(settings.hubTitle || '');
+            Drupal.psFormContactDisplay.updateContactDialogTitle(settings.hubTitle || '');
             return;
           }
 
           const title = (settings.needTitles || {})[target.value];
           if (title) {
-            updateOffcanvasTitle(title);
+            Drupal.psFormContactDisplay.updateContactDialogTitle(title);
           }
         });
 

@@ -1,0 +1,10 @@
+<article class="ps-form-page-panel ps-form-page-panel--{{ webform_id|clean_class }}">
+  {% if title %}
+    <h1 class="ps-form-page-panel__title">{{ title }}</h1>
+  {% endif %}
+  <div class="ps-form-page-panel__body"
+       id="{{ panel_id }}"
+       data-ps-contact-panel="{{ panel_id }}">
+    {{ webform }}
+  </div>
+</article>

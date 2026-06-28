@@ -43,6 +43,9 @@ props:
     modal_id:
       type: string
       title: Modal ID
+    dialog_attributes:
+      type: object
+      title: AJAX dialog attributes
     background:
       type: string
       title: Background

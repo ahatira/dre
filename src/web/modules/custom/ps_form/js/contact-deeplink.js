@@ -16,23 +16,19 @@
           return;
         }
 
-        const settings = drupalSettings.psForm || {};
-        const url = (settings.webformPaths || {})[webformId];
+        const settings = Drupal.psFormContactDisplay.getDisplayModeSettings();
+        const paths = (drupalSettings.psForm || {}).webformPaths || {};
+        const url = paths[webformId];
         if (!url) {
           return;
         }
 
-        Drupal.ajax({
-          url,
-          dialogType: 'dialog',
-          dialogRenderer: 'off_canvas',
-          dialog: {
-            dialogClass: settings.offcanvasClass || 'ps-contact-offcanvas',
-          },
-          progress: {
-            type: 'throbber',
-          },
-        }).execute();
+        if (settings.mode === 'page') {
+          window.location.href = Drupal.psFormContactDisplay.resolveLocalizedPath(url);
+          return;
+        }
+
+        Drupal.psFormContactDisplay.openContactForm(url);
       });
     },
   };
