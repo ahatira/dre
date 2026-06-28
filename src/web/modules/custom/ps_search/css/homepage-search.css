@@ -47,21 +47,6 @@
   font-weight: 700;
 }
 
-.ps-homepage-search-entry__errors {
-  background: #fdecea;
-  border: 1px solid #f5c2c0;
-  color: #842029;
-  font-size: 0.875rem;
-  line-height: 1.45;
-  margin-bottom: 1rem;
-  padding: 0.75rem 1rem;
-}
-
-.ps-homepage-search-entry__errors-list {
-  margin: 0;
-  padding-left: 1.125rem;
-}
-
 .ps-homepage-search-entry__section.is-invalid .ps-homepage-search-entry__label,
 .ps-homepage-search-entry__section.is-invalid .ps-homepage-search-entry__section-title {
   color: #c0392b;

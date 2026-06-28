@@ -35,7 +35,6 @@
         const capacityInput = form.querySelector('.js-ps-homepage-capacity-min');
         const budgetMaxInput = form.querySelector('.js-ps-homepage-budget-max');
         const hiddenLocality = root ? root.querySelector('.js-ps-homepage-locality-hidden') : null;
-        const errorsBox = root ? root.querySelector('.js-ps-homepage-errors') : null;
         let locationEditor = null;
 
         const appendContentLangParam = (params) => {
@@ -69,6 +68,11 @@
             return null;
           }
           return code;
+        };
+
+        const isFlexibleOpSelected = () => {
+          const activeBtn = form.querySelector('.js-ps-op-btn.is-active');
+          return Boolean(activeBtn && activeBtn.dataset.code === 'FLEX');
         };
 
         const getFilterVisibility = (assetCode) => {
@@ -233,35 +237,10 @@
           opInput.value = code;
         };
 
-        const clearErrors = () => {
-          if (errorsBox) {
-            errorsBox.hidden = true;
-            errorsBox.textContent = '';
-          }
+        const clearInvalidStates = () => {
           form.querySelectorAll('.is-invalid').forEach((el) => {
             el.classList.remove('is-invalid');
           });
-        };
-
-        const showErrors = (messages) => {
-          if (!errorsBox || !messages.length) {
-            return;
-          }
-          errorsBox.innerHTML = '';
-          if (messages.length === 1) {
-            errorsBox.textContent = messages[0];
-          }
-          else {
-            const list = document.createElement('ul');
-            list.className = 'ps-homepage-search-entry__errors-list';
-            messages.forEach((message) => {
-              const item = document.createElement('li');
-              item.textContent = message;
-              list.appendChild(item);
-            });
-            errorsBox.appendChild(list);
-          }
-          errorsBox.hidden = false;
         };
 
         const stripEmptyOptionalFields = () => {
@@ -287,43 +266,38 @@
           }
           syncOperationField();
           updateContextFilters();
-          clearErrors();
+          clearInvalidStates();
 
-          const messages = [];
+          let valid = true;
           const capacityConfig = getHomepageCapacityConfig();
-          if (!capacityConfig.hide_operation && !getSelectedOp()) {
-            messages.push(Drupal.t('Please select a transaction type.'));
+          if (!capacityConfig.hide_operation && !getSelectedOp() && !isFlexibleOpSelected()) {
             if (opGroup) {
               opGroup.classList.add('is-invalid');
             }
+            valid = false;
           }
 
           if (!getSelectedTokens().length) {
-            messages.push(Drupal.t('Please enter at least one location.'));
             if (locationSection) {
               locationSection.classList.add('is-invalid');
             }
             if (localityInput) {
               localityInput.classList.add('is-invalid');
             }
+            valid = false;
           }
 
           if (!assetSelect || !assetSelect.value) {
-            messages.push(Drupal.t('Please select a property type.'));
             if (assetSection) {
               assetSection.classList.add('is-invalid');
             }
             if (assetSelect) {
               assetSelect.classList.add('is-invalid');
             }
+            valid = false;
           }
 
-          if (messages.length) {
-            showErrors(messages);
-            return false;
-          }
-
-          return true;
+          return valid;
         };
 
         form.querySelectorAll('.js-ps-op-btn').forEach((button) => {
