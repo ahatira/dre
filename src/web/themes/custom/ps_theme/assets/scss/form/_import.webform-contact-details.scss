@@ -1,0 +1,99 @@
+/**
+ * Contact wizard — contact details step layout.
+ */
+
+.ps-form-contact-details {
+  > .card-body.fieldset-wrapper,
+  &.webform-type-webform-wizard-page > .webform-element-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+
+  .ps-form-section-intro {
+    grid-column: 1 / -1;
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    color: #000;
+  }
+
+  .ps-form-grid-item {
+    grid-column: auto;
+  }
+
+  .ps-form-optout-intro {
+    grid-column: 1 / -1;
+    margin-bottom: -0.5rem;
+  }
+
+  .ps-form-optout-intro p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #333;
+  }
+
+  .ps-form-optout-item {
+    display: inline-flex;
+    align-items: center;
+    grid-column: auto !important;
+    width: auto;
+    min-height: 0;
+    margin: 0 1.5rem 0 0 !important;
+  }
+
+  .ps-form-optout-item + .ps-form-optout-item {
+    margin-top: 0 !important;
+  }
+
+  .form-item-captcha,
+  .ps-form-legal-notice,
+  .ps-contact-form__legal {
+    grid-column: 1 / -1;
+  }
+}
+
+.ps-form-legal-notice,
+.ps-contact-form__legal {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: #777e83;
+
+  .ps-form-legal-notice,
+  .ps-contact-form__legal-notice,
+  p {
+    margin: 0 0 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: #777e83;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: #333;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ps-form-contact-details {
+    > .card-body.fieldset-wrapper,
+    &.webform-type-webform-wizard-page > .webform-element-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .ps-form-optout-item {
+      display: flex;
+      margin-right: 0 !important;
+    }
+  }
+}

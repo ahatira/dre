@@ -6,7 +6,7 @@ elements: |
     '#title': Projet
   project:
     '#title': 'Investitiouns- oder Verkafsprojet'
-  transaction_type_sell:
+  transaction_type:
     '#title': 'Wéi eng Zort Transaktioun?'
     '#options':
       VEN: Verkaf

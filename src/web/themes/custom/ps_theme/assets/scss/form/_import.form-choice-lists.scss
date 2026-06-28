@@ -1,0 +1,32 @@
+/**
+ * Stacked radio/checkbox lists in contact wizards (hub need, advice, other).
+ */
+
+.ps-contact-wizard {
+  .ps-form-radios--stacked,
+  .ps-form-checkboxes--stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ps-form-radios--stacked fieldset.webform-composite-hidden-title.webform-type-radios > legend.card-header,
+  .ps-form-checkboxes--stacked fieldset.webform-composite-hidden-title.webform-type-checkboxes > legend.card-header {
+    display: none;
+  }
+
+  .ps-form-radios--stacked fieldset.webform-composite-hidden-title.webform-type-radios > .card-body.fieldset-wrapper,
+  .ps-form-checkboxes--stacked fieldset.webform-composite-hidden-title.webform-type-checkboxes > .card-body.fieldset-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0;
+  }
+
+  .ps-form-checkboxes--stacked .js-webform-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+}

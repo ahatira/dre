@@ -39,12 +39,18 @@ services:
       - '@ps_dictionary.resolver'
       - '@ps_dictionary.entry_icon_resolver'
 
+  ps_form.contact_wizard_presentation:
+    class: Drupal\ps_form\Service\ContactWizardPresentationService
+
   Drupal\ps_form\Hook\ContactWebformHooks:
+    autowire: false
     arguments:
       - '@ps_form.contact_need_router'
       - '@ps_form.contact_project_field_presenter'
+      - '@ps_form.contact_wizard_presentation'
       - '@request_stack'
       - '@config.factory'
+      - '@language_manager'
 
   Drupal\ps_form\Hook\ContactFormPageHooks:
     arguments:

@@ -1,5 +1,6 @@
 @import '../configuration-import';
 @import 'import.form-elements';
+@import 'import.form-choice-lists';
 @import 'import.contact-hub-need';
 @import 'import.webform-progress';
 @import 'import.webform-sticky-footer';
@@ -7,3 +8,6 @@
 @import '../../../components/form-wizard-actions/styles/form-wizard-actions';
 @import 'import.filter-choices-shared';
 @import 'import.webform-filter-choices';
+@import 'import.webform-project-step';
+@import 'import.webform-contact-details';
+@import 'import.webform-message-step';

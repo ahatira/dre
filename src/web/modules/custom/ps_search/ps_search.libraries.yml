@@ -8,6 +8,14 @@ filter.htmx:
     - core/drupalSettings
     - core/once
 
+location.editor:
+  version: 1.0.0
+  js:
+    js/search-location-editor.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.locale
+
 admin_overview:
   version: 1.0.0
   css:

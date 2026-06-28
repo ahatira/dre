@@ -6,7 +6,7 @@ elements: |
     '#title': Projekt
   project:
     '#title': 'Projekt inwestycyjny lub sprzedaż'
-  transaction_type_sell:
+  transaction_type:
     '#title': 'Jaki rodzaj transakcji?'
     '#options':
       VEN: Sprzedaż

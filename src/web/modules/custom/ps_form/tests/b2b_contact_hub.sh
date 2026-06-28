@@ -69,6 +69,40 @@ print 'pathmap:' . implode(',', array_keys(\$pathMap)) . \"\\n\";
 " 2>/dev/null
 }
 
+drush_contact_presentation_snapshot() {
+  ps_e2e_drush php:eval "
+\$webforms = ['find_property', 'other_request'];
+foreach (\$webforms as \$webformId) {
+  \$webform = \\Drupal::entityTypeManager()->getStorage('webform')->load(\$webformId);
+  if (!\$webform) {
+    print \$webformId . ':missing\\n';
+    continue;
+  }
+  \$submission = \\Drupal\\webform\\Entity\\WebformSubmission::create(['webform_id' => \$webformId]);
+  \$formObject = \\Drupal::entityTypeManager()
+    ->getFormObject('webform_submission', 'add');
+  \$formObject->setEntity(\$submission);
+  \$formState = new \\Drupal\\Core\\Form\\FormState();
+  \$formState->set('current_page', 'step_contact');
+  \$form = \\Drupal::formBuilder()->buildForm(\$formObject, \$formState);
+  \$step = \$form['elements']['step_contact'] ?? [];
+  \$classes = \$step['#attributes']['class'] ?? [];
+  \$intro = isset(\$step['contact_details_intro']) ? '1' : '0';
+  \$optout = isset(\$step['optout_email_transaction']['#wrapper_attributes']['class'])
+    && in_array('ps-form-optout-item', \$step['optout_email_transaction']['#wrapper_attributes']['class'], TRUE) ? '1' : '0';
+  \$legal = isset(\$step['legal_notice']['#wrapper_attributes']['class'])
+    && in_array('ps-form-legal-notice', \$step['legal_notice']['#wrapper_attributes']['class'], TRUE) ? '1' : '0';
+  print \$webformId . ':details=' . (in_array('ps-form-contact-details', \$classes, TRUE) ? '1' : '0')
+    . ',intro=' . \$intro . ',optout=' . \$optout . ',legal=' . \$legal;
+  \$messageStep = \$form['elements']['step_message'] ?? [];
+  \$messageClasses = \$messageStep['#attributes']['class'] ?? [];
+  \$messageIntro = isset(\$messageStep['message_intro']) ? '1' : '0';
+  print ',message=' . (in_array('ps-form-message-step', \$messageClasses, TRUE) ? '1' : '0')
+    . ',message_intro=' . \$messageIntro . \"\\n\";
+}
+" 2>/dev/null
+}
+
 echo "=== PS Form contact hub B2B ($BASE) ==="
 
 echo ""
@@ -166,7 +200,37 @@ while IFS='|' read -r webform path title; do
   assert_file_contains "$direct_file" 'data-webform-page="step_contact"' "Direct from-hub progress includes Details ($webform)"
   assert_file_not_contains "$direct_file" 'Your details' "Direct from-hub progress no Your details ($webform)"
   assert_file_contains "$direct_file" 'ps-webform-urgency-help' "Direct form urgency block ($webform)"
+  case "$webform" in
+    find_property|entrust_search|entrust_property|invest_sell)
+      assert_file_contains "$direct_file" 'ps-webform-op-choices' "Direct form operation segmented control ($webform)"
+      assert_file_contains "$direct_file" 'ps-webform-asset-grid' "Direct form asset tile grid ($webform)"
+      assert_file_contains "$direct_file" 'js-ps-contact-location-input' "Direct form location autocomplete ($webform)"
+      ;;
+  esac
+  case "$webform" in
+    find_property|entrust_search|invest_sell)
+      assert_file_contains "$direct_file" 'ps-form-search-criteria' "Direct form criteria grid ($webform)"
+      ;;
+  esac
 done <<< "$ROUTER_OUT"
+
+echo ""
+echo "--- Drush: contact details presentation (step_contact build) ---"
+PRESENTATION_OUT=$(drush_contact_presentation_snapshot || true)
+for webform in find_property other_request; do
+  line=$(printf '%s\n' "$PRESENTATION_OUT" | grep "^${webform}:" || true)
+  if [[ "$line" == *details=1* && "$line" == *intro=1* && "$line" == *optout=1* && "$line" == *legal=1* && "$line" == *message=1* && "$line" == *message_intro=1* ]]; then
+    pass "Contact wizard presentation hooks ($webform)"
+  else
+    fail "Contact wizard presentation hooks ($webform) (got ${line:-empty})"
+  fi
+done
+
+echo ""
+echo "--- HTTP: contact hub need step ---"
+fetch_to_file "$BASE/form/contact" "$HUB_FILE"
+assert_file_contains "$HUB_FILE" 'ps-form-radios--stacked' "Hub need step stacked radios class"
+assert_file_contains "$HUB_FILE" 'ps-form-section-intro' "Hub need step section intro class"
 
 echo ""
 echo "--- HTTP: direct webforms (standalone) ---"

@@ -10,3 +10,12 @@ contact_deeplink:
     - core/drupalSettings
     - core/once
     - ps_theme/form
+
+contact_wizard:
+  js:
+    js/contact-form-location.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - ps_search/location.editor

@@ -7,9 +7,11 @@ namespace Drupal\ps_form\Hook;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ps_form\Service\ContactNeedRouter;
 use Drupal\ps_form\Service\ContactProjectFieldPresenter;
+use Drupal\ps_form\Service\ContactWizardPresentationService;
 use Drupal\webform\WebformSubmissionForm;
 use Drupal\webform\WebformSubmissionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,13 +25,13 @@ final class ContactWebformHooks {
 
   private const DIRECT_FIRST_PAGE = 'step_project';
 
-  private const PROJECT_FIELD_WEBFORM = 'find_property';
-
   public function __construct(
     private readonly ContactNeedRouter $contactNeedRouter,
     private readonly ContactProjectFieldPresenter $contactProjectFieldPresenter,
+    private readonly ContactWizardPresentationService $contactWizardPresentation,
     private readonly RequestStack $requestStack,
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly LanguageManagerInterface $languageManager,
   ) {}
 
   /**
@@ -64,9 +66,9 @@ final class ContactWebformHooks {
       $this->contactNeedRouter->resolvePanelId($webformId),
     );
 
-    if ($webformId === self::PROJECT_FIELD_WEBFORM) {
-      $this->contactProjectFieldPresenter->applyToForm($form);
-    }
+    $this->contactProjectFieldPresenter->applyToForm($form, $webformId);
+    $this->contactWizardPresentation->applyToForm($form);
+    $this->attachContactWizardAssets($form);
   }
 
   /**
@@ -173,11 +175,12 @@ final class ContactWebformHooks {
     $form['#cache']['tags'][] = 'config:ps_form.settings';
 
     if (isset($form['elements']['step_need']['need_title'])) {
-      $form['elements']['step_need']['need_title']['#markup'] = '<p class="h4">' . $this->t('To get started, what is your need?') . '</p>';
+      $form['elements']['step_need']['need_title']['#markup'] = '<p class="ps-form-section-intro h4">' . $this->t('To get started, what is your need?') . '</p>';
     }
 
     if (isset($form['elements']['step_need'])) {
       $form['elements']['step_need']['#title'] = $this->t('Need');
+      $form['elements']['step_need']['#attributes']['class'][] = 'ps-form-radios--stacked';
     }
 
     $this->applyHubTargetOptions($form);
@@ -416,6 +419,24 @@ final class ContactWebformHooks {
   private function isFromHubQuery(): bool {
     $request = $this->requestStack->getCurrentRequest();
     return $request !== NULL && $request->query->get(ContactNeedRouter::FROM_HUB_QUERY) === '1';
+  }
+
+  /**
+   * Attaches contact wizard JS settings (location suggest API).
+   *
+   * @param array<string, mixed> $form
+   *   The webform submission form array.
+   */
+  private function attachContactWizardAssets(array &$form): void {
+    if ($this->contactWizardPresentation->hasLocationField($form)) {
+      $form['#attached']['library'][] = 'ps_form/contact_wizard';
+    }
+
+    $form['#attached']['drupalSettings']['psForm'] = [
+      'locationSuggestUrl' => '/api/ps/location-suggest',
+      'locationDataUrl' => '/api/ps/location-data',
+      'contentLangcode' => $this->languageManager->getCurrentLanguage()->getId(),
+    ];
   }
 
   /**

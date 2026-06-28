@@ -31,20 +31,41 @@ final class ContactProjectFieldPresenter {
   ) {}
 
   /**
+   * Webforms where LOC/VEN labels differ from the operation_type dictionary.
+   *
+   * @var list<string>
+   */
+  private const OPERATION_LABEL_FALLBACK_WEBFORMS = ['invest_sell'];
+
+  /**
+   * Legacy transaction field keys kept for sites not yet re-imported from install.
+   *
+   * @var list<string>
+   */
+  private const TRANSACTION_FIELD_KEYS = ['transaction_type', 'transaction_type_sell'];
+
+  /**
    * Applies dictionary labels and presentation hooks on step_project fields.
    *
    * @param array<string, mixed> $form
    *   The contact webform submission form array.
+   * @param string|null $webformId
+   *   The webform machine name (controls operation label strategy).
    */
-  public function applyToForm(array &$form): void {
+  public function applyToForm(array &$form, ?string $webformId = NULL): void {
     if (!isset($form['elements']['step_project']['project']) || !is_array($form['elements']['step_project']['project'])) {
       return;
     }
 
     $project = &$form['elements']['step_project']['project'];
+    $useDictionaryOperationLabels = !in_array($webformId, self::OPERATION_LABEL_FALLBACK_WEBFORMS, TRUE);
 
-    if (isset($project['transaction_type']) && is_array($project['transaction_type'])) {
-      $this->applyOperationType($project['transaction_type']);
+    foreach (self::TRANSACTION_FIELD_KEYS as $fieldKey) {
+      if (!isset($project[$fieldKey]) || !is_array($project[$fieldKey])) {
+        continue;
+      }
+      $this->applyOperationType($project[$fieldKey], $useDictionaryOperationLabels);
+      break;
     }
 
     if (isset($project['search_type']) && is_array($project['search_type'])) {
@@ -101,14 +122,18 @@ final class ContactProjectFieldPresenter {
    *
    * @param array<string, mixed> $element
    *   The transaction_type radios element.
+   * @param bool $useDictionaryLabels
+   *   When FALSE, keeps webform fallback labels (e.g. invest_sell Sell/Buy).
    */
-  private function applyOperationType(array &$element): void {
+  private function applyOperationType(array &$element, bool $useDictionaryLabels = TRUE): void {
     $options = $element['#options'] ?? [];
     if (!is_array($options)) {
       return;
     }
 
-    $element['#options'] = $this->resolveOperationOptions($options);
+    if ($useDictionaryLabels) {
+      $element['#options'] = $this->resolveOperationOptions($options);
+    }
     $element['#attributes']['class'][] = 'ps-webform-op-choices';
   }
 

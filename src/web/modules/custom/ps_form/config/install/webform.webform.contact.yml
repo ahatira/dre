@@ -17,9 +17,10 @@ elements: |-
     '#attributes':
       class:
         - type_need
+        - ps-form-radios--stacked
     need_title:
       '#type': webform_markup
-      '#markup': '<p class="h4">To get started, what is your need?</p>'
+      '#markup': '<p class="ps-form-section-intro h4">To get started, what is your need?</p>'
     target_webform:
       '#type': radios
       '#title': Need

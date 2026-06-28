@@ -263,8 +263,8 @@ fieldset > legend {
     min-height: 1.75rem;
   }
 
-  fieldset.radios--wrapper.card,
-  fieldset.webform-type-radios.card {
+  fieldset.radios--wrapper.card:not(.ps-webform-op-choices):not(.ps-webform-asset-grid),
+  fieldset.webform-type-radios.card:not(.ps-webform-op-choices):not(.ps-webform-asset-grid) {
     > legend.card-header {
       margin-bottom: 0.75rem;
     }
@@ -299,6 +299,11 @@ fieldset > legend {
   .form-type-checkbox,
   .form-type-radio {
     grid-column: 1 / -1;
+  }
+
+  .ps-webform-op-choices .form-type-radio,
+  .ps-webform-asset-grid .form-type-radio {
+    grid-column: auto;
   }
 
   // Checkbox group: tighten vertical spacing (parent flex gap is 2rem).

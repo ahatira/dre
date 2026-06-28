@@ -1,0 +1,157 @@
+/**
+ * Contact wizard — project step layout (criteria grid, location autocomplete).
+ */
+
+.ps-form-wizard-page--project {
+  .ps-form-search-criteria {
+    grid-column: 1 / -1;
+  }
+
+  .ps-form-search-criteria > .card-body.fieldset-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+
+  .ps-form-range-pair {
+    grid-column: 1 / -1;
+
+    > legend.card-header {
+      margin-bottom: 0.75rem;
+    }
+
+    > .card-body.fieldset-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+  }
+
+  .ps-form-location-field,
+  .form-item-search-territory {
+    grid-column: 1 / -1;
+  }
+}
+
+.ps-form-location {
+  position: relative;
+  width: 100%;
+}
+
+// Composite location field: outer shell matches default form-control chrome.
+.ps-form-location__editor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: $ps-form-input-height;
+  padding: 0.25rem 0.5rem;
+  background-color: #fff;
+  border: 2px solid $ps-form-border-default;
+  border-radius: 0;
+  box-shadow: none;
+
+  &:focus-within {
+    border-color: $ps-form-border-focus;
+    outline: none;
+  }
+}
+
+.ps-form-location__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ps-form-location__editor .js-ps-locality-input {
+  flex: 1 1 8rem;
+  min-width: 0;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.ps-form-location__suggest {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  max-height: 16rem;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ebedef;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+.ps-location-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #333;
+  background: #fff;
+  border: 1px solid #d6dbde;
+}
+
+.ps-location-chip__clear {
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: #757575;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.ps-location-suggest__group-title {
+  padding: 0.5rem 1rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  color: #757575;
+  text-transform: uppercase;
+}
+
+.ps-location-suggest__item {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #333;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible,
+  &.is-active {
+    background: #f2f2f2;
+  }
+}
+
+.ps-location-suggest__hint {
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: #757575;
+}
+
+@media (max-width: 767.98px) {
+  .ps-form-wizard-page--project {
+    .ps-form-search-criteria > .card-body.fieldset-wrapper,
+    .ps-form-range-pair > .card-body.fieldset-wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+}

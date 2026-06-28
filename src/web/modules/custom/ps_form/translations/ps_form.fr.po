@@ -38,6 +38,14 @@ msgctxt "Contact wizard progress step"
 msgid "Details"
 msgstr "Coordonnées"
 
+msgctxt "Contact wizard section title"
+msgid "What are your contact details?"
+msgstr "Quelles sont vos coordonnées ?"
+
+msgctxt "Contact wizard section title"
+msgid "Would you like to add details about your project?"
+msgstr "Souhaitez-vous préciser votre projet ?"
+
 msgid "Create a search alert"
 msgstr "Créer une alerte de recherche"
 

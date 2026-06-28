@@ -13,26 +13,50 @@
   }
 
   .ps-webform-op-choices > legend.card-header,
-  .ps-webform-asset-grid > legend.card-header,
-  .ps-webform-op-choices fieldset.webform-type-radios > legend.card-header,
-  .ps-webform-asset-grid fieldset.webform-type-radios > legend.card-header {
+  .ps-webform-asset-grid > legend.card-header {
     margin-bottom: 0.75rem;
   }
 
-  .ps-webform-op-choices > .card-body.fieldset-wrapper,
-  .ps-webform-asset-grid > .card-body.fieldset-wrapper,
-  .ps-webform-op-choices fieldset.webform-type-radios > .card-body.fieldset-wrapper,
-  .ps-webform-asset-grid fieldset.webform-type-radios > .card-body.fieldset-wrapper {
-    display: block;
+  // Override generic webform radio fieldset/card-body column stack.
+  fieldset.ps-webform-op-choices.webform-type-radios.card,
+  fieldset.ps-webform-asset-grid.webform-type-radios.card {
+    > .card-body.fieldset-wrapper {
+      display: block;
+      flex-direction: unset;
+      gap: 0;
+      padding: 0;
+    }
+  }
+
+  // Segmented operation buttons (search .ps-op-choices).
+  .ps-webform-op-choices .js-webform-radios {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+  }
+
+  // Asset tile grid (search .ps-asset-grid).
+  .ps-webform-asset-grid .js-webform-radios {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(var(--ps-filter-asset-grid-cols, 3), minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
     padding: 0;
+    width: 100%;
+  }
+
+  // Undo generic webform radio full-width grid span inside filter choice wrappers.
+  .ps-webform-op-choices .form-type-radio,
+  .ps-webform-asset-grid .form-type-radio {
+    grid-column: auto;
+    min-height: 0;
   }
 }
 
 // Operation type — horizontal segmented buttons (search .ps-op-btn).
-.ps-webform-op-choices .js-webform-radios {
-  @extend .ps-op-choices;
-}
-
 .ps-webform-op-choices .form-type-radio {
   flex: 0 0 auto;
   margin: 0 !important;
@@ -77,12 +101,10 @@
   outline-offset: 2px;
 }
 
-// Asset type — icon tile grid (search .ps-asset-grid).
-.ps-webform-asset-grid .js-webform-radios {
-  @extend .ps-asset-grid;
-}
-
+// Asset type — icon tile grid (search .ps-asset-card).
 .ps-webform-asset-grid .form-type-radio {
+  display: flex;
+  height: 100%;
   margin: 0 !important;
   min-height: 0;
   position: relative;
@@ -103,9 +125,12 @@
   @extend .ps-asset-card__link;
 
   cursor: pointer;
+  height: 100%;
+  justify-content: center;
   margin: 0;
-  padding-left: 0;
+  padding: var(--ps-filter-asset-padding);
   position: relative;
+  width: 100%;
   z-index: 1;
 }
 
@@ -136,6 +161,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--ps-filter-asset-icon-gap);
+  justify-content: center;
   width: 100%;
 }
 
@@ -145,6 +171,9 @@
 
 .ps-webform-asset-grid .ps-webform-asset-card__label {
   @extend .ps-asset-card__label;
+
+  text-align: center;
+  width: 100%;
 }
 
 @media (max-width: 575.98px) {

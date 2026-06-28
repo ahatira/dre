@@ -17,7 +17,7 @@ elements: |-
     project:
       '#type': fieldset
       '#title': 'Investment or sale project'
-      transaction_type_sell:
+      transaction_type:
         '#type': radios
         '#title': 'What type of transaction?'
         '#required': true
@@ -46,9 +46,9 @@ elements: |-
           '#title': Budget
           '#states':
             visible:
-              - ':input[name="transaction_type_sell"]':
+              - ':input[name="transaction_type"]':
                   value: LOC
-              - ':input[name="transaction_type_sell"]':
+              - ':input[name="transaction_type"]':
                   value: EITHER
           min_budget:
             '#type': number

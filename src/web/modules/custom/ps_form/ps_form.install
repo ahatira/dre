@@ -38,26 +38,30 @@ function ps_form_install(): void {
 }
 
 /**
- * Re-imports the contact hub webform from module install config.
+ * Re-imports a webform definition from module config/install.
+ *
+ * @param string $webform_id
+ *   Webform machine name (e.g. invest_sell).
  */
-function ps_form_sync_contact_hub_webform_from_install(): void {
+function ps_form_sync_webform_from_install(string $webform_id): void {
   if (!\Drupal::moduleHandler()->moduleExists('webform')) {
     return;
   }
 
   $extensionList = \Drupal::service('extension.list.module');
   $installPath = $extensionList->getPath('ps_form') . '/config/install';
-  $contactFile = $installPath . '/webform.webform.contact.yml';
-  if (!is_readable($contactFile)) {
+  $webformFile = $installPath . '/webform.webform.' . $webform_id . '.yml';
+  if (!is_readable($webformFile)) {
     return;
   }
 
-  $definition = \Symfony\Component\Yaml\Yaml::parseFile($contactFile);
+  $definition = \Symfony\Component\Yaml\Yaml::parseFile($webformFile);
   if (!is_array($definition) || empty($definition['id'])) {
     return;
   }
 
-  $editable = \Drupal::configFactory()->getEditable('webform.webform.contact');
+  $configName = 'webform.webform.' . $webform_id;
+  $editable = \Drupal::configFactory()->getEditable($configName);
   foreach ($definition as $key => $value) {
     $editable->set($key, $value);
   }
@@ -65,6 +69,27 @@ function ps_form_sync_contact_hub_webform_from_install(): void {
 
   \Drupal::entityTypeManager()->getStorage('webform')->resetCache([$definition['id']]);
 
+  $languagePath = $installPath . '/language';
+  $pattern = $languagePath . '/*/webform.webform.' . $webform_id . '.yml';
+  $configStorage = \Drupal::service('config.storage');
+
+  foreach (glob($pattern) ?: [] as $file) {
+    $langcode = basename(dirname($file));
+    $data = \Symfony\Component\Yaml\Yaml::parseFile($file);
+    if (!is_array($data) || $data === []) {
+      continue;
+    }
+
+    $configStorage->createCollection('language.' . $langcode)
+      ->write($configName, $data);
+  }
+}
+
+/**
+ * Re-imports the contact hub webform from module install config.
+ */
+function ps_form_sync_contact_hub_webform_from_install(): void {
+  ps_form_sync_webform_from_install('contact');
   ps_form_sync_contact_hub_webform_language_overrides_from_install();
 }
 
