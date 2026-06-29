@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\ps_form\Service;
 
 use Drupal\Component\Render\MarkupInterface;
-use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\webform\WebformSubmissionInterface;
@@ -20,7 +19,7 @@ final class ContactEmailConfirmationBuilder {
   public function __construct(
     private readonly ContactEmailSettings $emailSettings,
     private readonly ContactEmailSubmissionRecapFormatter $recapFormatter,
-    private readonly FileUrlGeneratorInterface $fileUrlGenerator,
+    private readonly ContactEmailHeroImageResolver $heroImageResolver,
     private readonly RendererInterface $renderer,
   ) {}
 
@@ -74,7 +73,7 @@ final class ContactEmailConfirmationBuilder {
     if ($file === NULL) {
       return NULL;
     }
-    return $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
+    return $this->heroImageResolver->getStyledAbsoluteUrl($file, $webformId);
   }
 
 }

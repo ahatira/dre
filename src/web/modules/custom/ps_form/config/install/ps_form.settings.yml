@@ -36,3 +36,10 @@ contact_email_confirmation:
     entrust_property: 0
     invest_sell: 0
     other_request: 0
+  webform_hero_image_styles:
+    find_property: ''
+    entrust_search: ''
+    get_advice: ''
+    entrust_property: ''
+    invest_sell: ''
+    other_request: ''

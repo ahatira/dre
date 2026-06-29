@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: ps_form_email_hero_admin
+label: 'PS Form email hero admin preview'
+effects:
+  ps_form_email_hero_admin_scale:
+    uuid: 5b9c3d2e-0f4a-5b8c-9d3e-2f1a6b7c8d9e
+    id: image_scale
+    weight: 0
+    data:
+      width: 480
+      height: null
+      upscale: false

@@ -184,6 +184,54 @@ function ps_form_update_11007(): void {
 }
 
 /**
+ * Installs email hero image styles (2.35:1 focal crop + admin preview).
+ */
+function ps_form_update_11008(): void {
+  ps_form_install_config_from_module('image.style.ps_form_email_hero');
+  ps_form_install_config_from_module('image.style.ps_form_email_hero_admin');
+}
+
+/**
+ * Adds per-webform hero image style overrides to contact email settings.
+ */
+function ps_form_update_11009(): void {
+  $config = \Drupal::configFactory()->getEditable('ps_form.settings');
+  $email = $config->get('contact_email_confirmation');
+  if (!is_array($email) || isset($email['webform_hero_image_styles'])) {
+    return;
+  }
+
+  $email['webform_hero_image_styles'] = array_fill_keys(
+    \Drupal\ps_form\Service\ContactNeedRouter::DEFAULT_HUB_ENABLED_WEBFORM_IDS,
+    '',
+  );
+  $config->set('contact_email_confirmation', $email)->save();
+}
+
+/**
+ * Imports a single config entity from ps_form/config/install if missing.
+ */
+function ps_form_install_config_from_module(string $configName): void {
+  $config = \Drupal::configFactory()->get($configName);
+  if (!$config->isNew()) {
+    return;
+  }
+
+  $extensionList = \Drupal::service('extension.list.module');
+  $path = $extensionList->getPath('ps_form') . '/config/install/' . $configName . '.yml';
+  if (!is_readable($path)) {
+    return;
+  }
+
+  $data = \Symfony\Component\Yaml\Yaml::parseFile($path);
+  if (!is_array($data) || $data === []) {
+    return;
+  }
+
+  \Drupal::configFactory()->getEditable($configName)->setData($data)->save();
+}
+
+/**
  * Merges contact confirmation email defaults into ps_form.settings.
  */
 function ps_form_apply_contact_email_confirmation_defaults(): void {

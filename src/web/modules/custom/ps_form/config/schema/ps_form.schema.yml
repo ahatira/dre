@@ -115,3 +115,25 @@ ps_form.settings:
             other_request:
               type: integer
               label: 'other_request hero file id'
+        webform_hero_image_styles:
+          type: mapping
+          label: 'Hero image styles per webform'
+          mapping:
+            find_property:
+              type: string
+              label: 'find_property hero image style'
+            entrust_search:
+              type: string
+              label: 'entrust_search hero image style'
+            get_advice:
+              type: string
+              label: 'get_advice hero image style'
+            entrust_property:
+              type: string
+              label: 'entrust_property hero image style'
+            invest_sell:
+              type: string
+              label: 'invest_sell hero image style'
+            other_request:
+              type: string
+              label: 'other_request hero image style'

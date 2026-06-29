@@ -23,6 +23,11 @@ final class ContactEmailSettings {
    */
   public const HUB_WEBFORM_IDS = ContactNeedRouter::DEFAULT_HUB_ENABLED_WEBFORM_IDS;
 
+  /**
+   * Default image style for email hero banners (2.35:1 focal crop).
+   */
+  public const DEFAULT_HERO_IMAGE_STYLE = 'ps_form_email_hero';
+
   public function __construct(
     private readonly ConfigFactoryInterface $configFactory,
     private readonly LanguageManagerInterface $languageManager,
@@ -76,6 +81,23 @@ final class ContactEmailSettings {
     }
     $fid = (int) $heroes[$webformId];
     return $fid > 0 ? $fid : NULL;
+  }
+
+  /**
+   * Returns the image style id used for a webform hero in emails.
+   *
+   * Falls back to the module default when unset or invalid.
+   */
+  public function getHeroImageStyleId(string $webformId): string {
+    $styles = $this->configFactory->get('ps_form.settings')->get(self::CONFIG_KEY . '.webform_hero_image_styles');
+    if (is_array($styles)) {
+      $styleId = trim((string) ($styles[$webformId] ?? ''));
+      if ($styleId !== '' && $this->entityTypeManager->getStorage('image_style')->load($styleId) !== NULL) {
+        return $styleId;
+      }
+    }
+
+    return self::DEFAULT_HERO_IMAGE_STYLE;
   }
 
   /**

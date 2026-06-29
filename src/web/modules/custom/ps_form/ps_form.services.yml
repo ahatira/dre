@@ -101,8 +101,18 @@ services:
     arguments:
       - '@ps_form.contact_email_settings'
       - '@ps_form.contact_email_recap_formatter'
-      - '@file_url_generator'
+      - '@ps_form.contact_email_hero_image_resolver'
       - '@renderer'
+
+  ps_form.contact_email_hero_image_resolver:
+    class: Drupal\ps_form\Service\ContactEmailHeroImageResolver
+    arguments:
+      - '@file_url_generator'
+      - '@file_system'
+      - '@config.factory'
+      - '@focal_point.manager'
+      - '@image.factory'
+      - '@ps_form.contact_email_settings'
 
   ps_form.contact_email_preview_builder:
     class: Drupal\ps_form\Service\ContactEmailPreviewBuilder
