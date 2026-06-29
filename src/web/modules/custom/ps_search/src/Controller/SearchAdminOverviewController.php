@@ -245,7 +245,7 @@ final class SearchAdminOverviewController extends ControllerBase {
       $groups[5]['items'][] = [
         'title' => $this->t('Contact forms'),
         'description' => $this->t('Contact hub needs, display mode, and urgency contact block.'),
-        'route' => 'ps_form.contact_settings',
+        'route' => 'ps_form.admin_overview',
       ];
     }
 

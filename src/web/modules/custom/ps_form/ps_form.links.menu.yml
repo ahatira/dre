@@ -1,6 +1,6 @@
-ps_form.contact_settings:
+ps_form.admin_overview:
   title: 'Contact forms'
-  description: 'Contact hub webforms, display mode, and urgency contact block.'
-  route_name: ps_form.contact_settings
+  description: 'Contact hub webforms, display mode, urgency contact block and confirmation emails.'
+  route_name: ps_form.admin_overview
   parent: ps_core.config
   weight: 8

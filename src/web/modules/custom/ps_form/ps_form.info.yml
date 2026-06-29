@@ -5,6 +5,7 @@ core_version_requirement: ^11.3
 version: 1.0.0
 package: 'Property Search'
 dependencies:
+  - drupal:file
   - drupal:inline_form_errors
   - drupal:node
   - drupal:token

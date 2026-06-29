@@ -43,7 +43,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 |---|---|---|
 | `HealthAdminOverviewController` | `/admin/ps/health` | Dashboard Platform health (cartes par domaine) |
 | `GovernanceAdminOverviewController` | `/admin/ps/config/governance` | Hub gouvernance import |
-| `LegacySettingsRedirectController` | `/admin/ps/config/settings` | Redirect 301 vers `ps_form.contact_settings` |
+| `LegacySettingsRedirectController` | `/admin/ps/config/settings` | Redirect 301 vers `ps_form.admin_overview` |
 
 ### Forms
 
@@ -62,7 +62,7 @@ Ce module **ne gère pas** de contenu (nodes, entités de contenu), de types de 
 | `ps_core.structure` | `/admin/ps/structure` | `access ps_core structure section` |
 | `ps_core.config` | `/admin/ps/config` | `access ps_core config section` |
 | `ps_migrate.admin_overview` | `/admin/ps/import` | `access ps_core import section` |
-| `ps_core.settings_form` | `/admin/ps/config/settings` | Redirect vers `ps_form.contact_settings` |
+| `ps_core.settings_form` | `/admin/ps/config/settings` | Redirect vers `ps_form.admin_overview` |
 | `ps_core.health` | `/admin/ps/health` | `access ps_core health section` |
 
 > **Note architecture** : `/admin/ps`, `/admin/ps/content`, `/admin/ps/structure`, `/admin/ps/config` et `/admin/ps/import` utilisent `SystemController::systemAdminMenuBlockPage` pour un rendu 100 % natif Drupal. La section CRM import est déclarée par `ps_migrate` sous le hub `ps_core.hub`.

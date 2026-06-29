@@ -172,3 +172,35 @@ function ps_form_apply_install_settings(): void {
 
   $config->save();
 }
+
+/**
+ * Enables styled contact confirmation emails for hub webforms.
+ */
+function ps_form_update_11007(): void {
+  ps_form_apply_contact_email_confirmation_defaults();
+  foreach (\Drupal\ps_form\Service\ContactNeedRouter::DEFAULT_HUB_ENABLED_WEBFORM_IDS as $webformId) {
+    ps_form_sync_webform_from_install($webformId);
+  }
+}
+
+/**
+ * Merges contact confirmation email defaults into ps_form.settings.
+ */
+function ps_form_apply_contact_email_confirmation_defaults(): void {
+  $extensionList = \Drupal::service('extension.list.module');
+  $settingsFile = $extensionList->getPath('ps_form') . '/config/install/ps_form.settings.yml';
+  if (!is_readable($settingsFile)) {
+    return;
+  }
+
+  $definition = \Symfony\Component\Yaml\Yaml::parseFile($settingsFile);
+  if (!is_array($definition) || !isset($definition['contact_email_confirmation'])) {
+    return;
+  }
+
+  $config = \Drupal::configFactory()->getEditable('ps_form.settings');
+  if ($config->get('contact_email_confirmation') === NULL) {
+    $config->set('contact_email_confirmation', $definition['contact_email_confirmation']);
+    $config->save();
+  }
+}

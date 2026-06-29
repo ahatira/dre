@@ -177,5 +177,7 @@ handlers:
       from_mail: _default
       from_name: _default
       subject: 'Thank you for contacting us'
-      body: '<p>Thank you for your message.</p><p>We have received your request and will get back to you shortly.</p>'
+      body: '[ps_form:contact_confirmation_body]'
+      exclude_empty: true
+      exclude_empty_checkbox: true
       html: true

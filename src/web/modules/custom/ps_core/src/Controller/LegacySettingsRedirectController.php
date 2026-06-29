@@ -16,7 +16,7 @@ final class LegacySettingsRedirectController extends ControllerBase {
    * Redirects former global settings URL to ps_form contact settings.
    */
   public function contactSettings(): RedirectResponse {
-    return $this->redirect('ps_form.contact_settings', [], [], 301);
+    return $this->redirect('ps_form.admin_overview', [], [], 301);
   }
 
 }

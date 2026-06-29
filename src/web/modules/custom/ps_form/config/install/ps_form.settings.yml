@@ -14,3 +14,25 @@ urgency_help_lead: 'In a hurry? Call us at'
 urgency_help_phone: '01 87 58 71 87'
 urgency_help_phone_link: 'tel:+33187587187'
 urgency_help_hours: 'Monday to Friday, 9:00 AM to 7:00 PM.'
+contact_email_confirmation:
+  display_title: 'Your request has been sent'
+  greeting_prefix: 'Hello'
+  intro_text: 'Your request has been successfully submitted. We will get back to you as soon as possible.'
+  recap_intro: 'For reference, your request is as follows:'
+  closing_text: 'Thank you for your interest in BNP Paribas Real Estate.'
+  signoff_text: 'Best regards, Your Customer Service team, BNP Paribas Real Estate.'
+  reuse_site_footer: true
+  footer_address: 'BNP Paribas Real Estate, 50 cours de l''île Seguin, CS 50280, 92650 Boulogne-Billancourt Cedex'
+  footer_phone: '01 73 43 89 63'
+  footer_phone_link: 'tel:+33173438963'
+  footer_offers_url: 'https://www.bnppre.fr'
+  footer_offers_label: 'Browse all our listings on www.bnppre.fr'
+  footer_services: 'Promotion | Transaction | Property Management | Expertise | Consulting'
+  legal_markup: '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>'
+  webform_heroes:
+    find_property: 0
+    entrust_search: 0
+    get_advice: 0
+    entrust_property: 0
+    invest_sell: 0
+    other_request: 0

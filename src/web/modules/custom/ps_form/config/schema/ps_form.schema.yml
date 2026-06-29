@@ -37,3 +37,81 @@ ps_form.settings:
       type: label
       label: 'Urgency help opening hours'
       translatable: true
+    contact_email_confirmation:
+      type: mapping
+      label: 'Contact confirmation email settings'
+      mapping:
+        display_title:
+          type: label
+          label: 'Display title'
+          translatable: true
+        greeting_prefix:
+          type: label
+          label: 'Greeting prefix'
+          translatable: true
+        intro_text:
+          type: text
+          label: 'Intro text'
+          translatable: true
+        recap_intro:
+          type: label
+          label: 'Recap intro'
+          translatable: true
+        closing_text:
+          type: text
+          label: 'Closing text'
+          translatable: true
+        signoff_text:
+          type: text
+          label: 'Sign-off text'
+          translatable: true
+        reuse_site_footer:
+          type: boolean
+          label: 'Reuse site footer blocks'
+        footer_address:
+          type: text
+          label: 'Footer address'
+          translatable: true
+        footer_phone:
+          type: string
+          label: 'Footer phone display'
+        footer_phone_link:
+          type: string
+          label: 'Footer phone tel link'
+        footer_offers_url:
+          type: string
+          label: 'Footer offers URL'
+        footer_offers_label:
+          type: label
+          label: 'Footer offers label'
+          translatable: true
+        footer_services:
+          type: label
+          label: 'Footer services line'
+          translatable: true
+        legal_markup:
+          type: text
+          label: 'Legal footer markup'
+          translatable: true
+        webform_heroes:
+          type: mapping
+          label: 'Hero images per webform'
+          mapping:
+            find_property:
+              type: integer
+              label: 'find_property hero file id'
+            entrust_search:
+              type: integer
+              label: 'entrust_search hero file id'
+            get_advice:
+              type: integer
+              label: 'get_advice hero file id'
+            entrust_property:
+              type: integer
+              label: 'entrust_property hero file id'
+            invest_sell:
+              type: integer
+              label: 'invest_sell hero file id'
+            other_request:
+              type: integer
+              label: 'other_request hero file id'

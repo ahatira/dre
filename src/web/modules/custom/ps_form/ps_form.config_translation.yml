@@ -2,5 +2,12 @@ ps_form.settings_urgency_contact:
   title: 'Urgency contact labels'
   names:
     - ps_form.settings
-  base_route_name: ps_form.contact_settings
+  base_route_name: ps_form.settings
+  weight: 10
+
+ps_form.settings_contact_email:
+  title: 'Contact confirmation email'
+  names:
+    - ps_form.settings
+  base_route_name: ps_form.email_content
   weight: 10
