@@ -82,6 +82,9 @@ final class ContactWizardPresentationService {
   private function applyProjectStep(array &$step): void {
     $step['#attributes']['class'][] = 'ps-form-wizard-page--project';
 
+    // get_advice / other_request expose choice fields at step root (no project fieldset).
+    $this->applyStackedChoiceFields($step);
+
     if (!isset($step['project']) || !is_array($step['project'])) {
       return;
     }
@@ -99,15 +102,15 @@ final class ContactWizardPresentationService {
   /**
    * Applies stacked layout classes on project-step checkbox groups.
    *
-   * @param array<string, mixed> $project
-   *   The project fieldset.
+   * @param array<string, mixed> $container
+   *   The step_project page or nested project fieldset.
    */
-  private function applyStackedChoiceFields(array &$project): void {
+  private function applyStackedChoiceFields(array &$container): void {
     foreach (['consulting_type', 'other_need'] as $key) {
-      if (!isset($project[$key]) || !is_array($project[$key])) {
+      if (!isset($container[$key]) || !is_array($container[$key])) {
         continue;
       }
-      $project[$key]['#attributes']['class'][] = 'ps-form-checkboxes--stacked';
+      $container[$key]['#wrapper_attributes']['class'][] = 'ps-form-checkboxes--stacked';
     }
   }
 

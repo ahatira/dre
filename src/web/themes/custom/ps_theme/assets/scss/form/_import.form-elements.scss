@@ -264,7 +264,9 @@ fieldset > legend {
   }
 
   fieldset.radios--wrapper.card:not(.ps-webform-op-choices):not(.ps-webform-asset-grid),
-  fieldset.webform-type-radios.card:not(.ps-webform-op-choices):not(.ps-webform-asset-grid) {
+  fieldset.webform-type-radios.card:not(.ps-webform-op-choices):not(.ps-webform-asset-grid),
+  fieldset.checkboxes--wrapper.card.ps-form-checkboxes--stacked,
+  fieldset.webform-type-checkboxes.card.ps-form-checkboxes--stacked {
     > legend.card-header {
       margin-bottom: 0.75rem;
     }
@@ -274,6 +276,17 @@ fieldset > legend {
       flex-direction: column;
       gap: 0.75rem;
     }
+  }
+
+  fieldset.ps-form-checkboxes--stacked .js-webform-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  fieldset.ps-form-checkboxes--stacked .form-type-checkbox + .form-type-checkbox {
+    margin-top: 0;
   }
 
   .js-webform-radios {

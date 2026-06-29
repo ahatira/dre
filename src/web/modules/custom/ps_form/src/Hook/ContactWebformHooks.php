@@ -52,7 +52,7 @@ final class ContactWebformHooks {
 
     if ($webformId === ContactNeedRouter::HUB_WEBFORM_ID) {
       $this->applyContactHubForm($form);
-      $form['#after_build'][] = [$this, 'afterBuildContactHubForm'];
+      $form['#after_build'][] = [static::class, 'afterBuildContactHubForm'];
       return;
     }
 
@@ -201,7 +201,24 @@ final class ContactWebformHooks {
    * @return array<string, mixed>
    *   The form array.
    */
-  public function afterBuildContactHubForm(array $form, FormStateInterface $form_state): array {
+  public static function afterBuildContactHubForm(array $form, FormStateInterface $form_state): array {
+    /** @var self $hooks */
+    $hooks = \Drupal::service(self::class);
+    return $hooks->buildContactHubFormAfterBuild($form, $form_state);
+  }
+
+  /**
+   * Restores wizard_next on the hub need step (instance implementation).
+   *
+   * @param array<string, mixed> $form
+   *   The webform submission form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array<string, mixed>
+   *   The form array.
+   */
+  private function buildContactHubFormAfterBuild(array $form, FormStateInterface $form_state): array {
     $form_object = $form_state->getFormObject();
     if (!$form_object instanceof WebformSubmissionForm) {
       return $form;
@@ -296,7 +313,7 @@ final class ContactWebformHooks {
       '#value' => '1',
     ];
 
-    $form['#after_build'][] = [$this, 'afterBuildHubBackButton'];
+    $form['#after_build'][] = [static::class, 'afterBuildHubBackButton'];
   }
 
   /**
@@ -310,7 +327,24 @@ final class ContactWebformHooks {
    * @return array<string, mixed>
    *   The altered form array.
    */
-  public function afterBuildHubBackButton(array $form, FormStateInterface $form_state): array {
+  public static function afterBuildHubBackButton(array $form, FormStateInterface $form_state): array {
+    /** @var self $hooks */
+    $hooks = \Drupal::service(self::class);
+    return $hooks->buildHubBackButtonAfterBuild($form, $form_state);
+  }
+
+  /**
+   * Adds the hub back button once wizard actions are available.
+   *
+   * @param array<string, mixed> $form
+   *   The webform submission form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array<string, mixed>
+   *   The altered form array.
+   */
+  private function buildHubBackButtonAfterBuild(array $form, FormStateInterface $form_state): array {
     if (($form_state->get('current_page') ?? self::DIRECT_FIRST_PAGE) !== self::DIRECT_FIRST_PAGE) {
       return $form;
     }
