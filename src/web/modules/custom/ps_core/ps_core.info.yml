@@ -15,3 +15,4 @@ dependencies:
   - ui_icons_picker:ui_icons_picker
   - symfony_mailer:symfony_mailer
   - symfony_mailer:mailer_policy
+  - symfony_mailer_log:symfony_mailer_log

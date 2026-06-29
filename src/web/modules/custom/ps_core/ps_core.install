@@ -11,10 +11,17 @@ declare(strict_types=1);
  * Applies PS mailer policy defaults without conflicting with mailer_policy install.
  */
 function ps_core_install(): void {
-  ps_core_apply_mailer_policy_theme();
+  ps_core_apply_mailer_policy_defaults();
   if (getenv('PS_SKIP_CONFIG_IGNORE_ON_INSTALL') !== '1') {
     ps_core_apply_config_ignore_settings();
   }
+}
+
+/**
+ * Enables Mailer Plus Log on the global policy for existing sites.
+ */
+function ps_core_update_9001(): void {
+  ps_core_apply_mailer_policy_log();
 }
 
 /**
@@ -35,6 +42,14 @@ function ps_core_apply_config_ignore_settings(): void {
 }
 
 /**
+ * Applies global Mailer policy defaults (theme, logging).
+ */
+function ps_core_apply_mailer_policy_defaults(): void {
+  ps_core_apply_mailer_policy_theme();
+  ps_core_apply_mailer_policy_log();
+}
+
+/**
  * Sets the global Mailer policy theme and related defaults.
  */
 function ps_core_apply_mailer_policy_theme(): void {
@@ -48,5 +63,27 @@ function ps_core_apply_mailer_policy_theme(): void {
   $configuration['mailer_inline_css'] = $configuration['mailer_inline_css'] ?? [];
   $configuration['mailer_wrap_and_convert'] = $configuration['mailer_wrap_and_convert'] ?? ['plain' => FALSE];
   $configuration['email_theme'] = ['theme' => 'ps_theme'];
+  $config->set('configuration', $configuration)->save();
+}
+
+/**
+ * Adds the Mailer Plus Log adjuster to the global policy.
+ */
+function ps_core_apply_mailer_policy_log(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('symfony_mailer_log')) {
+    return;
+  }
+
+  $config = \Drupal::configFactory()->getEditable('mailer_policy.mailer_policy._');
+  if ($config->isNew()) {
+    return;
+  }
+
+  $configuration = $config->get('configuration') ?? [];
+  if (isset($configuration['symfony_mailer_log'])) {
+    return;
+  }
+
+  $configuration['symfony_mailer_log'] = [];
   $config->set('configuration', $configuration)->save();
 }

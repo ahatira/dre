@@ -83,7 +83,7 @@ ps_install_country_site() {
   ps_drush_cr
   ps_verify_ps_offer_install || ps_die "ps_offer verification failed"
   ps_apply_google_maps_api_key
-  ps_retry 2 2 ps_drush en -y symfony_mailer mailer_override ps_context 2>/dev/null || true
+  ps_retry 2 2 ps_drush en -y symfony_mailer symfony_mailer_log mailer_override ps_context 2>/dev/null || true
   ps_drush user:role:add administrator "${ADMIN_USER}" -y 2>/dev/null || true
 
   ps_info "Importing dictionary..."
