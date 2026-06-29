@@ -111,7 +111,7 @@ elements: |-
     qualification_comment:
       '#type': textarea
       '#title': Message
-      '#placeholder': 'Describe your project'
+      '#placeholder': 'Specify your project here'
       '#maxlength': 2000
 css: ''
 javascript: ''

@@ -45,13 +45,21 @@ final class ContactWizardPresentationService {
     'optout_tel_transaction',
   ];
 
+  public function __construct(
+    private readonly ContactFormFieldLabelService $contactFormFieldLabel,
+  ) {}
+
   /**
    * Applies wizard presentation hooks on a contact-family webform.
    *
    * @param array<string, mixed> $form
    *   The webform submission form array.
+   * @param string|null $webformId
+   *   The webform machine name.
    */
-  public function applyToForm(array &$form): void {
+  public function applyToForm(array &$form, ?string $webformId = NULL): void {
+    $this->contactFormFieldLabel->applyToForm($form, $webformId);
+
     if (isset($form['elements']['step_project']) && is_array($form['elements']['step_project'])) {
       $this->applyProjectStep($form['elements']['step_project']);
     }
@@ -139,6 +147,9 @@ final class ContactWizardPresentationService {
   /**
    * Wraps a location textfield for the shared search location editor.
    *
+   * Uses ui_suite_bnp input_group so only the input sits inside the editor
+   * shell (not the whole form-item — Webform #prefix wraps the full element).
+   *
    * @param array<string, mixed> $element
    *   The search_territory textfield.
    */
@@ -149,8 +160,22 @@ final class ContactWizardPresentationService {
     $element['#attributes']['aria-autocomplete'] = 'list';
     $element['#attributes']['role'] = 'combobox';
     $element['#wrapper_attributes']['class'][] = 'ps-form-location-field';
-    $element['#prefix'] = '<div class="ps-form-location"><div class="js-ps-location-editor ps-form-location__editor"><div class="js-ps-location-chips ps-form-location__chips"></div>';
-    $element['#suffix'] = '</div><div class="js-ps-location-suggest ps-form-location__suggest" role="listbox" hidden></div></div>';
+    $element['#wrapper_attributes']['class'][] = 'ps-form-location';
+
+    $element['#input_group'] = TRUE;
+    $element['#input_group_attributes'] = [
+      'class' => ['js-ps-location-editor', 'ps-form-location__editor'],
+    ];
+    $element['#input_group_before'] = [
+      [
+        '#markup' => '<div class="js-ps-location-chips ps-form-location__chips"></div>',
+      ],
+    ];
+    $element['#input_group_after'] = [
+      [
+        '#markup' => '<div class="js-ps-location-suggest ps-form-location__suggest" role="listbox" hidden></div>',
+      ],
+    ];
   }
 
   /**
@@ -213,21 +238,13 @@ final class ContactWizardPresentationService {
   }
 
   /**
-   * Adds message step intro; textarea keeps default theme field styling.
+   * Adds message step layout; intro and label rules live in ContactFormFieldLabelService.
    *
    * @param array<string, mixed> $step
    *   The step_message wizard page.
    */
   private function applyMessageStep(array &$step): void {
     $step['#attributes']['class'][] = 'ps-form-message-step';
-
-    if (!isset($step['message_intro'])) {
-      $step['message_intro'] = [
-        '#type' => 'webform_markup',
-        '#markup' => '<p class="ps-form-section-intro h4">' . $this->t('Would you like to add details about your project?', [], ['context' => 'Contact wizard section title']) . '</p>',
-        '#weight' => -100,
-      ];
-    }
 
     if (isset($step['qualification_comment']) && is_array($step['qualification_comment'])) {
       $step['qualification_comment']['#wrapper_attributes']['class'][] = 'ps-form-message-field';

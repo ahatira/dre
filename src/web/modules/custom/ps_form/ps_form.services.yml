@@ -41,6 +41,11 @@ services:
 
   ps_form.contact_wizard_presentation:
     class: Drupal\ps_form\Service\ContactWizardPresentationService
+    arguments:
+      - '@ps_form.contact_form_field_label'
+
+  ps_form.contact_form_field_label:
+    class: Drupal\ps_form\Service\ContactFormFieldLabelService
 
   Drupal\ps_form\Hook\ContactWebformHooks:
     autowire: false

@@ -67,7 +67,7 @@ final class ContactWebformHooks {
     );
 
     $this->contactProjectFieldPresenter->applyToForm($form, $webformId);
-    $this->contactWizardPresentation->applyToForm($form);
+    $this->contactWizardPresentation->applyToForm($form, $webformId);
     $this->attachContactWizardAssets($form);
   }
 
@@ -428,15 +428,15 @@ final class ContactWebformHooks {
    *   The webform submission form array.
    */
   private function attachContactWizardAssets(array &$form): void {
-    if ($this->contactWizardPresentation->hasLocationField($form)) {
-      $form['#attached']['library'][] = 'ps_form/contact_wizard';
-    }
+    $form['#attached']['library'][] = 'ps_form/contact_wizard';
 
-    $form['#attached']['drupalSettings']['psForm'] = [
-      'locationSuggestUrl' => '/api/ps/location-suggest',
-      'locationDataUrl' => '/api/ps/location-data',
-      'contentLangcode' => $this->languageManager->getCurrentLanguage()->getId(),
-    ];
+    if ($this->contactWizardPresentation->hasLocationField($form)) {
+      $form['#attached']['drupalSettings']['psForm'] = [
+        'locationSuggestUrl' => '/api/ps/location-suggest',
+        'locationDataUrl' => '/api/ps/location-data',
+        'contentLangcode' => $this->languageManager->getCurrentLanguage()->getId(),
+      ];
+    }
   }
 
   /**

@@ -33,7 +33,7 @@ elements: |
   optout_tel_transaction:
     '#title': Téléphone
   legal_notice:
-    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Advisory France, société par actions simplifiée située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en qualité de responsable de traitement, traite les informations vous concernant pour répondre à votre demande transmise via ce formulaire. Pour en savoir plus sur vos droits, consultez notre <a href="/data-protection">Notice de protection des données</a>.</p>'
+    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, société par actions simplifiée située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en qualité de responsable de traitement, traite les informations vous concernant pour répondre à votre demande transmise via ce formulaire. Pour en savoir plus sur vos droits, consultez notre <a href="/data-protection">Notice de protection des données</a>.</p>'
   step_message:
     '#title': Message
   qualification_comment:

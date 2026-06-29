@@ -69,11 +69,11 @@ elements: |-
                   value: EITHER
           min_rent:
             '#type': number
-            '#title': 'Min rent'
+            '#title': 'Min rent (excl. tax/charges/sqm/yr)'
             '#min': 0
           max_rent:
             '#type': number
-            '#title': 'Max rent'
+            '#title': 'Max rent (excl. tax/charges/sqm/yr)'
             '#min': 0
         surface:
           '#type': fieldset
@@ -84,11 +84,11 @@ elements: |-
                   value: COW
           min_surface:
             '#type': number
-            '#title': 'Min surface (sqm)'
+            '#title': 'Min surface'
             '#min': 20
           max_surface:
             '#type': number
-            '#title': 'Max surface (sqm)'
+            '#title': 'Max surface'
             '#min': 20
         post:
           '#type': fieldset
@@ -108,7 +108,6 @@ elements: |-
         search_territory:
           '#type': textfield
           '#title': Location
-          '#required': true
           '#placeholder': 'City, district, postcode, building name...'
   step_contact:
     '#type': webform_wizard_page
@@ -169,7 +168,7 @@ elements: |-
     qualification_comment:
       '#type': textarea
       '#title': Message
-      '#placeholder': 'Describe your project'
+      '#placeholder': 'Specify your project here'
       '#maxlength': 2000
 css: ''
 javascript: ''

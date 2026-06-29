@@ -12,6 +12,7 @@ contact_deeplink:
     - ps_theme/form
 
 contact_wizard:
+  version: 1.0.3
   js:
     js/contact-form-location.js: {}
   dependencies:

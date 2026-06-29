@@ -1,0 +1,63 @@
+/**
+ * Contact wizard — placeholder-only fields (mockup: no visible labels).
+ */
+
+.webform-submission-form {
+  .ps-form-fieldset--no-legend > legend.card-header {
+    display: none !important;
+  }
+
+  .ps-form-range-pair > legend.card-header {
+    display: none !important;
+  }
+
+  .ps-form-field--placeholder {
+    > label:not(.form-check-label),
+    .form-label {
+      @include visually-hidden;
+    }
+  }
+
+  .ps-form-location-field {
+    > label:not(.form-check-label),
+    .form-label {
+      @include visually-hidden;
+    }
+  }
+
+  .ps-form-required-note {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: $ps-form-text-muted;
+  }
+}
+
+.ps-form-wizard-page--project {
+  .ps-form-property-characteristics__field {
+    grid-column: auto;
+  }
+
+  fieldset#edit-project.ps-form-fieldset--no-legend > legend.card-header {
+    display: none !important;
+  }
+}
+
+.ps-form-message-step {
+  .form-item-qualification-comment > label,
+  .form-item-qualification-comment .form-label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: $ps-form-label-size;
+    font-weight: 700;
+    line-height: 1.5rem;
+    color: $ps-form-label-color;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ps-form-wizard-page--project .ps-form-property-characteristics__field {
+    grid-column: 1 / -1;
+  }
+}

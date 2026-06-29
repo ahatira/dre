@@ -36,6 +36,30 @@
 .ps-form-location {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  overflow: visible;
+
+  .input-group {
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  .input-group-text {
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  .field-suffix {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
 }
 
 // Composite location field: outer shell matches default form-control chrome.
@@ -45,11 +69,16 @@
   align-items: center;
   gap: 0.5rem;
   min-height: $ps-form-input-height;
+  width: 100%;
+  max-width: 100%;
   padding: 0.25rem 0.5rem;
   background-color: #fff;
   border: 2px solid $ps-form-border-default;
   border-radius: 0;
   box-shadow: none;
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
 
   &:focus-within {
     border-color: $ps-form-border-focus;
@@ -57,53 +86,47 @@
   }
 }
 
+// Tagify-like: chips participate in the editor flex row; input fills remaining space.
 .ps-form-location__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  display: contents;
 }
 
-.ps-form-location__editor .js-ps-locality-input {
-  flex: 1 1 8rem;
-  min-width: 0;
+.ps-form-location__editor .js-ps-contact-location-input {
+  flex: 1 1 12rem;
+  min-width: 12rem;
+  max-width: 100%;
+  width: auto;
   min-height: 2rem;
   padding: 0.25rem 0.5rem;
   background: transparent;
-  border: 0;
-  box-shadow: none;
+  border: 0 !important;
+  box-shadow: none !important;
 
-  &:focus {
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    border: 0 !important;
+    box-shadow: none !important;
     outline: none;
-    box-shadow: none;
   }
 }
 
-.ps-form-location__suggest {
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + 0.25rem);
-  left: 0;
-  right: 0;
-  max-height: 16rem;
-  overflow-y: auto;
-  background: #fff;
-  border: 1px solid #ebedef;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
-}
-
-.ps-location-chip {
+.ps-form-location__editor .ps-location-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  flex: 0 0 auto;
+  max-width: 100%;
   padding: 0.125rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: #333;
   background: #fff;
   border: 1px solid #d6dbde;
+  border-radius: 999px;
 }
 
-.ps-location-chip__clear {
+.ps-form-location__editor .ps-location-chip__clear {
   padding: 0;
   font-size: 1rem;
   line-height: 1;
@@ -111,6 +134,33 @@
   background: transparent;
   border: 0;
   cursor: pointer;
+}
+
+.ps-form-location__editor:has(.ps-location-chip) .js-ps-locality-input::placeholder {
+  color: transparent;
+}
+
+.ps-form-location.has-value .js-ps-locality-input::placeholder {
+  color: transparent;
+}
+
+// Suggest list: align flush with the editor box (no side overflow).
+.ps-form-location .ps-form-location__editor .ps-form-location__suggest {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  max-height: 16rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ebedef;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+  box-sizing: border-box;
 }
 
 .ps-location-suggest__group-title {
@@ -125,6 +175,7 @@
 .ps-location-suggest__item {
   display: block;
   width: 100%;
+  max-width: 100%;
   padding: 0.625rem 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -133,6 +184,10 @@
   background: transparent;
   border: 0;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
 
   &:hover,
   &:focus-visible,

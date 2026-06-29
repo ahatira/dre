@@ -1,23 +1,52 @@
 /**
  * @file
  * Location autocomplete for contact wizard search_territory fields.
+ *
+ * Tagify-like UX: chips show labels, the visible input is draft-only.
+ * Tokens are serialized into the textfield only on form submit.
  */
 (function (Drupal, drupalSettings, once) {
   'use strict';
 
   /**
-   * Syncs chip tokens back into the webform textfield value.
+   * Serializes chip tokens into the webform textfield (submit / validation).
    *
    * @param {HTMLInputElement} input
    * @param {object} editor
    */
-  function syncLocationValue(input, editor) {
+  function syncLocationValueForSubmit(input, editor) {
     if (!editor || typeof editor.getTokens !== 'function') {
       return;
     }
-    editor.commitDraft();
+    if (typeof editor.commitDraft === 'function') {
+      editor.commitDraft();
+    }
     const tokens = editor.getTokens();
     input.value = tokens.length ? tokens.join(', ') : '';
+  }
+
+  /**
+   * Keeps the visible input free of serialized tokens (chips carry labels).
+   *
+   * @param {HTMLInputElement} input
+   * @param {object} editor
+   */
+  function clearTokenEchoFromInput(input, editor) {
+    if (!editor || typeof editor.getTokens !== 'function') {
+      return;
+    }
+    const tokens = editor.getTokens();
+    if (!tokens.length) {
+      return;
+    }
+    const draft = input.value.trim();
+    if (!draft) {
+      return;
+    }
+    const serialized = tokens.join(', ');
+    if (draft === serialized || tokens.includes(draft)) {
+      input.value = '';
+    }
   }
 
   Drupal.behaviors.psContactFormLocation = {
@@ -48,12 +77,13 @@
           input: input,
           rootEl: rootEl,
           mode: 'inline',
+          resizeInput: false,
           locationSuggestUrl: locationSuggestUrl,
           locationDataUrl: locationDataUrl,
           appendContentLangParam: appendContentLangParam,
           initialValue: input.value,
           onChange() {
-            syncLocationValue(input, editor);
+            clearTokenEchoFromInput(input, editor);
           },
         });
 
@@ -61,11 +91,14 @@
           return;
         }
 
-        syncLocationValue(input, editor);
+        // Editor parses initialValue into chips; keep the visible input draft-only.
+        if (editor.getTokens().length > 0) {
+          input.value = '';
+        }
 
         if (form) {
           form.addEventListener('submit', () => {
-            syncLocationValue(input, editor);
+            syncLocationValueForSubmit(input, editor);
           });
         }
       });

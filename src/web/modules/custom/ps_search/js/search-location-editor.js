@@ -101,12 +101,24 @@
 
     const mode = config.mode || 'dropdown';
     const isDropdown = mode === 'dropdown';
+    // Compact ch-based width only for filter-bar dropdown; contact inline uses CSS flex.
+    const resizeInput = config.resizeInput !== undefined ? config.resizeInput : isDropdown;
     const rootEl = config.rootEl || input.closest('.ps-filter-bar__item--location');
     const editorEl = input.closest('.js-ps-location-editor');
     const chipsContainer = editorEl ? editorEl.querySelector('.js-ps-location-chips') : null;
     const popinChipsContainer = rootEl ? rootEl.querySelector('.js-ps-location-popin-chips') : null;
     const selectedPanel = rootEl ? rootEl.querySelector('.js-ps-location-selected-panel') : null;
-    const suggestBox = rootEl ? rootEl.querySelector('.js-ps-location-suggest') : null;
+    let suggestBox = null;
+    if (rootEl) {
+      suggestBox = rootEl.querySelector('.js-ps-location-suggest');
+      if (!suggestBox && rootEl.nextElementSibling instanceof HTMLElement
+        && rootEl.nextElementSibling.classList.contains('js-ps-location-suggest')) {
+        suggestBox = rootEl.nextElementSibling;
+      }
+    }
+    if (!suggestBox && editorEl) {
+      suggestBox = editorEl.querySelector('.js-ps-location-suggest');
+    }
     const clearInputBtn = rootEl ? rootEl.querySelector('.js-ps-location-clear-input') : null;
     const locationToggle = rootEl ? rootEl.querySelector('.ps-filter-bar__toggle--location') : null;
     const locationSuggestUrl = config.locationSuggestUrl || '/api/ps/location-suggest';
@@ -126,6 +138,7 @@
     };
 
     let suggestionButtons = [];
+    let suggestionItems = [];
     let activeSuggestionIndex = -1;
     let suggestDebounce = null;
     let optionCounter = 0;
@@ -314,6 +327,12 @@
     }
 
     function syncInputWidth() {
+      if (!resizeInput) {
+        input.style.flex = '';
+        input.style.width = '';
+        input.style.minWidth = '';
+        return;
+      }
       const hasChips = !!(chipsContainer && chipsContainer.querySelector('.ps-location-chip'));
       const value = input.value || '';
       if (hasChips) {
@@ -390,6 +409,7 @@
       suggestBox.innerHTML = '';
       suggestBox.hidden = true;
       suggestionButtons = [];
+      suggestionItems = [];
       activeSuggestionIndex = -1;
       input.setAttribute('aria-expanded', 'false');
       input.removeAttribute('aria-activedescendant');
@@ -414,13 +434,14 @@
     }
 
     function selectSuggestion(itemData) {
+      input.value = '';
       addLocationData([itemData]);
       renderAllChips();
       updateSelectedPanelVisibility();
-      input.value = '';
       updateClearInputButton();
       updateLocationActiveState();
-      fetchLocationSuggestions('');
+      hideSuggestions();
+      input.focus();
     }
 
     function commitDraftTokens() {
@@ -444,6 +465,7 @@
 
       suggestBox.innerHTML = '';
       suggestionButtons = [];
+      suggestionItems = [];
 
       if (groups && groups.length) {
         groups.forEach(function (group) {
@@ -469,19 +491,15 @@
             labelWrap.className = 'ps-location-suggest__label';
             labelWrap.appendChild(highlightSuggestionLabel(label, input.value.trim()));
             btn.appendChild(labelWrap);
-            btn.addEventListener('mousedown', function (e) {
-              e.preventDefault();
-            });
-            btn.addEventListener('click', function () {
-              const data = isStructured ? itemData : {
-                label: label,
-                type: 'city',
-                locality: label,
-                admin_area: '',
-                postal_code: '',
-              };
-              selectSuggestion(data);
-            });
+            const normalizedItem = isStructured ? itemData : {
+              label: label,
+              type: 'city',
+              locality: label,
+              admin_area: '',
+              postal_code: '',
+            };
+            btn.setAttribute('data-suggestion-index', String(suggestionItems.length));
+            suggestionItems.push(normalizedItem);
             suggestionButtons.push(btn);
             suggestBox.appendChild(btn);
           });
@@ -646,9 +664,28 @@
       });
     }
 
+    if (suggestBox) {
+      suggestBox.addEventListener('mousedown', function (e) {
+        const btn = e.target.closest('.ps-location-suggest__item');
+        e.preventDefault();
+        if (!btn || !suggestBox.contains(btn)) {
+          return;
+        }
+        e.stopPropagation();
+        const index = parseInt(btn.getAttribute('data-suggestion-index') || '', 10);
+        if (Number.isNaN(index) || !suggestionItems[index]) {
+          return;
+        }
+        selectSuggestion(suggestionItems[index]);
+      }, true);
+    }
+
     if (editorEl) {
       editorEl.addEventListener('click', function (e) {
         if (e.target.closest('.ps-location-chip__clear')) {
+          return;
+        }
+        if (e.target.closest('.js-ps-location-suggest') || e.target.closest('.ps-location-suggest__item')) {
           return;
         }
         if (e.target === input) {

@@ -57,7 +57,7 @@ elements: |
   optout_tel_transaction:
     '#title': Telefon
   legal_notice:
-    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, spółka akcyjna z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, jako administrator danych przetwarza informacje o Państwu w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza. Aby dowiedzieć się więcej o swoich prawach, zapoznają się Państwo z naszym <a href="/data-protection">Komunikatem o ochronie danych</a>.</p>'
+    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, spółka akcyjna z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, jako administrator danych przetwarza informacje o Państwu w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza. Aby dowiedzieć się więcej o swoich prawach, zapoznają się Państwo z naszym <a href="/data-protection">Komunikatem o ochronie danych</a>.</p>'
   step_message:
     '#title': Wiadomość
   qualification_comment:

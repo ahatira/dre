@@ -69,7 +69,7 @@ elements: |
   optout_tel_transaction:
     '#title': Telefon
   legal_notice:
-    '#markup': '<p class="ps-contact-form__legal-notice">BNP Paribas Real Estate Transaction France, eng Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, als verantwortlech fir d&rsquo;Traitement, veraarbecht Är Informatiounen fir op Är Demande iwwer dëse Formulaire ze reagéieren. Fir méi iwwer Är Rechter ze wëssen, kuckt w.e.g. eis <a href="/data-protection">Notice de protection des données</a>.</p>'
+    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, eng Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, als verantwortlech fir d&rsquo;Traitement, veraarbecht Är Informatiounen fir op Är Demande iwwer dëse Formulaire ze reagéieren. Fir méi iwwer Är Rechter ze wëssen, kuckt w.e.g. eis <a href="/data-protection">Notice de protection des données</a>.</p>'
   step_message:
     '#title': Message
   qualification_comment:

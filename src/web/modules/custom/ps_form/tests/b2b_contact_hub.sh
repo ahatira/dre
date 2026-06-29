@@ -205,6 +205,8 @@ while IFS='|' read -r webform path title; do
       assert_file_contains "$direct_file" 'ps-webform-op-choices' "Direct form operation segmented control ($webform)"
       assert_file_contains "$direct_file" 'ps-webform-asset-grid' "Direct form asset tile grid ($webform)"
       assert_file_contains "$direct_file" 'js-ps-contact-location-input' "Direct form location autocomplete ($webform)"
+      assert_file_contains "$direct_file" 'js-ps-location-chips' "Direct form location chips container ($webform)"
+      assert_file_contains "$direct_file" 'js-ps-location-suggest' "Direct form location suggest listbox ($webform)"
       ;;
   esac
   case "$webform" in

@@ -9,7 +9,7 @@ filter.htmx:
     - core/once
 
 location.editor:
-  version: 1.0.0
+  version: 1.0.4
   js:
     js/search-location-editor.js: {}
   dependencies:
@@ -31,7 +31,7 @@ search-context:
     - core/drupalSettings
 
 filter.bar:
-  version: 1.0.15
+  version: 1.0.18
   js:
     js/search-location-editor.js: {}
     js/search-transport-suggest.js: {}
