@@ -157,7 +157,7 @@ final class FormAdminOverviewController extends ControllerBase {
         'items' => [
           [
             'title' => $this->t('Email settings overview'),
-            'description' => $this->t('Copy, footer, hero banners and live confirmation preview.'),
+            'description' => $this->t('Content, footer, hero banners and live confirmation preview.'),
             'route' => 'ps_form.email_overview',
           ],
         ],

@@ -188,7 +188,7 @@ final class ContactEmailAdminOverviewController extends ControllerBase {
       '#type' => 'container',
       '#attributes' => ['class' => ['ps-form-email-admin-overview__footer']],
       'back' => Link::createFromRoute(
-        $this->t('Back to contact forms overview'),
+        $this->t('Back to Forms overview'),
         'ps_form.admin_overview',
       )->toRenderable(),
     ];

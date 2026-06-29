@@ -9,11 +9,11 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Drupal\focal_point\Plugin\Field\FieldWidget\FocalPointImageWidget;
+use Drupal\ps_form\Service\ContactEmailSettings;
 use Drupal\ps_form\Service\ContactEmailHeroImageResolver;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Adds focal point controls to managed_file hero upload elements.
+ * Adds focal point controls next to managed_file hero upload elements.
  */
 final class ContactEmailHeroUploadHelper {
 
@@ -32,42 +32,63 @@ final class ContactEmailHeroUploadHelper {
   }
 
   /**
-   * Creates a helper instance from the container.
+   * Form API #after_build callback: preview + focal point UI beside uploads.
+   *
+   * Static entry point avoids non-serializable closures in AJAX form cache.
+   *
+   * @param array<string, mixed> $form
+   *   The complete form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array<string, mixed>
+   *   The form with hero focal point widgets attached.
    */
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get('ps_form.contact_email_hero_image_resolver'),
-      $container->get('string_translation'),
-    );
+  public static function afterBuildHeroSettingsForm(array $form, FormStateInterface $form_state): array {
+    if (empty($form['heroes']) || !is_array($form['heroes'])) {
+      return $form;
+    }
+
+    /** @var self $helper */
+    $helper = \Drupal::service('ps_form.contact_email_hero_upload_helper');
+    foreach (ContactEmailSettings::HUB_WEBFORM_IDS as $webformId) {
+      if (!isset($form['heroes'][$webformId]['hero_file']) || !is_array($form['heroes'][$webformId]['hero_file'])) {
+        continue;
+      }
+      $form['heroes'][$webformId]['hero_file'] = $helper->attachFocalPointUi(
+        $form['heroes'][$webformId]['hero_file'],
+        $form_state,
+      );
+    }
+
+    return $form;
   }
 
   /**
-   * Form API #process callback: preview + focal point UI after managed_file.
+   * Adds preview and focal point fields next to a hero managed_file element.
    *
    * @param array<string, mixed> $element
-   *   The managed_file form element.
+   *   The hero upload group container.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   * @param array<string, mixed> $form
-   *   The full form.
+   *   The active form state.
    *
    * @return array<string, mixed>
    *   The processed element.
    */
-  public function process(array $element, FormStateInterface $form_state, array $form): array {
-    if (empty($element['#files'])) {
+  public function attachFocalPointUi(array $element, FormStateInterface $form_state): array {
+    if (empty($element['upload']['#files'])) {
       return $element;
     }
 
-    $file = reset($element['#files']);
+    $file = reset($element['upload']['#files']);
     if ($file === FALSE) {
       return $element;
     }
 
     $selector = 'focal-point-' . implode('-', $element['#parents']);
     $defaultFocalPoint = $this->heroImageResolver->getFocalPointValue($file);
-
     $previewFocalPointValue = str_replace(',', 'x', $defaultFocalPoint);
+    $focalParents = array_merge($element['#parents'], ['focal_point']);
 
     $element['preview'] = [
       '#type' => 'container',
@@ -84,7 +105,7 @@ final class ContactEmailHeroUploadHelper {
         '#theme' => 'image_style',
         '#style_name' => self::PREVIEW_STYLE,
         '#uri' => $file->getFileUri(),
-        '#alt' => $element['#title'] ?? '',
+        '#alt' => $element['upload']['#title'] ?? '',
       ],
       'preview_link' => [
         '#type' => 'link',
@@ -106,12 +127,13 @@ final class ContactEmailHeroUploadHelper {
       ],
     ];
 
-    $element['focal_point'] = [
+    $focalElement = [
       '#type' => 'textfield',
       '#title' => $this->t('Focal point'),
       '#description' => $this->t('Click the preview image to set the focus area used when cropping to the 2.35:1 email banner.'),
       '#default_value' => $defaultFocalPoint,
-      '#element_validate' => [[FocalPointImageWidget::class, 'validateFocalPoint']],
+      '#parents' => $focalParents,
+      '#element_validate' => [[self::class, 'validateHeroFocalPoint']],
       '#attributes' => [
         'class' => ['focal-point', $selector],
         'data-selector' => $selector,
@@ -125,8 +147,34 @@ final class ContactEmailHeroUploadHelper {
       ],
       '#weight' => 20,
     ];
+    \Drupal::formBuilder()->doBuildForm('', $focalElement, $form_state);
+    $element['focal_point'] = $focalElement;
 
     return $element;
+  }
+
+  /**
+   * Validates optional hero focal point input on full form submit.
+   *
+   * @param array<string, mixed> $element
+   *   The focal point form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public static function validateHeroFocalPoint(array &$element, FormStateInterface $form_state): void {
+    $value = trim((string) ($element['#value'] ?? ''));
+    if ($value === '') {
+      return;
+    }
+
+    if (\Drupal::service('focal_point.manager')->validateFocalPoint($value)) {
+      return;
+    }
+
+    $form_state->setError($element, \Drupal::translation()->translate(
+      'The @title field should be in the form "leftoffset,topoffset" where offsets are in percentages. Ex: 25,75.',
+      ['@title' => strtolower((string) ($element['#title'] ?? 'focal point'))],
+    ));
   }
 
 }

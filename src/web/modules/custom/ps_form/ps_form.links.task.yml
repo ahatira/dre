@@ -11,7 +11,7 @@ ps_form.settings:
   weight: 0
 
 ps_form.hub_settings:
-  title: 'Hub'
+  title: 'Contact hub'
   route_name: ps_form.hub_settings
   base_route: ps_form.admin_overview
   weight: 5
@@ -29,7 +29,7 @@ ps_form.email_overview_tab:
   weight: -20
 
 ps_form.email_content:
-  title: 'Copy'
+  title: 'Content'
   route_name: ps_form.email_content
   parent_id: ps_form.email_overview
   weight: 0

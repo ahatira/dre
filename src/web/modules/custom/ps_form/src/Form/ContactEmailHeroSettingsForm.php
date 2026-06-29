@@ -7,7 +7,6 @@ namespace Drupal\ps_form\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Element\ManagedFile;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\ps_form\Form\Helper\ContactEmailHeroUploadHelper;
@@ -35,11 +34,6 @@ final class ContactEmailHeroSettingsForm extends ConfigFormBase {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * Adds focal point UI to hero upload widgets.
-   */
-  protected ContactEmailHeroUploadHelper $heroUploadHelper;
-
-  /**
    * Applies the email hero image style on output.
    */
   protected ContactEmailHeroImageResolver $heroImageResolver;
@@ -51,7 +45,6 @@ final class ContactEmailHeroSettingsForm extends ConfigFormBase {
     $instance = parent::create($container);
     $instance->contactNeedRouter = $container->get('ps_form.contact_need_router');
     $instance->entityTypeManager = $container->get('entity_type.manager');
-    $instance->heroUploadHelper = ContactEmailHeroUploadHelper::create($container);
     $instance->heroImageResolver = $container->get('ps_form.contact_email_hero_image_resolver');
     return $instance;
   }
@@ -96,12 +89,14 @@ final class ContactEmailHeroSettingsForm extends ConfigFormBase {
 
     foreach (ContactEmailSettings::HUB_WEBFORM_IDS as $webformId) {
       $title = $definitions[$webformId]['title'] ?? $webformId;
-      $fid = (int) ($heroes[$webformId] ?? 0);
+      $configuredFid = (int) ($heroes[$webformId] ?? 0);
+      $uploadParents = ['heroes', $webformId, 'hero_file', 'upload'];
+      $fid = $this->resolveNestedManagedFileFid($uploadParents, $configuredFid, $form_state);
+
       $form['heroes'][$webformId] = [
         '#type' => 'details',
         '#title' => $title,
         '#open' => TRUE,
-        '#tree' => TRUE,
         'image_style' => [
           '#type' => 'select',
           '#title' => $this->t('Image style'),
@@ -109,22 +104,25 @@ final class ContactEmailHeroSettingsForm extends ConfigFormBase {
           '#options' => ['' => $this->t('Default (@style)', ['@style' => $defaultStyleLabel])] + $styleOptions,
           '#default_value' => (string) ($heroStyles[$webformId] ?? ''),
         ],
-        'upload' => [
-          '#type' => 'managed_file',
-          '#title' => $this->t('Hero image'),
-          '#upload_location' => 'public://ps-form/email-heroes',
-          '#default_value' => $fid > 0 ? [$fid] : [],
-          '#upload_validators' => [
-            'FileExtension' => ['extensions' => 'png jpg jpeg webp'],
-            'FileIsImage' => [],
-          ],
-          '#process' => [
-            [ManagedFile::class, 'processManagedFile'],
-            [$this->heroUploadHelper, 'process'],
+        'hero_file' => [
+          '#type' => 'container',
+          '#tree' => TRUE,
+          'upload' => [
+            '#type' => 'managed_file',
+            '#title' => $this->t('Hero image'),
+            '#upload_location' => 'public://ps-form/email-heroes',
+            '#default_value' => $fid > 0 ? [$fid] : [],
+            '#upload_validators' => [
+              'FileExtension' => ['extensions' => 'png jpg jpeg webp'],
+              'FileIsImage' => [],
+            ],
+            '#multiple' => FALSE,
           ],
         ],
       ];
     }
+
+    $form['#after_build'][] = [ContactEmailHeroUploadHelper::class, 'afterBuildHeroSettingsForm'];
 
     return parent::buildForm($form, $form_state);
   }
@@ -139,9 +137,10 @@ final class ContactEmailHeroSettingsForm extends ConfigFormBase {
     if (is_array($heroesInput)) {
       foreach (ContactEmailSettings::HUB_WEBFORM_IDS as $webformId) {
         $row = $heroesInput[$webformId] ?? [];
-        $upload = is_array($row) ? ($row['upload'] ?? []) : [];
-        $fid = is_array($upload) ? (int) ($upload[0] ?? 0) : 0;
-        $focalPoint = is_array($upload) ? (string) ($upload['focal_point'] ?? '') : '';
+        $heroFile = is_array($row['hero_file'] ?? NULL) ? $row['hero_file'] : [];
+        $upload = is_array($heroFile['upload'] ?? NULL) ? $heroFile['upload'] : [];
+        $fid = $this->extractManagedFileFid($upload);
+        $focalPoint = trim((string) ($heroFile['focal_point'] ?? ''));
         $styleId = trim((string) ($row['image_style'] ?? ''));
         if ($styleId !== '' && ImageStyle::load($styleId) === NULL) {
           $styleId = '';

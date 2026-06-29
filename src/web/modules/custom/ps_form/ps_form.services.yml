@@ -114,6 +114,12 @@ services:
       - '@image.factory'
       - '@ps_form.contact_email_settings'
 
+  ps_form.contact_email_hero_upload_helper:
+    class: Drupal\ps_form\Form\Helper\ContactEmailHeroUploadHelper
+    arguments:
+      - '@ps_form.contact_email_hero_image_resolver'
+      - '@string_translation'
+
   ps_form.contact_email_preview_builder:
     class: Drupal\ps_form\Service\ContactEmailPreviewBuilder
     arguments:

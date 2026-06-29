@@ -12,7 +12,7 @@ contact_deeplink:
     - ps_theme/form
 
 contact_wizard:
-  version: 1.0.3
+  version: 1.0.0
   js:
     js/contact-form-location.js: {}
   dependencies:
@@ -22,7 +22,7 @@ contact_wizard:
     - ps_search/location.editor
 
 admin_email_preview:
-  version: 1.0.2
+  version: 1.0.0
   css:
     theme:
       css/ps-form-email-preview.css: {}

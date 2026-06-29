@@ -11,7 +11,7 @@ ps_form.admin_overview:
   path: '/admin/ps/config/forms/overview'
   defaults:
     _controller: '\Drupal\ps_form\Controller\FormAdminOverviewController::overview'
-    _title: 'Contact forms'
+    _title: 'Forms'
   requirements:
     _permission: 'manage ps_form'
   options:
@@ -60,7 +60,7 @@ ps_form.email_content:
   path: '/admin/ps/config/forms/email/content'
   defaults:
     _form: '\Drupal\ps_form\Form\ContactEmailContentSettingsForm'
-    _title: 'Email copy'
+    _title: 'Content'
   requirements:
     _permission: 'manage ps_form'
   options:

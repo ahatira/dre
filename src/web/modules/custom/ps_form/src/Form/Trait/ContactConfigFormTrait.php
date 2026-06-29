@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ps_form\Form\Trait;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -77,6 +78,58 @@ trait ContactConfigFormTrait {
    */
   protected function setSubmitRedirect(FormStateInterface $form_state, string $route): void {
     $form_state->setRedirect($route);
+  }
+
+  /**
+   * Resolves a managed_file fid after AJAX upload rebuilds.
+   *
+   * @param list<string> $parents
+   *   Form value parents (e.g. ['heroes', 'find_property', 'hero_file', 'upload']).
+   */
+  protected function resolveNestedManagedFileFid(array $parents, int $configuredFid, FormStateInterface $form_state): int {
+    $input = $form_state->getUserInput();
+    if (is_array($input)) {
+      $inputValue = NestedArray::getValue($input, $parents);
+      if (is_array($inputValue) && array_key_exists('fids', $inputValue)) {
+        return $this->extractManagedFileFid($inputValue);
+      }
+    }
+
+    $value = NestedArray::getValue($form_state->getValues(), $parents);
+    $extracted = $this->extractManagedFileFid($value);
+    if ($extracted > 0) {
+      return $extracted;
+    }
+
+    if (is_array($value)) {
+      return 0;
+    }
+
+    return $configuredFid;
+  }
+
+  /**
+   * Extracts a file id from a managed_file form value.
+   */
+  protected function extractManagedFileFid(mixed $value): int {
+    if (!is_array($value)) {
+      return 0;
+    }
+
+    if (isset($value[0]) && (int) $value[0] > 0) {
+      return (int) $value[0];
+    }
+
+    if (array_key_exists('fids', $value)) {
+      $fids = trim((string) $value['fids']);
+      if ($fids === '') {
+        return 0;
+      }
+
+      return (int) strtok($fids, ' ');
+    }
+
+    return 0;
   }
 
 }
