@@ -53,9 +53,39 @@ elements: |
     '#empty_option': 'Wielt eng Funktioun'
     '#options':
       'Asset manager': 'Asset manager'
+      'Avocat / Notaire': 'Avocat / Notaire'
+      'CEO / Président': 'CEO / Président'
+      'Chef de projet immobilier': 'Chef de projet immobilier'
+      'Chef de projet logistique': 'Chef de projet logistique'
+      'Chef de projet marketing / communication': 'Chef de projet marketing / communication'
       Commercial: Commercial
+      'Consultant immobilier': 'Consultant immobilier'
+      'Directeur administratif et financier': 'Directeur administratif et financier'
+      'Directeur commercial': 'Directeur commercial'
+      'Directeur comptable': 'Directeur comptable'
+      'Directeur des achats': 'Directeur des achats'
+      'Directeur des investissements et arbitrages': 'Directeur des investissements et arbitrages'
+      'Directeur des ressources humaines': 'Directeur des ressources humaines'
+      'Directeur des services généraux': 'Directeur des services généraux'
       'Directeur immobilier': 'Directeur immobilier'
-      Other: Aner
+      'Directeur juridique': 'Directeur juridique'
+      'Directeur logistique': 'Directeur logistique'
+      'Directeur marketing / communication': 'Directeur marketing / communication'
+      Etudiant: Etudiant
+      'Fund manager': 'Fund manager'
+      'Gérant / Dirigeant': 'Gérant / Dirigeant'
+      Gestionnaire: Gestionnaire
+      Journaliste: Journaliste
+      Juriste: Juriste
+      'Responsable commercial': 'Responsable commercial'
+      'Responsable comptable': 'Responsable comptable'
+      'Responsable des achats': 'Responsable des achats'
+      'Responsable des services généraux': 'Responsable des services généraux'
+      'Responsable immobilier': 'Responsable immobilier'
+      'Responsable juridique': 'Responsable juridique'
+      'Responsable logistique': 'Responsable logistique'
+      'Responsable marketing / communication': 'Responsable marketing / communication'
+      Autre: Autre
   prof_phone:
     '#title': 'Professionellt Telefon'
   prof_email_address:
@@ -69,7 +99,7 @@ elements: |
   optout_tel_transaction:
     '#title': Telefon
   legal_notice:
-    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, eng Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, als verantwortlech fir d&rsquo;Traitement, veraarbecht Är Informatiounen fir op Är Demande iwwer dëse Formulaire ze reagéieren. Fir méi iwwer Är Rechter ze wëssen, kuckt w.e.g. eis <a href="/data-protection">Notice de protection des données</a>.</p>'
+    '#markup': "<p class=\"ps-form-legal-notice__title\"><strong>Mentionen iwwer de Schutz vu perséinlechen Donnéeën</strong></p><p class=\"ps-form-legal-notice\">Dir kënnt Iech géint kommerziell Telefonsufroen wierderloen, andeems Dir Iech gratis op der Oppositiounslëscht op <a href=\"https://www.bloctel.gouv.fr\">www.bloctel.gouv.fr</a> registréiert oder per Post un Société Opposetel, Service Bloctel, 6 rue Nicolas Siret, 10000 Troyes, Frankräich schreift. Dës Aschreiwung verbitt engem Professionell Iech telefonesch ze kontaktéieren, ausser wann den Uruff mat engem lafende Kontrakt ze dinn huet. BNP Paribas Real Estate Transaction France, eng Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, Frankräich, als verantwortlech fir d'Traitement, veraarbecht Informatiounen iwwer Iech fir op Är Demande iwwer dëse Formulaire ze reagéieren an, wou et ubruecht ass, fir kommerziell Prospection (wann Dir Är Zoustëmmung ginn hutt oder d'uwendbar Gesetzgebung et erlaabt).</p><p class=\"ps-form-legal-notice\">Fir méi Informatiounen iwwer d'Art a Weis, wéi BNP Paribas Real Estate Transaction France Är perséinlech Donnéeën an dësem Kontext veraarbecht, an iwwer Är Rechter (dont Zougang, Berichtigung, Wierderloen géint d'Veraarbechtung fir Prospection an d'Recht, Uweisungen iwwer d'Benotzung vun Ären Donnéeën no Ärem Doud ze ginn, an och — a bestëmmte Fäll — d'Recht op Läschen, d'Aschränkung vun der Veraarbechtung, d'Portabilitéit an d'Wierderloen géint aner Forme vun der Veraarbechtung) an d'Verpflichtunge vun BNP Paribas Real Estate Transaction France an dësem Zesummenhang, kuckt w.e.g. eis <a href=\"https://data-privacy.realestate.bnpparibas/\">Notice de protection des données</a>.</p>"
   step_message:
     '#title': Message
   qualification_comment:

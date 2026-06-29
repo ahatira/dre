@@ -63,9 +63,39 @@ elements: |
     '#empty_option': 'Selezioni una qualifica'
     '#options':
       'Asset manager': 'Asset manager'
+      'Avocat / Notaire': 'Avvocato / Notaio'
+      'CEO / Président': 'CEO / Presidente'
+      'Chef de projet immobilier': 'Responsabile di progetto immobiliare'
+      'Chef de projet logistique': 'Responsabile di progetto logistico'
+      'Chef de projet marketing / communication': 'Responsabile di progetto marketing / comunicazione'
       Commercial: Commerciale
+      'Consultant immobilier': 'Consulente immobiliare'
+      'Directeur administratif et financier': 'Direttore amministrativo e finanziario'
+      'Directeur commercial': 'Direttore commerciale'
+      'Directeur comptable': 'Direttore contabile'
+      'Directeur des achats': 'Direttore acquisti'
+      'Directeur des investissements et arbitrages': 'Direttore investimenti e allocazione degli asset'
+      'Directeur des ressources humaines': 'Direttore risorse umane'
+      'Directeur des services généraux': 'Direttore servizi generali'
       'Directeur immobilier': 'Direttore immobiliare'
-      Other: Altro
+      'Directeur juridique': 'Direttore legale'
+      'Directeur logistique': 'Direttore logistico'
+      'Directeur marketing / communication': 'Direttore marketing / comunicazione'
+      Etudiant: Studente
+      'Fund manager': 'Fund manager'
+      'Gérant / Dirigeant': 'Gestore / Dirigente'
+      Gestionnaire: Gestore
+      Journaliste: Giornalista
+      Juriste: Legale
+      'Responsable commercial': 'Responsabile commerciale'
+      'Responsable comptable': 'Responsabile contabile'
+      'Responsable des achats': 'Responsabile acquisti'
+      'Responsable des services généraux': 'Responsabile servizi generali'
+      'Responsable immobilier': 'Responsabile immobiliare'
+      'Responsable juridique': 'Responsabile legale'
+      'Responsable logistique': 'Responsabile logistico'
+      'Responsable marketing / communication': 'Responsabile marketing / comunicazione'
+      Autre: Altro
   prof_phone:
     '#title': 'Telefono professionale'
   prof_email_address:
@@ -79,7 +109,7 @@ elements: |
   optout_tel_transaction:
     '#title': Telefono
   legal_notice:
-    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, società per azioni con sede in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, in qualità di titolare del trattamento, tratta le informazioni che la riguardano per rispondere alla sua richiesta inviata tramite questo modulo. Per maggiori informazioni sui suoi diritti, consulti la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a>.</p>'
+    '#markup': '<p class="ps-form-legal-notice__title"><strong>Informazioni sulla protezione dei dati personali</strong></p><p class="ps-form-legal-notice">Può opporsi a ricevere prospezioni commerciali per telefono iscrivendosi gratuitamente all''elenco di opposizione al telemarketing su <a href="https://www.bloctel.gouv.fr">www.bloctel.gouv.fr</a> o per posta a Société Opposetel, Service Bloctel, 6 rue Nicolas Siret, 10000 Troyes, Francia. Questa iscrizione vieta a un professionista di contattarLa telefonicamente, salvo se la chiamata riguarda un contratto in corso. BNP Paribas Real Estate Transaction France, società per azioni con sede in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, Francia, in qualità di titolare del trattamento, tratta le informazioni che La riguardano per rispondere alla Sua richiesta inviata tramite questo modulo e, ove applicabile, per finalità di prospezione commerciale (se ha prestato il consenso o la legge applicabile ce lo consente).</p><p class="ps-form-legal-notice">Per maggiori informazioni su come BNP Paribas Real Estate Transaction France tratta i Suoi dati personali in questo contesto e sui Suoi diritti (inclusi accesso, rettifica, opposizione al trattamento per finalità di prospezione e diritto di fornire istruzioni relative all''utilizzo dei Suoi dati personali dopo la Sua morte, nonché, in determinate circostanze, cancellazione, limitazione del trattamento, portabilità dei dati e opposizione ad altre forme di trattamento) e sugli obblighi di BNP Paribas Real Estate Transaction France al riguardo, consulti la nostra <a href="https://data-privacy.realestate.bnpparibas/">Informativa sulla protezione dei dati</a>.</p>'
   step_message:
     '#title': Messaggio
   qualification_comment:

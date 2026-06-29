@@ -1,5 +1,5 @@
 /**
- * Contact wizard — placeholder-only fields (mockup: no visible labels).
+ * Contact wizard — placeholder-only fields (labels hidden; inputs use theme form chrome).
  */
 
 .webform-submission-form {
@@ -16,6 +16,12 @@
     .form-label {
       @include visually-hidden;
     }
+
+    // Empty select: placeholder tone from theme tokens (inputs keep .form-control / .form-select defaults).
+    .form-select:has(option[value='']:checked),
+    .form-select:has(option:first-child:checked) {
+      color: $ps-form-placeholder;
+    }
   }
 
   .ps-form-location-field {
@@ -26,7 +32,6 @@
   }
 
   .ps-form-required-note {
-    grid-column: 1 / -1;
     margin: 0;
     font-size: 0.875rem;
     line-height: 1.5rem;

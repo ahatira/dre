@@ -8,6 +8,9 @@ declare(strict_types=1);
  * Consumed by scripts/forms/generate-contact-webform-translations.php.
  */
 
+require __DIR__ . '/contact-legal-notice-strings.php';
+require __DIR__ . '/contact-job-title-strings.php';
+
 // ---------------------------------------------------------------------------
 // Shared translation strings per language.
 // ---------------------------------------------------------------------------
@@ -63,10 +66,6 @@ $common = [
     'company' => 'Société',
     'job_title' => 'Fonction',
     'empty_job_title' => 'Sélectionnez une fonction',
-    'job_asset_manager' => 'Gestionnaire d\'actifs',
-    'job_commercial' => 'Commercial',
-    'job_directeur' => 'Directeur immobilier',
-    'job_other' => 'Autre',
     'prof_phone' => 'Téléphone professionnel',
     'prof_email' => 'E-mail professionnel',
     'optout_intro' => '<p>Je m\'oppose à recevoir des communications commerciales de BNP Paribas Real Estate Advisory France :</p>',
@@ -76,8 +75,6 @@ $common = [
     'message' => 'Message',
     'describe_project' => 'Précisez ici votre projet',
     'describe_request' => 'Décrivez votre demande',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, société anonyme située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en qualité de responsable de traitement, traite les informations vous concernant pour répondre à votre demande transmise via ce formulaire. Pour en savoir plus sur vos droits, consultez notre <a href="/data-protection">Notice de protection des données</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, société par actions simplifiée située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en qualité de responsable de traitement, traite les informations vous concernant pour répondre à votre demande transmise via ce formulaire. Pour en savoir plus sur vos droits, consultez notre <a href="/data-protection">Notice de protection des données</a>.</p>',
     'submit' => 'Envoyer le message',
     'wizard_back' => 'Retour',
     'wizard_next' => 'Continuer',
@@ -153,10 +150,6 @@ $common = [
     'company' => 'Unternehmen',
     'job_title' => 'Position',
     'empty_job_title' => 'Position auswählen',
-    'job_asset_manager' => 'Asset Manager',
-    'job_commercial' => 'Kaufmännisch',
-    'job_directeur' => 'Immobiliendirektor',
-    'job_other' => 'Sonstige',
     'prof_phone' => 'Geschäftstelefon',
     'prof_email' => 'Geschäftliche E-Mail',
     'optout_intro' => '<p>Ich widerspreche dem Erhalt werblicher Mitteilungen von BNP Paribas Real Estate Advisory France:</p>',
@@ -166,8 +159,6 @@ $common = [
     'message' => 'Nachricht',
     'describe_project' => 'Beschreiben Sie Ihr Projekt',
     'describe_request' => 'Beschreiben Sie Ihre Anfrage',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, eine Aktiengesellschaft mit Sitz in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verarbeitet als Verantwortlicher Ihre Daten, um auf Ihre über dieses Formular übermittelte Anfrage zu antworten. Weitere Informationen zu Ihren Rechten finden Sie in unserer <a href="/data-protection">Datenschutzhinweis</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, eine vereinfachte Aktiengesellschaft mit Sitz in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verarbeitet als Verantwortlicher Ihre Daten, um auf Ihre über dieses Formular übermittelte Anfrage zu antworten. Weitere Informationen zu Ihren Rechten finden Sie in unserer <a href="/data-protection">Datenschutzhinweis</a>.</p>',
     'submit' => 'Nachricht senden',
     'wizard_back' => 'Zurück',
     'wizard_next' => 'Weiter',
@@ -243,10 +234,6 @@ $common = [
     'company' => 'Empresa',
     'job_title' => 'Cargo',
     'empty_job_title' => 'Seleccione un cargo',
-    'job_asset_manager' => 'Asset manager',
-    'job_commercial' => 'Comercial',
-    'job_directeur' => 'Director inmobiliario',
-    'job_other' => 'Otro',
     'prof_phone' => 'Teléfono profesional',
     'prof_email' => 'Correo electrónico profesional',
     'optout_intro' => '<p>Me opongo a recibir comunicaciones comerciales de BNP Paribas Real Estate Advisory France:</p>',
@@ -256,8 +243,6 @@ $common = [
     'message' => 'Mensaje',
     'describe_project' => 'Describa su proyecto',
     'describe_request' => 'Describa su solicitud',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, sociedad anónima con domicilio en 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, como responsable del tratamiento, procesa la información sobre usted para responder a su solicitud enviada a través de este formulario. Para más información sobre sus derechos, consulte nuestro <a href="/data-protection">Aviso de protección de datos</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, sociedad por acciones simplificada con domicilio en 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, como responsable del tratamiento, procesa la información sobre usted para responder a su solicitud enviada a través de este formulario. Para más información sobre sus derechos, consulte nuestro <a href="/data-protection">Aviso de protección de datos</a>.</p>',
     'submit' => 'Enviar mensaje',
     'wizard_back' => 'Volver',
     'wizard_next' => 'Continuar',
@@ -333,10 +318,6 @@ $common = [
     'company' => 'Società',
     'job_title' => 'Qualifica',
     'empty_job_title' => 'Selezioni una qualifica',
-    'job_asset_manager' => 'Asset manager',
-    'job_commercial' => 'Commerciale',
-    'job_directeur' => 'Direttore immobiliare',
-    'job_other' => 'Altro',
     'prof_phone' => 'Telefono professionale',
     'prof_email' => 'E-mail professionale',
     'optout_intro' => '<p>Mi oppongo a ricevere comunicazioni commerciali da BNP Paribas Real Estate Advisory France:</p>',
@@ -346,8 +327,6 @@ $common = [
     'message' => 'Messaggio',
     'describe_project' => 'Descriva il suo progetto',
     'describe_request' => 'Descriva la sua richiesta',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, società per azioni con sede in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, in qualità di titolare del trattamento, tratta le informazioni che la riguardano per rispondere alla sua richiesta inviata tramite questo modulo. Per maggiori informazioni sui suoi diritti, consulti la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, società per azioni semplificata con sede in 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, in qualità di titolare del trattamento, tratta le informazioni che la riguardano per rispondere alla sua richiesta inviata tramite questo modulo. Per maggiori informazioni sui suoi diritti, consulti la nostra <a href="/data-protection">Informativa sulla protezione dei dati</a>.</p>',
     'submit' => 'Invia messaggio',
     'wizard_back' => 'Indietro',
     'wizard_next' => 'Continua',
@@ -423,10 +402,6 @@ $common = [
     'company' => 'Bedrijf',
     'job_title' => 'Functie',
     'empty_job_title' => 'Selecteer een functie',
-    'job_asset_manager' => 'Asset manager',
-    'job_commercial' => 'Commercieel',
-    'job_directeur' => 'Vastgoeddirecteur',
-    'job_other' => 'Overig',
     'prof_phone' => 'Zakelijke telefoon',
     'prof_email' => 'Zakelijke e-mail',
     'optout_intro' => '<p>Ik verzet me tegen het ontvangen van commerciële communicatie van BNP Paribas Real Estate Advisory France:</p>',
@@ -436,8 +411,6 @@ $common = [
     'message' => 'Bericht',
     'describe_project' => 'Beschrijf uw project',
     'describe_request' => 'Beschrijf uw aanvraag',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, een naamloze vennootschap gevestigd aan 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verwerkt als verwerkingsverantwoordelijke uw gegevens om te reageren op uw via dit formulier ingediende aanvraag. Voor meer informatie over uw rechten, raadpleeg onze <a href="/data-protection">Kennisgeving gegevensbescherming</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, een vereenvoudigde naamloze vennootschap gevestigd aan 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verwerkt als verwerkingsverantwoordelijke uw gegevens om te reageren op uw via dit formulier ingediende aanvraag. Voor meer informatie over uw rechten, raadpleeg onze <a href="/data-protection">Kennisgeving gegevensbescherming</a>.</p>',
     'submit' => 'Bericht verzenden',
     'wizard_back' => 'Terug',
     'wizard_next' => 'Doorgaan',
@@ -513,10 +486,6 @@ $common = [
     'company' => 'Firma',
     'job_title' => 'Stanowisko',
     'empty_job_title' => 'Wybierz stanowisko',
-    'job_asset_manager' => 'Asset manager',
-    'job_commercial' => 'Handlowy',
-    'job_directeur' => 'Dyrektor ds. nieruchomości',
-    'job_other' => 'Inne',
     'prof_phone' => 'Telefon służbowy',
     'prof_email' => 'Służbowy e-mail',
     'optout_intro' => '<p>Sprzeciwiam się otrzymywaniu komunikacji handlowej od BNP Paribas Real Estate Advisory France:</p>',
@@ -526,8 +495,6 @@ $common = [
     'message' => 'Wiadomość',
     'describe_project' => 'Opisz projekt',
     'describe_request' => 'Opisz zapytanie',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, spółka akcyjna z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, jako administrator danych przetwarza informacje o Państwu w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza. Aby dowiedzieć się więcej o swoich prawach, zapoznają się Państwo z naszym <a href="/data-protection">Komunikatem o ochronie danych</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, spółka z ograniczoną odpowiedzialnością uproszczona z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, jako administrator danych przetwarza informacje o Państwu w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza. Aby dowiedzieć się więcej o swoich prawach, zapoznają się Państwo z naszym <a href="/data-protection">Komunikatem o ochronie danych</a>.</p>',
     'submit' => 'Wyślij wiadomość',
     'wizard_back' => 'Wstecz',
     'wizard_next' => 'Dalej',
@@ -603,10 +570,6 @@ $common = [
     'company' => 'Entreprise',
     'job_title' => 'Funktioun',
     'empty_job_title' => 'Wielt eng Funktioun',
-    'job_asset_manager' => 'Asset manager',
-    'job_commercial' => 'Commercial',
-    'job_directeur' => 'Directeur immobilier',
-    'job_other' => 'Aner',
     'prof_phone' => 'Professionellt Telefon',
     'prof_email' => 'Professionell E-Mail',
     'optout_intro' => '<p>Ech widerspréch dem Empfang vu kommerziellen Kommunikatioune vu BNP Paribas Real Estate Advisory France:</p>',
@@ -616,8 +579,6 @@ $common = [
     'message' => 'Message',
     'describe_project' => 'Beschreift Äre Projet',
     'describe_request' => 'Beschreift Är Demande',
-    'legal_transaction' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, eng Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, als verantwortlech fir d&rsquo;Traitement, veraarbecht Är Informatiounen fir op Är Demande iwwer dëse Formulaire ze reagéieren. Fir méi iwwer Är Rechter ze wëssen, kuckt w.e.g. eis <a href="/data-protection">Notice de protection des données</a>.</p>',
-    'legal_advisory' => '<p class="ps-form-legal-notice">BNP Paribas Real Estate Advisory France, eng vereinfacht Aktiengesellschaft mat Sëtz op 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, als verantwortlech fir d&rsquo;Traitement, veraarbecht Är Informatiounen fir op Är Demande iwwer dëse Formulaire ze reagéieren. Fir méi iwwer Är Rechter ze wëssen, kuckt w.e.g. eis <a href="/data-protection">Notice de protection des données</a>.</p>',
     'submit' => 'Message schécken',
     'wizard_back' => 'Zréck',
     'wizard_next' => 'Weider',
@@ -1039,6 +1000,8 @@ function buildContactAndMessageSteps(array $c, string $legalKey, bool $jobRequir
   $legal = $legalKey === 'advisory' ? $y['legal_advisory'] : $y['legal_transaction'];
   $jobRequiredLine = $jobRequired ? "    '#required': true\n" : '';
   $placeholderKey = $messagePlaceholder !== '' ? yq($messagePlaceholder) : $y['describe_project'];
+  $lang = $c['_lang'] ?? 'fr';
+  $jobOptions = ps_form_build_contact_job_title_options_yaml($lang);
 
   return <<<YAML
 step_contact:
@@ -1061,10 +1024,7 @@ step_contact:
     '#title': {$y['job_title']}
 {$jobRequiredLine}    '#empty_option': {$y['empty_job_title']}
     '#options':
-      'Asset manager': {$y['job_asset_manager']}
-      Commercial: {$y['job_commercial']}
-      'Directeur immobilier': {$y['job_directeur']}
-      Other: {$y['job_other']}
+{$jobOptions}
   prof_phone:
     '#type': tel
     '#title': {$y['prof_phone']}
@@ -1464,9 +1424,13 @@ function buildFormTranslation(array $c, array $meta, string $lang, string $formI
 
 $langs = ['fr', 'de', 'es', 'it', 'nl', 'pl', 'lb'];
 $result = [];
+$legalNoticeStrings = ps_form_contact_legal_notice_strings();
 
 foreach ($langs as $lang) {
   $c = $common[$lang];
+  $c['_lang'] = $lang;
+  $c['legal_transaction'] = ps_form_build_contact_legal_notice($legalNoticeStrings[$lang], 'transaction');
+  $c['legal_advisory'] = ps_form_build_contact_legal_notice($legalNoticeStrings[$lang], 'advisory');
   $result[$lang] = [];
 
   foreach ($formMeta as $formId => $meta) {

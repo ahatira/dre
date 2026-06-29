@@ -296,7 +296,7 @@ fieldset > legend {
     grid-column: 1 / -1;
   }
 
-  .form-type-checkbox,
+  .form-type-checkbox:not(.ps-form-optout-item),
   .form-type-radio {
     grid-column: 1 / -1;
   }
@@ -307,7 +307,7 @@ fieldset > legend {
   }
 
   // Checkbox group: tighten vertical spacing (parent flex gap is 2rem).
-  .form-type-checkbox + .form-type-checkbox {
+  .form-type-checkbox + .form-type-checkbox:not(.ps-form-optout-item) {
     margin-top: -1rem;
   }
 

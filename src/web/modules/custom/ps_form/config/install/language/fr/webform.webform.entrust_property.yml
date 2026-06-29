@@ -40,10 +40,40 @@ elements: |
     '#title': Fonction
     '#empty_option': 'Sélectionnez une fonction'
     '#options':
-      'Asset manager': "Gestionnaire d'actifs"
+      'Asset manager': 'Asset manager'
+      'Avocat / Notaire': 'Avocat / Notaire'
+      'CEO / Président': 'CEO / Président'
+      'Chef de projet immobilier': 'Chef de projet immobilier'
+      'Chef de projet logistique': 'Chef de projet logistique'
+      'Chef de projet marketing / communication': 'Chef de projet marketing / communication'
       Commercial: Commercial
+      'Consultant immobilier': 'Consultant immobilier'
+      'Directeur administratif et financier': 'Directeur administratif et financier'
+      'Directeur commercial': 'Directeur commercial'
+      'Directeur comptable': 'Directeur comptable'
+      'Directeur des achats': 'Directeur des achats'
+      'Directeur des investissements et arbitrages': 'Directeur des investissements et arbitrages'
+      'Directeur des ressources humaines': 'Directeur des ressources humaines'
+      'Directeur des services généraux': 'Directeur des services généraux'
       'Directeur immobilier': 'Directeur immobilier'
-      Other: Autre
+      'Directeur juridique': 'Directeur juridique'
+      'Directeur logistique': 'Directeur logistique'
+      'Directeur marketing / communication': 'Directeur marketing / communication'
+      Etudiant: Etudiant
+      'Fund manager': 'Fund manager'
+      'Gérant / Dirigeant': 'Gérant / Dirigeant'
+      Gestionnaire: Gestionnaire
+      Journaliste: Journaliste
+      Juriste: Juriste
+      'Responsable commercial': 'Responsable commercial'
+      'Responsable comptable': 'Responsable comptable'
+      'Responsable des achats': 'Responsable des achats'
+      'Responsable des services généraux': 'Responsable des services généraux'
+      'Responsable immobilier': 'Responsable immobilier'
+      'Responsable juridique': 'Responsable juridique'
+      'Responsable logistique': 'Responsable logistique'
+      'Responsable marketing / communication': 'Responsable marketing / communication'
+      Autre: Autre
   prof_phone:
     '#title': 'Téléphone professionnel'
   prof_email_address:
@@ -57,7 +87,7 @@ elements: |
   optout_tel_transaction:
     '#title': Téléphone
   legal_notice:
-    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, société anonyme située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en qualité de responsable de traitement, traite les informations vous concernant pour répondre à votre demande transmise via ce formulaire. Pour en savoir plus sur vos droits, consultez notre <a href="/data-protection">Notice de protection des données</a>.</p>'
+    '#markup': "<p class=\"ps-form-legal-notice__title\"><strong>Mentions sur la protection des données personnelles</strong></p><p class=\"ps-form-legal-notice\">Il vous est possible de vous opposer à recevoir de la prospection commerciale par voie téléphonique en vous inscrivant gratuitement sur la liste d'opposition au démarchage téléphonique sur le site internet <a href=\"https://www.bloctel.gouv.fr\">www.bloctel.gouv.fr</a> ou par courrier postal à Société Opposetel, Service Bloctel, 6 rue Nicolas Siret, 10000 Troyes. Cette inscription interdit à un professionnel de vous démarcher téléphoniquement, sauf si cette sollicitation intervient dans le cadre de l'exécution d'un contrat en cours et qu'elle a un rapport avec l'objet de ce contrat. BNP Paribas Real Estate Transaction France, société anonyme située 50, cours de l&rsquo;Île Seguin, 92100 Boulogne-Billancourt, en tant que responsable de traitement, traite des informations vous concernant pour répondre à votre demande transmise via ce formulaire et, le cas échéant, à des fins de prospection commerciale (si vous avez donné votre accord ou que la législation applicable nous y autorise).</p><p class=\"ps-form-legal-notice\">Pour plus d'informations concernant la façon dont BNP Paribas Real Estate Transaction France traite vos données personnelles dans ce contexte ainsi que sur vos droits (notamment vos droits d'accès, de rectification, d'opposition au traitement à des fins de prospection et votre droit de donner des directives relatives à l'utilisation de vos données à caractère personnel après votre décès ainsi que, dans certaines circonstances, un droit à l'effacement, à la limitation du traitement, à la portabilité des données et un droit de s'opposer à d'autres formes de traitement) et les obligations de BNP Paribas Real Estate Transaction France à cet égard, nous vous invitons à consulter notre <a href=\"https://data-privacy.realestate.bnpparibas/\">notice Protection des données</a>.</p>"
   step_message:
     '#title': Message
   qualification_comment:

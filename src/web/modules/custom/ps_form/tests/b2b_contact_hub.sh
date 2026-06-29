@@ -259,6 +259,14 @@ while IFS='|' read -r webform path title; do
 done <<< "$ROUTER_OUT"
 
 echo ""
+echo "--- CSS: contact details step layout ---"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FORM_CSS="${SCRIPT_DIR}/../../../../themes/custom/ps_theme/assets/css/form/form-elements.css"
+assert_file_contains "$FORM_CSS" '.ps-form-contact-details{display:grid' "Contact details step uses CSS grid"
+assert_file_contains "$FORM_CSS" 'ps-form-contact-footer' "Contact details legal footer block"
+assert_file_not_contains "$FORM_CSS" '.ps-form-field--placeholder .form-control{background-color:#f2f2f2' "Placeholder fields keep theme input chrome"
+
+echo ""
 echo "=== PS Form contact hub B2B SUMMARY ==="
 echo "Passed: $PASS | Failed: $FAIL"
 if [[ "$FAIL" -eq 0 ]]; then

@@ -235,6 +235,31 @@ final class ContactWizardPresentationService {
     if (isset($step['legal_notice']) && is_array($step['legal_notice'])) {
       $this->applyLegalNoticePresentation($step['legal_notice']);
     }
+
+    $this->applyContactStepFooter($step);
+  }
+
+  /**
+   * Orders and classes the legal footer block (required note, legal, captcha).
+   *
+   * @param array<string, mixed> $step
+   *   The step_contact wizard page.
+   */
+  private function applyContactStepFooter(array &$step): void {
+    if (isset($step['required_fields_note']) && is_array($step['required_fields_note'])) {
+      $step['required_fields_note']['#weight'] = 100;
+      $step['required_fields_note']['#wrapper_attributes']['class'][] = 'ps-form-contact-footer';
+    }
+
+    if (isset($step['legal_notice']) && is_array($step['legal_notice'])) {
+      $step['legal_notice']['#weight'] = 101;
+      $step['legal_notice']['#wrapper_attributes']['class'][] = 'ps-form-contact-footer__legal';
+    }
+
+    if (isset($step['captcha']) && is_array($step['captcha'])) {
+      $step['captcha']['#weight'] = 102;
+      $step['captcha']['#wrapper_attributes']['class'][] = 'ps-form-contact-footer__captcha';
+    }
   }
 
   /**

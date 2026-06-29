@@ -41,9 +41,39 @@ elements: |
     '#empty_option': 'Wybierz stanowisko'
     '#options':
       'Asset manager': 'Asset manager'
-      Commercial: Handlowy
+      'Avocat / Notaire': 'Prawnik / Notariusz'
+      'CEO / Président': 'CEO / Prezes'
+      'Chef de projet immobilier': 'Kierownik projektu nieruchomości'
+      'Chef de projet logistique': 'Kierownik projektu logistycznego'
+      'Chef de projet marketing / communication': 'Kierownik projektu marketing / komunikacja'
+      Commercial: Handlowiec
+      'Consultant immobilier': 'Konsultant ds. nieruchomości'
+      'Directeur administratif et financier': 'Dyrektor administracyjno-finansowy'
+      'Directeur commercial': 'Dyrektor handlowy'
+      'Directeur comptable': 'Dyrektor ds. księgowości'
+      'Directeur des achats': 'Dyrektor ds. zakupów'
+      'Directeur des investissements et arbitrages': 'Dyrektor ds. inwestycji i alokacji aktywów'
+      'Directeur des ressources humaines': 'Dyrektor HR'
+      'Directeur des services généraux': 'Dyrektor ds. usług ogólnych'
       'Directeur immobilier': 'Dyrektor ds. nieruchomości'
-      Other: Inne
+      'Directeur juridique': 'Dyrektor prawny'
+      'Directeur logistique': 'Dyrektor logistyki'
+      'Directeur marketing / communication': 'Dyrektor marketingu / komunikacji'
+      Etudiant: Student
+      'Fund manager': 'Fund manager'
+      'Gérant / Dirigeant': 'Kierownik / Dyrektor'
+      Gestionnaire: Menedżer
+      Journaliste: Dziennikarz
+      Juriste: Prawnik
+      'Responsable commercial': 'Kierownik ds. sprzedaży'
+      'Responsable comptable': 'Kierownik ds. księgowości'
+      'Responsable des achats': 'Kierownik ds. zakupów'
+      'Responsable des services généraux': 'Kierownik ds. usług ogólnych'
+      'Responsable immobilier': 'Kierownik ds. nieruchomości'
+      'Responsable juridique': 'Kierownik ds. prawnych'
+      'Responsable logistique': 'Kierownik ds. logistyki'
+      'Responsable marketing / communication': 'Kierownik ds. marketingu / komunikacji'
+      Autre: Inne
   prof_phone:
     '#title': 'Telefon służbowy'
   prof_email_address:
@@ -57,7 +87,7 @@ elements: |
   optout_tel_transaction:
     '#title': Telefon
   legal_notice:
-    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, spółka akcyjna z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, jako administrator danych przetwarza informacje o Państwu w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza. Aby dowiedzieć się więcej o swoich prawach, zapoznają się Państwo z naszym <a href="/data-protection">Komunikatem o ochronie danych</a>.</p>'
+    '#markup': '<p class="ps-form-legal-notice__title"><strong>Informacje o ochronie danych osobowych</strong></p><p class="ps-form-legal-notice">Może Pan/Pani sprzeciwić się otrzymywaniu telefonicznych ofert handlowych, rejestrując się bezpłatnie na liście sprzeciwu na stronie <a href="https://www.bloctel.gouv.fr">www.bloctel.gouv.fr</a> lub listownie na adres Société Opposetel, Service Bloctel, 6 rue Nicolas Siret, 10000 Troyes, Francja. Rejestracja ta zabrania profesjonalistom kontaktowania się telefonicznie, chyba że rozmowa dotyczy trwającej umowy. BNP Paribas Real Estate Transaction France, spółka akcyjna z siedzibą przy 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, Francja, jako administrator danych, przetwarza informacje dotyczące Pana/Pani w celu udzielenia odpowiedzi na zapytanie przesłane za pośrednictwem tego formularza oraz, w stosownych przypadkach, w celach prospectingowych (jeśli wyraził/a Pan/Pani zgodę lub pozwala na to obowiązujące prawo).</p><p class="ps-form-legal-notice">Więcej informacji o tym, w jaki sposób BNP Paribas Real Estate Transaction France przetwarza Pana/Pani dane osobowe w tym kontekście, oraz o Pana/Pani prawach (w tym prawie dostępu, sprostowania, sprzeciwu wobec przetwarzania w celach prospectingowych i prawie do wydania dyspozycji dotyczących wykorzystania danych osobowych po śmierci, a także — w określonych okolicznościach — prawie do usunięcia, ograniczenia przetwarzania, przenoszenia danych i sprzeciwu wobec innych form przetwarzania) oraz obowiązkach BNP Paribas Real Estate Transaction France w tym zakresie znajduje się w naszym <a href="https://data-privacy.realestate.bnpparibas/">Komunikat o ochronie danych</a>.</p>'
   step_message:
     '#title': Wiadomość
   qualification_comment:

@@ -63,9 +63,39 @@ elements: |
     '#empty_option': 'Selecteer een functie'
     '#options':
       'Asset manager': 'Asset manager'
+      'Avocat / Notaire': 'Advocaat / Notaris'
+      'CEO / Président': 'CEO / Voorzitter'
+      'Chef de projet immobilier': 'Projectmanager vastgoed'
+      'Chef de projet logistique': 'Projectmanager logistiek'
+      'Chef de projet marketing / communication': 'Projectmanager marketing / communicatie'
       Commercial: Commercieel
+      'Consultant immobilier': Vastgoedconsultant
+      'Directeur administratif et financier': 'Financieel en administratief directeur'
+      'Directeur commercial': 'Commercieel directeur'
+      'Directeur comptable': 'Hoofd boekhouding'
+      'Directeur des achats': Inkoopdirecteur
+      'Directeur des investissements et arbitrages': 'Directeur investeringen en asset allocation'
+      'Directeur des ressources humaines': HR-directeur
+      'Directeur des services généraux': 'Hoofd algemene diensten'
       'Directeur immobilier': Vastgoeddirecteur
-      Other: Overig
+      'Directeur juridique': 'Juridisch directeur'
+      'Directeur logistique': 'Logistiek directeur'
+      'Directeur marketing / communication': 'Marketing- / communicatiedirecteur'
+      Etudiant: Student
+      'Fund manager': Fondsmanager
+      'Gérant / Dirigeant': 'Manager / Leidinggevende'
+      Gestionnaire: Beheerder
+      Journaliste: Journalist
+      Juriste: Jurist
+      'Responsable commercial': 'Commercieel verantwoordelijke'
+      'Responsable comptable': Boekhoudverantwoordelijke
+      'Responsable des achats': Inkoopverantwoordelijke
+      'Responsable des services généraux': 'Verantwoordelijke algemene diensten'
+      'Responsable immobilier': Vastgoedverantwoordelijke
+      'Responsable juridique': 'Juridisch verantwoordelijke'
+      'Responsable logistique': 'Logistiek verantwoordelijke'
+      'Responsable marketing / communication': 'Marketing- / communicatieverantwoordelijke'
+      Autre: Anders
   prof_phone:
     '#title': 'Zakelijke telefoon'
   prof_email_address:
@@ -79,7 +109,7 @@ elements: |
   optout_tel_transaction:
     '#title': Telefoon
   legal_notice:
-    '#markup': '<p class="ps-form-legal-notice">BNP Paribas Real Estate Transaction France, een naamloze vennootschap gevestigd aan 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, verwerkt als verwerkingsverantwoordelijke uw gegevens om te reageren op uw via dit formulier ingediende aanvraag. Voor meer informatie over uw rechten, raadpleeg onze <a href="/data-protection">Kennisgeving gegevensbescherming</a>.</p>'
+    '#markup': '<p class="ps-form-legal-notice__title"><strong>Informatie over de bescherming van persoonsgegevens</strong></p><p class="ps-form-legal-notice">U kunt zich verzetten tegen commerciële telefonische prospectie door zich kosteloos in te schrijven op de oppositionlijst via <a href="https://www.bloctel.gouv.fr">www.bloctel.gouv.fr</a> of per post aan Société Opposetel, Service Bloctel, 6 rue Nicolas Siret, 10000 Troyes, Frankrijk. Deze inschrijving verbiedt een professional u telefonisch te benaderen, behalve wanneer het gesprek betrekking heeft op een lopend contract. BNP Paribas Real Estate Transaction France, een naamloze vennootschap gevestigd aan 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, Frankrijk verwerkt als verwerkingsverantwoordelijke informatie over u om te reageren op uw via dit formulier ingediende aanvraag en, indien van toepassing, voor commerciële prospectiedoeleinden (indien u toestemming heeft gegeven of de toepasselijke wetgeving dit toestaat).</p><p class="ps-form-legal-notice">Voor meer informatie over de wijze waarop BNP Paribas Real Estate Transaction France uw persoonsgegevens in deze context verwerkt en over uw rechten (met inbegrip van inzage, rectificatie, bezwaar tegen verwerking voor prospectiedoeleinden en het recht om instructies te geven over het gebruik van uw persoonsgegevens na uw overlijden, alsmede, onder bepaalde omstandigheden, wissing, beperking van de verwerking, gegevensoverdraagbaarheid en bezwaar tegen andere vormen van verwerking) en de verplichtingen van BNP Paribas Real Estate Transaction France in dit verband, raadpleeg onze <a href="https://data-privacy.realestate.bnpparibas/">Kennisgeving gegevensbescherming</a>.</p>'
   step_message:
     '#title': Bericht
   qualification_comment:
