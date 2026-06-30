@@ -38,7 +38,10 @@ ps_enable_module_robust() {
     ps_warn "Enable ${module} failed (attempt ${n}/${attempts})"
     if ps_drush pm:list --status=enabled --filter="${module}" --format=list 2>/dev/null | grep -q "^${module}$"; then
       ps_drush pm:uninstall "${module}" -y 2>/dev/null || true
+    elif [[ "${module}" == "ps_offer" ]]; then
+      ps_recover_ps_offer_if_partial
     fi
+    ps_refresh_field_type_cache 2>/dev/null || true
     if [[ ${n} -ge ${attempts} ]]; then
       return 1
     fi
@@ -194,6 +197,15 @@ ps_recover_ps_offer_if_partial() {
       ps_drush pm:uninstall ps_offer -y 2>/dev/null || true
       ps_drush_cr
     fi
+    return 0
+  fi
+
+  local orphan
+  orphan="$(ps_drush ev 'echo \Drupal::config("node.type.offer")->isNew() ? "no" : "yes";' 2>/dev/null || echo no)"
+  if [[ "${orphan}" == "yes" ]]; then
+    ps_warn "ps_offer orphan config detected — removing node.type.offer before retry"
+    ps_drush config:delete node.type.offer -y 2>/dev/null || true
+    ps_drush_cr
   fi
 }
 

@@ -62,9 +62,7 @@ function ps_compare_schema(): array {
  * Implements hook_install().
  */
 function ps_compare_install(): void {
-  if (function_exists('ps_email_apply_mailer_policy')) {
-    ps_email_apply_mailer_policy('ps_compare', ['ps_compare']);
-  }
+  ps_email_apply_mailer_policy('ps_compare', ['ps_compare']);
 
   ps_compare_fix_seo_url_mappings_base_config();
 }

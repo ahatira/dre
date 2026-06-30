@@ -11,9 +11,7 @@ declare(strict_types=1);
  * Installs the import_run entity and ensures pipeline directories exist.
  */
 function ps_migrate_install(): void {
-  if (function_exists('ps_email_apply_mailer_policy')) {
-    ps_email_apply_mailer_policy('ps_migrate', ['ps_migrate']);
-  }
+  ps_email_apply_mailer_policy('ps_migrate', ['ps_migrate']);
 
   ps_migrate_install_import_pipeline_config();
   ps_migrate_install_import_run_entity();

@@ -73,13 +73,14 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y symfony_mailer symfony_mailer_log mailer_override 2>/dev/null || ps_warn "Symfony Mailer stack not available before ps_form"
   ps_retry 2 2 ps_drush en -y mjml_render_engine mjml_render_devel 2>/dev/null || ps_warn "MJML stack not available before ps_form"
   ps_drush theme:enable -y ps_theme_email 2>/dev/null || ps_warn "ps_theme_email not available before ps_form"
-  ps_retry 2 2 ps_drush en -y ps_email 2>/dev/null || ps_warn "ps_email not available before ps_form"
+  ps_retry 2 2 ps_drush en -y ps_email || ps_die "ps_email could not be enabled before ps_form"
   ps_retry 2 2 ps_drush en -y ps_form
   # shellcheck source=/dev/null
   source "${PS_CORE_DIR}/config-sync.sh"
   ps_import_form_cmi_from_site_config
   ps_info "Preparing ps_offer dependencies..."
   ps_retry 2 2 ps_drush en -y ps_favorite ps_diagnostic layout_builder layout_discovery
+  ps_refresh_field_type_cache || ps_warn "Field type cache refresh failed before ps_offer"
   ps_recover_ps_offer_if_partial
   ps_enable_module_robust ps_offer 2 2 || ps_die "ps_offer could not be enabled"
   ps_drush ev 'require_once DRUPAL_ROOT . "/modules/custom/ps_offer/ps_offer.install"; ps_offer_apply_full_layout_display(); echo "ps_offer layout OK\n";' \

@@ -11,9 +11,7 @@ declare(strict_types=1);
  * Implements hook_install().
  */
 function ps_form_install(): void {
-  if (function_exists('ps_email_apply_mailer_policy')) {
-    ps_email_apply_mailer_policy('webform', ['ps_form', 'webform']);
-  }
+  ps_email_apply_mailer_policy('webform', ['ps_form', 'webform']);
 
   ps_form_sync_contact_hub_webform_from_install();
   ps_form_apply_install_settings();
