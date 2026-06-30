@@ -29,6 +29,7 @@ final class SearchAlertMailer {
     private readonly RendererInterface $renderer,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly OfferEmailCardHtmlRenderer $offerEmailCardHtmlRenderer,
+    private readonly SearchAlertCriteriaSummaryBuilder $criteriaSummaryBuilder,
   ) {}
 
   /**
@@ -96,31 +97,56 @@ final class SearchAlertMailer {
    */
   private function buildBody(SearchAlert $alert, array $nids, string $langcode): string {
     $cards = [];
-    $useVertical = count($nids) === 1;
     $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     foreach ($nodes as $node) {
       if (!$node instanceof NodeInterface || $node->bundle() !== 'offer') {
         continue;
       }
       $props = OfferEmailCardPropsBuilder::build($node, $langcode);
-      $cards[] = $useVertical
-        ? $this->offerEmailCardHtmlRenderer->renderVertical($props)
-        : $this->offerEmailCardHtmlRenderer->renderCompact($props);
+      $cards[] = $this->offerEmailCardHtmlRenderer->renderSearch($props);
     }
 
     if ($cards === []) {
       return '';
     }
 
+    $criteria = $this->loadCriteria($alert);
+    $structured = $this->criteriaSummaryBuilder->buildStructured($criteria);
     $searchUrl = $alert->get('search_url')->value;
+    if ((!is_string($searchUrl) || $searchUrl === '') && !empty($criteria['search_url'])) {
+      $searchUrl = (string) $criteria['search_url'];
+    }
+
     $build = [
       '#theme' => 'ps_search_alert_digest_body',
       '#list_title' => (string) $this->t('New matching properties:', [], ['langcode' => $langcode]),
+      '#criteria_zones' => $structured['zones'],
+      '#criteria_tags' => $structured['criteria'],
       '#cards' => $cards,
       '#search_url' => is_string($searchUrl) && $searchUrl !== '' ? $searchUrl : NULL,
+      '#search_cta_label' => (string) $this->t('View your saved search', [], ['langcode' => $langcode]),
     ];
 
     return (string) $this->renderer->renderPlain($build);
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  private function loadCriteria(SearchAlert $alert): array {
+    $raw = $alert->get('criteria')->value;
+    if (!is_string($raw) || $raw === '') {
+      return [];
+    }
+
+    try {
+      $decoded = json_decode($raw, TRUE, 512, JSON_THROW_ON_ERROR);
+    }
+    catch (\JsonException) {
+      return [];
+    }
+
+    return is_array($decoded) ? $decoded : [];
   }
 
 }

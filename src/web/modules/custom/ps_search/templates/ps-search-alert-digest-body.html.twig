@@ -3,12 +3,40 @@
  * @file
  * Search alert digest email body fragment (wrapped by email-wrap shell).
  *
- * Variables: list_title, cards (list of HTML card fragments), search_url.
+ * Variables: list_title, criteria_zones, criteria_tags, cards, search_url,
+ * search_cta_label.
  */
 #}
 {% set text = email_text_color|default('#333333') %}
 {% set green = email_primary_color|default('#00915a') %}
-{% set hover = email_primary_hover_color|default('#04af6e') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set tag_bg = email_tag_background_color|default('#f3f4f6') %}
+{% set tag_border = email_border_color|default('#ebedef') %}
+
+{% if criteria_zones is not empty or criteria_tags is not empty %}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border-collapse:collapse;">
+    <tr>
+      <td style="padding:0;">
+        {% if criteria_zones is not empty %}
+          <p style="margin:0 0 8px;font-size:13px;line-height:1.4;font-weight:700;color:{{ text }};">{{ 'Search zones'|t }}</p>
+          <p style="margin:0 0 16px;font-size:13px;line-height:1.6;color:{{ text }};">
+            {% for zone in criteria_zones %}
+              <span style="display:inline-block;margin:0 6px 6px 0;padding:4px 10px;background:{{ tag_bg }};border:1px solid {{ tag_border }};border-radius:2px;font-size:12px;line-height:1.4;color:{{ text }};">{{ zone }}</span>
+            {% endfor %}
+          </p>
+        {% endif %}
+        {% if criteria_tags is not empty %}
+          <p style="margin:0 0 8px;font-size:13px;line-height:1.4;font-weight:700;color:{{ text }};">{{ 'Search criteria'|t }}</p>
+          <p style="margin:0 0 0;font-size:13px;line-height:1.6;color:{{ text }};">
+            {% for tag in criteria_tags %}
+              <span style="display:inline-block;margin:0 6px 6px 0;padding:4px 10px;background:{{ tag_bg }};border:1px solid {{ tag_border }};border-radius:2px;font-size:12px;line-height:1.4;color:{{ text }};">{{ tag }}</span>
+            {% endfor %}
+          </p>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+{% endif %}
 
 {% if list_title %}
   <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:{{ text }};font-weight:700;">{{ list_title }}</p>
@@ -21,7 +49,17 @@
 {% endif %}
 
 {% if search_url %}
-  <p style="margin:0;font-size:14px;line-height:1.6;color:{{ text }};">
-    <a href="{{ search_url }}" style="color:{{ hover }};text-decoration:none;">{{ 'View your saved search'|t }} &gt;</a>
-  </p>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0 0;border-collapse:collapse;">
+    <tr>
+      <td align="center" class="ps-email-btn-cell">
+        <a href="{{ search_url }}" class="ps-email-btn" style="display:inline-block;max-width:100%;padding:14px 28px;background:{{ green }};color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;white-space:normal;text-align:center;line-height:1.4;">{{ search_cta_label|default('View your saved search'|t) }}</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top:16px;font-size:13px;line-height:1.5;color:{{ text }};">
+        {{ 'If the button does not work, copy the following URL into your browser:'|t }}<br>
+        <a href="{{ search_url }}" style="color:{{ green }};text-decoration:none;word-break:break-all;">{{ search_url }}</a>
+      </td>
+    </tr>
+  </table>
 {% endif %}

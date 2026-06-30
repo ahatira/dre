@@ -95,6 +95,7 @@ services:
       - '@ps_email.email_design_tokens'
       - '@ps_email.email_footer_renderer'
       - '@ps_email.offer_email_card_html_renderer'
+      - '@renderer'
 
   ps_email.mjml_preview_variables_subscriber:
     class: Drupal\ps_email\EventSubscriber\MjmlPreviewVariablesSubscriber

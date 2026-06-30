@@ -21,6 +21,8 @@ final class EmailThemeHooks {
       'reference' => '',
       'property_type' => '',
       'surface' => NULL,
+      'surface_primary' => NULL,
+      'surface_suffix' => NULL,
       'location' => NULL,
       'price_amount' => '',
       'price_qualifiers' => '',
@@ -43,6 +45,11 @@ final class EmailThemeHooks {
       'offer_email_card_compact' => [
         'variables' => $cardVariables,
         'template' => 'offer-email-card-compact',
+        'path' => $path,
+      ],
+      'offer_email_card_search' => [
+        'variables' => $cardVariables,
+        'template' => 'offer-email-card-search',
         'path' => $path,
       ],
     ];

@@ -55,5 +55,5 @@ BASE_URL="${PS_E2E_BASE_URL}"
 export PS_E2E_SRC_DIR PS_E2E_COUNTRY PS_E2E_BASE_URL BASE BASE_URL
 
 ps_e2e_drush() {
-  (cd "${PS_E2E_SRC_DIR}" && "${PS_E2E_DRUSH_BIN}" "${PS_E2E_DRUSH_ALIAS}" "$@")
+  (cd "${PS_E2E_SRC_DIR}" && "${PS_E2E_DRUSH_BIN}" "${PS_E2E_DRUSH_ALIAS}" --uri="${PS_E2E_BASE_URL}" "$@")
 }

@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 
@@ -28,6 +29,7 @@ final class EmailMjmlPreviewVariablesBuilder {
     private readonly EmailDesignTokens $emailDesignTokens,
     private readonly EmailFooterRenderer $emailFooterRenderer,
     private readonly OfferEmailCardHtmlRenderer $offerEmailCardHtmlRenderer,
+    private readonly RendererInterface $renderer,
   ) {}
 
   /**
@@ -191,17 +193,28 @@ final class EmailMjmlPreviewVariablesBuilder {
    */
   public function buildSearchAlertPreviewDefaults(): array {
     $sampleProps = $this->sampleOfferCardProps();
-    return [
-      'body' => Markup::create(
-        '<p style="margin:0 0 16px;font-size:14px;line-height:1.6;font-weight:700;">'
-        . (string) $this->t('New matching properties:')
-        . '</p>'
-        . $this->offerEmailCardHtmlRenderer->renderCompact($sampleProps)
-        . $this->offerEmailCardHtmlRenderer->renderCompact(array_merge($sampleProps, [
+    $searchUrl = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . '/for-rent/office/';
+    $body = [
+      '#theme' => 'ps_search_alert_digest_body',
+      '#list_title' => (string) $this->t('New matching properties:'),
+      '#criteria_zones' => [],
+      '#criteria_tags' => [
+        (string) $this->t('To rent'),
+        (string) $this->t('Office'),
+      ],
+      '#cards' => [
+        $this->offerEmailCardHtmlRenderer->renderSearch($sampleProps),
+        $this->offerEmailCardHtmlRenderer->renderSearch(array_merge($sampleProps, [
           'title' => (string) $this->t('Retail — Lyon Part-Dieu'),
           'reference' => 'REF-002',
         ])),
-      ),
+      ],
+      '#search_url' => $searchUrl,
+      '#search_cta_label' => (string) $this->t('View your saved search'),
+    ];
+
+    return [
+      'body' => Markup::create((string) $this->renderer->renderPlain($body)),
       'subject' => (string) $this->t('3 new properties for your alert'),
       'is_html' => TRUE,
     ];

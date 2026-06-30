@@ -37,6 +37,16 @@ final class OfferEmailCardHtmlRenderer {
   }
 
   /**
+   * Renders a search-list-style offer card (image + content, responsive).
+   *
+   * @param array<string, mixed> $props
+   *   Card props from OfferEmailCardPropsBuilder.
+   */
+  public function renderSearch(array $props): string {
+    return $this->render('offer_email_card_search', $props);
+  }
+
+  /**
    * @param array<string, mixed> $props
    */
   private function render(string $theme, array $props): string {

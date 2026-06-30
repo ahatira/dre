@@ -30,9 +30,9 @@ final class OfferEmailCardPropsBuilder {
    */
   private function buildProps(NodeInterface $node, ?string $langcode): array {
     $operationCode = (string) ($node->get('field_operation_type')->value ?? '');
-    $primaryImage = $this->resolvePrimaryImageUrl($node);
-    $image = $primaryImage !== NULL ? $this->absoluteUrl($primaryImage) : NULL;
+    $image = $this->absoluteUrl($this->resolvePrimaryImageUrlWithFallback($node));
     $budget = $this->buildBudgetParts($node);
+    $surfaceParts = $this->formatSurfaceParts($node);
     $title = $this->formatListTitle($node, $operationCode);
     $reference = trim((string) ($node->get('field_reference')->value ?? ''));
     $assetCode = (string) ($node->get('field_asset_type')->value ?? '');
@@ -50,6 +50,8 @@ final class OfferEmailCardPropsBuilder {
       'reference' => $reference,
       'property_type' => $assetCode !== '' ? $this->dictionaryLabel('asset_type', $assetCode) : '',
       'surface' => $this->formatSurface($node),
+      'surface_primary' => $surfaceParts['primary'] !== '' ? $surfaceParts['primary'] : NULL,
+      'surface_suffix' => $surfaceParts['suffix'],
       'location' => $this->formatListLocation($node),
       'price_amount' => $budget['amount'],
       'price_qualifiers' => $budget['qualifiers'] !== '' ? Markup::create($this->formatQualifiersMarkup($budget['qualifiers'])) : '',
@@ -63,11 +65,22 @@ final class OfferEmailCardPropsBuilder {
   }
 
   private function absoluteUrl(string $url): string {
-    if (str_contains($url, '://')) {
-      return $url;
+    $absolute = str_contains($url, '://')
+      ? $url
+      : \Drupal::service('file_url_generator')->generateAbsoluteString($url);
+
+    $base = \Drupal::service('router.request_context')->getCompleteBaseUrl();
+    if ($base === '') {
+      return $absolute;
     }
 
-    return \Drupal::service('file_url_generator')->generateAbsoluteString($url);
+    if (preg_match('#^(https?://[^/]+)(/.*)?$#', $absolute, $urlMatch) === 1
+      && preg_match('#^(https?://[^/]+)#', $base, $baseMatch) === 1
+      && $urlMatch[1] !== $baseMatch[1]) {
+      return $baseMatch[1] . ($urlMatch[2] ?? '');
+    }
+
+    return $absolute;
   }
 
   private function formatListTitle(NodeInterface $node, string $operationCode): string {
