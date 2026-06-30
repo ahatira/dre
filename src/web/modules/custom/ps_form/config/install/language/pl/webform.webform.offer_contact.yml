@@ -57,12 +57,22 @@ elements: |-
         - ps-offer-contact-modal__legal
 settings:
   form_submit_label: Wyślij
-  confirmation_message: "<p>Dziękujemy. Twoja wiadomość została wysłana.</p>"
-  email_agent:
-    label: 'Powiadomienie doradcy'
-    subject: "Zapytanie kontaktowe — Oferta [webform_submission:source-entity:field_reference]"
-    body: _default
+  confirmation_message: '<p>Dziękujemy. Twoja wiadomość została wysłana.</p>'
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Państwa zapytanie kontaktowe — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dzień dobry [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Państwa wiadomość została przekazana naszemu doradcy, który wkrótce się z Państwem skontaktuje.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Poniżej przedstawiamy podsumowanie Państwa zapytania:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Z poważaniem,<br>Zespół Obsługi Klienta, BNP Paribas Real Estate.</p>
     label: 'Potwierdzenie dla odwiedzającego'
-    subject: "Twoje zapytanie kontaktowe — [webform_submission:source-entity:field_reference]"
-    body: "<p>Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Twoja wiadomość została przekazana naszemu doradcy. Wkrótce się z Tobą skontaktujemy.</p>"
+  email_agent:
+    settings:
+      subject: 'Zapytanie kontaktowe — Oferta [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Powiadomienie doradcy'

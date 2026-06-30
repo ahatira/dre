@@ -37,11 +37,21 @@ elements: |-
 settings:
   form_submit_label: Verzenden
   confirmation_message: 'Bedankt. Uw bezoekaanvraag is verzonden.'
-  email_agent:
-    label: 'Melding adviseur'
-    subject: "Bezoekaanvraag — Aanbod [webform_submission:source-entity:field_reference]"
-    body: _default
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Uw bezoekaanvraag — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Beste [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Bedankt voor uw bezoekaanvraag over het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Onze adviseur neemt spoedig contact met u op om het bezoek te plannen.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Ter referentie vindt u hieronder uw aanvraag:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Bedankt voor uw interesse in BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Met vriendelijke groet,<br>Uw klantenserviceteam, BNP Paribas Real Estate.</p>
     label: 'Bevestiging bezoeker'
-    subject: "Uw bezoekaanvraag — [webform_submission:source-entity:field_reference]"
-    body: "<p>Bedankt voor uw bezoekaanvraag over het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Onze adviseur neemt spoedig contact met u op om het bezoek te plannen.</p>"
+  email_agent:
+    settings:
+      subject: 'Bezoekaanvraag — Aanbod [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Adviseur notificatie'

@@ -37,11 +37,21 @@ elements: |-
 settings:
   form_submit_label: Schécken
   confirmation_message: 'Merci. Är Ufro fir eng Visitt gouf geschéckt.'
-  email_agent:
-    label: "Beroder-Benoriichtung"
-    subject: "Ufro fir eng Visitt — Offer [webform_submission:source-entity:field_reference]"
-    body: _default
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Är Ufro fir eng Visitt — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Moien [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Är Ufro fir eng Visitt betreffend d'Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>
     label: Besicherbestätegung
-    subject: "Är Ufro fir eng Visitt — [webform_submission:source-entity:field_reference]"
-    body: "<p>Merci fir Är Ufro fir eng Visitt betreffend d'Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>"
+  email_agent:
+    settings:
+      subject: 'Ufro fir eng Visitt — Offer [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: Beroder-Benoriichtigung

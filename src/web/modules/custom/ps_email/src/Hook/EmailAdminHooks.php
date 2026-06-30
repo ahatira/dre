@@ -14,34 +14,17 @@ final class EmailAdminHooks {
 
   private const TRANSLATION_TASK_SHELL = 'config_translation.local_tasks:config_translation.item.overview.ps_email.shell_footer';
 
-  private const TRANSLATION_TASK_CONTACT = 'config_translation.local_tasks:config_translation.item.overview.ps_email.contact_copy';
-
-  /**
-   * Maps settings and translate routes to their translation local task.
-   *
-   * @var array<string, string>
-   */
-  private const ROUTE_TRANSLATION_TASK = [
-    'ps_email.shell_footer' => self::TRANSLATION_TASK_SHELL,
-    'config_translation.item.overview.ps_email.shell_footer' => self::TRANSLATION_TASK_SHELL,
-    'ps_email.contact' => self::TRANSLATION_TASK_CONTACT,
-    'ps_email.contact_webform' => self::TRANSLATION_TASK_CONTACT,
-    'config_translation.item.overview.ps_email.contact_copy' => self::TRANSLATION_TASK_CONTACT,
-  ];
-
   /**
    * Promotes Translate tabs on email settings forms.
    */
   #[Hook('local_tasks_alter')]
   public function localTasksAlter(array &$local_tasks): void {
-    foreach ([self::TRANSLATION_TASK_SHELL, self::TRANSLATION_TASK_CONTACT] as $taskId) {
-      if (!isset($local_tasks[$taskId])) {
-        continue;
-      }
-      $local_tasks[$taskId]['base_route'] = 'ps_email.admin';
-      $local_tasks[$taskId]['title'] = new TranslatableMarkup('Translate');
-      unset($local_tasks[$taskId]['parent_id']);
+    if (!isset($local_tasks[self::TRANSLATION_TASK_SHELL])) {
+      return;
     }
+    $local_tasks[self::TRANSLATION_TASK_SHELL]['base_route'] = 'ps_email.admin';
+    $local_tasks[self::TRANSLATION_TASK_SHELL]['title'] = new TranslatableMarkup('Translate');
+    unset($local_tasks[self::TRANSLATION_TASK_SHELL]['parent_id']);
   }
 
   /**
@@ -53,16 +36,17 @@ final class EmailAdminHooks {
       return;
     }
 
-    $activeTranslationTask = self::ROUTE_TRANSLATION_TASK[$route_name] ?? NULL;
+    $activeTranslationTask = $route_name === 'ps_email.shell_footer'
+      || $route_name === 'config_translation.item.overview.ps_email.shell_footer'
+      ? self::TRANSLATION_TASK_SHELL
+      : NULL;
+
     if ($activeTranslationTask !== NULL && isset($data['tabs'][0][$activeTranslationTask]['#link']['title'])) {
       $data['tabs'][0][$activeTranslationTask]['#link']['title'] = new TranslatableMarkup('Translate');
     }
 
-    foreach ([self::TRANSLATION_TASK_SHELL, self::TRANSLATION_TASK_CONTACT] as $taskId) {
-      if ($taskId === $activeTranslationTask) {
-        continue;
-      }
-      unset($data['tabs'][0][$taskId]);
+    if ($activeTranslationTask !== self::TRANSLATION_TASK_SHELL) {
+      unset($data['tabs'][0][self::TRANSLATION_TASK_SHELL]);
     }
   }
 

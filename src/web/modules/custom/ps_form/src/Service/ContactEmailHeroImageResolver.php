@@ -71,6 +71,22 @@ final class ContactEmailHeroImageResolver {
   }
 
   /**
+   * Returns the styled hero image URL for a hub webform, if configured.
+   */
+  public function getHeroImageUrl(string $webformId): ?string {
+    if (!$this->heroSettings->getHeroFileId($webformId)) {
+      return NULL;
+    }
+
+    $file = $this->heroSettings->loadHeroFile($webformId);
+    if ($file === NULL) {
+      return NULL;
+    }
+
+    return $this->getStyledAbsoluteUrl($file, $webformId);
+  }
+
+  /**
    * Returns the focal point string (x,y percents) for a hero file.
    */
   public function getFocalPointValue(FileInterface $file): string {

@@ -4,10 +4,3 @@ ps_email.shell_footer:
     - ps_email.shell
   base_route_name: ps_email.shell_footer
   weight: 10
-
-ps_email.contact_copy:
-  title: 'Contact confirmation email copy'
-  names:
-    - ps_email.contact
-  base_route_name: ps_email.contact
-  weight: 10

@@ -57,12 +57,22 @@ elements: |-
         - ps-offer-contact-modal__legal
 settings:
   form_submit_label: Enviar
-  confirmation_message: "<p>Gracias. Su mensaje ha sido enviado.</p>"
-  email_agent:
-    label: 'Notificación al consultor'
-    subject: "Solicitud de contacto — Oferta [webform_submission:source-entity:field_reference]"
-    body: _default
+  confirmation_message: '<p>Gracias. Su mensaje ha sido enviado.</p>'
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Su solicitud de contacto — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Hola [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gracias por su interés en la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Su mensaje ha sido remitido a nuestro consultor, que se pondrá en contacto con usted en breve.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">A título informativo, su solicitud es la siguiente:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gracias por su interés en BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Atentamente,<br>Su equipo de Atención al Cliente, BNP Paribas Real Estate.</p>
     label: 'Confirmación al visitante'
-    subject: "Su solicitud de contacto — [webform_submission:source-entity:field_reference]"
-    body: "<p>Gracias por su interés en la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Su mensaje ha sido enviado a nuestro consultor. Nos pondremos en contacto con usted en breve.</p>"
+  email_agent:
+    settings:
+      subject: 'Solicitud de contacto — Oferta [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Notificación al consultor'

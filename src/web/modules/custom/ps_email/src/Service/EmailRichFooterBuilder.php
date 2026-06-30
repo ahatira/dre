@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Drupal\ps_form\Service;
+namespace Drupal\ps_email\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\ps_email\Service\EmailShellSettings;
 
 /**
- * Builds footer variables for contact confirmation emails.
+ * Builds rich footer variables for all Property Search transactional emails.
  */
-final class ContactEmailFooterBuilder {
+final class EmailRichFooterBuilder {
 
   use StringTranslationTrait;
 

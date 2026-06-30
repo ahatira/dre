@@ -57,12 +57,22 @@ elements: |-
         - ps-offer-contact-modal__legal
 settings:
   form_submit_label: Invia
-  confirmation_message: "<p>Grazie. Il tuo messaggio è stato inviato.</p>"
-  email_agent:
-    label: 'Notifica al consulente'
-    subject: "Richiesta di contatto — Offerta [webform_submission:source-entity:field_reference]"
-    body: _default
+  confirmation_message: '<p>Grazie. Il tuo messaggio è stato inviato.</p>'
+handlers:
   email_confirmation:
+    settings:
+      subject: 'La sua richiesta di contatto — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gentile [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">La ringraziamo per l'interesse verso l'offerta <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Il suo messaggio è stato inoltrato al nostro consulente, che la contatterà a breve.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Di seguito il riepilogo della sua richiesta:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">La ringraziamo per l'interesse verso BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Cordiali saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.</p>
     label: 'Conferma visitatore'
-    subject: "La tua richiesta di contatto — [webform_submission:source-entity:field_reference]"
-    body: "<p>Grazie per il tuo interesse verso l'offerta <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Il tuo messaggio è stato inoltrato al nostro consulente. Ti contatteremo a breve.</p>"
+  email_agent:
+    settings:
+      subject: 'Richiesta di contatto — Offerta [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Notifica consulente'

@@ -37,11 +37,21 @@ elements: |-
 settings:
   form_submit_label: Wyślij
   confirmation_message: 'Dziękujemy. Twoja prośba o wizytę została wysłana.'
-  email_agent:
-    label: 'Powiadomienie doradcy'
-    subject: "Prośba o wizytę — Oferta [webform_submission:source-entity:field_reference]"
-    body: _default
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Państwa prośba o wizytę — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dzień dobry [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za prośbę o wizytę dotyczącą oferty <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Nasz doradca wkrótce skontaktuje się z Państwem, aby ustalić termin wizyty.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Poniżej przedstawiamy podsumowanie Państwa zapytania:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Z poważaniem,<br>Zespół Obsługi Klienta, BNP Paribas Real Estate.</p>
     label: 'Potwierdzenie dla odwiedzającego'
-    subject: "Twoja prośba o wizytę — [webform_submission:source-entity:field_reference]"
-    body: "<p>Dziękujemy za prośbę o wizytę dotyczącą oferty <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Nasz doradca skontaktuje się z Tobą wkrótce, aby umówić termin.</p>"
+  email_agent:
+    settings:
+      subject: 'Prośba o wizytę — Oferta [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Powiadomienie doradcy'

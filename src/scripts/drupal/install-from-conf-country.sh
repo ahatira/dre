@@ -41,6 +41,9 @@ ps_install_country_from_conf() {
   ps_info "Running database updates..."
   ps_drush updatedb -y
 
+  ps_drush ev 'require_once DRUPAL_ROOT . "/modules/custom/ps_form/ps_form.install"; ps_form_sync_all_email_webforms_from_install(); echo "ps_form email webforms OK\n";' \
+    || ps_die "ps_form email webform sync failed"
+
   ps_info "Importing dictionary..."
   ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 

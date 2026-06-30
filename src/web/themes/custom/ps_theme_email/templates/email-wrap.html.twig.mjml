@@ -52,7 +52,7 @@
 
       {% include '@ps_theme_email/partials/signoff.html.twig' %}
 
-      {% if ps_contact_confirmation|default(false) %}
+      {% if ps_email_rich_footer|default(ps_contact_confirmation|default(false)) %}
         {% include '@ps_theme_email/partials/footer-contact.html.twig' %}
       {% endif %}
 

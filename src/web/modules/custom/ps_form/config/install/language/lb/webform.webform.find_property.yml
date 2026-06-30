@@ -130,4 +130,11 @@ handlers:
     label: 'Confirmatioun fir de Visiteur'
     settings:
       subject: 'Merci fir Äre Kontakt'
-      body: '<p>Merci fir Äre Message.</p><p>Mir hunn Är Demande kritt a kommen geschwënn op Iech zréck.</p>'
+      body: |-
+        <h1 style="margin:0 0 24px;font-size:22px;font-weight:700;line-height:1.3;color:#333333;text-align:center;">Är Demande no Immobiliesich ass geschéckt ginn</h1>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Moien [webform_submission:values:firstname:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Mir hunn Är Sichkriterien kritt. Ee vun eise Beroder kontaktéiert Iech fir Iech beim Fannen vun der passender Immobilie ze hëllefen.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>

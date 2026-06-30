@@ -57,12 +57,22 @@ elements: |-
         - ps-offer-contact-modal__legal
 settings:
   form_submit_label: Verzenden
-  confirmation_message: "<p>Bedankt. Uw bericht is verzonden.</p>"
-  email_agent:
-    label: 'Melding adviseur'
-    subject: "Contactverzoek — Aanbod [webform_submission:source-entity:field_reference]"
-    body: _default
+  confirmation_message: '<p>Bedankt. Uw bericht is verzonden.</p>'
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Uw contactverzoek — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Beste [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Bedankt voor uw interesse in het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Uw bericht is doorgestuurd naar onze adviseur, die spoedig contact met u opneemt.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Ter referentie vindt u hieronder uw aanvraag:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Bedankt voor uw interesse in BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Met vriendelijke groet,<br>Uw klantenserviceteam, BNP Paribas Real Estate.</p>
     label: 'Bevestiging bezoeker'
-    subject: "Uw contactverzoek — [webform_submission:source-entity:field_reference]"
-    body: "<p>Bedankt voor uw interesse in het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Uw bericht is doorgestuurd naar onze adviseur. We nemen spoedig contact met u op.</p>"
+  email_agent:
+    settings:
+      subject: 'Contactverzoek — Aanbod [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Adviseur notificatie'

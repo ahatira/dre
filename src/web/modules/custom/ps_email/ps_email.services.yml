@@ -11,6 +11,7 @@ services:
       - '@config.factory'
       - '@module_handler'
       - '@current_user'
+      - '@ps_email.mjml_preview_link_builder'
 
   ps_email.email_shell_settings:
     class: Drupal\ps_email\Service\EmailShellSettings
@@ -20,9 +21,11 @@ services:
 
   ps_email.contact_webform_email_settings:
     class: Drupal\ps_email\Service\ContactWebformEmailSettings
+
+  ps_email.mjml_preview_link_builder:
+    class: Drupal\ps_email\Service\MjmlPreviewLinkBuilder
     arguments:
-      - '@config.factory'
-      - '@language_manager'
+      - '@module_handler'
 
   ps_email.email_branding_builder:
     class: Drupal\ps_email\Service\EmailBrandingBuilder
@@ -42,12 +45,40 @@ services:
     arguments:
       - '@ps_email.email_branding_builder'
 
+  ps_email.email_plain_text_from_html_processor:
+    class: Drupal\ps_email\Processor\EmailPlainTextFromHtmlProcessor
+
+  ps_email.email_rich_footer_builder:
+    class: Drupal\ps_email\Service\EmailRichFooterBuilder
+    arguments:
+      - '@ps_email.email_shell_settings'
+      - '@config.factory'
+      - '@entity_type.manager'
+
+  ps_email.email_mjml_preview_variables_builder:
+    class: Drupal\ps_email\Service\EmailMjmlPreviewVariablesBuilder
+    arguments:
+      - '@config.factory'
+      - '@module_handler'
+      - '@language_manager'
+      - '@ps_email.email_branding_builder'
+      - '@ps_email.email_design_tokens'
+      - '@ps_email.email_rich_footer_builder'
+
+  ps_email.mjml_preview_variables_subscriber:
+    class: Drupal\ps_email\EventSubscriber\MjmlPreviewVariablesSubscriber
+    arguments:
+      - '@module_handler'
+      - '@language_manager'
+      - '@ps_email.email_mjml_preview_variables_builder'
+    tags:
+      - { name: event_subscriber }
+
   Drupal\ps_email\Hook\MailHooks:
     class: Drupal\ps_email\Hook\MailHooks
     arguments:
-      - '@config.factory'
-      - '@ps_email.email_branding_builder'
-      - '@ps_email.email_design_tokens'
       - '@ps_email.email_logo_attachment_processor'
+      - '@ps_email.email_plain_text_from_html_processor'
+      - '@ps_email.email_mjml_preview_variables_builder'
 
   Drupal\ps_email\Hook\EmailAdminHooks: {}

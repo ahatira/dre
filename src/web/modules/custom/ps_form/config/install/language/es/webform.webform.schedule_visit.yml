@@ -37,11 +37,21 @@ elements: |-
 settings:
   form_submit_label: Enviar
   confirmation_message: 'Gracias. Su solicitud de visita ha sido enviada.'
-  email_agent:
-    label: 'Notificación al consultor'
-    subject: "Solicitud de visita — Oferta [webform_submission:source-entity:field_reference]"
-    body: _default
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Su solicitud de visita — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Hola [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gracias por su solicitud de visita relativa a la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Nuestro consultor se pondrá en contacto con usted en breve para organizar la visita.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">A título informativo, su solicitud es la siguiente:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gracias por su interés en BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Atentamente,<br>Su equipo de Atención al Cliente, BNP Paribas Real Estate.</p>
     label: 'Confirmación al visitante'
-    subject: "Su solicitud de visita — [webform_submission:source-entity:field_reference]"
-    body: "<p>Gracias por su solicitud de visita sobre la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Nuestro consultor se pondrá en contacto con usted en breve para organizar la visita.</p>"
+  email_agent:
+    settings:
+      subject: 'Solicitud de visita — Oferta [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Notificación al consultor'

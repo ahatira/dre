@@ -78,6 +78,8 @@ ps_install_country_site() {
   # shellcheck source=/dev/null
   source "${PS_CORE_DIR}/config-sync.sh"
   ps_import_form_cmi_from_site_config
+  ps_drush ev 'require_once DRUPAL_ROOT . "/modules/custom/ps_form/ps_form.install"; ps_form_sync_all_email_webforms_from_install(); echo "ps_form email webforms OK\n";' \
+    || ps_die "ps_form email webform sync failed"
   ps_info "Preparing ps_offer dependencies..."
   ps_retry 2 2 ps_drush en -y ps_favorite ps_diagnostic layout_builder layout_discovery
   ps_refresh_field_type_cache || ps_warn "Field type cache refresh failed before ps_offer"

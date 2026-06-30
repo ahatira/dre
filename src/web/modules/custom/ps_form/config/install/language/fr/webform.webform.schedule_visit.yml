@@ -37,11 +37,21 @@ elements: |-
 settings:
   form_submit_label: Envoyer
   confirmation_message: 'Merci. Votre demande de visite a été envoyée.'
-  email_agent:
-    label: 'Notification consultant'
-    subject: "Demande de visite — Offre [webform_submission:source-entity:field_reference]"
-    body: _default
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Votre demande de visite — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Bonjour [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci pour votre demande de visite concernant l'offre <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Notre consultant vous contactera rapidement pour organiser la visite.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Pour référence, voici le récapitulatif de votre demande :</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci de l'intérêt que vous portez à BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Cordialement,<br>Votre équipe Service Client, BNP Paribas Real Estate.</p>
     label: 'Confirmation visiteur'
-    subject: "Votre demande de visite — [webform_submission:source-entity:field_reference]"
-    body: "<p>Merci pour votre demande de visite concernant l'offre <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Notre consultant vous contactera rapidement pour organiser la visite.</p>"
+  email_agent:
+    settings:
+      subject: 'Demande de visite — Offre [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: 'Notification consultant'

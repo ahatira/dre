@@ -174,7 +174,7 @@ notif = fetch_full(notif_list["ID"])
 confirm = fetch_full(confirm_list["ID"])
 
 def body_text(msg):
-    return (msg.get("Text") or "") + (msg.get("HTML") or "")
+    return msg.get("HTML") or msg.get("Text") or ""
 
 def check(msg, label, checks):
     text = body_text(msg)
@@ -240,12 +240,12 @@ declare -A WEBFORM_DATA=(
 )
 
 declare -A WEBFORM_ASSERTIONS=(
-  [find_property]='{"notification":{"contains":["Find property","Rent","Office","PS QA Corp","Sales","contact-b2b-find_property@example.com","B2B email handler test — find_property."]},"confirmation":{"contains":["Rent","Office","PS QA Corp","B2B email handler test — find_property."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
-  [entrust_search]='{"notification":{"contains":["Entrust search","Rent","Office","PS QA Corp","B2B email handler test — entrust_search."]},"confirmation":{"contains":["Rent","Office","PS QA Corp","B2B email handler test — entrust_search."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
-  [get_advice]='{"notification":{"contains":["Consulting","Real estate strategy","PS QA Corp","B2B email handler test — get_advice."]},"confirmation":{"contains":["Real estate strategy","PS QA Corp","B2B email handler test — get_advice."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
-  [entrust_property]='{"notification":{"contains":["Entrust property","75002","500","Office","B2B email handler test — entrust_property."]},"confirmation":{"contains":["75002","500","Office","B2B email handler test — entrust_property."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
-  [invest_sell]='{"notification":{"contains":["Sell","Office","1200","PS QA Corp","B2B email handler test — invest_sell."]},"confirmation":{"contains":["Sell","1200","PS QA Corp","B2B email handler test — invest_sell."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
-  [other_request]='{"notification":{"contains":["Other contact","Propose services","PS QA Corp","B2B email handler test — other_request."],"not_contains":["JOB TITLE"]},"confirmation":{"contains":["Propose services","PS QA Corp","B2B email handler test — other_request."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}","JOB TITLE"]}}'
+  [find_property]='{"notification":{"contains":["Find property","Rent","Office","PS QA Corp","Sales","contact-b2b-find_property@example.com","B2B email handler test — find_property."]},"confirmation":{"contains":["Your property search request has been sent","Hello B2B,","For reference, your request","Rent","Office","PS QA Corp","B2B email handler test — find_property."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
+  [entrust_search]='{"notification":{"contains":["Entrust search","Rent","Office","PS QA Corp","B2B email handler test — entrust_search."]},"confirmation":{"contains":["Your search brief has been sent","Hello B2B,","For reference, your request","Rent","Office","PS QA Corp","B2B email handler test — entrust_search."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
+  [get_advice]='{"notification":{"contains":["Consulting","Real estate strategy","PS QA Corp","B2B email handler test — get_advice."]},"confirmation":{"contains":["Your advisory request has been sent","Hello B2B,","For reference, your request","Real estate strategy","PS QA Corp","B2B email handler test — get_advice."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
+  [entrust_property]='{"notification":{"contains":["Entrust property","75002","500","Office","B2B email handler test — entrust_property."]},"confirmation":{"contains":["Your property details have been sent","Hello B2B,","For reference, your request","75002","500","Office","B2B email handler test — entrust_property."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
+  [invest_sell]='{"notification":{"contains":["Sell","Office","1200","PS QA Corp","B2B email handler test — invest_sell."]},"confirmation":{"contains":["Your investment request has been sent","Hello B2B,","For reference, your request","Sell","1200","PS QA Corp","B2B email handler test — invest_sell."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}"]}}'
+  [other_request]='{"notification":{"contains":["Other contact","Propose services","PS QA Corp","B2B email handler test — other_request."],"not_contains":["JOB TITLE"]},"confirmation":{"contains":["Your request has been sent","Hello B2B,","For reference, your request","Propose services","PS QA Corp","B2B email handler test — other_request."],"not_contains":["Thank you for your message","See you soon!","Submitted on","{Empty}","JOB TITLE"]}}'
 )
 
 echo "=== PS Form B2B — Contact hub email handlers / Mailpit ($BASE) ==="
@@ -264,27 +264,10 @@ fi
 SITE_MAIL="$(printf '%s' "$GLOBAL_META" | sed -n 's/.*site_mail=\([^|]*\).*/\1/p')"
 pass "Site notification mail: ${SITE_MAIL}"
 
-EMAIL_DISPLAY_TITLE="$(ps_e2e_drush cget ps_email.contact webforms.find_property.display_title --format=string 2>/dev/null || echo 'Your request has been sent')"
-EMAIL_GREETING_PREFIX="$(ps_e2e_drush cget ps_email.contact webforms.find_property.greeting_prefix --format=string 2>/dev/null || echo 'Hello')"
-COMMON_CONFIRM_ASSERT="$(EMAIL_DISPLAY_TITLE="${EMAIL_DISPLAY_TITLE}" EMAIL_GREETING_PREFIX="${EMAIL_GREETING_PREFIX}" python3 - <<'PY'
-import json, os
-common = {
-  "contains": [
-    os.environ["EMAIL_DISPLAY_TITLE"],
-    os.environ["EMAIL_GREETING_PREFIX"] + " B2B,",
-    "For reference, your request",
-    "Data Protection Notice",
-  ],
-  "not_contains": [
-    "See you soon!",
-    "Submitted on",
-    "{Empty}",
-  ],
-}
-print(json.dumps(common))
-PY
-)"
-pass "Confirmation email config loaded (title: ${EMAIL_DISPLAY_TITLE})"
+COMMON_CONFIRM_ASSERT='{"contains":["Data Protection Notice"],"not_contains":["See you soon!","Submitted on","{Empty}"]}'
+COMMON_NOTIFICATION_ASSERT='{"contains":["Data Protection Notice","#1f2a36"],"not_contains":["See you soon!"]}'
+pass "Confirmation email common assertions loaded"
+pass "Notification email common assertions loaded"
 
 for webform in "${WEBFORMS[@]}"; do
   CURRENT_WEBFORM="$webform"
@@ -312,14 +295,19 @@ for webform in "${WEBFORMS[@]}"; do
   pass "Submission saved (${submit_result})"
 
   echo "  --- Assert notification + confirmation emails ---"
-  merged_assert="$(COMMON_CONFIRM_ASSERT="${COMMON_CONFIRM_ASSERT}" WEBFORM_ASSERT="${WEBFORM_ASSERTIONS[$webform]}" python3 - <<'PY'
+  merged_assert="$(COMMON_CONFIRM_ASSERT="${COMMON_CONFIRM_ASSERT}" COMMON_NOTIFICATION_ASSERT="${COMMON_NOTIFICATION_ASSERT}" WEBFORM_ASSERT="${WEBFORM_ASSERTIONS[$webform]}" python3 - <<'PY'
 import json, os
 base = json.loads(os.environ["WEBFORM_ASSERT"])
-common = json.loads(os.environ["COMMON_CONFIRM_ASSERT"])
+common_confirm = json.loads(os.environ["COMMON_CONFIRM_ASSERT"])
+common_notif = json.loads(os.environ["COMMON_NOTIFICATION_ASSERT"])
 confirm = base.get("confirmation", {})
-confirm["contains"] = list(dict.fromkeys((confirm.get("contains") or []) + common.get("contains", [])))
-confirm["not_contains"] = list(dict.fromkeys((confirm.get("not_contains") or []) + common.get("not_contains", [])))
+confirm["contains"] = list(dict.fromkeys((confirm.get("contains") or []) + common_confirm.get("contains", [])))
+confirm["not_contains"] = list(dict.fromkeys((confirm.get("not_contains") or []) + common_confirm.get("not_contains", [])))
 base["confirmation"] = confirm
+notif = base.get("notification", {})
+notif["contains"] = list(dict.fromkeys((notif.get("contains") or []) + common_notif.get("contains", [])))
+notif["not_contains"] = list(dict.fromkeys((notif.get("not_contains") or []) + common_notif.get("not_contains", [])))
+base["notification"] = notif
 print(json.dumps(base))
 PY
 )"

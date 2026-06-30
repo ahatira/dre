@@ -4,7 +4,7 @@
  * MJML preview — design tokens + reusable partials showcase.
  *
  * Preview in MJML Render Devel: theme ps_theme_email, template email-partials-preview.
- * Inline defaults support devel (no Drupal preprocess); ps_core hook enriches live renders.
+ * Variables are injected by ps_email (EmailMjmlPreviewVariablesBuilder) on AJAX render.
  */
 #}
 {% set text = email_text_color|default('#333333') %}
@@ -93,6 +93,11 @@
       } only %}
 
       {% include '@ps_theme_email/partials/signoff.html.twig' %}
+
+      {% if ps_email_rich_footer|default(false) %}
+        {% include '@ps_theme_email/partials/footer-contact.html.twig' %}
+      {% endif %}
+
       {% include '@ps_theme_email/partials/footer-default.html.twig' %}
     </mj-wrapper>
   </mj-body>

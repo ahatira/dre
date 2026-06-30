@@ -31,62 +31,6 @@ ps_email.shell:
       label: 'Legal footer markup'
       translatable: true
 
-ps_email.contact:
-  type: config_object
-  label: 'PS contact confirmation email copy per webform'
-  mapping:
-    webforms:
-      type: mapping
-      label: 'Webform copy'
-      mapping:
-        find_property:
-          type: ps_email.contact_webform_copy
-          label: 'find_property'
-        entrust_search:
-          type: ps_email.contact_webform_copy
-          label: 'entrust_search'
-        get_advice:
-          type: ps_email.contact_webform_copy
-          label: 'get_advice'
-        entrust_property:
-          type: ps_email.contact_webform_copy
-          label: 'entrust_property'
-        invest_sell:
-          type: ps_email.contact_webform_copy
-          label: 'invest_sell'
-        other_request:
-          type: ps_email.contact_webform_copy
-          label: 'other_request'
-
-ps_email.contact_webform_copy:
-  type: mapping
-  label: 'Contact confirmation copy'
-  mapping:
-    display_title:
-      type: label
-      label: 'Display title'
-      translatable: true
-    greeting_prefix:
-      type: label
-      label: 'Greeting prefix'
-      translatable: true
-    intro_text:
-      type: text
-      label: 'Intro text'
-      translatable: true
-    recap_intro:
-      type: label
-      label: 'Recap intro'
-      translatable: true
-    closing_text:
-      type: text
-      label: 'Closing text'
-      translatable: true
-    signoff_text:
-      type: text
-      label: 'Sign-off text'
-      translatable: true
-
 ps_email.email_tokens:
   type: config_object
   label: 'PS email design tokens'

@@ -68,7 +68,7 @@ final class ContactWebformEmailHeroHooks {
       '#type' => 'details',
       '#title' => $this->t('Confirmation email hero'),
       '#description' => $this->t(
-        'Banner shown at the top of visitor confirmation emails for this webform. Copy is managed in the email hub; subject line stays on the webform email handler.',
+        'Banner shown at the top of visitor confirmation emails for this webform. Email copy is managed in the webform confirmation handler; subject line stays on the same handler.',
       ),
       '#open' => TRUE,
       '#weight' => 50,

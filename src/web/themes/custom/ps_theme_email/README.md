@@ -10,6 +10,15 @@ Requires `mjml_render_devel` (enabled via config split `local` or `ps_core` inst
 
 Preview UI: `/admin/config/development/mjml-preview` (must be logged in).
 
+**Variables:** `ps_email` injects branding, design tokens and rich footer into every
+`ps_theme_email` preview via `EmailMjmlPreviewVariablesBuilder` (same data as live
+sends). Module-specific sample data can extend via `hook_ps_email_mjml_preview_variables_alter()`.
+Manual overrides in the MJML Devel form still take precedence.
+
+**Note:** production sends use `ps_theme/templates/email-wrap.html.twig` (HTML). MJML
+preview shows `ps_theme_email` templates — structure and branding match; minor markup
+differences are expected between MJML and hand-written HTML shells.
+
 **Email hub (Phase 6):** `/admin/ps/config/email` (`ps_email`) — registry of all transactional types, Mailpit tests and module settings links.
 
 | Template | Purpose |

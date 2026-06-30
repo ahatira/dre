@@ -4,98 +4,36 @@ declare(strict_types=1);
 
 namespace Drupal\ps_form\Hook;
 
-use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Core\Render\Markup;
 use Drupal\ps_email\Service\ContactWebformEmailSettings;
-use Drupal\ps_form\Service\ContactEmailConfirmationBuilder;
-use Drupal\ps_form\Service\ContactEmailFooterBuilder;
-use Drupal\webform\WebformSubmissionInterface;
+use Drupal\ps_form\Service\ContactEmailHeroImageResolver;
+use Drupal\webform\WebformInterface;
 
 /**
- * Contact confirmation email tokens, theme, and wrapper preprocessing.
+ * Contact webform email wrapper preprocessing (hero, confirmation shell flags).
  */
 final class ContactEmailHooks {
 
+  /**
+   * Webform email handler suffixes wired to Symfony Mailer sub_type.
+   *
+   * @var list<string>
+   */
+  private const WEBFORM_HANDLER_SUFFIXES = [
+    'email_confirmation',
+    'email_notification',
+    'email_agent',
+  ];
+
   public function __construct(
     private readonly ContactWebformEmailSettings $contactWebformEmailSettings,
-    private readonly ContactEmailConfirmationBuilder $confirmationBuilder,
-    private readonly ContactEmailFooterBuilder $footerBuilder,
+    private readonly ContactEmailHeroImageResolver $heroImageResolver,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
   /**
-   * Registers the confirmation body theme and variables.
-   */
-  #[Hook('theme')]
-  public function theme(): array {
-    return [
-      'ps_contact_email_confirmation_body' => [
-        'variables' => [
-          'greeting' => '',
-          'intro_text' => '',
-          'recap_intro' => '',
-          'recap_rows' => [],
-          'closing_text' => '',
-          'signoff_text' => '',
-        ],
-        'template' => 'ps-contact-email-confirmation-body',
-      ],
-    ];
-  }
-
-  /**
-   * Registers ps_form email tokens for webform handlers.
-   */
-  #[Hook('token_info')]
-  public function tokenInfo(): array {
-    return [
-      'types' => [
-        'ps_form' => [
-          'name' => 'PS Form',
-          'description' => 'Property Search form email tokens.',
-          'needs-data' => 'webform_submission',
-        ],
-      ],
-      'tokens' => [
-        'ps_form' => [
-          'contact_confirmation_body' => [
-            'name' => 'Contact confirmation body',
-            'description' => 'Styled HTML body for hub contact confirmation emails.',
-          ],
-        ],
-      ],
-    ];
-  }
-
-  /**
-   * Replaces ps_form email tokens.
-   */
-  #[Hook('tokens')]
-  public function tokens(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
-    if ($type !== 'ps_form') {
-      return [];
-    }
-
-    $replacements = [];
-    $submission = $data['webform_submission'] ?? NULL;
-    if (!$submission instanceof WebformSubmissionInterface) {
-      return [];
-    }
-
-    foreach ($tokens as $name => $original) {
-      if ($name !== 'contact_confirmation_body') {
-        continue;
-      }
-      $html = $this->confirmationBuilder->buildHtml($submission);
-      $replacements[$original] = $html instanceof MarkupInterface ? $html : Markup::create((string) $html);
-    }
-
-    return $replacements;
-  }
-
-  /**
-   * Adds display title and rich footer to contact confirmation wraps.
+   * Applies hub confirmation shell flags (hero, in-body H1) for webform emails.
    */
   #[Hook('preprocess_email_wrap')]
   public function preprocessEmailWrap(array &$variables): void {
@@ -103,58 +41,72 @@ final class ContactEmailHooks {
       return;
     }
 
-    $subType = (string) ($variables['sub_type'] ?? '');
-    if (!str_ends_with($subType, '_email_confirmation')) {
+    $parsed = self::parseWebformHandlerSubType((string) ($variables['sub_type'] ?? ''));
+    if ($parsed === NULL) {
       return;
     }
 
-    $webformId = substr($subType, 0, -strlen('_email_confirmation'));
-    if (!$this->contactWebformEmailSettings->isHubConfirmationWebform($webformId)) {
+    ['webform_id' => $webformId, 'handler_id' => $handlerId] = $parsed;
+    if (!$this->contactWebformEmailSettings->isContactWebform($webformId)) {
       return;
     }
 
-    $variables['ps_contact_confirmation'] = TRUE;
-    $variables['email_display_title'] = $this->contactWebformEmailSettings->getDisplayTitle($webformId);
-    $variables['email_hide_subject_title'] = TRUE;
-    $variables['email_hide_default_signoff'] = TRUE;
+    if ($handlerId === 'email_confirmation' && $this->contactWebformEmailSettings->isHubConfirmationWebform($webformId)) {
+      $variables['ps_contact_confirmation'] = TRUE;
 
-    $heroUrl = $this->confirmationBuilder->getHeroImageUrl($webformId);
-    if ($heroUrl !== NULL) {
-      $variables['ps_contact_hero_url'] = $heroUrl;
-      $variables['ps_contact_hero_alt'] = $this->contactWebformEmailSettings->getDisplayTitle($webformId);
+      $heroUrl = $this->heroImageResolver->getHeroImageUrl($webformId);
+      if ($heroUrl !== NULL) {
+        $variables['ps_contact_hero_url'] = $heroUrl;
+        $variables['ps_contact_hero_alt'] = $this->loadWebformLabel($webformId);
+      }
     }
-
-    $variables += $this->footerBuilder->buildFooterVariables();
   }
 
   /**
-   * Sample contact footer for MJML Devel (email-contact-preview template).
+   * Parses webform id and handler id from symfony_mailer sub_type.
+   *
+   * @return array{webform_id: string, handler_id: string}|null
+   *   Parsed ids or NULL when sub_type is not a webform handler.
    */
-  #[Hook('preprocess_email_contact_preview')]
-  public function preprocessEmailContactPreview(array &$variables): void {
-    $webformId = ContactWebformEmailSettings::HUB_WEBFORM_IDS[0];
-    $variables['ps_contact_confirmation'] = TRUE;
-    $variables['email_display_title'] ??= $this->contactWebformEmailSettings->getDisplayTitle($webformId);
-    $variables['email_hide_default_signoff'] = TRUE;
+  public static function parseWebformHandlerSubType(string $subType): ?array {
+    foreach (self::WEBFORM_HANDLER_SUFFIXES as $handlerId) {
+      $suffix = '_' . $handlerId;
+      if (!str_ends_with($subType, $suffix)) {
+        continue;
+      }
 
-    $heroUrl = $this->confirmationBuilder->getHeroImageUrl($webformId);
-    if ($heroUrl !== NULL) {
-      $variables['ps_contact_hero_url'] = $heroUrl;
-      $variables['ps_contact_hero_alt'] = $this->contactWebformEmailSettings->getDisplayTitle($webformId);
+      $webformId = substr($subType, 0, -strlen($suffix));
+      if ($webformId === '') {
+        return NULL;
+      }
+
+      return [
+        'webform_id' => $webformId,
+        'handler_id' => $handlerId,
+      ];
     }
 
-    $variables += $this->footerBuilder->buildFooterVariables();
+    return NULL;
   }
 
   /**
    * Parses webform id from symfony_mailer sub_type for confirmation emails.
    */
   public static function parseConfirmationWebformId(string $subType): ?string {
-    if (!str_ends_with($subType, '_email_confirmation')) {
+    $parsed = self::parseWebformHandlerSubType($subType);
+    if ($parsed === NULL || $parsed['handler_id'] !== 'email_confirmation') {
       return NULL;
     }
-    $webformId = substr($subType, 0, -strlen('_email_confirmation'));
-    return $webformId !== '' ? $webformId : NULL;
+
+    return $parsed['webform_id'];
+  }
+
+  /**
+   * Loads a webform label for hero alt text.
+   */
+  private function loadWebformLabel(string $webformId): string {
+    $webform = $this->entityTypeManager->getStorage('webform')->load($webformId);
+    return $webform instanceof WebformInterface ? (string) $webform->label() : $webformId;
   }
 
 }

@@ -9,18 +9,9 @@
 {% set green = email_primary_color|default('#00915a') %}
 {% set text = email_text_color|default('#333333') %}
 {% set surface = email_surface_color|default('#ffffff') %}
-{% set wrap_title = email_display_title|default(subject) %}
 {% set is_contact_confirmation = ps_contact_confirmation|default(false) %}
 
-{% if is_contact_confirmation and wrap_title %}
-  <mj-section background-color="{{ surface }}" padding="4px 16px 24px">
-    <mj-column>
-      <mj-text css-class="ps-email-title" align="center">
-        <h1 style="color:{{ text }};font-weight:700;">{{ wrap_title }}</h1>
-      </mj-text>
-    </mj-column>
-  </mj-section>
-{% elseif subject %}
+{% if not is_contact_confirmation and subject %}
   <mj-section background-color="{{ surface }}" padding="4px 16px 24px">
     <mj-column>
       <mj-text css-class="ps-email-title" align="center">

@@ -239,7 +239,14 @@ handlers:
       from_mail: _default
       from_name: _default
       subject: 'Thank you for contacting us'
-      body: '[ps_form:contact_confirmation_body]'
+      body: |-
+        <h1 style="margin:0 0 24px;font-size:22px;font-weight:700;line-height:1.3;color:#333333;text-align:center;">Your investment request has been sent</h1>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Hello [webform_submission:values:firstname:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">We have received your investment or sale project. A consultant will contact you to discuss the next steps.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">For reference, your request is as follows:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your interest in BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.</p>
       exclude_empty: true
       exclude_empty_checkbox: true
       html: true

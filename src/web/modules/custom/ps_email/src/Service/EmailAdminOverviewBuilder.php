@@ -24,6 +24,7 @@ final class EmailAdminOverviewBuilder {
     private readonly ConfigFactoryInterface $configFactory,
     private readonly ModuleHandlerInterface $moduleHandler,
     private readonly AccountProxyInterface $currentUser,
+    private readonly MjmlPreviewLinkBuilder $mjmlPreviewLinkBuilder,
   ) {}
 
   /**
@@ -131,9 +132,6 @@ final class EmailAdminOverviewBuilder {
         'links' => [
           '#theme' => 'item_list',
           '#items' => array_filter([
-            ($url = Url::fromRoute('ps_email.contact'))->access($this->currentUser)
-              ? Link::fromTextAndUrl($this->t('Contact copy (per webform)'), $url)->toRenderable()
-              : NULL,
             ($url = Url::fromRoute('ps_email.shell_footer'))->access($this->currentUser)
               ? Link::fromTextAndUrl($this->t('Footer and legal'), $url)->toRenderable()
               : NULL,
@@ -173,11 +171,9 @@ final class EmailAdminOverviewBuilder {
 
     if ($definition->mjmlPreviewTemplate !== NULL
       && $this->moduleHandler->moduleExists('mjml_render_devel')
-      && $this->currentUser->hasPermission('administer ps_email')) {
-      $url = Url::fromRoute('mjml_render_devel.preview', [
-        'template_path' => $definition->mjmlPreviewTemplate,
-      ]);
-      if ($url->access($this->currentUser)) {
+      && $this->currentUser->hasPermission('preview mjml templates')) {
+      $url = $this->mjmlPreviewLinkBuilder->buildUrl($definition->mjmlPreviewTemplate);
+      if ($url !== NULL && $url->access($this->currentUser)) {
         $links[] = Link::fromTextAndUrl($this->t('MJML preview'), $url)->toRenderable();
       }
     }

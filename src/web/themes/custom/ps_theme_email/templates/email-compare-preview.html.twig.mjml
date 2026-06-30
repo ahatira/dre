@@ -67,6 +67,11 @@
       } only %}
 
       {% include '@ps_theme_email/partials/signoff.html.twig' %}
+
+      {% if ps_email_rich_footer|default(false) %}
+        {% include '@ps_theme_email/partials/footer-contact.html.twig' %}
+      {% endif %}
+
       {% include '@ps_theme_email/partials/footer-default.html.twig' %}
     </mj-wrapper>
   </mj-body>

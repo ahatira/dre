@@ -76,27 +76,16 @@ services:
     arguments:
       - '@ps_form.form_urgency_contact'
 
-  ps_form.contact_email_recap_formatter:
-    class: Drupal\ps_form\Service\ContactEmailSubmissionRecapFormatter
-    arguments:
-      - '@plugin.manager.webform.element'
-      - '@renderer'
-
-  ps_form.contact_email_footer_builder:
-    class: Drupal\ps_form\Service\ContactEmailFooterBuilder
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
-
-  ps_form.contact_email_confirmation_builder:
-    class: Drupal\ps_form\Service\ContactEmailConfirmationBuilder
+  Drupal\ps_form\Hook\ContactEmailHooks:
     arguments:
       - '@ps_email.contact_webform_email_settings'
-      - '@ps_form.contact_email_recap_formatter'
       - '@ps_form.contact_email_hero_image_resolver'
-      - '@ps_form.contact_webform_email_hero_settings'
-      - '@renderer'
+      - '@entity_type.manager'
+
+  Drupal\ps_form\Hook\EmailMjmlPreviewHooks:
+    arguments:
+      - '@ps_form.contact_email_hero_image_resolver'
+      - '@entity_type.manager'
 
   ps_form.contact_webform_email_hero_settings:
     class: Drupal\ps_form\Service\ContactWebformEmailHeroSettings
@@ -124,11 +113,5 @@ services:
       - '@ps_form.contact_webform_email_hero_settings'
       - '@ps_form.contact_email_hero_image_resolver'
       - '@entity_type.manager'
-
-  Drupal\ps_form\Hook\ContactEmailHooks:
-    arguments:
-      - '@ps_email.contact_webform_email_settings'
-      - '@ps_form.contact_email_confirmation_builder'
-      - '@ps_form.contact_email_footer_builder'
 
   Drupal\ps_form\Hook\PsFormAdminHooks: {}

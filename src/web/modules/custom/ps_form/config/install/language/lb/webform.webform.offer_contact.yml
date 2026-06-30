@@ -1,5 +1,5 @@
 title: 'De Beroder kontaktéieren'
-description: "Kontaktformular op der Offerdetail-Säit."
+description: 'Kontaktformular op der Offerdetail-Säit.'
 category: Immobiliesich
 elements: |-
   contact:
@@ -57,12 +57,22 @@ elements: |-
         - ps-offer-contact-modal__legal
 settings:
   form_submit_label: Schécken
-  confirmation_message: "<p>Merci. Är Noriicht gouf geschéckt.</p>"
-  email_agent:
-    label: "Beroder-Benoriichtung"
-    subject: "Kontaktufro — Offer [webform_submission:source-entity:field_reference]"
-    body: _default
+  confirmation_message: '<p>Merci. Är Noriicht gouf geschéckt.</p>'
+handlers:
   email_confirmation:
+    settings:
+      subject: 'Är Kontaktufro — [webform_submission:source-entity:field_reference]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Moien [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un der Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Är Noriicht gouf un eise Beroder weidergeleet, deen Iech geschwënn kontaktéiert.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>
     label: Besicherbestätegung
-    subject: "Är Kontaktufro — [webform_submission:source-entity:field_reference]"
-    body: "<p>Merci fir Ären Interessi un der Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p><p>Är Noriicht gouf un eise Beroder weidergeleet. Mir mellen eis geschwënn bei Iech.</p>"
+  email_agent:
+    settings:
+      subject: 'Kontaktufro — Offer [webform_submission:source-entity:field_reference]'
+      body: _default
+    label: Beroder-Benoriichtigung

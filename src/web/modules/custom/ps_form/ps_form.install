@@ -174,3 +174,22 @@ function ps_form_apply_install_settings(): void {
 
   $config->save();
 }
+
+/**
+ * Re-imports all webforms with email handlers from module install config.
+ */
+function ps_form_sync_all_email_webforms_from_install(): void {
+  foreach ([
+    'find_property',
+    'entrust_search',
+    'get_advice',
+    'entrust_property',
+    'invest_sell',
+    'other_request',
+    'offer_contact',
+    'schedule_visit',
+  ] as $webformId) {
+    ps_form_sync_webform_from_install($webformId);
+  }
+}
+

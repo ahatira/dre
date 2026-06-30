@@ -10,12 +10,6 @@ ps_email.shell_footer:
   base_route: ps_email.admin
   weight: 0
 
-ps_email.contact:
-  title: 'Contact copy'
-  route_name: ps_email.contact
-  base_route: ps_email.admin
-  weight: 5
-
 ps_email.user_account:
   title: 'User account'
   route_name: ps_email.user_account
