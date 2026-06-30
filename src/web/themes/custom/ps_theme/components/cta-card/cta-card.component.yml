@@ -31,6 +31,9 @@ props:
     icon:
       type: string
       title: Icon name
+    link_type:
+      type: string
+      title: Link opening mode
     modal_id:
       type: string
       title: Bootstrap modal ID

@@ -62,6 +62,7 @@ final class PromoCardForm extends EntityForm {
     $entity = $this->entity;
 
     $form['#attached']['library'][] = 'views_promo_card/promo_card_admin';
+    $form['#attached']['library'][] = 'core/drupal.machine-name';
     $form['#attributes']['class'][] = 'promo-card-admin-form';
     $form['#attributes']['data-preview-url'] = Url::fromRoute('views_promo_card.card_preview')->toString();
 
@@ -196,9 +197,11 @@ final class PromoCardForm extends EntityForm {
 
     $form['layout']['editor']['identity']['id'] = [
       '#type' => 'machine_name',
+      '#title' => $this->t('Machine-readable name'),
       '#default_value' => $entity->id(),
       '#machine_name' => [
-        'exists' => '\\Drupal\\views_promo_card\\Entity\\PromoCard::load',
+        'exists' => [PromoCardInterface::class, 'load'],
+        'source' => ['layout', 'editor', 'identity', 'label'],
       ],
       '#disabled' => !$entity->isNew(),
       '#required' => TRUE,
@@ -211,9 +214,8 @@ final class PromoCardForm extends EntityForm {
     ];
 
     $form['layout']['editor']['identity']['weight'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Weight'),
-      '#default_value' => $entity->get('weight') ?? 0,
+      '#type' => 'value',
+      '#value' => $entity->get('weight') ?? 0,
     ];
 
     if ($entity->getPresetId() !== '') {

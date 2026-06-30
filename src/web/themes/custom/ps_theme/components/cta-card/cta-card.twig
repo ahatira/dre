@@ -18,11 +18,20 @@
     <h3 class="ps-cta-card__title">{{ title }}</h3>
   {% endif %}
   {% if button_label %}
-    {% if modal_id %}
+    {% if link_type == 'modal' and modal_id %}
       <button type="button" class="btn {{ button_class }} {{ btn_width_class }} ps-cta-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
         {{ button_label }}
       </button>
-    {% else %}
+    {% elseif link_type in ['offcanvas', 'ajax_modal'] and button_url %}
+      <a href="{{ button_url }}"
+         class="btn {{ button_class }} {{ btn_width_class }} ps-cta-card__button use-ajax">
+        {{ button_label }}
+      </a>
+    {% elseif modal_id %}
+      <button type="button" class="btn {{ button_class }} {{ btn_width_class }} ps-cta-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+        {{ button_label }}
+      </button>
+    {% elseif button_url %}
       <a href="{{ button_url }}" class="btn {{ button_class }} {{ btn_width_class }} ps-cta-card__button">{{ button_label }}</a>
     {% endif %}
   {% endif %}

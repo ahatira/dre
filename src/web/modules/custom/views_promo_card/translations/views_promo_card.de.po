@@ -416,3 +416,191 @@ msgstr "promo cards"
 
 msgid "—"
 msgstr "—"
+
+# Content-card editor strings (added 2026-07-01).
+
+msgid "Content"
+msgstr "Content"
+
+msgid "Appearance"
+msgstr "Appearance"
+
+msgid "Buttons"
+msgstr "Buttons"
+
+msgid "Advanced options"
+msgstr "Advanced options"
+
+msgid "Call to action"
+msgstr "Call to action"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Icon position"
+msgstr "Icon position"
+
+msgid "Icon inline with title"
+msgstr "Icon inline with title"
+
+msgid "When enabled, the icon appears beside the title instead of above it."
+msgstr "When enabled, the icon appears beside the title instead of above it."
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Title level"
+msgstr "Title level"
+
+msgid "Subtitle"
+msgstr "Subtitle"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Background"
+msgstr "Background"
+
+msgid "Text alignment"
+msgstr "Text alignment"
+
+msgid "Icon size"
+msgstr "Icon size"
+
+msgid "Shadow / elevation"
+msgstr "Shadow / elevation"
+
+msgid "Border"
+msgstr "Border"
+
+msgid "Wrapper attributes (advanced)"
+msgstr "Wrapper attributes (advanced)"
+
+msgid "Extra HTML attributes or CSS classes on the card wrapper."
+msgstr "Extra HTML attributes or CSS classes on the card wrapper."
+
+msgid "Buttons layout"
+msgstr "Buttons layout"
+
+msgid "Stack (vertical)"
+msgstr "Stack (vertical)"
+
+msgid "Row"
+msgstr "Row"
+
+msgid "Inline"
+msgstr "Inline"
+
+msgid "Button @num"
+msgstr "Button @num"
+
+msgid "Variant"
+msgstr "Variant"
+
+msgid "Outline style"
+msgstr "Outline style"
+
+msgid "Opening mode"
+msgstr "Opening mode"
+
+msgid "Modal ID"
+msgstr "Modal ID"
+
+msgid "Bootstrap modal ID (without #), when opening mode is Modal."
+msgstr "Bootstrap modal ID (without #), when opening mode is Modal."
+
+msgid "Link target"
+msgstr "Link target"
+
+msgid "Primary"
+msgstr "Primary"
+
+msgid "Secondary"
+msgstr "Secondary"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Modal"
+msgstr "Modal"
+
+msgid "Offcanvas"
+msgstr "Offcanvas"
+
+msgid "Same window"
+msgstr "Same window"
+
+msgid "New window"
+msgstr "New window"
+
+msgid "Heading 2"
+msgstr "Heading 2"
+
+msgid "Heading 3 (recommended)"
+msgstr "Heading 3 (recommended)"
+
+msgid "Heading 4"
+msgstr "Heading 4"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Center"
+msgstr "Center"
+
+msgid "End"
+msgstr "End"
+
+msgid "Right"
+msgstr "Right"
+
+msgid "Left"
+msgstr "Left"
+
+msgid "Small (24px)"
+msgstr "Small (24px)"
+
+msgid "Medium (32px)"
+msgstr "Medium (32px)"
+
+msgid "Large (48px)"
+msgstr "Large (48px)"
+
+msgid "Subtle border"
+msgstr "Subtle border"
+
+msgid "No border"
+msgstr "No border"
+
+msgid "Accent (brand)"
+msgstr "Accent (brand)"
+
+msgid "Flat"
+msgstr "Flat"
+
+msgid "Subtle shadow"
+msgstr "Subtle shadow"
+
+msgid "Raised"
+msgstr "Raised"
+
+msgid "Default (component preset)"
+msgstr "Default (component preset)"
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "White"
+msgstr "White"
+
+msgid "Muted grey"
+msgstr "Muted grey"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Brand green"
+msgstr "Brand green"
+
+msgid "Card preview"
+msgstr "Card preview"

@@ -90,11 +90,51 @@ final class PatternIconHelper {
       return $pack . ':' . $id;
     }
 
+    if ($this->hasExplicitEmptyIcon(['props' => $props])) {
+      return '';
+    }
+
     return $this->getDefaultIcon();
   }
 
   /**
-   * Ensures icon props are populated before render when a fallback is configured.
+   * Returns the icon picker default for admin forms.
+   *
+   * @param array<string, mixed> $ui_patterns
+   *   Stored UI Patterns configuration.
+   */
+  public function getFormIconDefault(array $ui_patterns): string {
+    if ($this->hasExplicitEmptyIcon($ui_patterns)) {
+      return '';
+    }
+
+    $pack = UiPatternsValueReader::getPropValue($ui_patterns, 'icon_pack');
+    $id = UiPatternsValueReader::getPropValue($ui_patterns, 'icon_id');
+    if ($pack !== '' && $id !== '') {
+      return $pack . ':' . $id;
+    }
+
+    return $this->getDefaultIcon();
+  }
+
+  /**
+   * Whether the editor explicitly saved the card without an icon.
+   *
+   * @param array<string, mixed> $ui_patterns
+   *   UI Patterns component configuration.
+   */
+  public function hasExplicitEmptyIcon(array $ui_patterns): bool {
+    $props = is_array($ui_patterns['props'] ?? NULL) ? $ui_patterns['props'] : [];
+    if (!array_key_exists('icon_pack', $props) || !array_key_exists('icon_id', $props)) {
+      return FALSE;
+    }
+
+    return UiPatternsValueReader::getPropValue($ui_patterns, 'icon_pack') === ''
+      && UiPatternsValueReader::getPropValue($ui_patterns, 'icon_id') === '';
+  }
+
+  /**
+   * Ensures icon props are populated before render (fallback when allowed).
    *
    * @param array<string, mixed> $ui_patterns
    *   UI Patterns component configuration.
@@ -112,6 +152,10 @@ final class PatternIconHelper {
     $pack = UiPatternsValueReader::getPropValue($ui_patterns, 'icon_pack');
     $id = UiPatternsValueReader::getPropValue($ui_patterns, 'icon_id');
     if ($pack !== '' && $id !== '') {
+      return $ui_patterns;
+    }
+
+    if ($this->hasExplicitEmptyIcon($ui_patterns)) {
       return $ui_patterns;
     }
 
@@ -143,7 +187,9 @@ final class PatternIconHelper {
 
     $icon_id = IconIdUtility::extractFromSubmission($icon_picker, '');
     if ($icon_id === '') {
-      return $this->normalizeUiPatterns($ui_patterns);
+      $props = is_array($ui_patterns['props'] ?? NULL) ? $ui_patterns['props'] : [];
+      $ui_patterns['props'] = $this->clearIconProps($props);
+      return $ui_patterns;
     }
 
     $props = is_array($ui_patterns['props'] ?? NULL) ? $ui_patterns['props'] : [];
@@ -170,6 +216,21 @@ final class PatternIconHelper {
 
     $props['icon_pack'] = UiPatternsPropBuilder::textfield($parts['pack']);
     $props['icon_id'] = UiPatternsPropBuilder::textfield($parts['id']);
+    return $props;
+  }
+
+  /**
+   * Persists an explicit "no icon" choice in UI Patterns props.
+   *
+   * @param array<string, mixed> $props
+   *   Existing props configuration.
+   *
+   * @return array<string, mixed>
+   *   Updated props with empty icon_pack and icon_id.
+   */
+  public function clearIconProps(array $props): array {
+    $props['icon_pack'] = UiPatternsPropBuilder::textfield('');
+    $props['icon_id'] = UiPatternsPropBuilder::textfield('');
     return $props;
   }
 

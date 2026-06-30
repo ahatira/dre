@@ -5,7 +5,7 @@ promo_card_slot:
       css/promo-card-slot.css: {}
 
 promo_card_admin:
-  version: 1.0.0
+  version: 1.0.3
   css:
     theme:
       css/promo-card-admin.css: {}
@@ -17,6 +17,8 @@ promo_card_admin:
     - core/jquery
     - core/once
     - core/drupal.vertical-tabs
+    - core/drupal.machine-name
+    - ps_core/icon_picker
 
 promo_card_preview_frame:
   version: 1.0.0

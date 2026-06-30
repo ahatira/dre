@@ -1,0 +1,122 @@
+{#
+/**
+ * @file
+ * Unified content card — icon, title, subtitle, description, multiple CTAs.
+ *
+ * Accessibility: single configurable heading (title_tag); subtitle is a styled
+ * paragraph; description is prose markup (not a heading).
+ */
+#}
+{% set card_classes = ['ps-content-card'] %}
+{% set bg = background|default('default') %}
+{% if bg != 'default' and bg != 'transparent' and bg != '' %}
+  {% set card_classes = card_classes|merge(['ps-content-card--bg-' ~ bg]) %}
+{% elseif bg == 'transparent' %}
+  {% set card_classes = card_classes|merge(['ps-content-card--bg-transparent']) %}
+{% endif %}
+{% set align = text_align|default('left') %}
+{% if align in ['center', 'end'] %}
+  {% set card_classes = card_classes|merge(['ps-content-card--align-' ~ align]) %}
+{% endif %}
+{% set elev = elevation|default('none') %}
+{% if elev in ['sm', 'md'] %}
+  {% set card_classes = card_classes|merge(['ps-content-card--elevation-' ~ elev]) %}
+{% endif %}
+{% set border_v = border|default('none') %}
+{% if border_v in ['default', 'accent', 'none'] %}
+  {% set card_classes = card_classes|merge(['ps-content-card--border-' ~ border_v]) %}
+{% endif %}
+{% set icon_pos = icon_position|default('center') %}
+{% if icon_pos in ['start', 'end'] %}
+  {% set card_classes = card_classes|merge(['ps-content-card--icon-' ~ icon_pos]) %}
+{% endif %}
+{% if icon_inline|default(false) %}
+  {% set card_classes = card_classes|merge(['ps-content-card--icon-inline']) %}
+{% endif %}
+{% set icon_sizes = { 'sm': '24px', 'md': '32px', 'lg': '48px' } %}
+{% set icon_px = icon_sizes[icon_size|default('md')] ?? '32px' %}
+{% set heading_tag = title_tag|default('h3') %}
+{% if heading_tag not in ['h2', 'h3', 'h4'] %}
+  {% set heading_tag = 'h3' %}
+{% endif %}
+{% set title_id = attributes.id ? attributes.id ~ '-title' : 'ps-content-card-title-' ~ random() %}
+{% set button_items = buttons.items|default([]) %}
+{% set buttons_layout = buttons.layout|default('stack') %}
+{% set actions_classes = ['ps-content-card__actions', 'ps-content-card__actions--' ~ buttons_layout] %}
+<article{{ attributes.addClass(card_classes) }}{% if title %} aria-labelledby="{{ title_id }}"{% endif %}>
+  {% if icon_pack and icon_id %}
+    {% set icon_markup %}
+      <div class="ps-content-card__icon" aria-hidden="true">
+        {{ icon(icon_pack, icon_id, {size: icon_px}) }}
+      </div>
+    {% endset %}
+  {% endif %}
+
+  {% if icon_inline|default(false) and icon_pack and icon_id and title %}
+    <div class="ps-content-card__heading">
+      {% if icon_pos == 'end' %}
+        <{{ heading_tag }} id="{{ title_id }}" class="ps-content-card__title">{{ title }}</{{ heading_tag }}>
+        {{ icon_markup }}
+      {% else %}
+        {{ icon_markup }}
+        <{{ heading_tag }} id="{{ title_id }}" class="ps-content-card__title">{{ title }}</{{ heading_tag }}>
+      {% endif %}
+    </div>
+  {% else %}
+    {% if icon_pack and icon_id %}
+      {{ icon_markup }}
+    {% endif %}
+    {% if title %}
+      <{{ heading_tag }} id="{{ title_id }}" class="ps-content-card__title">{{ title }}</{{ heading_tag }}>
+    {% endif %}
+  {% endif %}
+
+  {% if subtitle %}
+    <p class="ps-content-card__subtitle">{{ subtitle }}</p>
+  {% endif %}
+
+  {% if description %}
+    <div class="ps-content-card__description">{{ description|raw }}</div>
+  {% endif %}
+
+  {% if button_items is not empty %}
+    <div class="{{ actions_classes|join(' ') }}">
+      {% for button in button_items %}
+        {% if button.label %}
+          {% set variant = button.variant|default('primary') %}
+          {% set is_outline = button.outline|default(false) %}
+          {% set btn_class = variant == 'secondary'
+            ? (is_outline ? 'btn-outline-secondary' : 'btn-secondary')
+            : (is_outline ? 'btn-outline-primary' : 'btn-primary') %}
+          {% set link_type = button.link_type|default('url') %}
+          {% set button_url = button.url|default('') %}
+          {% set modal_id = button.modal_id|default('') %}
+          {% set dialog_attributes = button.dialog_attributes|default({}) %}
+          {% set target = button.target|default('_self') %}
+          {% if link_type == 'modal' and modal_id %}
+            <button type="button" class="btn {{ btn_class }} ps-content-card__button" data-bs-toggle="modal" data-bs-target="#{{ modal_id|trim('#') }}">
+              {{ button.label }}
+            </button>
+          {% elseif link_type in ['offcanvas', 'ajax_modal'] and button_url %}
+            <a href="{{ button_url }}"
+               class="btn {{ btn_class }} ps-content-card__button {{ dialog_attributes.class|default('use-ajax') }}"
+               {% if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif %}
+               {% for attribute, value in dialog_attributes %}
+                 {% if attribute != 'class' %}
+                   {{ attribute }}="{{ value|e('html_attr') }}"
+                 {% endif %}
+               {% endfor %}>
+              {{ button.label }}
+            </a>
+          {% elseif button_url %}
+            <a href="{{ button_url }}"
+               class="btn {{ btn_class }} ps-content-card__button"
+               {% if target == '_blank' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+              {{ button.label }}
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</article>

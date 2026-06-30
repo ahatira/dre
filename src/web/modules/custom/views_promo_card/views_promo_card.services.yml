@@ -45,6 +45,17 @@ services:
       - '@bare_html_page_renderer'
       - '@views_promo_card.pattern_registry'
 
+  views_promo_card.content_card_button_resolver:
+    class: Drupal\views_promo_card\Service\ContentCardButtonResolver
+    arguments:
+      - '@ps_content.content_cta_link_builder'
+
+  views_promo_card.content_card_prop_normalizer:
+    class: Drupal\views_promo_card\Service\ContentCardPropNormalizer
+    arguments:
+      - '@views_promo_card.content_card_button_resolver'
+      - '@language_manager'
+
   views_promo_card.card_renderer:
     class: Drupal\views_promo_card\Service\CardRenderer
     arguments:
@@ -53,6 +64,7 @@ services:
       - '@views_promo_card.pattern_registry'
       - '@views_promo_card.pattern_icon_helper'
       - '@plugin.manager.sdc'
+      - '@views_promo_card.content_card_prop_normalizer'
 
   views_promo_card.card_rotation:
     class: Drupal\views_promo_card\Service\CardRotationManager

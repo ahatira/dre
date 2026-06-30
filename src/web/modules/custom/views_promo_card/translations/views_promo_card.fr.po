@@ -416,3 +416,191 @@ msgstr "cartes promo"
 
 msgid "—"
 msgstr "—"
+
+# Content-card editor strings (added 2026-07-01).
+
+msgid "Content"
+msgstr "Contenu"
+
+msgid "Appearance"
+msgstr "Apparence"
+
+msgid "Buttons"
+msgstr "Boutons"
+
+msgid "Advanced options"
+msgstr "Options avancees"
+
+msgid "Call to action"
+msgstr "Appel a l'action"
+
+msgid "Icon"
+msgstr "Icone"
+
+msgid "Icon position"
+msgstr "Position de l'icone"
+
+msgid "Icon inline with title"
+msgstr "Icone inline avec le titre"
+
+msgid "When enabled, the icon appears beside the title instead of above it."
+msgstr "Si active, l'icone s'affiche a cote du titre plutot qu'au-dessus."
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Title level"
+msgstr "Niveau du titre"
+
+msgid "Subtitle"
+msgstr "Sous-titre"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Background"
+msgstr "Fond"
+
+msgid "Text alignment"
+msgstr "Alignement du texte"
+
+msgid "Icon size"
+msgstr "Taille de l'icone"
+
+msgid "Shadow / elevation"
+msgstr "Ombre / elevation"
+
+msgid "Border"
+msgstr "Bordure"
+
+msgid "Wrapper attributes (advanced)"
+msgstr "Attributs du conteneur (avance)"
+
+msgid "Extra HTML attributes or CSS classes on the card wrapper."
+msgstr "Attributs HTML ou classes CSS supplementaires sur le conteneur de la carte."
+
+msgid "Buttons layout"
+msgstr "Disposition des boutons"
+
+msgid "Stack (vertical)"
+msgstr "Empiles (vertical)"
+
+msgid "Row"
+msgstr "Ligne"
+
+msgid "Inline"
+msgstr "Inline"
+
+msgid "Button @num"
+msgstr "Bouton @num"
+
+msgid "Variant"
+msgstr "Variante"
+
+msgid "Outline style"
+msgstr "Style contour"
+
+msgid "Opening mode"
+msgstr "Mode d'ouverture"
+
+msgid "Modal ID"
+msgstr "ID modale"
+
+msgid "Bootstrap modal ID (without #), when opening mode is Modal."
+msgstr "ID modale Bootstrap (sans #), lorsque le mode d'ouverture est Modale."
+
+msgid "Link target"
+msgstr "Cible du lien"
+
+msgid "Primary"
+msgstr "Primaire"
+
+msgid "Secondary"
+msgstr "Secondaire"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Modal"
+msgstr "Modale"
+
+msgid "Offcanvas"
+msgstr "Offcanvas"
+
+msgid "Same window"
+msgstr "Meme fenetre"
+
+msgid "New window"
+msgstr "Nouvelle fenetre"
+
+msgid "Heading 2"
+msgstr "Titre 2"
+
+msgid "Heading 3 (recommended)"
+msgstr "Titre 3 (recommande)"
+
+msgid "Heading 4"
+msgstr "Titre 4"
+
+msgid "Start"
+msgstr "Debut"
+
+msgid "Center"
+msgstr "Centre"
+
+msgid "End"
+msgstr "Fin"
+
+msgid "Right"
+msgstr "Droite"
+
+msgid "Left"
+msgstr "Gauche"
+
+msgid "Small (24px)"
+msgstr "Petite (24px)"
+
+msgid "Medium (32px)"
+msgstr "Moyenne (32px)"
+
+msgid "Large (48px)"
+msgstr "Grande (48px)"
+
+msgid "Subtle border"
+msgstr "Bordure discrete"
+
+msgid "No border"
+msgstr "Sans bordure"
+
+msgid "Accent (brand)"
+msgstr "Accent (marque)"
+
+msgid "Flat"
+msgstr "Plat"
+
+msgid "Subtle shadow"
+msgstr "Ombre legere"
+
+msgid "Raised"
+msgstr "Relief"
+
+msgid "Default (component preset)"
+msgstr "Par defaut (preset composant)"
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "White"
+msgstr "Blanc"
+
+msgid "Muted grey"
+msgstr "Gris muted"
+
+msgid "Dark"
+msgstr "Sombre"
+
+msgid "Brand green"
+msgstr "Vert marque"
+
+msgid "Card preview"
+msgstr "Apercu de la carte"

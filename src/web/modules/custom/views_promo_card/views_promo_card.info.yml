@@ -9,6 +9,7 @@ dependencies:
   - drupal:path_alias
   - ui_patterns:ui_patterns
   - ps_core:ps_core
+  - ps_content:ps_content
 
 suggest:
   - ui_icons:ui_icons_picker

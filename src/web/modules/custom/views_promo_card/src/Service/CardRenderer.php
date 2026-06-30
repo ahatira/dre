@@ -23,6 +23,7 @@ final class CardRenderer {
     private readonly PatternRegistry $patternRegistry,
     private readonly PatternIconHelper $patternIconHelper,
     private readonly ComponentPluginManager $componentPluginManager,
+    private readonly ContentCardPropNormalizer $contentCardPropNormalizer,
   ) {}
 
   /**
@@ -77,7 +78,7 @@ final class CardRenderer {
     if (empty($build['#props']) && empty($build['#slots'])) {
       return NULL;
     }
-    return $build;
+    return $this->finalizeContentCardBuild($build, $configuration, $pattern_id);
   }
 
   /**
@@ -104,7 +105,24 @@ final class CardRenderer {
       return NULL;
     }
     $props = is_array($ui_patterns['props'] ?? NULL) ? $ui_patterns['props'] : [];
-    $ui_patterns['props'] = $this->fillPreviewPropDefaults($pattern_id, $props);
+    $props = $this->fillPreviewPropDefaults($pattern_id, $props);
+    if ($this->contentCardPropNormalizer->supports($pattern_id) && $this->extractPropString($props, 'buttons') === '') {
+      $props['buttons'] = UiPatternsPropBuilder::json([
+        'layout' => 'stack',
+        'items' => [
+          [
+            'label' => 'Preview button',
+            'url' => '#',
+            'variant' => 'primary',
+            'outline' => FALSE,
+            'mode' => 'page',
+            'modal_id' => '',
+            'target' => '_self',
+          ],
+        ],
+      ]);
+    }
+    $ui_patterns['props'] = $props;
     $ui_patterns = $this->patternIconHelper->normalizeUiPatterns($ui_patterns + ['component_id' => $pattern_id]);
     $configuration = $ui_patterns + ['component_id' => $pattern_id];
     $build = [
@@ -113,12 +131,67 @@ final class CardRenderer {
       '#ui_patterns' => $configuration,
     ];
     $build = $this->componentElementBuilder->build($build);
+    return $this->finalizeContentCardBuild($build, $configuration, $pattern_id);
+  }
+
+  /**
+   * Applies content-card stored props that UI Patterns cannot resolve reliably.
+   *
+   * @param array<string, mixed> $build
+   *   Component render array.
+   * @param array<string, mixed> $ui_patterns
+   *   UI Patterns component configuration.
+   * @param string $pattern_id
+   *   SDC pattern ID.
+   *
+   * @return array<string, mixed>
+   *   Updated render array.
+   */
+  private function finalizeContentCardBuild(array $build, array $ui_patterns, string $pattern_id): array {
+    if (!$this->contentCardPropNormalizer->supports($pattern_id)) {
+      return $build;
+    }
+
+    $props = is_array($build['#props'] ?? NULL) ? $build['#props'] : [];
+    $buttons = $this->decodeButtonsProp($ui_patterns);
+    if ($buttons !== NULL) {
+      $props['buttons'] = $buttons;
+    }
+
+    $build['#props'] = $this->contentCardPropNormalizer->normalizeProps($props);
     return $build;
+  }
+
+  /**
+   * Decodes the buttons JSON prop from UI Patterns storage.
+   *
+   * @param array<string, mixed> $ui_patterns
+   *   UI Patterns component configuration.
+   *
+   * @return array<string, mixed>|null
+   *   Decoded buttons payload or NULL when absent/invalid.
+   */
+  private function decodeButtonsProp(array $ui_patterns): ?array {
+    $json = UiPatternsValueReader::getPropValue($ui_patterns, 'buttons');
+    if ($json === '') {
+      return NULL;
+    }
+
+    try {
+      $decoded = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
+    }
+    catch (\JsonException) {
+      return NULL;
+    }
+
+    return is_array($decoded) ? $decoded : NULL;
   }
 
   /**
    * Fills missing required SDC props with admin preview placeholders.
    *
+   * @param string $pattern_id
+   *   SDC pattern ID.
    * @param array<string, mixed> $props
    *   Submitted component props.
    *
@@ -139,6 +212,11 @@ final class CardRenderer {
       'button_style' => 'primary',
       'link_type' => '',
       'modal_id' => '',
+      'subtitle' => 'Preview subtitle',
+      'description' => 'Preview description text.',
+      'title_tag' => 'h3',
+      'icon_position' => 'center',
+      'icon_size' => 'md',
     ];
     $url_props = ['cta_url', 'button_url'];
 
@@ -156,10 +234,23 @@ final class CardRenderer {
           continue;
         }
         $placeholder = $placeholders[$key] ?? ('[' . $key . ']');
+        $select_props = [
+          'button_style',
+          'cta_button_style',
+          'background',
+          'text_align',
+          'cta_width',
+          'border',
+          'elevation',
+          'icon_size',
+          'button_width',
+          'title_tag',
+          'icon_position',
+        ];
         if (in_array($key, $url_props, TRUE)) {
           $props[$key] = UiPatternsPropBuilder::url($placeholder);
         }
-        elseif (in_array($key, ['button_style', 'cta_button_style', 'background', 'text_align', 'cta_width', 'border', 'elevation', 'icon_size', 'button_width'], TRUE)) {
+        elseif (in_array($key, $select_props, TRUE)) {
           $props[$key] = UiPatternsPropBuilder::select($placeholder);
         }
         else {

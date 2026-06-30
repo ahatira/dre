@@ -127,7 +127,20 @@ final class ContentCtaLinkBuilder {
       return '';
     }
 
-    return Url::fromUserInput($url)->toString();
+    if ($this->isExternalUrl($url)) {
+      return Url::fromUri($url)->toString();
+    }
+
+    return Url::fromUserInput($url, [
+      'language' => $this->languageManager->getLanguage($langcode),
+    ])->toString();
+  }
+
+  /**
+   * Whether the URL is an absolute external URI (not an internal path).
+   */
+  private function isExternalUrl(string $url): bool {
+    return (bool) preg_match('/^(https?|mailto|tel):/i', $url);
   }
 
 }

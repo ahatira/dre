@@ -1,0 +1,145 @@
+name: Content card
+description: 'Unified promo/content card with icon, headings, description and multiple CTAs.'
+group: Property Search
+status: stable
+props:
+  type: object
+  properties:
+    icon_pack:
+      type: string
+      title: Icon pack
+    icon_id:
+      type: string
+      title: Icon ID
+    icon_position:
+      type: string
+      title: Icon position
+      enum:
+        - start
+        - center
+        - end
+      default: center
+    icon_inline:
+      type: boolean
+      title: Icon inline with title
+      default: false
+    title:
+      type: string
+      title: Card title
+    title_tag:
+      type: string
+      title: Title heading level
+      enum:
+        - h2
+        - h3
+        - h4
+      default: h3
+    subtitle:
+      type: string
+      title: Subtitle
+    description:
+      type: string
+      title: Description (HTML)
+    buttons:
+      type: object
+      title: Action buttons
+      properties:
+        layout:
+          type: string
+          title: Buttons layout
+          enum:
+            - stack
+            - row
+            - inline
+          default: stack
+        items:
+          type: array
+          title: Button items
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                title: Button label
+              url:
+                type: string
+                title: Button URL
+              variant:
+                type: string
+                title: Button variant
+                enum:
+                  - primary
+                  - secondary
+                default: primary
+              outline:
+                type: boolean
+                title: Outline style
+                default: false
+              link_type:
+                type: string
+                title: Resolved link type
+              modal_id:
+                type: string
+                title: Bootstrap modal ID
+              dialog_attributes:
+                type: object
+                title: AJAX dialog attributes
+              target:
+                type: string
+                title: Link target
+                enum:
+                  - _self
+                  - _blank
+                default: _self
+    background:
+      type: string
+      title: Background
+      enum:
+        - transparent
+        - default
+        - white
+        - muted
+        - dark
+        - primary
+      default: default
+    text_align:
+      type: string
+      title: Text alignment
+      enum:
+        - left
+        - center
+        - end
+      default: left
+    icon_size:
+      type: string
+      title: Icon size
+      enum:
+        - sm
+        - md
+        - lg
+      default: md
+    elevation:
+      type: string
+      title: Shadow / elevation
+      enum:
+        - none
+        - sm
+        - md
+      default: none
+    border:
+      type: string
+      title: Border
+      enum:
+        - none
+        - default
+        - accent
+      default: none
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+libraryOverrides:
+  css:
+    component:
+      styles/content-card.css: {}
+  dependencies:
+    - ps_theme/component_offcanvas

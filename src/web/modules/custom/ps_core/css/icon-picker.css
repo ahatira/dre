@@ -57,6 +57,15 @@
   white-space: nowrap;
 }
 
+.ps-icon-picker__clear {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ps-icon-picker__clear[hidden] {
+  display: none;
+}
+
 .ps-icon-picker__id {
   font-size: 0.8125rem;
   line-height: 1.25rem;

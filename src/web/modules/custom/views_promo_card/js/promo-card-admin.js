@@ -26,6 +26,75 @@
   const isAjaxBusy = (form) => form.querySelector('.ajax-progress') !== null;
 
   /**
+   * Copies CKEditor 5 content back to the underlying textarea for FormData.
+   */
+  const syncTextEditors = (form) => {
+    form.querySelectorAll('.ck-editor .ck-content').forEach((editable) => {
+      const textarea = editable
+        .closest('.js-form-type-textarea, .form-type--textarea')
+        ?.querySelector('textarea');
+      if (!textarea || !form.contains(textarea)) {
+        return;
+      }
+      textarea.value = editable.innerHTML;
+    });
+  };
+
+  /**
+   * Returns true when the event target belongs to the pattern editor.
+   */
+  const isPatternFormField = (target) => {
+    const name = target?.name ?? '';
+    return name.includes('[pattern_form][');
+  };
+
+  /**
+   * Binds CKEditor 5 model changes to preview refresh for pattern_form fields.
+   */
+  const bindPatternCkEditors = (form, queuePreviewRefresh) => {
+    if (!Drupal.CKEditor5Instances) {
+      return;
+    }
+
+    form.querySelectorAll('textarea[name*="[pattern_form]["]').forEach((textarea) => {
+      if (textarea._viewsPromoCardPreviewBindStarted) {
+        return;
+      }
+      textarea._viewsPromoCardPreviewBindStarted = true;
+
+      const attachEditorListener = () => {
+        const editorId = textarea.getAttribute('data-ckeditor5-id');
+        if (!editorId || !Drupal.CKEditor5Instances.has(editorId)) {
+          return false;
+        }
+
+        const editor = Drupal.CKEditor5Instances.get(editorId);
+        if (editor._viewsPromoCardPreviewBound) {
+          return true;
+        }
+
+        editor.model.document.on('change:data', () => {
+          queuePreviewRefresh();
+        });
+        editor._viewsPromoCardPreviewBound = true;
+        return true;
+      };
+
+      if (attachEditorListener()) {
+        return;
+      }
+
+      let attempts = 0;
+      const retryTimer = window.setInterval(() => {
+        attempts += 1;
+        if (attachEditorListener() || attempts >= 40) {
+          window.clearInterval(retryTimer);
+        }
+      }, 250);
+    });
+  };
+
+  /**
    * Ensures the preview target contains a sandboxed iframe.
    */
   const ensurePreviewIframe = (target) => {
@@ -117,6 +186,7 @@
           }
 
           form.classList.remove('promo-card-admin-form--preview-error');
+          syncTextEditors(form);
 
           const body = new FormData(form);
           fetch(previewUrl, {
@@ -163,19 +233,30 @@
           debounceTimer = window.setTimeout(executePreviewFetch, debounceMs);
         };
 
-        form.addEventListener('input', () => {
-          previewEnabled = true;
-          queuePreviewRefresh();
-        });
-
-        form.addEventListener('change', (event) => {
+        const handlePatternFieldChange = (event, debounceMs = DEBOUNCE_MS) => {
           previewEnabled = true;
           if (event.target?.name === 'layout[editor][pattern_id]') {
             return;
           }
-          const isAppearance = event.target?.name?.includes('[pattern_form][appearance][');
-          queuePreviewRefresh(isAppearance ? 0 : DEBOUNCE_MS);
+          if (isPatternFormField(event.target)) {
+            queuePreviewRefresh(debounceMs);
+          }
+        };
+
+        form.addEventListener('input', (event) => {
+          handlePatternFieldChange(event);
         });
+
+        form.addEventListener('change', (event) => {
+          const targetName = event.target?.name ?? '';
+          const isAppearance = targetName.includes('[pattern_form][appearance][');
+          const isButtons = targetName.includes('[pattern_form][buttons][');
+          const isSelect = event.target?.tagName === 'SELECT';
+          const debounceMs = (isAppearance || isButtons || isSelect) ? 0 : DEBOUNCE_MS;
+          handlePatternFieldChange(event, debounceMs);
+        });
+
+        bindPatternCkEditors(form, queuePreviewRefresh);
 
         if (!isPlacementForm) {
           const editorRoot = form.querySelector('.promo-card-admin__editor') ?? form;
@@ -185,6 +266,7 @@
 
         $(document).on('ajaxComplete.viewsPromoCardAdmin', () => {
           if (document.body.contains(form)) {
+            bindPatternCkEditors(form, queuePreviewRefresh);
             queuePreviewRefresh(100);
           }
         });

@@ -1,7 +1,6 @@
 debug_log: false
 allowed_patterns:
   - ps_theme:search-push-card
-  - ps_theme:cta-card
-  - ps_theme:icon-card
+  - ps_theme:content-card
 default_icon: 'bnp_custom:entrusting-a-property'
 linkit_profile: ''

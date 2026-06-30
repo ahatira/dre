@@ -58,6 +58,17 @@ final class UiPatternsPropBuilder {
   }
 
   /**
+   * Builds a JSON-encoded prop stored as a textfield source.
+   *
+   * @param mixed $value
+   *   Value to encode (array or already JSON string).
+   */
+  public static function json(mixed $value): array {
+    $encoded = is_string($value) ? $value : json_encode($value, JSON_THROW_ON_ERROR);
+    return self::textfield($encoded);
+  }
+
+  /**
    * Builds a full UI Patterns component configuration.
    *
    * @param string $pattern_id
