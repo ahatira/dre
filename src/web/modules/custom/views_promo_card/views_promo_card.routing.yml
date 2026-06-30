@@ -1,8 +1,17 @@
+views_promo_card.hub:
+  path: '/admin/ps/content/promo-card'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectToOverview'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
 views_promo_card.admin:
-  path: '/admin/ps/config/search/promo-card/overview'
+  path: '/admin/ps/content/promo-card/overview'
   defaults:
     _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::overview'
-    _title: 'Overview'
+    _title: 'Promo cards'
   requirements:
     _permission: 'administer views promo card'
   options:
@@ -12,7 +21,7 @@ entity.promo_card.collection:
   path: '/admin/ps/content/promo-card/cards'
   defaults:
     _entity_list: 'promo_card'
-    _title: 'Promo cards'
+    _title: 'Cards'
   requirements:
     _permission: 'administer views promo card'
   options:
@@ -49,7 +58,7 @@ entity.promo_card.delete_form:
     _admin_route: TRUE
 
 entity.promo_card_placement.collection:
-  path: '/admin/ps/structure/placements'
+  path: '/admin/ps/content/promo-card/placements'
   defaults:
     _entity_list: 'promo_card_placement'
     _title: 'Placements'
@@ -59,7 +68,7 @@ entity.promo_card_placement.collection:
     _admin_route: TRUE
 
 entity.promo_card_placement.add_form:
-  path: '/admin/ps/structure/placements/add'
+  path: '/admin/ps/content/promo-card/placements/add'
   defaults:
     _entity_form: 'promo_card_placement.add'
     _title: 'Add placement'
@@ -69,7 +78,7 @@ entity.promo_card_placement.add_form:
     _admin_route: TRUE
 
 entity.promo_card_placement.edit_form:
-  path: '/admin/ps/structure/placements/{promo_card_placement}'
+  path: '/admin/ps/content/promo-card/placements/{promo_card_placement}'
   defaults:
     _entity_form: 'promo_card_placement.edit'
     _title: 'Edit placement'
@@ -79,7 +88,7 @@ entity.promo_card_placement.edit_form:
     _admin_route: TRUE
 
 entity.promo_card_placement.delete_form:
-  path: '/admin/ps/structure/placements/{promo_card_placement}/delete'
+  path: '/admin/ps/content/promo-card/placements/{promo_card_placement}/delete'
   defaults:
     _entity_form: 'promo_card_placement.delete'
     _title: 'Delete placement'
@@ -89,7 +98,7 @@ entity.promo_card_placement.delete_form:
     _admin_route: TRUE
 
 views_promo_card.settings:
-  path: '/admin/ps/config/search/promo-card/settings'
+  path: '/admin/ps/content/promo-card/settings'
   defaults:
     _form: '\Drupal\views_promo_card\Form\SettingsForm'
     _title: 'Settings'
@@ -110,6 +119,73 @@ views_promo_card.card_preview:
     no_cache: TRUE
 
 views_promo_card.placement_preview:
+  path: '/admin/ps/content/promo-card/placements/preview'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\PromoCardPlacementPreviewController::preview'
+  requirements:
+    _permission: 'administer views promo card'
+  methods: [POST]
+  options:
+    _admin_route: TRUE
+    no_cache: TRUE
+
+views_promo_card.legacy_config_overview:
+  path: '/admin/ps/config/search/promo-card/overview'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectLegacyConfigOverview'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+views_promo_card.legacy_config_settings:
+  path: '/admin/ps/config/search/promo-card/settings'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectLegacyConfigSettings'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+views_promo_card.legacy_placements:
+  path: '/admin/ps/structure/placements'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectLegacyPlacements'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+views_promo_card.legacy_placements_add:
+  path: '/admin/ps/structure/placements/add'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectLegacyPlacementsAdd'
+  requirements:
+    _permission: 'administer views promo card'
+  options:
+    _admin_route: TRUE
+
+views_promo_card.legacy_placements_edit:
+  path: '/admin/ps/structure/placements/{promo_card_placement}'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectLegacyPlacementsEdit'
+  requirements:
+    _permission: 'administer views promo card'
+    promo_card_placement: .+
+  options:
+    _admin_route: TRUE
+
+views_promo_card.legacy_placements_delete:
+  path: '/admin/ps/structure/placements/{promo_card_placement}/delete'
+  defaults:
+    _controller: '\Drupal\views_promo_card\Controller\AdminOverviewController::redirectLegacyPlacementsDelete'
+  requirements:
+    _permission: 'administer views promo card'
+    promo_card_placement: .+
+  options:
+    _admin_route: TRUE
+
+views_promo_card.legacy_placements_preview:
   path: '/admin/ps/structure/placements/preview'
   defaults:
     _controller: '\Drupal\views_promo_card\Controller\PromoCardPlacementPreviewController::preview'

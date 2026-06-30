@@ -49,22 +49,16 @@ class PromoCardPlacementListBuilder extends ConfigEntityListBuilder {
       ]);
     }
 
-    $build['promo_card_actions'] = [
+    $build['intro'] = [
       '#type' => 'container',
-      '#attributes' => [
-        'class' => ['views-promo-card-actions'],
-      ],
-      'add' => [
-        '#type' => 'link',
-        '#title' => $this->t('Add placement'),
-        '#url' => Url::fromRoute('entity.promo_card_placement.add_form'),
-        '#attributes' => ['class' => ['button', 'button--primary']],
+      '#attributes' => ['class' => ['views-promo-card-list__intro']],
+      'lead' => [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('Placements bind promo cards to a View display and define where cards appear in the search results grid.'),
+        '#weight' => -20,
       ],
     ];
-
-    if (isset($build['table'])) {
-      $build['promo_card_actions']['#weight'] = ($build['table']['#weight'] ?? 0) - 10;
-    }
 
     return $build;
   }

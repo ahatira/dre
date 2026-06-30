@@ -21,11 +21,11 @@ msgstr "- Selectionner -"
 msgid "1-based index. Card is inserted after this result row."
 msgstr "Index base 1. La carte est inseree apres cette ligne de resultat."
 
-msgid "<strong>1. Create a promo card</strong> — pick an SDC pattern (search push, icon, CTA), edit content and appearance with live preview."
-msgstr "<strong>1. Creer une carte promo</strong> — choisissez un motif SDC (push recherche, icone, CTA), editez le contenu et l'apparence avec apercu en direct."
+msgid "<strong>1. Create a promo card</strong> — choose an allowed SDC pattern (content card, search push card…), edit copy, buttons and appearance with live preview."
+msgstr "<strong>1. Creer une carte promo</strong> — choisissez un pattern SDC autorise (content card, search push card…), editez textes, boutons et apparence avec apercu live."
 
-msgid "<strong>2. Add a placement</strong> — bind the card to a View display, set row position or interval, rotation, and optional conditions."
-msgstr "<strong>2. Ajouter un emplacement</strong> — liez la carte a un affichage Views, definissez position ou intervalle, rotation et conditions optionnelles."
+msgid "<strong>2. Add a placement</strong> — bind one or more cards to a View display, set row position or interval, rotation mode, and optional visibility conditions."
+msgstr "<strong>2. Ajouter un emplacement</strong> — associez une ou plusieurs cartes a un affichage Views, definissez position ou intervalle, mode de rotation et conditions de visibilite optionnelles."
 
 msgid "<strong>3. Verify on front</strong> — open the target search page and confirm the card appears between offer results."
 msgstr "<strong>3. Verifier en front</strong> — ouvrez la page de recherche cible et confirmez que la carte apparait entre les resultats."
@@ -149,6 +149,45 @@ msgstr "Comment ca marche"
 
 msgid "Inject promotional SDC cards into Views search result lists (for example offer grids). Create reusable cards, attach them to view displays via placements, and control position, rotation, and visibility conditions."
 msgstr "Injectez des cartes promotionnelles SDC dans les listes de resultats Views (grilles d'offres par exemple). Creez des cartes reutilisables, associez-les aux affichages via des emplacements, et controlez position, rotation et conditions de visibilite."
+
+msgid "Promo cards are reusable SDC content blocks injected into Views search result lists (for example offer grids). Create cards once, attach them to a view display via placements, then control row position, rotation and visibility conditions."
+msgstr "Les cartes promo sont des blocs de contenu SDC reutilisables injectes dans les listes de resultats Views (grilles d'offres par exemple). Creez les cartes une fois, associez-les a un affichage via des emplacements, puis controlez position, rotation et conditions de visibilite."
+
+msgid "Cards overview"
+msgstr "Apercu des cartes"
+
+msgid "Manage all cards"
+msgstr "Gerer toutes les cartes"
+
+msgid "Manage cards"
+msgstr "Gerer les cartes"
+
+msgid "Manage placements"
+msgstr "Gerer les emplacements"
+
+msgid "Back to PS content hub"
+msgstr "Retour au hub contenu PS"
+
+msgid "Promotional cards injected into Views search result lists."
+msgstr "Cartes promotionnelles injectees dans les listes de resultats de recherche Views."
+
+msgid "Reusable promo card content and SDC patterns."
+msgstr "Contenu de carte promo reutilisable et patterns SDC."
+
+msgid "Bind cards to view displays with position and visibility rules."
+msgstr "Associer les cartes aux affichages Views avec regles de position et de visibilite."
+
+msgid "Allowed SDC patterns, default icon and module options."
+msgstr "Patterns SDC autorises, icone par defaut et options du module."
+
+msgid "Reusable promo card content. Each card uses an SDC pattern and can be referenced by one or more placements."
+msgstr "Contenu de carte promo reutilisable. Chaque carte utilise un pattern SDC et peut etre referencee par un ou plusieurs emplacements."
+
+msgid "Placements bind promo cards to a View display and define where cards appear in the search results grid."
+msgstr "Les emplacements associent les cartes promo a un affichage Views et definissent ou les cartes apparaissent dans la grille de resultats."
+
+msgid "Overview"
+msgstr "Apercu"
 
 msgid "Injects composable promotional cards between Views result rows."
 msgstr "Injecte des cartes promotionnelles composables entre les lignes de resultats Views."

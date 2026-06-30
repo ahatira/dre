@@ -109,9 +109,25 @@
   width: 100%;
 }
 
-.views-promo-card-actions {
+.views-promo-card-overview__quick-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.views-promo-card-overview__footer {
+  margin-top: 0.5rem;
+}
+
+.views-promo-card-list__intro {
+  max-width: 72rem;
   margin-bottom: 1rem;
+}
+
+.views-promo-card-list__intro p {
+  margin: 0;
+  color: #444;
+  font-size: 0.9375rem;
+  line-height: 1.55;
 }

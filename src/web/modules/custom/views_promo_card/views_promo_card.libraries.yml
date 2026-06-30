@@ -27,7 +27,7 @@ promo_card_preview_frame:
       css/promo-card-preview-frame.css: {}
 
 admin_overview:
-  version: 1.0.0
+  version: 1.0.1
   css:
     theme:
       css/promo-card-admin-overview.css: {}

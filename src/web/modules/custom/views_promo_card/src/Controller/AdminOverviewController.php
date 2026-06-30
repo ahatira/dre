@@ -11,6 +11,7 @@ use Drupal\views_promo_card\Entity\PromoCardInterface;
 use Drupal\views_promo_card\Entity\PromoCardPlacementInterface;
 use Drupal\views_promo_card\Service\PatternRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Admin hub overview for Views Promo Card.
@@ -31,6 +32,59 @@ final class AdminOverviewController extends ControllerBase {
     return new static(
       $container->get('views_promo_card.pattern_registry'),
     );
+  }
+
+  /**
+   * Redirects the hub path to the overview tab.
+   */
+  public function redirectToOverview(): RedirectResponse {
+    return $this->redirect('views_promo_card.admin');
+  }
+
+  /**
+   * Redirects the former config overview URL.
+   */
+  public function redirectLegacyConfigOverview(): RedirectResponse {
+    return $this->redirect('views_promo_card.admin', [], [], 301);
+  }
+
+  /**
+   * Redirects the former config settings URL.
+   */
+  public function redirectLegacyConfigSettings(): RedirectResponse {
+    return $this->redirect('views_promo_card.settings', [], [], 301);
+  }
+
+  /**
+   * Redirects the former structure placements list URL.
+   */
+  public function redirectLegacyPlacements(): RedirectResponse {
+    return $this->redirect('entity.promo_card_placement.collection', [], [], 301);
+  }
+
+  /**
+   * Redirects the former structure placement add URL.
+   */
+  public function redirectLegacyPlacementsAdd(): RedirectResponse {
+    return $this->redirect('entity.promo_card_placement.add_form', [], [], 301);
+  }
+
+  /**
+   * Redirects the former structure placement edit URL.
+   */
+  public function redirectLegacyPlacementsEdit(string $promo_card_placement): RedirectResponse {
+    return $this->redirect('entity.promo_card_placement.edit_form', [
+      'promo_card_placement' => $promo_card_placement,
+    ], [], 301);
+  }
+
+  /**
+   * Redirects the former structure placement delete URL.
+   */
+  public function redirectLegacyPlacementsDelete(string $promo_card_placement): RedirectResponse {
+    return $this->redirect('entity.promo_card_placement.delete_form', [
+      'promo_card_placement' => $promo_card_placement,
+    ], [], 301);
   }
 
   /**
@@ -69,7 +123,7 @@ final class AdminOverviewController extends ControllerBase {
       'lead' => [
         '#type' => 'html_tag',
         '#tag' => 'p',
-        '#value' => $this->t('Inject promotional SDC cards into Views search result lists (for example offer grids). Create reusable cards, attach them to view displays via placements, and control position, rotation, and visibility conditions.'),
+        '#value' => $this->t('Promo cards are reusable SDC content blocks injected into Views search result lists (for example offer grids). Create cards once, attach them to a view display via placements, then control row position, rotation and visibility conditions.'),
       ],
     ];
 
@@ -77,7 +131,7 @@ final class AdminOverviewController extends ControllerBase {
       '#type' => 'container',
       '#attributes' => ['class' => ['views-promo-card-overview__stats']],
       'cards' => $this->buildStatCard(
-        (string) $this->t('Promo cards'),
+        (string) $this->t('Cards'),
         (string) count($cards),
         $this->t('@enabled enabled', ['@enabled' => $cards_enabled]),
         'entity.promo_card.collection',
@@ -96,29 +150,6 @@ final class AdminOverviewController extends ControllerBase {
       ),
     ];
 
-    $build['actions'] = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['views-promo-card-overview__actions']],
-      'add_card' => [
-        '#type' => 'link',
-        '#title' => $this->t('Add promo card'),
-        '#url' => Url::fromRoute('entity.promo_card.add_form'),
-        '#attributes' => ['class' => ['button', 'button--primary']],
-      ],
-      'add_placement' => [
-        '#type' => 'link',
-        '#title' => $this->t('Add placement'),
-        '#url' => Url::fromRoute('entity.promo_card_placement.add_form'),
-        '#attributes' => ['class' => ['button']],
-      ],
-      'settings' => [
-        '#type' => 'link',
-        '#title' => $this->t('Module settings'),
-        '#url' => Url::fromRoute('views_promo_card.settings'),
-        '#attributes' => ['class' => ['button', 'button--small']],
-      ],
-    ];
-
     $build['workflow'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['views-promo-card-overview__panel']],
@@ -131,9 +162,22 @@ final class AdminOverviewController extends ControllerBase {
         '#theme' => 'item_list',
         '#title' => NULL,
         '#items' => [
-          $this->t('<strong>1. Create a promo card</strong> — pick an SDC pattern (search push, icon, CTA), edit content and appearance with live preview.'),
-          $this->t('<strong>2. Add a placement</strong> — bind the card to a View display, set row position or interval, rotation, and optional conditions.'),
+          $this->t('<strong>1. Create a promo card</strong> — choose an allowed SDC pattern (content card, search push card…), edit copy, buttons and appearance with live preview.'),
+          $this->t('<strong>2. Add a placement</strong> — bind one or more cards to a View display, set row position or interval, rotation mode, and optional visibility conditions.'),
           $this->t('<strong>3. Verify on front</strong> — open the target search page and confirm the card appears between offer results.'),
+        ],
+      ],
+      'tabs' => [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['views-promo-card-overview__quick-links']],
+        'cards' => Link::createFromRoute($this->t('Manage cards'), 'entity.promo_card.collection')->toRenderable() + [
+          '#attributes' => ['class' => ['button']],
+        ],
+        'placements' => Link::createFromRoute($this->t('Manage placements'), 'entity.promo_card_placement.collection')->toRenderable() + [
+          '#attributes' => ['class' => ['button']],
+        ],
+        'settings' => Link::createFromRoute($this->t('Module settings'), 'views_promo_card.settings')->toRenderable() + [
+          '#attributes' => ['class' => ['button', 'button--small']],
         ],
       ],
     ];
@@ -155,6 +199,7 @@ final class AdminOverviewController extends ControllerBase {
       ];
     }
 
+    $build['cards'] = $this->buildCardsPanel($cards);
     $build['placements'] = $this->buildPlacementsPanel($placements);
 
     if ($orphan_cards !== []) {
@@ -179,6 +224,15 @@ final class AdminOverviewController extends ControllerBase {
         ],
       ];
     }
+
+    $build['footer'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['views-promo-card-overview__footer']],
+      'hub' => Link::createFromRoute(
+        $this->t('Back to PS content hub'),
+        'ps_core.content',
+      )->toRenderable(),
+    ];
 
     return $build;
   }
@@ -286,6 +340,51 @@ final class AdminOverviewController extends ControllerBase {
     }
 
     return $warnings;
+  }
+
+  /**
+   * Builds the promo cards summary panel.
+   *
+   * @param \Drupal\views_promo_card\Entity\PromoCardInterface[] $cards
+   *   Loaded promo cards.
+   */
+  private function buildCardsPanel(array $cards): array {
+    $header = [
+      $this->t('Card'),
+      $this->t('Pattern'),
+      $this->t('Status'),
+    ];
+
+    $rows = [];
+    foreach ($cards as $card) {
+      $rows[] = [
+        Link::fromTextAndUrl($card->label(), $card->toUrl('edit-form'))->toString(),
+        $this->patternRegistry->getPatternLabel($card->getPatternId()) ?: $this->t('Not configured'),
+        $card->status() ? $this->t('Enabled') : $this->t('Disabled'),
+      ];
+    }
+
+    return [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['views-promo-card-overview__panel']],
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h2',
+        '#value' => $this->t('Cards overview'),
+      ],
+      'table' => [
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#empty' => $this->t('No promo cards yet.'),
+      ],
+      'footer' => [
+        '#type' => 'link',
+        '#title' => $this->t('Manage all cards'),
+        '#url' => Url::fromRoute('entity.promo_card.collection'),
+        '#attributes' => ['class' => ['views-promo-card-overview__panel-link']],
+      ],
+    ];
   }
 
   /**

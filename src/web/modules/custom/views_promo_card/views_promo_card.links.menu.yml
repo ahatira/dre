@@ -1,20 +1,27 @@
 views_promo_card.admin:
   title: 'Promo cards'
-  description: 'Overview of promotional cards injected into Views search results.'
+  description: 'Promotional cards injected into Views search result lists.'
   route_name: views_promo_card.admin
-  parent: ps_search.admin_overview
-  weight: 20
-
-entity.promo_card.collection:
-  title: 'Promo cards'
-  description: 'Manage reusable promotional cards for search results.'
-  route_name: entity.promo_card.collection
   parent: ps_core.content
   weight: 36
 
-entity.promo_card_placement.collection:
+views_promo_card.cards:
+  title: 'Cards'
+  description: 'Reusable promo card content and SDC patterns.'
+  route_name: entity.promo_card.collection
+  parent: views_promo_card.admin
+  weight: 0
+
+views_promo_card.placements:
   title: 'Placements'
-  description: 'Bind promo cards to Views displays and control insertion rules.'
+  description: 'Bind cards to view displays with position and visibility rules.'
   route_name: entity.promo_card_placement.collection
-  parent: ps_core.structure
-  weight: 25
+  parent: views_promo_card.admin
+  weight: 5
+
+views_promo_card.settings:
+  title: 'Settings'
+  description: 'Allowed SDC patterns, default icon and module options.'
+  route_name: views_promo_card.settings
+  parent: views_promo_card.admin
+  weight: 10

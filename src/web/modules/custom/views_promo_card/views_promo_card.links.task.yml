@@ -2,7 +2,19 @@ views_promo_card.admin_tab:
   title: 'Overview'
   route_name: views_promo_card.admin
   base_route: views_promo_card.admin
+  weight: -20
+
+entity.promo_card.collection:
+  title: 'Cards'
+  route_name: entity.promo_card.collection
+  base_route: views_promo_card.admin
   weight: -10
+
+entity.promo_card_placement.collection:
+  title: 'Placements'
+  route_name: entity.promo_card_placement.collection
+  base_route: views_promo_card.admin
+  weight: 0
 
 views_promo_card.settings:
   title: 'Settings'

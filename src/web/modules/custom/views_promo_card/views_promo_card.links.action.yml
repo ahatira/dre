@@ -1,0 +1,13 @@
+entity.promo_card.add_form:
+  route_name: entity.promo_card.add_form
+  title: 'Add promo card'
+  appears_on:
+    - entity.promo_card.collection
+    - views_promo_card.admin
+
+entity.promo_card_placement.add_form:
+  route_name: entity.promo_card_placement.add_form
+  title: 'Add placement'
+  appears_on:
+    - entity.promo_card_placement.collection
+    - views_promo_card.admin

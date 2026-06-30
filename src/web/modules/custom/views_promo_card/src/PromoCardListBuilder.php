@@ -148,22 +148,16 @@ class PromoCardListBuilder extends ConfigEntityListBuilder {
       ]);
     }
 
-    $build['promo_card_actions'] = [
+    $build['intro'] = [
       '#type' => 'container',
-      '#attributes' => [
-        'class' => ['views-promo-card-actions'],
-      ],
-      'add' => [
-        '#type' => 'link',
-        '#title' => $this->t('Add promo card'),
-        '#url' => Url::fromRoute('entity.promo_card.add_form'),
-        '#attributes' => ['class' => ['button', 'button--primary']],
+      '#attributes' => ['class' => ['views-promo-card-list__intro']],
+      'lead' => [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('Reusable promo card content. Each card uses an SDC pattern and can be referenced by one or more placements.'),
+        '#weight' => -20,
       ],
     ];
-
-    if (isset($build['table'])) {
-      $build['promo_card_actions']['#weight'] = ($build['table']['#weight'] ?? 0) - 10;
-    }
 
     return $build;
   }
