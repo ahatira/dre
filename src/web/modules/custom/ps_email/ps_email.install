@@ -7,14 +7,70 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Serialization\Yaml;
+
 /**
  * Implements hook_install().
  */
 function ps_email_install(): void {
   ps_email_ensure_theme_email_installed();
+  ps_email_install_email_html_stack();
   ps_email_apply_mailer_policy('user', ['ps_email', 'user']);
   \Drupal::service('ps_email.email_design_token_sync')->syncToConfig(TRUE);
   ps_email_grant_email_html_permission();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ps_email_uninstall(): void {
+  $configFactory = \Drupal::configFactory();
+  foreach (\Drupal::languageManager()->getLanguages() as $langcode => $language) {
+    \Drupal::languageManager()->getConfigOverrideStorage($langcode)->delete('ps_email.footer');
+  }
+
+  foreach ([
+    'ps_email.footer',
+    'ps_email.email_tokens',
+    'editor.editor.email_html',
+    'filter.format.email_html',
+  ] as $configName) {
+    $configFactory->getEditable($configName)->delete();
+  }
+}
+
+/**
+ * Ensures email_html text format and CKEditor profile exist.
+ *
+ * Optional config skips objects that already exist (e.g. after a failed install
+ * retry). This fallback covers greenfield when optional deps were not met yet.
+ */
+function ps_email_install_email_html_stack(): void {
+  $configFactory = \Drupal::configFactory();
+  $modulePath = \Drupal::service('extension.list.module')->getPath('ps_email');
+
+  $formatConfig = $configFactory->get('filter.format.email_html');
+  if ($formatConfig->isNew()) {
+    $source = DRUPAL_ROOT . '/' . $modulePath . '/config/optional/filter.format.email_html.yml';
+    if (is_readable($source)) {
+      $data = Yaml::decode((string) file_get_contents($source));
+      if (is_array($data)) {
+        $configFactory->getEditable('filter.format.email_html')->setData($data)->save();
+      }
+    }
+  }
+
+  if (!$configFactory->get('filter.format.email_html')->isNew()
+    && $configFactory->get('editor.editor.email_html')->isNew()
+    && \Drupal::moduleHandler()->moduleExists('ckeditor5')) {
+    $source = DRUPAL_ROOT . '/' . $modulePath . '/config/optional/editor.editor.email_html.yml';
+    if (is_readable($source)) {
+      $data = Yaml::decode((string) file_get_contents($source));
+      if (is_array($data)) {
+        $configFactory->getEditable('editor.editor.email_html')->setData($data)->save();
+      }
+    }
+  }
 }
 
 /**
