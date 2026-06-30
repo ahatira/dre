@@ -6,11 +6,24 @@ namespace Drupal\ps_search\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\Markup;
+use Drupal\ps_email\Service\EmailDesignTokens;
 
 /**
  * Mail hooks for search alert digest notifications.
  */
 final class SearchAlertMailHooks {
+
+  public function __construct(
+    private readonly EmailDesignTokens $emailDesignTokens,
+  ) {}
+
+  /**
+   * Injects design tokens into the alert digest body fragment.
+   */
+  #[Hook('preprocess_ps_search_alert_digest_body')]
+  public function preprocessAlertDigestBody(array &$variables): void {
+    $variables += $this->emailDesignTokens->getPreprocessVariables();
+  }
 
   /**
    * Implements hook_mail().

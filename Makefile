@@ -13,8 +13,8 @@ COUNTRY ?= com
 	build verify install reinstall install-from-conf import demo deploy drush-cr index-solr export-solr \
 	seed-site-configs export-all-configs \
 	rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex rebuild-permissions rbac-sec-e2e translations-fetch \
-	search-locality-seo-b2b search-b2b \
+	drush drush-uli drush-status drush-cex smtp-mail rebuild-permissions rbac-sec-e2e translations-fetch \
+	search-locality-seo-b2b search-b2b email-e2e \
 	composer-install composer-update npm-install npm-audit build-composer build-npm
 
 help:
@@ -32,8 +32,9 @@ help:
 	@echo "  make build              — Composer + NPM (full build, dev)"
 	@echo "  make build-composer     — Composer only (vendor/)"
 	@echo "  make build-npm          — NPM/themes only (CSS compile, libs)"
-	@echo "  make drush-cr [country...] | rebuild-permissions [country...]"
+	@echo "  make drush-cr [country...] | smtp-mail [country...] | rebuild-permissions [country...]"
 	@echo "  make search-locality-seo-b2b | search-b2b   # PS Search B2B (localité / région)"
+	@echo "  make email-e2e [country]                   # Transactional emails Mailpit suite (Phase 6)"
 	@echo ""
 	@echo "See src/Makefile and README.md for full project command list."
 
@@ -169,6 +170,9 @@ drush-status:
 drush-cex:
 	$(SRC_MAKE) drush-cex COUNTRY=$(COUNTRY)
 
+smtp-mail:
+	$(SRC_MAKE) smtp-mail $(filter-out smtp-mail,$(MAKECMDGOALS))
+
 rebuild-permissions:
 	$(SRC_MAKE) rebuild-permissions $(filter-out rebuild-permissions,$(MAKECMDGOALS))
 
@@ -180,6 +184,9 @@ search-locality-seo-b2b:
 
 search-b2b:
 	bash "$(SRC_DIR)/web/modules/custom/ps_search/tests/b2b_search_full.sh"
+
+email-e2e:
+	bash "$(SRC_DIR)/scripts/e2e/email-transactional.sh"
 
 %:
 	@:

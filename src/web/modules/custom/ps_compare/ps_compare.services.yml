@@ -167,6 +167,7 @@ services:
     arguments:
       - '@ps_compare.manager'
       - '@ps_compare.repository'
+      - '@ps_email.email_design_tokens'
 
   Drupal\ps_compare\Hook\CompareSearchHooks:
     class: Drupal\ps_compare\Hook\CompareSearchHooks

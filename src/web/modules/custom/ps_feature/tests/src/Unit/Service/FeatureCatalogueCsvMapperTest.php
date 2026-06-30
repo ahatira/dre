@@ -24,10 +24,10 @@ final class FeatureCatalogueCsvMapperTest extends UnitTestCase {
   }
 
   public function testResolveCategory(): void {
-    self::assertSame('equipements', $this->mapper->resolveCategory('Équipements'));
-    self::assertSame('prestations_de_service', $this->mapper->resolveCategory('Services'));
-    self::assertSame('type_etat_du_batiment', $this->mapper->resolveCategory('État du bâtiment'));
-    self::assertSame('informations_complementaires', $this->mapper->resolveCategory('Informations complémentaires'));
+    self::assertSame('equipment', $this->mapper->resolveCategory('Équipements'));
+    self::assertSame('services', $this->mapper->resolveCategory('Services'));
+    self::assertSame('building', $this->mapper->resolveCategory('État du bâtiment'));
+    self::assertSame('additional', $this->mapper->resolveCategory('Informations complémentaires'));
     self::assertNull($this->mapper->resolveCategory('Unknown'));
   }
 

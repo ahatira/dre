@@ -2,12 +2,14 @@
 /**
  * @file
  * Compare share email body fragment (wrapped by email-wrap.html.twig).
+ * Variables: intro_message, compare_url, table (HTML fragment from ps_compare).
  */
 #}
-{% set green = '#00915a' %}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
 
 {% if intro_message %}
-  <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#333333;">{{ intro_message|e }}</p>
+  <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:{{ text }};">{{ intro_message|e }}</p>
 {% endif %}
 
 {% if compare_url %}
@@ -18,7 +20,7 @@
       </td>
     </tr>
     <tr>
-      <td style="padding-top:16px;font-size:13px;line-height:1.5;color:#333333;">
+      <td style="padding-top:16px;font-size:13px;line-height:1.5;color:{{ text }};">
         {{ 'If the button does not work, copy the following URL into your browser:'|t }}<br>
         <a href="{{ compare_url }}" style="color:{{ green }};text-decoration:none;word-break:break-all;">{{ compare_url }}</a>
       </td>

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+id: services
+label: Services
+description: 'On-site services.'
+icon: 'bnp_custom:welcome-room'
+asset_types: {  }
+weight: 1
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

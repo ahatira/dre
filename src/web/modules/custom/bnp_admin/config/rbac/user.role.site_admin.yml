@@ -9,9 +9,11 @@ dependencies:
     - config_split
     - entity_clone
     - masquerade
+    - mjml_render_devel
     - ps_context
     - ps_core
     - ps_form
+    - ps_email
     - ps_seo
     - redirect_after_login
     - views_promo_card
@@ -32,6 +34,7 @@ permissions:
   - 'access ps_core hub'
   - 'access ps_core import section'
   - 'access ps_core health section'
+  - 'access ps_email hub'
   - 'access ps_seo admin'
   - 'administer bnp editor'
   - 'administer coffee'
@@ -41,6 +44,7 @@ permissions:
   - 'administer permissions'
   - 'administer ps_context matrix'
   - 'administer ps_core'
+  - 'administer ps_email'
   - 'administer ps_seo'
   - 'administer views promo card'
   - 'administer redirect_after_login settings'
@@ -52,7 +56,9 @@ permissions:
   - 'assign roles'
   - 'manage ps_migrate'
   - 'manage ps_form'
+  - 'manage ps_email content'
   - 'masquerade as any user'
+  - 'preview mjml templates'
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use text format restricted_html'

@@ -8,9 +8,9 @@ use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\Markup;
+use Drupal\ps_email\Service\ContactWebformEmailSettings;
 use Drupal\ps_form\Service\ContactEmailConfirmationBuilder;
 use Drupal\ps_form\Service\ContactEmailFooterBuilder;
-use Drupal\ps_form\Service\ContactEmailSettings;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -19,7 +19,7 @@ use Drupal\webform\WebformSubmissionInterface;
 final class ContactEmailHooks {
 
   public function __construct(
-    private readonly ContactEmailSettings $emailSettings,
+    private readonly ContactWebformEmailSettings $contactWebformEmailSettings,
     private readonly ContactEmailConfirmationBuilder $confirmationBuilder,
     private readonly ContactEmailFooterBuilder $footerBuilder,
   ) {}
@@ -95,7 +95,7 @@ final class ContactEmailHooks {
   }
 
   /**
-   * Adds hero, display title, and rich footer to contact confirmation wraps.
+   * Adds display title and rich footer to contact confirmation wraps.
    */
   #[Hook('preprocess_email_wrap')]
   public function preprocessEmailWrap(array &$variables): void {
@@ -109,21 +109,26 @@ final class ContactEmailHooks {
     }
 
     $webformId = substr($subType, 0, -strlen('_email_confirmation'));
-    if (!$this->emailSettings->isHubConfirmationWebform($webformId)) {
+    if (!$this->contactWebformEmailSettings->isHubConfirmationWebform($webformId)) {
       return;
     }
 
     $variables['ps_contact_confirmation'] = TRUE;
-    $variables['email_display_title'] = $this->emailSettings->getDisplayTitle();
+    $variables['email_display_title'] = $this->contactWebformEmailSettings->getDisplayTitle($webformId);
     $variables['email_hide_subject_title'] = TRUE;
     $variables['email_hide_default_signoff'] = TRUE;
 
-    $heroUrl = $this->confirmationBuilder->getHeroImageUrl($webformId);
-    if ($heroUrl !== NULL) {
-      $variables['ps_contact_hero_url'] = $heroUrl;
-      $variables['ps_contact_hero_alt'] = $this->emailSettings->getDisplayTitle();
-    }
+    $variables += $this->footerBuilder->buildFooterVariables();
+  }
 
+  /**
+   * Sample contact footer for MJML Devel (email-contact-preview template).
+   */
+  #[Hook('preprocess_email_contact_preview')]
+  public function preprocessEmailContactPreview(array &$variables): void {
+    $variables['ps_contact_confirmation'] = TRUE;
+    $variables['email_display_title'] ??= $this->contactWebformEmailSettings->getDisplayTitle(ContactWebformEmailSettings::HUB_WEBFORM_IDS[0]);
+    $variables['email_hide_default_signoff'] = TRUE;
     $variables += $this->footerBuilder->buildFooterVariables();
   }
 

@@ -1,0 +1,132 @@
+ps_email.shell:
+  type: config_object
+  label: 'PS email shell (footer and legal)'
+  mapping:
+    reuse_site_footer:
+      type: boolean
+      label: 'Reuse site footer blocks'
+    footer_address:
+      type: text
+      label: 'Footer address'
+      translatable: true
+    footer_phone:
+      type: string
+      label: 'Footer phone display'
+    footer_phone_link:
+      type: string
+      label: 'Footer phone tel link'
+    footer_offers_url:
+      type: string
+      label: 'Footer offers URL'
+    footer_offers_label:
+      type: label
+      label: 'Footer offers label'
+      translatable: true
+    footer_services:
+      type: label
+      label: 'Footer services line'
+      translatable: true
+    legal_markup:
+      type: text
+      label: 'Legal footer markup'
+      translatable: true
+
+ps_email.contact:
+  type: config_object
+  label: 'PS contact confirmation email copy per webform'
+  mapping:
+    webforms:
+      type: mapping
+      label: 'Webform copy'
+      mapping:
+        find_property:
+          type: ps_email.contact_webform_copy
+          label: 'find_property'
+        entrust_search:
+          type: ps_email.contact_webform_copy
+          label: 'entrust_search'
+        get_advice:
+          type: ps_email.contact_webform_copy
+          label: 'get_advice'
+        entrust_property:
+          type: ps_email.contact_webform_copy
+          label: 'entrust_property'
+        invest_sell:
+          type: ps_email.contact_webform_copy
+          label: 'invest_sell'
+        other_request:
+          type: ps_email.contact_webform_copy
+          label: 'other_request'
+
+ps_email.contact_webform_copy:
+  type: mapping
+  label: 'Contact confirmation copy'
+  mapping:
+    display_title:
+      type: label
+      label: 'Display title'
+      translatable: true
+    greeting_prefix:
+      type: label
+      label: 'Greeting prefix'
+      translatable: true
+    intro_text:
+      type: text
+      label: 'Intro text'
+      translatable: true
+    recap_intro:
+      type: label
+      label: 'Recap intro'
+      translatable: true
+    closing_text:
+      type: text
+      label: 'Closing text'
+      translatable: true
+    signoff_text:
+      type: text
+      label: 'Sign-off text'
+      translatable: true
+
+ps_email.email_tokens:
+  type: config_object
+  label: 'PS email design tokens'
+  mapping:
+    primary_color:
+      type: string
+      label: 'Primary color'
+    text_color:
+      type: string
+      label: 'Text color'
+    muted_color:
+      type: string
+      label: 'Muted color'
+    background_color:
+      type: string
+      label: 'Background color'
+    surface_color:
+      type: string
+      label: 'Surface color'
+    footer_dark_color:
+      type: string
+      label: 'Footer dark color'
+    font_family:
+      type: string
+      label: 'Font family'
+    font_size_base:
+      type: string
+      label: 'Base font size'
+    line_height_base:
+      type: string
+      label: 'Base line height'
+    spacing_unit:
+      type: integer
+      label: 'Spacing unit (px)'
+    max_width:
+      type: integer
+      label: 'Max width (px)'
+    logo_width:
+      type: integer
+      label: 'Logo width (px)'
+    logo_height:
+      type: integer
+      label: 'Logo height (px)'

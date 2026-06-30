@@ -279,7 +279,7 @@
    * Lazy-loads a More criteria group fragment (fetch + DOM insert).
    *
    * @param {string} groupId
-   *   Group key (e.g. "equipements").
+   *   Group key (e.g. "equipment").
    * @param {HTMLElement} targetEl
    *   Swap target container.
    * @param {string} [queryString]

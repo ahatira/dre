@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
+use Drupal\ps_email\Service\EmailShellSettings;
 
 /**
  * Builds footer variables for contact confirmation emails.
@@ -17,7 +18,7 @@ final class ContactEmailFooterBuilder {
   use StringTranslationTrait;
 
   public function __construct(
-    private readonly ContactEmailSettings $emailSettings,
+    private readonly EmailShellSettings $emailShellSettings,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
@@ -32,14 +33,14 @@ final class ContactEmailFooterBuilder {
     $siteConfig = $this->configFactory->get('system.site');
     $siteName = (string) ($siteConfig->get('name') ?? 'BNP Paribas Real Estate');
 
-    $address = $this->emailSettings->getFooterScalar('address', $langcode);
-    $phone = $this->emailSettings->getFooterScalar('phone', $langcode);
-    $phoneLink = $this->emailSettings->getFooterScalar('phone_link', $langcode);
-    $offersUrl = $this->emailSettings->getFooterScalar('offers_url', $langcode);
-    $offersLabel = $this->emailSettings->getFooterScalar('offers_label', $langcode);
-    $services = $this->emailSettings->getFooterScalar('services', $langcode);
+    $address = $this->emailShellSettings->getFooterScalar('address', $langcode);
+    $phone = $this->emailShellSettings->getFooterScalar('phone', $langcode);
+    $phoneLink = $this->emailShellSettings->getFooterScalar('phone_link', $langcode);
+    $offersUrl = $this->emailShellSettings->getFooterScalar('offers_url', $langcode);
+    $offersLabel = $this->emailShellSettings->getFooterScalar('offers_label', $langcode);
+    $services = $this->emailShellSettings->getFooterScalar('services', $langcode);
 
-    if ($this->emailSettings->reuseSiteFooter()) {
+    if ($this->emailShellSettings->reuseSiteFooter()) {
       $social = $this->loadSocialLinks();
       if ($address === '' && $social['address'] !== '') {
         $address = $social['address'];
@@ -68,7 +69,7 @@ final class ContactEmailFooterBuilder {
       'ps_contact_footer_offers_label' => $offersLabel,
       'ps_contact_footer_services' => $services,
       'ps_contact_footer_social_links' => $this->loadSocialLinks()['links'],
-      'ps_contact_footer_legal' => $this->emailSettings->getLegalMarkup($langcode),
+      'ps_contact_footer_legal' => $this->emailShellSettings->getLegalMarkup($langcode),
       'ps_contact_footer_site_name' => $siteName,
     ];
   }

@@ -308,7 +308,7 @@ final class TestCatalogueImportPolicy implements ImportGovernancePolicyInterface
    * {@inheritdoc}
    */
   public function getDefaultImportGroupId(): string {
-    return 'informations_complementaires';
+    return 'additional';
   }
 
   /**

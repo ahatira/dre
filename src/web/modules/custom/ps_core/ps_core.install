@@ -18,13 +18,6 @@ function ps_core_install(): void {
 }
 
 /**
- * Enables Mailer Plus Log on the global policy for existing sites.
- */
-function ps_core_update_9001(): void {
-  ps_core_apply_mailer_policy_log();
-}
-
-/**
  * Applies versioned config_ignore settings from config/env.
  */
 function ps_core_apply_config_ignore_settings(): void {

@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Alert / notice block.
+ *
+ * Variables:
+ * - alert_message (required HTML or text)
+ * - alert_variant: success|info|warning (default info)
+ * - alert_title (optional)
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+{% set variant = alert_variant|default('info') %}
+{% set styles = {
+  'success': {'bg': '#e8f5ef', 'border': green, 'title': green},
+  'info': {'bg': '#f0f4f8', 'border': '#777e83', 'title': text},
+  'warning': {'bg': '#fff8e6', 'border': '#c9a227', 'title': '#8a6914'},
+} %}
+{% set style = styles[variant]|default(styles.info) %}
+
+{% if alert_message|default('') %}
+  <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+    <mj-column background-color="{{ style.bg }}" border-left="4px solid {{ style.border }}" padding="16px 20px">
+      {% if alert_title|default('') %}
+        <mj-text color="{{ style.title }}" font-weight="700" padding="0 0 8px">
+          {{ alert_title }}
+        </mj-text>
+      {% endif %}
+      <mj-text color="{{ text }}" padding="0">
+        {{ alert_message|raw }}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+{% endif %}

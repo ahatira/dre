@@ -7,7 +7,6 @@ namespace Drupal\ps_search\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\Link;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -94,41 +93,34 @@ final class SearchAlertMailer {
    * @param array<int, int> $nids
    */
   private function buildBody(SearchAlert $alert, array $nids, string $langcode): string {
-    $items = [];
+    $offers = [];
     $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     foreach ($nodes as $node) {
       if (!$node instanceof NodeInterface || $node->bundle() !== 'offer') {
         continue;
       }
-      $label = $node->label();
-      $url = Url::fromRoute('entity.node.canonical', ['node' => $node->id()], [
-        'absolute' => TRUE,
-        'language' => $this->languageManager->getLanguage($langcode),
-      ]);
-      $items[] = Link::fromTextAndUrl($label, $url)->toString();
+      $offers[] = [
+        'label' => $node->label(),
+        'url' => Url::fromRoute('entity.node.canonical', ['node' => $node->id()], [
+          'absolute' => TRUE,
+          'language' => $this->languageManager->getLanguage($langcode),
+        ])->toString(),
+      ];
     }
 
-    if ($items === []) {
+    if ($offers === []) {
       return '';
     }
 
     $searchUrl = $alert->get('search_url')->value;
-    $searchLink = '';
-    if (is_string($searchUrl) && $searchUrl !== '') {
-      $searchLink = (string) $this->t('<p><a href=":url">View your saved search</a></p>', [
-        ':url' => $searchUrl,
-      ], ['langcode' => $langcode]);
-    }
-
     $build = [
-      '#theme' => 'item_list',
-      '#title' => $this->t('New matching properties:', [], ['langcode' => $langcode]),
-      '#items' => $items,
-      '#attributes' => ['class' => ['ps-search-alert-digest']],
+      '#theme' => 'ps_search_alert_digest_body',
+      '#list_title' => (string) $this->t('New matching properties:', [], ['langcode' => $langcode]),
+      '#offers' => $offers,
+      '#search_url' => is_string($searchUrl) && $searchUrl !== '' ? $searchUrl : NULL,
     ];
 
-    $html = (string) $this->renderer->renderPlain($build);
-    return $html . $searchLink;
+    return (string) $this->renderer->renderPlain($build);
   }
 
 }

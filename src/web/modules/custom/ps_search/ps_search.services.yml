@@ -593,6 +593,8 @@ services:
 
   Drupal\ps_search\Hook\SearchAlertMailHooks:
     class: Drupal\ps_search\Hook\SearchAlertMailHooks
+    arguments:
+      - '@ps_email.email_design_tokens'
 
   Drupal\ps_search\Hook\SearchAlertCronHooks:
     class: Drupal\ps_search\Hook\SearchAlertCronHooks

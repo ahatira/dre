@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * MJML preview — search alert digest (sample offers list).
+ */
+#}
+{% set subject = subject|default('3 new properties for your alert') %}
+{% set body %}
+  <p style="margin:0 0 16px;font-size:14px;line-height:1.6;font-weight:700;">New matching properties:</p>
+  <ul style="margin:0 0 24px;padding:0 0 0 20px;">
+    <li style="margin:0 0 8px;"><a href="{{ site_url|default('#') }}">Office — Paris 8</a></li>
+    <li style="margin:0 0 8px;"><a href="{{ site_url|default('#') }}">Retail — Lyon Part-Dieu</a></li>
+    <li style="margin:0 0 8px;"><a href="{{ site_url|default('#') }}">Warehouse — Roissy</a></li>
+  </ul>
+  <p style="margin:0;"><a href="{{ site_url|default('#') }}/search">View your saved search</a></p>
+{% endset %}
+{% include '@ps_theme_email/email-wrap.html.twig.mjml' %}

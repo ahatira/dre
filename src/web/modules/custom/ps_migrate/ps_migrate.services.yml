@@ -263,3 +263,6 @@ services:
 
   Drupal\ps_migrate\Hook\ImportPipelineMailHooks:
     class: Drupal\ps_migrate\Hook\ImportPipelineMailHooks
+    arguments:
+      - '@renderer'
+      - '@ps_email.email_design_tokens'

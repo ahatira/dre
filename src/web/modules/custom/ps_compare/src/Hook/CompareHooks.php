@@ -9,6 +9,7 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\Markup;
 use Drupal\ps_compare\Repository\CompareRepositoryInterface;
 use Drupal\ps_compare\Service\CompareManagerInterface;
+use Drupal\ps_email\Service\EmailDesignTokens;
 use Drupal\user\UserInterface;
 
 /**
@@ -19,6 +20,7 @@ final class CompareHooks {
   public function __construct(
     private readonly CompareManagerInterface $compareManager,
     private readonly CompareRepositoryInterface $compareRepository,
+    private readonly EmailDesignTokens $emailDesignTokens,
   ) {}
 
   /**
@@ -200,6 +202,14 @@ final class CompareHooks {
   #[Hook('user_login')]
   public function userLogin(UserInterface $account): void {
     $this->compareManager->mergeAnonymousCompare();
+  }
+
+  /**
+   * Injects design tokens into the compare email body fragment.
+   */
+  #[Hook('preprocess_ps_compare_email')]
+  public function preprocessPsCompareEmail(array &$variables): void {
+    $variables += $this->emailDesignTokens->getPreprocessVariables();
   }
 
   /**

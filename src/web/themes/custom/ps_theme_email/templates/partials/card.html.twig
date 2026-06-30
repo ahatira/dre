@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Bordered content card.
+ *
+ * Variables:
+ * - card_title (optional)
+ * - card_body (required HTML)
+ * - card_footer_url, card_footer_label (optional)
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+{% set border = '#ebedef' %}
+
+<mj-section background-color="{{ surface }}" padding="0 16px 24px">
+  <mj-column background-color="{{ surface }}" border="1px solid {{ border }}" padding="20px 24px">
+    {% if card_title|default('') %}
+      <mj-text color="{{ text }}" font-size="16px" font-weight="700" padding="0 0 12px">
+        {{ card_title }}
+      </mj-text>
+    {% endif %}
+    {% if card_body|default('') %}
+      <mj-text color="{{ text }}" padding="0">
+        {{ card_body|raw }}
+      </mj-text>
+    {% endif %}
+    {% if card_footer_url|default('') and card_footer_label|default('') %}
+      <mj-text color="{{ muted }}" font-size="13px" padding="16px 0 0">
+        <a href="{{ card_footer_url }}" style="color:{{ green }};text-decoration:none;">{{ card_footer_label }}</a>
+      </mj-text>
+    {% endif %}
+  </mj-column>
+</mj-section>

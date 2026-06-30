@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * MJML preview — contact hub confirmation (find_property sample).
+ *
+ * Devel entry point; live sends use email-wrap via mailer_policy.webform.
+ */
+#}
+{% set ps_contact_confirmation = true %}
+{% set email_display_title = email_display_title|default('Your request has been sent') %}
+{% set email_hide_default_signoff = true %}
+{% set body = body|default('<p><strong>Hello Alex,</strong></p><p>Your request has been successfully submitted.</p><p><strong>First name:</strong> Alex<br><strong>Last name:</strong> Preview</p><p>Thank you for your interest in BNP Paribas Real Estate.</p>') %}
+{% include '@ps_theme_email/email-wrap.html.twig.mjml' %}

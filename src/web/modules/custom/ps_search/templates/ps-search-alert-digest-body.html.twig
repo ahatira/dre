@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Search alert digest email body fragment (wrapped by email-wrap MJML shell).
+ *
+ * Variables: list_title, offers (list of {label, url}), search_url.
+ */
+#}
+{% set text = email_text_color|default('#333333') %}
+{% set green = email_primary_color|default('#00915a') %}
+
+{% if list_title %}
+  <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:{{ text }};font-weight:700;">{{ list_title }}</p>
+{% endif %}
+
+{% if offers %}
+  <ul style="margin:0 0 24px;padding:0 0 0 20px;font-size:14px;line-height:1.6;color:{{ text }};">
+    {% for offer in offers %}
+      <li style="margin:0 0 8px;">
+        <a href="{{ offer.url }}" style="color:{{ green }};text-decoration:none;">{{ offer.label }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if search_url %}
+  <p style="margin:0;font-size:14px;line-height:1.6;color:{{ text }};">
+    <a href="{{ search_url }}" style="color:{{ green }};text-decoration:none;">{{ 'View your saved search'|t }}</a>
+  </p>
+{% endif %}

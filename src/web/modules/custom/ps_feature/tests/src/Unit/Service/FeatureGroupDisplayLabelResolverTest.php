@@ -55,14 +55,14 @@ final class FeatureGroupDisplayLabelResolverTest extends UnitTestCase {
    */
   public function testResolveUsesFrenchOverride(): void {
     $group = $this->createMock(FeatureGroup::class);
-    $group->method('id')->willReturn('equipements');
-    $group->method('label')->willReturn('EQUIPEMENTS');
+    $group->method('id')->willReturn('equipment');
+    $group->method('label')->willReturn('EQUIPMENT');
 
     $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->with('label')->willReturn('EQUIPEMENTS');
+    $config->method('get')->with('label')->willReturn('EQUIPMENT');
 
     $configFactory = $this->createMock(ConfigFactoryInterface::class);
-    $configFactory->method('get')->with('ps_feature.feature_group.equipements')->willReturn($config);
+    $configFactory->method('get')->with('ps_feature.feature_group.equipment')->willReturn($config);
 
     $language = new Language(['id' => 'fr']);
     $languageManager = $this->createMock(LanguageManagerInterface::class);
@@ -71,7 +71,7 @@ final class FeatureGroupDisplayLabelResolverTest extends UnitTestCase {
     $override = $this->createMock(LanguageConfigOverride::class);
     $override->method('get')->with('label')->willReturn('Équipements');
     $languageManager->method('getLanguageConfigOverride')
-      ->with('fr', 'ps_feature.feature_group.equipements')
+      ->with('fr', 'ps_feature.feature_group.equipment')
       ->willReturn($override);
 
     $moduleList = $this->createMock(ModuleExtensionList::class);
@@ -101,7 +101,7 @@ final class FeatureGroupDisplayLabelResolverTest extends UnitTestCase {
     return [
       'screaming snake' => ['AMENAGEMENTS', 'amenagements', TRUE],
       'human label' => ['Fittings', 'amenagements', FALSE],
-      'id-like label' => ['equipements', 'equipements', TRUE],
+      'id-like label' => ['equipment', 'equipment', TRUE],
     ];
   }
 

@@ -123,19 +123,6 @@ services:
     arguments:
       - '@ps_core.section_registry'
 
-  ps_core.email_branding_builder:
-    class: Drupal\ps_core\Service\EmailBrandingBuilder
-    arguments:
-      - '@config.factory'
-      - '@language_manager'
-      - '@extension.list.theme'
-      - '@file_url_generator'
-
-  ps_core.email_logo_attachment_processor:
-    class: Drupal\ps_core\Processor\EmailLogoAttachmentProcessor
-    arguments:
-      - '@ps_core.email_branding_builder'
-
   ps_core.site_config_split_installer:
     class: Drupal\ps_core\Service\SiteConfigSplitInstaller
     arguments:
@@ -152,13 +139,6 @@ services:
       - '@config.factory'
       - '@extension.path.resolver'
       - '@logger.channel.ps_core'
-
-  Drupal\ps_core\Hook\MailHooks:
-    class: Drupal\ps_core\Hook\MailHooks
-    arguments:
-      - '@config.factory'
-      - '@ps_core.email_branding_builder'
-      - '@ps_core.email_logo_attachment_processor'
 
   Drupal\ps_core\Hook\ThemeHooks:
     class: Drupal\ps_core\Hook\ThemeHooks

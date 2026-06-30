@@ -14,8 +14,6 @@ final class PsFormAdminHooks {
 
   private const TRANSLATION_TASK_URGENCY = 'config_translation.local_tasks:config_translation.item.overview.ps_form.settings_urgency_contact';
 
-  private const TRANSLATION_TASK_EMAIL = 'config_translation.local_tasks:config_translation.item.overview.ps_form.settings_contact_email';
-
   /**
    * Maps settings and translate routes to their translation local task.
    *
@@ -24,9 +22,6 @@ final class PsFormAdminHooks {
   private const ROUTE_TRANSLATION_TASK = [
     'ps_form.settings' => self::TRANSLATION_TASK_URGENCY,
     'config_translation.item.overview.ps_form.settings_urgency_contact' => self::TRANSLATION_TASK_URGENCY,
-    'ps_form.email_content' => self::TRANSLATION_TASK_EMAIL,
-    'ps_form.email_footer' => self::TRANSLATION_TASK_EMAIL,
-    'config_translation.item.overview.ps_form.settings_contact_email' => self::TRANSLATION_TASK_EMAIL,
   ];
 
   /**
@@ -38,12 +33,6 @@ final class PsFormAdminHooks {
       $local_tasks[self::TRANSLATION_TASK_URGENCY]['base_route'] = 'ps_form.admin_overview';
       $local_tasks[self::TRANSLATION_TASK_URGENCY]['title'] = new TranslatableMarkup('Translate');
       unset($local_tasks[self::TRANSLATION_TASK_URGENCY]['parent_id']);
-    }
-
-    if (isset($local_tasks[self::TRANSLATION_TASK_EMAIL])) {
-      $local_tasks[self::TRANSLATION_TASK_EMAIL]['base_route'] = 'ps_form.admin_overview';
-      $local_tasks[self::TRANSLATION_TASK_EMAIL]['title'] = new TranslatableMarkup('Translate');
-      unset($local_tasks[self::TRANSLATION_TASK_EMAIL]['parent_id']);
     }
   }
 
@@ -61,11 +50,8 @@ final class PsFormAdminHooks {
       $data['tabs'][0][$activeTranslationTask]['#link']['title'] = new TranslatableMarkup('Translate');
     }
 
-    foreach ([self::TRANSLATION_TASK_URGENCY, self::TRANSLATION_TASK_EMAIL] as $taskId) {
-      if ($taskId === $activeTranslationTask) {
-        continue;
-      }
-      unset($data['tabs'][0][$taskId]);
+    if ($activeTranslationTask !== self::TRANSLATION_TASK_URGENCY) {
+      unset($data['tabs'][0][self::TRANSLATION_TASK_URGENCY]);
     }
   }
 

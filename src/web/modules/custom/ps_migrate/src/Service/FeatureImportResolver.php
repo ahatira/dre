@@ -17,7 +17,7 @@ final class FeatureImportResolver {
   /**
    * Fallback group when no governance policy is registered.
    */
-  private const FALLBACK_DEFAULT_GROUP_ID = 'informations_complementaires';
+  private const FALLBACK_DEFAULT_GROUP_ID = 'additional';
 
   public function __construct(
     private readonly FeatureCanonicalGroupRegistry $groupRegistry,

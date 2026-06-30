@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default sign-off block (team name + site URL).
+ *
+ * Variables: email_hide_default_signoff, email_team_name, site_name, site_url.
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+
+{% if not email_hide_default_signoff|default(false) %}
+  <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+    <mj-column>
+      <mj-text color="{{ text }}">
+        <p style="margin:0 0 16px;">{{ 'See you soon!'|t }}</p>
+        <p style="margin:0 0 8px;"><strong>{{ email_team_name|default('The @team team'|t({'@team': site_name|default('Property Search')})) }}</strong></p>
+        {% if site_url %}
+          <p style="margin:0;word-break:break-all;"><a href="{{ site_url }}" style="color:{{ green }};text-decoration:none;">{{ site_url }}</a></p>
+        {% endif %}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+{% endif %}

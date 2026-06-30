@@ -1,0 +1,13 @@
+primary_color: '#00915a'
+text_color: '#333333'
+muted_color: '#777e83'
+background_color: '#f0f0f0'
+surface_color: '#ffffff'
+footer_dark_color: '#1f2a36'
+font_family: "'BNP Sans','Open Sans',Arial,Helvetica,sans-serif"
+font_size_base: '14px'
+line_height_base: '1.6'
+spacing_unit: 8
+max_width: 600
+logo_width: 162
+logo_height: 31

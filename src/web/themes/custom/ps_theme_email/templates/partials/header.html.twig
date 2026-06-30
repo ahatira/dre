@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Email header — logo + optional slogan.
+ *
+ * Variables: email_logo_url, site_slogan, email_* tokens.
+ */
+#}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+
+<mj-section background-color="{{ surface }}" padding="20px 16px 16px">
+  <mj-group>
+    <mj-column width="40%" vertical-align="middle">
+      {% if email_logo_url %}
+        <mj-image src="{{ email_logo_url }}" alt="{{ 'BNP Paribas Real Estate'|t }}" width="{{ email_logo_width|default(162) }}px" align="left" padding="0" />
+      {% else %}
+        <mj-text font-size="11px" font-weight="700" letter-spacing="0.04em" text-transform="uppercase" color="{{ text }}" padding="0">
+          BNP Paribas Real Estate
+        </mj-text>
+      {% endif %}
+    </mj-column>
+    {% if site_slogan %}
+      <mj-column width="60%" vertical-align="middle" css-class="ps-email-slogan-wrap">
+        <mj-text font-size="16px" line-height="24px" color="{{ muted }}" padding="0 0 0 9px">
+          {{ site_slogan }}
+        </mj-text>
+      </mj-column>
+    {% endif %}
+  </mj-group>
+</mj-section>

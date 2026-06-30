@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "748bba23629cca258efc62e6400d95f6",
+    "content-hash": "40c50f0308c6bdf0aab9d3ce8bab5a86",
     "packages": [
         {
             "name": "altcha-org/altcha",
@@ -6550,6 +6550,137 @@
                 "source": "https://git.drupalcode.org/project/migrate_tools",
                 "issues": "https://www.drupal.org/project/issues/migrate_tools",
                 "slack": "#migrate"
+            }
+        },
+        {
+            "name": "drupal/mjml_render_bin",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mjml_render_bin.git",
+                "reference": "1ae0d63d52869a44df09421156663e13e9f7ac07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://git.drupalcode.org/api/v4/projects/project%2Fmjml_render_bin/repository/archive.zip?sha=1ae0d63d52869a44df09421156663e13e9f7ac07",
+                "reference": "1ae0d63d52869a44df09421156663e13e9f7ac07",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": ">=8.3"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "phpunit/phpunit": "^10.5 || ^11.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Drupal\\mjml_render_bin\\Composer\\MjmlBinaryPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\mjml_render_bin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Standalone MJML to HTML renderer with pre-built binaries. No Node.js required at runtime.",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mjml_render_bin/-/tree/1.0.1"
+            },
+            "time": "2026-05-28T12:12:19+00:00"
+        },
+        {
+            "name": "drupal/mjml_render_devel",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mjml_render_devel.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mjml_render_devel-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "6c4be026916b0cd2cc4779c60a0b954f6804b670"
+            },
+            "require": {
+                "drupal/core": "^11.3 || ^12.0",
+                "drupal/mjml_render_engine": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1779896073",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/3260314"
+                }
+            ],
+            "description": "Developer tools for previewing and inspecting MJML email templates.",
+            "homepage": "https://www.drupal.org/project/mjml_render_devel",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mjml_render_devel"
+            }
+        },
+        {
+            "name": "drupal/mjml_render_engine",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mjml_render_engine.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mjml_render_engine-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "eec9b1de80475cd553a620d3ec61fdd25b0de248"
+            },
+            "require": {
+                "drupal/core": "^11.3 || ^12.0",
+                "drupal/mjml_render_bin": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1777926832",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/3260314"
+                }
+            ],
+            "description": "Drupal Twig MJML theme engine for email template rendering.",
+            "homepage": "https://www.drupal.org/project/mjml_render_engine",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mjml_render_engine"
             }
         },
         {

@@ -62,7 +62,7 @@ ps_install_country_site() {
 
   ps_info "Enabling PS modules..."
   ps_ensure_telephone_field_stack || ps_die "Telephone field stack not ready"
-  ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature
+  ps_retry 2 2 ps_drush en -y ps_core ps_dictionary ps_agent ps_feature || ps_die "Core PS modules could not be enabled"
   ps_retry 2 2 ps_drush en -y ps_surface entity_browser_generic_embed bnp_media ps_media
   ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready"
   ps_ensure_bnp_media_foundation || ps_die "BNP Media foundation not ready"
@@ -70,6 +70,10 @@ ps_install_country_site() {
   ps_drush entity:delete webform contact -y 2>/dev/null || true
   ps_drush config:delete webform.webform.contact -y 2>/dev/null || true
   ps_ensure_entity_browser_stack || ps_die "Entity Browser stack not ready before ps_form"
+  ps_retry 2 2 ps_drush en -y symfony_mailer symfony_mailer_log mailer_override 2>/dev/null || ps_warn "Symfony Mailer stack not available before ps_form"
+  ps_retry 2 2 ps_drush en -y mjml_render_engine mjml_render_devel 2>/dev/null || ps_warn "MJML stack not available before ps_form"
+  ps_drush theme:enable -y ps_theme_email 2>/dev/null || ps_warn "ps_theme_email not available before ps_form"
+  ps_retry 2 2 ps_drush en -y ps_email 2>/dev/null || ps_warn "ps_email not available before ps_form"
   ps_retry 2 2 ps_drush en -y ps_form
   # shellcheck source=/dev/null
   source "${PS_CORE_DIR}/config-sync.sh"
@@ -82,18 +86,20 @@ ps_install_country_site() {
     || ps_die "ps_offer layout apply failed"
   ps_drush_cr
   ps_verify_ps_offer_install || ps_die "ps_offer verification failed"
+  ps_refresh_field_type_cache
   ps_apply_google_maps_api_key
-  ps_retry 2 2 ps_drush en -y symfony_mailer symfony_mailer_log mailer_override ps_context 2>/dev/null || true
+  ps_retry 2 2 ps_drush en -y ps_context 2>/dev/null || true
   ps_drush user:role:add administrator "${ADMIN_USER}" -y 2>/dev/null || true
 
   ps_info "Importing dictionary..."
   ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
   ps_retry 2 2 ps_drush en -y ps_compare
+  ps_refresh_field_type_cache
   ps_retry 2 2 ps_drush en -y search_api search_api_solr || ps_warn "search_api / search_api_solr enable had warnings"
   ps_refresh_field_type_cache
   ps_retry 2 2 ps_drush en -y ps_search || ps_warn "ps_search enable had warnings — search degraded until Solr is configured"
-  ps_ensure_ps_search_stack
+  ps_ensure_ps_search_stack || ps_warn "Search API stack incomplete"
   ps_drush_cr
   ps_retry 2 2 ps_drush en -y ps_seo
   ps_ensure_ps_search_stack

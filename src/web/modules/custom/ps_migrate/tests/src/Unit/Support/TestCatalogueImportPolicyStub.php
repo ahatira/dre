@@ -12,7 +12,7 @@ use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernanceCatalogueImportPolicy
 final class TestCatalogueImportPolicyStub implements ImportGovernanceCatalogueImportPolicyInterface {
 
   public function __construct(
-    private readonly string $defaultGroupId = 'informations_complementaires',
+    private readonly string $defaultGroupId = 'additional',
     private readonly bool $createStub = FALSE,
     private readonly bool $syncLabels = TRUE,
   ) {}

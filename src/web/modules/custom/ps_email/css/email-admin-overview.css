@@ -1,0 +1,32 @@
+.ps-email-admin-overview__intro {
+  margin-block: 0 1.25rem;
+  max-width: 72rem;
+}
+
+.ps-email-admin-overview__table {
+  max-width: 72rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-email-admin-overview__description {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: #444;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.ps-email-admin-overview__actions {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.ps-email-admin-overview__ops {
+  max-width: 72rem;
+  margin-bottom: 1rem;
+}
+
+.ps-email-admin-overview__footer {
+  margin-block-start: 1.5rem;
+}

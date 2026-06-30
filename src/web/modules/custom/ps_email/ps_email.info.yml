@@ -1,0 +1,10 @@
+name: 'PS Email'
+type: module
+description: 'Transactional email hub, shell branding and Symfony Mailer orchestration for Property Search.'
+core_version_requirement: ^11.3
+version: 1.0.0
+package: 'Property Search'
+dependencies:
+  - ps_core:ps_core
+  - symfony_mailer:symfony_mailer
+  - symfony_mailer:mailer_policy

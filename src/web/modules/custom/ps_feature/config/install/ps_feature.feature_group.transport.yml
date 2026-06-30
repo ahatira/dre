@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transport
+label: Transport
+description: 'Vehicle access and public transport.'
+icon: 'bnp_custom:transport'
+asset_types: {  }
+weight: 4
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

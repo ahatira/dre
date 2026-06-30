@@ -145,7 +145,7 @@ assert_html_contains "$BASE/fr/recherche-immobiliere" 'Équipements' "FR Équipe
 assert_not_screaming_snake "$BASE/fr/recherche-immobiliere" 'AMENAGEMENTS' "FR no AMENAGEMENTS machine label"
 
 echo "--- Lazy-load HTMX endpoint ---"
-assert_lazy_group "equipements" "HTMX equipements group"
+assert_lazy_group "equipment" "HTMX equipment group"
 assert_lazy_group "amenagements" "HTMX amenagements group"
 
 echo "--- Transport group routed via Nearby transport (not lazy accordion) ---"

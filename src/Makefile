@@ -8,7 +8,7 @@ COUNTRY ?= com
 .PHONY: \
 	help build build-composer build-npm verify install reinstall install-from-conf import demo deploy drush-cr \
 	index-solr export-solr rbac-sync rbac-export create-test-users \
-	drush drush-uli drush-status drush-cex rebuild-permissions composer-install composer-update npm-install npm-audit \
+	drush drush-uli drush-status drush-cex rebuild-permissions smtp-mail composer-install composer-update npm-install npm-audit \
 	seed-site-configs export-all-configs translations-fetch translations-fetch
 
 # Build flags — use make variables (GNU make treats --foo as its own options):
@@ -48,6 +48,7 @@ help:
 	@echo "  make translations-fetch [country] [lang...]  — dev: populate translations/contrib"
 	@echo "  make drush [country] <args...>   (default COUNTRY=$(COUNTRY))"
 	@echo "  make drush-uli | drush-status | drush-cex"
+	@echo "  make smtp-mail [country...]      — mailer_transport from SMTP_* env vars"
 	@echo "  make npm-install | npm-audit"
 	@echo ""
 	@echo "Drush runs on the host. Requires vendor/ (make build-composer / make build)."
@@ -137,6 +138,9 @@ drush-status:
 
 drush-cex:
 	bash "$(SCRIPTS_CLI)" drupal drush $(COUNTRY) cex -y
+
+smtp-mail:
+	bash "$(SCRIPTS_CLI)" drupal smtp-mail $(filter-out smtp-mail,$(MAKECMDGOALS))
 
 rebuild-permissions:
 	bash "$(SCRIPTS_CLI)" drupal rebuild-permissions $(filter-out rebuild-permissions,$(MAKECMDGOALS))

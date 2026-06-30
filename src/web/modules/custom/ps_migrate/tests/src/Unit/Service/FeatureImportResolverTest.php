@@ -40,7 +40,7 @@ final class FeatureImportResolverTest extends UnitTestCase {
    */
   public function testResolveGroupIdUsesExistingDefinitionGroup(): void {
     $definition = $this->createMock(FeatureDefinition::class);
-    $definition->method('getGroup')->willReturn('prestations_de_service');
+    $definition->method('getGroup')->willReturn('services');
 
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->method('load')->with('tec_hall_daccueil')->willReturn($definition);
@@ -51,7 +51,7 @@ final class FeatureImportResolverTest extends UnitTestCase {
     $resolver = $this->createResolver($entityTypeManager);
 
     self::assertSame(
-      'prestations_de_service',
+      'services',
       $resolver->resolveGroupId('TEC_HALL_DACCUEIL', 'AM_NAGEMENTS'),
     );
   }
@@ -68,8 +68,8 @@ final class FeatureImportResolverTest extends UnitTestCase {
 
     $resolver = $this->createResolver($entityTypeManager);
 
-    self::assertSame('equipements', $resolver->resolveGroupId('TEC_UNKNOWN', 'AM_NAGEMENTS'));
-    self::assertSame('equipements', $resolver->resolveGroupId('TEC_UNKNOWN', 'EQUIPEMENTS'));
+    self::assertSame('equipment', $resolver->resolveGroupId('TEC_UNKNOWN', 'AM_NAGEMENTS'));
+    self::assertSame('equipment', $resolver->resolveGroupId('TEC_UNKNOWN', 'EQUIPEMENTS'));
   }
 
   /**
@@ -85,7 +85,7 @@ final class FeatureImportResolverTest extends UnitTestCase {
     $resolver = $this->createResolver($entityTypeManager);
 
     self::assertSame(
-      'informations_complementaires',
+      'additional',
       $resolver->resolveGroupId('TEC_UNKNOWN', ''),
     );
   }
@@ -102,10 +102,10 @@ final class FeatureImportResolverTest extends UnitTestCase {
 
     $resolver = $this->createResolver(
       $entityTypeManager,
-      new TestCatalogueImportPolicyStub(defaultGroupId: 'equipements'),
+      new TestCatalogueImportPolicyStub(defaultGroupId: 'equipment'),
     );
 
-    self::assertSame('equipements', $resolver->resolveGroupId('TEC_UNKNOWN', ''));
+    self::assertSame('equipment', $resolver->resolveGroupId('TEC_UNKNOWN', ''));
   }
 
   /**

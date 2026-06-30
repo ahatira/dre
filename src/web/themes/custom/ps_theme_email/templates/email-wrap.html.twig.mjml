@@ -1,0 +1,62 @@
+{#
+/**
+ * @file
+ * Property Search — MJML email shell (Phase 2–3).
+ *
+ * Composed from partials in templates/partials/.
+ * Wired to Symfony Mailer for webform emails (mailer_policy.webform → ps_theme_email).
+ *
+ * Variables: subject, body, is_html, type, sub_type, site_name, site_slogan,
+ * site_url, email_* tokens, email_logo_url, email_team_name, contact/footer vars.
+ */
+#}
+{% set text = email_text_color|default('#333333') %}
+{% set bg = email_background_color|default('#f0f0f0') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+
+<mjml>
+  <mj-head>
+    <mj-title>{{ subject|default('Email preview') }}</mj-title>
+    <mj-attributes>
+      <mj-all font-family="{{ email_font_family|default('BNP Sans, Open Sans, Arial, Helvetica, sans-serif') }}" />
+      <mj-text font-size="{{ email_font_size_base|default('14px') }}" line-height="{{ email_line_height_base|default('1.6') }}" color="{{ text }}" />
+    </mj-attributes>
+    <mj-style inline="inline">
+      .ps-email-title h1 { margin: 0; font-size: 22px; line-height: 1.3; }
+      @media only screen and (min-width: 621px) {
+        .ps-email-title h1 { font-size: 28px !important; line-height: 1.35 !important; }
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="{{ bg }}">
+    <mj-wrapper padding="16px 8px" background-color="{{ bg }}">
+      {% include '@ps_theme_email/partials/header.html.twig' %}
+
+      {% if ps_contact_hero_url|default('') %}
+        <mj-section padding="0" background-color="{{ surface }}">
+          <mj-column padding="0">
+            <mj-image src="{{ ps_contact_hero_url }}" alt="{{ ps_contact_hero_alt|default('')|e('html_attr') }}" padding="0" fluid-on-mobile="true" />
+          </mj-column>
+        </mj-section>
+      {% endif %}
+
+      {% include '@ps_theme_email/partials/title.html.twig' %}
+
+      <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+        <mj-column>
+          <mj-text color="{{ text }}">
+            {{ body|default('<p>Sample email body.</p>')|raw }}
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      {% include '@ps_theme_email/partials/signoff.html.twig' %}
+
+      {% if ps_contact_confirmation|default(false) %}
+        {% include '@ps_theme_email/partials/footer-contact.html.twig' %}
+      {% endif %}
+
+      {% include '@ps_theme_email/partials/footer-default.html.twig' %}
+    </mj-wrapper>
+  </mj-body>
+</mjml>

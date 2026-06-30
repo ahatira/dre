@@ -264,8 +264,8 @@ fi
 SITE_MAIL="$(printf '%s' "$GLOBAL_META" | sed -n 's/.*site_mail=\([^|]*\).*/\1/p')"
 pass "Site notification mail: ${SITE_MAIL}"
 
-EMAIL_DISPLAY_TITLE="$(ps_e2e_drush cget ps_form.settings contact_email_confirmation.display_title --format=string 2>/dev/null || echo 'Your request has been sent')"
-EMAIL_GREETING_PREFIX="$(ps_e2e_drush cget ps_form.settings contact_email_confirmation.greeting_prefix --format=string 2>/dev/null || echo 'Hello')"
+EMAIL_DISPLAY_TITLE="$(ps_e2e_drush cget ps_email.contact webforms.find_property.display_title --format=string 2>/dev/null || echo 'Your request has been sent')"
+EMAIL_GREETING_PREFIX="$(ps_e2e_drush cget ps_email.contact webforms.find_property.greeting_prefix --format=string 2>/dev/null || echo 'Hello')"
 COMMON_CONFIRM_ASSERT="$(EMAIL_DISPLAY_TITLE="${EMAIL_DISPLAY_TITLE}" EMAIL_GREETING_PREFIX="${EMAIL_GREETING_PREFIX}" python3 - <<'PY'
 import json, os
 common = {

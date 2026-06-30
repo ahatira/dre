@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * MJML preview — CRM import pipeline failure alert (sample).
+ */
+#}
+{% set subject = subject|default('CRM import failed: sample-file.xml') %}
+{% set body %}
+  <p style="margin:0 0 12px;font-size:14px;line-height:1.6;font-weight:700;">Import run #42 failed for file sample-file.xml.</p>
+  <p style="margin:0 0 12px;font-size:14px;line-height:1.6;">Mode: full</p>
+  <p style="margin:0 0 12px;font-size:14px;line-height:1.6;">Error: Invalid XML: unexpected end of document.</p>
+  <p style="margin:0;font-size:14px;line-height:1.6;"><a href="{{ site_url|default('#') }}/admin/ps/import/runs/42">Review import run details</a></p>
+{% endset %}
+{% include '@ps_theme_email/email-wrap.html.twig.mjml' %}

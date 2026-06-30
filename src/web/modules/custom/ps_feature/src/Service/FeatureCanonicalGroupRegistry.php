@@ -7,8 +7,8 @@ namespace Drupal\ps_feature\Service;
 /**
  * Canonical feature group registry and legacy group resolution.
  *
- * The catalogue exposes four business groups. Legacy install groups and CRM
- * CODE_GROUP values are mapped onto this canonical set.
+ * The catalogue exposes five short English group IDs. Legacy install groups and
+ * CRM CODE_GROUP values are mapped onto this canonical set.
  */
 final class FeatureCanonicalGroupRegistry {
 
@@ -18,10 +18,11 @@ final class FeatureCanonicalGroupRegistry {
    * @var string[]
    */
   public const CANONICAL_GROUP_IDS = [
-    'equipements',
-    'prestations_de_service',
-    'type_etat_du_batiment',
-    'informations_complementaires',
+    'equipment',
+    'services',
+    'building',
+    'additional',
+    'transport',
   ];
 
   /**
@@ -37,6 +38,10 @@ final class FeatureCanonicalGroupRegistry {
     'activite_non_autorisee',
     'structure_du_batiment',
     'normes_certifications_et_labels',
+    'equipements',
+    'prestations_de_service',
+    'type_etat_du_batiment',
+    'informations_complementaires',
   ];
 
   /**
@@ -45,13 +50,18 @@ final class FeatureCanonicalGroupRegistry {
    * @var array<string, string>
    */
   private const LEGACY_GROUP_MAP = [
-    'amenagements' => 'equipements',
-    'exterieurs' => 'equipements',
-    'hauteurs' => 'type_etat_du_batiment',
-    'structure_du_batiment' => 'type_etat_du_batiment',
-    'acces_vehicules' => 'equipements',
-    'activite_non_autorisee' => 'informations_complementaires',
-    'normes_certifications_et_labels' => 'informations_complementaires',
+    'amenagements' => 'equipment',
+    'exterieurs' => 'equipment',
+    'hauteurs' => 'building',
+    'structure_du_batiment' => 'building',
+    'acces_vehicules' => 'transport',
+    'activite_non_autorisee' => 'additional',
+    'normes_certifications_et_labels' => 'additional',
+    'equipements' => 'equipment',
+    'equipement' => 'equipment',
+    'prestations_de_service' => 'services',
+    'type_etat_du_batiment' => 'building',
+    'informations_complementaires' => 'additional',
   ];
 
   /**
@@ -60,27 +70,33 @@ final class FeatureCanonicalGroupRegistry {
    * @var array<string, string>
    */
   private const CRM_GROUP_MAP = [
-    'am_nagements' => 'equipements',
-    'amenagements' => 'equipements',
-    'equipements' => 'equipements',
-    'equipement' => 'equipements',
-    'exterieurs' => 'equipements',
-    'exterieur' => 'equipements',
-    'hauteurs' => 'type_etat_du_batiment',
-    'hauteur' => 'type_etat_du_batiment',
-    'structure_du_batiment' => 'type_etat_du_batiment',
-    'type_etat_du_batiment' => 'type_etat_du_batiment',
-    'etat_du_batiment' => 'type_etat_du_batiment',
-    'acces_vehicules' => 'equipements',
-    'acces_vehicule' => 'equipements',
-    'activite_non_autorisee' => 'informations_complementaires',
-    'normes_certifications_et_labels' => 'informations_complementaires',
-    'normes_certifications' => 'informations_complementaires',
-    'prestations_de_service' => 'prestations_de_service',
-    'services' => 'prestations_de_service',
-    'service' => 'prestations_de_service',
-    'informations_complementaires' => 'informations_complementaires',
-    'information_complementaire' => 'informations_complementaires',
+    'am_nagements' => 'equipment',
+    'amenagements' => 'equipment',
+    'equipements' => 'equipment',
+    'equipement' => 'equipment',
+    'exterieurs' => 'equipment',
+    'exterieur' => 'equipment',
+    'hauteurs' => 'building',
+    'hauteur' => 'building',
+    'structure_du_batiment' => 'building',
+    'type_etat_du_batiment' => 'building',
+    'etat_du_batiment' => 'building',
+    'building' => 'building',
+    'acces_vehicules' => 'transport',
+    'acces_vehicule' => 'transport',
+    'activite_non_autorisee' => 'additional',
+    'normes_certifications_et_labels' => 'additional',
+    'normes_certifications' => 'additional',
+    'prestations_de_service' => 'services',
+    'services' => 'services',
+    'service' => 'services',
+    'informations_complementaires' => 'additional',
+    'information_complementaire' => 'additional',
+    'additional' => 'additional',
+    'transport' => 'transport',
+    'transports' => 'transport',
+    'acces_transport' => 'transport',
+    'equipment' => 'equipment',
   ];
 
   /**
@@ -109,7 +125,7 @@ final class FeatureCanonicalGroupRegistry {
   public function resolveGroupId(string $groupId): string {
     $groupId = trim($groupId);
     if ($groupId === '') {
-      return 'informations_complementaires';
+      return 'additional';
     }
 
     if ($this->isCanonicalGroupId($groupId)) {
@@ -125,7 +141,7 @@ final class FeatureCanonicalGroupRegistry {
       return self::CRM_GROUP_MAP[$normalized];
     }
 
-    return 'informations_complementaires';
+    return 'additional';
   }
 
   /**
@@ -134,7 +150,7 @@ final class FeatureCanonicalGroupRegistry {
   public function resolveCrmGroupCode(string $crmGroupCode): string {
     $crmGroupCode = trim($crmGroupCode);
     if ($crmGroupCode === '') {
-      return 'informations_complementaires';
+      return 'additional';
     }
 
     $normalized = $this->normalizeCode($crmGroupCode);
@@ -150,11 +166,11 @@ final class FeatureCanonicalGroupRegistry {
       return $normalized;
     }
 
-    return 'informations_complementaires';
+    return 'additional';
   }
 
   /**
-   * Checks whether a group ID is one of the four canonical groups.
+   * Checks whether a group ID is one of the canonical groups.
    */
   public function isCanonicalGroupId(string $groupId): bool {
     return in_array($groupId, self::CANONICAL_GROUP_IDS, TRUE);

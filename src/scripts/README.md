@@ -58,7 +58,7 @@ E2E modules : `scripts/e2e/common.sh` — Drush hôte (`@ps.com`) et URL par dé
 
 `DB_HOST=127.0.0.1` dans `src/.env` pour Drush sur l'hôte ; le conteneur PHP utilise `DB_HOST=postgres` (override docker-compose).
 
-Mail, Solr connector, memcache : `docs/MULTISITE_OPS.md` § Infrastructure (config_ignore + `drush config:set`).
+Mail, Solr connector, memcache : `docs/MULTISITE_OPS.md` § Infrastructure. Mail SMTP : `make smtp-mail [country]` + `SMTP_*`.
 
 ## Drush
 

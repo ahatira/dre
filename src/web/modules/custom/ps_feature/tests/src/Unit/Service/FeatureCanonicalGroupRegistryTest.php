@@ -38,13 +38,15 @@ final class FeatureCanonicalGroupRegistryTest extends UnitTestCase {
    */
   public static function legacyGroupIdProvider(): array {
     return [
-      'amenagements' => ['amenagements', 'equipements'],
-      'exterieurs' => ['exterieurs', 'equipements'],
-      'hauteurs' => ['hauteurs', 'type_etat_du_batiment'],
-      'structure' => ['structure_du_batiment', 'type_etat_du_batiment'],
-      'vehicle access' => ['acces_vehicules', 'equipements'],
-      'forbidden activity' => ['activite_non_autorisee', 'informations_complementaires'],
-      'labels' => ['normes_certifications_et_labels', 'informations_complementaires'],
+      'amenagements' => ['amenagements', 'equipment'],
+      'exterieurs' => ['exterieurs', 'equipment'],
+      'hauteurs' => ['hauteurs', 'building'],
+      'structure' => ['structure_du_batiment', 'building'],
+      'vehicle access' => ['acces_vehicules', 'transport'],
+      'forbidden activity' => ['activite_non_autorisee', 'additional'],
+      'labels' => ['normes_certifications_et_labels', 'additional'],
+      'old canonical equipment' => ['equipements', 'equipment'],
+      'old canonical services' => ['prestations_de_service', 'services'],
     ];
   }
 
@@ -61,10 +63,10 @@ final class FeatureCanonicalGroupRegistryTest extends UnitTestCase {
    * @covers ::resolveCrmGroupCode
    */
   public function testResolveCrmGroupCode(): void {
-    self::assertSame('equipements', $this->registry->resolveCrmGroupCode('AM_NAGEMENTS'));
-    self::assertSame('equipements', $this->registry->resolveCrmGroupCode('EQUIPEMENTS'));
-    self::assertSame('prestations_de_service', $this->registry->resolveCrmGroupCode('SERVICES'));
-    self::assertSame('informations_complementaires', $this->registry->resolveCrmGroupCode(''));
+    self::assertSame('equipment', $this->registry->resolveCrmGroupCode('AM_NAGEMENTS'));
+    self::assertSame('equipment', $this->registry->resolveCrmGroupCode('EQUIPEMENTS'));
+    self::assertSame('services', $this->registry->resolveCrmGroupCode('SERVICES'));
+    self::assertSame('additional', $this->registry->resolveCrmGroupCode(''));
   }
 
   /**
@@ -72,7 +74,8 @@ final class FeatureCanonicalGroupRegistryTest extends UnitTestCase {
    */
   public function testLegacyDetection(): void {
     self::assertTrue($this->registry->isLegacyGroupId('amenagements'));
-    self::assertFalse($this->registry->isLegacyGroupId('equipements'));
+    self::assertTrue($this->registry->isLegacyGroupId('equipements'));
+    self::assertFalse($this->registry->isLegacyGroupId('equipment'));
   }
 
 }

@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Data table (compare-style sections/columns model).
+ *
+ * Variables:
+ * - table_columns: list of { header: string }
+ * - table_sections: list of {
+ *     label: string,
+ *     show_section_title?: bool,
+ *     rows: list of { label: string, cells: list of markup }
+ *   }
+ */
+#}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+{% set border = '#ebedef' %}
+{% set label_bg = '#f9f9fb' %}
+{% set section_bg = '#f3f4f6' %}
+{% set columns = table_columns|default([]) %}
+{% set sections = table_sections|default([]) %}
+
+{% if columns and sections %}
+  <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+    <mj-column padding="0">
+      <mj-table cellpadding="0" cellspacing="0" width="100%" font-size="14px" color="{{ text }}">
+        <tr>
+          <th align="left" style="padding:12px;background:{{ label_bg }};border:1px solid {{ border }};width:28%;"></th>
+          {% for column in columns %}
+            <th align="left" style="padding:12px;background:#ffffff;border:1px solid {{ border }};">{{ column.header }}</th>
+          {% endfor %}
+        </tr>
+        {% for section in sections %}
+          {% if section.show_section_title|default(true) %}
+            <tr>
+              <th align="left" colspan="{{ columns|length + 1 }}" style="padding:10px 12px;background:{{ section_bg }};border:1px solid {{ border }};font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#434f57;">
+                {{ section.label }}
+              </th>
+            </tr>
+          {% endif %}
+          {% for row in section.rows|default([]) %}
+            <tr>
+              <th align="left" style="padding:10px 12px;background:{{ label_bg }};border:1px solid {{ border }};font-weight:400;color:{{ muted }};">{{ row.label }}</th>
+              {% for cell in row.cells|default([]) %}
+                <td align="left" style="padding:10px 12px;border:1px solid {{ border }};vertical-align:top;">{{ cell|raw }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      </mj-table>
+    </mj-column>
+  </mj-section>
+{% endif %}

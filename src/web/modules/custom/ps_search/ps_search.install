@@ -11,6 +11,10 @@ declare(strict_types=1);
  * Installs the search_alert content entity schema.
  */
 function ps_search_install(): void {
+  if (function_exists('ps_email_apply_mailer_policy')) {
+    ps_email_apply_mailer_policy('ps_search', ['ps_search']);
+  }
+
   $entity_type = \Drupal::entityTypeManager()->getDefinition('search_alert');
   \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
   ps_search_fix_seo_url_mappings_base_config();

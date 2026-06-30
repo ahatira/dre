@@ -1,0 +1,6 @@
+ps_email.admin:
+  title: 'Emails'
+  description: 'Transactional email hub, shell branding and Mailpit tests'
+  route_name: ps_email.admin
+  parent: ps_core.config
+  weight: 6

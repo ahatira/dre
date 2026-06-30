@@ -215,7 +215,8 @@ ps_ensure_ps_search_stack() {
     }
     \Drupal::service("entity_type.manager")->clearCachedDefinitions();
     if (!\Drupal::entityTypeManager()->hasDefinition("search_api_index")) {
-      throw new \RuntimeException("search_api_index entity type is missing after enabling search_api");
+      echo "warn search_api_index entity type is missing — enable search_api and retry\n";
+      return;
     }
     $source = new \Drupal\Core\Config\FileStorage(DRUPAL_ROOT . "/modules/custom/ps_search/config/install");
     $serverStorage = \Drupal::entityTypeManager()->getStorage("search_api_server");

@@ -141,7 +141,7 @@ final class EntityProtectionSubscriberTest extends UnitTestCase {
    * @covers ::onPreRowSave
    */
   public function testPreRowSaveLoadsStringDestinationIdWithoutCastingToInt(): void {
-    $entity = $this->buildConfigEntity('equipements__tec_surface', [
+    $entity = $this->buildConfigEntity('equipment__tec_surface', [
       'label' => 'Internal label',
       'internal_lock' => TRUE,
     ]);
@@ -149,7 +149,7 @@ final class EntityProtectionSubscriberTest extends UnitTestCase {
     $storage = $this->createMock(EntityStorageInterface::class);
     $storage->expects(self::once())
       ->method('load')
-      ->with('equipements__tec_surface')
+      ->with('equipment__tec_surface')
       ->willReturn($entity);
 
     $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
@@ -171,8 +171,8 @@ final class EntityProtectionSubscriberTest extends UnitTestCase {
     $this->expectException(MigrateSkipRowException::class);
     $subscriber->onPreRowSave($this->buildPreRowSaveEvent(
       entityType: 'fb_feature_definition',
-      destinationId: 'equipements__tec_surface',
-      destination: ['id' => 'equipements__tec_surface'],
+      destinationId: 'equipment__tec_surface',
+      destination: ['id' => 'equipment__tec_surface'],
     ));
   }
 

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+id: additional
+label: Other
+description: 'Supplementary information.'
+icon: 'bnp_custom:infos'
+asset_types: {  }
+weight: 3
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

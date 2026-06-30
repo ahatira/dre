@@ -18,6 +18,7 @@ dependencies:
     - ps_media
     - ps_offer
     - ps_search
+    - ps_email
     - sitewide_alert
     - views_promo_card
     - system
@@ -35,6 +36,7 @@ permissions:
   - 'access ps_core content section'
   - 'access ps_core hub'
   - 'access ps_core structure section'
+  - 'access ps_email hub'
   - 'access trash'
   - 'add sitewide alert entities'
   - 'administer blocks'
@@ -66,6 +68,7 @@ permissions:
   - 'manage ps_favorite'
   - 'manage ps_feature'
   - 'manage ps_offer'
+  - 'manage ps_email content'
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use text format restricted_html'

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+id: equipment
+label: Equipment
+description: 'Equipment and facilities.'
+icon: 'bnp_custom:equipement'
+asset_types: {  }
+weight: 0
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

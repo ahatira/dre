@@ -1,0 +1,9 @@
+name: 'Property Search Email (MJML)'
+type: theme
+description: 'Responsive email templates for Property Search (MJML + Twig).'
+core_version_requirement: ^11.3
+engine: twig_mjml
+base theme: false
+dependencies:
+  - mjml_render_engine:mjml_render_engine
+  - ps_core:ps_core

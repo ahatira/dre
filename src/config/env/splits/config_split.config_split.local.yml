@@ -9,7 +9,8 @@ stackable: false
 no_patching: false
 storage: folder
 folder: ../config/env/local
-module: {  }
+module:
+  mjml_render_devel: 0
 theme: {  }
 complete_list:
   - antibot.settings

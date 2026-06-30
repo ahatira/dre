@@ -1,0 +1,12 @@
+access ps_email hub:
+  title: 'Access Property Search email hub'
+  description: 'Access /admin/ps/config/email and the transactional email registry.'
+
+manage ps_email content:
+  title: 'Manage Property Search email shell content'
+  description: 'Edit footer, legal and branding content for transactional emails.'
+
+administer ps_email:
+  title: 'Administer Property Search email (technical)'
+  description: 'MJML dev tools, design tokens and mailer technical settings.'
+  restrict access: true

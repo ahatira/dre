@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * MJML preview — compare share email (sample table + CTA).
+ *
+ * Live sends: HTML body from ps_compare + MJML shell via mailer_policy.ps_compare.
+ */
+#}
+{% set text = email_text_color|default('#333333') %}
+{% set bg = email_background_color|default('#f0f0f0') %}
+{% set surface = email_surface_color|default('#ffffff') %}
+{% set green = email_primary_color|default('#00915a') %}
+{% set sample_url = site_url|default('https://www.example.com') ~ '/compare/share/example-token' %}
+{% set intro_message = intro_message|default('Here is the property comparison you requested.') %}
+{% set preview_table_columns = preview_table_columns|default([
+  {'header': '<strong>Offer A</strong>'},
+  {'header': '<strong>Offer B</strong>'},
+]) %}
+{% set preview_table_sections = preview_table_sections|default([
+  {
+    'label': 'Key figures',
+    'rows': [
+      {'label': 'Surface', 'cells': ['450 m²', '320 m²']},
+      {'label': 'Rent', 'cells': ['On request', '€12,000/m²']},
+    ],
+  },
+]) %}
+{% set subject = subject|default('Property comparison') %}
+{% set body %}
+  {% if intro_message %}
+    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:{{ text }};">{{ intro_message }}</p>
+  {% endif %}
+{% endset %}
+
+<mjml>
+  <mj-head>
+    <mj-title>{{ subject }}</mj-title>
+    <mj-attributes>
+      <mj-all font-family="{{ email_font_family|default('BNP Sans, Open Sans, Arial, Helvetica, sans-serif') }}" />
+      <mj-text font-size="{{ email_font_size_base|default('14px') }}" line-height="{{ email_line_height_base|default('1.6') }}" color="{{ text }}" />
+    </mj-attributes>
+    <mj-style inline="inline">
+      .ps-email-title h1 { margin: 0; font-size: 22px; line-height: 1.3; }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="{{ bg }}">
+    <mj-wrapper padding="16px 8px" background-color="{{ bg }}">
+      {% include '@ps_theme_email/partials/header.html.twig' %}
+      {% include '@ps_theme_email/partials/title.html.twig' %}
+
+      <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+        <mj-column>
+          <mj-text color="{{ text }}">
+            {{ body|raw }}
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      {% include '@ps_theme_email/partials/button.html.twig' with {
+        button_url: sample_url,
+        button_label: 'View full comparison online',
+      } only %}
+
+      {% include '@ps_theme_email/partials/table.html.twig' with {
+        table_columns: preview_table_columns,
+        table_sections: preview_table_sections,
+      } only %}
+
+      {% include '@ps_theme_email/partials/signoff.html.twig' %}
+      {% include '@ps_theme_email/partials/footer-default.html.twig' %}
+    </mj-wrapper>
+  </mj-body>
+</mjml>

@@ -55,7 +55,7 @@ final class FormAdminOverviewController extends ControllerBase {
       'lead' => [
         '#type' => 'html_tag',
         '#tag' => 'p',
-        '#value' => $this->t('Configure contact hub webforms, display mode, urgency phone block and visitor confirmation emails.'),
+        '#value' => $this->t('Configure contact hub webforms, display mode and urgency phone block. Transactional email settings are managed in the email hub.'),
       ],
     ];
 
@@ -113,7 +113,7 @@ final class FormAdminOverviewController extends ControllerBase {
     }
 
     $this->messenger()->addMessage(
-      $this->t('Urgency contact and confirmation email wording are translatable. Edit the default site language on each settings tab, then use the Translate tab for other enabled languages.'),
+      $this->t('Urgency contact wording is translatable. Edit the default site language on each settings tab, then use the Translate tab for other enabled languages.'),
       'info',
     );
   }
@@ -152,13 +152,13 @@ final class FormAdminOverviewController extends ControllerBase {
       ],
       [
         'id' => 'email',
-        'title' => $this->t('Confirmation emails'),
-        'description' => $this->t('Styled visitor confirmation emails for hub webforms.'),
+        'title' => $this->t('Transactional emails'),
+        'description' => $this->t('Visitor confirmations, compare share, search alerts and import ops notifications.'),
         'items' => [
           [
-            'title' => $this->t('Email settings overview'),
-            'description' => $this->t('Content, footer, hero banners and live confirmation preview.'),
-            'route' => 'ps_form.email_overview',
+            'title' => $this->t('Email hub'),
+            'description' => $this->t('Registry of all PS transactional emails, Mailpit tests and module settings links.'),
+            'route' => 'ps_email.admin',
           ],
         ],
       ],

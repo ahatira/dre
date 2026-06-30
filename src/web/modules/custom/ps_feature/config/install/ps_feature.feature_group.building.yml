@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+id: building
+label: Building
+description: 'Building type and condition.'
+icon: 'bnp_custom:district'
+asset_types: {  }
+weight: 2
+internal_lock: true
+source_tracking: ''
+checksum: ''
+field_locks: {  }

@@ -144,8 +144,8 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  group_order: equipements
-                  group_filter: equipements
+                  group_order: equipment
+                  group_filter: equipment
                 third_party_settings: {  }
             weight: 4
             additional:
@@ -170,8 +170,8 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  group_order: prestations_de_service
-                  group_filter: prestations_de_service
+                  group_order: services
+                  group_filter: services
                 third_party_settings: {  }
             weight: 5
             additional:
@@ -196,8 +196,8 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  group_order: type_etat_du_batiment
-                  group_filter: type_etat_du_batiment
+                  group_order: building
+                  group_filter: building
                 third_party_settings: {  }
             weight: 6
             additional:
@@ -222,8 +222,8 @@ third_party_settings:
                   show_group: true
                   format_style: grouped
                   hide_disabled_flags: true
-                  group_order: informations_complementaires
-                  group_filter: informations_complementaires
+                  group_order: additional
+                  group_filter: additional
                 third_party_settings: {  }
             weight: 7
             additional:

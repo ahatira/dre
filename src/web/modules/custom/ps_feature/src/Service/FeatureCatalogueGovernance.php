@@ -22,7 +22,7 @@ class FeatureCatalogueGovernance {
   /**
    * Canonical feature group used when import rows have no group code.
    */
-  public const DEFAULT_IMPORT_GROUP_ID = 'informations_complementaires';
+  public const DEFAULT_IMPORT_GROUP_ID = 'additional';
 
   public const STRATEGY_INHERIT = 'inherit';
 
@@ -187,7 +187,7 @@ class FeatureCatalogueGovernance {
   /**
    * Default feature group ID when an import row has no group/category code.
    *
-   * Falls back to informations_complementaires when unset or invalid.
+   * Falls back to additional when unset or invalid.
    */
   public function getDefaultImportGroupId(): string {
     $groupId = trim((string) $this->config()->get('import_defaults.default_group'));

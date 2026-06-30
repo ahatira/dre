@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Drupal\ps_migrate\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
+use Drupal\ps_email\Service\EmailDesignTokens;
 use Drupal\ps_migrate\Entity\ImportRunInterface;
 
 /**
@@ -14,6 +18,39 @@ use Drupal\ps_migrate\Entity\ImportRunInterface;
 final class ImportPipelineMailHooks {
 
   use StringTranslationTrait;
+
+  public function __construct(
+    private readonly RendererInterface $renderer,
+    private readonly EmailDesignTokens $emailDesignTokens,
+  ) {}
+
+  /**
+   * Registers import alert body theme hook.
+   *
+   * @return array<string, mixed>
+   *   Theme definitions.
+   */
+  #[Hook('theme')]
+  public function theme(): array {
+    return [
+      'ps_migrate_import_alert_body' => [
+        'variables' => [
+          'lines' => [],
+          'admin_url' => NULL,
+          'alert_variant' => 'warning',
+        ],
+        'template' => 'ps-migrate-import-alert-body',
+      ],
+    ];
+  }
+
+  /**
+   * Injects design tokens into the import alert body fragment.
+   */
+  #[Hook('preprocess_ps_migrate_import_alert_body')]
+  public function preprocessImportAlertBody(array &$variables): void {
+    $variables += $this->emailDesignTokens->getPreprocessVariables();
+  }
 
   /**
    * Implements hook_mail().
@@ -54,13 +91,21 @@ final class ImportPipelineMailHooks {
 
     $error = (string) ($params['error'] ?? '');
     $message['subject'] = (string) ($params['subject'] ?? $this->t('CRM import failed'));
-    $message['body'][] = (string) $this->t('Import run #@id failed for file @file.', [
-      '@id' => $run->id(),
-      '@file' => $run->getFilename(),
-    ]);
-    $message['body'][] = (string) $this->t('Mode: @mode', ['@mode' => $run->getImportMode()]);
-    $message['body'][] = (string) $this->t('Error: @error', ['@error' => $error]);
-    $message['body'][] = (string) $this->t('Review details in the import runs back office.');
+    $build = [
+      '#theme' => 'ps_migrate_import_alert_body',
+      '#lines' => [
+        (string) $this->t('Import run #@id failed for file @file.', [
+          '@id' => $run->id(),
+          '@file' => $run->getFilename(),
+        ]),
+        (string) $this->t('Mode: @mode', ['@mode' => $run->getImportMode()]),
+        (string) $this->t('Error: @error', ['@error' => $error]),
+      ],
+      '#admin_url' => $this->buildRunAdminUrl($run),
+      '#alert_variant' => 'warning',
+    ];
+    $message['body'][] = Markup::create((string) $this->renderer->renderPlain($build));
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
   }
 
   /**
@@ -81,16 +126,34 @@ final class ImportPipelineMailHooks {
     $skipRate = (float) ($params['skip_rate'] ?? 0);
     $threshold = (int) ($params['threshold'] ?? 0);
     $message['subject'] = (string) ($params['subject'] ?? $this->t('CRM import skip warning'));
-    $message['body'][] = (string) $this->t('Import run #@id completed with a high skip rate for file @file.', [
-      '@id' => $run->id(),
-      '@file' => $run->getFilename(),
-    ]);
-    $message['body'][] = (string) $this->t('Mode: @mode', ['@mode' => $run->getImportMode()]);
-    $message['body'][] = (string) $this->t('Skip rate: @rate% (threshold: @threshold%).', [
-      '@rate' => number_format($skipRate, 1),
-      '@threshold' => $threshold,
-    ]);
-    $message['body'][] = (string) $this->t('Review skipped rows and import rejections in the back office.');
+    $build = [
+      '#theme' => 'ps_migrate_import_alert_body',
+      '#lines' => [
+        (string) $this->t('Import run #@id completed with a high skip rate for file @file.', [
+          '@id' => $run->id(),
+          '@file' => $run->getFilename(),
+        ]),
+        (string) $this->t('Mode: @mode', ['@mode' => $run->getImportMode()]),
+        (string) $this->t('Skip rate: @rate% (threshold: @threshold%).', [
+          '@rate' => number_format($skipRate, 1),
+          '@threshold' => $threshold,
+        ]),
+        (string) $this->t('Review skipped rows and import rejections in the back office.'),
+      ],
+      '#admin_url' => $this->buildRunAdminUrl($run),
+      '#alert_variant' => 'warning',
+    ];
+    $message['body'][] = Markup::create((string) $this->renderer->renderPlain($build));
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
+  }
+
+  /**
+   * Builds an absolute URL to the import run detail page in the BO.
+   */
+  private function buildRunAdminUrl(ImportRunInterface $run): string {
+    return Url::fromRoute('entity.import_run.canonical', [
+      'import_run' => $run->id(),
+    ], ['absolute' => TRUE])->toString();
   }
 
 }

@@ -1,0 +1,53 @@
+services:
+  ps_email.email_transaction_registry:
+    class: Drupal\ps_email\Service\EmailTransactionRegistry
+    arguments:
+      - '@module_handler'
+
+  ps_email.email_admin_overview_builder:
+    class: Drupal\ps_email\Service\EmailAdminOverviewBuilder
+    arguments:
+      - '@ps_email.email_transaction_registry'
+      - '@config.factory'
+      - '@module_handler'
+      - '@current_user'
+
+  ps_email.email_shell_settings:
+    class: Drupal\ps_email\Service\EmailShellSettings
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+
+  ps_email.contact_webform_email_settings:
+    class: Drupal\ps_email\Service\ContactWebformEmailSettings
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+
+  ps_email.email_branding_builder:
+    class: Drupal\ps_email\Service\EmailBrandingBuilder
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@extension.list.theme'
+      - '@file_url_generator'
+
+  ps_email.email_design_tokens:
+    class: Drupal\ps_email\Service\EmailDesignTokens
+    arguments:
+      - '@config.factory'
+
+  ps_email.email_logo_attachment_processor:
+    class: Drupal\ps_email\Processor\EmailLogoAttachmentProcessor
+    arguments:
+      - '@ps_email.email_branding_builder'
+
+  Drupal\ps_email\Hook\MailHooks:
+    class: Drupal\ps_email\Hook\MailHooks
+    arguments:
+      - '@config.factory'
+      - '@ps_email.email_branding_builder'
+      - '@ps_email.email_design_tokens'
+      - '@ps_email.email_logo_attachment_processor'
+
+  Drupal\ps_email\Hook\EmailAdminHooks: {}

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * CRM import pipeline alert body fragment (wrapped by email-wrap MJML shell).
+ *
+ * Variables: lines (list of strings), admin_url (optional), alert_variant.
+ */
+#}
+{% set text = email_text_color|default('#333333') %}
+{% set green = email_primary_color|default('#00915a') %}
+
+{% for line in lines %}
+  <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:{{ text }};{% if loop.first %}font-weight:700;{% endif %}">{{ line }}</p>
+{% endfor %}
+
+{% if admin_url %}
+  <p style="margin:0;font-size:14px;line-height:1.6;">
+    <a href="{{ admin_url }}" style="color:{{ green }};text-decoration:none;">{{ 'Review import run details'|t }}</a>
+  </p>
+{% endif %}

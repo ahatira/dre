@@ -120,8 +120,8 @@ checks = {
   "wrapper_green_title": "#00915a" in html.lower() or "00915a" in html.lower(),
   "wrapper_signoff": "See you soon" in html,
   "green_cta": "background:#00915a" in html.lower() or "background: #00915a" in html.lower(),
-  "responsive_css": "@media screen and (max-width: 620px)" in html,
-  "responsive_container": "ps-email-container" in html,
+  "responsive_css": "@media only screen and (max-width:479px)" in html,
+  "responsive_container": "border-collapse:collapse" in html and 'role="presentation"' in html,
 }
 failed = [k for k, ok in checks.items() if not ok]
 print("PASS:body_ok" if not failed else "FAIL:" + ",".join(failed))

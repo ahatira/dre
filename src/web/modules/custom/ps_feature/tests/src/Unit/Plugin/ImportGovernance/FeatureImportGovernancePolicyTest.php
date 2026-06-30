@@ -82,11 +82,11 @@ final class FeatureImportGovernancePolicyTest extends UnitTestCase {
     $catalogueGovernance = $this->createMock(FeatureCatalogueGovernance::class);
     $catalogueGovernance->expects($this->once())
       ->method('getDefaultImportGroupId')
-      ->willReturn('equipements');
+      ->willReturn('equipment');
 
     $policy = $this->buildPolicy($catalogueGovernance);
 
-    self::assertSame('equipements', $policy->getDefaultImportGroupId());
+    self::assertSame('equipment', $policy->getDefaultImportGroupId());
   }
 
   /**

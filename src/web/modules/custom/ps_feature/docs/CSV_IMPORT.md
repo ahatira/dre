@@ -74,10 +74,11 @@ TEC_SURFACE_TOTALE,Équipements,Total surface,Total lettable surface,Nombre,m²,
 
 | Valeur CSV | Groupe technique |
 |---|---|
-| `Équipements` | `equipements` |
-| `Services` | `prestations_de_service` |
-| `État du bâtiment` | `type_etat_du_batiment` |
-| `Informations complémentaires` | `informations_complementaires` |
+| `Équipements` | `equipment` |
+| `Services` | `services` |
+| `État du bâtiment` | `building` |
+| `Informations complémentaires` | `additional` |
+| `Transport` | `transport` |
 
 ### Types de valeur (`type_valeur`)
 

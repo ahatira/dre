@@ -166,7 +166,7 @@ final class FeatureCatalogueGovernanceTest extends UnitTestCase {
   public function testDefaultImportGroupFallsBackWhenUnset(): void {
     $governance = $this->buildGovernance();
 
-    self::assertSame('informations_complementaires', $governance->getDefaultImportGroupId());
+    self::assertSame('additional', $governance->getDefaultImportGroupId());
   }
 
   /**
@@ -174,7 +174,7 @@ final class FeatureCatalogueGovernanceTest extends UnitTestCase {
    */
   public function testDefaultImportGroupUsesConfiguredGroup(): void {
     $groupStorage = $this->createMock(EntityStorageInterface::class);
-    $groupStorage->method('load')->with('equipements')->willReturn($this->createMock(\Drupal\ps_feature\Entity\FeatureGroup::class));
+    $groupStorage->method('load')->with('equipment')->willReturn($this->createMock(\Drupal\ps_feature\Entity\FeatureGroup::class));
 
     $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
     $entityTypeManager->method('getStorage')->with('fb_feature_group')->willReturn($groupStorage);
@@ -182,13 +182,13 @@ final class FeatureCatalogueGovernanceTest extends UnitTestCase {
     $governance = $this->buildGovernance(
       governance: [
         'import_defaults' => [
-          'default_group' => 'equipements',
+          'default_group' => 'equipment',
         ],
       ],
       entityTypeManager: $entityTypeManager,
     );
 
-    self::assertSame('equipements', $governance->getDefaultImportGroupId());
+    self::assertSame('equipment', $governance->getDefaultImportGroupId());
   }
 
   /**
@@ -210,7 +210,7 @@ final class FeatureCatalogueGovernanceTest extends UnitTestCase {
       entityTypeManager: $entityTypeManager,
     );
 
-    self::assertSame('informations_complementaires', $governance->getDefaultImportGroupId());
+    self::assertSame('additional', $governance->getDefaultImportGroupId());
   }
 
   /**

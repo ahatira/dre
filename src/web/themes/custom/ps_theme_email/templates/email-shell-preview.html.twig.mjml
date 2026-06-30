@@ -1,0 +1,7 @@
+{#
+/**
+ * @file
+ * MJML shell preview entry point (variables from preprocess_email_shell_preview).
+ */
+#}
+{% include '@ps_theme_email/email-wrap.html.twig.mjml' %}

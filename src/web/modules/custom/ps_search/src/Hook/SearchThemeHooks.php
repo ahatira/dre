@@ -110,6 +110,14 @@ final class SearchThemeHooks {
         ],
         'template' => 'ps-search-homepage-entry',
       ],
+      'ps_search_alert_digest_body' => [
+        'variables' => [
+          'list_title' => NULL,
+          'offers' => [],
+          'search_url' => NULL,
+        ],
+        'template' => 'ps-search-alert-digest-body',
+      ],
     ];
   }
 

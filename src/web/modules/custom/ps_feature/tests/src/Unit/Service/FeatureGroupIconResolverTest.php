@@ -26,7 +26,7 @@ final class FeatureGroupIconResolverTest extends UnitTestCase {
     $group->method('getIcon')->willReturn('bnp_custom:equipement');
 
     $storage = $this->createMock(EntityStorageInterface::class);
-    $storage->method('load')->with('equipements')->willReturn($group);
+    $storage->method('load')->with('equipment')->willReturn($group);
 
     $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
     $entityTypeManager->method('getStorage')->with('fb_feature_group')->willReturn($storage);
@@ -39,7 +39,7 @@ final class FeatureGroupIconResolverTest extends UnitTestCase {
     $configFactory->method('get')->with('ps_feature.settings')->willReturn($settings);
 
     $resolver = new FeatureGroupIconResolver($configFactory, $entityTypeManager);
-    $parts = $resolver->resolveParts('equipements');
+    $parts = $resolver->resolveParts('equipment');
 
     $this->assertSame('bnp_custom', $parts['pack']);
     $this->assertSame('equipement', $parts['id']);

@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Light footer line ("This message was sent by …").
+ *
+ * Variables: site_name, email_* tokens.
+ */
+#}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set bg = email_background_color|default('#f0f0f0') %}
+
+<mj-section background-color="{{ bg }}" padding="16px">
+  <mj-column>
+    <mj-text align="center" font-size="11px" line-height="1.5" color="{{ muted }}">
+      {{ 'This message was sent by'|t }} {{ site_name|default('Property Search') }}.
+    </mj-text>
+  </mj-column>
+</mj-section>

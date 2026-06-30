@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Contact hub dark footer + optional legal block.
+ *
+ * Variables: ps_contact_footer_* (from ContactEmailFooterBuilder).
+ */
+#}
+{% set legal_muted = email_muted_color|default('#777e83') %}
+{% set bg = email_background_color|default('#f0f0f0') %}
+{% set has_dark_footer = ps_contact_footer_social_links|default([]) or ps_contact_footer_address|default('') or ps_contact_footer_phone|default('') or ps_contact_footer_offers_label|default('') or ps_contact_footer_services|default('') %}
+
+{% if has_dark_footer %}
+  <mj-section background-color="#1f2a36" padding="24px 16px">
+    <mj-group>
+      <mj-column width="50%" padding="0 8px 0 0">
+        {% if ps_contact_footer_social_links|default([]) %}
+          <mj-text color="#ffffff" font-size="13px" line-height="1.5" padding="0 0 16px">
+            {% for link in ps_contact_footer_social_links %}
+              <a href="{{ link.url }}" style="color:#ffffff;text-decoration:none;margin-right:12px;">{{ link.label }}</a>
+            {% endfor %}
+          </mj-text>
+        {% endif %}
+        {% if ps_contact_footer_address|default('') %}
+          <mj-text color="#ffffff" font-size="12px" line-height="1.5" padding="0 0 8px">{{ ps_contact_footer_address }}</mj-text>
+        {% endif %}
+        {% if ps_contact_footer_phone|default('') %}
+          <mj-text color="#ffffff" font-size="12px" line-height="1.5" padding="0">
+            {% if ps_contact_footer_phone_link|default('') %}
+              <a href="{{ ps_contact_footer_phone_link }}" style="color:#ffffff;text-decoration:none;">{{ ps_contact_footer_phone }}</a>
+            {% else %}
+              {{ ps_contact_footer_phone }}
+            {% endif %}
+          </mj-text>
+        {% endif %}
+      </mj-column>
+      <mj-column width="50%" padding="0 0 0 8px" border-left="1px solid #4a5560">
+        {% if ps_contact_footer_offers_label|default('') %}
+          <mj-text color="#ffffff" font-size="12px" line-height="1.5" padding="0 0 12px">
+            {% if ps_contact_footer_offers_url|default('') %}
+              <a href="{{ ps_contact_footer_offers_url }}" style="color:#ffffff;text-decoration:underline;">{{ ps_contact_footer_offers_label }}</a>
+            {% else %}
+              {{ ps_contact_footer_offers_label }}
+            {% endif %}
+          </mj-text>
+        {% endif %}
+        {% if ps_contact_footer_services|default('') %}
+          <mj-text color="#ffffff" font-size="12px" line-height="1.5" padding="0">{{ ps_contact_footer_services }}</mj-text>
+        {% endif %}
+      </mj-column>
+    </mj-group>
+  </mj-section>
+{% endif %}
+
+{% if ps_contact_footer_legal|default('') %}
+  <mj-section background-color="{{ bg }}" padding="16px">
+    <mj-column>
+      <mj-text font-size="10px" line-height="1.5" color="{{ legal_muted }}" align="justify">
+        {{ ps_contact_footer_legal|raw }}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+{% endif %}
