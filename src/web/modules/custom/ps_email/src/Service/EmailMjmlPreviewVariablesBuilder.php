@@ -27,6 +27,7 @@ final class EmailMjmlPreviewVariablesBuilder {
     private readonly EmailBrandingBuilder $emailBrandingBuilder,
     private readonly EmailDesignTokens $emailDesignTokens,
     private readonly EmailRichFooterBuilder $emailRichFooterBuilder,
+    private readonly OfferEmailCardHtmlRenderer $offerEmailCardHtmlRenderer,
   ) {}
 
   /**
@@ -54,6 +55,7 @@ final class EmailMjmlPreviewVariablesBuilder {
       ],
       'email-compare-preview' => $variables += $this->buildComparePreviewDefaults(),
       'email-search-alert-preview' => $variables += $this->buildSearchAlertPreviewDefaults(),
+      'email-offer-cards-preview' => $variables += $this->buildOfferCardsPreviewDefaults(),
       'email-import-alert-preview' => $variables += $this->buildImportAlertPreviewDefaults(),
       default => NULL,
     };
@@ -183,9 +185,60 @@ final class EmailMjmlPreviewVariablesBuilder {
    *   Search alert preview defaults.
    */
   public function buildSearchAlertPreviewDefaults(): array {
+    $sampleProps = $this->sampleOfferCardProps();
     return [
+      'body' => Markup::create(
+        '<p style="margin:0 0 16px;font-size:14px;line-height:1.6;font-weight:700;">'
+        . (string) $this->t('New matching properties:')
+        . '</p>'
+        . $this->offerEmailCardHtmlRenderer->renderCompact($sampleProps)
+        . $this->offerEmailCardHtmlRenderer->renderCompact(array_merge($sampleProps, [
+          'title' => (string) $this->t('Retail — Lyon Part-Dieu'),
+          'reference' => 'REF-002',
+        ])),
+      ),
       'subject' => (string) $this->t('3 new properties for your alert'),
       'is_html' => TRUE,
+    ];
+  }
+
+  /**
+   * Default variables for email-offer-cards-preview.
+   *
+   * @return array<string, mixed>
+   */
+  public function buildOfferCardsPreviewDefaults(): array {
+    $sampleProps = $this->sampleOfferCardProps();
+    return [
+      'subject' => (string) $this->t('Offer email cards preview'),
+      'body' => Markup::create(
+        $this->offerEmailCardHtmlRenderer->renderVertical($sampleProps)
+        . $this->offerEmailCardHtmlRenderer->renderCompact($sampleProps),
+      ),
+      'is_html' => TRUE,
+    ];
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  private function sampleOfferCardProps(): array {
+    $siteUrl = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+
+    return [
+      'title' => (string) $this->t('Office — Paris 8'),
+      'reference' => 'REF-001',
+      'property_type' => (string) $this->t('Office'),
+      'surface' => '450 m²',
+      'location' => '75008 PARIS',
+      'price_amount' => '',
+      'price_qualifiers' => '',
+      'price_on_request_label' => (string) $this->t('Price on request'),
+      'exclusive' => TRUE,
+      'url' => $siteUrl,
+      'cta_label' => (string) $this->t('View the property'),
+      'image' => NULL,
+      'image_alt' => (string) $this->t('Office — Paris 8'),
     ];
   }
 

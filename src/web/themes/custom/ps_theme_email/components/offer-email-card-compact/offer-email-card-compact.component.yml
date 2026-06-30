@@ -1,0 +1,34 @@
+name: Offer email card (compact)
+description: "Carte offre compacte pour digest email (sans image)."
+group: Property Search Email
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      type: string
+    reference:
+      type: string
+    property_type:
+      type: string
+    surface:
+      type: string
+    location:
+      type: string
+    price_amount:
+      type: string
+    price_qualifiers:
+      type: string
+    price_on_request_label:
+      type: string
+    exclusive:
+      type: boolean
+      default: false
+    url:
+      type: string
+    cta_label:
+      type: string
+      default: "View the property"

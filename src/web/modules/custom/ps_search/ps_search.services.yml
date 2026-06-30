@@ -578,6 +578,7 @@ services:
       - '@entity_type.manager'
       - '@renderer'
       - '@config.factory'
+      - '@ps_email.offer_email_card_html_renderer'
 
   Drupal\ps_search\Hook\SearchAlertWebformHooks:
     class: Drupal\ps_search\Hook\SearchAlertWebformHooks

@@ -94,19 +94,26 @@ sleep 1
 
 if curl -sS -o /tmp/ps-mailpit-messages.json -w '%{http_code}' "${MAILPIT_API}/messages" | grep -qE '^200$'; then
   python3 - <<'PY' "${EMAIL}"
-import json, sys
+import json, sys, urllib.request
 email = sys.argv[1]
 data = json.load(open('/tmp/ps-mailpit-messages.json'))
 messages = data.get('messages', data if isinstance(data, list) else [])
-found = any(
-  any(email.lower() in (r.get('Address') or '').lower() for r in (m.get('To') or []))
-  for m in messages
-)
-if not found:
+match = None
+for m in messages:
+  if any(email.lower() in (r.get('Address') or '').lower() for r in (m.get('To') or [])):
+    match = m
+    break
+if match is None:
   raise SystemExit(f'No Mailpit message for {email}')
+mid = match.get('ID') or match.get('id')
+if mid:
+  detail = json.load(urllib.request.urlopen(f'http://localhost:8025/api/v1/message/{mid}'))
+  body = detail.get('HTML') or detail.get('Text') or ''
+  if 'Ref.' not in body and 'offer-email-card' not in body and 'View the property' not in body:
+    raise SystemExit('Digest email missing compact offer card markup')
 print('mailpit:ok')
 PY
-  echo "Mailpit received digest email."
+  echo "Mailpit received digest email with offer card markup."
 else
   echo "WARNING: Mailpit API unavailable — mail send verified via Drush only."
 fi

@@ -20,6 +20,12 @@
   ]
 %}
 {% set green = email_primary_color|default('#00915a') %}
+{% set hover = email_primary_hover_color|default('#04af6e') %}
+{% set bg = email_background_color|default('#f0f0f0') %}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set divider = email_header_divider_color|default('#cccccc') %}
+{% set heading_font = email_heading_font_family|default("'BNP Sans','Open Sans',Arial,Helvetica,sans-serif") %}
 {% set is_contact_confirmation = ps_contact_confirmation|default(false) %}
 {% set show_rich_footer = ps_email_rich_footer|default(is_contact_confirmation) %}
 
@@ -70,8 +76,8 @@
     }
   </style>
 </head>
-<body style="margin:0;padding:0;background:#f0f0f0;font-family:'BNP Sans','Open Sans',Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#333333;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f0;">
+<body style="margin:0;padding:0;background:{{ bg }};font-family:{{ email_font_family|default("'BNP Sans','Open Sans',Arial,Helvetica,sans-serif") }};font-size:{{ email_font_size_base|default('14px') }};line-height:{{ email_line_height_base|default('1.6') }};color:{{ text }};">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{{ bg }};">
     <tr>
       <td align="center" class="ps-email-outer-padding" style="padding:16px 8px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="ps-email-container" style="width:100%;max-width:600px;background:#ffffff;">
@@ -91,10 +97,10 @@
                     <td class="ps-email-slogan-wrap" style="vertical-align:middle;padding-left:9px;">
                       <table role="presentation" cellpadding="0" cellspacing="0">
                         <tr>
-                          <td style="width:1px;background:#cccccc;font-size:0;line-height:0;padding:0;">
+                          <td style="width:1px;background:{{ divider }};font-size:0;line-height:0;padding:0;">
                             <span style="display:block;width:1px;height:24px;line-height:24px;font-size:0;">&nbsp;</span>
                           </td>
-                          <td class="ps-email-slogan" style="vertical-align:middle;padding-left:9px;font-family:'BNP Sans','Open Sans',Arial,Helvetica,sans-serif;font-size:16px;font-weight:400;line-height:24px;color:#777e83;">
+                          <td class="ps-email-slogan" style="vertical-align:middle;padding-left:9px;font-family:{{ heading_font }};font-size:16px;font-weight:400;line-height:24px;color:{{ muted }};">
                             {{ site_slogan }}
                           </td>
                         </tr>
@@ -117,7 +123,7 @@
           {% if not is_contact_confirmation and subject %}
             <tr>
               <td class="ps-email-title-wrap ps-email-content-padding" style="padding:4px 16px 24px;text-align:center;">
-                <h1 class="ps-email-title" style="margin:0;font-size:22px;font-weight:400;line-height:1.3;color:{{ green }};">{{ subject }}</h1>
+                <h1 class="ps-email-title" style="margin:0;font-size:22px;font-weight:400;line-height:1.3;font-family:{{ heading_font }};color:{{ green }};">{{ subject }}</h1>
               </td>
             </tr>
           {% endif %}
@@ -146,7 +152,11 @@
           </tr>
           {% endif %}
 
-          {% if show_rich_footer %}
+          {% if email_footer %}
+            <tr>
+              <td style="padding:0;">{{ email_footer|raw }}</td>
+            </tr>
+          {% elseif show_rich_footer %}
             <tr>
               <td style="padding:0;background:#1f2a36;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -190,13 +200,18 @@
                 </table>
               </td>
             </tr>
-            {% if ps_contact_footer_legal|default('') %}
-              <tr>
-                <td class="ps-email-content-padding" style="padding:16px;background:#f0f0f0;">
-                  <div style="font-size:10px;line-height:1.5;color:#777e83;text-align:justify;">{{ ps_contact_footer_legal }}</div>
-                </td>
-              </tr>
-            {% endif %}
+          {% endif %}
+
+          {% if email_legal %}
+            <tr>
+              <td style="padding:0;">{{ email_legal|raw }}</td>
+            </tr>
+          {% elseif show_rich_footer and ps_contact_footer_legal|default('') %}
+            <tr>
+              <td class="ps-email-content-padding" style="padding:16px;background:#f0f0f0;">
+                <div style="font-size:10px;line-height:1.5;color:#777e83;text-align:justify;">{{ ps_contact_footer_legal }}</div>
+              </td>
+            </tr>
           {% endif %}
 
           <tr>

@@ -1,0 +1,8 @@
+{#
+/**
+ * @file
+ * MJML preview — offer email cards (vertical + compact).
+ */
+#}
+{% set subject = subject|default('Offer email cards preview') %}
+{% include '@ps_theme_email/email-wrap.html.twig.mjml' %}

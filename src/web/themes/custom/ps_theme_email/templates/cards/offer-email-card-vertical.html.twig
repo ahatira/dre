@@ -1,0 +1,62 @@
+{#
+/**
+ * @file
+ * Vertical offer card for HTML emails (table-safe, clickable wrapper).
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set border = email_border_color|default('#ebedef') %}
+{% set badge = email_exclusive_badge_color|default('#C5A26D') %}
+{% set card_url = url|default('') %}
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid {{ border }};border-collapse:collapse;">
+  <tr>
+    <td style="padding:0;">
+      {% if card_url %}
+        <a href="{{ card_url }}" style="color:{{ text }};text-decoration:none;display:block;">
+      {% endif %}
+      {% if image %}
+        <img src="{{ image }}" alt="{{ image_alt|default(title)|e('html_attr') }}" width="568" style="display:block;width:100%;max-width:568px;height:auto;border:0;">
+      {% endif %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="padding:16px 20px 20px;">
+            {% if exclusive %}
+              <p style="margin:0 0 8px;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:{{ badge }};">{{ 'Exclusivity'|t }}</p>
+            {% endif %}
+            {% if title %}
+              <p style="margin:0 0 6px;font-size:16px;line-height:1.4;font-weight:700;color:{{ text }};">{{ title }}</p>
+            {% endif %}
+            {% if reference %}
+              <p style="margin:0 0 8px;font-size:12px;line-height:1.4;color:{{ muted }};">{{ 'Ref.'|t }} {{ reference }}</p>
+            {% endif %}
+            {% if property_type %}
+              <p style="margin:0 0 8px;font-size:13px;line-height:1.4;color:{{ text }};">{{ property_type }}</p>
+            {% endif %}
+            {% if surface %}
+              <p style="margin:0 0 8px;font-size:13px;line-height:1.4;color:{{ text }};">{{ surface }}</p>
+            {% endif %}
+            {% if location %}
+              <p style="margin:0 0 12px;font-size:13px;line-height:1.4;color:{{ muted }};">{{ location }}</p>
+            {% endif %}
+            {% if price_amount %}
+              <p style="margin:0 0 12px;font-size:15px;line-height:1.4;font-weight:700;color:{{ text }};">
+                {{ price_amount }}{% if price_qualifiers %} <span style="font-weight:400;">{{ price_qualifiers|raw }}</span>{% endif %}
+              </p>
+            {% elseif price_on_request_label %}
+              <p style="margin:0 0 12px;font-size:15px;line-height:1.4;font-weight:700;color:{{ text }};">{{ price_on_request_label }}</p>
+            {% endif %}
+            {% if card_url and cta_label %}
+              <p style="margin:0;font-size:13px;line-height:1.4;color:{{ green }};">{{ cta_label }} &gt;</p>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+      {% if card_url %}
+        </a>
+      {% endif %}
+    </td>
+  </tr>
+</table>

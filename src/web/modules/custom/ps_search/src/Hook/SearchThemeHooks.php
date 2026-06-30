@@ -113,7 +113,7 @@ final class SearchThemeHooks {
       'ps_search_alert_digest_body' => [
         'variables' => [
           'list_title' => NULL,
-          'offers' => [],
+          'cards' => [],
           'search_url' => NULL,
         ],
         'template' => 'ps-search-alert-digest-body',

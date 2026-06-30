@@ -2,12 +2,9 @@
 /**
  * @file
  * Centered email title block.
- *
- * Variables: wrap_title, subject, is_contact_confirmation, email_* tokens.
  */
 #}
 {% set green = email_primary_color|default('#00915a') %}
-{% set text = email_text_color|default('#333333') %}
 {% set surface = email_surface_color|default('#ffffff') %}
 {% set is_contact_confirmation = ps_contact_confirmation|default(false) %}
 

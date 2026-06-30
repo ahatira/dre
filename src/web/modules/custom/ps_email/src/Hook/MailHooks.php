@@ -110,4 +110,12 @@ final class MailHooks {
     $variables += $this->emailMjmlPreviewVariablesBuilder->buildForTemplate('email-import-alert-preview');
   }
 
+  /**
+   * Adds design tokens and sample offer cards for MJML preview (devel).
+   */
+  #[Hook('preprocess_email_offer_cards_preview')]
+  public function preprocessEmailOfferCardsPreview(array &$variables): void {
+    $variables += $this->emailMjmlPreviewVariablesBuilder->buildForTemplate('email-offer-cards-preview');
+  }
+
 }

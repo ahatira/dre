@@ -1,0 +1,38 @@
+name: Offer email card (vertical)
+description: "Carte offre verticale pour emails transactionnels (image top, CTA)."
+group: Property Search Email
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      type: string
+    reference:
+      type: string
+    property_type:
+      type: string
+    surface:
+      type: string
+    location:
+      type: string
+    price_amount:
+      type: string
+    price_qualifiers:
+      type: string
+    price_on_request_label:
+      type: string
+    exclusive:
+      type: boolean
+      default: false
+    url:
+      type: string
+    cta_label:
+      type: string
+      default: "View the property"
+    image:
+      type: string
+    image_alt:
+      type: string

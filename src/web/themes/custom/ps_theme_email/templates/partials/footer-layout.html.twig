@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Rendered footer zones (email_footer + email_legal) from layout renderer.
+ */
+#}
+{% if email_footer %}
+  <mj-section padding="0" background-color="transparent">
+    <mj-column padding="0">
+      <mj-raw>{{ email_footer|raw }}</mj-raw>
+    </mj-column>
+  </mj-section>
+{% elseif ps_email_rich_footer|default(ps_contact_confirmation|default(false)) %}
+  {% include '@ps_theme_email/partials/footer-contact.html.twig' %}
+{% endif %}
+
+{% if email_legal %}
+  <mj-section padding="0" background-color="transparent">
+    <mj-column padding="0">
+      <mj-raw>{{ email_legal|raw }}</mj-raw>
+    </mj-column>
+  </mj-section>
+{% endif %}

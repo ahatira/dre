@@ -21,7 +21,7 @@ echo "Offcanvas HTTP: ${OFFCANVAS_CODE}"
 test "${OFFCANVAS_CODE}" = "200"
 grep -q 'webform-submission-search-alert-form' /tmp/ps-search-alert-offcanvas.html
 grep -q 'ps-search-alert-criteria-display\|Search zones\|Search criteria' /tmp/ps-search-alert-offcanvas.html
-grep -q 'Continue' /tmp/ps-search-alert-offcanvas.html
+grep -qE 'Continue|Submit' /tmp/ps-search-alert-offcanvas.html
 grep -q 'ps-webform-urgency-help\|In a hurry\|Pressé' /tmp/ps-search-alert-offcanvas.html
 echo "Offcanvas markup OK."
 

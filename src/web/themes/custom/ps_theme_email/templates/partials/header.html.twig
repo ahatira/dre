@@ -1,14 +1,13 @@
 {#
 /**
  * @file
- * Email header — logo + optional slogan.
- *
- * Variables: email_logo_url, site_slogan, email_* tokens.
+ * Email header — logo, vertical divider, slogan (Stellar-aligned).
  */
 #}
 {% set text = email_text_color|default('#333333') %}
 {% set muted = email_muted_color|default('#777e83') %}
 {% set surface = email_surface_color|default('#ffffff') %}
+{% set divider = email_header_divider_color|default('#cccccc') %}
 
 <mj-section background-color="{{ surface }}" padding="20px 16px 16px">
   <mj-group>
@@ -22,7 +21,10 @@
       {% endif %}
     </mj-column>
     {% if site_slogan %}
-      <mj-column width="60%" vertical-align="middle" css-class="ps-email-slogan-wrap">
+      <mj-column width="4%" vertical-align="middle" padding="0">
+        <mj-divider border-width="1px" border-color="{{ divider }}" padding="0 4px" width="1px" />
+      </mj-column>
+      <mj-column width="56%" vertical-align="middle" css-class="ps-email-slogan-wrap">
         <mj-text font-size="16px" line-height="24px" color="{{ muted }}" padding="0 0 0 9px">
           {{ site_slogan }}
         </mj-text>

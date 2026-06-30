@@ -1,0 +1,39 @@
+reuse_site_footer: true
+footer_components:
+  -
+    uuid: footer-social
+    plugin: social_links
+    weight: 0
+    region: contact
+    settings: {  }
+  -
+    uuid: footer-address
+    plugin: address
+    weight: 10
+    region: contact
+    settings: {  }
+  -
+    uuid: footer-phone
+    plugin: phone
+    weight: 20
+    region: contact
+    settings: {  }
+  -
+    uuid: footer-offers
+    plugin: offers_link
+    weight: 30
+    region: links
+    settings: {  }
+  -
+    uuid: footer-services
+    plugin: services_line
+    weight: 40
+    region: links
+    settings: {  }
+legal_components:
+  -
+    uuid: legal-notice
+    plugin: rich_text
+    weight: 0
+    settings:
+      markup_key: legal_markup

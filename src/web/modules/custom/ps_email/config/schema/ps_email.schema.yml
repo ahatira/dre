@@ -31,6 +31,58 @@ ps_email.shell:
       label: 'Legal footer markup'
       translatable: true
 
+ps_email.footer_layout:
+  type: config_object
+  label: 'PS email footer layout'
+  mapping:
+    reuse_site_footer:
+      type: boolean
+      label: 'Reuse site footer blocks'
+    footer_components:
+      type: sequence
+      label: 'Footer zone components'
+      sequence:
+        type: mapping
+        mapping:
+          uuid:
+            type: string
+          plugin:
+            type: string
+          weight:
+            type: integer
+          region:
+            type: string
+            label: 'Footer column region'
+          settings:
+            type: mapping
+            mapping:
+              markup:
+                type: text
+              markup_key:
+                type: string
+    legal_components:
+      type: sequence
+      label: 'Legal zone components'
+      sequence:
+        type: mapping
+        mapping:
+          uuid:
+            type: string
+          plugin:
+            type: string
+          weight:
+            type: integer
+          region:
+            type: string
+            label: 'Footer column region'
+          settings:
+            type: mapping
+            mapping:
+              markup:
+                type: text
+              markup_key:
+                type: string
+
 ps_email.email_tokens:
   type: config_object
   label: 'PS email design tokens'
@@ -74,3 +126,24 @@ ps_email.email_tokens:
     logo_height:
       type: integer
       label: 'Logo height (px)'
+    primary_hover_color:
+      type: string
+      label: 'Primary hover color'
+    primary_strong_color:
+      type: string
+      label: 'Primary strong color'
+    heading_font_family:
+      type: string
+      label: 'Heading font family'
+    border_color:
+      type: string
+      label: 'Border color'
+    exclusive_badge_color:
+      type: string
+      label: 'Exclusive badge color'
+    header_divider_color:
+      type: string
+      label: 'Header divider color'
+    button_radius:
+      type: string
+      label: 'Button border radius'

@@ -10,9 +10,10 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\ps_email\Service\OfferEmailCardHtmlRenderer;
 use Drupal\ps_search\Entity\SearchAlert;
+use Drupal\ps_theme\Utility\OfferEmailCardPropsBuilder;
 
 /**
  * Sends search alert digest emails.
@@ -27,6 +28,7 @@ final class SearchAlertMailer {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly RendererInterface $renderer,
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly OfferEmailCardHtmlRenderer $offerEmailCardHtmlRenderer,
   ) {}
 
   /**
@@ -93,22 +95,20 @@ final class SearchAlertMailer {
    * @param array<int, int> $nids
    */
   private function buildBody(SearchAlert $alert, array $nids, string $langcode): string {
-    $offers = [];
+    $cards = [];
+    $useVertical = count($nids) === 1;
     $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     foreach ($nodes as $node) {
       if (!$node instanceof NodeInterface || $node->bundle() !== 'offer') {
         continue;
       }
-      $offers[] = [
-        'label' => $node->label(),
-        'url' => Url::fromRoute('entity.node.canonical', ['node' => $node->id()], [
-          'absolute' => TRUE,
-          'language' => $this->languageManager->getLanguage($langcode),
-        ])->toString(),
-      ];
+      $props = OfferEmailCardPropsBuilder::build($node, $langcode);
+      $cards[] = $useVertical
+        ? $this->offerEmailCardHtmlRenderer->renderVertical($props)
+        : $this->offerEmailCardHtmlRenderer->renderCompact($props);
     }
 
-    if ($offers === []) {
+    if ($cards === []) {
       return '';
     }
 
@@ -116,7 +116,7 @@ final class SearchAlertMailer {
     $build = [
       '#theme' => 'ps_search_alert_digest_body',
       '#list_title' => (string) $this->t('New matching properties:', [], ['langcode' => $langcode]),
-      '#offers' => $offers,
+      '#cards' => $cards,
       '#search_url' => is_string($searchUrl) && $searchUrl !== '' ? $searchUrl : NULL,
     ];
 

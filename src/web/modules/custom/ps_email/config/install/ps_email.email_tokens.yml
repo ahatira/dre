@@ -1,12 +1,19 @@
 primary_color: '#00915a'
+primary_hover_color: '#04af6e'
+primary_strong_color: '#017f4f'
 text_color: '#333333'
 muted_color: '#777e83'
-background_color: '#f0f0f0'
+background_color: '#f9f9fb'
 surface_color: '#ffffff'
+border_color: '#ebedef'
 footer_dark_color: '#1f2a36'
-font_family: "'BNP Sans','Open Sans',Arial,Helvetica,sans-serif"
+exclusive_badge_color: '#C5A26D'
+header_divider_color: '#cccccc'
+font_family: "'BNP Sans','Open Sans','Helvetica Neue',Arial,sans-serif"
+heading_font_family: "'BNP Sans','Open Sans','Helvetica Neue',Arial,sans-serif"
 font_size_base: '14px'
-line_height_base: '1.6'
+line_height_base: '1.5'
+button_radius: '0'
 spacing_unit: 8
 max_width: 600
 logo_width: 162

@@ -59,6 +59,15 @@ final class EmailTransactionRegistry {
         weight: 20,
       ),
       new EmailTransactionDefinition(
+        id: 'offer_email_cards',
+        module: 'ps_email',
+        label: $this->t('Offer email cards'),
+        description: $this->t('Vertical and compact offer cards for search alerts and offer contact emails.'),
+        mailerPolicyId: 'webform',
+        mjmlPreviewTemplate: 'email-offer-cards-preview',
+        weight: 15,
+      ),
+      new EmailTransactionDefinition(
         id: 'import_pipeline_alert',
         module: 'ps_migrate',
         label: $this->t('CRM import pipeline alerts'),

@@ -13,4 +13,23 @@ declare(strict_types=1);
 function ps_email_install(): void {
   ps_email_ensure_theme_email_installed();
   ps_email_apply_mailer_policy('user', ['ps_email', 'user']);
+  \Drupal::service('ps_email.email_design_token_sync')->syncToConfig(TRUE);
+}
+
+/**
+ * Sync Stellar tokens and ensure footer layout config exists.
+ */
+function ps_email_update_9001(): void {
+  \Drupal::service('ps_email.email_design_token_sync')->syncToConfig(TRUE);
+
+  $configFactory = \Drupal::configFactory();
+  if ($configFactory->get('ps_email.footer_layout')->isNew()) {
+    $source = DRUPAL_ROOT . '/modules/custom/ps_email/config/install/ps_email.footer_layout.yml';
+    if (is_readable($source)) {
+      $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($source));
+      if (is_array($data)) {
+        $configFactory->getEditable('ps_email.footer_layout')->setData($data)->save();
+      }
+    }
+  }
 }

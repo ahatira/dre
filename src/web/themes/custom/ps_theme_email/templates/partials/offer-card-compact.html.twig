@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * MJML partial — compact offer email card.
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set border = email_border_color|default('#ebedef') %}
+{% set badge = email_exclusive_badge_color|default('#C5A26D') %}
+
+<mj-section padding="0 16px 8px" background-color="{{ email_surface_color|default('#ffffff') }}">
+  <mj-column border="{{ border }}" padding="14px 16px">
+    <mj-text color="{{ text }}" font-size="13px" line-height="1.4" padding="0">
+      {% if exclusive %}
+        <span style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:{{ badge }};">{{ 'Exclusivity'|t }}</span><br />
+      {% endif %}
+      <strong>{{ title }}</strong><br />
+      <span style="color:{{ muted }};">
+        {% if reference %}{{ 'Ref.'|t }} {{ reference }}{% endif %}
+        {% if property_type %}{% if reference %} · {% endif %}{{ property_type }}{% endif %}
+        {% if surface %}{% if reference or property_type %} · {% endif %}{{ surface }}{% endif %}
+      </span><br />
+      {% if location %}<span style="color:{{ muted }};">{{ location }}</span>{% if price_amount or price_on_request_label %} · {% endif %}{% endif %}
+      {% if price_amount %}<strong>{{ price_amount }}</strong>{% if price_qualifiers %} {{ price_qualifiers|raw }}{% endif %}
+      {% elseif price_on_request_label %}<strong>{{ price_on_request_label }}</strong>{% endif %}
+      {% if url %}
+        · <a href="{{ url }}" style="color:{{ green }};text-decoration:none;">{{ cta_label|default('View the property'|t) }} &gt;</a>
+      {% endif %}
+    </mj-text>
+  </mj-column>
+</mj-section>

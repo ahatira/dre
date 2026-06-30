@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * MJML partial — vertical offer email card.
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set border = email_border_color|default('#ebedef') %}
+{% set badge = email_exclusive_badge_color|default('#C5A26D') %}
+
+<mj-section padding="0 16px 12px" background-color="{{ email_surface_color|default('#ffffff') }}">
+  <mj-column border="{{ border }}" padding="0">
+    {% if image %}
+      <mj-image href="{{ url }}" src="{{ image }}" alt="{{ image_alt|default(title)|e('html_attr') }}" padding="0" fluid-on-mobile="true" />
+    {% endif %}
+    <mj-text padding="16px 20px 20px" color="{{ text }}">
+      {% if exclusive %}
+        <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:{{ badge }};">{{ 'Exclusivity'|t }}</p>
+      {% endif %}
+      <p style="margin:0 0 6px;font-size:16px;font-weight:700;">{{ title }}</p>
+      {% if reference %}<p style="margin:0 0 8px;font-size:12px;color:{{ muted }};">{{ 'Ref.'|t }} {{ reference }}</p>{% endif %}
+      {% if property_type %}<p style="margin:0 0 8px;font-size:13px;">{{ property_type }}</p>{% endif %}
+      {% if surface %}<p style="margin:0 0 8px;font-size:13px;">{{ surface }}</p>{% endif %}
+      {% if location %}<p style="margin:0 0 12px;font-size:13px;color:{{ muted }};">{{ location }}</p>{% endif %}
+      {% if price_amount %}
+        <p style="margin:0 0 12px;font-size:15px;font-weight:700;">{{ price_amount }}{% if price_qualifiers %} {{ price_qualifiers|raw }}{% endif %}</p>
+      {% elseif price_on_request_label %}
+        <p style="margin:0 0 12px;font-size:15px;font-weight:700;">{{ price_on_request_label }}</p>
+      {% endif %}
+      {% if url and cta_label|default('') %}
+        <p style="margin:0;font-size:13px;color:{{ green }};"><a href="{{ url }}" style="color:{{ green }};text-decoration:none;">{{ cta_label|default('View the property'|t) }} &gt;</a></p>
+      {% endif %}
+    </mj-text>
+  </mj-column>
+</mj-section>

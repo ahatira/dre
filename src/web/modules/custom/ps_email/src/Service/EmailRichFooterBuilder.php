@@ -20,6 +20,7 @@ final class EmailRichFooterBuilder {
     private readonly EmailShellSettings $emailShellSettings,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly EmailFooterLayoutRenderer $emailFooterLayoutRenderer,
   ) {}
 
   /**
@@ -60,7 +61,7 @@ final class EmailRichFooterBuilder {
       $offersLabel = (string) $this->t('Browse all our listings on @url', ['@url' => parse_url($offersUrl, PHP_URL_HOST) ?: $offersUrl]);
     }
 
-    return [
+    return array_merge($this->emailFooterLayoutRenderer->buildLayoutVariables($langcode), [
       'ps_contact_footer_address' => $address,
       'ps_contact_footer_phone' => $phone,
       'ps_contact_footer_phone_link' => $phoneLink !== '' ? $phoneLink : ($phone !== '' ? 'tel:' . preg_replace('/\s+/', '', $phone) : ''),
@@ -70,7 +71,7 @@ final class EmailRichFooterBuilder {
       'ps_contact_footer_social_links' => $this->loadSocialLinks()['links'],
       'ps_contact_footer_legal' => $this->emailShellSettings->getLegalMarkup($langcode),
       'ps_contact_footer_site_name' => $siteName,
-    ];
+    ]);
   }
 
   /**

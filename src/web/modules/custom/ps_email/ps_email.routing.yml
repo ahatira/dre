@@ -11,7 +11,7 @@ ps_email.admin:
 ps_email.shell_footer:
   path: '/admin/ps/config/email/shell/footer'
   defaults:
-    _form: '\Drupal\ps_email\Form\ShellFooterSettingsForm'
+    _form: '\Drupal\ps_email\Form\EmailFooterLayoutForm'
     _title: 'Email footer and legal'
   requirements:
     _permission: 'manage ps_email content'

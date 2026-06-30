@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Compact offer card for HTML emails (digest, no image).
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+{% set muted = email_muted_color|default('#777e83') %}
+{% set border = email_border_color|default('#ebedef') %}
+{% set badge = email_exclusive_badge_color|default('#C5A26D') %}
+{% set card_url = url|default('') %}
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 12px;border:1px solid {{ border }};border-collapse:collapse;">
+  <tr>
+    <td style="padding:14px 16px;">
+      {% if card_url %}
+        <a href="{{ card_url }}" style="color:{{ text }};text-decoration:none;display:block;">
+      {% endif %}
+      {% if exclusive %}
+        <span style="display:inline-block;margin:0 8px 6px 0;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:{{ badge }};">{{ 'Exclusivity'|t }}</span>
+      {% endif %}
+      <p style="margin:0 0 4px;font-size:14px;line-height:1.4;font-weight:700;color:{{ text }};">{{ title }}</p>
+      <p style="margin:0 0 4px;font-size:12px;line-height:1.4;color:{{ muted }};">
+        {% if reference %}{{ 'Ref.'|t }} {{ reference }}{% endif %}
+        {% if property_type %}{% if reference %} · {% endif %}{{ property_type }}{% endif %}
+        {% if surface %}{% if reference or property_type %} · {% endif %}{{ surface }}{% endif %}
+      </p>
+      <p style="margin:0;font-size:13px;line-height:1.4;color:{{ text }};">
+        {% if location %}<span style="color:{{ muted }};">{{ location }}</span>{% if price_amount or price_on_request_label %} · {% endif %}{% endif %}
+        {% if price_amount %}
+          <strong>{{ price_amount }}</strong>{% if price_qualifiers %} {{ price_qualifiers|raw }}{% endif %}
+        {% elseif price_on_request_label %}
+          <strong>{{ price_on_request_label }}</strong>
+        {% endif %}
+        {% if card_url and cta_label %}
+          <span style="color:{{ green }};"> · {{ cta_label }} &gt;</span>
+        {% endif %}
+      </p>
+      {% if card_url %}
+        </a>
+      {% endif %}
+    </td>
+  </tr>
+</table>
