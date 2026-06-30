@@ -118,6 +118,12 @@ final class ContactEmailHooks {
     $variables['email_hide_subject_title'] = TRUE;
     $variables['email_hide_default_signoff'] = TRUE;
 
+    $heroUrl = $this->confirmationBuilder->getHeroImageUrl($webformId);
+    if ($heroUrl !== NULL) {
+      $variables['ps_contact_hero_url'] = $heroUrl;
+      $variables['ps_contact_hero_alt'] = $this->contactWebformEmailSettings->getDisplayTitle($webformId);
+    }
+
     $variables += $this->footerBuilder->buildFooterVariables();
   }
 
@@ -126,9 +132,17 @@ final class ContactEmailHooks {
    */
   #[Hook('preprocess_email_contact_preview')]
   public function preprocessEmailContactPreview(array &$variables): void {
+    $webformId = ContactWebformEmailSettings::HUB_WEBFORM_IDS[0];
     $variables['ps_contact_confirmation'] = TRUE;
-    $variables['email_display_title'] ??= $this->contactWebformEmailSettings->getDisplayTitle(ContactWebformEmailSettings::HUB_WEBFORM_IDS[0]);
+    $variables['email_display_title'] ??= $this->contactWebformEmailSettings->getDisplayTitle($webformId);
     $variables['email_hide_default_signoff'] = TRUE;
+
+    $heroUrl = $this->confirmationBuilder->getHeroImageUrl($webformId);
+    if ($heroUrl !== NULL) {
+      $variables['ps_contact_hero_url'] = $heroUrl;
+      $variables['ps_contact_hero_alt'] = $this->contactWebformEmailSettings->getDisplayTitle($webformId);
+    }
+
     $variables += $this->footerBuilder->buildFooterVariables();
   }
 

@@ -37,3 +37,14 @@ ps_form.settings:
       type: label
       label: 'Urgency help opening hours'
       translatable: true
+
+webform.webform.third_party.ps_form:
+  type: mapping
+  label: 'PS Form webform third-party settings'
+  mapping:
+    email_hero_fid:
+      type: integer
+      label: 'Confirmation email hero file id'
+    email_hero_image_style:
+      type: string
+      label: 'Confirmation email hero image style'

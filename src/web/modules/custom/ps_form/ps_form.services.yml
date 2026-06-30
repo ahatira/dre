@@ -94,7 +94,36 @@ services:
     arguments:
       - '@ps_email.contact_webform_email_settings'
       - '@ps_form.contact_email_recap_formatter'
+      - '@ps_form.contact_email_hero_image_resolver'
+      - '@ps_form.contact_webform_email_hero_settings'
       - '@renderer'
+
+  ps_form.contact_webform_email_hero_settings:
+    class: Drupal\ps_form\Service\ContactWebformEmailHeroSettings
+    arguments:
+      - '@entity_type.manager'
+
+  ps_form.contact_email_hero_image_resolver:
+    class: Drupal\ps_form\Service\ContactEmailHeroImageResolver
+    arguments:
+      - '@file_url_generator'
+      - '@file_system'
+      - '@config.factory'
+      - '@focal_point.manager'
+      - '@image.factory'
+      - '@ps_form.contact_webform_email_hero_settings'
+
+  ps_form.contact_email_hero_upload_helper:
+    class: Drupal\ps_form\Form\Helper\ContactEmailHeroUploadHelper
+    arguments:
+      - '@ps_form.contact_email_hero_image_resolver'
+      - '@string_translation'
+
+  Drupal\ps_form\Hook\ContactWebformEmailHeroHooks:
+    arguments:
+      - '@ps_form.contact_webform_email_hero_settings'
+      - '@ps_form.contact_email_hero_image_resolver'
+      - '@entity_type.manager'
 
   Drupal\ps_form\Hook\ContactEmailHooks:
     arguments:

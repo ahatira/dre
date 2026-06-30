@@ -55,10 +55,19 @@ final class ContactEmailOverviewController extends ControllerBase {
     $rows = [];
     foreach ($this->contactWebformEmailSettings->getWebformIds() as $webformId) {
       $label = self::WEBFORM_LABELS[$webformId] ?? $webformId;
-      $url = Url::fromRoute('ps_email.contact_webform', ['webform_id' => $webformId]);
+      $copyUrl = Url::fromRoute('ps_email.contact_webform', ['webform_id' => $webformId]);
+      $actions = [
+        Link::fromTextAndUrl($this->t('Edit copy'), $copyUrl)->toRenderable(),
+      ];
+
+      $heroUrl = Url::fromRoute('entity.webform.settings', ['webform' => $webformId]);
+      if ($heroUrl->access($this->currentUser())) {
+        $actions[] = Link::fromTextAndUrl($this->t('Hero image'), $heroUrl)->toRenderable();
+      }
+
       $rows[] = [
         $label,
-        ['data' => Link::fromTextAndUrl($this->t('Edit copy'), $url)->toRenderable()],
+        ['data' => ['#theme' => 'item_list', '#items' => $actions]],
       ];
     }
 

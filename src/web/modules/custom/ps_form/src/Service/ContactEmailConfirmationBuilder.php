@@ -20,6 +20,8 @@ final class ContactEmailConfirmationBuilder {
   public function __construct(
     private readonly ContactWebformEmailSettings $contactWebformEmailSettings,
     private readonly ContactEmailSubmissionRecapFormatter $recapFormatter,
+    private readonly ContactEmailHeroImageResolver $heroImageResolver,
+    private readonly ContactWebformEmailHeroSettings $heroSettings,
     private readonly RendererInterface $renderer,
   ) {}
 
@@ -63,6 +65,22 @@ final class ContactEmailConfirmationBuilder {
       return '';
     }
     return $this->renderer->renderPlain($build);
+  }
+
+  /**
+   * Returns the styled hero image URL for a hub webform confirmation email.
+   */
+  public function getHeroImageUrl(string $webformId): ?string {
+    if (!$this->contactWebformEmailSettings->isHubConfirmationWebform($webformId)) {
+      return NULL;
+    }
+
+    $file = $this->heroSettings->loadHeroFile($webformId);
+    if ($file === NULL) {
+      return NULL;
+    }
+
+    return $this->heroImageResolver->getStyledAbsoluteUrl($file, $webformId);
   }
 
 }
