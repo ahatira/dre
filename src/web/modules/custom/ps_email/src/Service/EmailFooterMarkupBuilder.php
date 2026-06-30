@@ -17,6 +17,8 @@ final class EmailFooterMarkupBuilder {
       return '';
     }
 
+    $inner = $this->applyInlineTextColor($inner, $muted);
+
     return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $background . ';"><tr><td style="padding:16px;"><div style="font-size:10px;line-height:1.5;color:' . $muted . ';text-align:justify;">' . $inner . '</div></td></tr></table>';
   }
 
@@ -27,6 +29,9 @@ final class EmailFooterMarkupBuilder {
     if ($contactHtml === '' && $linksHtml === '') {
       return '';
     }
+
+    $contactHtml = $this->applyInlineTextColor($contactHtml, '#ffffff');
+    $linksHtml = $this->applyInlineTextColor($linksHtml, '#ffffff');
 
     $contactCell = $contactHtml !== ''
       ? '<td style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;">' . $contactHtml . '</td>'
@@ -43,6 +48,31 @@ final class EmailFooterMarkupBuilder {
     }
 
     return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $footerDark . ';"><tr>' . $contactCell . $linksCell . '</tr></table>';
+  }
+
+  /**
+   * Forces inline text/link colors so MJML shell styles cannot override footer.
+   *
+   * MJML sets mj-text color to #333; td color alone fails in mj-raw footers.
+   */
+  private function applyInlineTextColor(string $html, string $color): string {
+    if ($html === '') {
+      return '';
+    }
+
+    $html = preg_replace('/<p>/i', '<p style="margin:0 0 8px;color:' . $color . ';">', $html) ?? $html;
+
+    $html = preg_replace_callback('/<a(\s[^>]*)>/i', static function (array $matches) use ($color): string {
+      $attributes = $matches[1];
+      if (preg_match('/style="([^"]*)"/i', $attributes, $styleMatch)) {
+        $style = rtrim($styleMatch[1], '; ') . ';color:' . $color . ';';
+        return preg_replace('/style="[^"]*"/i', 'style="' . $style . '"', '<a' . $attributes . '>', 1) ?? '<a' . $attributes . '>';
+      }
+
+      return '<a style="color:' . $color . ';"' . $attributes . '>';
+    }, $html) ?? $html;
+
+    return $html;
   }
 
 }
