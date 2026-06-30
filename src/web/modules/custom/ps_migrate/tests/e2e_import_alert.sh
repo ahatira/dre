@@ -24,6 +24,29 @@ ORIG_RECIPIENTS=""
 pass() { echo "  PASS: $1"; PASS=$((PASS + 1)); }
 fail() { echo "  FAIL: $1"; FAIL=$((FAIL + 1)); }
 
+ps_e2e_clear_incoming_xml() {
+  ps_e2e_drush php:eval "$(cat <<'PHP'
+$resolver = \Drupal::service('ps_migrate.import_pipeline_path_resolver');
+foreach ($resolver->listIncomingXmlFiles() as $path) {
+  @unlink($path);
+}
+print 'cleared_incoming';
+PHP
+)" >/dev/null 2>&1 || true
+}
+
+ps_e2e_reset_import_queue() {
+  ps_e2e_drush php:eval "$(cat <<'PHP'
+$queue = \Drupal::queue('ps_migrate.import_file');
+if (method_exists($queue, 'deleteQueue')) {
+  $queue->deleteQueue();
+}
+\Drupal::state()->delete('ps_migrate.import_pipeline.enqueued_checksums');
+print 'cleared_queue';
+PHP
+)" >/dev/null 2>&1 || true
+}
+
 ps_e2e_seed_invalid_xml() {
   local filename="$1"
   ps_e2e_drush php:eval "$(cat <<PHP
@@ -109,6 +132,7 @@ ps_e2e_drush cset ps_migrate.import_pipeline_settings alert_email_recipients "${
 pass "Pipeline alert config set for test recipient"
 
 echo "--- Sync import failure should send alert ---"
+ps_e2e_clear_incoming_xml
 SEED_RESULT="$(ps_e2e_seed_invalid_xml "${SYNC_FILE}")"
 echo "${SEED_RESULT}" | grep -q '^seeded:' || { fail "Could not seed ${SYNC_FILE} (${SEED_RESULT})"; echo "=== Results: ${PASS} passed, ${FAIL} failed ==="; exit 1; }
 pass "Seeded invalid XML (${SYNC_FILE})"
@@ -135,6 +159,8 @@ if [[ "${MAILPIT_OK}" -eq 1 ]]; then
   mailpit_clear
 fi
 
+ps_e2e_clear_incoming_xml
+ps_e2e_reset_import_queue
 SEED_RESULT="$(ps_e2e_seed_invalid_xml "${QUEUE_FILE}")"
 echo "${SEED_RESULT}" | grep -q '^seeded:' || { fail "Could not seed ${QUEUE_FILE}"; echo "=== Results: ${PASS} passed, ${FAIL} failed ==="; exit 1; }
 pass "Seeded invalid XML (${QUEUE_FILE})"
@@ -158,6 +184,7 @@ if [[ "${MAILPIT_OK}" -eq 1 ]]; then
   mailpit_clear
 fi
 
+ps_e2e_clear_incoming_xml
 ps_e2e_drush cset ps_migrate.import_pipeline_settings alert_email_enabled 0 -y >/dev/null
 SEED_RESULT="$(ps_e2e_seed_invalid_xml "${DISABLED_FILE}")"
 echo "${SEED_RESULT}" | grep -q '^seeded:' || fail "Could not seed ${DISABLED_FILE}"
@@ -177,6 +204,7 @@ if [[ "${MAILPIT_OK}" -eq 1 ]]; then
   mailpit_clear
 fi
 
+ps_e2e_clear_incoming_xml
 ps_e2e_drush cset ps_migrate.import_pipeline_settings alert_email_enabled 1 -y >/dev/null
 ps_e2e_drush cset ps_migrate.import_pipeline_settings alert_email_recipients '' -y >/dev/null
 SEED_RESULT="$(ps_e2e_seed_invalid_xml "${NORECIP_FILE}")"
