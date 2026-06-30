@@ -34,10 +34,10 @@ final class EmailFooterMarkupBuilder {
     $linksHtml = $this->applyInlineTextColor($linksHtml, '#ffffff');
 
     $contactCell = $contactHtml !== ''
-      ? '<td style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;">' . $contactHtml . '</td>'
+      ? '<td class="ps-email-footer-col-left" style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;">' . $contactHtml . '</td>'
       : '';
     $linksCell = $linksHtml !== ''
-      ? '<td style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;border-left:1px solid #4a5560;">' . $linksHtml . '</td>'
+      ? '<td class="ps-email-footer-col-right" style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;border-left:1px solid #4a5560;">' . $linksHtml . '</td>'
       : '';
 
     if ($contactCell === '') {
