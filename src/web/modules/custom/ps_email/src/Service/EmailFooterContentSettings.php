@@ -9,7 +9,7 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
- * Reads the classic email footer WYSIWYG config (ps_email.footer).
+ * Reads ps_email.footer config (legal WYSIWYG + corporate textarea).
  */
 final class EmailFooterContentSettings {
 
@@ -21,10 +21,10 @@ final class EmailFooterContentSettings {
   ) {}
 
   /**
-   * Returns processed HTML for a footer text field.
+   * Returns processed HTML for the GDPR legal field.
    */
-  public function getProcessedHtml(string $field, ?string $langcode = NULL): string {
-    $body = $this->getTextFormat($field, $langcode);
+  public function getProcessedLegalHtml(?string $langcode = NULL): string {
+    $body = $this->getTextFormat('legal', $langcode);
     $value = trim($body['value'] ?? '');
     $format = (string) ($body['format'] ?? 'email_html');
     if ($value === '') {
@@ -35,17 +35,17 @@ final class EmailFooterContentSettings {
   }
 
   /**
-   * Returns processed footer zone HTML keyed by column.
-   *
-   * @return array{left: string, right: string, legal: string}
-   *   Processed footer column HTML per zone.
+   * Returns the corporate identifiers plain text for the active content language.
    */
-  public function getProcessedZones(?string $langcode = NULL): array {
-    return [
-      'left' => $this->getProcessedHtml('footer_left', $langcode),
-      'right' => $this->getProcessedHtml('footer_right', $langcode),
-      'legal' => $this->getProcessedHtml('legal', $langcode),
-    ];
+  public function getCorporateLine(?string $langcode = NULL): string {
+    $langcode ??= $this->languageManager->getDefaultLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+    $override = $this->languageManager->getLanguageConfigOverride($langcode, self::CONFIG_NAME);
+    $value = $override->get('corporate');
+    if (!is_string($value) || trim($value) === '') {
+      $value = $this->configFactory->get(self::CONFIG_NAME)->get('corporate');
+    }
+
+    return is_string($value) ? trim($value) : '';
   }
 
   /**

@@ -1,0 +1,4 @@
+legal:
+  value: '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>'
+  format: email_html
+corporate: 'BNP Paribas Real Estate, Ltd — Registered office: 5 George''s Dock, D01 X659 Dublin, Ireland — A company of the BNP Paribas Group.'

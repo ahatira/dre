@@ -14,7 +14,7 @@ use Drupal\ps_email\Form\Trait\EmailConfigFormTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Classic email footer settings — three WYSIWYG zones.
+ * Email footer settings — GDPR legal + corporate identifiers textarea.
  */
 final class EmailFooterSettingsForm extends ConfigFormBase {
 
@@ -61,41 +61,37 @@ final class EmailFooterSettingsForm extends ConfigFormBase {
 
     $form['intro'] = [
       '#markup' => '<p>' . $this->t(
-        'Configure the dark footer (two columns) and the legal notice for transactional emails.',
+        'Configure the GDPR notice and corporate identifiers shown below the green accent line in transactional emails.',
       ) . '</p>',
     ];
 
     $this->addTranslatableIntro($form, $this->languageManager);
 
-    $form['footer'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Footer (dark zone)'),
-      '#open' => TRUE,
-    ];
-
-    $form['footer']['footer_left'] = $this->textFormatElement(
-      $this->t('Left column — address, phone, email'),
-      $config->get('footer_left'),
-      $this->t('Contact block shown in the left footer column.'),
-    );
-
-    $form['footer']['footer_right'] = $this->textFormatElement(
-      $this->t('Right column — email footer menu'),
-      $config->get('footer_right'),
-      $this->t('Links and services menu shown in the right footer column.'),
-    );
-
     $form['legal'] = [
       '#type' => 'details',
-      '#title' => $this->t('Legal notice'),
+      '#title' => $this->t('GDPR / data protection notice'),
       '#open' => TRUE,
     ];
 
     $form['legal']['legal'] = $this->textFormatElement(
       $this->t('Legal content'),
       $config->get('legal'),
-      $this->t('Legal disclaimer below the dark footer.'),
+      $this->t('Displayed in the legal zone below the 5px green separator.'),
     );
+
+    $form['corporate'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Corporate identifiers'),
+      '#open' => TRUE,
+    ];
+
+    $form['corporate']['corporate'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Corporate identifiers line'),
+      '#description' => $this->t('Single line or short block: company name, RCS, VAT, registered office, etc.'),
+      '#default_value' => (string) ($config->get('corporate') ?? ''),
+      '#rows' => 4,
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -105,10 +101,11 @@ final class EmailFooterSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $editable = $this->config('ps_email.footer');
-    foreach (['footer_left', 'footer_right', 'legal'] as $field) {
-      $value = $form_state->getValue($field);
-      $editable->set($field, is_array($value) ? $value : ['value' => '', 'format' => 'email_html']);
-    }
+
+    $legal = $form_state->getValue('legal');
+    $editable->set('legal', is_array($legal) ? $legal : ['value' => '', 'format' => 'email_html']);
+    $editable->set('corporate', trim((string) $form_state->getValue('corporate')));
+
     $editable->save();
 
     parent::submitForm($form, $form_state);
@@ -116,8 +113,6 @@ final class EmailFooterSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Builds a text_format form element for one footer zone.
-   *
    * @param array<string, mixed>|null $stored
    *   Stored config value.
    *

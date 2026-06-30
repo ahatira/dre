@@ -1,17 +1,14 @@
 {#
 /**
  * @file
- * Footer zones from ps_email.footer — HTML table via mj-raw in mj-section.
+ * Legal-only footer — green accent rule + legal block (variant H).
  *
- * mj-raw must be a direct child of mj-section (not mj-column) so the 2-column
- * table layout is not nested inside MJML column tables.
- *
- * Variables: email_footer, email_legal.
+ * Variables: email_accent_rule, email_legal.
  */
 #}
-{% if email_footer %}
+{% if email_accent_rule %}
   <mj-section padding="0" background-color="transparent">
-    <mj-raw>{{ email_footer|raw }}</mj-raw>
+    <mj-raw>{{ email_accent_rule|raw }}</mj-raw>
   </mj-section>
 {% endif %}
 

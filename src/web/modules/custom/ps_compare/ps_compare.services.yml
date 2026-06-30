@@ -181,6 +181,8 @@ services:
       - '@request_stack'
       - '@current_user'
 
+  Drupal\ps_compare\Hook\CompareEmailHooks: {}
+
   ps_compare.response_subscriber:
     class: Drupal\ps_compare\EventSubscriber\CompareResponseSubscriber
     arguments:

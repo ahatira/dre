@@ -1,0 +1,5 @@
+langcode: fr
+legal:
+  value: '<p>BNP Paribas Real Estate traite vos données personnelles pour répondre à votre demande. Pour en savoir plus sur la façon dont nous traitons vos données et sur vos droits, veuillez consulter notre <a href="https://data-privacy.realestate.bnpparibas/fr">Notice d''information relative à la protection des données</a>.</p>'
+  format: email_html
+corporate: 'BNP Paribas Real Estate Luxembourg, S.A. — Siège social : 7 rue Goethe, 1637 Luxembourg, Luxembourg — Société du Groupe BNP Paribas.'

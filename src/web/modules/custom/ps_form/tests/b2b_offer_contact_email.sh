@@ -98,7 +98,7 @@ body = json.load(urllib.request.urlopen(f"{api}/message/{match['ID']}")).get("HT
 checks = [
   ref in body,
   "View the property" in body or "B2B Email Offer Card" in body,
-  "#1f2a36" in body.lower() or "Data Protection Notice" in body,
+  "#00915a" in body.lower() or "Data Protection Notice" in body,
   "See you soon" not in body,
 ]
 if all(checks):
@@ -107,7 +107,7 @@ else:
   missing = []
   if ref not in body: missing.append("reference")
   if "View the property" not in body and "B2B Email Offer Card" not in body: missing.append("offer_card")
-  if "#1f2a36" not in body.lower() and "Data Protection Notice" not in body: missing.append("footer")
+  if "#00915a" not in body.lower() and "Data Protection Notice" not in body: missing.append("footer")
   if "See you soon" in body: missing.append("signoff")
   print("FAIL:" + ",".join(missing))
 PY

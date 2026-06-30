@@ -22,6 +22,7 @@ Each `site_{code}` split owns:
 - `system.site`
 - `ps_homepage.homepage`
 - `ps_homepage.settings`
+- `ps_email.footer`
 
 ## Offer address country
 

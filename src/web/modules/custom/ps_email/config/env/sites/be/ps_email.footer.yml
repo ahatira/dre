@@ -1,0 +1,4 @@
+legal:
+  value: '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>'
+  format: email_html
+corporate: 'BNP Paribas Real Estate Belgium, NV — Registered office: Rue Royale 52, 1000 Brussels, Belgium — RCS Brussels 0479 098 539 — VAT BE 0479.098.539 — A company of the BNP Paribas Group.'

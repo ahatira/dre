@@ -53,6 +53,15 @@ services:
   ps_email.email_plain_text_from_html_processor:
     class: Drupal\ps_email\Processor\EmailPlainTextFromHtmlProcessor
 
+  ps_email.email_footer_country_resolver:
+    class: Drupal\ps_email\Service\EmailFooterCountryResolver
+
+  ps_email.email_footer_config_sync:
+    class: Drupal\ps_email\Service\EmailFooterConfigSync
+    arguments:
+      - '@config.factory'
+      - '@ps_email.email_footer_country_resolver'
+
   ps_email.email_footer_markup_builder:
     class: Drupal\ps_email\Service\EmailFooterMarkupBuilder
 
@@ -68,6 +77,7 @@ services:
       - '@config.factory'
       - '@ps_email.email_footer_content_settings'
       - '@ps_email.email_footer_markup_builder'
+      - '@string_translation'
 
   ps_email.offer_email_card_html_renderer:
     class: Drupal\ps_email\Service\OfferEmailCardHtmlRenderer

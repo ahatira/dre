@@ -404,7 +404,7 @@ final class ComparePageBuilder {
 
     return [
       '#markup' => Markup::create(sprintf(
-        '<img src="%s" alt="%s" width="320" height="220" style="display:block;width:320px;max-width:100%%;height:auto;border:0;">',
+        '<img src="%s" alt="%s" width="100%%" style="display:block;width:100%%;max-width:100%%;height:auto;border:0;">',
         $images[0],
         $alt,
       )),
@@ -533,7 +533,7 @@ final class ComparePageBuilder {
       '#title' => $this->t('View property'),
       '#url' => $offer->toUrl('canonical', ['absolute' => TRUE]),
       '#attributes' => [
-        'style' => 'display:inline-block;padding:10px 16px;background:' . $green . ';color:#ffffff;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;',
+        'style' => 'display:inline-block;padding:10px 16px;background:' . $green . ';color:#ffffff;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;white-space:normal;text-align:center;line-height:1.35;max-width:100%;',
       ],
     ];
 
@@ -647,9 +647,64 @@ final class ComparePageBuilder {
   }
 
   /**
+   * Plain-text price cell for email (no Bootstrap popover from page formatter).
+   *
+   * @return array<string, mixed>
+   */
+  private function buildEmailPriceCell(NodeInterface $offer): array {
+    $summary = $this->offerSummaryBuilder->build($offer);
+    $amount = trim((string) ($summary['price_amount'] ?? ''));
+    $qualifiers = trim((string) ($summary['price_qualifiers'] ?? ''));
+
+    if ($amount === '') {
+      $onRequest = trim((string) ($this->configFactory->get('ps_offer.settings')->get('on_request') ?? ''));
+      if ($onRequest === '') {
+        return $this->emptyCell();
+      }
+
+      return [
+        '#markup' => $onRequest,
+        '#allowed_tags' => [],
+      ];
+    }
+
+    $line = $amount . ($qualifiers !== '' ? ' ' . $qualifiers : '');
+
+    return [
+      '#markup' => $line,
+      '#allowed_tags' => ['sup'],
+    ];
+  }
+
+  /**
+   * @param array<string, mixed> $dpe
+   * @param array<string, mixed> $ges
+   *
+   * @return array<string, mixed>
+   */
+  private function buildEmailEnergyCombinedCell(array $dpe, array $ges, bool $dpeEmpty, bool $gesEmpty): array {
+    $parts = [];
+    if (!$dpeEmpty) {
+      $parts[] = (string) $this->t('DPE') . ': ' . trim(strip_tags((string) $this->renderer->renderPlain($dpe)));
+    }
+    if (!$gesEmpty) {
+      $parts[] = (string) $this->t('GES') . ': ' . trim(strip_tags((string) $this->renderer->renderPlain($ges)));
+    }
+
+    return [
+      '#markup' => implode('<br>', $parts),
+      '#allowed_tags' => ['br'],
+    ];
+  }
+
+  /**
    * @return array<string, mixed>
    */
   public function buildPriceCell(NodeInterface $offer): array {
+    if ($this->renderContext === CompareRenderContext::EMAIL) {
+      return $this->buildEmailPriceCell($offer);
+    }
+
     if (!$offer->hasField('field_budget_value')) {
       return $this->emptyCell();
     }
@@ -716,6 +771,10 @@ final class ComparePageBuilder {
 
     if ($dpeEmpty && $gesEmpty) {
       return $this->emptyCell();
+    }
+
+    if ($this->renderContext === CompareRenderContext::EMAIL) {
+      return $this->buildEmailEnergyCombinedCell($dpe, $ges, $dpeEmpty, $gesEmpty);
     }
 
     return [
@@ -863,6 +922,10 @@ final class ComparePageBuilder {
    * @return array<string, mixed>
    */
   private function wrapCell(array $cell): array {
+    if ($this->renderContext === CompareRenderContext::EMAIL) {
+      return $cell;
+    }
+
     if (!empty($cell['#ps_compare_empty'])) {
       return [
         '#type' => 'container',

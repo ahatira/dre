@@ -10,42 +10,54 @@
 {% set text = '#333333' %}
 {% set label_bg = '#f9f9fb' %}
 {% set section_bg = '#f3f4f6' %}
+{% set column_count = columns|length %}
+{% set table_min_width = 160 + (column_count * 220) %}
+{% set label_width = column_count > 0 ? (100 / (column_count + 1.5))|round(2) : 18 %}
+{% set offer_width = column_count > 0 ? ((100 - label_width) / column_count)|round(2) : 20 %}
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid {{ border }};margin:0 0 24px;font-size:14px;color:{{ text }};">
-  <thead>
-    <tr>
-      <th align="left" valign="top" style="padding:12px;background:{{ label_bg }};border:1px solid {{ border }};width:28%;"></th>
+<div style="overflow-x:auto;width:100%;-webkit-overflow-scrolling:touch;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid {{ border }};margin:0 0 24px;font-size:14px;color:{{ text }};width:100%;min-width:{{ table_min_width }}px;table-layout:fixed;">
+    <colgroup>
+      <col style="width:{{ label_width }}%;min-width:160px;">
       {% for column in columns %}
-        <th align="left" valign="top" style="padding:12px;background:#ffffff;border:1px solid {{ border }};width:{{ (72 / columns|length)|round(2) }}%;">
-          {{ column.header }}
-        </th>
+        <col style="width:{{ offer_width }}%;min-width:200px;">
       {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for section in sections %}
-      {% if section.show_section_title ?? true %}
+    </colgroup>
+    <thead>
       <tr>
-        <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ section_bg }};border:1px solid {{ border }};font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#434f57;">
-          {{ section.label }}
-        </th>
+        <th align="left" valign="top" style="padding:12px;background:{{ label_bg }};border:1px solid {{ border }};"></th>
         {% for column in columns %}
-          <td style="padding:0;background:{{ section_bg }};border:1px solid {{ border }};font-size:0;line-height:0;" aria-hidden="true">&nbsp;</td>
+          <th align="left" valign="top" style="padding:12px;background:#ffffff;border:1px solid {{ border }};vertical-align:top;">
+            {{ column.header }}
+          </th>
         {% endfor %}
       </tr>
-      {% endif %}
-      {% for row in section.rows %}
+    </thead>
+    <tbody>
+      {% for section in sections %}
+        {% if section.show_section_title ?? true %}
         <tr>
-          <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ label_bg }};border:1px solid {{ border }};font-weight:400;color:{{ muted }};">
-            {% if row.label %}{{ row.label }}{% endif %}
+          <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ section_bg }};border:1px solid {{ border }};font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#434f57;">
+            {{ section.label }}
           </th>
-          {% for cell in row.cells %}
-            <td valign="top" style="padding:10px 12px;border:1px solid {{ border }};">
-              {{ cell }}
-            </td>
+          {% for column in columns %}
+            <td style="padding:0;background:{{ section_bg }};border:1px solid {{ border }};font-size:0;line-height:0;" aria-hidden="true">&nbsp;</td>
           {% endfor %}
         </tr>
+        {% endif %}
+        {% for row in section.rows %}
+          <tr>
+            <th scope="row" align="left" valign="top" style="padding:10px 12px;background:{{ label_bg }};border:1px solid {{ border }};font-weight:400;color:{{ muted }};word-break:break-word;">
+              {% if row.label %}{{ row.label }}{% endif %}
+            </th>
+            {% for cell in row.cells %}
+              <td valign="top" style="padding:10px 12px;border:1px solid {{ border }};word-break:break-word;line-height:1.45;">
+                {{ cell }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

@@ -7,12 +7,13 @@
 {% set pink = email_secondary_color|default('#ba3075') %}
 {% set surface = email_surface_color|default('#ffffff') %}
 {% set is_contact_confirmation = ps_contact_confirmation|default(false) %}
+{% set display_title = email_display_title|default(subject) %}
 
-{% if not is_contact_confirmation and subject %}
+{% if not is_contact_confirmation and display_title %}
   <mj-section background-color="{{ surface }}" padding="4px 16px 24px">
     <mj-column>
       <mj-text css-class="ps-email-title" align="center">
-        <h1 style="color:{{ pink }};font-weight:400;">{{ subject }}</h1>
+        <h1 style="color:{{ pink }};font-weight:400;">{{ display_title }}</h1>
       </mj-text>
     </mj-column>
   </mj-section>

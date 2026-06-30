@@ -1,0 +1,5 @@
+langcode: en
+legal:
+  value: '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>'
+  format: email_html
+corporate: 'BNP Paribas Real Estate, SAS with share capital of €669,873,760 — Registered office: 50 cours de l''Ile Seguin, 92100 Boulogne-Billancourt, France — RCS Nanterre 692 012 180 — VAT FR 66692012180 — A company of the BNP Paribas Group.'

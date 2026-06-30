@@ -160,9 +160,16 @@ final class CompareHooks {
           'title' => NULL,
           'intro_message' => NULL,
           'compare_url' => NULL,
+          'mobile_cards' => NULL,
           'table' => NULL,
         ],
         'template' => 'ps-compare-email',
+      ],
+      'ps_compare_email_mobile_cards' => [
+        'variables' => [
+          'columns' => [],
+        ],
+        'template' => 'ps-compare-email-mobile-cards',
       ],
       'ps_compare_share_modal' => [
         'template' => 'ps-compare-share-modal',

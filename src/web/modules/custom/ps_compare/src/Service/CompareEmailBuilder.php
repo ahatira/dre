@@ -40,6 +40,15 @@ final class CompareEmailBuilder {
     $tableBuild = $this->pageBuilder->buildPage(CompareRenderContext::EMAIL, $offers, [
       'share_url' => $shareUrl,
     ]);
+    $columns = is_array($tableBuild['#columns'] ?? NULL) ? $tableBuild['#columns'] : [];
+    $mobileCardsHtml = '';
+    if ($columns !== []) {
+      $mobileCardsBuild = [
+        '#theme' => 'ps_compare_email_mobile_cards',
+        '#columns' => $columns,
+      ];
+      $mobileCardsHtml = (string) $this->renderer->renderPlain($mobileCardsBuild);
+    }
     $tableHtml = (string) $this->renderer->renderPlain($tableBuild);
 
     return [
@@ -47,6 +56,7 @@ final class CompareEmailBuilder {
       '#title' => $this->t('Property comparison'),
       '#intro_message' => $introMessage !== NULL && trim($introMessage) !== '' ? trim($introMessage) : NULL,
       '#compare_url' => $shareUrl,
+      '#mobile_cards' => $mobileCardsHtml !== '' ? Markup::create($mobileCardsHtml) : NULL,
       '#table' => $tableHtml !== '' ? Markup::create($tableHtml) : NULL,
     ];
   }

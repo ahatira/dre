@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Stacked property summary cards for compare email (mobile only via CSS).
+ *
+ * Variables: columns — same shape as ps_compare_table (#columns[].header).
+ */
+#}
+{% set border = '#ebedef' %}
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;">
+  {% for column in columns %}
+    <tr>
+      <td style="padding:0 0 16px;border-bottom:1px solid {{ border }};">
+        {{ column.header }}
+      </td>
+    </tr>
+  {% endfor %}
+</table>

@@ -6,9 +6,10 @@ namespace Drupal\ps_email\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 
 /**
- * Renders the email footer from ps_email.footer WYSIWYG config.
+ * Renders the email legal footer from ps_email.footer config.
  */
 final class EmailFooterRenderer {
 
@@ -18,42 +19,45 @@ final class EmailFooterRenderer {
     private readonly ConfigFactoryInterface $configFactory,
     private readonly EmailFooterContentSettings $footerContentSettings,
     private readonly EmailFooterMarkupBuilder $markupBuilder,
+    private readonly TranslationInterface $translation,
   ) {}
 
   /**
-   * Builds footer markup for HTML (ps_theme) and MJML (ps_theme_email).
+   * Builds footer shell variables for email-wrap preprocessing.
    *
    * @return array<string, mixed>
    *   Footer variables for email-wrap preprocessing.
    */
   public function buildFooterVariables(?string $langcode = NULL): array {
-    $footerDark = (string) ($this->configFactory->get(self::TOKENS_CONFIG)->get('footer_dark_color') ?: '#1f2a36');
-    $legalBg = (string) ($this->configFactory->get(self::TOKENS_CONFIG)->get('background_color') ?: '#f0f0f0');
-    $legalMuted = (string) ($this->configFactory->get(self::TOKENS_CONFIG)->get('muted_color') ?: '#777e83');
+    $tokens = $this->configFactory->get(self::TOKENS_CONFIG);
+    $primary = (string) ($tokens->get('primary_color') ?: '#00915a');
+    $legalBg = (string) ($tokens->get('background_color') ?: '#f9f9fb');
+    $legalMuted = (string) ($tokens->get('muted_color') ?: '#777e83');
+    $fontFamily = (string) ($tokens->get('font_family') ?: "'BNP Sans','Open Sans',Arial,sans-serif");
 
-    $zones = $this->footerContentSettings->getProcessedZones($langcode);
-    $footerInner = $this->markupBuilder->wrapFooterColumns($zones['left'], $zones['right'], $footerDark);
-    $legalInner = $zones['legal'];
+    $gdprHtml = $this->footerContentSettings->getProcessedLegalHtml($langcode);
+    $corporateLine = $this->footerContentSettings->getCorporateLine($langcode);
 
-    $footerLeft = $zones['left'] !== ''
-      ? Markup::create($this->markupBuilder->applyInlineTextColor($zones['left'], '#ffffff'))
-      : NULL;
-    $footerRight = $zones['right'] !== ''
-      ? Markup::create($this->markupBuilder->applyInlineTextColor($zones['right'], '#ffffff'))
-      : NULL;
-    $legalStyled = $legalInner !== ''
-      ? Markup::create($this->markupBuilder->applyInlineTextColor($legalInner, $legalMuted))
-      : NULL;
+    $siteName = (string) ($this->configFactory->get('system.site')->get('name') ?: 'Property Search');
+    $systemLine = (string) $this->translation->translate('This message was sent by @site.', [
+      '@site' => $siteName,
+    ], ['langcode' => $langcode ?? NULL]);
+
+    $accentRule = $this->markupBuilder->buildGreenAccentRule($primary);
+    $legalBlock = $this->markupBuilder->wrapLegalFooterBlock(
+      $gdprHtml,
+      $corporateLine,
+      $systemLine,
+      $legalBg,
+      $legalMuted,
+      $primary,
+      $fontFamily,
+    );
 
     return [
-      'email_footer' => $footerInner !== '' ? Markup::create($footerInner) : NULL,
-      'email_footer_left' => $footerLeft,
-      'email_footer_right' => $footerRight,
-      'email_legal' => $legalInner !== ''
-        ? Markup::create($this->markupBuilder->wrapLegalZone($legalInner, $legalBg, $legalMuted))
-        : NULL,
-      'email_legal_inner' => $legalStyled,
-      'ps_email_rich_footer' => $footerInner !== '' || $legalInner !== '',
+      'email_accent_rule' => Markup::create($accentRule),
+      'email_legal' => $legalBlock !== '' ? Markup::create($legalBlock) : NULL,
+      'ps_email_rich_footer' => $legalBlock !== '',
     ];
   }
 

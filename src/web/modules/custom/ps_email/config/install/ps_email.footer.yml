@@ -2,16 +2,7 @@ langcode: en
 dependencies:
   config:
     - filter.format.email_html
-footer_left:
-  value: |-
-    <p>BNP Paribas Real Estate, 50 cours de l'île Seguin, CS 50280, 92650 Boulogne-Billancourt Cedex</p>
-    <p><a href="tel:+33173438963">01 73 43 89 63</a></p>
-  format: email_html
-footer_right:
-  value: |-
-    <p><a href="https://www.bnppre.fr">Browse all our listings on www.bnppre.fr</a></p>
-    <p>Promotion | Transaction | Property Management | Expertise | Consulting</p>
-  format: email_html
 legal:
   value: '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>'
   format: email_html
+corporate: 'BNP Paribas Real Estate, SAS with share capital of €669,873,760 — Registered office: 50 cours de l''Ile Seguin, 92100 Boulogne-Billancourt, France — RCS Nanterre 692 012 180 — VAT FR 66692012180 — A company of the BNP Paribas Group.'

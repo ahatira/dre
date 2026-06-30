@@ -111,6 +111,7 @@ function ps_cli_generate_site_splits(array $argv): void {
     'system.site',
     'ps_homepage.homepage',
     'ps_homepage.settings',
+    'ps_email.footer',
   ];
 
   foreach (ps_country_codes() as $code) {

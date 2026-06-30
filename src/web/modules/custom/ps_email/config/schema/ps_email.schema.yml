@@ -1,34 +1,20 @@
 ps_email.footer:
   type: config_object
-  label: 'PS email footer (WYSIWYG zones)'
+  label: 'PS email footer (legal + corporate identifiers)'
   mapping:
-    footer_left:
-      type: mapping
-      label: 'Footer left column'
-      translatable: true
-      mapping:
-        value:
-          type: text
-        format:
-          type: string
-    footer_right:
-      type: mapping
-      label: 'Footer right column'
-      translatable: true
-      mapping:
-        value:
-          type: text
-        format:
-          type: string
     legal:
       type: mapping
-      label: 'Legal notice'
+      label: 'GDPR / data protection notice'
       translatable: true
       mapping:
         value:
           type: text
         format:
           type: string
+    corporate:
+      type: text
+      label: 'Corporate identifiers'
+      translatable: true
 
 ps_email.email_tokens:
   type: config_object

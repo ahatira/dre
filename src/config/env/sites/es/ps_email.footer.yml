@@ -1,0 +1,5 @@
+langcode: es
+legal:
+  value: '<p>BNP Paribas Real Estate trata sus datos personales para gestionar su solicitud. Para obtener más información sobre cómo tratamos sus datos y sus derechos, consulte nuestro <a href="https://data-privacy.realestate.bnpparibas/es">Aviso de protección de datos</a>.</p>'
+  format: email_html
+corporate: 'BNP Paribas Real Estate, SAU — Domicilio social: Paseo de la Castellana 81, 28046 Madrid, Spain — Empresa del Grupo BNP Paribas.'

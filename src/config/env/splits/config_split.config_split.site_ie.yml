@@ -18,3 +18,4 @@ partial_list:
   - system.site
   - ps_homepage.homepage
   - ps_homepage.settings
+  - ps_email.footer

@@ -265,7 +265,7 @@ SITE_MAIL="$(printf '%s' "$GLOBAL_META" | sed -n 's/.*site_mail=\([^|]*\).*/\1/p
 pass "Site notification mail: ${SITE_MAIL}"
 
 COMMON_CONFIRM_ASSERT='{"contains":["Data Protection Notice"],"not_contains":["See you soon!","Submitted on","{Empty}"]}'
-COMMON_NOTIFICATION_ASSERT='{"contains":["Data Protection Notice","#1f2a36"],"not_contains":["See you soon!"]}'
+COMMON_NOTIFICATION_ASSERT='{"contains":["Data Protection Notice","#00915a"],"not_contains":["See you soon!","#1f2a36"]}'
 pass "Confirmation email common assertions loaded"
 pass "Notification email common assertions loaded"
 

@@ -98,7 +98,7 @@ final class EmailMjmlPreviewVariablesBuilder {
     }
 
     $variables += $this->emailFooterRenderer->buildFooterVariables($langcode);
-    if ($variables['ps_email_rich_footer'] ?? FALSE) {
+    if (($variables['ps_email_rich_footer'] ?? FALSE) && !($variables['ps_email_keep_signoff'] ?? FALSE)) {
       $variables['email_hide_default_signoff'] = TRUE;
     }
   }
@@ -174,7 +174,11 @@ final class EmailMjmlPreviewVariablesBuilder {
   public function buildComparePreviewDefaults(): array {
     return [
       'subject' => (string) $this->t('Property comparison'),
+      'email_display_title' => (string) $this->t('Property comparison'),
       'intro_message' => (string) $this->t('Here is the property comparison you requested.'),
+      'ps_email_full_width' => TRUE,
+      'ps_email_keep_signoff' => TRUE,
+      'email_hide_default_signoff' => FALSE,
       'is_html' => TRUE,
     ];
   }

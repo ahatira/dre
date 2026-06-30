@@ -1,0 +1,7 @@
+services:
+  Drupal\ps_email\Commands\EmailFooterCommands:
+    class: Drupal\ps_email\Commands\EmailFooterCommands
+    arguments:
+      - '@ps_email.email_footer_config_sync'
+    tags:
+      - { name: drush.command }

@@ -97,11 +97,13 @@ else
 fi
 
 if [[ -n "$MSG_ID" ]]; then
-  BODY=$(curl -s "$MAILPIT/api/v1/message/$MSG_ID" 2>/dev/null || echo "")
-  CHECK=$(python3 - <<'PY' "$BODY"
-import json, sys
+  CHECK=$(MAILPIT="$MAILPIT" MSG_ID="$MSG_ID" python3 - <<'PY'
+import json, os, sys, urllib.request
+
+api = os.environ["MAILPIT"]
+msg_id = os.environ["MSG_ID"]
 try:
-  data = json.loads(sys.argv[1])
+  data = json.load(urllib.request.urlopen(f"{api}/api/v1/message/{msg_id}"))
 except Exception:
   print("FAIL:invalid_json")
   sys.exit(0)
@@ -111,18 +113,17 @@ checks = {
   "full_comparison": "View full comparison online" in html,
   "comparison_table": "role=\"presentation\"" in html and "border-collapse:collapse" in html,
   "share_url_with_ref": "refs=" in html,
-  "no_property_cards": "View listing" not in html.split("View full comparison online", 1)[-1][:500] if "View full comparison online" in html else True,
-  "no_summary_banner": "properties compared" not in html.lower(),
-  "no_escaped_doctype": "&lt;!DOCTYPE" not in html and "&lt;html" not in html,
+  "cta_after_table": html.find("View full comparison online") > html.find("border-collapse:collapse"),
+  "full_width_shell": "ps-email-container--full-width" in html,
+  "short_h1": "Property comparison" in html,
+  "signoff": "See you soon" in html,
+  "green_accent_footer": "#00915a" in html.lower() and "height:5px" in html.lower(),
+  "no_popover_leak": "data-bs-toggle=\"popover\"" not in html,
+  "mobile_cards_block": "ps-compare-email-mobile-cards" in html,
+  "desktop_table_block": "ps-compare-email-table-desktop" in html,
+  "no_dark_footer": "#1f2a36" not in html.lower(),
   "wrapper_logo": "cid:ps-email-header-logo@ps-project" in html or "header-logo.svg" in html,
-  "header_logo_cid": "cid:ps-email-header-logo@ps-project" in html,
-  "no_header_logo_base64": "data:image/svg+xml;base64" not in html.split("header-logo", 1)[0],
-  "wrapper_green_title": "#00915a" in html.lower() or "00915a" in html.lower(),
-  "wrapper_rich_footer": "#1f2a36" in html.lower() and "Data Protection Notice" in html,
-  "no_default_signoff": "See you soon" not in html,
   "green_cta": "background:#00915a" in html.lower() or "background: #00915a" in html.lower(),
-  "responsive_css": "@media only screen and (max-width:479px)" in html,
-  "responsive_container": "border-collapse:collapse" in html and 'role="presentation"' in html,
 }
 failed = [k for k, ok in checks.items() if not ok]
 print("PASS:body_ok" if not failed else "FAIL:" + ",".join(failed))

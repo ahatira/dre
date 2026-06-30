@@ -5,71 +5,96 @@ declare(strict_types=1);
 namespace Drupal\ps_email\Service;
 
 /**
- * Builds email-safe footer HTML table shells for WYSIWYG zones.
+ * Builds email-safe footer HTML for the legal-only shell (variant H).
  */
 final class EmailFooterMarkupBuilder {
 
   /**
-   * Wraps legal inner HTML in the email table shell.
+   * Builds the 5px primary-color accent rule (Outlook-safe td).
    */
-  public function wrapLegalZone(string $inner, string $background, string $muted): string {
-    if ($inner === '') {
-      return '';
-    }
+  public function buildGreenAccentRule(string $primaryColor): string {
+    $color = htmlspecialchars($primaryColor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-    $inner = $this->applyInlineTextColor($inner, $muted);
-
-    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $background . ';"><tr><td style="padding:16px;"><div style="font-size:10px;line-height:1.5;color:' . $muted . ';text-align:justify;">' . $inner . '</div></td></tr></table>';
+    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">'
+      . '<tr>'
+      . '<td bgcolor="' . $color . '" height="5" style="height:5px;line-height:5px;font-size:0;mso-line-height-rule:exactly;padding:0;background-color:' . $color . ';border:0;">'
+      . '<!--[if mso]><span style="display:block;height:5px;line-height:5px;font-size:0;mso-line-height-rule:exactly;">&nbsp;</span><![endif]-->'
+      . '</td>'
+      . '</tr>'
+      . '</table>';
   }
 
   /**
-   * Wraps contact and links columns in the dark footer table shell.
+   * Wraps GDPR, corporate line and system line in the legal footer shell.
    */
-  public function wrapFooterColumns(string $contactHtml, string $linksHtml, string $footerDark): string {
-    if ($contactHtml === '' && $linksHtml === '') {
+  public function wrapLegalFooterBlock(
+    string $gdprHtml,
+    string $corporateLine,
+    string $systemLine,
+    string $background,
+    string $muted,
+    string $primary,
+    string $fontFamily,
+  ): string {
+    if ($gdprHtml === '' && $corporateLine === '' && $systemLine === '') {
       return '';
     }
 
-    $contactHtml = $this->applyInlineTextColor($contactHtml, '#ffffff');
-    $linksHtml = $this->applyInlineTextColor($linksHtml, '#ffffff');
+    $fontFamily = htmlspecialchars($fontFamily, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $background = htmlspecialchars($background, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $muted = htmlspecialchars($muted, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $primary = htmlspecialchars($primary, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-    $contactCell = $contactHtml !== ''
-      ? '<td class="ps-email-footer-col-left" style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;">' . $contactHtml . '</td>'
-      : '';
-    $linksCell = $linksHtml !== ''
-      ? '<td class="ps-email-footer-col-right" style="padding:24px 16px;color:#ffffff;vertical-align:top;width:50%;border-left:1px solid #4a5560;">' . $linksHtml . '</td>'
-      : '';
+    $gdprHtml = $this->applyInlineTextColor($gdprHtml, $muted, $primary, '11px');
+    $corporateLine = htmlspecialchars($corporateLine, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $systemLine = htmlspecialchars($systemLine, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-    if ($contactCell === '') {
-      return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $footerDark . ';"><tr>' . $linksCell . '</tr></table>';
+    $blocks = [];
+
+    if ($gdprHtml !== '') {
+      $blocks[] = '<div style="margin:0 0 12px;font-family:' . $fontFamily . ';font-size:11px;line-height:1.5;color:' . $muted . ';">'
+        . $gdprHtml
+        . '</div>';
     }
-    if ($linksCell === '') {
-      return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $footerDark . ';"><tr>' . $contactCell . '</tr></table>';
+
+    if ($corporateLine !== '') {
+      $blocks[] = '<p style="margin:0 0 8px;font-family:' . $fontFamily . ';font-size:10px;line-height:1.5;color:' . $muted . ';">'
+        . $corporateLine
+        . '</p>';
     }
 
-    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $footerDark . ';"><tr>' . $contactCell . $linksCell . '</tr></table>';
+    if ($systemLine !== '') {
+      $blocks[] = '<p style="margin:0;font-family:' . $fontFamily . ';font-size:10px;line-height:1.5;color:#b4babe;">'
+        . $systemLine
+        . '</p>';
+    }
+
+    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' . $background . ';font-size:11px;line-height:1.5;">'
+      . '<tr><td style="padding:20px 24px 16px;background:' . $background . ';font-family:' . $fontFamily . ';font-size:11px;line-height:1.5;color:' . $muted . ';text-align:center;">'
+      . implode('', $blocks)
+      . '</td></tr>'
+      . '</table>';
   }
 
   /**
-   * Applies inline colors on footer zone copy (p/a tags).
-   *
-   * MJML sets mj-text color to #333; td color alone fails in mj-raw footers.
+   * Applies inline colors on legal copy (p/a tags).
    */
-  public function applyInlineTextColor(string $html, string $color): string {
+  public function applyInlineTextColor(string $html, string $color, string $linkColor, string $fontSize = '14px'): string {
     if ($html === '') {
       return '';
     }
 
-    $html = preg_replace('/<p>/i', '<p style="margin:0 0 8px;color:' . $color . ';">', $html) ?? $html;
+    $paragraphStyle = 'margin:0 0 8px;color:' . $color . ';font-size:' . $fontSize . ';line-height:1.5;';
+    $html = preg_replace('/<p>/i', '<p style="' . $paragraphStyle . '">', $html) ?? $html;
 
-    $html = preg_replace_callback('/<a(\s[^>]*)>/i', static function (array $matches) use ($color): string {
+    $html = preg_replace_callback('/<a(\s[^>]*)>/i', static function (array $matches) use ($linkColor): string {
       $attributes = $matches[1];
       if (preg_match('/style="([^"]*)"/i', $attributes, $styleMatch)) {
-        $style = rtrim($styleMatch[1], '; ') . ';color:' . $color . ';';
+        $style = rtrim($styleMatch[1], '; ') . ';color:' . $linkColor . ';text-decoration:underline;';
         return preg_replace('/style="[^"]*"/i', 'style="' . $style . '"', '<a' . $attributes . '>', 1) ?? '<a' . $attributes . '>';
       }
 
-      return '<a style="color:' . $color . ';"' . $attributes . '>';
+      return '<a style="color:' . $linkColor . ';text-decoration:underline;"' . $attributes . '>';
     }, $html) ?? $html;
 
     return $html;

@@ -15,6 +15,8 @@
 {% set surface = email_surface_color|default('#ffffff') %}
 {% set mjml_font = email_font_family|default('BNP Sans, Open Sans, Arial, Helvetica, sans-serif')|replace({"'": ''}) %}
 {% set mjml_heading_font = email_heading_font_family|default('BNP Sans, Open Sans, Arial, sans-serif')|replace({"'": ''}) %}
+{% set is_full_width = ps_email_full_width|default(false) %}
+{% set surface_css_class = 'ps-email-surface' ~ (is_full_width ? ' ps-email-container--full-width' : '') %}
 
 <mjml>
   <mj-head>
@@ -26,6 +28,8 @@
     <mj-style inline="inline">
       .ps-email-surface > table > tbody > tr > td { background-color: {{ surface }} !important; }
       .ps-email-title h1 { margin: 0; font-size: 22px; line-height: 1.3; font-family: {{ mjml_heading_font }}; }
+      .ps-email-container--full-width { width: 100% !important; max-width: none !important; }
+      .ps-email-container--full-width > table { width: 100% !important; max-width: none !important; }
       @media only screen and (min-width: 621px) {
         .ps-email-title h1 { font-size: 28px !important; line-height: 1.35 !important; }
         .ps-email-slogan { white-space: nowrap !important; }
@@ -33,15 +37,24 @@
       @media only screen and (max-width: 620px) {
         .ps-email-slogan-wrap { display: none !important; max-height: 0 !important; overflow: hidden !important; mso-hide: all; }
         .ps-email-logo { height: 23px !important; max-width: 115px !important; width: auto !important; }
-        .ps-email-footer-col-right { border-left: 0 !important; padding-left: 16px !important; }
-        .ps-email-footer-col-left, .ps-email-footer-col-right { display: block !important; width: 100% !important; }
+        .ps-email-btn-cell { display: block !important; width: 100% !important; }
+        .ps-email-btn { display: block !important; width: 100% !important; box-sizing: border-box !important; text-align: center !important; }
+      }
+    </mj-style>
+    {# Compare row toggle: keep in non-inlined mj-style so @media survives MJML compile. #}
+    <mj-style>
+      tr.ps-compare-email-mobile-cards { display: none !important; }
+      tr.ps-compare-email-table-desktop { display: table-row !important; }
+      @media only screen and (max-width: 620px) {
+        tr.ps-compare-email-mobile-cards { display: table-row !important; }
+        tr.ps-compare-email-table-desktop { display: none !important; max-height: 0 !important; overflow: hidden !important; mso-hide: all !important; }
       }
     </mj-style>
   </mj-head>
-  <mj-body background-color="{{ bg }}">
+  <mj-body background-color="{{ bg }}" width="{{ is_full_width ? '1200px' : '600px' }}">
     <mj-wrapper padding="16px 8px" background-color="{{ bg }}">
       {# White card: nested wrapper avoids gray gaps between adjacent mj-section rows. #}
-      <mj-wrapper background-color="{{ surface }}" padding="0" css-class="ps-email-surface">
+      <mj-wrapper background-color="{{ surface }}" padding="0" css-class="{{ surface_css_class }}">
         {% include '@ps_theme_email/partials/header.html.twig' %}
 
         {% if ps_contact_hero_url|default('') %}
@@ -54,19 +67,27 @@
 
         {% include '@ps_theme_email/partials/title.html.twig' %}
 
-        <mj-section background-color="{{ surface }}" padding="0 16px 24px">
-          <mj-column>
-            <mj-text color="{{ text }}">
-              {{ body|default('<p>Sample email body.</p>')|raw }}
-            </mj-text>
-          </mj-column>
-        </mj-section>
+        {% if is_full_width %}
+          <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+            <mj-column padding="0" width="100%">
+              <mj-raw>
+                {{ body|default('<p>Sample email body.</p>')|raw }}
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        {% else %}
+          <mj-section background-color="{{ surface }}" padding="0 16px 24px">
+            <mj-column>
+              <mj-text color="{{ text }}">
+                {{ body|default('<p>Sample email body.</p>')|raw }}
+              </mj-text>
+            </mj-column>
+          </mj-section>
+        {% endif %}
 
         {% include '@ps_theme_email/partials/signoff.html.twig' %}
 
         {% include '@ps_theme_email/partials/footer-layout.html.twig' %}
-
-        {% include '@ps_theme_email/partials/footer-default.html.twig' %}
       </mj-wrapper>
     </mj-wrapper>
   </mj-body>
