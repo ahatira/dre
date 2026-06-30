@@ -53,6 +53,7 @@ final class EmailDesignTokens {
       'email_primary_color' => $get('primary_color'),
       'email_primary_hover_color' => $get('primary_hover_color'),
       'email_primary_strong_color' => $get('primary_strong_color'),
+      'email_secondary_color' => $get('secondary_color'),
       'email_text_color' => $get('text_color'),
       'email_muted_color' => $get('muted_color'),
       'email_background_color' => $get('background_color'),

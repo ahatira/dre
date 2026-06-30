@@ -26,6 +26,7 @@ final class EmailDesignTokenSync {
     'primary_color' => '--re-color-primary',
     'primary_hover_color' => '--re-color-primary-hover',
     'primary_strong_color' => '--re-color-primary-strong',
+    'secondary_color' => '--re-color-secondary',
     'text_color' => '--re-color-text-strong',
     'muted_color' => '--re-color-text-muted',
     'background_color' => '--re-color-surface-muted',

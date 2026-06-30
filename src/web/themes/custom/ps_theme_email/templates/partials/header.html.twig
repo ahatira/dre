@@ -1,34 +1,44 @@
 {#
 /**
  * @file
- * Email header — logo, vertical divider, slogan (Stellar-aligned).
+ * Email header — logo + divider + slogan (aligned with ps_theme email-wrap).
  */
 #}
 {% set text = email_text_color|default('#333333') %}
 {% set muted = email_muted_color|default('#777e83') %}
 {% set surface = email_surface_color|default('#ffffff') %}
 {% set divider = email_header_divider_color|default('#cccccc') %}
+{% set heading_font = email_heading_font_family|default("'BNP Sans','Open Sans',Arial,Helvetica,sans-serif") %}
+{% set logo_width = email_logo_width|default(162) %}
 
 <mj-section background-color="{{ surface }}" padding="20px 16px 16px">
-  <mj-group>
-    <mj-column width="40%" vertical-align="middle">
-      {% if email_logo_url %}
-        <mj-image src="{{ email_logo_url }}" alt="{{ 'BNP Paribas Real Estate'|t }}" width="{{ email_logo_width|default(162) }}px" align="left" padding="0" />
-      {% else %}
-        <mj-text font-size="11px" font-weight="700" letter-spacing="0.04em" text-transform="uppercase" color="{{ text }}" padding="0">
-          BNP Paribas Real Estate
-        </mj-text>
-      {% endif %}
-    </mj-column>
-    {% if site_slogan %}
-      <mj-column width="4%" vertical-align="middle" padding="0">
-        <mj-divider border-width="1px" border-color="{{ divider }}" padding="0 4px" width="1px" />
-      </mj-column>
-      <mj-column width="56%" vertical-align="middle" css-class="ps-email-slogan-wrap">
-        <mj-text font-size="16px" line-height="24px" color="{{ muted }}" padding="0 0 0 9px">
-          {{ site_slogan }}
-        </mj-text>
-      </mj-column>
-    {% endif %}
-  </mj-group>
+  <mj-column padding="0">
+    <mj-raw>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="vertical-align:middle;width:1%;white-space:nowrap;">
+            {% if email_logo_url %}
+              <img src="{{ email_logo_url }}" alt="{{ 'BNP Paribas Real Estate'|t }}" width="{{ logo_width }}" class="ps-email-logo" style="display:block;height:31px;width:auto;max-width:{{ logo_width }}px;border:0;">
+            {% else %}
+              <span style="font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:{{ text }};">BNP Paribas Real Estate</span>
+            {% endif %}
+          </td>
+          {% if site_slogan %}
+            <td class="ps-email-slogan-wrap" style="vertical-align:middle;padding-left:9px;">
+              <table role="presentation" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="width:1px;background:{{ divider }};font-size:0;line-height:0;padding:0;">
+                    <span style="display:block;width:1px;height:24px;line-height:24px;font-size:0;">&nbsp;</span>
+                  </td>
+                  <td class="ps-email-slogan" style="vertical-align:middle;padding-left:9px;font-family:{{ heading_font }};font-size:16px;font-weight:400;line-height:24px;color:{{ muted }};">
+                    {{ site_slogan }}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          {% endif %}
+        </tr>
+      </table>
+    </mj-raw>
+  </mj-column>
 </mj-section>

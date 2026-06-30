@@ -79,6 +79,9 @@ ps_email.email_tokens:
     primary_strong_color:
       type: string
       label: 'Primary strong color'
+    secondary_color:
+      type: string
+      label: 'Secondary color'
     heading_font_family:
       type: string
       label: 'Heading font family'

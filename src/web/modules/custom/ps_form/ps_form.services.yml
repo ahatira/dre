@@ -114,6 +114,18 @@ services:
       - '@ps_form.contact_email_hero_image_resolver'
       - '@string_translation'
 
+  ps_form.webform_submission_email_values_formatter:
+    class: Drupal\ps_form\Service\WebformSubmissionEmailValuesFormatter
+    arguments:
+      - '@plugin.manager.webform.element'
+      - '@webform_submission.conditions_validator'
+      - '@renderer'
+
+  Drupal\ps_form\Hook\WebformSubmissionEmailTokensHooks:
+    arguments:
+      - '@ps_form.webform_submission_email_values_formatter'
+      - '@config.factory'
+
   Drupal\ps_form\Hook\ContactWebformEmailHeroHooks:
     arguments:
       - '@ps_form.contact_webform_email_hero_settings'
