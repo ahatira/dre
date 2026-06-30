@@ -33,7 +33,11 @@
       @media only screen and (max-width: 620px) {
         .ps-email-slogan-wrap { display: none !important; max-height: 0 !important; overflow: hidden !important; mso-hide: all; }
         .ps-email-logo { height: 23px !important; max-width: 115px !important; width: auto !important; }
+        .ps-email-footer-dark-right { border-left: 0 !important; padding-left: 0 !important; }
       }
+      .ps-email-footer-dark p, .ps-email-footer-dark a { color: #ffffff !important; }
+      .ps-email-footer-dark-right { border-left: 1px solid #4a5560 !important; }
+      .ps-email-footer-legal p, .ps-email-footer-legal a { color: {{ email_muted_color|default('#777e83') }} !important; }
     </mj-style>
   </mj-head>
   <mj-body background-color="{{ bg }}">

@@ -21,9 +21,9 @@ final class EmailFooterRenderer {
   ) {}
 
   /**
-   * Builds email_footer and email_legal markup for the email wrapper.
+   * Builds footer markup for HTML (ps_theme) and MJML (ps_theme_email).
    *
-   * @return array{email_footer: \Drupal\Component\Render\MarkupInterface|null, email_legal: \Drupal\Component\Render\MarkupInterface|null, ps_email_rich_footer: bool}
+   * @return array<string, mixed>
    *   Footer variables for email-wrap preprocessing.
    */
   public function buildFooterVariables(?string $langcode = NULL): array {
@@ -35,11 +35,24 @@ final class EmailFooterRenderer {
     $footerInner = $this->markupBuilder->wrapFooterColumns($zones['left'], $zones['right'], $footerDark);
     $legalInner = $zones['legal'];
 
+    $footerLeft = $zones['left'] !== ''
+      ? Markup::create($this->markupBuilder->applyInlineTextColor($zones['left'], '#ffffff'))
+      : NULL;
+    $footerRight = $zones['right'] !== ''
+      ? Markup::create($this->markupBuilder->applyInlineTextColor($zones['right'], '#ffffff'))
+      : NULL;
+    $legalStyled = $legalInner !== ''
+      ? Markup::create($this->markupBuilder->applyInlineTextColor($legalInner, $legalMuted))
+      : NULL;
+
     return [
       'email_footer' => $footerInner !== '' ? Markup::create($footerInner) : NULL,
+      'email_footer_left' => $footerLeft,
+      'email_footer_right' => $footerRight,
       'email_legal' => $legalInner !== ''
         ? Markup::create($this->markupBuilder->wrapLegalZone($legalInner, $legalBg, $legalMuted))
         : NULL,
+      'email_legal_inner' => $legalStyled,
       'ps_email_rich_footer' => $footerInner !== '' || $legalInner !== '',
     ];
   }

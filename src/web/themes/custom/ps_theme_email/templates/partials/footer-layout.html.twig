@@ -1,21 +1,43 @@
 {#
 /**
  * @file
- * Rendered footer zones (email_footer + email_legal) from ps_email.footer WYSIWYG.
+ * Footer zones from ps_email.footer — MJML-native (no nested tables in mj-raw).
+ *
+ * Variables: email_footer_left, email_footer_right, email_legal_inner,
+ * email_footer_dark_color, email_background_color, email_muted_color.
  */
 #}
-{% if email_footer %}
-  <mj-section padding="0" background-color="transparent">
-    <mj-column padding="0">
-      <mj-raw>{{ email_footer|raw }}</mj-raw>
-    </mj-column>
+{% set dark = email_footer_dark_color|default('#1f2a36') %}
+{% set bg = email_background_color|default('#f0f0f0') %}
+{% set muted = email_muted_color|default('#777e83') %}
+
+{% if email_footer_left or email_footer_right %}
+  <mj-section background-color="{{ dark }}" padding="24px 16px">
+    <mj-group>
+      {% if email_footer_left %}
+        <mj-column width="50%" vertical-align="top">
+          <mj-text color="#ffffff" font-size="14px" line-height="1.6" padding="0" css-class="ps-email-footer-dark">
+            {{ email_footer_left|raw }}
+          </mj-text>
+        </mj-column>
+      {% endif %}
+      {% if email_footer_right %}
+        <mj-column width="50%" vertical-align="top" css-class="ps-email-footer-dark-right">
+          <mj-text color="#ffffff" font-size="14px" line-height="1.6" padding="0 0 0 16px" css-class="ps-email-footer-dark">
+            {{ email_footer_right|raw }}
+          </mj-text>
+        </mj-column>
+      {% endif %}
+    </mj-group>
   </mj-section>
 {% endif %}
 
-{% if email_legal %}
-  <mj-section padding="0" background-color="transparent">
-    <mj-column padding="0">
-      <mj-raw>{{ email_legal|raw }}</mj-raw>
+{% if email_legal_inner %}
+  <mj-section background-color="{{ bg }}" padding="16px">
+    <mj-column>
+      <mj-text color="{{ muted }}" font-size="10px" line-height="1.5" align="justify" padding="0" css-class="ps-email-footer-legal">
+        {{ email_legal_inner|raw }}
+      </mj-text>
     </mj-column>
   </mj-section>
 {% endif %}

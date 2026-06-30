@@ -51,11 +51,11 @@ final class EmailFooterMarkupBuilder {
   }
 
   /**
-   * Forces inline text/link colors so MJML shell styles cannot override footer.
+   * Applies inline colors on footer zone copy (p/a tags).
    *
    * MJML sets mj-text color to #333; td color alone fails in mj-raw footers.
    */
-  private function applyInlineTextColor(string $html, string $color): string {
+  public function applyInlineTextColor(string $html, string $color): string {
     if ($html === '') {
       return '';
     }
