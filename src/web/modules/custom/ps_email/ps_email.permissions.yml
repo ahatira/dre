@@ -3,7 +3,7 @@ access ps_email hub:
   description: 'Access /admin/ps/config/email and the transactional email registry.'
 
 manage ps_email content:
-  title: 'Manage Property Search email shell content'
+  title: 'Manage Property Search email content'
   description: 'Edit footer, legal and branding content for transactional emails.'
 
 administer ps_email:

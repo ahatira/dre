@@ -27,7 +27,6 @@
 {% set divider = email_header_divider_color|default('#cccccc') %}
 {% set heading_font = email_heading_font_family|default("'BNP Sans','Open Sans',Arial,Helvetica,sans-serif") %}
 {% set is_contact_confirmation = ps_contact_confirmation|default(false) %}
-{% set show_rich_footer = ps_email_rich_footer|default(is_contact_confirmation) %}
 
 {% if is_html %}
 <!DOCTYPE html>
@@ -156,61 +155,11 @@
             <tr>
               <td style="padding:0;">{{ email_footer|raw }}</td>
             </tr>
-          {% elseif show_rich_footer %}
-            <tr>
-              <td style="padding:0;background:#1f2a36;">
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="ps-email-content-padding" style="padding:24px 16px;color:#ffffff;vertical-align:top;">
-                      {% if ps_contact_footer_social_links|default([]) %}
-                        <p style="margin:0 0 16px;font-size:13px;line-height:1.5;">
-                          {% for link in ps_contact_footer_social_links %}
-                            <a href="{{ link.url }}" style="color:#ffffff;text-decoration:none;margin-right:12px;">{{ link.label }}</a>
-                          {% endfor %}
-                        </p>
-                      {% endif %}
-                      {% if ps_contact_footer_address|default('') %}
-                        <p style="margin:0 0 8px;font-size:12px;line-height:1.5;color:#ffffff;">{{ ps_contact_footer_address }}</p>
-                      {% endif %}
-                      {% if ps_contact_footer_phone|default('') %}
-                        <p style="margin:0;font-size:12px;line-height:1.5;color:#ffffff;">
-                          {% if ps_contact_footer_phone_link|default('') %}
-                            <a href="{{ ps_contact_footer_phone_link }}" style="color:#ffffff;text-decoration:none;">{{ ps_contact_footer_phone }}</a>
-                          {% else %}
-                            {{ ps_contact_footer_phone }}
-                          {% endif %}
-                        </p>
-                      {% endif %}
-                    </td>
-                    <td class="ps-email-content-padding" style="padding:24px 16px;color:#ffffff;vertical-align:top;border-left:1px solid #4a5560;">
-                      {% if ps_contact_footer_offers_label|default('') %}
-                        <p style="margin:0 0 12px;font-size:12px;line-height:1.5;color:#ffffff;">
-                          {% if ps_contact_footer_offers_url|default('') %}
-                            <a href="{{ ps_contact_footer_offers_url }}" style="color:#ffffff;text-decoration:underline;">{{ ps_contact_footer_offers_label }}</a>
-                          {% else %}
-                            {{ ps_contact_footer_offers_label }}
-                          {% endif %}
-                        </p>
-                      {% endif %}
-                      {% if ps_contact_footer_services|default('') %}
-                        <p style="margin:0;font-size:12px;line-height:1.5;color:#ffffff;">{{ ps_contact_footer_services }}</p>
-                      {% endif %}
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
           {% endif %}
 
           {% if email_legal %}
             <tr>
               <td style="padding:0;">{{ email_legal|raw }}</td>
-            </tr>
-          {% elseif show_rich_footer and ps_contact_footer_legal|default('') %}
-            <tr>
-              <td class="ps-email-content-padding" style="padding:16px;background:#f0f0f0;">
-                <div style="font-size:10px;line-height:1.5;color:#777e83;text-align:justify;">{{ ps_contact_footer_legal }}</div>
-              </td>
             </tr>
           {% endif %}
 

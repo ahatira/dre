@@ -1,6 +1,6 @@
-ps_email.shell_footer:
-  title: 'Email footer and legal'
+ps_email.footer:
+  title: 'Email footer'
   names:
-    - ps_email.shell
-  base_route_name: ps_email.shell_footer
+    - ps_email.footer
+  base_route_name: ps_email.footer
   weight: 10

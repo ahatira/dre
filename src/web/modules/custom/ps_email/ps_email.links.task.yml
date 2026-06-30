@@ -4,9 +4,9 @@ ps_email.admin:
   base_route: ps_email.admin
   weight: -20
 
-ps_email.shell_footer:
-  title: 'Footer and legal'
-  route_name: ps_email.shell_footer
+ps_email.footer:
+  title: 'Footer'
+  route_name: ps_email.footer
   base_route: ps_email.admin
   weight: 0
 

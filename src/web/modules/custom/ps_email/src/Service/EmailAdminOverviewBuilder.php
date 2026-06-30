@@ -124,15 +124,15 @@ final class EmailAdminOverviewBuilder {
     ];
 
     if ($this->currentUser->hasPermission('manage ps_email content')) {
-      $build['shell'] = [
+      $build['content'] = [
         '#type' => 'details',
-        '#title' => $this->t('Email shell'),
+        '#title' => $this->t('Email content'),
         '#open' => FALSE,
-        '#attributes' => ['class' => ['ps-email-admin-overview__shell']],
+        '#attributes' => ['class' => ['ps-email-admin-overview__content']],
         'links' => [
           '#theme' => 'item_list',
           '#items' => array_filter([
-            ($url = Url::fromRoute('ps_email.shell_footer'))->access($this->currentUser)
+            ($url = Url::fromRoute('ps_email.footer'))->access($this->currentUser)
               ? Link::fromTextAndUrl($this->t('Footer and legal'), $url)->toRenderable()
               : NULL,
             ($url = Url::fromRoute('ps_email.user_account'))->access($this->currentUser)

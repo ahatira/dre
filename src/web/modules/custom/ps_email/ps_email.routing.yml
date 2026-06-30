@@ -8,11 +8,11 @@ ps_email.admin:
   options:
     _admin_route: TRUE
 
-ps_email.shell_footer:
-  path: '/admin/ps/config/email/shell/footer'
+ps_email.footer:
+  path: '/admin/ps/config/email/footer'
   defaults:
-    _form: '\Drupal\ps_email\Form\EmailFooterLayoutForm'
-    _title: 'Email footer and legal'
+    _form: '\Drupal\ps_email\Form\EmailFooterSettingsForm'
+    _title: 'Email footer'
   requirements:
     _permission: 'manage ps_email content'
   options:

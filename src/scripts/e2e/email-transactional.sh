@@ -19,28 +19,29 @@ SCRIPTS=(
 
 PASS=0
 FAIL=0
-CONTACT_SHELL_SNAPSHOT_FILE=""
+CONTACT_FOOTER_SNAPSHOT_FILE=""
 
 pass() { echo "  PASS: $1"; PASS=$((PASS + 1)); }
 fail() { echo "  FAIL: $1"; FAIL=$((FAIL + 1)); }
 
 restore_contact_email_config() {
-  if [[ -n "${CONTACT_SHELL_SNAPSHOT_FILE}" && -f "${CONTACT_SHELL_SNAPSHOT_FILE}" ]]; then
+  if [[ -n "${CONTACT_FOOTER_SNAPSHOT_FILE}" && -f "${CONTACT_FOOTER_SNAPSHOT_FILE}" ]]; then
     ps_e2e_drush php:eval "
-\$json = file_get_contents('${CONTACT_SHELL_SNAPSHOT_FILE}');
+\$json = file_get_contents('${CONTACT_FOOTER_SNAPSHOT_FILE}');
 \$snapshot = json_decode(\$json, TRUE, 512, JSON_THROW_ON_ERROR);
-\\Drupal::configFactory()->getEditable('ps_email.shell')->setData(\$snapshot)->save(TRUE);
+\\Drupal::configFactory()->getEditable('ps_email.footer')->setData(\$snapshot)->save(TRUE);
 print 'restored';
 " >/dev/null 2>&1 || true
-    rm -f "${CONTACT_SHELL_SNAPSHOT_FILE}"
+    rm -f "${CONTACT_FOOTER_SNAPSHOT_FILE}"
   fi
 }
 
 bootstrap_contact_email_config() {
-  CONTACT_SHELL_SNAPSHOT_FILE="$(mktemp)"
-  ps_e2e_drush cget ps_email.shell --format=json > "${CONTACT_SHELL_SNAPSHOT_FILE}" 2>/dev/null || echo '{}' > "${CONTACT_SHELL_SNAPSHOT_FILE}"
+  CONTACT_FOOTER_SNAPSHOT_FILE="$(mktemp)"
+  ps_e2e_drush cget ps_email.footer --format=json > "${CONTACT_FOOTER_SNAPSHOT_FILE}" 2>/dev/null || echo '{}' > "${CONTACT_FOOTER_SNAPSHOT_FILE}"
 
-  ps_e2e_drush cset ps_email.shell legal_markup '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>' -y >/dev/null
+  ps_e2e_drush cset ps_email.footer legal.value '<p>BNP Paribas Real Estate processes your personal data to handle your request. For more information on how we process your data and your rights, please consult our <a href="https://data-privacy.realestate.bnpparibas/en">Data Protection Notice</a>.</p>' -y >/dev/null
+  ps_e2e_drush cset ps_email.footer legal.format email_html -y >/dev/null
 }
 
 trap restore_contact_email_config EXIT

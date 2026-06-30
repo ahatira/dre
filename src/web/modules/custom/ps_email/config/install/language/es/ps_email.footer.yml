@@ -1,0 +1,13 @@
+footer_left:
+  value: |-
+    <p>BNP Paribas Real Estate, 50 cours de l'île Seguin, CS 50280, 92650 Boulogne-Billancourt Cedex</p>
+    <p><a href="tel:+33173438963">01 73 43 89 63</a></p>
+  format: email_html
+footer_right:
+  value: |-
+    <p><a href="https://www.bnppre.fr">Consulte todos nuestros anuncios en www.bnppre.fr</a></p>
+    <p>Promoción | Transacción | Property Management | Experiencia | Consultoría</p>
+  format: email_html
+legal:
+  value: '<p>BNP Paribas Real Estate trata sus datos personales para gestionar su solicitud. Para más información sobre cómo tratamos sus datos y sus derechos, consulte nuestro <a href="https://data-privacy.realestate.bnpparibas/en">Aviso de protección de datos</a>.</p>'
+  format: email_html

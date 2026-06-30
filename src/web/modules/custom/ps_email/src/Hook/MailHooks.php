@@ -59,7 +59,11 @@ final class MailHooks {
    */
   #[Hook('preprocess_email_wrap')]
   public function preprocessEmailWrap(array &$variables): void {
-    $this->emailMjmlPreviewVariablesBuilder->applySharedShellVariables($variables);
+    $langcode = NULL;
+    if (isset($variables['language']) && is_object($variables['language']) && method_exists($variables['language'], 'getId')) {
+      $langcode = $variables['language']->getId();
+    }
+    $this->emailMjmlPreviewVariablesBuilder->applySharedShellVariables($variables, $langcode);
   }
 
   /**

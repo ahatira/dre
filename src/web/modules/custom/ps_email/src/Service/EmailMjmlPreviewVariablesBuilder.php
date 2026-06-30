@@ -26,7 +26,7 @@ final class EmailMjmlPreviewVariablesBuilder {
     private readonly LanguageManagerInterface $languageManager,
     private readonly EmailBrandingBuilder $emailBrandingBuilder,
     private readonly EmailDesignTokens $emailDesignTokens,
-    private readonly EmailRichFooterBuilder $emailRichFooterBuilder,
+    private readonly EmailFooterRenderer $emailFooterRenderer,
     private readonly OfferEmailCardHtmlRenderer $offerEmailCardHtmlRenderer,
   ) {}
 
@@ -97,9 +97,10 @@ final class EmailMjmlPreviewVariablesBuilder {
       return;
     }
 
-    $variables += $this->emailRichFooterBuilder->buildFooterVariables($langcode);
-    $variables['ps_email_rich_footer'] = TRUE;
-    $variables['email_hide_default_signoff'] = TRUE;
+    $variables += $this->emailFooterRenderer->buildFooterVariables($langcode);
+    if ($variables['ps_email_rich_footer'] ?? FALSE) {
+      $variables['email_hide_default_signoff'] = TRUE;
+    }
   }
 
   /**

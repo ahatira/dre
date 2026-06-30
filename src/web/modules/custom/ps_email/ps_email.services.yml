@@ -1,4 +1,8 @@
 services:
+  logger.channel.ps_email:
+    parent: logger.channel_base
+    arguments: ['ps_email']
+
   ps_email.email_transaction_registry:
     class: Drupal\ps_email\Service\EmailTransactionRegistry
     arguments:
@@ -12,12 +16,6 @@ services:
       - '@module_handler'
       - '@current_user'
       - '@ps_email.mjml_preview_link_builder'
-
-  ps_email.email_shell_settings:
-    class: Drupal\ps_email\Service\EmailShellSettings
-    arguments:
-      - '@config.factory'
-      - '@language_manager'
 
   ps_email.contact_webform_email_settings:
     class: Drupal\ps_email\Service\ContactWebformEmailSettings
@@ -55,72 +53,21 @@ services:
   ps_email.email_plain_text_from_html_processor:
     class: Drupal\ps_email\Processor\EmailPlainTextFromHtmlProcessor
 
-  ps_email.email_footer_block.address:
-    class: Drupal\ps_email\Plugin\EmailFooterBlock\AddressFooterBlock
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
+  ps_email.email_footer_markup_builder:
+    class: Drupal\ps_email\Service\EmailFooterMarkupBuilder
 
-  ps_email.email_footer_block.phone:
-    class: Drupal\ps_email\Plugin\EmailFooterBlock\PhoneFooterBlock
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
-
-  ps_email.email_footer_block.social_links:
-    class: Drupal\ps_email\Plugin\EmailFooterBlock\SocialLinksFooterBlock
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
-
-  ps_email.email_footer_block.offers_link:
-    class: Drupal\ps_email\Plugin\EmailFooterBlock\OffersLinkFooterBlock
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
-
-  ps_email.email_footer_block.services_line:
-    class: Drupal\ps_email\Plugin\EmailFooterBlock\ServicesLineFooterBlock
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
-
-  ps_email.email_footer_block.rich_text:
-    class: Drupal\ps_email\Plugin\EmailFooterBlock\RichTextFooterBlock
-    arguments:
-      - '@ps_email.email_shell_settings'
-      - '@config.factory'
-      - '@entity_type.manager'
-
-  ps_email.email_footer_block_registry:
-    class: Drupal\ps_email\Service\EmailFooterBlockRegistry
-    arguments:
-      -
-        address: '@ps_email.email_footer_block.address'
-        phone: '@ps_email.email_footer_block.phone'
-        social_links: '@ps_email.email_footer_block.social_links'
-        offers_link: '@ps_email.email_footer_block.offers_link'
-        services_line: '@ps_email.email_footer_block.services_line'
-        rich_text: '@ps_email.email_footer_block.rich_text'
-
-  ps_email.email_footer_layout_renderer:
-    class: Drupal\ps_email\Service\EmailFooterLayoutRenderer
+  ps_email.email_footer_content_settings:
+    class: Drupal\ps_email\Service\EmailFooterContentSettings
     arguments:
       - '@config.factory'
-      - '@ps_email.email_footer_block_registry'
+      - '@language_manager'
 
-  ps_email.email_rich_footer_builder:
-    class: Drupal\ps_email\Service\EmailRichFooterBuilder
+  ps_email.email_footer_renderer:
+    class: Drupal\ps_email\Service\EmailFooterRenderer
     arguments:
-      - '@ps_email.email_shell_settings'
       - '@config.factory'
-      - '@entity_type.manager'
-      - '@ps_email.email_footer_layout_renderer'
+      - '@ps_email.email_footer_content_settings'
+      - '@ps_email.email_footer_markup_builder'
 
   ps_email.offer_email_card_html_renderer:
     class: Drupal\ps_email\Service\OfferEmailCardHtmlRenderer
@@ -136,7 +83,7 @@ services:
       - '@language_manager'
       - '@ps_email.email_branding_builder'
       - '@ps_email.email_design_tokens'
-      - '@ps_email.email_rich_footer_builder'
+      - '@ps_email.email_footer_renderer'
       - '@ps_email.offer_email_card_html_renderer'
 
   ps_email.mjml_preview_variables_subscriber:

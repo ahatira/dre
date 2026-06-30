@@ -12,19 +12,19 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  */
 final class EmailAdminHooks {
 
-  private const TRANSLATION_TASK_SHELL = 'config_translation.local_tasks:config_translation.item.overview.ps_email.shell_footer';
+  private const TRANSLATION_TASK_FOOTER = 'config_translation.local_tasks:config_translation.item.overview.ps_email.footer';
 
   /**
    * Promotes Translate tabs on email settings forms.
    */
   #[Hook('local_tasks_alter')]
   public function localTasksAlter(array &$local_tasks): void {
-    if (!isset($local_tasks[self::TRANSLATION_TASK_SHELL])) {
+    if (!isset($local_tasks[self::TRANSLATION_TASK_FOOTER])) {
       return;
     }
-    $local_tasks[self::TRANSLATION_TASK_SHELL]['base_route'] = 'ps_email.admin';
-    $local_tasks[self::TRANSLATION_TASK_SHELL]['title'] = new TranslatableMarkup('Translate');
-    unset($local_tasks[self::TRANSLATION_TASK_SHELL]['parent_id']);
+    $local_tasks[self::TRANSLATION_TASK_FOOTER]['base_route'] = 'ps_email.admin';
+    $local_tasks[self::TRANSLATION_TASK_FOOTER]['title'] = new TranslatableMarkup('Translate');
+    unset($local_tasks[self::TRANSLATION_TASK_FOOTER]['parent_id']);
   }
 
   /**
@@ -36,17 +36,17 @@ final class EmailAdminHooks {
       return;
     }
 
-    $activeTranslationTask = $route_name === 'ps_email.shell_footer'
-      || $route_name === 'config_translation.item.overview.ps_email.shell_footer'
-      ? self::TRANSLATION_TASK_SHELL
+    $activeTranslationTask = $route_name === 'ps_email.footer'
+      || $route_name === 'config_translation.item.overview.ps_email.footer'
+      ? self::TRANSLATION_TASK_FOOTER
       : NULL;
 
     if ($activeTranslationTask !== NULL && isset($data['tabs'][0][$activeTranslationTask]['#link']['title'])) {
       $data['tabs'][0][$activeTranslationTask]['#link']['title'] = new TranslatableMarkup('Translate');
     }
 
-    if ($activeTranslationTask !== self::TRANSLATION_TASK_SHELL) {
-      unset($data['tabs'][0][self::TRANSLATION_TASK_SHELL]);
+    if ($activeTranslationTask !== self::TRANSLATION_TASK_FOOTER) {
+      unset($data['tabs'][0][self::TRANSLATION_TASK_FOOTER]);
     }
   }
 

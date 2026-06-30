@@ -1,87 +1,34 @@
-ps_email.shell:
+ps_email.footer:
   type: config_object
-  label: 'PS email shell (footer and legal)'
+  label: 'PS email footer (WYSIWYG zones)'
   mapping:
-    reuse_site_footer:
-      type: boolean
-      label: 'Reuse site footer blocks'
-    footer_address:
-      type: text
-      label: 'Footer address'
+    footer_left:
+      type: mapping
+      label: 'Footer left column'
       translatable: true
-    footer_phone:
-      type: string
-      label: 'Footer phone display'
-    footer_phone_link:
-      type: string
-      label: 'Footer phone tel link'
-    footer_offers_url:
-      type: string
-      label: 'Footer offers URL'
-    footer_offers_label:
-      type: label
-      label: 'Footer offers label'
+      mapping:
+        value:
+          type: text
+        format:
+          type: string
+    footer_right:
+      type: mapping
+      label: 'Footer right column'
       translatable: true
-    footer_services:
-      type: label
-      label: 'Footer services line'
+      mapping:
+        value:
+          type: text
+        format:
+          type: string
+    legal:
+      type: mapping
+      label: 'Legal notice'
       translatable: true
-    legal_markup:
-      type: text
-      label: 'Legal footer markup'
-      translatable: true
-
-ps_email.footer_layout:
-  type: config_object
-  label: 'PS email footer layout'
-  mapping:
-    reuse_site_footer:
-      type: boolean
-      label: 'Reuse site footer blocks'
-    footer_components:
-      type: sequence
-      label: 'Footer zone components'
-      sequence:
-        type: mapping
-        mapping:
-          uuid:
-            type: string
-          plugin:
-            type: string
-          weight:
-            type: integer
-          region:
-            type: string
-            label: 'Footer column region'
-          settings:
-            type: mapping
-            mapping:
-              markup:
-                type: text
-              markup_key:
-                type: string
-    legal_components:
-      type: sequence
-      label: 'Legal zone components'
-      sequence:
-        type: mapping
-        mapping:
-          uuid:
-            type: string
-          plugin:
-            type: string
-          weight:
-            type: integer
-          region:
-            type: string
-            label: 'Footer column region'
-          settings:
-            type: mapping
-            mapping:
-              markup:
-                type: text
-              markup_key:
-                type: string
+      mapping:
+        value:
+          type: text
+        format:
+          type: string
 
 ps_email.email_tokens:
   type: config_object

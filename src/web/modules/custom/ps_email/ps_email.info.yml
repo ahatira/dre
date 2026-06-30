@@ -8,3 +8,7 @@ dependencies:
   - ps_core:ps_core
   - symfony_mailer:symfony_mailer
   - symfony_mailer:mailer_policy
+  - drupal:filter
+  - drupal:ckeditor5
+  - drupal:language
+  - drupal:config_translation
