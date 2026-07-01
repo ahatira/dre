@@ -3,45 +3,86 @@ status: open
 dependencies:
   module:
     - altcha
+    - antibot
     - captcha
-open: null
-close: null
-uid: null
-template: false
-archive: false
+    - datetime_flatpickr_webform
+    - honeypot
 id: schedule_visit
 title: 'Schedule a visit'
 description: 'Offer visit scheduling form.'
 category: 'Property Search'
-elements: |-
-  visitor:
-    '#type': fieldset
-    '#title': 'Your details'
-    first_name:
+elements: |
+  step_availability:
+    '#type': webform_wizard_page
+    '#title': Availability
+    availability_intro:
+      '#type': webform_markup
+      '#markup': '<p><strong>What are your availabilities?</strong></p><p>Select up to 5 dates within the next 15 days (from tomorrow).</p>'
+    availabilities:
+      '#type': flatpickr_date
+      '#title': Availabilities
+      '#title_display': none
+      '#required': true
+      '#wrapper_attributes':
+        class:
+          - ps-schedule-visit-availabilities
+      '#mode': multiple
+      '#inline': true
+      '#minDate': '1'
+      '#maxDate': '15'
+      '#dateFormat': 'Y-m-d'
+  step_contact:
+    '#type': webform_wizard_page
+    '#title': Details
+    firstname:
       '#type': textfield
       '#title': 'First name'
       '#required': true
-    last_name:
+    lastname:
       '#type': textfield
       '#title': 'Last name'
       '#required': true
-    email:
-      '#type': email
-      '#title': Email
+    company_name:
+      '#type': textfield
+      '#title': Company
       '#required': true
-    phone:
+    prof_phone:
       '#type': tel
-      '#title': Phone
-  visit:
-    '#type': fieldset
-    '#title': 'Visit request'
-    preferred_date:
-      '#type': date
-      '#title': 'Preferred date'
-    message:
+      '#title': 'Professional phone'
+      '#required': true
+    prof_email_address:
+      '#type': email
+      '#title': 'Professional e-mail'
+      '#required': true
+    optout_intro:
+      '#type': webform_markup
+      '#markup': '<p>I object to receiving commercial communications from BNP Paribas Real Estate Advisory France:</p>'
+    optout_email_transaction:
+      '#type': checkbox
+      '#title': E-mail
+    optout_sms_transaction:
+      '#type': checkbox
+      '#title': SMS
+    optout_tel_transaction:
+      '#type': checkbox
+      '#title': Telephone
+    captcha:
+      '#type': captcha
+      '#captcha_type': altcha/ALTCHA
+    legal_notice:
+      '#type': webform_markup
+      '#markup': '<p class="ps-form-legal-notice__title"><strong>Personal data protection information</strong></p><p class="ps-form-legal-notice">You may object to receiving commercial prospecting by telephone by registering free of charge on the telemarketing opposition list at <a href="https://www.bloctel.gouv.fr">www.bloctel.gouv.fr</a> or by post to Société Opposetel, Service Bloctel, 6 rue Nicolas Siret, 10000 Troyes, France. This registration prohibits a professional from contacting you by telephone, except where the call relates to an ongoing contract. BNP Paribas Real Estate Transaction France, a public limited company located at 50, cours de l&rsquo;Ile Seguin, 92100 Boulogne-Billancourt, France, as data controller, processes information about you to respond to your request submitted via this form and, where applicable, for commercial prospecting purposes (if you have given your consent or applicable law allows us to do so).</p><p class="ps-form-legal-notice">For more information on how BNP Paribas Real Estate Transaction France processes your personal data in this context and on your rights (including access, rectification, objection to processing for prospecting purposes, and the right to give instructions regarding your personal data after your death, as well as, in certain circumstances, erasure, restriction of processing, data portability and objection to other forms of processing) and BNP Paribas Real Estate Transaction France''s obligations in this regard, please see our <a href="https://data-privacy.realestate.bnpparibas/">Data Protection Notice</a>.</p>'
+      '#wrapper_attributes':
+        class:
+          - ps-contact-form__legal
+  step_message:
+    '#type': webform_wizard_page
+    '#title': Message
+    qualification_comment:
       '#type': textarea
       '#title': Message
-      '#default_value': 'I would like to schedule a visit for this offer.'
+      '#placeholder': 'Would you like to add any details about your visit request?'
+      '#maxlength': 2000
   offer_reference:
     '#type': hidden
     '#title': 'Offer reference'
@@ -102,22 +143,31 @@ elements: |-
   offer_agent_id:
     '#type': hidden
     '#title': 'Offer agent ID'
-  captcha:
-    '#type': captcha
-    '#captcha_type': altcha/ALTCHA
-  legal:
-    '#type': checkbox
-    '#title': 'I agree to the privacy policy.'
-    '#required': true
 css: ''
 javascript: ''
 settings:
-  ajax: false
-  page: true
+  ajax: true
+  ajax_scroll_top: form
+  page: false
+  form_submit_label: 'Send message'
   form_prepopulate_source_entity: true
   form_prepopulate_source_entity_type: node
-  confirmation_type: message
-  confirmation_message: 'Thank you. Your visit request has been sent.'
+  wizard_progress_bar: true
+  wizard_progress_pages: true
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_confirmation: false
+  wizard_auto_forward: false
+  wizard_page_type: container
+  wizard_prev_button_label: Back
+  wizard_next_button_label: Continue
+  confirmation_type: inline
+  confirmation_message: '<p>Thank you. Your visit request has been sent.</p>'
+  third_party_settings:
+    antibot:
+      antibot: true
+    honeypot:
+      honeypot: true
 access:
   create:
     roles:
@@ -143,12 +193,13 @@ handlers:
       cc_options: {  }
       bcc_mail: _default
       bcc_options: {  }
-      from_mail: '[webform_submission:values:email:raw]'
+      from_mail: '[webform_submission:values:prof_email_address:raw]'
       from_options: {  }
-      from_name: '[webform_submission:values:first_name:raw] [webform_submission:values:last_name:raw]'
+      from_name: '[webform_submission:values:firstname:raw] [webform_submission:values:lastname:raw]'
       subject: 'Visit request — Offer [webform_submission:values:offer_reference:raw]'
       body: |-
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">You have received a new contact request. The offer snapshot and visitor details are below.</p>
+        [webform_submission:ps-schedule-visit-availabilities]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your visit request regarding offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
         [webform_submission:ps-offer-email-block]
         <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">The property details below were recorded at the time of the request:</p>
@@ -159,6 +210,7 @@ handlers:
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your interest in BNP Paribas Real Estate.</p>
         <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.</p>
       excluded_elements:
+        availabilities: availabilities
         offer_reference: offer_reference
         offer_business_id: offer_business_id
         offer_operation_code: offer_operation_code
@@ -189,7 +241,7 @@ handlers:
       theme_name: ''
       parameters: {  }
       debug: false
-      reply_to: '[webform_submission:values:email:raw]'
+      reply_to: '[webform_submission:values:prof_email_address:raw]'
       return_path: ''
       sender_mail: ''
       sender_name: ''
@@ -203,7 +255,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: '[webform_submission:values:email:raw]'
+      to_mail: '[webform_submission:values:prof_email_address:raw]'
       to_options: {  }
       cc_mail: ''
       cc_options: {  }
@@ -214,7 +266,8 @@ handlers:
       from_name: _default
       subject: 'Your visit request — [webform_submission:values:offer_reference:raw]'
       body: |-
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Hello [webform_submission:values:first_name:raw],</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Hello [webform_submission:values:firstname:raw],</p>
+        [webform_submission:ps-schedule-visit-availabilities]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your visit request regarding offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
         [webform_submission:ps-offer-email-block]
         <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">The property details below were recorded at the time of the request:</p>
@@ -225,6 +278,7 @@ handlers:
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your interest in BNP Paribas Real Estate.</p>
         <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.</p>
       excluded_elements:
+        availabilities: availabilities
         offer_reference: offer_reference
         offer_business_id: offer_business_id
         offer_operation_code: offer_operation_code

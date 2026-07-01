@@ -251,7 +251,6 @@ final class ContactWizardPresentationService {
   private function applyContactStepFooter(array &$step): void {
     if (isset($step['required_fields_note']) && is_array($step['required_fields_note'])) {
       $step['required_fields_note']['#weight'] = 100;
-      $step['required_fields_note']['#wrapper_attributes']['class'][] = 'ps-form-contact-footer';
     }
 
     if (isset($step['legal_notice']) && is_array($step['legal_notice'])) {

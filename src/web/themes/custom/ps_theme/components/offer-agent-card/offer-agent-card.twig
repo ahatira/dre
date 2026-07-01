@@ -5,11 +5,10 @@
         {{ agent }}
       </div>
     {% endif %}
-    {% if contact_url %}
-      <a href="{{ contact_url }}"
-         class="btn btn-primary ps-offer-agent-card__contact use-ajax"
-         data-dialog-type="modal"
-         data-dialog-options="{{ contact_dialog_options|e('html_attr') }}">
+    {% if contact_link.url %}
+      <a href="{{ contact_link.url }}"
+         class="{{ contact_link.class }}"
+         {% for name, value in contact_link.attributes %} {{ name }}="{{ value|e('html_attr') }}"{% endfor %}>
         {{ contact_label }}
       </a>
     {% else %}
@@ -19,29 +18,32 @@
     {% endif %}
   </div>
 
-  {% if visit_enabled and visit_phone %}
+  {% if visit_link.url %}
     <div class="ps-offer-agent-card__visit">
       {% if visit_title %}
         <h3 class="ps-offer-agent-card__visit-title">{{ visit_title }}</h3>
       {% endif %}
-      <a href="{{ visit_phone }}" class="btn ps-offer-agent-card__visit-btn">
+      <a href="{{ visit_link.url }}"
+         class="{{ visit_link.class }}"
+         {% for name, value in visit_link.attributes %} {{ name }}="{{ value|e('html_attr') }}"{% endfor %}>
         {{ icon('bootstrap', 'calendar', {'size': '20px', 'class': 'ps-offer-agent-card__visit-icon'}) }}
         {{ visit_label }}
       </a>
     </div>
   {% endif %}
 
-  <div class="ps-offer-agent-card__mobile-actions{% if not (visit_enabled and visit_phone) %} ps-offer-agent-card__mobile-actions--contact-only{% endif %}" role="group" aria-label="{{ 'Offer actions'|t }}">
-    {% if visit_enabled and visit_phone %}
-      <a href="{{ visit_phone }}" class="btn ps-offer-agent-card__mobile-visit">
+  <div class="ps-offer-agent-card__mobile-actions{% if not visit_link.url %} ps-offer-agent-card__mobile-actions--contact-only{% endif %}" role="group" aria-label="{{ 'Offer actions'|t }}">
+    {% if mobile_visit_link.url %}
+      <a href="{{ mobile_visit_link.url }}"
+         class="{{ mobile_visit_link.class }}"
+         {% for name, value in mobile_visit_link.attributes %} {{ name }}="{{ value|e('html_attr') }}"{% endfor %}>
         {{ visit_label_mobile }}
       </a>
     {% endif %}
-    {% if contact_url %}
-      <a href="{{ contact_url }}"
-         class="btn btn-primary ps-offer-agent-card__mobile-contact use-ajax"
-         data-dialog-type="modal"
-         data-dialog-options="{{ contact_dialog_options|e('html_attr') }}">
+    {% if mobile_contact_link.url %}
+      <a href="{{ mobile_contact_link.url }}"
+         class="{{ mobile_contact_link.class }}"
+         {% for name, value in mobile_contact_link.attributes %} {{ name }}="{{ value|e('html_attr') }}"{% endfor %}>
         {{ contact_label_mobile }}
       </a>
     {% else %}

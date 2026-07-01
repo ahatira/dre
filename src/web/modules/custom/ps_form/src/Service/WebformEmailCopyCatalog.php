@@ -437,7 +437,7 @@ final class WebformEmailCopyCatalog {
     'schedule_visit' => [
       'en' => [
         'subject' => 'Your visit request — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Hello [webform_submission:values:first_name:raw],',
+        'greeting' => 'Hello [webform_submission:values:firstname:raw],',
         'intro' => 'Thank you for your visit request regarding offer <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Our consultant will contact you shortly to arrange a visit.',
         'recap_intro' => 'For reference, your request is as follows:',
@@ -446,7 +446,7 @@ final class WebformEmailCopyCatalog {
       ],
       'fr' => [
         'subject' => 'Votre demande de visite — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Bonjour [webform_submission:values:first_name:raw],',
+        'greeting' => 'Bonjour [webform_submission:values:firstname:raw],',
         'intro' => 'Merci pour votre demande de visite concernant l\'offre <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Notre consultant vous contactera rapidement pour organiser la visite.',
         'recap_intro' => 'Pour référence, voici le récapitulatif de votre demande :',
@@ -455,7 +455,7 @@ final class WebformEmailCopyCatalog {
       ],
       'de' => [
         'subject' => 'Ihre Besichtigungsanfrage — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Guten Tag [webform_submission:values:first_name:raw],',
+        'greeting' => 'Guten Tag [webform_submission:values:firstname:raw],',
         'intro' => 'Vielen Dank für Ihre Besichtigungsanfrage zum Angebot <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Unser Berater wird Sie in Kürze kontaktieren, um einen Termin zu vereinbaren.',
         'recap_intro' => 'Zur Referenz finden Sie Ihre Anfrage im Folgenden:',
@@ -464,7 +464,7 @@ final class WebformEmailCopyCatalog {
       ],
       'es' => [
         'subject' => 'Su solicitud de visita — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Hola [webform_submission:values:first_name:raw],',
+        'greeting' => 'Hola [webform_submission:values:firstname:raw],',
         'intro' => 'Gracias por su solicitud de visita relativa a la oferta <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Nuestro consultor se pondrá en contacto con usted en breve para organizar la visita.',
         'recap_intro' => 'A título informativo, su solicitud es la siguiente:',
@@ -473,7 +473,7 @@ final class WebformEmailCopyCatalog {
       ],
       'it' => [
         'subject' => 'La tua richiesta visita — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Gentile [webform_submission:values:first_name:raw],',
+        'greeting' => 'Gentile [webform_submission:values:firstname:raw],',
         'intro' => 'Grazie per la sua richiesta di visita relativa all\'offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Il nostro consulente la contatterà a breve per organizzare la visita.',
         'recap_intro' => 'Di seguito il riepilogo della sua richiesta:',
@@ -482,7 +482,7 @@ final class WebformEmailCopyCatalog {
       ],
       'nl' => [
         'subject' => 'Uw bezoekaanvraag — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Beste [webform_submission:values:first_name:raw],',
+        'greeting' => 'Beste [webform_submission:values:firstname:raw],',
         'intro' => 'Bedankt voor uw bezoekaanvraag over het aanbod <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Onze adviseur neemt spoedig contact met u op om het bezoek te plannen.',
         'recap_intro' => 'Ter referentie vindt u hieronder uw aanvraag:',
@@ -491,7 +491,7 @@ final class WebformEmailCopyCatalog {
       ],
       'pl' => [
         'subject' => 'Państwa prośba o wizytę — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Dzień dobry [webform_submission:values:first_name:raw],',
+        'greeting' => 'Dzień dobry [webform_submission:values:firstname:raw],',
         'intro' => 'Dziękujemy za prośbę o wizytę dotyczącą oferty <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Nasz doradca wkrótce skontaktuje się z Państwem, aby ustalić termin wizyty.',
         'recap_intro' => 'Poniżej przedstawiamy podsumowanie Państwa zapytania:',
@@ -500,7 +500,7 @@ final class WebformEmailCopyCatalog {
       ],
       'lb' => [
         'subject' => 'Är Ufro fir eng Visitt — [webform_submission:values:offer_reference:raw]',
-        'greeting' => 'Moien [webform_submission:values:first_name:raw],',
+        'greeting' => 'Moien [webform_submission:values:firstname:raw],',
         'intro' => 'Merci fir Är Ufro fir eng Visitt betreffend d\'Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.',
         'recap_intro' => 'Fir Är Informatioun, hei d\'Recapitulatioun vun Ärer Demande:',

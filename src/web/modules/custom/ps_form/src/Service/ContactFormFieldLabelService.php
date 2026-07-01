@@ -200,7 +200,7 @@ final class ContactFormFieldLabelService {
     if (!isset($step['required_fields_note'])) {
       $step['required_fields_note'] = [
         '#type' => 'webform_markup',
-        '#markup' => '<p class="ps-form-required-note">' . $this->t('* Required information', [], ['context' => 'Contact wizard required fields note']) . '</p>',
+        '#markup' => '<div class="ps-form-contact-footer"><p class="ps-form-required-note">' . $this->t('* Required information', [], ['context' => 'Contact wizard required fields note']) . '</p></div>',
       ];
     }
   }

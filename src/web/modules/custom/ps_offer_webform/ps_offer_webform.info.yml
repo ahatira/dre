@@ -13,3 +13,4 @@ dependencies:
   - ps_form:ps_form
   - ps_offer:ps_offer
   - webform:webform
+  - datetime_flatpickr:datetime_flatpickr_webform

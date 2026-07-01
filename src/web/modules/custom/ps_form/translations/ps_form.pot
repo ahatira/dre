@@ -17,3 +17,16 @@ msgstr ""
 
 msgid "Webform definitions and front integrations for Property Search."
 msgstr ""
+
+msgctxt "Schedule visit email"
+msgid "Preferred visit dates"
+msgstr ""
+
+msgid "Preferred visit dates"
+msgstr ""
+
+msgid "Highlighted list of visitor availability dates for schedule visit emails."
+msgstr ""
+
+msgid "Please select at least one availability date."
+msgstr ""

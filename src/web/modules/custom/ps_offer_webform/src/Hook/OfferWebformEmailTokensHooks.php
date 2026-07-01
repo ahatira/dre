@@ -12,6 +12,7 @@ use Drupal\ps_email\Service\ContactWebformEmailSettings;
 use Drupal\ps_offer_webform\Service\OfferContactEmailBlockBuilder;
 use Drupal\ps_offer_webform\Service\OfferContactSnapshotEmailRecapBuilder;
 use Drupal\ps_offer_webform\Service\OfferContactSnapshotFields;
+use Drupal\ps_offer_webform\Service\ScheduleVisitAvailabilitiesEmailBlockBuilder;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -25,6 +26,7 @@ final class OfferWebformEmailTokensHooks {
     private readonly ContactWebformEmailSettings $contactWebformEmailSettings,
     private readonly OfferContactEmailBlockBuilder $offerContactEmailBlockBuilder,
     private readonly OfferContactSnapshotEmailRecapBuilder $offerContactSnapshotEmailRecapBuilder,
+    private readonly ScheduleVisitAvailabilitiesEmailBlockBuilder $scheduleVisitAvailabilitiesEmailBlockBuilder,
   ) {}
 
   /**
@@ -42,6 +44,10 @@ final class OfferWebformEmailTokensHooks {
           'ps-offer-snapshot-recap' => [
             'name' => (string) $this->t('Offer snapshot recap'),
             'description' => (string) $this->t('Readable table of offer snapshot fields captured at submission time.'),
+          ],
+          'ps-schedule-visit-availabilities' => [
+            'name' => (string) $this->t('Preferred visit dates'),
+            'description' => (string) $this->t('Highlighted list of visitor availability dates for schedule visit emails.'),
           ],
         ],
       ],
@@ -73,14 +79,19 @@ final class OfferWebformEmailTokensHooks {
     $bubbleable_metadata->addCacheableDependency($submission->getWebform());
 
     $submissionData = $submission->getData();
-    if (!OfferContactSnapshotFields::isComplete($submissionData)) {
-      return $this->emptyReplacements($tokens);
-    }
-
     $langcode = $options['langcode'] ?? $submission->language()->getId();
     $langcode = is_string($langcode) ? $langcode : NULL;
 
     $replacements = [];
+
+    if ($webformId === 'schedule_visit' && isset($tokens['ps-schedule-visit-availabilities'])) {
+      $html = $this->scheduleVisitAvailabilitiesEmailBlockBuilder->buildHtmlFromSubmissionData($submissionData, $langcode);
+      $replacements[$tokens['ps-schedule-visit-availabilities']] = $html !== '' ? Markup::create($html) : '';
+    }
+
+    if (!OfferContactSnapshotFields::isComplete($submissionData)) {
+      return $replacements + $this->emptyOfferReplacements($tokens);
+    }
 
     if (isset($tokens['ps-offer-email-block'])) {
       $html = $this->offerContactEmailBlockBuilder->buildHtmlFromSnapshot($submissionData, $langcode);
@@ -100,7 +111,7 @@ final class OfferWebformEmailTokensHooks {
    *
    * @return array<string, string>
    */
-  private function emptyReplacements(array $tokens): array {
+  private function emptyOfferReplacements(array $tokens): array {
     $replacements = [];
     foreach (['ps-offer-email-block', 'ps-offer-snapshot-recap'] as $name) {
       if (isset($tokens[$name])) {

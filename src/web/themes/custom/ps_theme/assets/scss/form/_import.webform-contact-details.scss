@@ -45,6 +45,22 @@
   }
 
   // Opt-out checkboxes: one per line.
+  // Required note + legal footer — always full width (markup may omit form wrapper).
+  .ps-form-required-note,
+  > .form-wrapper:has(.ps-form-required-note),
+  > .js-form-wrapper:has(.ps-form-required-note) {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ps-form-required-note {
+    margin: 0 0 1rem;
+    font-size: $ps-form-label-size;
+    line-height: 1.5rem;
+    color: $ps-form-text;
+  }
+
   .ps-form-optout-item {
     display: flex !important;
     align-items: center;

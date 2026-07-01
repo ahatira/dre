@@ -74,6 +74,7 @@ ps_install_country_site() {
   ps_retry 2 2 ps_drush en -y mjml_render_engine mjml_render_devel 2>/dev/null || ps_warn "MJML stack not available before ps_form"
   ps_drush theme:install -y ps_theme_email 2>/dev/null || ps_warn "ps_theme_email not available before ps_email"
   ps_retry 2 2 ps_drush en -y ps_email || ps_die "ps_email could not be enabled before ps_form"
+  ps_retry 2 2 ps_drush en -y datetime_flatpickr datetime_flatpickr_webform 2>/dev/null || ps_warn "datetime_flatpickr not available before ps_form"
   ps_retry 2 2 ps_drush en -y ps_form
   # shellcheck source=/dev/null
   source "${PS_CORE_DIR}/config-sync.sh"

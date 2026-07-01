@@ -40,6 +40,14 @@ final class FormEmailThemeHooks {
         'template' => 'ps-offer-snapshot-email-recap',
         'path' => $path,
       ],
+      'ps_schedule_visit_availabilities_email_block' => [
+        'variables' => [
+          'title' => NULL,
+          'dates' => [],
+        ],
+        'template' => 'ps-schedule-visit-availabilities-email-block',
+        'path' => $path,
+      ],
     ];
   }
 

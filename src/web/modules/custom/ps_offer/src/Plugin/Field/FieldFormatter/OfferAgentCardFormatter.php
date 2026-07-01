@@ -15,7 +15,9 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\ps_agent\Entity\AgentInterface;
+use Drupal\ps_form\Service\ContactDisplayModeManager;
 use Drupal\ps_offer\Service\OfferContactResolver;
+use Drupal\ps_offer\Service\OfferWebformModalBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -43,6 +45,7 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
     EntityTypeManagerInterface $entity_type_manager,
     EntityDisplayRepositoryInterface $entity_display_repository,
     private readonly OfferContactResolver $contactResolver,
+    private readonly ContactDisplayModeManager $displayModeManager,
   ) {
     parent::__construct(
       $plugin_id,
@@ -74,6 +77,7 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
       $container->get('entity_type.manager'),
       $container->get('entity_display.repository'),
       $container->get('ps_offer.contact_resolver'),
+      $container->get('ps_form.contact_display_mode'),
     );
   }
 
@@ -89,7 +93,6 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
       'visit_title' => 'Would you like to visit?',
       'visit_label' => 'Schedule a visit',
       'visit_label_mobile' => 'Visit',
-      'contact_dialog_options' => '{"width":800,"dialogClasses":"modal-dialog-centered modal-lg"}',
     ] + parent::defaultSettings();
   }
 
@@ -122,13 +125,6 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
       '#title' => $this->t('Visit button label'),
       '#default_value' => $this->getSetting('visit_label'),
       '#required' => TRUE,
-    ];
-    $elements['contact_dialog_options'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Contact modal dialog options (JSON)'),
-      '#default_value' => $this->getSetting('contact_dialog_options'),
-      '#required' => TRUE,
-      '#rows'  => 3,
     ];
     return $elements;
   }
@@ -179,35 +175,23 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
       $agent_render['#consultant_label'] = (string) $this->t((string) $this->getSetting('consultant_label'));
     }
 
-    $phone = $agent instanceof AgentInterface && $agent->hasField('phone')
-      ? trim((string) ($agent->get('phone')->value ?? ''))
-      : '';
-
-    $contact_url = Url::fromRoute('ps_offer.webform', [
-      'node' => $offer->id(),
-      'webform' => 'offer_contact',
-    ], [
-      'query' => [
-        '_webform_dialog' => '1',
-        'source_entity_type' => 'node',
-        'source_entity_id' => $offer->id(),
-      ],
-    ])->toString();
+    $contactLabel = (string) $this->t((string) $this->getSetting('contact_label'));
+    $visitLabel = (string) $this->t((string) $this->getSetting('visit_label'));
 
     return [
       '#type' => 'component',
       '#component' => 'ps_theme:offer-agent-card',
       '#props' => [
         'consultant_label' => (string) $this->t((string) $this->getSetting('consultant_label')),
-        'contact_label' => (string) $this->t((string) $this->getSetting('contact_label')),
+        'contact_label' => $contactLabel,
         'contact_label_mobile' => (string) $this->t((string) $this->getSetting('contact_label_mobile')),
         'visit_title' => (string) $this->t((string) $this->getSetting('visit_title')),
-        'visit_label' => (string) $this->t((string) $this->getSetting('visit_label')),
+        'visit_label' => $visitLabel,
         'visit_label_mobile' => (string) $this->t((string) $this->getSetting('visit_label_mobile')),
-        'contact_url' => $contact_url,
-        'contact_dialog_options' => (string) $this->getSetting('contact_dialog_options'),
-        'visit_phone' => $this->normalizeTelUrl($phone),
-        'visit_enabled' => $phone !== '',
+        'contact_link' => $this->buildWebformLinkProps($offer, 'offer_contact', 'btn btn-primary ps-offer-agent-card__contact', $contactLabel),
+        'visit_link' => $this->buildWebformLinkProps($offer, 'schedule_visit', 'btn ps-offer-agent-card__visit-btn', $visitLabel),
+        'mobile_contact_link' => $this->buildWebformLinkProps($offer, 'offer_contact', 'btn btn-primary ps-offer-agent-card__mobile-contact', $contactLabel),
+        'mobile_visit_link' => $this->buildWebformLinkProps($offer, 'schedule_visit', 'btn ps-offer-agent-card__mobile-visit', (string) $this->t((string) $this->getSetting('visit_label_mobile'))),
       ],
       '#slots' => [
         'agent' => $agent_render,
@@ -216,10 +200,50 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
         'tags' => array_values(array_unique(array_merge(
           $offer->getCacheTags(),
           $agent instanceof EntityInterface ? $agent->getCacheTags() : [],
-          ['config:ps_offer.settings'],
+          ['config:ps_offer.settings', 'config:ps_form.settings'],
         ))),
         'contexts' => ['languages:language_interface'],
       ],
+    ];
+  }
+
+  /**
+   * Builds link props for an offer webform using the site contact display mode.
+   *
+   * @return array{url: string, class: string, attributes: array<string, string>}
+   */
+  private function buildWebformLinkProps(
+    NodeInterface $offer,
+    string $webformId,
+    string $buttonClass,
+    ?string $dialogTitle = NULL,
+  ): array {
+    if (!in_array($webformId, OfferWebformModalBuilder::OFFER_WEBFORMS, TRUE)) {
+      return [
+        'url' => '',
+        'class' => $buttonClass,
+        'attributes' => [],
+      ];
+    }
+
+    $url = Url::fromRoute('ps_offer.webform', [
+      'node' => $offer->id(),
+      'webform' => $webformId,
+    ], [
+      'query' => [
+        'source_entity_type' => 'node',
+        'source_entity_id' => $offer->id(),
+      ],
+    ])->toString();
+
+    $attributes = $this->displayModeManager->buildLinkAttributes($dialogTitle);
+    $classes = trim($buttonClass . ' ' . ($attributes['class'] ?? ''));
+    unset($attributes['class']);
+
+    return [
+      'url' => $url,
+      'class' => $classes,
+      'attributes' => $attributes,
     ];
   }
 
@@ -232,22 +256,6 @@ final class OfferAgentCardFormatter extends EntityReferenceEntityFormatter {
     $view_mode = (string) ($this->getSetting('view_mode') ?? 'card');
     $view_builder = $this->entityTypeManager->getViewBuilder('ps_agent');
     return $view_builder->view($agent, $view_mode, $langcode);
-  }
-
-  /**
-   * Builds a tel: URL from a raw phone number.
-   */
-  private function normalizeTelUrl(string $phone): string {
-    if ($phone === '') {
-      return '';
-    }
-
-    $normalized = preg_replace('/[^\d+]/', '', $phone) ?? '';
-    if ($normalized === '') {
-      return '';
-    }
-
-    return 'tel:' . $normalized;
   }
 
 }

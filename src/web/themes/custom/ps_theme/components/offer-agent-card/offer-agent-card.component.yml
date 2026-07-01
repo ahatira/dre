@@ -17,14 +17,16 @@ props:
       type: string
       title: Contact button label (mobile sticky bar)
       default: 'Contact'
-    contact_url:
-      type: string
-      title: Contact modal URL
-      default: ''
-    contact_dialog_options:
-      type: string
-      title: Contact modal dialog options (JSON)
-      default: '{}'
+    contact_link:
+      type: object
+      title: Contact webform link
+      properties:
+        url:
+          type: string
+        class:
+          type: string
+        attributes:
+          type: object
     visit_title:
       type: string
       title: Visit section title
@@ -37,14 +39,36 @@ props:
       type: string
       title: Visit button label (mobile sticky bar)
       default: 'Visit'
-    visit_phone:
-      type: string
-      title: Visit phone URL
-      default: ''
-    visit_enabled:
-      type: boolean
-      title: Visit phone link enabled
-      default: false
+    visit_link:
+      type: object
+      title: Schedule visit webform link
+      properties:
+        url:
+          type: string
+        class:
+          type: string
+        attributes:
+          type: object
+    mobile_contact_link:
+      type: object
+      title: Mobile contact webform link
+      properties:
+        url:
+          type: string
+        class:
+          type: string
+        attributes:
+          type: object
+    mobile_visit_link:
+      type: object
+      title: Mobile schedule visit webform link
+      properties:
+        url:
+          type: string
+        class:
+          type: string
+        attributes:
+          type: object
 slots:
   agent:
     title: Agent

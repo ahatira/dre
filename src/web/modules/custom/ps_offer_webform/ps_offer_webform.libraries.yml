@@ -1,0 +1,11 @@
+schedule_visit_availabilities:
+  version: 1.0.2
+  css:
+    component:
+      css/schedule-visit-availabilities.css: {}
+  js:
+    js/schedule-visit-availabilities.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - datetime_flatpickr/flatpickr-init

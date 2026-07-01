@@ -27,9 +27,18 @@ services:
     arguments:
       - '@renderer'
 
+  ps_offer_webform.schedule_visit_availabilities_email_block_builder:
+    class: Drupal\ps_offer_webform\Service\ScheduleVisitAvailabilitiesEmailBlockBuilder
+    arguments:
+      - '@renderer'
+      - '@date.formatter'
+      - '@ps_email.email_design_tokens'
+
   Drupal\ps_offer_webform\Hook\OfferContactSnapshotWebformHooks:
     arguments:
       - '@ps_offer_webform.offer_contact_snapshot_builder'
+
+  Drupal\ps_offer_webform\Hook\ScheduleVisitWebformHooks: {}
 
   Drupal\ps_offer_webform\Hook\FormEmailThemeHooks:
     arguments:
@@ -40,3 +49,4 @@ services:
       - '@ps_email.contact_webform_email_settings'
       - '@ps_offer_webform.offer_contact_email_block_builder'
       - '@ps_offer_webform.offer_contact_snapshot_email_recap_builder'
+      - '@ps_offer_webform.schedule_visit_availabilities_email_block_builder'

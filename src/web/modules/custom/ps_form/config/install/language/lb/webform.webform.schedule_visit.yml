@@ -1,58 +1,44 @@
-title: 'Eng Visitt plangen'
-description: 'Formulaire fir eng Besichtegung vun enger Offer ze plangen.'
+title: Eng Visitt plangen
+description: Formulaire fir eng Besichtegung vun enger Offer ze plangen.
 category: Immobiliesich
-elements: |-
-  visitor:
-    '#type': fieldset
-    '#title': 'Är Kontaktdonnéeën'
-    first_name:
-      '#type': textfield
-      '#title': 'Virnumm'
-      '#required': true
-    last_name:
-      '#type': textfield
-      '#title': 'Numm'
-      '#required': true
-    email:
-      '#type': email
-      '#title': E-Mail
-      '#required': true
-    phone:
-      '#type': tel
-      '#title': Telefon
-  visit:
-    '#type': fieldset
-    '#title': 'Ufro fir eng Visitt'
-    preferred_date:
-      '#type': date
-      '#title': 'Gewënschten Datum'
-    message:
-      '#type': textarea
-      '#title': Noriicht
-      '#default_value': 'Ech géif gär eng Visitt fir dës Offer plangen.'
-  legal:
-    '#type': checkbox
-    '#title': 'Ech stëmmen der Dateschutzpolitik zou.'
-    '#required': true
 settings:
   form_submit_label: Schécken
-  confirmation_message: 'Merci. Är Ufro fir eng Visitt gouf geschéckt.'
+  confirmation_message: Merci. Är Ufro fir eng Visitt gouf geschéckt.
 handlers:
   email_confirmation:
     settings:
-      subject: 'Är Ufro fir eng Visitt — [webform_submission:values:offer_reference:raw]'
-      body: |-
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Moien [webform_submission:values:first_name:raw],</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Är Ufro fir eng Visitt betreffend d'Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+      subject: Är Ufro fir eng Visitt — [webform_submission:values:offer_reference:raw]
+      body: '<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Moien
+        [webform_submission:values:firstname:raw],</p>
+
+        [webform_submission:ps-schedule-visit-availabilities]
+
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci
+        fir Är Ufro fir eng Visitt betreffend d''Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+
         [webform_submission:ps-offer-email-block]
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">D'Objektdetailer hei drënner goufen zum Zäitpunkt vun der Demande erfasst:</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">D''Objektdetailer
+        hei drënner goufen zum Zäitpunkt vun der Demande erfasst:</p>
+
         [webform_submission:ps-offer-snapshot-recap]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Eise
+        Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir
+        Är Informatioun, hei d''Recapitulatioun vun Ärer Demande:</p>
+
         [webform_submission:values]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci
+        fir Ären Interessi un BNP Paribas Real Estate.</p>
+
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte
+        Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>'
       excluded_elements:
+        availabilities: availabilities
         offer_reference: offer_reference
         offer_business_id: offer_business_id
         offer_operation_code: offer_operation_code
@@ -76,20 +62,41 @@ handlers:
     label: Besicherbestätegung
   email_agent:
     settings:
-      subject: 'Ufro fir eng Visitt — Offer [webform_submission:values:offer_reference:raw]'
-      body: |-
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dir hutt eng nei Kontaktufro kritt. Hei drënner de Snapshot vun der Offer an d'Donnéeë vum Visiteur.</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Är Ufro fir eng Visitt betreffend d'Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+      subject: Ufro fir eng Visitt — Offer [webform_submission:values:offer_reference:raw]
+      body: '<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dir
+        hutt eng nei Kontaktufro kritt. Hei drënner de Snapshot vun der Offer an d''Donnéeë
+        vum Visiteur.</p>
+
+        [webform_submission:ps-schedule-visit-availabilities]
+
+
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci
+        fir Är Ufro fir eng Visitt betreffend d''Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+
         [webform_submission:ps-offer-email-block]
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">D'Objektdetailer hei drënner goufen zum Zäitpunkt vun der Demande erfasst:</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">D''Objektdetailer
+        hei drënner goufen zum Zäitpunkt vun der Demande erfasst:</p>
+
         [webform_submission:ps-offer-snapshot-recap]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Eise
+        Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir
+        Är Informatioun, hei d''Recapitulatioun vun Ärer Demande:</p>
+
         [webform_submission:values]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci
+        fir Ären Interessi un BNP Paribas Real Estate.</p>
+
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte
+        Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>'
       to_mail: '[webform_submission:values:offer_agent_email:raw]'
       excluded_elements:
+        availabilities: availabilities
         offer_reference: offer_reference
         offer_business_id: offer_business_id
         offer_operation_code: offer_operation_code

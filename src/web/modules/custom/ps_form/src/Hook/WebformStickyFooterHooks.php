@@ -39,12 +39,7 @@ final class WebformStickyFooterHooks {
     $this->hideLegacyHelpFooter($form);
     $form['#attached']['library'][] = 'ps_theme/form';
 
-    if (!$this->urgencyContactBuilder->isEnabled()) {
-      return;
-    }
-
-    $build = $this->urgencyContactBuilder->buildRenderArray();
-    if ($build === []) {
+    if (!isset($form['actions'])) {
       return;
     }
 
@@ -56,20 +51,21 @@ final class WebformStickyFooterHooks {
       '#weight' => self::ACTIONS_WEIGHT,
     ];
 
-    if (isset($form['actions'])) {
-      $stickyFooter['actions'] = $form['actions'];
-      $stickyFooter['actions']['#weight'] = 0;
-      unset($form['actions']);
-    }
+    $stickyFooter['actions'] = $form['actions'];
+    $stickyFooter['actions']['#weight'] = 0;
+    unset($form['actions']);
 
-    $stickyFooter['urgency'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => ['ps-webform-urgency-help-wrapper'],
-      ],
-      'content' => $build,
-      '#weight' => 1,
-    ];
+    $build = $this->urgencyContactBuilder->buildRenderArray();
+    if ($build !== []) {
+      $stickyFooter['urgency'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['ps-webform-urgency-help-wrapper'],
+        ],
+        'content' => $build,
+        '#weight' => 1,
+      ];
+    }
 
     $form[self::STICKY_FOOTER_KEY] = $stickyFooter;
     $form['#attributes']['class'][] = 'ps-webform--has-sticky-footer';

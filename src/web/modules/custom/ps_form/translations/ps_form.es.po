@@ -69,3 +69,16 @@ msgstr "Confirmación al visitante"
 msgid "Webform definitions and front integrations for Property Search."
 msgstr "Definiciones de Webform e integraciones frontales para Property Search"
 "."
+
+msgctxt "Schedule visit email"
+msgid "Preferred visit dates"
+msgstr "Fechas de visita preferidas"
+
+msgid "Preferred visit dates"
+msgstr "Fechas de visita preferidas"
+
+msgid "Highlighted list of visitor availability dates for schedule visit emails."
+msgstr "Lista destacada de fechas de disponibilidad del visitante para los correos de solicitud de visita."
+
+msgid "Please select at least one availability date."
+msgstr "Seleccione al menos una fecha de disponibilidad."

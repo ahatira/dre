@@ -1,58 +1,45 @@
-title: 'Pianifica una visita'
-description: "Modulo per pianificare la visita di un'offerta."
-category: 'Ricerca immobiliare'
-elements: |-
-  visitor:
-    '#type': fieldset
-    '#title': 'I tuoi dati'
-    first_name:
-      '#type': textfield
-      '#title': 'Nome'
-      '#required': true
-    last_name:
-      '#type': textfield
-      '#title': 'Cognome'
-      '#required': true
-    email:
-      '#type': email
-      '#title': E-mail
-      '#required': true
-    phone:
-      '#type': tel
-      '#title': Telefono
-  visit:
-    '#type': fieldset
-    '#title': 'Richiesta visita'
-    preferred_date:
-      '#type': date
-      '#title': 'Data preferita'
-    message:
-      '#type': textarea
-      '#title': Messaggio
-      '#default_value': 'Vorrei pianificare una visita per questa offerta.'
-  legal:
-    '#type': checkbox
-    '#title': 'Accetto la politica sulla privacy.'
-    '#required': true
+title: Pianifica una visita
+description: Modulo per pianificare la visita di un'offerta.
+category: Ricerca immobiliare
 settings:
   form_submit_label: Invia
-  confirmation_message: 'Grazie. La tua richiesta di visita è stata inviata.'
+  confirmation_message: Grazie. La tua richiesta di visita è stata inviata.
 handlers:
   email_confirmation:
     settings:
-      subject: 'La tua richiesta visita — [webform_submission:values:offer_reference:raw]'
-      body: |-
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gentile [webform_submission:values:first_name:raw],</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Grazie per la sua richiesta di visita relativa all'offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+      subject: La tua richiesta visita — [webform_submission:values:offer_reference:raw]
+      body: '<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Gentile
+        [webform_submission:values:firstname:raw],</p>
+
+        [webform_submission:ps-schedule-visit-availabilities]
+
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Grazie
+        per la sua richiesta di visita relativa all''offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+
         [webform_submission:ps-offer-email-block]
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">I dettagli dell'immobile riportati di seguito sono stati registrati al momento della richiesta:</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">I
+        dettagli dell''immobile riportati di seguito sono stati registrati al momento
+        della richiesta:</p>
+
         [webform_submission:ps-offer-snapshot-recap]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Il nostro consulente la contatterà a breve per organizzare la visita.</p>
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Di seguito il riepilogo della sua richiesta:</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Il
+        nostro consulente la contatterà a breve per organizzare la visita.</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Di
+        seguito il riepilogo della sua richiesta:</p>
+
         [webform_submission:values]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">La ringraziamo per l'interesse verso BNP Paribas Real Estate.</p>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Cordiali saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">La
+        ringraziamo per l''interesse verso BNP Paribas Real Estate.</p>
+
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Cordiali
+        saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.</p>'
       excluded_elements:
+        availabilities: availabilities
         offer_reference: offer_reference
         offer_business_id: offer_business_id
         offer_operation_code: offer_operation_code
@@ -73,23 +60,45 @@ handlers:
         offer_langcode: offer_langcode
         offer_agent_email: offer_agent_email
         offer_agent_id: offer_agent_id
-    label: 'Conferma visitatore'
+    label: Conferma visitatore
   email_agent:
     settings:
-      subject: 'Richiesta visita — Offerta [webform_submission:values:offer_reference:raw]'
-      body: |-
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Ha ricevuto una nuova richiesta di contatto. Di seguito lo snapshot dell'offerta e i dati del visitatore.</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Grazie per la sua richiesta di visita relativa all'offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+      subject: Richiesta visita — Offerta [webform_submission:values:offer_reference:raw]
+      body: '<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Ha
+        ricevuto una nuova richiesta di contatto. Di seguito lo snapshot dell''offerta
+        e i dati del visitatore.</p>
+
+        [webform_submission:ps-schedule-visit-availabilities]
+
+
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Grazie
+        per la sua richiesta di visita relativa all''offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+
         [webform_submission:ps-offer-email-block]
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">I dettagli dell'immobile riportati di seguito sono stati registrati al momento della richiesta:</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">I
+        dettagli dell''immobile riportati di seguito sono stati registrati al momento
+        della richiesta:</p>
+
         [webform_submission:ps-offer-snapshot-recap]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Il nostro consulente la contatterà a breve per organizzare la visita.</p>
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Di seguito il riepilogo della sua richiesta:</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Il
+        nostro consulente la contatterà a breve per organizzare la visita.</p>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Di
+        seguito il riepilogo della sua richiesta:</p>
+
         [webform_submission:values]
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">La ringraziamo per l'interesse verso BNP Paribas Real Estate.</p>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Cordiali saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.</p>
+
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">La
+        ringraziamo per l''interesse verso BNP Paribas Real Estate.</p>
+
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Cordiali
+        saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.</p>'
       to_mail: '[webform_submission:values:offer_agent_email:raw]'
       excluded_elements:
+        availabilities: availabilities
         offer_reference: offer_reference
         offer_business_id: offer_business_id
         offer_operation_code: offer_operation_code
@@ -110,4 +119,4 @@ handlers:
         offer_langcode: offer_langcode
         offer_agent_email: offer_agent_email
         offer_agent_id: offer_agent_id
-    label: 'Notifica consulente'
+    label: Notifica consulente

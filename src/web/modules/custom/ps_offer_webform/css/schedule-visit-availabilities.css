@@ -1,0 +1,169 @@
+/**
+ * Schedule visit availability calendar (Flatpickr inline, multiple mode).
+ */
+
+.ps-schedule-visit-availabilities {
+  --ps-schedule-visit-selected-bg: var(--re-color-secondary, var(--bs-secondary, #ba3075));
+  --ps-schedule-visit-selected-border: var(--ps-schedule-visit-selected-bg);
+  --ps-schedule-visit-selected-text: #fff;
+  --ps-schedule-visit-inrange-bg: color-mix(in srgb, var(--ps-schedule-visit-selected-bg) 16%, transparent);
+}
+
+/* Hide only the form value input, not month/year controls inside the calendar. */
+.ps-schedule-visit-availabilities > label,
+.ps-schedule-visit-availabilities > input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-calendar.inline {
+  margin: 0;
+  max-width: 100%;
+  box-shadow: none;
+}
+
+/* Month / year header — primary bar, centered white label. */
+.ps-schedule-visit-availabilities .flatpickr-months {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--re-color-primary, var(--bs-primary, #00915a));
+  color: #fff;
+  padding: 0.625rem 2.75rem;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-month {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  color: #fff;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-prev-month,
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-next-month {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  color: #fff;
+  fill: #fff;
+  transform: translateY(-50%);
+}
+
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-prev-month {
+  left: 0.75rem;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-next-month {
+  right: 0.75rem;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-prev-month:hover,
+.ps-schedule-visit-availabilities .flatpickr-months .flatpickr-next-month:hover {
+  color: #fff;
+  fill: #fff;
+  opacity: 0.85;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-current-month {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: auto;
+  height: auto;
+  padding: 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-current-month .flatpickr-monthDropdown-months,
+.ps-schedule-visit-availabilities .flatpickr-current-month input.cur-year {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0.125rem 0.25rem !important;
+  overflow: visible !important;
+  clip: auto !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  border: 0 !important;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  appearance: auto;
+  -webkit-text-fill-color: #fff;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-current-month .flatpickr-monthDropdown-months option {
+  color: #212529;
+  background: #fff;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-current-month input.cur-year:focus,
+.ps-schedule-visit-availabilities .flatpickr-current-month .flatpickr-monthDropdown-months:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.ps-schedule-visit-availabilities .flatpickr-current-month input.cur-year[disabled] {
+  opacity: 1 !important;
+  cursor: default;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+/* Selected dates — secondary instead of Flatpickr default blue. */
+.ps-schedule-visit-availabilities .flatpickr-day.selected,
+.ps-schedule-visit-availabilities .flatpickr-day.selected:hover,
+.ps-schedule-visit-availabilities .flatpickr-day.startRange,
+.ps-schedule-visit-availabilities .flatpickr-day.endRange,
+.ps-schedule-visit-availabilities .flatpickr-day.startRange.inRange,
+.ps-schedule-visit-availabilities .flatpickr-day.endRange.inRange {
+  background: var(--ps-schedule-visit-selected-bg);
+  border-color: var(--ps-schedule-visit-selected-border);
+  color: var(--ps-schedule-visit-selected-text);
+}
+
+.ps-schedule-visit-availabilities .flatpickr-day.inRange {
+  background: var(--ps-schedule-visit-inrange-bg);
+  border-color: transparent;
+  box-shadow: -5px 0 0 var(--ps-schedule-visit-inrange-bg), 5px 0 0 var(--ps-schedule-visit-inrange-bg);
+}
+
+.ps-schedule-visit-availabilities .flatpickr-day.today {
+  border-color: var(--ps-schedule-visit-selected-bg);
+}
+
+.ps-schedule-visit-availabilities .flatpickr-day.today:hover,
+.ps-schedule-visit-availabilities .flatpickr-day.today:focus {
+  background: var(--ps-schedule-visit-inrange-bg);
+  border-color: var(--ps-schedule-visit-selected-bg);
+  color: inherit;
+}
+
+.ps-webform-sticky-footer .webform-button--next.is-disabled,
+.ps-webform-sticky-footer .webform-button--next:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  pointer-events: none;
+}

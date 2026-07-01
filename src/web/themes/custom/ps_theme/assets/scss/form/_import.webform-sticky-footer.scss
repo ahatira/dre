@@ -98,7 +98,8 @@ $ps-webform-sticky-padding: 1rem;
 .offcanvas-body:has(.ps-webform--has-sticky-footer),
 .modal-body:has(.ps-webform--has-sticky-footer),
 .ps-search-alert-offcanvas__content:has(.ps-webform--has-sticky-footer),
-.ps-compare-share-offcanvas__content:has(.ps-webform--has-sticky-footer) {
+.ps-compare-share-offcanvas__content:has(.ps-webform--has-sticky-footer),
+.ps-contact-offcanvas .offcanvas-body:has(.ps-webform--has-sticky-footer) {
   --ps-webform-sticky-inset-x: var(--bs-offcanvas-padding-x, 1rem);
 
   display: flex;

@@ -68,3 +68,16 @@ msgstr "Confirmatioun un den Visiteur"
 
 msgid "Webform definitions and front integrations for Property Search."
 msgstr "Webform-Definitiounen a Front-Integratioune fir Property Search."
+
+msgctxt "Schedule visit email"
+msgid "Preferred visit dates"
+msgstr "Gewënscht Visittdatum"
+
+msgid "Preferred visit dates"
+msgstr "Gewënscht Visittdatum"
+
+msgid "Highlighted list of visitor availability dates for schedule visit emails."
+msgstr "Ervirgehoben Lëscht vun de Disponibilitéitsdaten vum Visiteur fir Visitt-Ufro-E-Maile."
+
+msgid "Please select at least one availability date."
+msgstr "Wielt w.e.g. mindestens ee Disponibilitéitsdatum."
