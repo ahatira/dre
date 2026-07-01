@@ -15,4 +15,5 @@ dependencies:
   - ps_diagnostic:ps_diagnostic
   - ps_media:ps_media
   - ps_favorite:ps_favorite
+  - address:address
   - webform:webform

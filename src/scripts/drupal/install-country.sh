@@ -98,6 +98,8 @@ ps_install_country_site() {
   ps_info "Importing dictionary..."
   ps_retry 2 2 ps_drush ps:dictionary:import -y || ps_warn "Dictionary import warnings"
 
+  ps_retry 2 2 ps_drush en -y address geofield || ps_die "address/geofield stack not ready before ps_compare"
+  ps_refresh_field_type_cache || ps_warn "Field type cache refresh failed before ps_compare"
   ps_retry 2 2 ps_drush en -y ps_compare
   ps_refresh_field_type_cache
   ps_retry 2 2 ps_drush en -y search_api search_api_solr || ps_warn "search_api / search_api_solr enable had warnings"

@@ -17,8 +17,8 @@ dependencies:
   - drupal:field
   - drupal:options
   - drupal:user
-  - drupal:address
-  - drupal:geofield
+  - address:address
+  - geofield:geofield
   - drupal:entity_reference_revisions
   - geocoder:geocoder
   - geocoder:geocoder_field
