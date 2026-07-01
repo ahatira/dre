@@ -6,6 +6,7 @@ namespace Drupal\ps_feature\Form;
 
 use Drupal\config_translation\Form\ConfigTranslationFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Custom configuration translation form for feature groups.
@@ -22,7 +23,7 @@ class FeatureGroupTranslationForm extends ConfigTranslationFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, \Drupal\Core\Routing\RouteMatchInterface $route_match = NULL, $plugin_id = NULL, $langcode = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?RouteMatchInterface $route_match = NULL, ?string $plugin_id = NULL, ?string $langcode = NULL): array {
     // Initialize mapper and language from parameters.
     if ($plugin_id) {
       /** @var \Drupal\config_translation\ConfigMapperManagerInterface $mapper_manager */

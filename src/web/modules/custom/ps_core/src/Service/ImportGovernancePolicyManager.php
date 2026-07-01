@@ -8,6 +8,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\ps_core\Annotation\ImportGovernancePolicy;
+use Drupal\ps_core\Attribute\ImportGovernancePolicy as ImportGovernancePolicyAttribute;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePolicyInterface;
 
 /**
@@ -25,6 +26,7 @@ class ImportGovernancePolicyManager extends DefaultPluginManager {
       $namespaces,
       $module_handler,
       ImportGovernancePolicyInterface::class,
+      ImportGovernancePolicyAttribute::class,
       ImportGovernancePolicy::class,
     );
 

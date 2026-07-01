@@ -6,6 +6,8 @@ namespace Drupal\ps_feature\Plugin\ImportGovernance;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_core\Attribute\ImportGovernancePolicy;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePolicyBase;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernanceCatalogueImportPolicyInterface;
 use Drupal\ps_core\Plugin\ImportGovernance\ImportGovernancePostImportPolicyInterface;
@@ -14,15 +16,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Import governance policy for the feature catalogue.
- *
- * @ImportGovernancePolicy(
- *   id = "features",
- *   admin_label = @Translation("Features"),
- *   description = @Translation("Feature catalogue CRM/XML, CSV and offer import rules."),
- *   settings_route = "ps_feature.governance_domain_settings",
- *   weight = 0,
- * )
  */
+#[ImportGovernancePolicy(
+  id: 'features',
+  admin_label: new TranslatableMarkup('Features'),
+  description: new TranslatableMarkup('Feature catalogue CRM/XML, CSV and offer import rules.'),
+  settings_route: 'ps_feature.governance_domain_settings',
+  weight: 0,
+)]
 final class FeatureImportGovernancePolicy extends ImportGovernancePolicyBase implements ContainerFactoryPluginInterface, ImportGovernanceCatalogueImportPolicyInterface, ImportGovernancePostImportPolicyInterface {
 
   /**

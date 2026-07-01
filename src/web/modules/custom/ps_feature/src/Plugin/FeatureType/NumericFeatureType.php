@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Numeric feature type plugin.
- *
- * @FeatureType(
- *   id = "numeric",
- *   label = @Translation("Numeric value"),
- *   description = @Translation("Numeric value with unit: {value: num, unit: string}")
- * )
  */
+#[FeatureType(
+  id: 'numeric',
+  label: new TranslatableMarkup('Numeric value'),
+  description: new TranslatableMarkup('Numeric value with unit: {value: num, unit: string}'),
+)]
 class NumericFeatureType extends FeatureTypeBase {
 
   /**

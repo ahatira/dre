@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Taxonomy feature type plugin.
- *
- * @FeatureType(
- *   id = "taxonomy",
- *   label = @Translation("Taxonomy"),
- *   description = @Translation("Reference to a taxonomy term: {tid: int}")
- * )
  */
+#[FeatureType(
+  id: 'taxonomy',
+  label: new TranslatableMarkup('Taxonomy'),
+  description: new TranslatableMarkup('Reference to a taxonomy term: {tid: int}'),
+)]
 class TaxonomyFeatureType extends FeatureTypeBase {
 
   /**

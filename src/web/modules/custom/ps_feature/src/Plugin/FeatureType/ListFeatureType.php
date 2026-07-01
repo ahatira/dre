@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * List feature type plugin.
- *
- * @FeatureType(
- *   id = "list",
- *   label = @Translation("Multi-value list"),
- *   description = @Translation("List of dictionary codes: {codes: array}")
- * )
  */
+#[FeatureType(
+  id: 'list',
+  label: new TranslatableMarkup('Multi-value list'),
+  description: new TranslatableMarkup('List of dictionary codes: {codes: array}'),
+)]
 class ListFeatureType extends FeatureTypeBase {
 
   /**

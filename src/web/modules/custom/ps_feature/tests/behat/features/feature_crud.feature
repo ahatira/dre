@@ -113,7 +113,7 @@ Feature: PS Feature UI and API regression
       """
       {"value":88.0,"unit":"sqm"}
       """
-    When I run feature builder roundtrip for definition "test_feature_roundtrip" on offer node "1"
+    When I run feature builder roundtrip for definition "test_feature_roundtrip"
     Then the script output should contain "PASS: roundtrip state initial payload"
     And the script output should contain "PASS: roundtrip state updated payload"
     And the script output should contain "PASS: roundtrip state changed after update"

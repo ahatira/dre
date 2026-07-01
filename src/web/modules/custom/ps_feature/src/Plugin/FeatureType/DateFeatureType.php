@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Date feature type plugin.
- *
- * @FeatureType(
- *   id = "date",
- *   label = @Translation("Date"),
- *   description = @Translation("Date with precision: {value: date, precision: string}")
- * )
  */
+#[FeatureType(
+  id: 'date',
+  label: new TranslatableMarkup('Date'),
+  description: new TranslatableMarkup('Date with precision: {value: date, precision: string}'),
+)]
 class DateFeatureType extends FeatureTypeBase {
 
   /**

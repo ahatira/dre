@@ -253,6 +253,6 @@ tracker_settings:
 options:
   cron_limit: 50
   delete_on_fail: false
-  index_directly: false
+  index_directly: true
   track_changes_in_references: false
 server: ps_solr

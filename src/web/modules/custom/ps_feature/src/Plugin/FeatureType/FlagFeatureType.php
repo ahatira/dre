@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Flag feature type plugin.
- *
- * @FeatureType(
- *   id = "flag",
- *   label = @Translation("Flag indicator"),
- *   description = @Translation("Implicit presence: {presence: true}")
- * )
  */
+#[FeatureType(
+  id: 'flag',
+  label: new TranslatableMarkup('Flag indicator'),
+  description: new TranslatableMarkup('Implicit presence: {presence: true}'),
+)]
 class FlagFeatureType extends FeatureTypeBase {
 
   /**

@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Range feature type plugin.
- *
- * @FeatureType(
- *   id = "range",
- *   label = @Translation("Value range"),
- *   description = @Translation("Min-max range with unit: {min: num, max: num, unit: string}")
- * )
  */
+#[FeatureType(
+  id: 'range',
+  label: new TranslatableMarkup('Value range'),
+  description: new TranslatableMarkup('Min-max range with unit: {min: num, max: num, unit: string}'),
+)]
 class RangeFeatureType extends FeatureTypeBase {
 
   /**

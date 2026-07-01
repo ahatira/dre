@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Text feature type plugin.
- *
- * @FeatureType(
- *   id = "text",
- *   label = @Translation("Free text"),
- *   description = @Translation("Short text: {value: string}")
- * )
  */
+#[FeatureType(
+  id: 'text',
+  label: new TranslatableMarkup('Free text'),
+  description: new TranslatableMarkup('Short text: {value: string}'),
+)]
 class TextFeatureType extends FeatureTypeBase {
 
   /**

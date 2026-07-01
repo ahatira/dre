@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Yes/No feature type plugin.
- *
- * @FeatureType(
- *   id = "yes_no",
- *   label = @Translation("Yes/No"),
- *   description = @Translation("Explicit boolean value: {value: bool}")
- * )
  */
+#[FeatureType(
+  id: 'yes_no',
+  label: new TranslatableMarkup('Yes/No'),
+  description: new TranslatableMarkup('Explicit boolean value: {value: bool}'),
+)]
 class YesNoFeatureType extends FeatureTypeBase {
 
   /**

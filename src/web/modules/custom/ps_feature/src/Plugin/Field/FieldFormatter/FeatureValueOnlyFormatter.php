@@ -2,23 +2,22 @@
 
 namespace Drupal\ps_feature\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ps_feature\Service\FeatureTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'feature_value_only' formatter.
- *
- * @FieldFormatter(
- *   id = "feature_value_only",
- *   label = @Translation("Feature value only"),
- *   description = @Translation("Display only the formatted feature value."),
- *   field_types = {
- *     "feature"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'feature_value_only',
+  label: new TranslatableMarkup('Feature value only'),
+  description: new TranslatableMarkup('Display only the formatted feature value.'),
+  field_types: ['feature'],
+)]
 class FeatureValueOnlyFormatter extends FormatterBase {
 
   /**

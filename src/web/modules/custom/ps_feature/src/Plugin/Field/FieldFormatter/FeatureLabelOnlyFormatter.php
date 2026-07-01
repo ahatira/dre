@@ -2,21 +2,20 @@
 
 namespace Drupal\ps_feature\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'feature_label_only' formatter.
- *
- * @FieldFormatter(
- *   id = "feature_label_only",
- *   label = @Translation("Feature label only"),
- *   description = @Translation("Display only the feature label."),
- *   field_types = {
- *     "feature"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'feature_label_only',
+  label: new TranslatableMarkup('Feature label only'),
+  description: new TranslatableMarkup('Display only the feature label.'),
+  field_types: ['feature'],
+)]
 class FeatureLabelOnlyFormatter extends FormatterBase {
 
   /**

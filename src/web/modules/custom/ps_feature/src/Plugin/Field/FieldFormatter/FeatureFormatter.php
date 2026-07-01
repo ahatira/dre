@@ -3,10 +3,12 @@
 namespace Drupal\ps_feature\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ps_feature\Service\FeatureDefinitionIconResolver;
 use Drupal\ps_feature\Service\FeatureGroupIconResolver;
 use Drupal\ps_feature\Service\FeatureTypeManager;
@@ -14,15 +16,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'feature_default' formatter.
- *
- * @FieldFormatter(
- *   id = "feature_default",
- *   label = @Translation("Default feature display"),
- *   field_types = {
- *     "feature"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'feature_default',
+  label: new TranslatableMarkup('Default feature display'),
+  field_types: ['feature'],
+)]
 class FeatureFormatter extends FormatterBase {
 
   /**

@@ -223,6 +223,13 @@ final class FeatureModuleContext extends MinkContext implements Context {
   }
 
   /**
+   * @When I run feature builder roundtrip for definition :defId
+   */
+  public function iRunFeatureBuilderRoundtripForDefinition(string $defId): void {
+    $this->iRunFeatureBuilderRoundtripForDefinitionOnOfferNode($defId, '0');
+  }
+
+  /**
    * @When I run feature builder roundtrip for definition :defId on offer node :nid
    */
   public function iRunFeatureBuilderRoundtripForDefinitionOnOfferNode(string $defId, string $nid): void {

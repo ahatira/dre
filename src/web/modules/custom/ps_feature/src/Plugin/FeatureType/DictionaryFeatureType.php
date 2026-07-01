@@ -2,17 +2,18 @@
 
 namespace Drupal\ps_feature\Plugin\FeatureType;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ps_feature\Attribute\FeatureType;
 use Drupal\ps_feature\Plugin\FeatureTypeBase;
 
 /**
  * Dictionary feature type plugin.
- *
- * @FeatureType(
- *   id = "dictionary",
- *   label = @Translation("Dictionary"),
- *   description = @Translation("Dictionary code: {code: string}")
- * )
  */
+#[FeatureType(
+  id: 'dictionary',
+  label: new TranslatableMarkup('Dictionary'),
+  description: new TranslatableMarkup('Dictionary code: {code: string}'),
+)]
 class DictionaryFeatureType extends FeatureTypeBase {
 
   /**
