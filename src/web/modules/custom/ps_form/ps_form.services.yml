@@ -82,12 +82,6 @@ services:
       - '@ps_form.contact_email_hero_image_resolver'
       - '@entity_type.manager'
 
-  Drupal\ps_form\Hook\OfferEmailHooks:
-    arguments:
-      - '@ps_email.contact_webform_email_settings'
-      - '@ps_email.offer_email_card_html_renderer'
-      - '@entity_type.manager'
-
   Drupal\ps_form\Hook\EmailMjmlPreviewHooks:
     arguments:
       - '@ps_form.contact_email_hero_image_resolver'

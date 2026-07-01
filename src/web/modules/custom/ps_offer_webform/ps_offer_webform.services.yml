@@ -1,0 +1,42 @@
+services:
+  ps_offer_webform.offer_contact_snapshot_builder:
+    class: Drupal\ps_offer_webform\Service\OfferContactSnapshotBuilder
+    arguments:
+      - '@ps_offer.contact_resolver'
+      - '@ps_offer.gallery_image_resolver'
+      - '@ps_offer.default_image_resolver'
+      - '@ps_dictionary.resolver'
+      - '@date.formatter'
+      - '@datetime.time'
+
+  ps_offer_webform.offer_contact_snapshot_props_builder:
+    class: Drupal\ps_offer_webform\Service\OfferContactSnapshotPropsBuilder
+    arguments:
+      - '@file_url_generator'
+      - '@ps_offer.default_image_resolver'
+
+  ps_offer_webform.offer_contact_email_block_builder:
+    class: Drupal\ps_offer_webform\Service\OfferContactEmailBlockBuilder
+    arguments:
+      - '@ps_email.offer_email_card_html_renderer'
+      - '@ps_offer_webform.offer_contact_snapshot_props_builder'
+      - '@renderer'
+
+  ps_offer_webform.offer_contact_snapshot_email_recap_builder:
+    class: Drupal\ps_offer_webform\Service\OfferContactSnapshotEmailRecapBuilder
+    arguments:
+      - '@renderer'
+
+  Drupal\ps_offer_webform\Hook\OfferContactSnapshotWebformHooks:
+    arguments:
+      - '@ps_offer_webform.offer_contact_snapshot_builder'
+
+  Drupal\ps_offer_webform\Hook\FormEmailThemeHooks:
+    arguments:
+      - '@extension.list.module'
+
+  Drupal\ps_offer_webform\Hook\OfferWebformEmailTokensHooks:
+    arguments:
+      - '@ps_email.contact_webform_email_settings'
+      - '@ps_offer_webform.offer_contact_email_block_builder'
+      - '@ps_offer_webform.offer_contact_snapshot_email_recap_builder'

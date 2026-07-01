@@ -9,6 +9,7 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Render\Markup;
 use Drupal\ps_email\Processor\EmailLogoAttachmentProcessor;
 use Drupal\ps_email\Processor\EmailPlainTextFromHtmlProcessor;
+use Drupal\ps_email\Processor\OfferEmailCardImageAttachmentProcessor;
 use Drupal\ps_email\Service\EmailMjmlPreviewVariablesBuilder;
 use Drupal\symfony_mailer\EmailInterface;
 
@@ -19,6 +20,7 @@ final class MailHooks {
 
   public function __construct(
     private readonly EmailLogoAttachmentProcessor $emailLogoAttachmentProcessor,
+    private readonly OfferEmailCardImageAttachmentProcessor $offerEmailCardImageAttachmentProcessor,
     private readonly EmailPlainTextFromHtmlProcessor $emailPlainTextFromHtmlProcessor,
     private readonly EmailMjmlPreviewVariablesBuilder $emailMjmlPreviewVariablesBuilder,
   ) {}
@@ -51,6 +53,7 @@ final class MailHooks {
   #[Hook('mailer_init')]
   public function mailerInit(EmailInterface $email): void {
     $email->addProcessor($this->emailLogoAttachmentProcessor);
+    $email->addProcessor($this->offerEmailCardImageAttachmentProcessor);
     $email->addProcessor($this->emailPlainTextFromHtmlProcessor);
   }
 

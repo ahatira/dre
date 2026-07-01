@@ -42,6 +42,66 @@ elements: |-
       '#type': textarea
       '#title': Message
       '#default_value': 'I would like to schedule a visit for this offer.'
+  offer_reference:
+    '#type': hidden
+    '#title': 'Offer reference'
+  offer_business_id:
+    '#type': hidden
+    '#title': 'Offer business ID'
+  offer_operation_code:
+    '#type': hidden
+    '#title': 'Offer operation code'
+  offer_asset_code:
+    '#type': hidden
+    '#title': 'Offer asset code'
+  offer_captured_at:
+    '#type': hidden
+    '#title': 'Offer captured at'
+  offer_title:
+    '#type': hidden
+    '#title': 'Offer title'
+  offer_operation_label:
+    '#type': hidden
+    '#title': 'Offer operation label'
+  offer_asset_label:
+    '#type': hidden
+    '#title': 'Offer asset label'
+  offer_surface_primary:
+    '#type': hidden
+    '#title': 'Offer surface primary'
+  offer_surface_suffix:
+    '#type': hidden
+    '#title': 'Offer surface suffix'
+  offer_location:
+    '#type': hidden
+    '#title': 'Offer location'
+  offer_price_display:
+    '#type': hidden
+    '#title': 'Offer price display'
+  offer_price_qualifiers:
+    '#type': hidden
+    '#title': 'Offer price qualifiers'
+  offer_exclusive:
+    '#type': hidden
+    '#title': 'Offer exclusive'
+  offer_url:
+    '#type': hidden
+    '#title': 'Offer URL'
+  offer_image_uri:
+    '#type': hidden
+    '#title': 'Offer image URI'
+  offer_image_alt:
+    '#type': hidden
+    '#title': 'Offer image alt'
+  offer_langcode:
+    '#type': hidden
+    '#title': 'Offer language'
+  offer_agent_email:
+    '#type': hidden
+    '#title': 'Offer agent email'
+  offer_agent_id:
+    '#type': hidden
+    '#title': 'Offer agent ID'
   captcha:
     '#type': captcha
     '#captcha_type': altcha/ALTCHA
@@ -77,7 +137,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: '[webform_submission:source-entity:ps-offer-contact-email]'
+      to_mail: '[webform_submission:values:offer_agent_email:raw]'
       to_options: {  }
       cc_mail: ''
       cc_options: {  }
@@ -86,9 +146,39 @@ handlers:
       from_mail: '[webform_submission:values:email:raw]'
       from_options: {  }
       from_name: '[webform_submission:values:first_name:raw] [webform_submission:values:last_name:raw]'
-      subject: 'Visit request — Offer [webform_submission:source-entity:field_reference]'
-      body: _default
-      excluded_elements: {  }
+      subject: 'Visit request — Offer [webform_submission:values:offer_reference:raw]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">You have received a new contact request. The offer snapshot and visitor details are below.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your visit request regarding offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+        [webform_submission:ps-offer-email-block]
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">The property details below were recorded at the time of the request:</p>
+        [webform_submission:ps-offer-snapshot-recap]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Our consultant will contact you shortly to arrange a visit.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">For reference, your request is as follows:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your interest in BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.</p>
+      excluded_elements:
+        offer_reference: offer_reference
+        offer_business_id: offer_business_id
+        offer_operation_code: offer_operation_code
+        offer_asset_code: offer_asset_code
+        offer_captured_at: offer_captured_at
+        offer_title: offer_title
+        offer_operation_label: offer_operation_label
+        offer_asset_label: offer_asset_label
+        offer_surface_primary: offer_surface_primary
+        offer_surface_suffix: offer_surface_suffix
+        offer_location: offer_location
+        offer_price_display: offer_price_display
+        offer_price_qualifiers: offer_price_qualifiers
+        offer_exclusive: offer_exclusive
+        offer_url: offer_url
+        offer_image_uri: offer_image_uri
+        offer_image_alt: offer_image_alt
+        offer_langcode: offer_langcode
+        offer_agent_email: offer_agent_email
+        offer_agent_id: offer_agent_id
       ignore_access: false
       exclude_empty: true
       exclude_empty_checkbox: true
@@ -122,16 +212,39 @@ handlers:
       from_mail: _default
       from_options: {  }
       from_name: _default
-      subject: 'Your visit request — [webform_submission:source-entity:field_reference]'
+      subject: 'Your visit request — [webform_submission:values:offer_reference:raw]'
       body: |-
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Hello [webform_submission:values:first_name:raw],</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your visit request regarding offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your visit request regarding offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+        [webform_submission:ps-offer-email-block]
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">The property details below were recorded at the time of the request:</p>
+        [webform_submission:ps-offer-snapshot-recap]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Our consultant will contact you shortly to arrange a visit.</p>
         <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">For reference, your request is as follows:</p>
         [webform_submission:values]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Thank you for your interest in BNP Paribas Real Estate.</p>
         <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.</p>
-      excluded_elements: {  }
+      excluded_elements:
+        offer_reference: offer_reference
+        offer_business_id: offer_business_id
+        offer_operation_code: offer_operation_code
+        offer_asset_code: offer_asset_code
+        offer_captured_at: offer_captured_at
+        offer_title: offer_title
+        offer_operation_label: offer_operation_label
+        offer_asset_label: offer_asset_label
+        offer_surface_primary: offer_surface_primary
+        offer_surface_suffix: offer_surface_suffix
+        offer_location: offer_location
+        offer_price_display: offer_price_display
+        offer_price_qualifiers: offer_price_qualifiers
+        offer_exclusive: offer_exclusive
+        offer_url: offer_url
+        offer_image_uri: offer_image_uri
+        offer_image_alt: offer_image_alt
+        offer_langcode: offer_langcode
+        offer_agent_email: offer_agent_email
+        offer_agent_id: offer_agent_id
       ignore_access: false
       exclude_empty: true
       exclude_empty_checkbox: true

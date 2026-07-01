@@ -32,6 +32,7 @@ final class EmailThemeHooks {
       'cta_label' => '',
       'image' => NULL,
       'image_alt' => '',
+      'image_uri' => '',
     ];
 
     $path = \Drupal::service('extension.list.theme')->getPath('ps_theme_email') . '/templates/cards';

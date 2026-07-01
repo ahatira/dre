@@ -1,0 +1,15 @@
+name: 'PS Offer Webform'
+type: module
+description: 'Offer-context webform integration: snapshot emails, tokens, and submission hooks.'
+core_version_requirement: ^11.3
+version: 1.0.0
+package: 'Property Search'
+dependencies:
+  - drupal:node
+  - drupal:token
+  - ps_core:ps_core
+  - ps_dictionary:ps_dictionary
+  - ps_email:ps_email
+  - ps_form:ps_form
+  - ps_offer:ps_offer
+  - webform:webform

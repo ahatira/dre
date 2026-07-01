@@ -21,6 +21,7 @@ if (!is_readable($autoload)) {
 }
 require_once $autoload;
 require_once dirname(__DIR__) . '/src/Service/WebformEmailCopyCatalog.php';
+require_once dirname(__DIR__, 2) . '/ps_offer_webform/src/Service/OfferContactSnapshotFields.php';
 
 /**
  * Ensures a nested handler override structure exists.
@@ -123,10 +124,18 @@ foreach (WebformEmailCopyCatalog::OFFER_WEBFORM_IDS as $webformId) {
 
   $data['handlers']['email_agent']['settings']['subject']
     = WebformEmailCopyCatalog::getOfferAgentSubject($webformId, 'en');
+  $data['handlers']['email_agent']['settings']['to_mail']
+    = '[webform_submission:values:offer_agent_email:raw]';
+  $data['handlers']['email_agent']['settings']['excluded_elements']
+    = WebformEmailCopyCatalog::getOfferSnapshotExcludedElements();
+  $data['handlers']['email_agent']['settings']['body']
+    = WebformEmailCopyCatalog::buildOfferAgentBody($webformId, 'en');
   $data['handlers']['email_confirmation']['settings']['subject']
     = WebformEmailCopyCatalog::getOfferConfirmationSubject($webformId, 'en');
   $data['handlers']['email_confirmation']['settings']['body']
     = WebformEmailCopyCatalog::buildOfferConfirmationBody($webformId, 'en');
+  $data['handlers']['email_confirmation']['settings']['excluded_elements']
+    = WebformEmailCopyCatalog::getOfferSnapshotExcludedElements();
 
   file_put_contents($file, Yaml::dump($data, 10, 2, $yamlFlags));
   $updated++;
@@ -151,7 +160,12 @@ foreach (WebformEmailCopyCatalog::OFFER_WEBFORM_IDS as $webformId) {
       = WebformEmailCopyCatalog::getHandlerLabel('offer', 'email_agent', $langcode);
     $langData['handlers']['email_agent']['settings']['subject']
       = WebformEmailCopyCatalog::getOfferAgentSubject($webformId, $langcode);
-    $langData['handlers']['email_agent']['settings']['body'] = '_default';
+    $langData['handlers']['email_agent']['settings']['to_mail']
+      = '[webform_submission:values:offer_agent_email:raw]';
+    $langData['handlers']['email_agent']['settings']['excluded_elements']
+      = WebformEmailCopyCatalog::getOfferSnapshotExcludedElements();
+    $langData['handlers']['email_agent']['settings']['body']
+      = WebformEmailCopyCatalog::buildOfferAgentBody($webformId, $langcode);
 
     $langData['handlers']['email_confirmation']['label']
       = WebformEmailCopyCatalog::getConfirmationHandlerLabel('offer', $langcode);
@@ -159,6 +173,8 @@ foreach (WebformEmailCopyCatalog::OFFER_WEBFORM_IDS as $webformId) {
       = WebformEmailCopyCatalog::getOfferConfirmationSubject($webformId, $langcode);
     $langData['handlers']['email_confirmation']['settings']['body']
       = WebformEmailCopyCatalog::buildOfferConfirmationBody($webformId, $langcode);
+    $langData['handlers']['email_confirmation']['settings']['excluded_elements']
+      = WebformEmailCopyCatalog::getOfferSnapshotExcludedElements();
 
     file_put_contents($langFile, Yaml::dump($langData, 10, 2, $yamlFlags));
     $updated++;

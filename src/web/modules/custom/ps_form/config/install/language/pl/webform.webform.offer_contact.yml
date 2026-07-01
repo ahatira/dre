@@ -61,18 +61,74 @@ settings:
 handlers:
   email_confirmation:
     settings:
-      subject: 'Państwa zapytanie kontaktowe — [webform_submission:source-entity:field_reference]'
+      subject: 'Państwa zapytanie kontaktowe — [webform_submission:values:offer_reference:raw]'
       body: |-
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dzień dobry [webform_submission:values:first_name:raw],</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+        [webform_submission:ps-offer-email-block]
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Poniższe dane nieruchomości zostały zapisane w momencie złożenia zapytania:</p>
+        [webform_submission:ps-offer-snapshot-recap]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Państwa wiadomość została przekazana naszemu doradcy, który wkrótce się z Państwem skontaktuje.</p>
         <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Poniżej przedstawiamy podsumowanie Państwa zapytania:</p>
         [webform_submission:values]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie BNP Paribas Real Estate.</p>
         <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Z poważaniem,<br>Zespół Obsługi Klienta, BNP Paribas Real Estate.</p>
+      excluded_elements:
+        offer_reference: offer_reference
+        offer_business_id: offer_business_id
+        offer_operation_code: offer_operation_code
+        offer_asset_code: offer_asset_code
+        offer_captured_at: offer_captured_at
+        offer_title: offer_title
+        offer_operation_label: offer_operation_label
+        offer_asset_label: offer_asset_label
+        offer_surface_primary: offer_surface_primary
+        offer_surface_suffix: offer_surface_suffix
+        offer_location: offer_location
+        offer_price_display: offer_price_display
+        offer_price_qualifiers: offer_price_qualifiers
+        offer_exclusive: offer_exclusive
+        offer_url: offer_url
+        offer_image_uri: offer_image_uri
+        offer_image_alt: offer_image_alt
+        offer_langcode: offer_langcode
+        offer_agent_email: offer_agent_email
+        offer_agent_id: offer_agent_id
     label: 'Potwierdzenie dla odwiedzającego'
   email_agent:
     settings:
-      subject: 'Zapytanie kontaktowe — Oferta [webform_submission:source-entity:field_reference]'
-      body: _default
+      subject: 'Zapytanie kontaktowe — Oferta [webform_submission:values:offer_reference:raw]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Otrzymali Państwo nowe zapytanie kontaktowe. Poniżej snapshot oferty i dane odwiedzającego.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+        [webform_submission:ps-offer-email-block]
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Poniższe dane nieruchomości zostały zapisane w momencie złożenia zapytania:</p>
+        [webform_submission:ps-offer-snapshot-recap]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Państwa wiadomość została przekazana naszemu doradcy, który wkrótce się z Państwem skontaktuje.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Poniżej przedstawiamy podsumowanie Państwa zapytania:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dziękujemy za zainteresowanie BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Z poważaniem,<br>Zespół Obsługi Klienta, BNP Paribas Real Estate.</p>
+      to_mail: '[webform_submission:values:offer_agent_email:raw]'
+      excluded_elements:
+        offer_reference: offer_reference
+        offer_business_id: offer_business_id
+        offer_operation_code: offer_operation_code
+        offer_asset_code: offer_asset_code
+        offer_captured_at: offer_captured_at
+        offer_title: offer_title
+        offer_operation_label: offer_operation_label
+        offer_asset_label: offer_asset_label
+        offer_surface_primary: offer_surface_primary
+        offer_surface_suffix: offer_surface_suffix
+        offer_location: offer_location
+        offer_price_display: offer_price_display
+        offer_price_qualifiers: offer_price_qualifiers
+        offer_exclusive: offer_exclusive
+        offer_url: offer_url
+        offer_image_uri: offer_image_uri
+        offer_image_alt: offer_image_alt
+        offer_langcode: offer_langcode
+        offer_agent_email: offer_agent_email
+        offer_agent_id: offer_agent_id
     label: 'Powiadomienie doradcy'

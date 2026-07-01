@@ -61,18 +61,74 @@ settings:
 handlers:
   email_confirmation:
     settings:
-      subject: 'Är Kontaktufro — [webform_submission:source-entity:field_reference]'
+      subject: 'Är Kontaktufro — [webform_submission:values:offer_reference:raw]'
       body: |-
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Moien [webform_submission:values:first_name:raw],</p>
-        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un der Offer <strong>[webform_submission:source-entity:field_reference]</strong>.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un der Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+        [webform_submission:ps-offer-email-block]
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">D'Objektdetailer hei drënner goufen zum Zäitpunkt vun der Demande erfasst:</p>
+        [webform_submission:ps-offer-snapshot-recap]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Är Noriicht gouf un eise Beroder weidergeleet, deen Iech geschwënn kontaktéiert.</p>
         <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
         [webform_submission:values]
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
         <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>
+      excluded_elements:
+        offer_reference: offer_reference
+        offer_business_id: offer_business_id
+        offer_operation_code: offer_operation_code
+        offer_asset_code: offer_asset_code
+        offer_captured_at: offer_captured_at
+        offer_title: offer_title
+        offer_operation_label: offer_operation_label
+        offer_asset_label: offer_asset_label
+        offer_surface_primary: offer_surface_primary
+        offer_surface_suffix: offer_surface_suffix
+        offer_location: offer_location
+        offer_price_display: offer_price_display
+        offer_price_qualifiers: offer_price_qualifiers
+        offer_exclusive: offer_exclusive
+        offer_url: offer_url
+        offer_image_uri: offer_image_uri
+        offer_image_alt: offer_image_alt
+        offer_langcode: offer_langcode
+        offer_agent_email: offer_agent_email
+        offer_agent_id: offer_agent_id
     label: Besicherbestätegung
   email_agent:
     settings:
-      subject: 'Kontaktufro — Offer [webform_submission:source-entity:field_reference]'
-      body: _default
+      subject: 'Kontaktufro — Offer [webform_submission:values:offer_reference:raw]'
+      body: |-
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Dir hutt eng nei Kontaktufro kritt. Hei drënner de Snapshot vun der Offer an d'Donnéeë vum Visiteur.</p>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un der Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.</p>
+        [webform_submission:ps-offer-email-block]
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">D'Objektdetailer hei drënner goufen zum Zäitpunkt vun der Demande erfasst:</p>
+        [webform_submission:ps-offer-snapshot-recap]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Är Noriicht gouf un eise Beroder weidergeleet, deen Iech geschwënn kontaktéiert.</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;">Fir Är Informatioun, hei d'Recapitulatioun vun Ärer Demande:</p>
+        [webform_submission:values]
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;">Merci fir Ären Interessi un BNP Paribas Real Estate.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">Mat beschte Gréiss,<br>Äert Clientsservice-Team, BNP Paribas Real Estate.</p>
+      to_mail: '[webform_submission:values:offer_agent_email:raw]'
+      excluded_elements:
+        offer_reference: offer_reference
+        offer_business_id: offer_business_id
+        offer_operation_code: offer_operation_code
+        offer_asset_code: offer_asset_code
+        offer_captured_at: offer_captured_at
+        offer_title: offer_title
+        offer_operation_label: offer_operation_label
+        offer_asset_label: offer_asset_label
+        offer_surface_primary: offer_surface_primary
+        offer_surface_suffix: offer_surface_suffix
+        offer_location: offer_location
+        offer_price_display: offer_price_display
+        offer_price_qualifiers: offer_price_qualifiers
+        offer_exclusive: offer_exclusive
+        offer_url: offer_url
+        offer_image_uri: offer_image_uri
+        offer_image_alt: offer_image_alt
+        offer_langcode: offer_langcode
+        offer_agent_email: offer_agent_email
+        offer_agent_id: offer_agent_id
     label: Beroder-Benoriichtigung

@@ -62,7 +62,7 @@ final class EmailTransactionRegistry {
         id: 'offer_email_cards',
         module: 'ps_email',
         label: $this->t('Offer email cards'),
-        description: $this->t('Vertical and compact offer cards for search alerts and offer contact emails.'),
+        description: $this->t('Search-style offer card and primary CTA for offer contact confirmation emails.'),
         mailerPolicyId: 'webform',
         mjmlPreviewTemplate: 'email-offer-cards-preview',
         weight: 15,

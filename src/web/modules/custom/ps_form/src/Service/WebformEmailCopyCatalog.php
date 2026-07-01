@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\ps_form\Service;
 
+use Drupal\ps_offer_webform\Service\OfferContactSnapshotFields;
+
 /**
  * Canonical copy for webform email confirmation handlers.
  *
@@ -34,6 +36,46 @@ final class WebformEmailCopyCatalog {
     'lb',
     'nl',
     'pl',
+  ];
+
+  /**
+   * Shared offer email strings per language (snapshot + agent intro).
+   *
+   * @var array<string, array<string, string>>
+   */
+  private const OFFER_SHARED = [
+    'en' => [
+      'snapshot_intro' => 'The property details below were recorded at the time of the request:',
+      'agent_intro' => 'You have received a new contact request. The offer snapshot and visitor details are below.',
+    ],
+    'fr' => [
+      'snapshot_intro' => 'Les caractéristiques de l\'offre ci-dessous ont été enregistrées au moment de la demande :',
+      'agent_intro' => 'Vous avez reçu une nouvelle demande. L\'instantané de l\'offre et les coordonnées du visiteur figurent ci-dessous.',
+    ],
+    'de' => [
+      'snapshot_intro' => 'Die untenstehenden Objektdaten wurden zum Zeitpunkt der Anfrage erfasst:',
+      'agent_intro' => 'Sie haben eine neue Kontaktanfrage erhalten. Objekt-Snapshot und Besucherdaten finden Sie unten.',
+    ],
+    'es' => [
+      'snapshot_intro' => 'Los datos del inmueble que figuran a continuación se registraron en el momento de la solicitud:',
+      'agent_intro' => 'Ha recibido una nueva solicitud de contacto. A continuación, la instantánea del inmueble y los datos del visitante.',
+    ],
+    'it' => [
+      'snapshot_intro' => 'I dettagli dell\'immobile riportati di seguito sono stati registrati al momento della richiesta:',
+      'agent_intro' => 'Ha ricevuto una nuova richiesta di contatto. Di seguito lo snapshot dell\'offerta e i dati del visitatore.',
+    ],
+    'nl' => [
+      'snapshot_intro' => 'De onderstaande objectgegevens zijn vastgelegd op het moment van de aanvraag:',
+      'agent_intro' => 'U hebt een nieuw contactverzoek ontvangen. Hieronder de snapshot van het aanbod en de gegevens van de bezoeker.',
+    ],
+    'pl' => [
+      'snapshot_intro' => 'Poniższe dane nieruchomości zostały zapisane w momencie złożenia zapytania:',
+      'agent_intro' => 'Otrzymali Państwo nowe zapytanie kontaktowe. Poniżej snapshot oferty i dane odwiedzającego.',
+    ],
+    'lb' => [
+      'snapshot_intro' => 'D\'Objektdetailer hei drënner goufen zum Zäitpunkt vun der Demande erfasst:',
+      'agent_intro' => 'Dir hutt eng nei Kontaktufro kritt. Hei drënner de Snapshot vun der Offer an d\'Donnéeë vum Visiteur.',
+    ],
   ];
 
   /**
@@ -320,72 +362,72 @@ final class WebformEmailCopyCatalog {
   private const OFFER_COPY = [
     'offer_contact' => [
       'en' => [
-        'subject' => 'Your contact request — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Your contact request — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Hello [webform_submission:values:first_name:raw],',
-        'intro' => 'Thank you for your interest in offer <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Thank you for your interest in offer <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Your message has been forwarded to our consultant, who will get back to you shortly.',
         'recap_intro' => 'For reference, your request is as follows:',
         'closing' => 'Thank you for your interest in BNP Paribas Real Estate.',
         'signoff' => 'Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.',
       ],
       'fr' => [
-        'subject' => 'Votre demande de contact — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Votre demande de contact — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Bonjour [webform_submission:values:first_name:raw],',
-        'intro' => 'Merci de l\'intérêt que vous portez à l\'offre <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Merci de l\'intérêt que vous portez à l\'offre <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Votre message a été transmis à notre consultant, qui reviendra vers vous rapidement.',
         'recap_intro' => 'Pour référence, voici le récapitulatif de votre demande :',
         'closing' => 'Merci de l\'intérêt que vous portez à BNP Paribas Real Estate.',
         'signoff' => 'Cordialement,<br>Votre équipe Service Client, BNP Paribas Real Estate.',
       ],
       'de' => [
-        'subject' => 'Ihre Kontaktanfrage — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Ihre Kontaktanfrage — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Guten Tag [webform_submission:values:first_name:raw],',
-        'intro' => 'Vielen Dank für Ihr Interesse am Angebot <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Vielen Dank für Ihr Interesse am Angebot <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Ihre Nachricht wurde an unseren Berater weitergeleitet, der sich in Kürze bei Ihnen melden wird.',
         'recap_intro' => 'Zur Referenz finden Sie Ihre Anfrage im Folgenden:',
         'closing' => 'Vielen Dank für Ihr Interesse an BNP Paribas Real Estate.',
         'signoff' => 'Mit freundlichen Grüßen,<br>Ihr Kundenservice-Team, BNP Paribas Real Estate.',
       ],
       'es' => [
-        'subject' => 'Su solicitud de contacto — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Su solicitud de contacto — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Hola [webform_submission:values:first_name:raw],',
-        'intro' => 'Gracias por su interés en la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Gracias por su interés en la oferta <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Su mensaje ha sido remitido a nuestro consultor, que se pondrá en contacto con usted en breve.',
         'recap_intro' => 'A título informativo, su solicitud es la siguiente:',
         'closing' => 'Gracias por su interés en BNP Paribas Real Estate.',
         'signoff' => 'Atentamente,<br>Su equipo de Atención al Cliente, BNP Paribas Real Estate.',
       ],
       'it' => [
-        'subject' => 'La sua richiesta di contatto — [webform_submission:source-entity:field_reference]',
+        'subject' => 'La sua richiesta di contatto — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Gentile [webform_submission:values:first_name:raw],',
-        'intro' => 'La ringraziamo per l\'interesse verso l\'offerta <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'La ringraziamo per l\'interesse verso l\'offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Il suo messaggio è stato inoltrato al nostro consulente, che la contatterà a breve.',
         'recap_intro' => 'Di seguito il riepilogo della sua richiesta:',
         'closing' => 'La ringraziamo per l\'interesse verso BNP Paribas Real Estate.',
         'signoff' => 'Cordiali saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.',
       ],
       'nl' => [
-        'subject' => 'Uw contactverzoek — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Uw contactverzoek — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Beste [webform_submission:values:first_name:raw],',
-        'intro' => 'Bedankt voor uw interesse in het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Bedankt voor uw interesse in het aanbod <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Uw bericht is doorgestuurd naar onze adviseur, die spoedig contact met u opneemt.',
         'recap_intro' => 'Ter referentie vindt u hieronder uw aanvraag:',
         'closing' => 'Bedankt voor uw interesse in BNP Paribas Real Estate.',
         'signoff' => 'Met vriendelijke groet,<br>Uw klantenserviceteam, BNP Paribas Real Estate.',
       ],
       'pl' => [
-        'subject' => 'Państwa zapytanie kontaktowe — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Państwa zapytanie kontaktowe — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Dzień dobry [webform_submission:values:first_name:raw],',
-        'intro' => 'Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Dziękujemy za zainteresowanie ofertą <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Państwa wiadomość została przekazana naszemu doradcy, który wkrótce się z Państwem skontaktuje.',
         'recap_intro' => 'Poniżej przedstawiamy podsumowanie Państwa zapytania:',
         'closing' => 'Dziękujemy za zainteresowanie BNP Paribas Real Estate.',
         'signoff' => 'Z poważaniem,<br>Zespół Obsługi Klienta, BNP Paribas Real Estate.',
       ],
       'lb' => [
-        'subject' => 'Är Kontaktufro — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Är Kontaktufro — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Moien [webform_submission:values:first_name:raw],',
-        'intro' => 'Merci fir Ären Interessi un der Offer <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Merci fir Ären Interessi un der Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Är Noriicht gouf un eise Beroder weidergeleet, deen Iech geschwënn kontaktéiert.',
         'recap_intro' => 'Fir Är Informatioun, hei d\'Recapitulatioun vun Ärer Demande:',
         'closing' => 'Merci fir Ären Interessi un BNP Paribas Real Estate.',
@@ -394,72 +436,72 @@ final class WebformEmailCopyCatalog {
     ],
     'schedule_visit' => [
       'en' => [
-        'subject' => 'Your visit request — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Your visit request — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Hello [webform_submission:values:first_name:raw],',
-        'intro' => 'Thank you for your visit request regarding offer <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Thank you for your visit request regarding offer <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Our consultant will contact you shortly to arrange a visit.',
         'recap_intro' => 'For reference, your request is as follows:',
         'closing' => 'Thank you for your interest in BNP Paribas Real Estate.',
         'signoff' => 'Best regards,<br>Your Customer Service team, BNP Paribas Real Estate.',
       ],
       'fr' => [
-        'subject' => 'Votre demande de visite — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Votre demande de visite — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Bonjour [webform_submission:values:first_name:raw],',
-        'intro' => 'Merci pour votre demande de visite concernant l\'offre <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Merci pour votre demande de visite concernant l\'offre <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Notre consultant vous contactera rapidement pour organiser la visite.',
         'recap_intro' => 'Pour référence, voici le récapitulatif de votre demande :',
         'closing' => 'Merci de l\'intérêt que vous portez à BNP Paribas Real Estate.',
         'signoff' => 'Cordialement,<br>Votre équipe Service Client, BNP Paribas Real Estate.',
       ],
       'de' => [
-        'subject' => 'Ihre Besichtigungsanfrage — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Ihre Besichtigungsanfrage — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Guten Tag [webform_submission:values:first_name:raw],',
-        'intro' => 'Vielen Dank für Ihre Besichtigungsanfrage zum Angebot <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Vielen Dank für Ihre Besichtigungsanfrage zum Angebot <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Unser Berater wird Sie in Kürze kontaktieren, um einen Termin zu vereinbaren.',
         'recap_intro' => 'Zur Referenz finden Sie Ihre Anfrage im Folgenden:',
         'closing' => 'Vielen Dank für Ihr Interesse an BNP Paribas Real Estate.',
         'signoff' => 'Mit freundlichen Grüßen,<br>Ihr Kundenservice-Team, BNP Paribas Real Estate.',
       ],
       'es' => [
-        'subject' => 'Su solicitud de visita — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Su solicitud de visita — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Hola [webform_submission:values:first_name:raw],',
-        'intro' => 'Gracias por su solicitud de visita relativa a la oferta <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Gracias por su solicitud de visita relativa a la oferta <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Nuestro consultor se pondrá en contacto con usted en breve para organizar la visita.',
         'recap_intro' => 'A título informativo, su solicitud es la siguiente:',
         'closing' => 'Gracias por su interés en BNP Paribas Real Estate.',
         'signoff' => 'Atentamente,<br>Su equipo de Atención al Cliente, BNP Paribas Real Estate.',
       ],
       'it' => [
-        'subject' => 'La tua richiesta visita — [webform_submission:source-entity:field_reference]',
+        'subject' => 'La tua richiesta visita — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Gentile [webform_submission:values:first_name:raw],',
-        'intro' => 'Grazie per la sua richiesta di visita relativa all\'offerta <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Grazie per la sua richiesta di visita relativa all\'offerta <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Il nostro consulente la contatterà a breve per organizzare la visita.',
         'recap_intro' => 'Di seguito il riepilogo della sua richiesta:',
         'closing' => 'La ringraziamo per l\'interesse verso BNP Paribas Real Estate.',
         'signoff' => 'Cordiali saluti,<br>Il team Servizio Clienti, BNP Paribas Real Estate.',
       ],
       'nl' => [
-        'subject' => 'Uw bezoekaanvraag — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Uw bezoekaanvraag — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Beste [webform_submission:values:first_name:raw],',
-        'intro' => 'Bedankt voor uw bezoekaanvraag over het aanbod <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Bedankt voor uw bezoekaanvraag over het aanbod <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Onze adviseur neemt spoedig contact met u op om het bezoek te plannen.',
         'recap_intro' => 'Ter referentie vindt u hieronder uw aanvraag:',
         'closing' => 'Bedankt voor uw interesse in BNP Paribas Real Estate.',
         'signoff' => 'Met vriendelijke groet,<br>Uw klantenserviceteam, BNP Paribas Real Estate.',
       ],
       'pl' => [
-        'subject' => 'Państwa prośba o wizytę — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Państwa prośba o wizytę — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Dzień dobry [webform_submission:values:first_name:raw],',
-        'intro' => 'Dziękujemy za prośbę o wizytę dotyczącą oferty <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Dziękujemy za prośbę o wizytę dotyczącą oferty <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Nasz doradca wkrótce skontaktuje się z Państwem, aby ustalić termin wizyty.',
         'recap_intro' => 'Poniżej przedstawiamy podsumowanie Państwa zapytania:',
         'closing' => 'Dziękujemy za zainteresowanie BNP Paribas Real Estate.',
         'signoff' => 'Z poważaniem,<br>Zespół Obsługi Klienta, BNP Paribas Real Estate.',
       ],
       'lb' => [
-        'subject' => 'Är Ufro fir eng Visitt — [webform_submission:source-entity:field_reference]',
+        'subject' => 'Är Ufro fir eng Visitt — [webform_submission:values:offer_reference:raw]',
         'greeting' => 'Moien [webform_submission:values:first_name:raw],',
-        'intro' => 'Merci fir Är Ufro fir eng Visitt betreffend d\'Offer <strong>[webform_submission:source-entity:field_reference]</strong>.',
+        'intro' => 'Merci fir Är Ufro fir eng Visitt betreffend d\'Offer <strong>[webform_submission:values:offer_reference:raw]</strong>.',
         'follow_up' => 'Eise Beroder kontaktéiert Iech geschwënn fir de Rendez-vous ze organiséieren.',
         'recap_intro' => 'Fir Är Informatioun, hei d\'Recapitulatioun vun Ärer Demande:',
         'closing' => 'Merci fir Ären Interessi un BNP Paribas Real Estate.',
@@ -543,24 +585,24 @@ final class WebformEmailCopyCatalog {
    */
   private const OFFER_AGENT_SUBJECTS = [
     'offer_contact' => [
-      'en' => 'Contact request — Offer [webform_submission:source-entity:field_reference]',
-      'de' => 'Kontaktanfrage — Angebot [webform_submission:source-entity:field_reference]',
-      'es' => 'Solicitud de contacto — Oferta [webform_submission:source-entity:field_reference]',
-      'fr' => 'Demande de contact — Offre [webform_submission:source-entity:field_reference]',
-      'it' => 'Richiesta di contatto — Offerta [webform_submission:source-entity:field_reference]',
-      'lb' => 'Kontaktufro — Offer [webform_submission:source-entity:field_reference]',
-      'nl' => 'Contactverzoek — Aanbod [webform_submission:source-entity:field_reference]',
-      'pl' => 'Zapytanie kontaktowe — Oferta [webform_submission:source-entity:field_reference]',
+      'en' => 'Contact request — Offer [webform_submission:values:offer_reference:raw]',
+      'de' => 'Kontaktanfrage — Angebot [webform_submission:values:offer_reference:raw]',
+      'es' => 'Solicitud de contacto — Oferta [webform_submission:values:offer_reference:raw]',
+      'fr' => 'Demande de contact — Offre [webform_submission:values:offer_reference:raw]',
+      'it' => 'Richiesta di contatto — Offerta [webform_submission:values:offer_reference:raw]',
+      'lb' => 'Kontaktufro — Offer [webform_submission:values:offer_reference:raw]',
+      'nl' => 'Contactverzoek — Aanbod [webform_submission:values:offer_reference:raw]',
+      'pl' => 'Zapytanie kontaktowe — Oferta [webform_submission:values:offer_reference:raw]',
     ],
     'schedule_visit' => [
-      'en' => 'Visit request — Offer [webform_submission:source-entity:field_reference]',
-      'de' => 'Besichtigungsanfrage — Angebot [webform_submission:source-entity:field_reference]',
-      'es' => 'Solicitud de visita — Oferta [webform_submission:source-entity:field_reference]',
-      'fr' => 'Demande de visite — Offre [webform_submission:source-entity:field_reference]',
-      'it' => 'Richiesta visita — Offerta [webform_submission:source-entity:field_reference]',
-      'lb' => 'Ufro fir eng Visitt — Offer [webform_submission:source-entity:field_reference]',
-      'nl' => 'Bezoekaanvraag — Aanbod [webform_submission:source-entity:field_reference]',
-      'pl' => 'Prośba o wizytę — Oferta [webform_submission:source-entity:field_reference]',
+      'en' => 'Visit request — Offer [webform_submission:values:offer_reference:raw]',
+      'de' => 'Besichtigungsanfrage — Angebot [webform_submission:values:offer_reference:raw]',
+      'es' => 'Solicitud de visita — Oferta [webform_submission:values:offer_reference:raw]',
+      'fr' => 'Demande de visite — Offre [webform_submission:values:offer_reference:raw]',
+      'it' => 'Richiesta visita — Offerta [webform_submission:values:offer_reference:raw]',
+      'lb' => 'Ufro fir eng Visitt — Offer [webform_submission:values:offer_reference:raw]',
+      'nl' => 'Bezoekaanvraag — Aanbod [webform_submission:values:offer_reference:raw]',
+      'pl' => 'Prośba o wizytę — Oferta [webform_submission:values:offer_reference:raw]',
     ],
   ];
 
@@ -617,6 +659,15 @@ final class WebformEmailCopyCatalog {
   ];
 
   /**
+   * Returns hidden offer snapshot keys excluded from visitor email recap.
+   *
+   * @return array<string, string>
+   */
+  public static function getOfferSnapshotExcludedElements(): array {
+    return OfferContactSnapshotFields::excludedElements();
+  }
+
+  /**
    * Returns hub confirmation subject for a webform and language.
    */
   public static function getHubConfirmationSubject(string $langcode): string {
@@ -654,17 +705,45 @@ final class WebformEmailCopyCatalog {
    * Returns offer confirmation HTML body.
    */
   public static function buildOfferConfirmationBody(string $webformId, string $langcode): string {
-    $copy = self::OFFER_COPY[$webformId][$langcode]
-      ?? self::OFFER_COPY[$webformId]['en'];
+    $copy = self::getOfferCopy($webformId, $langcode);
 
-    return self::renderOfferBody(
+    return self::renderOfferVisitorBody(
       $copy['greeting'],
       $copy['intro'],
+      $copy['snapshot_intro'],
       $copy['follow_up'],
       $copy['recap_intro'],
       $copy['closing'],
       $copy['signoff'],
     );
+  }
+
+  /**
+   * Returns offer agent notification HTML body (same offer + visitor data).
+   */
+  public static function buildOfferAgentBody(string $webformId, string $langcode): string {
+    $copy = self::getOfferCopy($webformId, $langcode);
+
+    return self::renderOfferAgentBody(
+      $copy['agent_intro'],
+      $copy['intro'],
+      $copy['snapshot_intro'],
+      $copy['follow_up'],
+      $copy['recap_intro'],
+      $copy['closing'],
+      $copy['signoff'],
+    );
+  }
+
+  /**
+   * @return array<string, string>
+   */
+  private static function getOfferCopy(string $webformId, string $langcode): array {
+    $shared = self::OFFER_SHARED[$langcode] ?? self::OFFER_SHARED['en'];
+    $copy = self::OFFER_COPY[$webformId][$langcode]
+      ?? self::OFFER_COPY[$webformId]['en'];
+
+    return $copy + $shared;
   }
 
   /**
@@ -736,27 +815,72 @@ HTML;
   }
 
   /**
-   * Builds offer confirmation HTML (no H1 — shell uses subject).
+   * Builds offer visitor confirmation HTML (no H1 — shell uses subject).
    */
-  private static function renderOfferBody(
+  private static function renderOfferVisitorBody(
     string $greeting,
     string $intro,
+    string $snapshotIntro,
     string $followUp,
     string $recapIntro,
     string $closing,
     string $signoff,
   ): string {
     $p = 'margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;';
-    $recap = 'margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;';
+    $shared = self::renderOfferSharedContent($snapshotIntro, $followUp, $recapIntro, $p);
 
     return <<<HTML
 <p style="{$p}">{$greeting}</p>
 <p style="{$p}">{$intro}</p>
+{$shared}
+<p style="{$p}">{$closing}</p>
+<p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">{$signoff}</p>
+HTML;
+  }
+
+  /**
+   * Builds offer agent notification HTML with the same offer and visitor blocks.
+   */
+  private static function renderOfferAgentBody(
+    string $agentIntro,
+    string $intro,
+    string $snapshotIntro,
+    string $followUp,
+    string $recapIntro,
+    string $closing,
+    string $signoff,
+  ): string {
+    $p = 'margin:0 0 16px;font-size:14px;line-height:1.6;color:#333333;';
+    $shared = self::renderOfferSharedContent($snapshotIntro, $followUp, $recapIntro, $p);
+
+    return <<<HTML
+<p style="{$p}">{$agentIntro}</p>
+<p style="{$p}">{$intro}</p>
+{$shared}
+<p style="{$p}">{$closing}</p>
+<p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">{$signoff}</p>
+HTML;
+  }
+
+  /**
+   * Shared offer card, snapshot table and visitor recap for both email handlers.
+   */
+  private static function renderOfferSharedContent(
+    string $snapshotIntro,
+    string $followUp,
+    string $recapIntro,
+    string $p,
+  ): string {
+    $section = 'margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;';
+    $recap = 'margin:0 0 12px;font-size:14px;line-height:1.6;color:#333333;font-weight:700;';
+
+    return <<<HTML
+[webform_submission:ps-offer-email-block]
+<p style="{$section}">{$snapshotIntro}</p>
+[webform_submission:ps-offer-snapshot-recap]
 <p style="{$p}">{$followUp}</p>
 <p style="{$recap}">{$recapIntro}</p>
 [webform_submission:values]
-<p style="{$p}">{$closing}</p>
-<p style="margin:0;font-size:14px;line-height:1.6;color:#333333;">{$signoff}</p>
 HTML;
   }
 

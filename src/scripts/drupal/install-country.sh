@@ -117,6 +117,7 @@ ps_install_country_site() {
   ps_refresh_field_type_cache
   ps_retry 2 2 ps_drush theme:enable -y ps_theme
   ps_drush config:set -y system.theme default ps_theme
+  ps_retry 2 2 ps_drush en -y ps_offer_webform || ps_die "ps_offer_webform could not be enabled"
   ps_drush config:set -y system.site name "${site_name}"
   ps_drush config:set -y system.site slogan "Real Estate for a Changing World"
 

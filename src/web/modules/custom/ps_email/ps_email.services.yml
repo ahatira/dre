@@ -50,6 +50,11 @@ services:
     arguments:
       - '@ps_email.email_branding_builder'
 
+  ps_email.offer_email_card_image_attachment_processor:
+    class: Drupal\ps_email\Processor\OfferEmailCardImageAttachmentProcessor
+    arguments:
+      - '@file_system'
+
   ps_email.email_plain_text_from_html_processor:
     class: Drupal\ps_email\Processor\EmailPlainTextFromHtmlProcessor
 
@@ -110,6 +115,7 @@ services:
     class: Drupal\ps_email\Hook\MailHooks
     arguments:
       - '@ps_email.email_logo_attachment_processor'
+      - '@ps_email.offer_email_card_image_attachment_processor'
       - '@ps_email.email_plain_text_from_html_processor'
       - '@ps_email.email_mjml_preview_variables_builder'
 

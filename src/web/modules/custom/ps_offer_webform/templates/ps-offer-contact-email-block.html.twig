@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Offer recap block for offer contact / schedule visit confirmation emails.
+ *
+ * Variables: card, offer_url, cta_label.
+ */
+#}
+{% set green = email_primary_color|default('#00915a') %}
+{% set text = email_text_color|default('#333333') %}
+
+{% if card %}
+  {{ card|raw }}
+{% endif %}
+
+{% if offer_url %}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border-collapse:collapse;">
+    <tr>
+      <td align="center" class="ps-email-btn-cell">
+        <a href="{{ offer_url }}" class="ps-email-btn" style="display:inline-block;max-width:100%;padding:14px 28px;background:{{ green }};color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;white-space:normal;text-align:center;line-height:1.4;">{{ cta_label|default('View the property'|t) }}</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top:16px;font-size:13px;line-height:1.5;color:{{ text }};">
+        {{ 'If the button does not work, copy the following URL into your browser:'|t }}<br>
+        <a href="{{ offer_url }}" style="color:{{ green }};text-decoration:none;word-break:break-all;">{{ offer_url }}</a>
+      </td>
+    </tr>
+  </table>
+{% endif %}

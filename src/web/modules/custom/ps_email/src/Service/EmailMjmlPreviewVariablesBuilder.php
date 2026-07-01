@@ -227,12 +227,17 @@ final class EmailMjmlPreviewVariablesBuilder {
    */
   public function buildOfferCardsPreviewDefaults(): array {
     $sampleProps = $this->sampleOfferCardProps();
+    $offerUrl = is_string($sampleProps['url'] ?? NULL) ? (string) $sampleProps['url'] : Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+    $body = [
+      '#theme' => 'ps_offer_contact_email_block',
+      '#card' => $this->offerEmailCardHtmlRenderer->renderSearch($sampleProps),
+      '#offer_url' => $offerUrl,
+      '#cta_label' => (string) $this->t('View the property'),
+    ];
+
     return [
-      'subject' => (string) $this->t('Offer email cards preview'),
-      'body' => Markup::create(
-        $this->offerEmailCardHtmlRenderer->renderVertical($sampleProps)
-        . $this->offerEmailCardHtmlRenderer->renderCompact($sampleProps),
-      ),
+      'subject' => (string) $this->t('Offer contact email preview'),
+      'body' => Markup::create((string) $this->renderer->renderPlain($body)),
       'is_html' => TRUE,
     ];
   }
