@@ -44,7 +44,7 @@
     {% if url %}
       <div class="ps-offer-teaser-card__cta-row">
         <a href="{{ url }}" class="ps-offer-teaser-card__cta">
-          <span>{{ 'Consult the listing'|t }}</span>
+          <span>{{ cta_label|default('Consult the listing'|t) }}</span>
           {{ icon('bnp_custom', 'big-arrow-right', {size: '20px'}) }}
         </a>
       </div>

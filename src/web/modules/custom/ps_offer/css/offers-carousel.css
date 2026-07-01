@@ -283,3 +283,27 @@
     width: 100%;
   }
 }
+
+/* Offer detail — similar offers (Figma below map). */
+.ps-offer-similar-carousel.ps-homepage-offers-carousel .ps-homepage-section__header {
+  margin-bottom: 2.5rem;
+}
+
+.ps-offer-similar-carousel.ps-homepage-offers-carousel .ps-homepage-section-header {
+  gap: 0;
+  max-width: none;
+}
+
+.ps-offer-similar-carousel.ps-homepage-offers-carousel .ps-homepage-section-header__title {
+  max-width: none;
+}
+
+@media (max-width: 991.98px) {
+  .ps-offer-similar-carousel.ps-homepage-offers-carousel .ps-homepage-section__header {
+    margin-bottom: 2rem;
+  }
+
+  .ps-offer-similar-carousel.ps-homepage-offers-carousel .ps-homepage-section-header {
+    padding-inline: 0;
+  }
+}

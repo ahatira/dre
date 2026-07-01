@@ -131,6 +131,16 @@ services:
       - '@?ps_search.search_path_resolver'
       - '@language_manager'
 
+  ps_offer.similar_offers_resolver:
+    class: Drupal\ps_offer\Service\SimilarOffersResolver
+
+  ps_offer.similar_carousel_builder:
+    class: Drupal\ps_offer\Service\OfferSimilarCarouselBuilder
+    arguments:
+      - '@ps_offer.similar_offers_resolver'
+      - '@ps_offer.offer_carousel_builder'
+      - '@ps_offer.search_url_builder'
+
   ps_offer.default_image_resolver:
     class: Drupal\ps_offer\Service\OfferDefaultImageResolver
     arguments:

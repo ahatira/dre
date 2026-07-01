@@ -7,6 +7,7 @@ namespace Drupal\ps_favorite\Hook;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\node\NodeInterface;
 use Drupal\ps_favorite\Repository\FavoriteRepositoryInterface;
 use Drupal\ps_favorite\Service\FavoriteManagerInterface;
 use Drupal\user\UserInterface;
@@ -86,6 +87,11 @@ final class PsFavoriteHooks {
   #[Hook('entity_view')]
   public function entityView(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, ?string $view_mode = NULL): void {
     if ($entity->isNew() || !$this->favoriteManager->supportsEntity($entity) || !$entity->access('view')) {
+      return;
+    }
+
+    // Offer full pages expose favorites in the gallery hero only.
+    if ($view_mode === 'full' && $entity instanceof NodeInterface && $entity->bundle() === 'offer') {
       return;
     }
 

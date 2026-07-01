@@ -29,7 +29,7 @@ final class OfferTeaserBuilder {
   }
 
   /**
-   * @param array{show_favorite?: bool, show_compare?: bool} $options
+   * @param array{show_favorite?: bool, show_compare?: bool, cta_label?: string} $options
    *
    * @return array<string, mixed>
    */
@@ -40,6 +40,9 @@ final class OfferTeaserBuilder {
     $props = \Drupal\ps_theme\Utility\OfferCardPropsBuilder::buildTeaser($node);
     $props['show_favorite'] = $showFavorite;
     $props['show_compare'] = $showCompare;
+    if (!empty($options['cta_label'])) {
+      $props['cta_label'] = (string) $options['cta_label'];
+    }
 
     $component = [
       '#type' => 'component',

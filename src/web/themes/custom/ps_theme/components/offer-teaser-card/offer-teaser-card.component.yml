@@ -55,6 +55,10 @@ props:
       type: boolean
       title: Show compare action
       default: true
+    cta_label:
+      type: string
+      title: CTA label
+      default: "Consult the listing"
     node_id:
       type: integer
       title: Offer node ID

@@ -1154,45 +1154,111 @@ body:has(.node--type-offer.node--view-mode-full) {
 }
 
 // ---------------------------------------------------------------------------
-// Similar offers — horizontal scroll / grid
+// Similar offers — Figma offer detail carousel (ISO homepage §4 / maquette)
 // ---------------------------------------------------------------------------
 
-.ps-offer-section--similar {
-  margin: 0;
+.ps-offer-detail {
+  .ps-offer-layout--similar {
+    overflow: visible;
 
-  .ps-offer-section__title::before {
-    background-image: url('#{$icon-base}/generic/map.svg');
+    .layout__region--content,
+    .layout__region {
+      min-width: 0;
+      overflow: visible;
+    }
+
+    .block,
+    .block-layout-builder {
+      margin: 0;
+      overflow: visible;
+      width: 100%;
+    }
   }
 
-  .ps-offer-similar__track {
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 0.25rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-  }
+  .ps-offer-similar-carousel {
+    overflow: visible;
+    width: 100%;
 
-  .ps-offer-similar__item {
-    flex: 0 0 min(85%, 20rem);
-    scroll-snap-align: start;
-    min-width: 0;
+    &.ps-homepage-offers-carousel {
+      .ps-homepage-section__inner {
+        align-items: center;
+        gap: 0;
+        width: 100%;
+      }
+
+      .ps-homepage-section__header {
+        margin-bottom: 2.5rem;
+        width: 100%;
+      }
+
+      .ps-homepage-section-header {
+        gap: 0;
+        margin-bottom: 0;
+        max-width: none;
+        width: 100%;
+      }
+
+      .ps-homepage-section-header__title {
+        font-family: var(--re-font-family-heading, 'BNPP Sans', 'BNP Sans', sans-serif);
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 2.5rem;
+        max-width: none;
+        text-align: center;
+      }
+
+      .ps-homepage-section__body {
+        margin-bottom: 2.5rem;
+        overflow: visible;
+        width: 100%;
+      }
+
+      .ps-homepage-section__footer {
+        width: 100%;
+      }
+
+      .ps-homepage-section-footer {
+        margin-top: 0;
+      }
+
+      .ps-homepage-section-footer__button {
+        border-width: 2px;
+        min-width: 11rem;
+      }
+
+      .ps-homepage-offers-carousel__carousel {
+        width: 100%;
+      }
+
+      .ps-homepage-offers-carousel__viewport {
+        width: 100%;
+      }
+    }
   }
 }
 
-@media (min-width: 992px) {
-  .ps-offer-section--similar {
-    .ps-offer-similar__track {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.5rem;
-      overflow: visible;
-      padding-bottom: 0;
+@media (max-width: 991.98px) {
+  .ps-offer-detail .ps-offer-similar-carousel.ps-homepage-offers-carousel {
+    .ps-homepage-section__header {
+      margin-bottom: 2rem;
     }
 
-    .ps-offer-similar__item {
-      flex: none;
+    .ps-homepage-section-header {
+      padding-inline: 0;
+    }
+
+    .ps-homepage-section-header__title {
+      font-size: 1.5rem;
+      line-height: 1.875rem;
+    }
+
+    .ps-homepage-section__body {
+      margin-bottom: 1.5rem;
+    }
+
+    .ps-homepage-section-footer__button {
+      min-width: 100%;
+      width: 100%;
     }
   }
 }

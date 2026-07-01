@@ -820,6 +820,15 @@ msgstr "Afficher l'adresse précise"
 msgid "Similar offers"
 msgstr "Offres similaires"
 
+msgid "You might also like these other properties"
+msgstr "Ces autres biens pourraient aussi vous intéresser"
+
+msgid "See more"
+msgstr "Voir plus"
+
+msgid "View the property"
+msgstr "Voir le bien"
+
 msgid "Single downloadable brochure document (PDF, Word, etc.)"
 msgstr "Document brochure téléchargeable unique (PDF, Word, etc.)."
 

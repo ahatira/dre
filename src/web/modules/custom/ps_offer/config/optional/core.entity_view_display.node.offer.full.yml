@@ -366,18 +366,13 @@ third_party_settings:
             uuid: a1000001-0000-4000-8000-000000000031
             region: content
             configuration:
-              id: 'views_block:ps_offer_similar-offer_detail_similar'
+              id: ps_offer_detail_similar
               label: 'Similar offers'
               label_display: '0'
-              provider: views
+              provider: ps_offer
               context_mapping: {  }
-              views_label: ''
-              items_per_page: none
             weight: 0
-            additional:
-              css_classes:
-                - ps-offer-section
-                - ps-offer-section--similar
+            additional: {  }
         third_party_settings: {  }
 id: node.offer.full
 targetEntityType: node

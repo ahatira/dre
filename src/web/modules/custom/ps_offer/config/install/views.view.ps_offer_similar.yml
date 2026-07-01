@@ -24,7 +24,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Similar offers'
+      title: 'You might also like these other properties'
       css_class: ps-offer-section
       fields:
         title:

@@ -55,7 +55,8 @@ final class OfferCarouselBuilder {
       $nids = $this->featuredOffersResolver->resolveDynamicNids(6);
     }
 
-    if ($nids === []) {
+    $carousel = $this->buildFromNids($nids, $configuration);
+    if ($carousel === []) {
       return [
         'body' => ['#markup' => ''],
         'section' => [],
@@ -64,19 +65,57 @@ final class OfferCarouselBuilder {
       ];
     }
 
-    $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     $maxVisible = max(3, min(6, (int) ($configuration['max_visible'] ?? 4)));
+
+    return [
+      'body' => $carousel['body'],
+      'section' => [
+        'modifier' => 'offers-carousel',
+        'section_class' => 'ps-homepage-offers-carousel ps-homepage-offers-carousel--visible-' . $maxVisible,
+        'footer_url' => $footerUrl,
+      ],
+      'attached' => $carousel['attached'],
+      'cache' => $carousel['cache'],
+    ];
+  }
+
+  /**
+   * Builds the carousel body from an ordered list of offer node IDs.
+   *
+   * @param int[] $nids
+   *   Published offer node IDs.
+   * @param array<string, mixed> $configuration
+   *   Carousel options: max_visible, show_favorite, show_compare, autoplay.
+   *
+   * @return array{
+   *   body: array<string, mixed>,
+   *   cache: array<string, mixed>,
+   *   attached: array<string, mixed>
+   * }
+   *   Empty array when no renderable cards remain.
+   */
+  public function buildFromNids(array $nids, array $configuration = []): array {
+    $nids = array_values(array_filter(array_map('intval', $nids), static fn (int $nid): bool => $nid > 0));
+    if ($nids === []) {
+      return [];
+    }
+
+    $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL)->getId();
+    $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     $autoplay = !empty($configuration['autoplay']);
     $cardOptions = [
       'show_favorite' => !empty($configuration['show_favorite']),
       'show_compare' => !empty($configuration['show_compare']),
     ];
+    if (!empty($configuration['cta_label'])) {
+      $cardOptions['cta_label'] = (string) $configuration['cta_label'];
+    }
 
     $items = [];
     $cacheTags = ['config:block.block'];
     foreach ($nids as $nid) {
       $node = $nodes[$nid] ?? NULL;
-      if (!$node instanceof NodeInterface || !$node->isPublished()) {
+      if (!$node instanceof NodeInterface || !$node->isPublished() || $node->bundle() !== 'offer') {
         continue;
       }
       if ($node->hasTranslation($langcode)) {
@@ -92,12 +131,7 @@ final class OfferCarouselBuilder {
     }
 
     if ($items === []) {
-      return [
-        'body' => ['#markup' => ''],
-        'section' => [],
-        'cache' => [],
-        'attached' => [],
-      ];
+      return [];
     }
 
     $body = [
@@ -113,7 +147,12 @@ final class OfferCarouselBuilder {
           ],
           'fade_prev' => [
             '#type' => 'container',
-            '#attributes' => ['class' => ['ps-homepage-offers-carousel__fade', 'ps-homepage-offers-carousel__fade--prev']],
+            '#attributes' => [
+              'class' => [
+                'ps-homepage-offers-carousel__fade',
+                'ps-homepage-offers-carousel__fade--prev',
+              ],
+            ],
           ],
           'control_prev' => [
             '#type' => 'html_tag',
@@ -132,7 +171,12 @@ final class OfferCarouselBuilder {
           ] + $items,
           'fade_next' => [
             '#type' => 'container',
-            '#attributes' => ['class' => ['ps-homepage-offers-carousel__fade', 'ps-homepage-offers-carousel__fade--next']],
+            '#attributes' => [
+              'class' => [
+                'ps-homepage-offers-carousel__fade',
+                'ps-homepage-offers-carousel__fade--next',
+              ],
+            ],
           ],
           'control_next' => [
             '#type' => 'html_tag',
@@ -159,11 +203,6 @@ final class OfferCarouselBuilder {
 
     return [
       'body' => $body,
-      'section' => [
-        'modifier' => 'offers-carousel',
-        'section_class' => 'ps-homepage-offers-carousel ps-homepage-offers-carousel--visible-' . $maxVisible,
-        'footer_url' => $footerUrl,
-      ],
       'attached' => [
         'library' => ['ps_offer/offers_carousel'],
       ],
